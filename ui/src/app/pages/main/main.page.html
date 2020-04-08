@@ -1,0 +1,58 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-title class="large-title">
+            Knoldus Leader Board
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+    <ion-header collapse="condense">
+        <ion-toolbar>
+
+            <ion-title size="large">
+                Knoldus Leader Board
+            </ion-title>
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-grid>
+        <ion-card>
+            <ion-card-header>
+                <ion-row class="cell-class ion-grid-header">
+                    <ion-col class="col-class">
+                        <div class="bar bar-header bar-positive">
+                            <h6 class="title">Author Name</h6>
+                        </div>
+                    </ion-col>
+
+                    <ion-col class="col-class">
+                        <div class="bar bar-header bar-positive">
+                            <h6 class="title">Score</h6>
+                        </div>
+                    </ion-col>
+
+                    <ion-col class="col-class">
+                        <div class="bar bar-header bar-positive">
+                            <h6 class="title">Rank</h6>
+                        </div>
+                    </ion-col>
+
+                </ion-row>
+            </ion-card-header>
+
+            <ion-card-content>
+                <ion-row *ngFor="let employee of employeeData" class="cell-class ion-grid-content">
+                    <ion-col class="col-class color-style">{{employee.authorName}}</ion-col>
+                    <ion-col class="col-class color-style">{{employee.score}}</ion-col>
+                    <ion-col class="col-class color-style">{{employee.rank}}</ion-col>
+
+                </ion-row>
+            </ion-card-content>
+        </ion-card>
+
+    </ion-grid>
+
+</ion-content>
+

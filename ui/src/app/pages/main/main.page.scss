@@ -1,0 +1,51 @@
+ion-content ion-toolbar {
+  --background: translucent;
+}
+
+.bar-positive {
+  color: black;
+}
+
+ion-title.large-title {
+  color: black;
+  //color: white;
+  background-color: white ;
+  //background-color: #4854e0;
+  font-size: 2em;
+  font-weight: bold;
+  text-align: center;
+}
+
+.title {
+  font-weight: bold;
+  color: white;
+}
+
+.color-style {
+  color: black;
+}
+
+.cell-class {
+  border-color: black;
+  border-width: .01em;
+  border-style:solid; margin-bottom : -1px;
+  background-color: lightgrey;
+}
+
+.col-class {
+  border-color: black;
+  border-width: .0015em;
+  border-style:solid;
+  box-shadow: gray;
+}
+
+.ion-grid-content {
+  background-color: lightgrey;
+  //padding: 0.5em;
+  box-shadow: -1px 0px 2px rgba(0, 0, 0, 0.2), 1px 0px 2px rgba(0, 0, 0, 0.2);
+
+}
+
+.ion-grid-header {
+  background-color: #4854e0;
+}
