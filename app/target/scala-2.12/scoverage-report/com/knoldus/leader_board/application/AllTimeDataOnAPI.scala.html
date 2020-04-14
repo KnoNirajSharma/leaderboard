@@ -1,0 +1,1108 @@
+<html>
+      <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title id="title">
+          com/knoldus/leader_board/application/AllTimeDataOnAPI.scala.html
+        </title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.20.1/css/theme.default.min.css" type="text/css"/><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.20.1/js/jquery.tablesorter.min.js"></script><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" type="text/css"/><script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script><script type="text/javascript">
+        $(document).ready(function() {$(".tablesorter").tablesorter();});
+      </script>
+        <style>
+          table.codegrid { font-family: monospace; font-size: 12px; width: auto!important; }table.statementlist { width: auto!important; font-size: 13px; } table.codegrid td { padding: 0!important; border: 0!important } table td.linenumber { width: 40px!important; } 
+        </style>
+      </head>
+      <body style="font-family: monospace;">
+        <ul class="nav nav-tabs">
+          <li>
+            <a href="#codegrid" data-toggle="tab">Codegrid</a>
+          </li>
+          <li>
+            <a href="#statementlist" data-toggle="tab">Statement List</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="codegrid">
+            <pre style='font-size: 12pt; font-family: courier;'>1 <span style=''>package com.knoldus.leader_board.application
+</span>2 <span style=''>
+</span>3 <span style=''>import akka.actor.ActorSystem
+</span>4 <span style=''>import akka.http.scaladsl.Http
+</span>5 <span style=''>import akka.http.scaladsl.model._
+</span>6 <span style=''>import akka.http.scaladsl.server.Directives
+</span>7 <span style=''>import akka.stream.SystemMaterializer
+</span>8 <span style=''>import com.knoldus.leader_board.GetAuthorScore
+</span>9 <span style=''>import com.typesafe.config.{Config, ConfigFactory}
+</span>10 <span style=''>import net.liftweb.json.Extraction.decompose
+</span>11 <span style=''>import net.liftweb.json.{DefaultFormats, compactRender}
+</span>12 <span style=''>
+</span>13 <span style=''>import scala.concurrent.{ExecutionContextExecutor, Future}
+</span>14 <span style=''>
+</span>15 <span style=''>class AllTimeDataOnAPI extends Directives {
+</span>16 <span style=''>  val config: Config = </span><span style='background: #F0ADAD'>ConfigFactory.load()</span><span style=''>
+</span>17 <span style=''>  implicit val formats: DefaultFormats.type = </span><span style='background: #F0ADAD'>net.liftweb.json.DefaultFormats</span><span style=''>
+</span>18 <span style=''>  implicit val system: ActorSystem = </span><span style='background: #F0ADAD'>ActorSystem()</span><span style=''>
+</span>19 <span style=''>  implicit val materializer: SystemMaterializer = </span><span style='background: #F0ADAD'>SystemMaterializer(system)</span><span style=''>
+</span>20 <span style=''>  implicit val executionContext: ExecutionContextExecutor = </span><span style='background: #F0ADAD'>system.dispatcher</span><span style=''>
+</span>21 <span style=''>
+</span>22 <span style=''>  /**
+</span>23 <span style=''>   * Displays all time data of each knolder on API.
+</span>24 <span style=''>   *
+</span>25 <span style=''>   * @param scoreForBlogsPerAuthor List of GetAuthorScore case class objects, which specifies full name,
+</span>26 <span style=''>   *                               overall score and overall rank of each knolder.
+</span>27 <span style=''>   * @return Http request binded with server port.
+</span>28 <span style=''>   */
+</span>29 <span style=''>  def pushAllTimeDataOnAPI(scoreForBlogsPerAuthor: List[GetAuthorScore]): Future[Http.ServerBinding] = </span><span style='background: #F0ADAD'>{
+</span>30 <span style=''></span><span style='background: #F0ADAD'>    val reputation = compactRender(decompose(scoreForBlogsPerAuthor))
+</span>31 <span style=''></span><span style='background: #F0ADAD'>    val route =
+</span>32 <span style=''></span><span style='background: #F0ADAD'>      path(&quot;reputation&quot;) {
+</span>33 <span style=''></span><span style='background: #F0ADAD'>        get {
+</span>34 <span style=''></span><span style='background: #F0ADAD'>          complete(HttpEntity(ContentTypes.`application/json`, reputation))
+</span>35 <span style=''></span><span style='background: #F0ADAD'>        }
+</span>36 <span style=''></span><span style='background: #F0ADAD'>      }
+</span>37 <span style=''></span><span style='background: #F0ADAD'>    Http().bindAndHandle(route, config.getString(&quot;interface&quot;), config.getInt(&quot;port&quot;))
+</span>38 <span style=''></span><span style='background: #F0ADAD'>  }.recoverWith {
+</span>39 <span style=''></span><span style='background: #F0ADAD'>    case ex: Exception =&gt; Future.failed(new Exception(&quot;Service failed&quot;, ex))
+</span>40 <span style=''></span><span style='background: #F0ADAD'>  }</span><span style=''>
+</span>41 <span style=''>}
+</span></pre>
+          </div>
+          <div class="tab-pane" id="statementlist">
+            <table cellspacing="0" cellpadding="0" class="table statementlist">
+      <tr>
+        <th>Line</th>
+        <th>Stmt Id</th>
+        <th>Pos</th>
+        <th>Tree</th>
+        <th>Symbol</th>
+        <th>Code</th>
+      </tr><tr>
+        <td>
+          16
+        </td>
+        <td>
+          49
+        </td>
+        <td>
+          550
+          -
+          570
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.typesafe.config.ConfigFactory.load
+        </td>
+        <td style="background: #F0ADAD">
+          com.typesafe.config.ConfigFactory.load()
+        </td>
+      </tr><tr>
+        <td>
+          17
+        </td>
+        <td>
+          50
+        </td>
+        <td>
+          617
+          -
+          648
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          net.liftweb.json.DefaultFormats
+        </td>
+        <td style="background: #F0ADAD">
+          net.liftweb.json.DefaultFormats
+        </td>
+      </tr><tr>
+        <td>
+          18
+        </td>
+        <td>
+          51
+        </td>
+        <td>
+          686
+          -
+          699
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          akka.actor.ActorSystem.apply
+        </td>
+        <td style="background: #F0ADAD">
+          akka.actor.ActorSystem.apply()
+        </td>
+      </tr><tr>
+        <td>
+          19
+        </td>
+        <td>
+          53
+        </td>
+        <td>
+          750
+          -
+          776
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          akka.actor.ExtensionId.apply
+        </td>
+        <td style="background: #F0ADAD">
+          akka.stream.SystemMaterializer.apply(AllTimeDataOnAPI.this.system)
+        </td>
+      </tr><tr>
+        <td>
+          19
+        </td>
+        <td>
+          52
+        </td>
+        <td>
+          769
+          -
+          775
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.application.AllTimeDataOnAPI.system
+        </td>
+        <td style="background: #F0ADAD">
+          AllTimeDataOnAPI.this.system
+        </td>
+      </tr><tr>
+        <td>
+          20
+        </td>
+        <td>
+          54
+        </td>
+        <td>
+          837
+          -
+          854
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          akka.actor.ActorSystem.dispatcher
+        </td>
+        <td style="background: #F0ADAD">
+          AllTimeDataOnAPI.this.system.dispatcher
+        </td>
+      </tr><tr>
+        <td>
+          30
+        </td>
+        <td>
+          56
+        </td>
+        <td>
+          1304
+          -
+          1337
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          net.liftweb.json.Extraction.decompose
+        </td>
+        <td style="background: #F0ADAD">
+          net.liftweb.json.Extraction.decompose(scoreForBlogsPerAuthor)(AllTimeDataOnAPI.this.formats)
+        </td>
+      </tr><tr>
+        <td>
+          30
+        </td>
+        <td>
+          55
+        </td>
+        <td>
+          1313
+          -
+          1313
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.application.AllTimeDataOnAPI.formats
+        </td>
+        <td style="background: #F0ADAD">
+          AllTimeDataOnAPI.this.formats
+        </td>
+      </tr><tr>
+        <td>
+          30
+        </td>
+        <td>
+          57
+        </td>
+        <td>
+          1290
+          -
+          1338
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          net.liftweb.json.compactRender
+        </td>
+        <td style="background: #F0ADAD">
+          net.liftweb.json.`package`.compactRender(net.liftweb.json.Extraction.decompose(scoreForBlogsPerAuthor)(AllTimeDataOnAPI.this.formats))
+        </td>
+      </tr><tr>
+        <td>
+          32
+        </td>
+        <td>
+          59
+        </td>
+        <td>
+          1361
+          -
+          1379
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          akka.http.scaladsl.server.directives.PathDirectives.path
+        </td>
+        <td style="background: #F0ADAD">
+          AllTimeDataOnAPI.this.path[Unit](AllTimeDataOnAPI.this._segmentStringToPathMatcher(&quot;reputation&quot;))
+        </td>
+      </tr><tr>
+        <td>
+          32
+        </td>
+        <td>
+          68
+        </td>
+        <td>
+          1361
+          -
+          1489
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Function1.apply
+        </td>
+        <td style="background: #F0ADAD">
+          server.this.Directive.addByNameNullaryApply(AllTimeDataOnAPI.this.path[Unit](AllTimeDataOnAPI.this._segmentStringToPathMatcher(&quot;reputation&quot;))).apply(server.this.Directive.addByNameNullaryApply(AllTimeDataOnAPI.this.get).apply(AllTimeDataOnAPI.this.complete(marshalling.this.ToResponseMarshallable.apply[akka.http.scaladsl.model.HttpEntity.Strict](akka.http.scaladsl.model.HttpEntity.apply(akka.http.scaladsl.model.ContentTypes.application/json, reputation))(marshalling.this.Marshaller.liftMarshaller[akka.http.scaladsl.model.HttpEntity.Strict](marshalling.this.Marshaller.MessageEntityMarshaller)))))
+        </td>
+      </tr><tr>
+        <td>
+          32
+        </td>
+        <td>
+          58
+        </td>
+        <td>
+          1366
+          -
+          1378
+        </td>
+        <td>
+          ApplyImplicitView
+        </td>
+        <td>
+          akka.http.scaladsl.server.ImplicitPathMatcherConstruction._segmentStringToPathMatcher
+        </td>
+        <td style="background: #F0ADAD">
+          AllTimeDataOnAPI.this._segmentStringToPathMatcher(&quot;reputation&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          33
+        </td>
+        <td>
+          67
+        </td>
+        <td>
+          1390
+          -
+          1481
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Function1.apply
+        </td>
+        <td style="background: #F0ADAD">
+          server.this.Directive.addByNameNullaryApply(AllTimeDataOnAPI.this.get).apply(AllTimeDataOnAPI.this.complete(marshalling.this.ToResponseMarshallable.apply[akka.http.scaladsl.model.HttpEntity.Strict](akka.http.scaladsl.model.HttpEntity.apply(akka.http.scaladsl.model.ContentTypes.application/json, reputation))(marshalling.this.Marshaller.liftMarshaller[akka.http.scaladsl.model.HttpEntity.Strict](marshalling.this.Marshaller.MessageEntityMarshaller))))
+        </td>
+      </tr><tr>
+        <td>
+          33
+        </td>
+        <td>
+          60
+        </td>
+        <td>
+          1390
+          -
+          1393
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          akka.http.scaladsl.server.directives.MethodDirectives.get
+        </td>
+        <td style="background: #F0ADAD">
+          AllTimeDataOnAPI.this.get
+        </td>
+      </tr><tr>
+        <td>
+          34
+        </td>
+        <td>
+          62
+        </td>
+        <td>
+          1415
+          -
+          1470
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          akka.http.scaladsl.model.HttpEntity.apply
+        </td>
+        <td style="background: #F0ADAD">
+          akka.http.scaladsl.model.HttpEntity.apply(akka.http.scaladsl.model.ContentTypes.application/json, reputation)
+        </td>
+      </tr><tr>
+        <td>
+          34
+        </td>
+        <td>
+          65
+        </td>
+        <td>
+          1415
+          -
+          1470
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          akka.http.scaladsl.marshalling.ToResponseMarshallable.apply
+        </td>
+        <td style="background: #F0ADAD">
+          marshalling.this.ToResponseMarshallable.apply[akka.http.scaladsl.model.HttpEntity.Strict](akka.http.scaladsl.model.HttpEntity.apply(akka.http.scaladsl.model.ContentTypes.application/json, reputation))(marshalling.this.Marshaller.liftMarshaller[akka.http.scaladsl.model.HttpEntity.Strict](marshalling.this.Marshaller.MessageEntityMarshaller))
+        </td>
+      </tr><tr>
+        <td>
+          34
+        </td>
+        <td>
+          64
+        </td>
+        <td>
+          1425
+          -
+          1425
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          akka.http.scaladsl.marshalling.LowPriorityToResponseMarshallerImplicits.liftMarshaller
+        </td>
+        <td style="background: #F0ADAD">
+          marshalling.this.Marshaller.liftMarshaller[akka.http.scaladsl.model.HttpEntity.Strict](marshalling.this.Marshaller.MessageEntityMarshaller)
+        </td>
+      </tr><tr>
+        <td>
+          34
+        </td>
+        <td>
+          61
+        </td>
+        <td>
+          1426
+          -
+          1457
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          akka.http.scaladsl.model.ContentTypes.application/json
+        </td>
+        <td style="background: #F0ADAD">
+          akka.http.scaladsl.model.ContentTypes.application/json
+        </td>
+      </tr><tr>
+        <td>
+          34
+        </td>
+        <td>
+          63
+        </td>
+        <td>
+          1425
+          -
+          1425
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          akka.http.scaladsl.marshalling.PredefinedToEntityMarshallers.MessageEntityMarshaller
+        </td>
+        <td style="background: #F0ADAD">
+          marshalling.this.Marshaller.MessageEntityMarshaller
+        </td>
+      </tr><tr>
+        <td>
+          34
+        </td>
+        <td>
+          66
+        </td>
+        <td>
+          1406
+          -
+          1471
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          akka.http.scaladsl.server.directives.RouteDirectives.complete
+        </td>
+        <td style="background: #F0ADAD">
+          AllTimeDataOnAPI.this.complete(marshalling.this.ToResponseMarshallable.apply[akka.http.scaladsl.model.HttpEntity.Strict](akka.http.scaladsl.model.HttpEntity.apply(akka.http.scaladsl.model.ContentTypes.application/json, reputation))(marshalling.this.Marshaller.liftMarshaller[akka.http.scaladsl.model.HttpEntity.Strict](marshalling.this.Marshaller.MessageEntityMarshaller)))
+        </td>
+      </tr><tr>
+        <td>
+          37
+        </td>
+        <td>
+          83
+        </td>
+        <td>
+          1522
+          -
+          1551
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.typesafe.config.Config.getString
+        </td>
+        <td style="background: #F0ADAD">
+          AllTimeDataOnAPI.this.config.getString(&quot;interface&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          37
+        </td>
+        <td>
+          77
+        </td>
+        <td>
+          1515
+          -
+          1515
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.application.AllTimeDataOnAPI.system
+        </td>
+        <td style="background: #F0ADAD">
+          AllTimeDataOnAPI.this.system
+        </td>
+      </tr><tr>
+        <td>
+          37
+        </td>
+        <td>
+          86
+        </td>
+        <td>
+          1501
+          -
+          1501
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          akka.http.scaladsl.HttpExt.bindAndHandle$default$5
+        </td>
+        <td style="background: #F0ADAD">
+          qual$1.bindAndHandle$default$5
+        </td>
+      </tr><tr>
+        <td>
+          37
+        </td>
+        <td>
+          80
+        </td>
+        <td>
+          1515
+          -
+          1515
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          akka.http.scaladsl.server.RouteResult.route2HandlerFlow$default$7
+        </td>
+        <td style="background: #F0ADAD">
+          server.this.RouteResult.route2HandlerFlow$default$7(x$1)
+        </td>
+      </tr><tr>
+        <td>
+          37
+        </td>
+        <td>
+          89
+        </td>
+        <td>
+          1514
+          -
+          1514
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          akka.stream.Materializer.matFromSystem
+        </td>
+        <td style="background: #F0ADAD">
+          stream.this.Materializer.matFromSystem(AllTimeDataOnAPI.this.system)
+        </td>
+      </tr><tr>
+        <td>
+          37
+        </td>
+        <td>
+          71
+        </td>
+        <td>
+          1515
+          -
+          1515
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.application.AllTimeDataOnAPI.system
+        </td>
+        <td style="background: #F0ADAD">
+          AllTimeDataOnAPI.this.system
+        </td>
+      </tr><tr>
+        <td>
+          37
+        </td>
+        <td>
+          74
+        </td>
+        <td>
+          1515
+          -
+          1515
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          akka.http.scaladsl.settings.SettingsCompanion.default
+        </td>
+        <td style="background: #F0ADAD">
+          settings.this.ParserSettings.default(AllTimeDataOnAPI.this.system)
+        </td>
+      </tr><tr>
+        <td>
+          37
+        </td>
+        <td>
+          82
+        </td>
+        <td>
+          1515
+          -
+          1520
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          akka.http.scaladsl.server.RouteResult.route2HandlerFlow
+        </td>
+        <td style="background: #F0ADAD">
+          server.this.RouteResult.route2HandlerFlow(x$1)(x$2, x$3, x$4, x$5, x$6, x$7, x$8)
+        </td>
+      </tr><tr>
+        <td>
+          37
+        </td>
+        <td>
+          73
+        </td>
+        <td>
+          1515
+          -
+          1515
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.application.AllTimeDataOnAPI.system
+        </td>
+        <td style="background: #F0ADAD">
+          AllTimeDataOnAPI.this.system
+        </td>
+      </tr><tr>
+        <td>
+          37
+        </td>
+        <td>
+          85
+        </td>
+        <td>
+          1501
+          -
+          1501
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          akka.http.scaladsl.HttpExt.bindAndHandle$default$4
+        </td>
+        <td style="background: #F0ADAD">
+          qual$1.bindAndHandle$default$4
+        </td>
+      </tr><tr>
+        <td>
+          37
+        </td>
+        <td>
+          76
+        </td>
+        <td>
+          1515
+          -
+          1515
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          akka.stream.Materializer.matFromSystem
+        </td>
+        <td style="background: #F0ADAD">
+          stream.this.Materializer.matFromSystem(AllTimeDataOnAPI.this.system)
+        </td>
+      </tr><tr>
+        <td>
+          37
+        </td>
+        <td>
+          79
+        </td>
+        <td>
+          1515
+          -
+          1515
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.application.AllTimeDataOnAPI.executionContext
+        </td>
+        <td style="background: #F0ADAD">
+          AllTimeDataOnAPI.this.executionContext
+        </td>
+      </tr><tr>
+        <td>
+          37
+        </td>
+        <td>
+          88
+        </td>
+        <td>
+          1514
+          -
+          1514
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.application.AllTimeDataOnAPI.system
+        </td>
+        <td style="background: #F0ADAD">
+          AllTimeDataOnAPI.this.system
+        </td>
+      </tr><tr>
+        <td>
+          37
+        </td>
+        <td>
+          70
+        </td>
+        <td>
+          1494
+          -
+          1500
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          akka.http.scaladsl.Http.apply
+        </td>
+        <td style="background: #F0ADAD">
+          akka.http.scaladsl.Http.apply()(AllTimeDataOnAPI.this.system)
+        </td>
+      </tr><tr>
+        <td>
+          37
+        </td>
+        <td>
+          87
+        </td>
+        <td>
+          1501
+          -
+          1501
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          akka.http.scaladsl.HttpExt.bindAndHandle$default$6
+        </td>
+        <td style="background: #F0ADAD">
+          qual$1.bindAndHandle$default$6
+        </td>
+      </tr><tr>
+        <td>
+          37
+        </td>
+        <td>
+          69
+        </td>
+        <td>
+          1498
+          -
+          1498
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.application.AllTimeDataOnAPI.system
+        </td>
+        <td style="background: #F0ADAD">
+          AllTimeDataOnAPI.this.system
+        </td>
+      </tr><tr>
+        <td>
+          37
+        </td>
+        <td>
+          78
+        </td>
+        <td>
+          1515
+          -
+          1515
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          akka.http.scaladsl.server.LowerPriorityRoutingLogImplicits.fromActorSystem
+        </td>
+        <td style="background: #F0ADAD">
+          server.this.RoutingLog.fromActorSystem(AllTimeDataOnAPI.this.system)
+        </td>
+      </tr><tr>
+        <td>
+          37
+        </td>
+        <td>
+          90
+        </td>
+        <td>
+          1494
+          -
+          1575
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          akka.http.scaladsl.HttpExt.bindAndHandle
+        </td>
+        <td style="background: #F0ADAD">
+          qual$1.bindAndHandle(x$9, x$10, x$11, x$12, x$13, x$14)(stream.this.Materializer.matFromSystem(AllTimeDataOnAPI.this.system))
+        </td>
+      </tr><tr>
+        <td>
+          37
+        </td>
+        <td>
+          72
+        </td>
+        <td>
+          1515
+          -
+          1515
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          akka.http.scaladsl.settings.SettingsCompanion.default
+        </td>
+        <td style="background: #F0ADAD">
+          settings.this.RoutingSettings.default(AllTimeDataOnAPI.this.system)
+        </td>
+      </tr><tr>
+        <td>
+          37
+        </td>
+        <td>
+          81
+        </td>
+        <td>
+          1515
+          -
+          1515
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          akka.http.scaladsl.server.RouteResult.route2HandlerFlow$default$8
+        </td>
+        <td style="background: #F0ADAD">
+          server.this.RouteResult.route2HandlerFlow$default$8(x$1)
+        </td>
+      </tr><tr>
+        <td>
+          37
+        </td>
+        <td>
+          84
+        </td>
+        <td>
+          1553
+          -
+          1574
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.typesafe.config.Config.getInt
+        </td>
+        <td style="background: #F0ADAD">
+          AllTimeDataOnAPI.this.config.getInt(&quot;port&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          37
+        </td>
+        <td>
+          75
+        </td>
+        <td>
+          1515
+          -
+          1515
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.application.AllTimeDataOnAPI.system
+        </td>
+        <td style="background: #F0ADAD">
+          AllTimeDataOnAPI.this.system
+        </td>
+      </tr><tr>
+        <td>
+          38
+        </td>
+        <td>
+          95
+        </td>
+        <td>
+          1267
+          -
+          1674
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          scala.concurrent.Future.recoverWith
+        </td>
+        <td style="background: #F0ADAD">
+          {
+  val reputation: String = net.liftweb.json.`package`.compactRender(net.liftweb.json.Extraction.decompose(scoreForBlogsPerAuthor)(AllTimeDataOnAPI.this.formats));
+  val route: akka.http.scaladsl.server.Route = server.this.Directive.addByNameNullaryApply(AllTimeDataOnAPI.this.path[Unit](AllTimeDataOnAPI.this._segmentStringToPathMatcher(&quot;reputation&quot;))).apply(server.this.Directive.addByNameNullaryApply(AllTimeDataOnAPI.this.get).apply(AllTimeDataOnAPI.this.complete(marshalling.this.ToResponseMarshallable.apply[akka.http.scaladsl.model.HttpEntity.Strict](akka.http.scaladsl.model.HttpEntity.apply(akka.http.scaladsl.model.ContentTypes.application/json, reputation))(marshalling.this.Marshaller.liftMarshaller[akka.http.scaladsl.model.HttpEntity.Strict](marshalling.this.Marshaller.MessageEntityMarshaller)))));
+  {
+    &lt;artifact&gt; val qual$1: akka.http.scaladsl.HttpExt = akka.http.scaladsl.Http.apply()(AllTimeDataOnAPI.this.system);
+    &lt;artifact&gt; val x$9: akka.stream.scaladsl.Flow[akka.http.scaladsl.model.HttpRequest,akka.http.scaladsl.model.HttpResponse,akka.NotUsed] @scala.reflect.internal.annotations.uncheckedBounds = {
+      &lt;artifact&gt; val x$1: akka.http.scaladsl.server.Route = route;
+      &lt;artifact&gt; val x$2: akka.http.scaladsl.settings.RoutingSettings = settings.this.RoutingSettings.default(AllTimeDataOnAPI.this.system);
+      &lt;artifact&gt; val x$3: akka.http.scaladsl.settings.ParserSettings = settings.this.ParserSettings.default(AllTimeDataOnAPI.this.system);
+      &lt;artifact&gt; val x$4: akka.stream.Materializer = stream.this.Materializer.matFromSystem(AllTimeDataOnAPI.this.system);
+      &lt;artifact&gt; val x$5: akka.http.scaladsl.server.RoutingLog = server.this.RoutingLog.fromActorSystem(AllTimeDataOnAPI.this.system);
+      &lt;artifact&gt; val x$6: scala.concurrent.ExecutionContextExecutor = AllTimeDataOnAPI.this.executionContext;
+      &lt;artifact&gt; val x$7: akka.http.scaladsl.server.RejectionHandler = server.this.RouteResult.route2HandlerFlow$default$7(x$1);
+      &lt;artifact&gt; val x$8: akka.http.scaladsl.server.ExceptionHandler = server.this.RouteResult.route2HandlerFlow$default$8(x$1);
+      server.this.RouteResult.route2HandlerFlow(x$1)(x$2, x$3, x$4, x$5, x$6, x$7, x$8)
+    };
+    &lt;artifact&gt; val x$10: String = AllTimeDataOnAPI.this.config.getString(&quot;interface&quot;);
+    &lt;artifact&gt; val x$11: Int = AllTimeDataOnAPI.this.config.getInt(&quot;port&quot;);
+    &lt;artifact&gt; val x$12: akka.http.scaladsl.ConnectionContext = qual$1.bindAndHandle$default$4;
+    &lt;artifact&gt; val x$13: akka.http.scaladsl.settings.ServerSettings = qual$1.bindAndHandle$default$5;
+    &lt;artifact&gt; val x$14: akka.event.LoggingAdapter = qual$1.bindAndHandle$default$6;
+    qual$1.bindAndHandle(x$9, x$10, x$11, x$12, x$13, x$14)(stream.this.Materializer.matFromSystem(AllTimeDataOnAPI.this.system))
+  }
+}.recoverWith[akka.http.scaladsl.Http.ServerBinding](({
+  @SerialVersionUID(value = 0) final &lt;synthetic&gt; class $anonfun extends scala.runtime.AbstractPartialFunction[Throwable,scala.concurrent.Future[akka.http.scaladsl.Http.ServerBinding]] with Serializable {
+    def &lt;init&gt;(): &lt;$anon: Throwable =&gt; scala.concurrent.Future[akka.http.scaladsl.Http.ServerBinding]&gt; = {
+      $anonfun.super.&lt;init&gt;();
+      ()
+    };
+    final override def applyOrElse[A1 &lt;: Throwable, B1 &gt;: scala.concurrent.Future[akka.http.scaladsl.Http.ServerBinding]](x1: A1, default: A1 =&gt; B1): B1 = ((x1.asInstanceOf[Throwable]: Throwable): Throwable @unchecked) match {
+      case (ex @ (_: Exception)) =&gt; scala.concurrent.Future.failed[Nothing](new scala.`package`.Exception(&quot;Service failed&quot;, ex))
+      case (defaultCase$ @ _) =&gt; default.apply(x1)
+    };
+    final def isDefinedAt(x1: Throwable): Boolean = ((x1.asInstanceOf[Throwable]: Throwable): Throwable @unchecked) match {
+      case (ex @ (_: Exception)) =&gt; true
+      case (defaultCase$ @ _) =&gt; false
+    }
+  };
+  new $anonfun()
+}: PartialFunction[Throwable,scala.concurrent.Future[akka.http.scaladsl.Http.ServerBinding]]))(AllTimeDataOnAPI.this.executionContext)
+        </td>
+      </tr><tr>
+        <td>
+          38
+        </td>
+        <td>
+          94
+        </td>
+        <td>
+          1592
+          -
+          1592
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.application.AllTimeDataOnAPI.executionContext
+        </td>
+        <td style="background: #F0ADAD">
+          AllTimeDataOnAPI.this.executionContext
+        </td>
+      </tr><tr>
+        <td>
+          38
+        </td>
+        <td>
+          93
+        </td>
+        <td>
+          1592
+          -
+          1592
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.leader_board.application.AllTimeDataOnAPI.$anonfun.&lt;init&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          new $anonfun()
+        </td>
+      </tr><tr>
+        <td>
+          39
+        </td>
+        <td>
+          92
+        </td>
+        <td>
+          1620
+          -
+          1670
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.concurrent.Future.failed
+        </td>
+        <td style="background: #F0ADAD">
+          scala.concurrent.Future.failed[Nothing](new scala.`package`.Exception(&quot;Service failed&quot;, ex))
+        </td>
+      </tr><tr>
+        <td>
+          39
+        </td>
+        <td>
+          91
+        </td>
+        <td>
+          1634
+          -
+          1669
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.lang.Exception.&lt;init&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          new scala.`package`.Exception(&quot;Service failed&quot;, ex)
+        </td>
+      </tr>
+    </table>
+          </div>
+        </div>
+      </body>
+    </html>

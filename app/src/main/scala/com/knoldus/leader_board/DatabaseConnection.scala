@@ -1,8 +1,9 @@
 package com.knoldus.leader_board
 
-import java.sql.{Connection, DriverManager}
+import java.sql.Connection
 
 import com.typesafe.config.{Config, ConfigFactory}
+import scalikejdbc.ConnectionPool
 
 class DatabaseConnection {
   val config: Config = ConfigFactory.load()
@@ -14,7 +15,8 @@ class DatabaseConnection {
       val username = config.getString("username")
       val password = config.getString("password")
       Class.forName(driver)
-      DriverManager.getConnection(url, username, password)
+      ConnectionPool.singleton(url, username, password)
+      ConnectionPool.borrow()
     }
     catch {
       case ex: Exception => throw new Exception(ex)

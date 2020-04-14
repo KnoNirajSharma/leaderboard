@@ -1,0 +1,4999 @@
+<html>
+      <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title id="title">
+          com/knoldus/leader_board/business/Blogs.scala.html
+        </title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.20.1/css/theme.default.min.css" type="text/css"/><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.20.1/js/jquery.tablesorter.min.js"></script><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" type="text/css"/><script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script><script type="text/javascript">
+        $(document).ready(function() {$(".tablesorter").tablesorter();});
+      </script>
+        <style>
+          table.codegrid { font-family: monospace; font-size: 12px; width: auto!important; }table.statementlist { width: auto!important; font-size: 13px; } table.codegrid td { padding: 0!important; border: 0!important } table td.linenumber { width: 40px!important; } 
+        </style>
+      </head>
+      <body style="font-family: monospace;">
+        <ul class="nav nav-tabs">
+          <li>
+            <a href="#codegrid" data-toggle="tab">Codegrid</a>
+          </li>
+          <li>
+            <a href="#statementlist" data-toggle="tab">Statement List</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="codegrid">
+            <pre style='font-size: 12pt; font-family: courier;'>1 <span style=''>package com.knoldus.leader_board.business
+</span>2 <span style=''>
+</span>3 <span style=''>import java.sql.Timestamp
+</span>4 <span style=''>import java.time.{Instant, ZoneOffset, ZonedDateTime}
+</span>5 <span style=''>
+</span>6 <span style=''>import akka.actor.ActorSystem
+</span>7 <span style=''>import akka.http.scaladsl.Http
+</span>8 <span style=''>import akka.http.scaladsl.model.{HttpRequest, HttpResponse}
+</span>9 <span style=''>import akka.http.scaladsl.settings.ClientConnectionSettings
+</span>10 <span style=''>import akka.http.scaladsl.unmarshalling.Unmarshal
+</span>11 <span style=''>import akka.stream.SystemMaterializer
+</span>12 <span style=''>import akka.stream.scaladsl.{Flow, Sink, Source}
+</span>13 <span style=''>import com.knoldus.leader_board.infrastructure.FetchData
+</span>14 <span style=''>import com.knoldus.leader_board.{Author, Blog, BlogAuthor}
+</span>15 <span style=''>import com.typesafe.config.{Config, ConfigFactory}
+</span>16 <span style=''>import net.liftweb.json.{DefaultFormats, parse}
+</span>17 <span style=''>
+</span>18 <span style=''>import scala.concurrent.duration._
+</span>19 <span style=''>import scala.concurrent.{ExecutionContextExecutor, Future}
+</span>20 <span style=''>
+</span>21 <span style=''>class Blogs(fetchData: FetchData) {
+</span>22 <span style=''>  val config: Config = </span><span style='background: #F0ADAD'>ConfigFactory.load()</span><span style=''>
+</span>23 <span style=''>  implicit val formats: DefaultFormats.type = </span><span style='background: #F0ADAD'>DefaultFormats</span><span style=''>
+</span>24 <span style=''>  implicit val system: ActorSystem = </span><span style='background: #F0ADAD'>ActorSystem(&quot;myactor&quot;)</span><span style=''>
+</span>25 <span style=''>  implicit val materializer: SystemMaterializer = </span><span style='background: #F0ADAD'>SystemMaterializer(system)</span><span style=''>
+</span>26 <span style=''>  implicit val executionContext: ExecutionContextExecutor = </span><span style='background: #F0ADAD'>system.dispatcher</span><span style=''>
+</span>27 <span style=''>  val connectionFlow: Flow[HttpRequest, HttpResponse, Future[Http.OutgoingConnection]] =
+</span>28 <span style=''>    </span><span style='background: #F0ADAD'>Http().outgoingConnectionHttps(config.getString(&quot;host&quot;),
+</span>29 <span style=''></span><span style='background: #F0ADAD'>      settings = ClientConnectionSettings(system).withIdleTimeout(5.minutes))</span><span style=''>
+</span>30 <span style=''>
+</span>31 <span style=''>  /**
+</span>32 <span style=''>   * Calculates total number of pages of wordpress API which needs to be hit.
+</span>33 <span style=''>   * Maintains a FLAG which specifies whether API is being hit for first time or not, i.e 0 specifies API being hit
+</span>34 <span style=''>   * for first time.
+</span>35 <span style=''>   *
+</span>36 <span style=''>   * @return BlogAuthor case class object which contains list of all blogs and knolders.
+</span>37 <span style=''>   */
+</span>38 <span style=''>  def getAllBlogsAndAuthors: Future[BlogAuthor] = </span><span style='background: #F0ADAD'>{
+</span>39 <span style=''></span><span style='background: #F0ADAD'>    val totalNoOfPosts: Future[Int] = getTotalNoOfPosts
+</span>40 <span style=''></span><span style='background: #F0ADAD'>    totalNoOfPosts.flatMap { totalNoOfPosts =&gt;
+</span>41 <span style=''></span><span style='background: #F0ADAD'>      val totalPosts = totalNoOfPosts
+</span>42 <span style=''></span><span style='background: #F0ADAD'>      if (config.getInt(&quot;flag&quot;) &gt; 0) {
+</span>43 <span style=''></span><span style='background: #F0ADAD'>        val page = 1
+</span>44 <span style=''></span><span style='background: #F0ADAD'>        getAllBlogs(page)
+</span>45 <span style=''></span><span style='background: #F0ADAD'>      }
+</span>46 <span style=''></span><span style='background: #F0ADAD'>      else {
+</span>47 <span style=''></span><span style='background: #F0ADAD'>        val page = (totalPosts.toFloat / 20).ceil.toInt
+</span>48 <span style=''></span><span style='background: #F0ADAD'>        getAllBlogs(page)
+</span>49 <span style=''></span><span style='background: #F0ADAD'>      }
+</span>50 <span style=''></span><span style='background: #F0ADAD'>    }
+</span>51 <span style=''></span><span style='background: #F0ADAD'>  }.recoverWith {
+</span>52 <span style=''></span><span style='background: #F0ADAD'>    case ex: Exception =&gt; Future.failed(new Exception(&quot;Service failed&quot;, ex))
+</span>53 <span style=''></span><span style='background: #F0ADAD'>  }</span><span style=''>
+</span>54 <span style=''>
+</span>55 <span style=''>  /**
+</span>56 <span style=''>   * Extracts found meta data from wordpress API, which specifies total number of posts available on wordpress API.
+</span>57 <span style=''>   *
+</span>58 <span style=''>   * @return Total number of posts to be fetched from wordpress API.
+</span>59 <span style=''>   */
+</span>60 <span style=''>  private def getTotalNoOfPosts: Future[Int] = </span><span style='background: #F0ADAD'>{
+</span>61 <span style=''></span><span style='background: #F0ADAD'>    val response: Future[HttpResponse] = dispatchRequest(
+</span>62 <span style=''></span><span style='background: #F0ADAD'>      HttpRequest(uri = config.getString(&quot;uri&quot;) + &quot;?page=1&quot;))
+</span>63 <span style=''></span><span style='background: #F0ADAD'>    response.flatMap(res =&gt;
+</span>64 <span style=''></span><span style='background: #F0ADAD'>      if (res.status.isSuccess()) {
+</span>65 <span style=''></span><span style='background: #F0ADAD'>        Unmarshal(res.entity).to[String].map { count =&gt;
+</span>66 <span style=''></span><span style='background: #F0ADAD'>          val parsedCount = parse(count)
+</span>67 <span style=''></span><span style='background: #F0ADAD'>          val totalPosts = (parsedCount \ &quot;found&quot;).extract[Int]
+</span>68 <span style=''></span><span style='background: #F0ADAD'>          totalPosts
+</span>69 <span style=''></span><span style='background: #F0ADAD'>        }
+</span>70 <span style=''></span><span style='background: #F0ADAD'>      } else {
+</span>71 <span style=''></span><span style='background: #F0ADAD'>        val ex = new RuntimeException(s&quot;Service failed with status: ${res.status}&quot;)
+</span>72 <span style=''></span><span style='background: #F0ADAD'>        throw ex
+</span>73 <span style=''></span><span style='background: #F0ADAD'>      })
+</span>74 <span style=''></span><span style='background: #F0ADAD'>  }.recoverWith {
+</span>75 <span style=''></span><span style='background: #F0ADAD'>    case ex: Exception =&gt; Future.failed(new Exception(&quot;Service failed&quot;, ex))
+</span>76 <span style=''></span><span style='background: #F0ADAD'>  }</span><span style=''>
+</span>77 <span style=''>
+</span>78 <span style=''>  /**
+</span>79 <span style=''>   * Hits wordpress API page wise and unmarshalls the response.
+</span>80 <span style=''>   *
+</span>81 <span style=''>   * @param lastPage Specifies end page number upto which wordpress API needs to be hit from first page.
+</span>82 <span style=''>   * @return BlogAuthor case class object which contains list of all blogs and knolders.
+</span>83 <span style=''>   */
+</span>84 <span style=''>  private def getAllBlogs(lastPage: Int): Future[BlogAuthor] = </span><span style='background: #F0ADAD'>{
+</span>85 <span style=''></span><span style='background: #F0ADAD'>    @scala.annotation.tailrec
+</span>86 <span style=''></span><span style='background: #F0ADAD'>    def getBlogs(blogsAndAuthorsList: Future[BlogAuthor], currentPage: Int, end: Int): Future[BlogAuthor] = {
+</span>87 <span style=''></span><span style='background: #F0ADAD'>      if (currentPage &gt; end) {
+</span>88 <span style=''></span><span style='background: #F0ADAD'>        blogsAndAuthorsList
+</span>89 <span style=''></span><span style='background: #F0ADAD'>      } else {
+</span>90 <span style=''></span><span style='background: #F0ADAD'>        val response: Future[HttpResponse] = dispatchRequest(
+</span>91 <span style=''></span><span style='background: #F0ADAD'>          HttpRequest(uri = config.getString(&quot;uri&quot;) + &quot;?page=&quot; + currentPage))
+</span>92 <span style=''></span><span style='background: #F0ADAD'>        getBlogs(blogsAndAuthorsList.flatMap(blogsAndAuthorsList =&gt;
+</span>93 <span style=''></span><span style='background: #F0ADAD'>          response.flatMap(res =&gt; Unmarshal(res.entity).to[String])
+</span>94 <span style=''></span><span style='background: #F0ADAD'>            .map(blogs =&gt;
+</span>95 <span style=''></span><span style='background: #F0ADAD'>              BlogAuthor(blogsAndAuthorsList.blogs ::: getListOfBlogs(blogs),
+</span>96 <span style=''></span><span style='background: #F0ADAD'>                (blogsAndAuthorsList.authors ::: getListOfAuthors(blogs)).distinct))), currentPage + 1, end)
+</span>97 <span style=''></span><span style='background: #F0ADAD'>      }
+</span>98 <span style=''></span><span style='background: #F0ADAD'>    }
+</span>99 <span style=''></span><span style='background: #F0ADAD'>
+</span>100 <span style=''></span><span style='background: #F0ADAD'>    val blogsAndAuthorsList = getBlogs(Future {
+</span>101 <span style=''></span><span style='background: #F0ADAD'>      BlogAuthor(List.empty, List.empty)
+</span>102 <span style=''></span><span style='background: #F0ADAD'>    }, 1, lastPage)
+</span>103 <span style=''></span><span style='background: #F0ADAD'>    blogsAndAuthorsList
+</span>104 <span style=''></span><span style='background: #F0ADAD'>  }.recoverWith {
+</span>105 <span style=''></span><span style='background: #F0ADAD'>    case ex: Exception =&gt; Future.failed(new Exception(&quot;Service failed&quot;, ex))
+</span>106 <span style=''></span><span style='background: #F0ADAD'>  }</span><span style=''>
+</span>107 <span style=''>
+</span>108 <span style=''>  private def dispatchRequest(request: HttpRequest): Future[HttpResponse] = {
+</span>109 <span style=''>    </span><span style='background: #F0ADAD'>Source.single(request)
+</span>110 <span style=''></span><span style='background: #F0ADAD'>      .via(connectionFlow)
+</span>111 <span style=''></span><span style='background: #F0ADAD'>      .runWith(Sink.head)</span><span style=''>
+</span>112 <span style=''>  }
+</span>113 <span style=''>
+</span>114 <span style=''>  /**
+</span>115 <span style=''>   * Extracts blogs data from wordpress API.
+</span>116 <span style=''>   * Extracts only those blogs which are not yet added in blog table.
+</span>117 <span style=''>   *
+</span>118 <span style=''>   * @param blogs JSON string of blogs data fetched from wordpress API.
+</span>119 <span style=''>   * @return List of Blog case class objects, which specifies blog id, wordpress id of knolder, date of blog,
+</span>120 <span style=''>   *         title of blog.
+</span>121 <span style=''>   */
+</span>122 <span style=''>  private def getListOfBlogs(blogs: String): List[Blog] = {
+</span>123 <span style=''>    val parsedBlogs = </span><span style='background: #F0ADAD'>parse(blogs)</span><span style=''>
+</span>124 <span style=''>    val listOfBlogs = (</span><span style='background: #F0ADAD'>parsedBlogs \ &quot;posts&quot;).children map { blog =&gt;
+</span>125 <span style=''></span><span style='background: #F0ADAD'>      val blogId = (blog \ &quot;ID&quot;).extract[Option[Int]]
+</span>126 <span style=''></span><span style='background: #F0ADAD'>      val authorLogin = (blog \ &quot;author&quot; \ &quot;login&quot;).extract[Option[String]]
+</span>127 <span style=''></span><span style='background: #F0ADAD'>      val date = (blog \ &quot;date&quot;).extract[String]
+</span>128 <span style=''></span><span style='background: #F0ADAD'>      val odtInstanceAtOffset = ZonedDateTime.parse(date)
+</span>129 <span style=''></span><span style='background: #F0ADAD'>      val odtInstanceAtUTC = odtInstanceAtOffset.withZoneSameInstant(ZoneOffset.UTC)
+</span>130 <span style=''></span><span style='background: #F0ADAD'>      val publishedOn = Timestamp.from(odtInstanceAtUTC.toInstant)
+</span>131 <span style=''></span><span style='background: #F0ADAD'>      val title = (blog \ &quot;title&quot;).extract[Option[String]]
+</span>132 <span style=''></span><span style='background: #F0ADAD'>      val fetchMaxDate = fetchData.fetchMaxBlogPublicationDate
+</span>133 <span style=''></span><span style='background: #F0ADAD'>      val minimumTime = Instant.parse(&quot;0000-04-01T09:37:10Z&quot;)
+</span>134 <span style=''></span><span style='background: #F0ADAD'>      val parsedDate = Timestamp.from(minimumTime)
+</span>135 <span style=''></span><span style='background: #F0ADAD'>      fetchMaxDate match {
+</span>136 <span style=''></span><span style='background: #F0ADAD'>        case Some(value) =&gt; val date = value
+</span>137 <span style=''></span><span style='background: #F0ADAD'>          if (publishedOn.compareTo(date) == 1) {
+</span>138 <span style=''></span><span style='background: #F0ADAD'>            Blog(blogId, authorLogin, publishedOn, title)
+</span>139 <span style=''></span><span style='background: #F0ADAD'>          }
+</span>140 <span style=''></span><span style='background: #F0ADAD'>          else {
+</span>141 <span style=''></span><span style='background: #F0ADAD'>            Blog(None, None, parsedDate, None)
+</span>142 <span style=''></span><span style='background: #F0ADAD'>          }
+</span>143 <span style=''></span><span style='background: #F0ADAD'>        case None =&gt;
+</span>144 <span style=''></span><span style='background: #F0ADAD'>          if (publishedOn.compareTo(parsedDate) == 1) {
+</span>145 <span style=''></span><span style='background: #F0ADAD'>            Blog(blogId, authorLogin, publishedOn, title)
+</span>146 <span style=''></span><span style='background: #F0ADAD'>          }
+</span>147 <span style=''></span><span style='background: #F0ADAD'>          else {
+</span>148 <span style=''></span><span style='background: #F0ADAD'>            Blog(None, None, parsedDate, None)
+</span>149 <span style=''></span><span style='background: #F0ADAD'>          }
+</span>150 <span style=''></span><span style='background: #F0ADAD'>      }</span><span style=''>
+</span>151 <span style=''>    }
+</span>152 <span style=''>    </span><span style='background: #F0ADAD'>listOfBlogs.filter(blog =&gt; blog.blogId.isDefined &amp;&amp; blog.authorLogin.isDefined)</span><span style=''>
+</span>153 <span style=''>  }
+</span>154 <span style=''>
+</span>155 <span style=''>  /**
+</span>156 <span style=''>   * Extracts knolders data from wordpress API.
+</span>157 <span style=''>   * Extracts only those knolders which are not yet added in knolder table.
+</span>158 <span style=''>   *
+</span>159 <span style=''>   * @param blogs JSON string of blogs data fetched from wordpress API.
+</span>160 <span style=''>   * @return List of Author case class objects, which specifies name of knolder, wordpress id of knolder.
+</span>161 <span style=''>   */
+</span>162 <span style=''>  private def getListOfAuthors(blogs: String): List[Author] = {
+</span>163 <span style=''>    val parsedBlogs = </span><span style='background: #F0ADAD'>parse(blogs)</span><span style=''>
+</span>164 <span style=''>    val listOfAuthors = (</span><span style='background: #F0ADAD'>parsedBlogs \ &quot;posts&quot;).children map { blog =&gt;
+</span>165 <span style=''></span><span style='background: #F0ADAD'>      val authorName = (blog \ &quot;author&quot; \ &quot;name&quot;).extract[Option[String]]
+</span>166 <span style=''></span><span style='background: #F0ADAD'>      val authorLogin = (blog \ &quot;author&quot; \ &quot;login&quot;).extract[Option[String]]
+</span>167 <span style=''></span><span style='background: #F0ADAD'>      val date = (blog \ &quot;date&quot;).extract[String]
+</span>168 <span style=''></span><span style='background: #F0ADAD'>      val odtInstanceAtOffset = ZonedDateTime.parse(date)
+</span>169 <span style=''></span><span style='background: #F0ADAD'>      val odtInstanceAtUTC = odtInstanceAtOffset.withZoneSameInstant(ZoneOffset.UTC)
+</span>170 <span style=''></span><span style='background: #F0ADAD'>      val publishedOn = Timestamp.from(odtInstanceAtUTC.toInstant)
+</span>171 <span style=''></span><span style='background: #F0ADAD'>      val fetchMaxDate = fetchData.fetchMaxBlogPublicationDate
+</span>172 <span style=''></span><span style='background: #F0ADAD'>      fetchMaxDate match {
+</span>173 <span style=''></span><span style='background: #F0ADAD'>        case Some(value) =&gt; val date = value
+</span>174 <span style=''></span><span style='background: #F0ADAD'>          if (publishedOn.compareTo(date) == 1) {
+</span>175 <span style=''></span><span style='background: #F0ADAD'>            Author(authorName, authorLogin)
+</span>176 <span style=''></span><span style='background: #F0ADAD'>          }
+</span>177 <span style=''></span><span style='background: #F0ADAD'>          else {
+</span>178 <span style=''></span><span style='background: #F0ADAD'>            Author(None, None)
+</span>179 <span style=''></span><span style='background: #F0ADAD'>          }
+</span>180 <span style=''></span><span style='background: #F0ADAD'>        case None =&gt; val minimumTime = Instant.parse(&quot;0000-04-01T09:37:10Z&quot;)
+</span>181 <span style=''></span><span style='background: #F0ADAD'>          val parsedDate = Timestamp.from(minimumTime)
+</span>182 <span style=''></span><span style='background: #F0ADAD'>          if (publishedOn.compareTo(parsedDate) == 1) {
+</span>183 <span style=''></span><span style='background: #F0ADAD'>            Author(authorName, authorLogin)
+</span>184 <span style=''></span><span style='background: #F0ADAD'>          }
+</span>185 <span style=''></span><span style='background: #F0ADAD'>          else {
+</span>186 <span style=''></span><span style='background: #F0ADAD'>            Author(None, None)
+</span>187 <span style=''></span><span style='background: #F0ADAD'>          }
+</span>188 <span style=''></span><span style='background: #F0ADAD'>      }</span><span style=''>
+</span>189 <span style=''>    }
+</span>190 <span style=''>    </span><span style='background: #F0ADAD'>listOfAuthors.distinct.filter(author =&gt; author.authorLogin.isDefined)</span><span style=''>
+</span>191 <span style=''>  }
+</span>192 <span style=''>}
+</span></pre>
+          </div>
+          <div class="tab-pane" id="statementlist">
+            <table cellspacing="0" cellpadding="0" class="table statementlist">
+      <tr>
+        <th>Line</th>
+        <th>Stmt Id</th>
+        <th>Pos</th>
+        <th>Tree</th>
+        <th>Symbol</th>
+        <th>Code</th>
+      </tr><tr>
+        <td>
+          22
+        </td>
+        <td>
+          96
+        </td>
+        <td>
+          812
+          -
+          832
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.typesafe.config.ConfigFactory.load
+        </td>
+        <td style="background: #F0ADAD">
+          com.typesafe.config.ConfigFactory.load()
+        </td>
+      </tr><tr>
+        <td>
+          23
+        </td>
+        <td>
+          97
+        </td>
+        <td>
+          879
+          -
+          893
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          net.liftweb.json.DefaultFormats
+        </td>
+        <td style="background: #F0ADAD">
+          net.liftweb.json.DefaultFormats
+        </td>
+      </tr><tr>
+        <td>
+          24
+        </td>
+        <td>
+          98
+        </td>
+        <td>
+          931
+          -
+          953
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          akka.actor.ActorSystem.apply
+        </td>
+        <td style="background: #F0ADAD">
+          akka.actor.ActorSystem.apply(&quot;myactor&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          25
+        </td>
+        <td>
+          100
+        </td>
+        <td>
+          1004
+          -
+          1030
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          akka.actor.ExtensionId.apply
+        </td>
+        <td style="background: #F0ADAD">
+          akka.stream.SystemMaterializer.apply(Blogs.this.system)
+        </td>
+      </tr><tr>
+        <td>
+          25
+        </td>
+        <td>
+          99
+        </td>
+        <td>
+          1023
+          -
+          1029
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.system
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.system
+        </td>
+      </tr><tr>
+        <td>
+          26
+        </td>
+        <td>
+          101
+        </td>
+        <td>
+          1091
+          -
+          1108
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          akka.actor.ActorSystem.dispatcher
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.system.dispatcher
+        </td>
+      </tr><tr>
+        <td>
+          28
+        </td>
+        <td>
+          110
+        </td>
+        <td>
+          1209
+          -
+          1209
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          akka.http.scaladsl.HttpExt.outgoingConnectionHttps$default$3
+        </td>
+        <td style="background: #F0ADAD">
+          qual$1.outgoingConnectionHttps$default$3
+        </td>
+      </tr><tr>
+        <td>
+          28
+        </td>
+        <td>
+          104
+        </td>
+        <td>
+          1233
+          -
+          1257
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.typesafe.config.Config.getString
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.config.getString(&quot;host&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          28
+        </td>
+        <td>
+          113
+        </td>
+        <td>
+          1202
+          -
+          1336
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          akka.http.scaladsl.HttpExt.outgoingConnectionHttps
+        </td>
+        <td style="background: #F0ADAD">
+          qual$1.outgoingConnectionHttps(x$3, x$5, x$6, x$7, x$4, x$8)
+        </td>
+      </tr><tr>
+        <td>
+          28
+        </td>
+        <td>
+          109
+        </td>
+        <td>
+          1209
+          -
+          1209
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          akka.http.scaladsl.HttpExt.outgoingConnectionHttps$default$2
+        </td>
+        <td style="background: #F0ADAD">
+          qual$1.outgoingConnectionHttps$default$2
+        </td>
+      </tr><tr>
+        <td>
+          28
+        </td>
+        <td>
+          103
+        </td>
+        <td>
+          1202
+          -
+          1208
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          akka.http.scaladsl.Http.apply
+        </td>
+        <td style="background: #F0ADAD">
+          akka.http.scaladsl.Http.apply()(Blogs.this.system)
+        </td>
+      </tr><tr>
+        <td>
+          28
+        </td>
+        <td>
+          112
+        </td>
+        <td>
+          1209
+          -
+          1209
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          akka.http.scaladsl.HttpExt.outgoingConnectionHttps$default$6
+        </td>
+        <td style="background: #F0ADAD">
+          qual$1.outgoingConnectionHttps$default$6
+        </td>
+      </tr><tr>
+        <td>
+          28
+        </td>
+        <td>
+          102
+        </td>
+        <td>
+          1206
+          -
+          1206
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.system
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.system
+        </td>
+      </tr><tr>
+        <td>
+          28
+        </td>
+        <td>
+          111
+        </td>
+        <td>
+          1209
+          -
+          1209
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          akka.http.scaladsl.HttpExt.outgoingConnectionHttps$default$4
+        </td>
+        <td style="background: #F0ADAD">
+          qual$1.outgoingConnectionHttps$default$4
+        </td>
+      </tr><tr>
+        <td>
+          29
+        </td>
+        <td>
+          107
+        </td>
+        <td>
+          1325
+          -
+          1334
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          scala.concurrent.duration.DurationConversions.minutes
+        </td>
+        <td style="background: #F0ADAD">
+          scala.concurrent.duration.`package`.DurationInt(5).minutes
+        </td>
+      </tr><tr>
+        <td>
+          29
+        </td>
+        <td>
+          106
+        </td>
+        <td>
+          1325
+          -
+          1326
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          5
+        </td>
+      </tr><tr>
+        <td>
+          29
+        </td>
+        <td>
+          105
+        </td>
+        <td>
+          1301
+          -
+          1307
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.system
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.system
+        </td>
+      </tr><tr>
+        <td>
+          29
+        </td>
+        <td>
+          108
+        </td>
+        <td>
+          1276
+          -
+          1335
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          akka.http.scaladsl.settings.ClientConnectionSettings.withIdleTimeout
+        </td>
+        <td style="background: #F0ADAD">
+          akka.http.scaladsl.settings.ClientConnectionSettings.apply(Blogs.this.system).withIdleTimeout(scala.concurrent.duration.`package`.DurationInt(5).minutes)
+        </td>
+      </tr><tr>
+        <td>
+          39
+        </td>
+        <td>
+          114
+        </td>
+        <td>
+          1749
+          -
+          1766
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.getTotalNoOfPosts
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.getTotalNoOfPosts
+        </td>
+      </tr><tr>
+        <td>
+          40
+        </td>
+        <td>
+          124
+        </td>
+        <td>
+          1771
+          -
+          2054
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          scala.concurrent.Future.flatMap
+        </td>
+        <td style="background: #F0ADAD">
+          totalNoOfPosts.flatMap[com.knoldus.leader_board.BlogAuthor](((totalNoOfPosts: Int) =&gt; {
+  val totalPosts: Int = totalNoOfPosts;
+  if (Blogs.this.config.getInt(&quot;flag&quot;).&gt;(0))
+    {
+      val page: Int = 1;
+      Blogs.this.getAllBlogs(page)
+    }
+  else
+    {
+      val page: Int = scala.Predef.floatWrapper(totalPosts.toFloat./(20)).ceil.toInt;
+      Blogs.this.getAllBlogs(page)
+    }
+}))(Blogs.this.executionContext)
+        </td>
+      </tr><tr>
+        <td>
+          40
+        </td>
+        <td>
+          123
+        </td>
+        <td>
+          1794
+          -
+          1794
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.executionContext
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.executionContext
+        </td>
+      </tr><tr>
+        <td>
+          42
+        </td>
+        <td>
+          115
+        </td>
+        <td>
+          1862
+          -
+          1887
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Int.&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.config.getInt(&quot;flag&quot;).&gt;(0)
+        </td>
+      </tr><tr>
+        <td>
+          42
+        </td>
+        <td>
+          118
+        </td>
+        <td>
+          1889
+          -
+          1945
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          {
+  val page: Int = 1;
+  Blogs.this.getAllBlogs(page)
+}
+        </td>
+      </tr><tr>
+        <td>
+          43
+        </td>
+        <td>
+          116
+        </td>
+        <td>
+          1910
+          -
+          1911
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          1
+        </td>
+      </tr><tr>
+        <td>
+          44
+        </td>
+        <td>
+          117
+        </td>
+        <td>
+          1920
+          -
+          1937
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.getAllBlogs
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.getAllBlogs(page)
+        </td>
+      </tr><tr>
+        <td>
+          46
+        </td>
+        <td>
+          122
+        </td>
+        <td>
+          1957
+          -
+          2048
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          {
+  val page: Int = scala.Predef.floatWrapper(totalPosts.toFloat./(20)).ceil.toInt;
+  Blogs.this.getAllBlogs(page)
+}
+        </td>
+      </tr><tr>
+        <td>
+          47
+        </td>
+        <td>
+          119
+        </td>
+        <td>
+          1979
+          -
+          2002
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Float./
+        </td>
+        <td style="background: #F0ADAD">
+          totalPosts.toFloat./(20)
+        </td>
+      </tr><tr>
+        <td>
+          47
+        </td>
+        <td>
+          120
+        </td>
+        <td>
+          1979
+          -
+          2014
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          scala.Float.toInt
+        </td>
+        <td style="background: #F0ADAD">
+          scala.Predef.floatWrapper(totalPosts.toFloat./(20)).ceil.toInt
+        </td>
+      </tr><tr>
+        <td>
+          48
+        </td>
+        <td>
+          121
+        </td>
+        <td>
+          2023
+          -
+          2040
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.getAllBlogs
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.getAllBlogs(page)
+        </td>
+      </tr><tr>
+        <td>
+          51
+        </td>
+        <td>
+          128
+        </td>
+        <td>
+          2071
+          -
+          2071
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.executionContext
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.executionContext
+        </td>
+      </tr><tr>
+        <td>
+          51
+        </td>
+        <td>
+          127
+        </td>
+        <td>
+          2071
+          -
+          2071
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.$anonfun.&lt;init&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          new $anonfun()
+        </td>
+      </tr><tr>
+        <td>
+          51
+        </td>
+        <td>
+          129
+        </td>
+        <td>
+          1709
+          -
+          2153
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          scala.concurrent.Future.recoverWith
+        </td>
+        <td style="background: #F0ADAD">
+          {
+  val totalNoOfPosts: scala.concurrent.Future[Int] = Blogs.this.getTotalNoOfPosts;
+  totalNoOfPosts.flatMap[com.knoldus.leader_board.BlogAuthor](((totalNoOfPosts: Int) =&gt; {
+    val totalPosts: Int = totalNoOfPosts;
+    if (Blogs.this.config.getInt(&quot;flag&quot;).&gt;(0))
+      {
+        val page: Int = 1;
+        Blogs.this.getAllBlogs(page)
+      }
+    else
+      {
+        val page: Int = scala.Predef.floatWrapper(totalPosts.toFloat./(20)).ceil.toInt;
+        Blogs.this.getAllBlogs(page)
+      }
+  }))(Blogs.this.executionContext)
+}.recoverWith[com.knoldus.leader_board.BlogAuthor](({
+  @SerialVersionUID(value = 0) final &lt;synthetic&gt; class $anonfun extends scala.runtime.AbstractPartialFunction[Throwable,scala.concurrent.Future[com.knoldus.leader_board.BlogAuthor]] with Serializable {
+    def &lt;init&gt;(): &lt;$anon: Throwable =&gt; scala.concurrent.Future[com.knoldus.leader_board.BlogAuthor]&gt; = {
+      $anonfun.super.&lt;init&gt;();
+      ()
+    };
+    final override def applyOrElse[A1 &lt;: Throwable, B1 &gt;: scala.concurrent.Future[com.knoldus.leader_board.BlogAuthor]](x1: A1, default: A1 =&gt; B1): B1 = ((x1.asInstanceOf[Throwable]: Throwable): Throwable @unchecked) match {
+      case (ex @ (_: Exception)) =&gt; scala.concurrent.Future.failed[Nothing](new scala.`package`.Exception(&quot;Service failed&quot;, ex))
+      case (defaultCase$ @ _) =&gt; default.apply(x1)
+    };
+    final def isDefinedAt(x1: Throwable): Boolean = ((x1.asInstanceOf[Throwable]: Throwable): Throwable @unchecked) match {
+      case (ex @ (_: Exception)) =&gt; true
+      case (defaultCase$ @ _) =&gt; false
+    }
+  };
+  new $anonfun()
+}: PartialFunction[Throwable,scala.concurrent.Future[com.knoldus.leader_board.BlogAuthor]]))(Blogs.this.executionContext)
+        </td>
+      </tr><tr>
+        <td>
+          52
+        </td>
+        <td>
+          125
+        </td>
+        <td>
+          2113
+          -
+          2148
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.lang.Exception.&lt;init&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          new scala.`package`.Exception(&quot;Service failed&quot;, ex)
+        </td>
+      </tr><tr>
+        <td>
+          52
+        </td>
+        <td>
+          126
+        </td>
+        <td>
+          2099
+          -
+          2149
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.concurrent.Future.failed
+        </td>
+        <td style="background: #F0ADAD">
+          scala.concurrent.Future.failed[Nothing](new scala.`package`.Exception(&quot;Service failed&quot;, ex))
+        </td>
+      </tr><tr>
+        <td>
+          61
+        </td>
+        <td>
+          137
+        </td>
+        <td>
+          2447
+          -
+          2525
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.dispatchRequest
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.dispatchRequest({
+  &lt;artifact&gt; val x$9: akka.http.scaladsl.model.Uri = model.this.Uri.apply(Blogs.this.config.getString(&quot;uri&quot;).+(&quot;?page=1&quot;));
+  &lt;artifact&gt; val x$10: akka.http.scaladsl.model.HttpMethod = akka.http.scaladsl.model.HttpRequest.apply$default$1;
+  &lt;artifact&gt; val x$11: scala.collection.immutable.Seq[akka.http.scaladsl.model.HttpHeader] @scala.reflect.internal.annotations.uncheckedBounds = akka.http.scaladsl.model.HttpRequest.apply$default$3;
+  &lt;artifact&gt; val x$12: akka.http.scaladsl.model.RequestEntity = akka.http.scaladsl.model.HttpRequest.apply$default$4;
+  &lt;artifact&gt; val x$13: akka.http.scaladsl.model.HttpProtocol = akka.http.scaladsl.model.HttpRequest.apply$default$5;
+  akka.http.scaladsl.model.HttpRequest.apply(x$10, x$9, x$11, x$12, x$13)
+})
+        </td>
+      </tr><tr>
+        <td>
+          62
+        </td>
+        <td>
+          131
+        </td>
+        <td>
+          2488
+          -
+          2523
+        </td>
+        <td>
+          ApplyImplicitView
+        </td>
+        <td>
+          akka.http.scaladsl.model.Uri.apply
+        </td>
+        <td style="background: #F0ADAD">
+          model.this.Uri.apply(Blogs.this.config.getString(&quot;uri&quot;).+(&quot;?page=1&quot;))
+        </td>
+      </tr><tr>
+        <td>
+          62
+        </td>
+        <td>
+          134
+        </td>
+        <td>
+          2470
+          -
+          2470
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          akka.http.scaladsl.model.HttpRequest.apply$default$4
+        </td>
+        <td style="background: #F0ADAD">
+          akka.http.scaladsl.model.HttpRequest.apply$default$4
+        </td>
+      </tr><tr>
+        <td>
+          62
+        </td>
+        <td>
+          133
+        </td>
+        <td>
+          2470
+          -
+          2470
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          akka.http.scaladsl.model.HttpRequest.apply$default$3
+        </td>
+        <td style="background: #F0ADAD">
+          akka.http.scaladsl.model.HttpRequest.apply$default$3
+        </td>
+      </tr><tr>
+        <td>
+          62
+        </td>
+        <td>
+          136
+        </td>
+        <td>
+          2470
+          -
+          2524
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          akka.http.scaladsl.model.HttpRequest.apply
+        </td>
+        <td style="background: #F0ADAD">
+          akka.http.scaladsl.model.HttpRequest.apply(x$10, x$9, x$11, x$12, x$13)
+        </td>
+      </tr><tr>
+        <td>
+          62
+        </td>
+        <td>
+          130
+        </td>
+        <td>
+          2488
+          -
+          2523
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.lang.String.+
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.config.getString(&quot;uri&quot;).+(&quot;?page=1&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          62
+        </td>
+        <td>
+          132
+        </td>
+        <td>
+          2470
+          -
+          2470
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          akka.http.scaladsl.model.HttpRequest.apply$default$1
+        </td>
+        <td style="background: #F0ADAD">
+          akka.http.scaladsl.model.HttpRequest.apply$default$1
+        </td>
+      </tr><tr>
+        <td>
+          62
+        </td>
+        <td>
+          135
+        </td>
+        <td>
+          2470
+          -
+          2470
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          akka.http.scaladsl.model.HttpRequest.apply$default$5
+        </td>
+        <td style="background: #F0ADAD">
+          akka.http.scaladsl.model.HttpRequest.apply$default$5
+        </td>
+      </tr><tr>
+        <td>
+          63
+        </td>
+        <td>
+          160
+        </td>
+        <td>
+          2530
+          -
+          2906
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          scala.concurrent.Future.flatMap
+        </td>
+        <td style="background: #F0ADAD">
+          response.flatMap[Int](((res: akka.http.scaladsl.model.HttpResponse) =&gt; if (res.status.isSuccess())
+  akka.http.scaladsl.unmarshalling.Unmarshal.apply[akka.http.scaladsl.model.ResponseEntity](res.entity).to[String](unmarshalling.this.Unmarshaller.stringUnmarshaller, Blogs.this.executionContext, stream.this.Materializer.matFromSystem(Blogs.this.system)).map[Int](((count: String) =&gt; {
+    val parsedCount: net.liftweb.json.JValue = net.liftweb.json.`package`.parse(count);
+    val totalPosts: Int = parsedCount.\(&quot;found&quot;).extract[Int](Blogs.this.formats, scala.reflect.ManifestFactory.Int);
+    totalPosts
+  }))(Blogs.this.executionContext)
+else
+  {
+    val ex: RuntimeException = new scala.`package`.RuntimeException(scala.StringContext.apply(&quot;Service failed with status: &quot;, &quot;&quot;).s(res.status));
+    throw ex
+  }))(Blogs.this.executionContext)
+        </td>
+      </tr><tr>
+        <td>
+          63
+        </td>
+        <td>
+          159
+        </td>
+        <td>
+          2546
+          -
+          2546
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.executionContext
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.executionContext
+        </td>
+      </tr><tr>
+        <td>
+          64
+        </td>
+        <td>
+          138
+        </td>
+        <td>
+          2564
+          -
+          2586
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          akka.http.scaladsl.model.StatusCode.isSuccess
+        </td>
+        <td style="background: #F0ADAD">
+          res.status.isSuccess()
+        </td>
+      </tr><tr>
+        <td>
+          65
+        </td>
+        <td>
+          140
+        </td>
+        <td>
+          2622
+          -
+          2622
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          akka.http.scaladsl.unmarshalling.PredefinedFromEntityUnmarshallers.stringUnmarshaller
+        </td>
+        <td style="background: #F0ADAD">
+          unmarshalling.this.Unmarshaller.stringUnmarshaller
+        </td>
+      </tr><tr>
+        <td>
+          65
+        </td>
+        <td>
+          149
+        </td>
+        <td>
+          2635
+          -
+          2635
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.executionContext
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.executionContext
+        </td>
+      </tr><tr>
+        <td>
+          65
+        </td>
+        <td>
+          142
+        </td>
+        <td>
+          2622
+          -
+          2622
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.system
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.system
+        </td>
+      </tr><tr>
+        <td>
+          65
+        </td>
+        <td>
+          151
+        </td>
+        <td>
+          2598
+          -
+          2781
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          scala.concurrent.Future.map
+        </td>
+        <td style="background: #F0ADAD">
+          akka.http.scaladsl.unmarshalling.Unmarshal.apply[akka.http.scaladsl.model.ResponseEntity](res.entity).to[String](unmarshalling.this.Unmarshaller.stringUnmarshaller, Blogs.this.executionContext, stream.this.Materializer.matFromSystem(Blogs.this.system)).map[Int](((count: String) =&gt; {
+  val parsedCount: net.liftweb.json.JValue = net.liftweb.json.`package`.parse(count);
+  val totalPosts: Int = parsedCount.\(&quot;found&quot;).extract[Int](Blogs.this.formats, scala.reflect.ManifestFactory.Int);
+  totalPosts
+}))(Blogs.this.executionContext)
+        </td>
+      </tr><tr>
+        <td>
+          65
+        </td>
+        <td>
+          139
+        </td>
+        <td>
+          2608
+          -
+          2618
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          akka.http.scaladsl.model.HttpResponse.entity
+        </td>
+        <td style="background: #F0ADAD">
+          res.entity
+        </td>
+      </tr><tr>
+        <td>
+          65
+        </td>
+        <td>
+          150
+        </td>
+        <td>
+          2598
+          -
+          2781
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          scala.concurrent.Future.map
+        </td>
+        <td style="background: #F0ADAD">
+          akka.http.scaladsl.unmarshalling.Unmarshal.apply[akka.http.scaladsl.model.ResponseEntity](res.entity).to[String](unmarshalling.this.Unmarshaller.stringUnmarshaller, Blogs.this.executionContext, stream.this.Materializer.matFromSystem(Blogs.this.system)).map[Int](((count: String) =&gt; {
+  val parsedCount: net.liftweb.json.JValue = net.liftweb.json.`package`.parse(count);
+  val totalPosts: Int = parsedCount.\(&quot;found&quot;).extract[Int](Blogs.this.formats, scala.reflect.ManifestFactory.Int);
+  totalPosts
+}))(Blogs.this.executionContext)
+        </td>
+      </tr><tr>
+        <td>
+          65
+        </td>
+        <td>
+          141
+        </td>
+        <td>
+          2622
+          -
+          2622
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.executionContext
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.executionContext
+        </td>
+      </tr><tr>
+        <td>
+          65
+        </td>
+        <td>
+          143
+        </td>
+        <td>
+          2622
+          -
+          2622
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          akka.stream.Materializer.matFromSystem
+        </td>
+        <td style="background: #F0ADAD">
+          stream.this.Materializer.matFromSystem(Blogs.this.system)
+        </td>
+      </tr><tr>
+        <td>
+          66
+        </td>
+        <td>
+          144
+        </td>
+        <td>
+          2674
+          -
+          2686
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          net.liftweb.json.parse
+        </td>
+        <td style="background: #F0ADAD">
+          net.liftweb.json.`package`.parse(count)
+        </td>
+      </tr><tr>
+        <td>
+          67
+        </td>
+        <td>
+          146
+        </td>
+        <td>
+          2745
+          -
+          2745
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.formats
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.formats
+        </td>
+      </tr><tr>
+        <td>
+          67
+        </td>
+        <td>
+          145
+        </td>
+        <td>
+          2729
+          -
+          2736
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          &quot;found&quot;
+        </td>
+      </tr><tr>
+        <td>
+          67
+        </td>
+        <td>
+          148
+        </td>
+        <td>
+          2715
+          -
+          2750
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          net.liftweb.json.JsonAST.JValue.extract
+        </td>
+        <td style="background: #F0ADAD">
+          parsedCount.\(&quot;found&quot;).extract[Int](Blogs.this.formats, scala.reflect.ManifestFactory.Int)
+        </td>
+      </tr><tr>
+        <td>
+          67
+        </td>
+        <td>
+          147
+        </td>
+        <td>
+          2745
+          -
+          2745
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          scala.reflect.ManifestFactory.Int
+        </td>
+        <td style="background: #F0ADAD">
+          scala.reflect.ManifestFactory.Int
+        </td>
+      </tr><tr>
+        <td>
+          70
+        </td>
+        <td>
+          158
+        </td>
+        <td>
+          2795
+          -
+          2905
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          {
+  val ex: RuntimeException = new scala.`package`.RuntimeException(scala.StringContext.apply(&quot;Service failed with status: &quot;, &quot;&quot;).s(res.status));
+  throw ex
+}
+        </td>
+      </tr><tr>
+        <td>
+          71
+        </td>
+        <td>
+          155
+        </td>
+        <td>
+          2835
+          -
+          2879
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.StringContext.s
+        </td>
+        <td style="background: #F0ADAD">
+          scala.StringContext.apply(&quot;Service failed with status: &quot;, &quot;&quot;).s(res.status)
+        </td>
+      </tr><tr>
+        <td>
+          71
+        </td>
+        <td>
+          154
+        </td>
+        <td>
+          2867
+          -
+          2877
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          akka.http.scaladsl.model.HttpResponse.status
+        </td>
+        <td style="background: #F0ADAD">
+          res.status
+        </td>
+      </tr><tr>
+        <td>
+          71
+        </td>
+        <td>
+          156
+        </td>
+        <td>
+          2814
+          -
+          2880
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.lang.RuntimeException.&lt;init&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          new scala.`package`.RuntimeException(scala.StringContext.apply(&quot;Service failed with status: &quot;, &quot;&quot;).s(res.status))
+        </td>
+      </tr><tr>
+        <td>
+          71
+        </td>
+        <td>
+          153
+        </td>
+        <td>
+          2878
+          -
+          2879
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          &quot;&quot;
+        </td>
+      </tr><tr>
+        <td>
+          71
+        </td>
+        <td>
+          152
+        </td>
+        <td>
+          2837
+          -
+          2866
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          &quot;Service failed with status: &quot;
+        </td>
+      </tr><tr>
+        <td>
+          72
+        </td>
+        <td>
+          157
+        </td>
+        <td>
+          2889
+          -
+          2897
+        </td>
+        <td>
+          Throw
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          throw ex
+        </td>
+      </tr><tr>
+        <td>
+          74
+        </td>
+        <td>
+          164
+        </td>
+        <td>
+          2923
+          -
+          2923
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.executionContext
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.executionContext
+        </td>
+      </tr><tr>
+        <td>
+          74
+        </td>
+        <td>
+          163
+        </td>
+        <td>
+          2923
+          -
+          2923
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.$anonfun.&lt;init&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          new $anonfun()
+        </td>
+      </tr><tr>
+        <td>
+          74
+        </td>
+        <td>
+          165
+        </td>
+        <td>
+          2404
+          -
+          3005
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          scala.concurrent.Future.recoverWith
+        </td>
+        <td style="background: #F0ADAD">
+          {
+  val response: scala.concurrent.Future[akka.http.scaladsl.model.HttpResponse] = Blogs.this.dispatchRequest({
+    &lt;artifact&gt; val x$9: akka.http.scaladsl.model.Uri = model.this.Uri.apply(Blogs.this.config.getString(&quot;uri&quot;).+(&quot;?page=1&quot;));
+    &lt;artifact&gt; val x$10: akka.http.scaladsl.model.HttpMethod = akka.http.scaladsl.model.HttpRequest.apply$default$1;
+    &lt;artifact&gt; val x$11: scala.collection.immutable.Seq[akka.http.scaladsl.model.HttpHeader] @scala.reflect.internal.annotations.uncheckedBounds = akka.http.scaladsl.model.HttpRequest.apply$default$3;
+    &lt;artifact&gt; val x$12: akka.http.scaladsl.model.RequestEntity = akka.http.scaladsl.model.HttpRequest.apply$default$4;
+    &lt;artifact&gt; val x$13: akka.http.scaladsl.model.HttpProtocol = akka.http.scaladsl.model.HttpRequest.apply$default$5;
+    akka.http.scaladsl.model.HttpRequest.apply(x$10, x$9, x$11, x$12, x$13)
+  });
+  response.flatMap[Int](((res: akka.http.scaladsl.model.HttpResponse) =&gt; if (res.status.isSuccess())
+    akka.http.scaladsl.unmarshalling.Unmarshal.apply[akka.http.scaladsl.model.ResponseEntity](res.entity).to[String](unmarshalling.this.Unmarshaller.stringUnmarshaller, Blogs.this.executionContext, stream.this.Materializer.matFromSystem(Blogs.this.system)).map[Int](((count: String) =&gt; {
+      val parsedCount: net.liftweb.json.JValue = net.liftweb.json.`package`.parse(count);
+      val totalPosts: Int = parsedCount.\(&quot;found&quot;).extract[Int](Blogs.this.formats, scala.reflect.ManifestFactory.Int);
+      totalPosts
+    }))(Blogs.this.executionContext)
+  else
+    {
+      val ex: RuntimeException = new scala.`package`.RuntimeException(scala.StringContext.apply(&quot;Service failed with status: &quot;, &quot;&quot;).s(res.status));
+      throw ex
+    }))(Blogs.this.executionContext)
+}.recoverWith[Int](({
+  @SerialVersionUID(value = 0) final &lt;synthetic&gt; class $anonfun extends scala.runtime.AbstractPartialFunction[Throwable,scala.concurrent.Future[Int]] with Serializable {
+    def &lt;init&gt;(): &lt;$anon: Throwable =&gt; scala.concurrent.Future[Int]&gt; = {
+      $anonfun.super.&lt;init&gt;();
+      ()
+    };
+    final override def applyOrElse[A1 &lt;: Throwable, B1 &gt;: scala.concurrent.Future[Int]](x2: A1, default: A1 =&gt; B1): B1 = ((x2.asInstanceOf[Throwable]: Throwable): Throwable @unchecked) match {
+      case (ex @ (_: Exception)) =&gt; scala.concurrent.Future.failed[Nothing](new scala.`package`.Exception(&quot;Service failed&quot;, ex))
+      case (defaultCase$ @ _) =&gt; default.apply(x2)
+    };
+    final def isDefinedAt(x2: Throwable): Boolean = ((x2.asInstanceOf[Throwable]: Throwable): Throwable @unchecked) match {
+      case (ex @ (_: Exception)) =&gt; true
+      case (defaultCase$ @ _) =&gt; false
+    }
+  };
+  new $anonfun()
+}: PartialFunction[Throwable,scala.concurrent.Future[Int]]))(Blogs.this.executionContext)
+        </td>
+      </tr><tr>
+        <td>
+          75
+        </td>
+        <td>
+          162
+        </td>
+        <td>
+          2951
+          -
+          3001
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.concurrent.Future.failed
+        </td>
+        <td style="background: #F0ADAD">
+          scala.concurrent.Future.failed[Nothing](new scala.`package`.Exception(&quot;Service failed&quot;, ex))
+        </td>
+      </tr><tr>
+        <td>
+          75
+        </td>
+        <td>
+          161
+        </td>
+        <td>
+          2965
+          -
+          3000
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.lang.Exception.&lt;init&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          new scala.`package`.Exception(&quot;Service failed&quot;, ex)
+        </td>
+      </tr><tr>
+        <td>
+          87
+        </td>
+        <td>
+          166
+        </td>
+        <td>
+          3497
+          -
+          3514
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Int.&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          currentPage.&gt;(end)
+        </td>
+      </tr><tr>
+        <td>
+          88
+        </td>
+        <td>
+          167
+        </td>
+        <td>
+          3526
+          -
+          3545
+        </td>
+        <td>
+          Ident
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.blogsAndAuthorsList
+        </td>
+        <td style="background: #F0ADAD">
+          blogsAndAuthorsList
+        </td>
+      </tr><tr>
+        <td>
+          89
+        </td>
+        <td>
+          193
+        </td>
+        <td>
+          3559
+          -
+          4058
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          {
+  val response: scala.concurrent.Future[akka.http.scaladsl.model.HttpResponse] = Blogs.this.dispatchRequest({
+    &lt;artifact&gt; val x$14: akka.http.scaladsl.model.Uri = model.this.Uri.apply(Blogs.this.config.getString(&quot;uri&quot;).+(&quot;?page=&quot;).+(currentPage));
+    &lt;artifact&gt; val x$15: akka.http.scaladsl.model.HttpMethod = akka.http.scaladsl.model.HttpRequest.apply$default$1;
+    &lt;artifact&gt; val x$16: scala.collection.immutable.Seq[akka.http.scaladsl.model.HttpHeader] @scala.reflect.internal.annotations.uncheckedBounds = akka.http.scaladsl.model.HttpRequest.apply$default$3;
+    &lt;artifact&gt; val x$17: akka.http.scaladsl.model.RequestEntity = akka.http.scaladsl.model.HttpRequest.apply$default$4;
+    &lt;artifact&gt; val x$18: akka.http.scaladsl.model.HttpProtocol = akka.http.scaladsl.model.HttpRequest.apply$default$5;
+    akka.http.scaladsl.model.HttpRequest.apply(x$15, x$14, x$16, x$17, x$18)
+  });
+  getBlogs(blogsAndAuthorsList.flatMap[com.knoldus.leader_board.BlogAuthor](((blogsAndAuthorsList: com.knoldus.leader_board.BlogAuthor) =&gt; response.flatMap[String](((res: akka.http.scaladsl.model.HttpResponse) =&gt; akka.http.scaladsl.unmarshalling.Unmarshal.apply[akka.http.scaladsl.model.ResponseEntity](res.entity).to[String](unmarshalling.this.Unmarshaller.stringUnmarshaller, Blogs.this.executionContext, stream.this.Materializer.matFromSystem(Blogs.this.system))))(Blogs.this.executionContext).map[com.knoldus.leader_board.BlogAuthor](((blogs: String) =&gt; com.knoldus.leader_board.BlogAuthor.apply({
+    &lt;synthetic&gt; &lt;artifact&gt; val x$1: List[com.knoldus.leader_board.Blog] = blogsAndAuthorsList.blogs;
+    Blogs.this.getListOfBlogs(blogs).:::[com.knoldus.leader_board.Blog](x$1)
+  }, {
+  &lt;synthetic&gt; &lt;artifact&gt; val x$2: List[com.knoldus.leader_board.Author] = blogsAndAuthorsList.authors;
+  Blogs.this.getListOfAuthors(blogs).:::[com.knoldus.leader_board.Author](x$2)
+}.distinct)))(Blogs.this.executionContext)))(Blogs.this.executionContext), currentPage.+(1), end)
+}
+        </td>
+      </tr><tr>
+        <td>
+          90
+        </td>
+        <td>
+          175
+        </td>
+        <td>
+          3606
+          -
+          3701
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.dispatchRequest
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.dispatchRequest({
+  &lt;artifact&gt; val x$14: akka.http.scaladsl.model.Uri = model.this.Uri.apply(Blogs.this.config.getString(&quot;uri&quot;).+(&quot;?page=&quot;).+(currentPage));
+  &lt;artifact&gt; val x$15: akka.http.scaladsl.model.HttpMethod = akka.http.scaladsl.model.HttpRequest.apply$default$1;
+  &lt;artifact&gt; val x$16: scala.collection.immutable.Seq[akka.http.scaladsl.model.HttpHeader] @scala.reflect.internal.annotations.uncheckedBounds = akka.http.scaladsl.model.HttpRequest.apply$default$3;
+  &lt;artifact&gt; val x$17: akka.http.scaladsl.model.RequestEntity = akka.http.scaladsl.model.HttpRequest.apply$default$4;
+  &lt;artifact&gt; val x$18: akka.http.scaladsl.model.HttpProtocol = akka.http.scaladsl.model.HttpRequest.apply$default$5;
+  akka.http.scaladsl.model.HttpRequest.apply(x$15, x$14, x$16, x$17, x$18)
+})
+        </td>
+      </tr><tr>
+        <td>
+          91
+        </td>
+        <td>
+          173
+        </td>
+        <td>
+          3633
+          -
+          3633
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          akka.http.scaladsl.model.HttpRequest.apply$default$5
+        </td>
+        <td style="background: #F0ADAD">
+          akka.http.scaladsl.model.HttpRequest.apply$default$5
+        </td>
+      </tr><tr>
+        <td>
+          91
+        </td>
+        <td>
+          169
+        </td>
+        <td>
+          3651
+          -
+          3699
+        </td>
+        <td>
+          ApplyImplicitView
+        </td>
+        <td>
+          akka.http.scaladsl.model.Uri.apply
+        </td>
+        <td style="background: #F0ADAD">
+          model.this.Uri.apply(Blogs.this.config.getString(&quot;uri&quot;).+(&quot;?page=&quot;).+(currentPage))
+        </td>
+      </tr><tr>
+        <td>
+          91
+        </td>
+        <td>
+          172
+        </td>
+        <td>
+          3633
+          -
+          3633
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          akka.http.scaladsl.model.HttpRequest.apply$default$4
+        </td>
+        <td style="background: #F0ADAD">
+          akka.http.scaladsl.model.HttpRequest.apply$default$4
+        </td>
+      </tr><tr>
+        <td>
+          91
+        </td>
+        <td>
+          174
+        </td>
+        <td>
+          3633
+          -
+          3700
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          akka.http.scaladsl.model.HttpRequest.apply
+        </td>
+        <td style="background: #F0ADAD">
+          akka.http.scaladsl.model.HttpRequest.apply(x$15, x$14, x$16, x$17, x$18)
+        </td>
+      </tr><tr>
+        <td>
+          91
+        </td>
+        <td>
+          168
+        </td>
+        <td>
+          3651
+          -
+          3699
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.lang.String.+
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.config.getString(&quot;uri&quot;).+(&quot;?page=&quot;).+(currentPage)
+        </td>
+      </tr><tr>
+        <td>
+          91
+        </td>
+        <td>
+          171
+        </td>
+        <td>
+          3633
+          -
+          3633
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          akka.http.scaladsl.model.HttpRequest.apply$default$3
+        </td>
+        <td style="background: #F0ADAD">
+          akka.http.scaladsl.model.HttpRequest.apply$default$3
+        </td>
+      </tr><tr>
+        <td>
+          91
+        </td>
+        <td>
+          170
+        </td>
+        <td>
+          3633
+          -
+          3633
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          akka.http.scaladsl.model.HttpRequest.apply$default$1
+        </td>
+        <td style="background: #F0ADAD">
+          akka.http.scaladsl.model.HttpRequest.apply$default$1
+        </td>
+      </tr><tr>
+        <td>
+          92
+        </td>
+        <td>
+          190
+        </td>
+        <td>
+          3719
+          -
+          4027
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          scala.concurrent.Future.flatMap
+        </td>
+        <td style="background: #F0ADAD">
+          blogsAndAuthorsList.flatMap[com.knoldus.leader_board.BlogAuthor](((blogsAndAuthorsList: com.knoldus.leader_board.BlogAuthor) =&gt; response.flatMap[String](((res: akka.http.scaladsl.model.HttpResponse) =&gt; akka.http.scaladsl.unmarshalling.Unmarshal.apply[akka.http.scaladsl.model.ResponseEntity](res.entity).to[String](unmarshalling.this.Unmarshaller.stringUnmarshaller, Blogs.this.executionContext, stream.this.Materializer.matFromSystem(Blogs.this.system))))(Blogs.this.executionContext).map[com.knoldus.leader_board.BlogAuthor](((blogs: String) =&gt; com.knoldus.leader_board.BlogAuthor.apply({
+  &lt;synthetic&gt; &lt;artifact&gt; val x$1: List[com.knoldus.leader_board.Blog] = blogsAndAuthorsList.blogs;
+  Blogs.this.getListOfBlogs(blogs).:::[com.knoldus.leader_board.Blog](x$1)
+}, {
+  &lt;synthetic&gt; &lt;artifact&gt; val x$2: List[com.knoldus.leader_board.Author] = blogsAndAuthorsList.authors;
+  Blogs.this.getListOfAuthors(blogs).:::[com.knoldus.leader_board.Author](x$2)
+}.distinct)))(Blogs.this.executionContext)))(Blogs.this.executionContext)
+        </td>
+      </tr><tr>
+        <td>
+          92
+        </td>
+        <td>
+          189
+        </td>
+        <td>
+          3746
+          -
+          3746
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.executionContext
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.executionContext
+        </td>
+      </tr><tr>
+        <td>
+          92
+        </td>
+        <td>
+          192
+        </td>
+        <td>
+          3710
+          -
+          4050
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.getBlogs
+        </td>
+        <td style="background: #F0ADAD">
+          getBlogs(blogsAndAuthorsList.flatMap[com.knoldus.leader_board.BlogAuthor](((blogsAndAuthorsList: com.knoldus.leader_board.BlogAuthor) =&gt; response.flatMap[String](((res: akka.http.scaladsl.model.HttpResponse) =&gt; akka.http.scaladsl.unmarshalling.Unmarshal.apply[akka.http.scaladsl.model.ResponseEntity](res.entity).to[String](unmarshalling.this.Unmarshaller.stringUnmarshaller, Blogs.this.executionContext, stream.this.Materializer.matFromSystem(Blogs.this.system))))(Blogs.this.executionContext).map[com.knoldus.leader_board.BlogAuthor](((blogs: String) =&gt; com.knoldus.leader_board.BlogAuthor.apply({
+  &lt;synthetic&gt; &lt;artifact&gt; val x$1: List[com.knoldus.leader_board.Blog] = blogsAndAuthorsList.blogs;
+  Blogs.this.getListOfBlogs(blogs).:::[com.knoldus.leader_board.Blog](x$1)
+}, {
+  &lt;synthetic&gt; &lt;artifact&gt; val x$2: List[com.knoldus.leader_board.Author] = blogsAndAuthorsList.authors;
+  Blogs.this.getListOfAuthors(blogs).:::[com.knoldus.leader_board.Author](x$2)
+}.distinct)))(Blogs.this.executionContext)))(Blogs.this.executionContext), currentPage.+(1), end)
+        </td>
+      </tr><tr>
+        <td>
+          93
+        </td>
+        <td>
+          182
+        </td>
+        <td>
+          3796
+          -
+          3796
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.executionContext
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.executionContext
+        </td>
+      </tr><tr>
+        <td>
+          93
+        </td>
+        <td>
+          176
+        </td>
+        <td>
+          3814
+          -
+          3824
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          akka.http.scaladsl.model.HttpResponse.entity
+        </td>
+        <td style="background: #F0ADAD">
+          res.entity
+        </td>
+      </tr><tr>
+        <td>
+          93
+        </td>
+        <td>
+          178
+        </td>
+        <td>
+          3828
+          -
+          3828
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.executionContext
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.executionContext
+        </td>
+      </tr><tr>
+        <td>
+          93
+        </td>
+        <td>
+          181
+        </td>
+        <td>
+          3804
+          -
+          3836
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          akka.http.scaladsl.unmarshalling.Unmarshal.to
+        </td>
+        <td style="background: #F0ADAD">
+          akka.http.scaladsl.unmarshalling.Unmarshal.apply[akka.http.scaladsl.model.ResponseEntity](res.entity).to[String](unmarshalling.this.Unmarshaller.stringUnmarshaller, Blogs.this.executionContext, stream.this.Materializer.matFromSystem(Blogs.this.system))
+        </td>
+      </tr><tr>
+        <td>
+          93
+        </td>
+        <td>
+          180
+        </td>
+        <td>
+          3828
+          -
+          3828
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          akka.stream.Materializer.matFromSystem
+        </td>
+        <td style="background: #F0ADAD">
+          stream.this.Materializer.matFromSystem(Blogs.this.system)
+        </td>
+      </tr><tr>
+        <td>
+          93
+        </td>
+        <td>
+          177
+        </td>
+        <td>
+          3828
+          -
+          3828
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          akka.http.scaladsl.unmarshalling.PredefinedFromEntityUnmarshallers.stringUnmarshaller
+        </td>
+        <td style="background: #F0ADAD">
+          unmarshalling.this.Unmarshaller.stringUnmarshaller
+        </td>
+      </tr><tr>
+        <td>
+          93
+        </td>
+        <td>
+          179
+        </td>
+        <td>
+          3828
+          -
+          3828
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.system
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.system
+        </td>
+      </tr><tr>
+        <td>
+          94
+        </td>
+        <td>
+          187
+        </td>
+        <td>
+          3854
+          -
+          3854
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.executionContext
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.executionContext
+        </td>
+      </tr><tr>
+        <td>
+          94
+        </td>
+        <td>
+          188
+        </td>
+        <td>
+          3780
+          -
+          4026
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          scala.concurrent.Future.map
+        </td>
+        <td style="background: #F0ADAD">
+          response.flatMap[String](((res: akka.http.scaladsl.model.HttpResponse) =&gt; akka.http.scaladsl.unmarshalling.Unmarshal.apply[akka.http.scaladsl.model.ResponseEntity](res.entity).to[String](unmarshalling.this.Unmarshaller.stringUnmarshaller, Blogs.this.executionContext, stream.this.Materializer.matFromSystem(Blogs.this.system))))(Blogs.this.executionContext).map[com.knoldus.leader_board.BlogAuthor](((blogs: String) =&gt; com.knoldus.leader_board.BlogAuthor.apply({
+  &lt;synthetic&gt; &lt;artifact&gt; val x$1: List[com.knoldus.leader_board.Blog] = blogsAndAuthorsList.blogs;
+  Blogs.this.getListOfBlogs(blogs).:::[com.knoldus.leader_board.Blog](x$1)
+}, {
+  &lt;synthetic&gt; &lt;artifact&gt; val x$2: List[com.knoldus.leader_board.Author] = blogsAndAuthorsList.authors;
+  Blogs.this.getListOfAuthors(blogs).:::[com.knoldus.leader_board.Author](x$2)
+}.distinct)))(Blogs.this.executionContext)
+        </td>
+      </tr><tr>
+        <td>
+          95
+        </td>
+        <td>
+          183
+        </td>
+        <td>
+          3915
+          -
+          3940
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.collection.immutable.List.:::
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.getListOfBlogs(blogs).:::[com.knoldus.leader_board.Blog](x$1)
+        </td>
+      </tr><tr>
+        <td>
+          95
+        </td>
+        <td>
+          186
+        </td>
+        <td>
+          3878
+          -
+          4025
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.leader_board.BlogAuthor.apply
+        </td>
+        <td style="background: #F0ADAD">
+          com.knoldus.leader_board.BlogAuthor.apply({
+  &lt;synthetic&gt; &lt;artifact&gt; val x$1: List[com.knoldus.leader_board.Blog] = blogsAndAuthorsList.blogs;
+  Blogs.this.getListOfBlogs(blogs).:::[com.knoldus.leader_board.Blog](x$1)
+}, {
+  &lt;synthetic&gt; &lt;artifact&gt; val x$2: List[com.knoldus.leader_board.Author] = blogsAndAuthorsList.authors;
+  Blogs.this.getListOfAuthors(blogs).:::[com.knoldus.leader_board.Author](x$2)
+}.distinct)
+        </td>
+      </tr><tr>
+        <td>
+          96
+        </td>
+        <td>
+          191
+        </td>
+        <td>
+          4029
+          -
+          4044
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Int.+
+        </td>
+        <td style="background: #F0ADAD">
+          currentPage.+(1)
+        </td>
+      </tr><tr>
+        <td>
+          96
+        </td>
+        <td>
+          185
+        </td>
+        <td>
+          3959
+          -
+          4024
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          scala.collection.SeqLike.distinct
+        </td>
+        <td style="background: #F0ADAD">
+          {
+  &lt;synthetic&gt; &lt;artifact&gt; val x$2: List[com.knoldus.leader_board.Author] = blogsAndAuthorsList.authors;
+  Blogs.this.getListOfAuthors(blogs).:::[com.knoldus.leader_board.Author](x$2)
+}.distinct
+        </td>
+      </tr><tr>
+        <td>
+          96
+        </td>
+        <td>
+          184
+        </td>
+        <td>
+          3987
+          -
+          4014
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.collection.immutable.List.:::
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.getListOfAuthors(blogs).:::[com.knoldus.leader_board.Author](x$2)
+        </td>
+      </tr><tr>
+        <td>
+          100
+        </td>
+        <td>
+          200
+        </td>
+        <td>
+          4096
+          -
+          4174
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.getBlogs
+        </td>
+        <td style="background: #F0ADAD">
+          getBlogs(scala.concurrent.Future.apply[com.knoldus.leader_board.BlogAuthor](com.knoldus.leader_board.BlogAuthor.apply(scala.collection.immutable.List.empty[Nothing], scala.collection.immutable.List.empty[Nothing]))(Blogs.this.executionContext), 1, lastPage)
+        </td>
+      </tr><tr>
+        <td>
+          100
+        </td>
+        <td>
+          198
+        </td>
+        <td>
+          4105
+          -
+          4160
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          scala.concurrent.Future.apply
+        </td>
+        <td style="background: #F0ADAD">
+          scala.concurrent.Future.apply[com.knoldus.leader_board.BlogAuthor](com.knoldus.leader_board.BlogAuthor.apply(scala.collection.immutable.List.empty[Nothing], scala.collection.immutable.List.empty[Nothing]))(Blogs.this.executionContext)
+        </td>
+      </tr><tr>
+        <td>
+          100
+        </td>
+        <td>
+          197
+        </td>
+        <td>
+          4112
+          -
+          4112
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.executionContext
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.executionContext
+        </td>
+      </tr><tr>
+        <td>
+          101
+        </td>
+        <td>
+          194
+        </td>
+        <td>
+          4131
+          -
+          4141
+        </td>
+        <td>
+          TypeApply
+        </td>
+        <td>
+          scala.collection.immutable.List.empty
+        </td>
+        <td style="background: #F0ADAD">
+          scala.collection.immutable.List.empty[Nothing]
+        </td>
+      </tr><tr>
+        <td>
+          101
+        </td>
+        <td>
+          196
+        </td>
+        <td>
+          4120
+          -
+          4154
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.leader_board.BlogAuthor.apply
+        </td>
+        <td style="background: #F0ADAD">
+          com.knoldus.leader_board.BlogAuthor.apply(scala.collection.immutable.List.empty[Nothing], scala.collection.immutable.List.empty[Nothing])
+        </td>
+      </tr><tr>
+        <td>
+          101
+        </td>
+        <td>
+          195
+        </td>
+        <td>
+          4143
+          -
+          4153
+        </td>
+        <td>
+          TypeApply
+        </td>
+        <td>
+          scala.collection.immutable.List.empty
+        </td>
+        <td style="background: #F0ADAD">
+          scala.collection.immutable.List.empty[Nothing]
+        </td>
+      </tr><tr>
+        <td>
+          102
+        </td>
+        <td>
+          199
+        </td>
+        <td>
+          4162
+          -
+          4163
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          1
+        </td>
+      </tr><tr>
+        <td>
+          104
+        </td>
+        <td>
+          205
+        </td>
+        <td>
+          3345
+          -
+          4297
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          scala.concurrent.Future.recoverWith
+        </td>
+        <td style="background: #F0ADAD">
+          {
+  @scala.annotation.tailrec def getBlogs(blogsAndAuthorsList: scala.concurrent.Future[com.knoldus.leader_board.BlogAuthor], currentPage: Int, end: Int): scala.concurrent.Future[com.knoldus.leader_board.BlogAuthor] = if (currentPage.&gt;(end))
+    blogsAndAuthorsList
+  else
+    {
+      val response: scala.concurrent.Future[akka.http.scaladsl.model.HttpResponse] = Blogs.this.dispatchRequest({
+        &lt;artifact&gt; val x$14: akka.http.scaladsl.model.Uri = model.this.Uri.apply(Blogs.this.config.getString(&quot;uri&quot;).+(&quot;?page=&quot;).+(currentPage));
+        &lt;artifact&gt; val x$15: akka.http.scaladsl.model.HttpMethod = akka.http.scaladsl.model.HttpRequest.apply$default$1;
+        &lt;artifact&gt; val x$16: scala.collection.immutable.Seq[akka.http.scaladsl.model.HttpHeader] @scala.reflect.internal.annotations.uncheckedBounds = akka.http.scaladsl.model.HttpRequest.apply$default$3;
+        &lt;artifact&gt; val x$17: akka.http.scaladsl.model.RequestEntity = akka.http.scaladsl.model.HttpRequest.apply$default$4;
+        &lt;artifact&gt; val x$18: akka.http.scaladsl.model.HttpProtocol = akka.http.scaladsl.model.HttpRequest.apply$default$5;
+        akka.http.scaladsl.model.HttpRequest.apply(x$15, x$14, x$16, x$17, x$18)
+      });
+      getBlogs(blogsAndAuthorsList.flatMap[com.knoldus.leader_board.BlogAuthor](((blogsAndAuthorsList: com.knoldus.leader_board.BlogAuthor) =&gt; response.flatMap[String](((res: akka.http.scaladsl.model.HttpResponse) =&gt; akka.http.scaladsl.unmarshalling.Unmarshal.apply[akka.http.scaladsl.model.ResponseEntity](res.entity).to[String](unmarshalling.this.Unmarshaller.stringUnmarshaller, Blogs.this.executionContext, stream.this.Materializer.matFromSystem(Blogs.this.system))))(Blogs.this.executionContext).map[com.knoldus.leader_board.BlogAuthor](((blogs: String) =&gt; com.knoldus.leader_board.BlogAuthor.apply({
+        &lt;synthetic&gt; &lt;artifact&gt; val x$1: List[com.knoldus.leader_board.Blog] = blogsAndAuthorsList.blogs;
+        Blogs.this.getListOfBlogs(blogs).:::[com.knoldus.leader_board.Blog](x$1)
+      }, {
+  &lt;synthetic&gt; &lt;artifact&gt; val x$2: List[com.knoldus.leader_board.Author] = blogsAndAuthorsList.authors;
+  Blogs.this.getListOfAuthors(blogs).:::[com.knoldus.leader_board.Author](x$2)
+}.distinct)))(Blogs.this.executionContext)))(Blogs.this.executionContext), currentPage.+(1), end)
+    };
+  val blogsAndAuthorsList: scala.concurrent.Future[com.knoldus.leader_board.BlogAuthor] = getBlogs(scala.concurrent.Future.apply[com.knoldus.leader_board.BlogAuthor](com.knoldus.leader_board.BlogAuthor.apply(scala.collection.immutable.List.empty[Nothing], scala.collection.immutable.List.empty[Nothing]))(Blogs.this.executionContext), 1, lastPage);
+  blogsAndAuthorsList
+}.recoverWith[com.knoldus.leader_board.BlogAuthor](({
+  @SerialVersionUID(value = 0) final &lt;synthetic&gt; class $anonfun extends scala.runtime.AbstractPartialFunction[Throwable,scala.concurrent.Future[com.knoldus.leader_board.BlogAuthor]] with Serializable {
+    def &lt;init&gt;(): &lt;$anon: Throwable =&gt; scala.concurrent.Future[com.knoldus.leader_board.BlogAuthor]&gt; = {
+      $anonfun.super.&lt;init&gt;();
+      ()
+    };
+    final override def applyOrElse[A1 &lt;: Throwable, B1 &gt;: scala.concurrent.Future[com.knoldus.leader_board.BlogAuthor]](x3: A1, default: A1 =&gt; B1): B1 = ((x3.asInstanceOf[Throwable]: Throwable): Throwable @unchecked) match {
+      case (ex @ (_: Exception)) =&gt; scala.concurrent.Future.failed[Nothing](new scala.`package`.Exception(&quot;Service failed&quot;, ex))
+      case (defaultCase$ @ _) =&gt; default.apply(x3)
+    };
+    final def isDefinedAt(x3: Throwable): Boolean = ((x3.asInstanceOf[Throwable]: Throwable): Throwable @unchecked) match {
+      case (ex @ (_: Exception)) =&gt; true
+      case (defaultCase$ @ _) =&gt; false
+    }
+  };
+  new $anonfun()
+}: PartialFunction[Throwable,scala.concurrent.Future[com.knoldus.leader_board.BlogAuthor]]))(Blogs.this.executionContext)
+        </td>
+      </tr><tr>
+        <td>
+          104
+        </td>
+        <td>
+          204
+        </td>
+        <td>
+          4215
+          -
+          4215
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.executionContext
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.executionContext
+        </td>
+      </tr><tr>
+        <td>
+          104
+        </td>
+        <td>
+          203
+        </td>
+        <td>
+          4215
+          -
+          4215
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.$anonfun.&lt;init&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          new $anonfun()
+        </td>
+      </tr><tr>
+        <td>
+          105
+        </td>
+        <td>
+          202
+        </td>
+        <td>
+          4243
+          -
+          4293
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.concurrent.Future.failed
+        </td>
+        <td style="background: #F0ADAD">
+          scala.concurrent.Future.failed[Nothing](new scala.`package`.Exception(&quot;Service failed&quot;, ex))
+        </td>
+      </tr><tr>
+        <td>
+          105
+        </td>
+        <td>
+          201
+        </td>
+        <td>
+          4257
+          -
+          4292
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.lang.Exception.&lt;init&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          new scala.`package`.Exception(&quot;Service failed&quot;, ex)
+        </td>
+      </tr><tr>
+        <td>
+          110
+        </td>
+        <td>
+          206
+        </td>
+        <td>
+          4415
+          -
+          4429
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.connectionFlow
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.connectionFlow
+        </td>
+      </tr><tr>
+        <td>
+          111
+        </td>
+        <td>
+          209
+        </td>
+        <td>
+          4445
+          -
+          4445
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          akka.stream.Materializer.matFromSystem
+        </td>
+        <td style="background: #F0ADAD">
+          stream.this.Materializer.matFromSystem(Blogs.this.system)
+        </td>
+      </tr><tr>
+        <td>
+          111
+        </td>
+        <td>
+          208
+        </td>
+        <td>
+          4445
+          -
+          4445
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.system
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.system
+        </td>
+      </tr><tr>
+        <td>
+          111
+        </td>
+        <td>
+          207
+        </td>
+        <td>
+          4446
+          -
+          4455
+        </td>
+        <td>
+          TypeApply
+        </td>
+        <td>
+          akka.stream.scaladsl.Sink.head
+        </td>
+        <td style="background: #F0ADAD">
+          akka.stream.scaladsl.Sink.head[akka.http.scaladsl.model.HttpResponse]
+        </td>
+      </tr><tr>
+        <td>
+          111
+        </td>
+        <td>
+          210
+        </td>
+        <td>
+          4381
+          -
+          4456
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          akka.stream.scaladsl.Source.runWith
+        </td>
+        <td style="background: #F0ADAD">
+          akka.stream.scaladsl.Source.single[akka.http.scaladsl.model.HttpRequest](request).via[akka.http.scaladsl.model.HttpResponse, scala.concurrent.Future[akka.http.scaladsl.Http.OutgoingConnection]](Blogs.this.connectionFlow).runWith[scala.concurrent.Future[akka.http.scaladsl.model.HttpResponse]](akka.stream.scaladsl.Sink.head[akka.http.scaladsl.model.HttpResponse])(stream.this.Materializer.matFromSystem(Blogs.this.system))
+        </td>
+      </tr><tr>
+        <td>
+          123
+        </td>
+        <td>
+          211
+        </td>
+        <td>
+          4886
+          -
+          4898
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          net.liftweb.json.parse
+        </td>
+        <td style="background: #F0ADAD">
+          net.liftweb.json.`package`.parse(blogs)
+        </td>
+      </tr><tr>
+        <td>
+          124
+        </td>
+        <td>
+          261
+        </td>
+        <td>
+          4922
+          -
+          6090
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          scala.collection.immutable.List.map
+        </td>
+        <td style="background: #F0ADAD">
+          parsedBlogs.\(&quot;posts&quot;).children.map[com.knoldus.leader_board.Blog, List[com.knoldus.leader_board.Blog]](((blog: net.liftweb.json.JsonAST.JValue) =&gt; {
+  val blogId: Option[Int] = blog.\(&quot;ID&quot;).extract[Option[Int]](Blogs.this.formats, scala.reflect.ManifestFactory.classType[Option[Int]](classOf[scala.Option], scala.reflect.ManifestFactory.Int));
+  val authorLogin: Option[String] = blog.\(&quot;author&quot;).\(&quot;login&quot;).extract[Option[String]](Blogs.this.formats, scala.reflect.ManifestFactory.classType[Option[String]](classOf[scala.Option], scala.reflect.ManifestFactory.classType[String](classOf[java.lang.String])));
+  val date: String = blog.\(&quot;date&quot;).extract[String](Blogs.this.formats, scala.reflect.ManifestFactory.classType[String](classOf[java.lang.String]));
+  val odtInstanceAtOffset: java.time.ZonedDateTime = java.time.ZonedDateTime.parse(date);
+  val odtInstanceAtUTC: java.time.ZonedDateTime = odtInstanceAtOffset.withZoneSameInstant(java.time.ZoneOffset.UTC);
+  val publishedOn: java.sql.Timestamp = java.sql.Timestamp.from(odtInstanceAtUTC.toInstant());
+  val title: Option[String] = blog.\(&quot;title&quot;).extract[Option[String]](Blogs.this.formats, scala.reflect.ManifestFactory.classType[Option[String]](classOf[scala.Option], scala.reflect.ManifestFactory.classType[String](classOf[java.lang.String])));
+  val fetchMaxDate: Option[java.sql.Timestamp] = Blogs.this.fetchData.fetchMaxBlogPublicationDate;
+  val minimumTime: java.time.Instant = java.time.Instant.parse(&quot;0000-04-01T09:37:10Z&quot;);
+  val parsedDate: java.sql.Timestamp = java.sql.Timestamp.from(minimumTime);
+  fetchMaxDate match {
+    case (value: java.sql.Timestamp)Some[java.sql.Timestamp]((value @ _)) =&gt; {
+      val date: java.sql.Timestamp = value;
+      if (publishedOn.compareTo(date).==(1))
+        com.knoldus.leader_board.Blog.apply(blogId, authorLogin, publishedOn, title)
+      else
+        com.knoldus.leader_board.Blog.apply(scala.None, scala.None, parsedDate, scala.None)
+    }
+    case scala.None =&gt; if (publishedOn.compareTo(parsedDate).==(1))
+      com.knoldus.leader_board.Blog.apply(blogId, authorLogin, publishedOn, title)
+    else
+      com.knoldus.leader_board.Blog.apply(scala.None, scala.None, parsedDate, scala.None)
+  }
+}))(immutable.this.List.canBuildFrom[com.knoldus.leader_board.Blog])
+        </td>
+      </tr><tr>
+        <td>
+          124
+        </td>
+        <td>
+          212
+        </td>
+        <td>
+          4936
+          -
+          4943
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          &quot;posts&quot;
+        </td>
+      </tr><tr>
+        <td>
+          124
+        </td>
+        <td>
+          260
+        </td>
+        <td>
+          4954
+          -
+          4954
+        </td>
+        <td>
+          TypeApply
+        </td>
+        <td>
+          scala.collection.immutable.List.canBuildFrom
+        </td>
+        <td style="background: #F0ADAD">
+          immutable.this.List.canBuildFrom[com.knoldus.leader_board.Blog]
+        </td>
+      </tr><tr>
+        <td>
+          125
+        </td>
+        <td>
+          218
+        </td>
+        <td>
+          4988
+          -
+          5021
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          net.liftweb.json.JsonAST.JValue.extract
+        </td>
+        <td style="background: #F0ADAD">
+          blog.\(&quot;ID&quot;).extract[Option[Int]](Blogs.this.formats, scala.reflect.ManifestFactory.classType[Option[Int]](classOf[scala.Option], scala.reflect.ManifestFactory.Int))
+        </td>
+      </tr><tr>
+        <td>
+          125
+        </td>
+        <td>
+          214
+        </td>
+        <td>
+          5008
+          -
+          5008
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.formats
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.formats
+        </td>
+      </tr><tr>
+        <td>
+          125
+        </td>
+        <td>
+          217
+        </td>
+        <td>
+          5008
+          -
+          5008
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.reflect.ManifestFactory.classType
+        </td>
+        <td style="background: #F0ADAD">
+          scala.reflect.ManifestFactory.classType[Option[Int]](classOf[scala.Option], scala.reflect.ManifestFactory.Int)
+        </td>
+      </tr><tr>
+        <td>
+          125
+        </td>
+        <td>
+          216
+        </td>
+        <td>
+          5008
+          -
+          5008
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          scala.reflect.ManifestFactory.Int
+        </td>
+        <td style="background: #F0ADAD">
+          scala.reflect.ManifestFactory.Int
+        </td>
+      </tr><tr>
+        <td>
+          125
+        </td>
+        <td>
+          213
+        </td>
+        <td>
+          4995
+          -
+          4999
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          &quot;ID&quot;
+        </td>
+      </tr><tr>
+        <td>
+          125
+        </td>
+        <td>
+          215
+        </td>
+        <td>
+          5008
+          -
+          5008
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          classOf[scala.Option]
+        </td>
+      </tr><tr>
+        <td>
+          126
+        </td>
+        <td>
+          220
+        </td>
+        <td>
+          5065
+          -
+          5072
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          &quot;login&quot;
+        </td>
+      </tr><tr>
+        <td>
+          126
+        </td>
+        <td>
+          223
+        </td>
+        <td>
+          5081
+          -
+          5081
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.reflect.ManifestFactory.classType
+        </td>
+        <td style="background: #F0ADAD">
+          scala.reflect.ManifestFactory.classType[String](classOf[java.lang.String])
+        </td>
+      </tr><tr>
+        <td>
+          126
+        </td>
+        <td>
+          225
+        </td>
+        <td>
+          5047
+          -
+          5097
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          net.liftweb.json.JsonAST.JValue.extract
+        </td>
+        <td style="background: #F0ADAD">
+          blog.\(&quot;author&quot;).\(&quot;login&quot;).extract[Option[String]](Blogs.this.formats, scala.reflect.ManifestFactory.classType[Option[String]](classOf[scala.Option], scala.reflect.ManifestFactory.classType[String](classOf[java.lang.String])))
+        </td>
+      </tr><tr>
+        <td>
+          126
+        </td>
+        <td>
+          219
+        </td>
+        <td>
+          5054
+          -
+          5062
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          &quot;author&quot;
+        </td>
+      </tr><tr>
+        <td>
+          126
+        </td>
+        <td>
+          222
+        </td>
+        <td>
+          5081
+          -
+          5081
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          classOf[scala.Option]
+        </td>
+      </tr><tr>
+        <td>
+          126
+        </td>
+        <td>
+          221
+        </td>
+        <td>
+          5081
+          -
+          5081
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.formats
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.formats
+        </td>
+      </tr><tr>
+        <td>
+          126
+        </td>
+        <td>
+          224
+        </td>
+        <td>
+          5081
+          -
+          5081
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.reflect.ManifestFactory.classType
+        </td>
+        <td style="background: #F0ADAD">
+          scala.reflect.ManifestFactory.classType[Option[String]](classOf[scala.Option], scala.reflect.ManifestFactory.classType[String](classOf[java.lang.String]))
+        </td>
+      </tr><tr>
+        <td>
+          127
+        </td>
+        <td>
+          227
+        </td>
+        <td>
+          5138
+          -
+          5138
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.formats
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.formats
+        </td>
+      </tr><tr>
+        <td>
+          127
+        </td>
+        <td>
+          226
+        </td>
+        <td>
+          5123
+          -
+          5129
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          &quot;date&quot;
+        </td>
+      </tr><tr>
+        <td>
+          127
+        </td>
+        <td>
+          229
+        </td>
+        <td>
+          5116
+          -
+          5146
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          net.liftweb.json.JsonAST.JValue.extract
+        </td>
+        <td style="background: #F0ADAD">
+          blog.\(&quot;date&quot;).extract[String](Blogs.this.formats, scala.reflect.ManifestFactory.classType[String](classOf[java.lang.String]))
+        </td>
+      </tr><tr>
+        <td>
+          127
+        </td>
+        <td>
+          228
+        </td>
+        <td>
+          5138
+          -
+          5138
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.reflect.ManifestFactory.classType
+        </td>
+        <td style="background: #F0ADAD">
+          scala.reflect.ManifestFactory.classType[String](classOf[java.lang.String])
+        </td>
+      </tr><tr>
+        <td>
+          128
+        </td>
+        <td>
+          230
+        </td>
+        <td>
+          5179
+          -
+          5204
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.time.ZonedDateTime.parse
+        </td>
+        <td style="background: #F0ADAD">
+          java.time.ZonedDateTime.parse(date)
+        </td>
+      </tr><tr>
+        <td>
+          129
+        </td>
+        <td>
+          232
+        </td>
+        <td>
+          5234
+          -
+          5289
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.time.ZonedDateTime.withZoneSameInstant
+        </td>
+        <td style="background: #F0ADAD">
+          odtInstanceAtOffset.withZoneSameInstant(java.time.ZoneOffset.UTC)
+        </td>
+      </tr><tr>
+        <td>
+          129
+        </td>
+        <td>
+          231
+        </td>
+        <td>
+          5274
+          -
+          5288
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          java.time.ZoneOffset.UTC
+        </td>
+        <td style="background: #F0ADAD">
+          java.time.ZoneOffset.UTC
+        </td>
+      </tr><tr>
+        <td>
+          130
+        </td>
+        <td>
+          234
+        </td>
+        <td>
+          5314
+          -
+          5356
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.Timestamp.from
+        </td>
+        <td style="background: #F0ADAD">
+          java.sql.Timestamp.from(odtInstanceAtUTC.toInstant())
+        </td>
+      </tr><tr>
+        <td>
+          130
+        </td>
+        <td>
+          233
+        </td>
+        <td>
+          5329
+          -
+          5355
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.time.chrono.ChronoZonedDateTime.toInstant
+        </td>
+        <td style="background: #F0ADAD">
+          odtInstanceAtUTC.toInstant()
+        </td>
+      </tr><tr>
+        <td>
+          131
+        </td>
+        <td>
+          236
+        </td>
+        <td>
+          5399
+          -
+          5399
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.formats
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.formats
+        </td>
+      </tr><tr>
+        <td>
+          131
+        </td>
+        <td>
+          235
+        </td>
+        <td>
+          5383
+          -
+          5390
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          &quot;title&quot;
+        </td>
+      </tr><tr>
+        <td>
+          131
+        </td>
+        <td>
+          238
+        </td>
+        <td>
+          5399
+          -
+          5399
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.reflect.ManifestFactory.classType
+        </td>
+        <td style="background: #F0ADAD">
+          scala.reflect.ManifestFactory.classType[String](classOf[java.lang.String])
+        </td>
+      </tr><tr>
+        <td>
+          131
+        </td>
+        <td>
+          240
+        </td>
+        <td>
+          5376
+          -
+          5415
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          net.liftweb.json.JsonAST.JValue.extract
+        </td>
+        <td style="background: #F0ADAD">
+          blog.\(&quot;title&quot;).extract[Option[String]](Blogs.this.formats, scala.reflect.ManifestFactory.classType[Option[String]](classOf[scala.Option], scala.reflect.ManifestFactory.classType[String](classOf[java.lang.String])))
+        </td>
+      </tr><tr>
+        <td>
+          131
+        </td>
+        <td>
+          237
+        </td>
+        <td>
+          5399
+          -
+          5399
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          classOf[scala.Option]
+        </td>
+      </tr><tr>
+        <td>
+          131
+        </td>
+        <td>
+          239
+        </td>
+        <td>
+          5399
+          -
+          5399
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.reflect.ManifestFactory.classType
+        </td>
+        <td style="background: #F0ADAD">
+          scala.reflect.ManifestFactory.classType[Option[String]](classOf[scala.Option], scala.reflect.ManifestFactory.classType[String](classOf[java.lang.String]))
+        </td>
+      </tr><tr>
+        <td>
+          132
+        </td>
+        <td>
+          241
+        </td>
+        <td>
+          5441
+          -
+          5478
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.infrastructure.FetchData.fetchMaxBlogPublicationDate
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.fetchData.fetchMaxBlogPublicationDate
+        </td>
+      </tr><tr>
+        <td>
+          133
+        </td>
+        <td>
+          242
+        </td>
+        <td>
+          5503
+          -
+          5540
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.time.Instant.parse
+        </td>
+        <td style="background: #F0ADAD">
+          java.time.Instant.parse(&quot;0000-04-01T09:37:10Z&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          134
+        </td>
+        <td>
+          243
+        </td>
+        <td>
+          5564
+          -
+          5591
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.Timestamp.from
+        </td>
+        <td style="background: #F0ADAD">
+          java.sql.Timestamp.from(minimumTime)
+        </td>
+      </tr><tr>
+        <td>
+          137
+        </td>
+        <td>
+          244
+        </td>
+        <td>
+          5678
+          -
+          5710
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Int.==
+        </td>
+        <td style="background: #F0ADAD">
+          publishedOn.compareTo(date).==(1)
+        </td>
+      </tr><tr>
+        <td>
+          138
+        </td>
+        <td>
+          245
+        </td>
+        <td>
+          5726
+          -
+          5771
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.leader_board.Blog.apply
+        </td>
+        <td style="background: #F0ADAD">
+          com.knoldus.leader_board.Blog.apply(blogId, authorLogin, publishedOn, title)
+        </td>
+      </tr><tr>
+        <td>
+          138
+        </td>
+        <td>
+          246
+        </td>
+        <td>
+          5726
+          -
+          5771
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          com.knoldus.leader_board.Blog.apply
+        </td>
+        <td style="background: #F0ADAD">
+          com.knoldus.leader_board.Blog.apply(blogId, authorLogin, publishedOn, title)
+        </td>
+      </tr><tr>
+        <td>
+          141
+        </td>
+        <td>
+          247
+        </td>
+        <td>
+          5818
+          -
+          5822
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          scala.None
+        </td>
+        <td style="background: #F0ADAD">
+          scala.None
+        </td>
+      </tr><tr>
+        <td>
+          141
+        </td>
+        <td>
+          250
+        </td>
+        <td>
+          5813
+          -
+          5847
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.leader_board.Blog.apply
+        </td>
+        <td style="background: #F0ADAD">
+          com.knoldus.leader_board.Blog.apply(scala.None, scala.None, parsedDate, scala.None)
+        </td>
+      </tr><tr>
+        <td>
+          141
+        </td>
+        <td>
+          249
+        </td>
+        <td>
+          5842
+          -
+          5846
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          scala.None
+        </td>
+        <td style="background: #F0ADAD">
+          scala.None
+        </td>
+      </tr><tr>
+        <td>
+          141
+        </td>
+        <td>
+          248
+        </td>
+        <td>
+          5824
+          -
+          5828
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          scala.None
+        </td>
+        <td style="background: #F0ADAD">
+          scala.None
+        </td>
+      </tr><tr>
+        <td>
+          141
+        </td>
+        <td>
+          251
+        </td>
+        <td>
+          5813
+          -
+          5847
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          com.knoldus.leader_board.Blog.apply
+        </td>
+        <td style="background: #F0ADAD">
+          com.knoldus.leader_board.Blog.apply(scala.None, scala.None, parsedDate, scala.None)
+        </td>
+      </tr><tr>
+        <td>
+          144
+        </td>
+        <td>
+          252
+        </td>
+        <td>
+          5895
+          -
+          5933
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Int.==
+        </td>
+        <td style="background: #F0ADAD">
+          publishedOn.compareTo(parsedDate).==(1)
+        </td>
+      </tr><tr>
+        <td>
+          145
+        </td>
+        <td>
+          254
+        </td>
+        <td>
+          5949
+          -
+          5994
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          com.knoldus.leader_board.Blog.apply
+        </td>
+        <td style="background: #F0ADAD">
+          com.knoldus.leader_board.Blog.apply(blogId, authorLogin, publishedOn, title)
+        </td>
+      </tr><tr>
+        <td>
+          145
+        </td>
+        <td>
+          253
+        </td>
+        <td>
+          5949
+          -
+          5994
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.leader_board.Blog.apply
+        </td>
+        <td style="background: #F0ADAD">
+          com.knoldus.leader_board.Blog.apply(blogId, authorLogin, publishedOn, title)
+        </td>
+      </tr><tr>
+        <td>
+          148
+        </td>
+        <td>
+          256
+        </td>
+        <td>
+          6047
+          -
+          6051
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          scala.None
+        </td>
+        <td style="background: #F0ADAD">
+          scala.None
+        </td>
+      </tr><tr>
+        <td>
+          148
+        </td>
+        <td>
+          259
+        </td>
+        <td>
+          6036
+          -
+          6070
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          com.knoldus.leader_board.Blog.apply
+        </td>
+        <td style="background: #F0ADAD">
+          com.knoldus.leader_board.Blog.apply(scala.None, scala.None, parsedDate, scala.None)
+        </td>
+      </tr><tr>
+        <td>
+          148
+        </td>
+        <td>
+          258
+        </td>
+        <td>
+          6036
+          -
+          6070
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.leader_board.Blog.apply
+        </td>
+        <td style="background: #F0ADAD">
+          com.knoldus.leader_board.Blog.apply(scala.None, scala.None, parsedDate, scala.None)
+        </td>
+      </tr><tr>
+        <td>
+          148
+        </td>
+        <td>
+          255
+        </td>
+        <td>
+          6041
+          -
+          6045
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          scala.None
+        </td>
+        <td style="background: #F0ADAD">
+          scala.None
+        </td>
+      </tr><tr>
+        <td>
+          148
+        </td>
+        <td>
+          257
+        </td>
+        <td>
+          6065
+          -
+          6069
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          scala.None
+        </td>
+        <td style="background: #F0ADAD">
+          scala.None
+        </td>
+      </tr><tr>
+        <td>
+          152
+        </td>
+        <td>
+          262
+        </td>
+        <td>
+          6153
+          -
+          6179
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          scala.Option.isDefined
+        </td>
+        <td style="background: #F0ADAD">
+          blog.authorLogin.isDefined
+        </td>
+      </tr><tr>
+        <td>
+          152
+        </td>
+        <td>
+          264
+        </td>
+        <td>
+          6101
+          -
+          6180
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.collection.TraversableLike.filter
+        </td>
+        <td style="background: #F0ADAD">
+          listOfBlogs.filter(((blog: com.knoldus.leader_board.Blog) =&gt; blog.blogId.isDefined.&amp;&amp;(blog.authorLogin.isDefined)))
+        </td>
+      </tr><tr>
+        <td>
+          152
+        </td>
+        <td>
+          263
+        </td>
+        <td>
+          6128
+          -
+          6179
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Boolean.&amp;&amp;
+        </td>
+        <td style="background: #F0ADAD">
+          blog.blogId.isDefined.&amp;&amp;(blog.authorLogin.isDefined)
+        </td>
+      </tr><tr>
+        <td>
+          163
+        </td>
+        <td>
+          265
+        </td>
+        <td>
+          6591
+          -
+          6603
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          net.liftweb.json.parse
+        </td>
+        <td style="background: #F0ADAD">
+          net.liftweb.json.`package`.parse(blogs)
+        </td>
+      </tr><tr>
+        <td>
+          164
+        </td>
+        <td>
+          307
+        </td>
+        <td>
+          6661
+          -
+          6661
+        </td>
+        <td>
+          TypeApply
+        </td>
+        <td>
+          scala.collection.immutable.List.canBuildFrom
+        </td>
+        <td style="background: #F0ADAD">
+          immutable.this.List.canBuildFrom[com.knoldus.leader_board.Author]
+        </td>
+      </tr><tr>
+        <td>
+          164
+        </td>
+        <td>
+          308
+        </td>
+        <td>
+          6629
+          -
+          7696
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          scala.collection.immutable.List.map
+        </td>
+        <td style="background: #F0ADAD">
+          parsedBlogs.\(&quot;posts&quot;).children.map[com.knoldus.leader_board.Author, List[com.knoldus.leader_board.Author]](((blog: net.liftweb.json.JsonAST.JValue) =&gt; {
+  val authorName: Option[String] = blog.\(&quot;author&quot;).\(&quot;name&quot;).extract[Option[String]](Blogs.this.formats, scala.reflect.ManifestFactory.classType[Option[String]](classOf[scala.Option], scala.reflect.ManifestFactory.classType[String](classOf[java.lang.String])));
+  val authorLogin: Option[String] = blog.\(&quot;author&quot;).\(&quot;login&quot;).extract[Option[String]](Blogs.this.formats, scala.reflect.ManifestFactory.classType[Option[String]](classOf[scala.Option], scala.reflect.ManifestFactory.classType[String](classOf[java.lang.String])));
+  val date: String = blog.\(&quot;date&quot;).extract[String](Blogs.this.formats, scala.reflect.ManifestFactory.classType[String](classOf[java.lang.String]));
+  val odtInstanceAtOffset: java.time.ZonedDateTime = java.time.ZonedDateTime.parse(date);
+  val odtInstanceAtUTC: java.time.ZonedDateTime = odtInstanceAtOffset.withZoneSameInstant(java.time.ZoneOffset.UTC);
+  val publishedOn: java.sql.Timestamp = java.sql.Timestamp.from(odtInstanceAtUTC.toInstant());
+  val fetchMaxDate: Option[java.sql.Timestamp] = Blogs.this.fetchData.fetchMaxBlogPublicationDate;
+  fetchMaxDate match {
+    case (value: java.sql.Timestamp)Some[java.sql.Timestamp]((value @ _)) =&gt; {
+      val date: java.sql.Timestamp = value;
+      if (publishedOn.compareTo(date).==(1))
+        com.knoldus.leader_board.Author.apply(authorName, authorLogin)
+      else
+        com.knoldus.leader_board.Author.apply(scala.None, scala.None)
+    }
+    case scala.None =&gt; {
+      val minimumTime: java.time.Instant = java.time.Instant.parse(&quot;0000-04-01T09:37:10Z&quot;);
+      val parsedDate: java.sql.Timestamp = java.sql.Timestamp.from(minimumTime);
+      if (publishedOn.compareTo(parsedDate).==(1))
+        com.knoldus.leader_board.Author.apply(authorName, authorLogin)
+      else
+        com.knoldus.leader_board.Author.apply(scala.None, scala.None)
+    }
+  }
+}))(immutable.this.List.canBuildFrom[com.knoldus.leader_board.Author])
+        </td>
+      </tr><tr>
+        <td>
+          164
+        </td>
+        <td>
+          266
+        </td>
+        <td>
+          6643
+          -
+          6650
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          &quot;posts&quot;
+        </td>
+      </tr><tr>
+        <td>
+          165
+        </td>
+        <td>
+          271
+        </td>
+        <td>
+          6732
+          -
+          6732
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.reflect.ManifestFactory.classType
+        </td>
+        <td style="background: #F0ADAD">
+          scala.reflect.ManifestFactory.classType[String](classOf[java.lang.String])
+        </td>
+      </tr><tr>
+        <td>
+          165
+        </td>
+        <td>
+          268
+        </td>
+        <td>
+          6717
+          -
+          6723
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          &quot;name&quot;
+        </td>
+      </tr><tr>
+        <td>
+          165
+        </td>
+        <td>
+          267
+        </td>
+        <td>
+          6706
+          -
+          6714
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          &quot;author&quot;
+        </td>
+      </tr><tr>
+        <td>
+          165
+        </td>
+        <td>
+          270
+        </td>
+        <td>
+          6732
+          -
+          6732
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          classOf[scala.Option]
+        </td>
+      </tr><tr>
+        <td>
+          165
+        </td>
+        <td>
+          273
+        </td>
+        <td>
+          6699
+          -
+          6748
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          net.liftweb.json.JsonAST.JValue.extract
+        </td>
+        <td style="background: #F0ADAD">
+          blog.\(&quot;author&quot;).\(&quot;name&quot;).extract[Option[String]](Blogs.this.formats, scala.reflect.ManifestFactory.classType[Option[String]](classOf[scala.Option], scala.reflect.ManifestFactory.classType[String](classOf[java.lang.String])))
+        </td>
+      </tr><tr>
+        <td>
+          165
+        </td>
+        <td>
+          272
+        </td>
+        <td>
+          6732
+          -
+          6732
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.reflect.ManifestFactory.classType
+        </td>
+        <td style="background: #F0ADAD">
+          scala.reflect.ManifestFactory.classType[Option[String]](classOf[scala.Option], scala.reflect.ManifestFactory.classType[String](classOf[java.lang.String]))
+        </td>
+      </tr><tr>
+        <td>
+          165
+        </td>
+        <td>
+          269
+        </td>
+        <td>
+          6732
+          -
+          6732
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.formats
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.formats
+        </td>
+      </tr><tr>
+        <td>
+          166
+        </td>
+        <td>
+          280
+        </td>
+        <td>
+          6774
+          -
+          6824
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          net.liftweb.json.JsonAST.JValue.extract
+        </td>
+        <td style="background: #F0ADAD">
+          blog.\(&quot;author&quot;).\(&quot;login&quot;).extract[Option[String]](Blogs.this.formats, scala.reflect.ManifestFactory.classType[Option[String]](classOf[scala.Option], scala.reflect.ManifestFactory.classType[String](classOf[java.lang.String])))
+        </td>
+      </tr><tr>
+        <td>
+          166
+        </td>
+        <td>
+          274
+        </td>
+        <td>
+          6781
+          -
+          6789
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          &quot;author&quot;
+        </td>
+      </tr><tr>
+        <td>
+          166
+        </td>
+        <td>
+          277
+        </td>
+        <td>
+          6808
+          -
+          6808
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          classOf[scala.Option]
+        </td>
+      </tr><tr>
+        <td>
+          166
+        </td>
+        <td>
+          276
+        </td>
+        <td>
+          6808
+          -
+          6808
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.formats
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.formats
+        </td>
+      </tr><tr>
+        <td>
+          166
+        </td>
+        <td>
+          279
+        </td>
+        <td>
+          6808
+          -
+          6808
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.reflect.ManifestFactory.classType
+        </td>
+        <td style="background: #F0ADAD">
+          scala.reflect.ManifestFactory.classType[Option[String]](classOf[scala.Option], scala.reflect.ManifestFactory.classType[String](classOf[java.lang.String]))
+        </td>
+      </tr><tr>
+        <td>
+          166
+        </td>
+        <td>
+          275
+        </td>
+        <td>
+          6792
+          -
+          6799
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          &quot;login&quot;
+        </td>
+      </tr><tr>
+        <td>
+          166
+        </td>
+        <td>
+          278
+        </td>
+        <td>
+          6808
+          -
+          6808
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.reflect.ManifestFactory.classType
+        </td>
+        <td style="background: #F0ADAD">
+          scala.reflect.ManifestFactory.classType[String](classOf[java.lang.String])
+        </td>
+      </tr><tr>
+        <td>
+          167
+        </td>
+        <td>
+          283
+        </td>
+        <td>
+          6865
+          -
+          6865
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.reflect.ManifestFactory.classType
+        </td>
+        <td style="background: #F0ADAD">
+          scala.reflect.ManifestFactory.classType[String](classOf[java.lang.String])
+        </td>
+      </tr><tr>
+        <td>
+          167
+        </td>
+        <td>
+          282
+        </td>
+        <td>
+          6865
+          -
+          6865
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.formats
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.formats
+        </td>
+      </tr><tr>
+        <td>
+          167
+        </td>
+        <td>
+          281
+        </td>
+        <td>
+          6850
+          -
+          6856
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          &quot;date&quot;
+        </td>
+      </tr><tr>
+        <td>
+          167
+        </td>
+        <td>
+          284
+        </td>
+        <td>
+          6843
+          -
+          6873
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          net.liftweb.json.JsonAST.JValue.extract
+        </td>
+        <td style="background: #F0ADAD">
+          blog.\(&quot;date&quot;).extract[String](Blogs.this.formats, scala.reflect.ManifestFactory.classType[String](classOf[java.lang.String]))
+        </td>
+      </tr><tr>
+        <td>
+          168
+        </td>
+        <td>
+          285
+        </td>
+        <td>
+          6906
+          -
+          6931
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.time.ZonedDateTime.parse
+        </td>
+        <td style="background: #F0ADAD">
+          java.time.ZonedDateTime.parse(date)
+        </td>
+      </tr><tr>
+        <td>
+          169
+        </td>
+        <td>
+          286
+        </td>
+        <td>
+          7001
+          -
+          7015
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          java.time.ZoneOffset.UTC
+        </td>
+        <td style="background: #F0ADAD">
+          java.time.ZoneOffset.UTC
+        </td>
+      </tr><tr>
+        <td>
+          169
+        </td>
+        <td>
+          287
+        </td>
+        <td>
+          6961
+          -
+          7016
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.time.ZonedDateTime.withZoneSameInstant
+        </td>
+        <td style="background: #F0ADAD">
+          odtInstanceAtOffset.withZoneSameInstant(java.time.ZoneOffset.UTC)
+        </td>
+      </tr><tr>
+        <td>
+          170
+        </td>
+        <td>
+          289
+        </td>
+        <td>
+          7041
+          -
+          7083
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.Timestamp.from
+        </td>
+        <td style="background: #F0ADAD">
+          java.sql.Timestamp.from(odtInstanceAtUTC.toInstant())
+        </td>
+      </tr><tr>
+        <td>
+          170
+        </td>
+        <td>
+          288
+        </td>
+        <td>
+          7056
+          -
+          7082
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.time.chrono.ChronoZonedDateTime.toInstant
+        </td>
+        <td style="background: #F0ADAD">
+          odtInstanceAtUTC.toInstant()
+        </td>
+      </tr><tr>
+        <td>
+          171
+        </td>
+        <td>
+          290
+        </td>
+        <td>
+          7109
+          -
+          7146
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.infrastructure.FetchData.fetchMaxBlogPublicationDate
+        </td>
+        <td style="background: #F0ADAD">
+          Blogs.this.fetchData.fetchMaxBlogPublicationDate
+        </td>
+      </tr><tr>
+        <td>
+          174
+        </td>
+        <td>
+          291
+        </td>
+        <td>
+          7233
+          -
+          7265
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Int.==
+        </td>
+        <td style="background: #F0ADAD">
+          publishedOn.compareTo(date).==(1)
+        </td>
+      </tr><tr>
+        <td>
+          175
+        </td>
+        <td>
+          292
+        </td>
+        <td>
+          7281
+          -
+          7312
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.leader_board.Author.apply
+        </td>
+        <td style="background: #F0ADAD">
+          com.knoldus.leader_board.Author.apply(authorName, authorLogin)
+        </td>
+      </tr><tr>
+        <td>
+          175
+        </td>
+        <td>
+          293
+        </td>
+        <td>
+          7281
+          -
+          7312
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          com.knoldus.leader_board.Author.apply
+        </td>
+        <td style="background: #F0ADAD">
+          com.knoldus.leader_board.Author.apply(authorName, authorLogin)
+        </td>
+      </tr><tr>
+        <td>
+          178
+        </td>
+        <td>
+          295
+        </td>
+        <td>
+          7367
+          -
+          7371
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          scala.None
+        </td>
+        <td style="background: #F0ADAD">
+          scala.None
+        </td>
+      </tr><tr>
+        <td>
+          178
+        </td>
+        <td>
+          294
+        </td>
+        <td>
+          7361
+          -
+          7365
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          scala.None
+        </td>
+        <td style="background: #F0ADAD">
+          scala.None
+        </td>
+      </tr><tr>
+        <td>
+          178
+        </td>
+        <td>
+          297
+        </td>
+        <td>
+          7354
+          -
+          7372
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          com.knoldus.leader_board.Author.apply
+        </td>
+        <td style="background: #F0ADAD">
+          com.knoldus.leader_board.Author.apply(scala.None, scala.None)
+        </td>
+      </tr><tr>
+        <td>
+          178
+        </td>
+        <td>
+          296
+        </td>
+        <td>
+          7354
+          -
+          7372
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.leader_board.Author.apply
+        </td>
+        <td style="background: #F0ADAD">
+          com.knoldus.leader_board.Author.apply(scala.None, scala.None)
+        </td>
+      </tr><tr>
+        <td>
+          180
+        </td>
+        <td>
+          298
+        </td>
+        <td>
+          7424
+          -
+          7461
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.time.Instant.parse
+        </td>
+        <td style="background: #F0ADAD">
+          java.time.Instant.parse(&quot;0000-04-01T09:37:10Z&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          181
+        </td>
+        <td>
+          299
+        </td>
+        <td>
+          7489
+          -
+          7516
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.Timestamp.from
+        </td>
+        <td style="background: #F0ADAD">
+          java.sql.Timestamp.from(minimumTime)
+        </td>
+      </tr><tr>
+        <td>
+          182
+        </td>
+        <td>
+          300
+        </td>
+        <td>
+          7531
+          -
+          7569
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Int.==
+        </td>
+        <td style="background: #F0ADAD">
+          publishedOn.compareTo(parsedDate).==(1)
+        </td>
+      </tr><tr>
+        <td>
+          183
+        </td>
+        <td>
+          301
+        </td>
+        <td>
+          7585
+          -
+          7616
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.leader_board.Author.apply
+        </td>
+        <td style="background: #F0ADAD">
+          com.knoldus.leader_board.Author.apply(authorName, authorLogin)
+        </td>
+      </tr><tr>
+        <td>
+          183
+        </td>
+        <td>
+          302
+        </td>
+        <td>
+          7585
+          -
+          7616
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          com.knoldus.leader_board.Author.apply
+        </td>
+        <td style="background: #F0ADAD">
+          com.knoldus.leader_board.Author.apply(authorName, authorLogin)
+        </td>
+      </tr><tr>
+        <td>
+          186
+        </td>
+        <td>
+          304
+        </td>
+        <td>
+          7671
+          -
+          7675
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          scala.None
+        </td>
+        <td style="background: #F0ADAD">
+          scala.None
+        </td>
+      </tr><tr>
+        <td>
+          186
+        </td>
+        <td>
+          303
+        </td>
+        <td>
+          7665
+          -
+          7669
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          scala.None
+        </td>
+        <td style="background: #F0ADAD">
+          scala.None
+        </td>
+      </tr><tr>
+        <td>
+          186
+        </td>
+        <td>
+          306
+        </td>
+        <td>
+          7658
+          -
+          7676
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          com.knoldus.leader_board.Author.apply
+        </td>
+        <td style="background: #F0ADAD">
+          com.knoldus.leader_board.Author.apply(scala.None, scala.None)
+        </td>
+      </tr><tr>
+        <td>
+          186
+        </td>
+        <td>
+          305
+        </td>
+        <td>
+          7658
+          -
+          7676
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.leader_board.Author.apply
+        </td>
+        <td style="background: #F0ADAD">
+          com.knoldus.leader_board.Author.apply(scala.None, scala.None)
+        </td>
+      </tr><tr>
+        <td>
+          190
+        </td>
+        <td>
+          310
+        </td>
+        <td>
+          7707
+          -
+          7776
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.collection.TraversableLike.filter
+        </td>
+        <td style="background: #F0ADAD">
+          listOfAuthors.distinct.filter(((author: com.knoldus.leader_board.Author) =&gt; author.authorLogin.isDefined))
+        </td>
+      </tr><tr>
+        <td>
+          190
+        </td>
+        <td>
+          309
+        </td>
+        <td>
+          7747
+          -
+          7775
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          scala.Option.isDefined
+        </td>
+        <td style="background: #F0ADAD">
+          author.authorLogin.isDefined
+        </td>
+      </tr>
+    </table>
+          </div>
+        </div>
+      </body>
+    </html>

@@ -1,7 +1,0 @@
-export URL=jdbc:postgresql://localhost/knoldus_leaderboard
-
-export DRIVER=org.postgresql.Driver
-
-export USERNAME=postgres
-
-export PASSWORD=knoldus

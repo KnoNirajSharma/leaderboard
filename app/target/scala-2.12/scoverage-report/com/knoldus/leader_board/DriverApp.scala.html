@@ -1,0 +1,815 @@
+<html>
+      <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title id="title">
+          com/knoldus/leader_board/DriverApp.scala.html
+        </title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.20.1/css/theme.default.min.css" type="text/css"/><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.20.1/js/jquery.tablesorter.min.js"></script><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" type="text/css"/><script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script><script type="text/javascript">
+        $(document).ready(function() {$(".tablesorter").tablesorter();});
+      </script>
+        <style>
+          table.codegrid { font-family: monospace; font-size: 12px; width: auto!important; }table.statementlist { width: auto!important; font-size: 13px; } table.codegrid td { padding: 0!important; border: 0!important } table td.linenumber { width: 40px!important; } 
+        </style>
+      </head>
+      <body style="font-family: monospace;">
+        <ul class="nav nav-tabs">
+          <li>
+            <a href="#codegrid" data-toggle="tab">Codegrid</a>
+          </li>
+          <li>
+            <a href="#statementlist" data-toggle="tab">Statement List</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="codegrid">
+            <pre style='font-size: 12pt; font-family: courier;'>1 <span style=''>package com.knoldus.leader_board
+</span>2 <span style=''>
+</span>3 <span style=''>import com.knoldus.leader_board.application.AllTimeDataOnAPI
+</span>4 <span style=''>import com.knoldus.leader_board.business.{Blogs, OverallRank, OverallScore}
+</span>5 <span style=''>import com.knoldus.leader_board.infrastructure.{FetchData, StoreData, UpdateData}
+</span>6 <span style=''>
+</span>7 <span style=''>import scala.concurrent.Await
+</span>8 <span style=''>import scala.concurrent.duration._
+</span>9 <span style=''>
+</span>10 <span style=''>object DriverApp extends App {
+</span>11 <span style=''>  val databaseConnection = </span><span style='background: #F0ADAD'>new DatabaseConnection</span><span style=''>
+</span>12 <span style=''>  val fetchData = </span><span style='background: #F0ADAD'>new FetchData(databaseConnection)</span><span style=''>
+</span>13 <span style=''>  val storeData = </span><span style='background: #F0ADAD'>new StoreData(databaseConnection)</span><span style=''>
+</span>14 <span style=''>  val updateData = </span><span style='background: #F0ADAD'>new UpdateData(databaseConnection)</span><span style=''>
+</span>15 <span style=''>  val allTimeDataOnAPI = </span><span style='background: #F0ADAD'>new AllTimeDataOnAPI</span><span style=''>
+</span>16 <span style=''>  val blogs = </span><span style='background: #F0ADAD'>new Blogs(fetchData)</span><span style=''>
+</span>17 <span style=''>  val overallRank = </span><span style='background: #F0ADAD'>new OverallRank(fetchData)</span><span style=''>
+</span>18 <span style=''>  val overallScore = </span><span style='background: #F0ADAD'>new OverallScore(fetchData, storeData, updateData)</span><span style=''>
+</span>19 <span style=''>
+</span>20 <span style=''>  val getAllBlogsAndAuthors = </span><span style='background: #F0ADAD'>blogs.getAllBlogsAndAuthors</span><span style=''>
+</span>21 <span style=''>
+</span>22 <span style=''>  val listOfBlogsAndAuthors = </span><span style='background: #F0ADAD'>Await.result(getAllBlogsAndAuthors, 3.minutes)</span><span style=''>
+</span>23 <span style=''>
+</span>24 <span style=''>  val storedKnolders = </span><span style='background: #F0ADAD'>storeData.insertKnolder(listOfBlogsAndAuthors)</span><span style=''>
+</span>25 <span style=''>
+</span>26 <span style=''>  val storedBlogs = </span><span style='background: #F0ADAD'>storeData.insertBlog(listOfBlogsAndAuthors)</span><span style=''>
+</span>27 <span style=''>
+</span>28 <span style=''>  val calculatedScores = </span><span style='background: #F0ADAD'>overallScore.calculateScore(listOfBlogsAndAuthors)</span><span style=''>
+</span>29 <span style=''>
+</span>30 <span style=''>  val storedScores = </span><span style='background: #F0ADAD'>overallScore.manageScores(calculatedScores)</span><span style=''>
+</span>31 <span style=''>
+</span>32 <span style=''>  val calculatedRank = </span><span style='background: #F0ADAD'>overallRank.calculateRank</span><span style=''>
+</span>33 <span style=''>
+</span>34 <span style=''>  val updatedRank = </span><span style='background: #F0ADAD'>updateData.updateRank(calculatedRank)</span><span style=''>
+</span>35 <span style=''>
+</span>36 <span style=''>  val fetchedAllTimeData = </span><span style='background: #F0ADAD'>fetchData.fetchAllTimeData</span><span style=''>
+</span>37 <span style=''>
+</span>38 <span style=''>  </span><span style='background: #F0ADAD'>allTimeDataOnAPI.pushAllTimeDataOnAPI(fetchedAllTimeData)</span><span style=''>
+</span>39 <span style=''>}
+</span></pre>
+          </div>
+          <div class="tab-pane" id="statementlist">
+            <table cellspacing="0" cellpadding="0" class="table statementlist">
+      <tr>
+        <th>Line</th>
+        <th>Stmt Id</th>
+        <th>Pos</th>
+        <th>Tree</th>
+        <th>Symbol</th>
+        <th>Code</th>
+      </tr><tr>
+        <td>
+          11
+        </td>
+        <td>
+          14
+        </td>
+        <td>
+          378
+          -
+          400
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.leader_board.DatabaseConnection.&lt;init&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          new DatabaseConnection()
+        </td>
+      </tr><tr>
+        <td>
+          12
+        </td>
+        <td>
+          16
+        </td>
+        <td>
+          419
+          -
+          452
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.leader_board.infrastructure.FetchData.&lt;init&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          new com.knoldus.leader_board.infrastructure.FetchData(DriverApp.this.databaseConnection)
+        </td>
+      </tr><tr>
+        <td>
+          12
+        </td>
+        <td>
+          15
+        </td>
+        <td>
+          433
+          -
+          451
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.DriverApp.databaseConnection
+        </td>
+        <td style="background: #F0ADAD">
+          DriverApp.this.databaseConnection
+        </td>
+      </tr><tr>
+        <td>
+          13
+        </td>
+        <td>
+          17
+        </td>
+        <td>
+          485
+          -
+          503
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.DriverApp.databaseConnection
+        </td>
+        <td style="background: #F0ADAD">
+          DriverApp.this.databaseConnection
+        </td>
+      </tr><tr>
+        <td>
+          13
+        </td>
+        <td>
+          18
+        </td>
+        <td>
+          471
+          -
+          504
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.leader_board.infrastructure.StoreData.&lt;init&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          new com.knoldus.leader_board.infrastructure.StoreData(DriverApp.this.databaseConnection)
+        </td>
+      </tr><tr>
+        <td>
+          14
+        </td>
+        <td>
+          20
+        </td>
+        <td>
+          524
+          -
+          558
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.leader_board.infrastructure.UpdateData.&lt;init&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          new com.knoldus.leader_board.infrastructure.UpdateData(DriverApp.this.databaseConnection)
+        </td>
+      </tr><tr>
+        <td>
+          14
+        </td>
+        <td>
+          19
+        </td>
+        <td>
+          539
+          -
+          557
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.DriverApp.databaseConnection
+        </td>
+        <td style="background: #F0ADAD">
+          DriverApp.this.databaseConnection
+        </td>
+      </tr><tr>
+        <td>
+          15
+        </td>
+        <td>
+          21
+        </td>
+        <td>
+          584
+          -
+          604
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.leader_board.application.AllTimeDataOnAPI.&lt;init&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          new com.knoldus.leader_board.application.AllTimeDataOnAPI()
+        </td>
+      </tr><tr>
+        <td>
+          16
+        </td>
+        <td>
+          23
+        </td>
+        <td>
+          619
+          -
+          639
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.&lt;init&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          new com.knoldus.leader_board.business.Blogs(DriverApp.this.fetchData)
+        </td>
+      </tr><tr>
+        <td>
+          16
+        </td>
+        <td>
+          22
+        </td>
+        <td>
+          629
+          -
+          638
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.DriverApp.fetchData
+        </td>
+        <td style="background: #F0ADAD">
+          DriverApp.this.fetchData
+        </td>
+      </tr><tr>
+        <td>
+          17
+        </td>
+        <td>
+          25
+        </td>
+        <td>
+          660
+          -
+          686
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.leader_board.business.OverallRank.&lt;init&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          new com.knoldus.leader_board.business.OverallRank(DriverApp.this.fetchData)
+        </td>
+      </tr><tr>
+        <td>
+          17
+        </td>
+        <td>
+          24
+        </td>
+        <td>
+          676
+          -
+          685
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.DriverApp.fetchData
+        </td>
+        <td style="background: #F0ADAD">
+          DriverApp.this.fetchData
+        </td>
+      </tr><tr>
+        <td>
+          18
+        </td>
+        <td>
+          26
+        </td>
+        <td>
+          725
+          -
+          734
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.DriverApp.fetchData
+        </td>
+        <td style="background: #F0ADAD">
+          DriverApp.this.fetchData
+        </td>
+      </tr><tr>
+        <td>
+          18
+        </td>
+        <td>
+          29
+        </td>
+        <td>
+          708
+          -
+          758
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.leader_board.business.OverallScore.&lt;init&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          new com.knoldus.leader_board.business.OverallScore(DriverApp.this.fetchData, DriverApp.this.storeData, DriverApp.this.updateData)
+        </td>
+      </tr><tr>
+        <td>
+          18
+        </td>
+        <td>
+          28
+        </td>
+        <td>
+          747
+          -
+          757
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.DriverApp.updateData
+        </td>
+        <td style="background: #F0ADAD">
+          DriverApp.this.updateData
+        </td>
+      </tr><tr>
+        <td>
+          18
+        </td>
+        <td>
+          27
+        </td>
+        <td>
+          736
+          -
+          745
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.DriverApp.storeData
+        </td>
+        <td style="background: #F0ADAD">
+          DriverApp.this.storeData
+        </td>
+      </tr><tr>
+        <td>
+          20
+        </td>
+        <td>
+          30
+        </td>
+        <td>
+          790
+          -
+          817
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.business.Blogs.getAllBlogsAndAuthors
+        </td>
+        <td style="background: #F0ADAD">
+          DriverApp.this.blogs.getAllBlogsAndAuthors
+        </td>
+      </tr><tr>
+        <td>
+          22
+        </td>
+        <td>
+          32
+        </td>
+        <td>
+          885
+          -
+          886
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          3
+        </td>
+      </tr><tr>
+        <td>
+          22
+        </td>
+        <td>
+          31
+        </td>
+        <td>
+          862
+          -
+          883
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.DriverApp.getAllBlogsAndAuthors
+        </td>
+        <td style="background: #F0ADAD">
+          DriverApp.this.getAllBlogsAndAuthors
+        </td>
+      </tr><tr>
+        <td>
+          22
+        </td>
+        <td>
+          34
+        </td>
+        <td>
+          849
+          -
+          895
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.concurrent.Await.result
+        </td>
+        <td style="background: #F0ADAD">
+          scala.concurrent.Await.result[com.knoldus.leader_board.BlogAuthor](DriverApp.this.getAllBlogsAndAuthors, scala.concurrent.duration.`package`.DurationInt(3).minutes)
+        </td>
+      </tr><tr>
+        <td>
+          22
+        </td>
+        <td>
+          33
+        </td>
+        <td>
+          885
+          -
+          894
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          scala.concurrent.duration.DurationConversions.minutes
+        </td>
+        <td style="background: #F0ADAD">
+          scala.concurrent.duration.`package`.DurationInt(3).minutes
+        </td>
+      </tr><tr>
+        <td>
+          24
+        </td>
+        <td>
+          35
+        </td>
+        <td>
+          944
+          -
+          965
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.DriverApp.listOfBlogsAndAuthors
+        </td>
+        <td style="background: #F0ADAD">
+          DriverApp.this.listOfBlogsAndAuthors
+        </td>
+      </tr><tr>
+        <td>
+          24
+        </td>
+        <td>
+          36
+        </td>
+        <td>
+          920
+          -
+          966
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.leader_board.infrastructure.StoreData.insertKnolder
+        </td>
+        <td style="background: #F0ADAD">
+          DriverApp.this.storeData.insertKnolder(DriverApp.this.listOfBlogsAndAuthors)
+        </td>
+      </tr><tr>
+        <td>
+          26
+        </td>
+        <td>
+          38
+        </td>
+        <td>
+          988
+          -
+          1031
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.leader_board.infrastructure.StoreData.insertBlog
+        </td>
+        <td style="background: #F0ADAD">
+          DriverApp.this.storeData.insertBlog(DriverApp.this.listOfBlogsAndAuthors)
+        </td>
+      </tr><tr>
+        <td>
+          26
+        </td>
+        <td>
+          37
+        </td>
+        <td>
+          1009
+          -
+          1030
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.DriverApp.listOfBlogsAndAuthors
+        </td>
+        <td style="background: #F0ADAD">
+          DriverApp.this.listOfBlogsAndAuthors
+        </td>
+      </tr><tr>
+        <td>
+          28
+        </td>
+        <td>
+          40
+        </td>
+        <td>
+          1058
+          -
+          1108
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.leader_board.business.OverallScore.calculateScore
+        </td>
+        <td style="background: #F0ADAD">
+          DriverApp.this.overallScore.calculateScore(DriverApp.this.listOfBlogsAndAuthors)
+        </td>
+      </tr><tr>
+        <td>
+          28
+        </td>
+        <td>
+          39
+        </td>
+        <td>
+          1086
+          -
+          1107
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.DriverApp.listOfBlogsAndAuthors
+        </td>
+        <td style="background: #F0ADAD">
+          DriverApp.this.listOfBlogsAndAuthors
+        </td>
+      </tr><tr>
+        <td>
+          30
+        </td>
+        <td>
+          41
+        </td>
+        <td>
+          1157
+          -
+          1173
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.DriverApp.calculatedScores
+        </td>
+        <td style="background: #F0ADAD">
+          DriverApp.this.calculatedScores
+        </td>
+      </tr><tr>
+        <td>
+          30
+        </td>
+        <td>
+          42
+        </td>
+        <td>
+          1131
+          -
+          1174
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.leader_board.business.OverallScore.manageScores
+        </td>
+        <td style="background: #F0ADAD">
+          DriverApp.this.overallScore.manageScores(DriverApp.this.calculatedScores)
+        </td>
+      </tr><tr>
+        <td>
+          32
+        </td>
+        <td>
+          43
+        </td>
+        <td>
+          1199
+          -
+          1224
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.business.OverallRank.calculateRank
+        </td>
+        <td style="background: #F0ADAD">
+          DriverApp.this.overallRank.calculateRank
+        </td>
+      </tr><tr>
+        <td>
+          34
+        </td>
+        <td>
+          44
+        </td>
+        <td>
+          1268
+          -
+          1282
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.DriverApp.calculatedRank
+        </td>
+        <td style="background: #F0ADAD">
+          DriverApp.this.calculatedRank
+        </td>
+      </tr><tr>
+        <td>
+          34
+        </td>
+        <td>
+          45
+        </td>
+        <td>
+          1246
+          -
+          1283
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.leader_board.infrastructure.UpdateData.updateRank
+        </td>
+        <td style="background: #F0ADAD">
+          DriverApp.this.updateData.updateRank(DriverApp.this.calculatedRank)
+        </td>
+      </tr><tr>
+        <td>
+          36
+        </td>
+        <td>
+          46
+        </td>
+        <td>
+          1312
+          -
+          1338
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.infrastructure.FetchData.fetchAllTimeData
+        </td>
+        <td style="background: #F0ADAD">
+          DriverApp.this.fetchData.fetchAllTimeData
+        </td>
+      </tr><tr>
+        <td>
+          38
+        </td>
+        <td>
+          47
+        </td>
+        <td>
+          1380
+          -
+          1398
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.DriverApp.fetchedAllTimeData
+        </td>
+        <td style="background: #F0ADAD">
+          DriverApp.this.fetchedAllTimeData
+        </td>
+      </tr><tr>
+        <td>
+          38
+        </td>
+        <td>
+          48
+        </td>
+        <td>
+          1342
+          -
+          1399
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          com.knoldus.leader_board.application.AllTimeDataOnAPI.pushAllTimeDataOnAPI
+        </td>
+        <td style="background: #F0ADAD">
+          DriverApp.this.allTimeDataOnAPI.pushAllTimeDataOnAPI(DriverApp.this.fetchedAllTimeData)
+        </td>
+      </tr>
+    </table>
+          </div>
+        </div>
+      </body>
+    </html>

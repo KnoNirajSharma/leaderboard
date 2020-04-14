@@ -1,0 +1,1350 @@
+<html>
+      <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title id="title">
+          com/knoldus/leader_board/infrastructure/FetchData.scala.html
+        </title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.20.1/css/theme.default.min.css" type="text/css"/><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.20.1/js/jquery.tablesorter.min.js"></script><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" type="text/css"/><script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script><script type="text/javascript">
+        $(document).ready(function() {$(".tablesorter").tablesorter();});
+      </script>
+        <style>
+          table.codegrid { font-family: monospace; font-size: 12px; width: auto!important; }table.statementlist { width: auto!important; font-size: 13px; } table.codegrid td { padding: 0!important; border: 0!important } table td.linenumber { width: 40px!important; } 
+        </style>
+      </head>
+      <body style="font-family: monospace;">
+        <ul class="nav nav-tabs">
+          <li>
+            <a href="#codegrid" data-toggle="tab">Codegrid</a>
+          </li>
+          <li>
+            <a href="#statementlist" data-toggle="tab">Statement List</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="codegrid">
+            <pre style='font-size: 12pt; font-family: courier;'>1 <span style=''>package com.knoldus.leader_board.infrastructure
+</span>2 <span style=''>
+</span>3 <span style=''>import java.sql.{Connection, SQLException, Timestamp}
+</span>4 <span style=''>
+</span>5 <span style=''>import com.knoldus.leader_board.{AuthorScore, DatabaseConnection, GetAuthorScore, GetScore}
+</span>6 <span style=''>import scalikejdbc._
+</span>7 <span style=''>
+</span>8 <span style=''>class FetchData(databaseConnection: DatabaseConnection) {
+</span>9 <span style=''>  implicit val connection: Connection = </span><span style='background: #AEF1AE'>databaseConnection.connection</span><span style=''>
+</span>10 <span style=''>
+</span>11 <span style=''>  /**
+</span>12 <span style=''>   * Fetches Maximum publication date of blog present in blog table.
+</span>13 <span style=''>   *
+</span>14 <span style=''>   * @return Maximum publication date of blog wrapped in option.
+</span>15 <span style=''>   */
+</span>16 <span style=''>  def fetchMaxBlogPublicationDate: Option[Timestamp] = {
+</span>17 <span style=''>    implicit val session: AutoSession.type = </span><span style='background: #F0ADAD'>AutoSession</span><span style=''>
+</span>18 <span style=''>    try {
+</span>19 <span style=''>      </span><span style='background: #F0ADAD'>sql&quot;SELECT MAX(published_on) FROM blog&quot;.map(rs =&gt; rs.timestamp(1)).single().apply()</span><span style=''>
+</span>20 <span style=''>    }
+</span>21 <span style=''>    catch {
+</span>22 <span style=''>      case ex: SQLException =&gt; </span><span style='background: #F0ADAD'>throw new SQLException(ex)</span><span style=''>
+</span>23 <span style=''>      case ex: Exception =&gt; </span><span style='background: #F0ADAD'>throw new Exception(ex)</span><span style=''>
+</span>24 <span style=''>    }
+</span>25 <span style=''>    finally {
+</span>26 <span style=''>      </span><span style='background: #F0ADAD'>session.close()</span><span style=''>
+</span>27 <span style=''>    }
+</span>28 <span style=''>  }
+</span>29 <span style=''>
+</span>30 <span style=''>  /**
+</span>31 <span style=''>   * Fetches overall score of each knolder from all_time table.
+</span>32 <span style=''>   *
+</span>33 <span style=''>   * @return List of GetScore case class objects, which specifies overall score for each knolder.
+</span>34 <span style=''>   */
+</span>35 <span style=''>  def fetchScores: List[GetScore] = {
+</span>36 <span style=''>    implicit val session: AutoSession.type = </span><span style='background: #F0ADAD'>AutoSession</span><span style=''>
+</span>37 <span style=''>    try {
+</span>38 <span style=''>      </span><span style='background: #F0ADAD'>val listOfscores =
+</span>39 <span style=''></span><span style='background: #F0ADAD'>        SQL(&quot;SELECT knolder_id, overall_score FROM all_time&quot;)
+</span>40 <span style=''></span><span style='background: #F0ADAD'>          .map(rs =&gt; GetScore(rs.int(&quot;knolder_id&quot;), rs.int(&quot;overall_score&quot;))).list().apply()
+</span>41 <span style=''></span><span style='background: #F0ADAD'>      listOfscores.sortBy(getScore =&gt; getScore.score).reverse</span><span style=''>
+</span>42 <span style=''>    }
+</span>43 <span style=''>    catch {
+</span>44 <span style=''>      case ex: SQLException =&gt; </span><span style='background: #F0ADAD'>throw new SQLException(ex)</span><span style=''>
+</span>45 <span style=''>      case ex: Exception =&gt; </span><span style='background: #F0ADAD'>throw new Exception(ex)</span><span style=''>
+</span>46 <span style=''>    }
+</span>47 <span style=''>    finally {
+</span>48 <span style=''>      </span><span style='background: #F0ADAD'>session.close()</span><span style=''>
+</span>49 <span style=''>    }
+</span>50 <span style=''>  }
+</span>51 <span style=''>
+</span>52 <span style=''>  /**
+</span>53 <span style=''>   * Fetches primary key i.e. id in knolder table.
+</span>54 <span style=''>   *
+</span>55 <span style=''>   * @param scores AuthorScore case class object which contains score of each knolder.
+</span>56 <span style=''>   * @return Knolder id wrapped in option.
+</span>57 <span style=''>   */
+</span>58 <span style=''>  def fetchKnolderIdFromKnolder(scores: AuthorScore): Option[Int] = {
+</span>59 <span style=''>    implicit val session: AutoSession.type = </span><span style='background: #F0ADAD'>AutoSession</span><span style=''>
+</span>60 <span style=''>    try {
+</span>61 <span style=''>      </span><span style='background: #F0ADAD'>SQL(&quot;SELECT id FROM knolder WHERE wordpress_id = ?&quot;).bind(scores.authorLogin)
+</span>62 <span style=''></span><span style='background: #F0ADAD'>        .map(rs =&gt; rs.int(&quot;id&quot;)).single().apply()</span><span style=''>
+</span>63 <span style=''>    }
+</span>64 <span style=''>    catch {
+</span>65 <span style=''>      case ex: SQLException =&gt; </span><span style='background: #F0ADAD'>throw new SQLException(ex)</span><span style=''>
+</span>66 <span style=''>      case ex: Exception =&gt; </span><span style='background: #F0ADAD'>throw new Exception(ex)</span><span style=''>
+</span>67 <span style=''>    } finally {
+</span>68 <span style=''>      </span><span style='background: #F0ADAD'>session.close()</span><span style=''>
+</span>69 <span style=''>    }
+</span>70 <span style=''>  }
+</span>71 <span style=''>
+</span>72 <span style=''>  /**
+</span>73 <span style=''>   * Fetches foreign key i.e. knolder id in all_time table.
+</span>74 <span style=''>   *
+</span>75 <span style=''>   * @param scores   AuthorScore case class object which contains score of each knolder.
+</span>76 <span style=''>   * @param authorId Knolder id wrapped in option.
+</span>77 <span style=''>   * @return Knolder id wrapped in option.
+</span>78 <span style=''>   */
+</span>79 <span style=''>  def fetchKnolderIdFromAllTime(scores: AuthorScore, authorId: Option[Int]): Option[Int] = {
+</span>80 <span style=''>    implicit val session: AutoSession.type = </span><span style='background: #F0ADAD'>AutoSession</span><span style=''>
+</span>81 <span style=''>    try {
+</span>82 <span style=''>      </span><span style='background: #F0ADAD'>SQL(&quot;SELECT knolder_id FROM all_time WHERE knolder_id = ?&quot;).bind(authorId)
+</span>83 <span style=''></span><span style='background: #F0ADAD'>        .map(rs =&gt; rs.int(&quot;knolder_id&quot;)).single().apply()</span><span style=''>
+</span>84 <span style=''>    }
+</span>85 <span style=''>    catch {
+</span>86 <span style=''>      case ex: SQLException =&gt; </span><span style='background: #F0ADAD'>throw new SQLException(ex)</span><span style=''>
+</span>87 <span style=''>      case ex: Exception =&gt; </span><span style='background: #F0ADAD'>throw new Exception(ex)</span><span style=''>
+</span>88 <span style=''>    }
+</span>89 <span style=''>    finally {
+</span>90 <span style=''>      </span><span style='background: #F0ADAD'>session.close()</span><span style=''>
+</span>91 <span style=''>    }
+</span>92 <span style=''>  }
+</span>93 <span style=''>
+</span>94 <span style=''>  /**
+</span>95 <span style=''>   * Queries all_time table to get full name, overall score and overall rank of each knolder.
+</span>96 <span style=''>   *
+</span>97 <span style=''>   * @return List of GetAuthorScore case class objects, which specifies full name, overall score and
+</span>98 <span style=''>   *         overall rank of each knolder.
+</span>99 <span style=''>   */
+</span>100 <span style=''>  def fetchAllTimeData: List[GetAuthorScore] = {
+</span>101 <span style=''>    implicit val session: AutoSession.type = </span><span style='background: #F0ADAD'>AutoSession</span><span style=''>
+</span>102 <span style=''>    try {
+</span>103 <span style=''>      </span><span style='background: #F0ADAD'>val fetchReputation =
+</span>104 <span style=''></span><span style='background: #F0ADAD'>        SQL(&quot;SELECT full_name, overall_score, overall_rank FROM all_time &quot; +
+</span>105 <span style=''></span><span style='background: #F0ADAD'>          &quot;INNER JOIN knolder ON all_time.knolder_id = knolder.id ORDER BY overall_score ASC&quot;)
+</span>106 <span style=''></span><span style='background: #F0ADAD'>          .map(rs =&gt; GetAuthorScore(rs.string(&quot;full_name&quot;), rs.int(&quot;overall_score&quot;)
+</span>107 <span style=''></span><span style='background: #F0ADAD'>            , rs.int(&quot;overall_rank&quot;))).list.apply()
+</span>108 <span style=''></span><span style='background: #F0ADAD'>      fetchReputation.reverse</span><span style=''>
+</span>109 <span style=''>    }
+</span>110 <span style=''>    catch {
+</span>111 <span style=''>      case ex: SQLException =&gt; </span><span style='background: #F0ADAD'>throw new SQLException(ex)</span><span style=''>
+</span>112 <span style=''>      case ex: Exception =&gt; </span><span style='background: #F0ADAD'>throw new Exception(ex)</span><span style=''>
+</span>113 <span style=''>    }
+</span>114 <span style=''>    finally {
+</span>115 <span style=''>      </span><span style='background: #F0ADAD'>session.close()</span><span style=''>
+</span>116 <span style=''>    }
+</span>117 <span style=''>  }
+</span>118 <span style=''>}
+</span></pre>
+          </div>
+          <div class="tab-pane" id="statementlist">
+            <table cellspacing="0" cellpadding="0" class="table statementlist">
+      <tr>
+        <th>Line</th>
+        <th>Stmt Id</th>
+        <th>Pos</th>
+        <th>Tree</th>
+        <th>Symbol</th>
+        <th>Code</th>
+      </tr><tr>
+        <td>
+          9
+        </td>
+        <td>
+          376
+        </td>
+        <td>
+          316
+          -
+          345
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.DatabaseConnection.connection
+        </td>
+        <td style="background: #AEF1AE">
+          FetchData.this.databaseConnection.connection
+        </td>
+      </tr><tr>
+        <td>
+          17
+        </td>
+        <td>
+          377
+        </td>
+        <td>
+          600
+          -
+          611
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          scalikejdbc.AutoSession
+        </td>
+        <td style="background: #F0ADAD">
+          scalikejdbc.AutoSession
+        </td>
+      </tr><tr>
+        <td>
+          19
+        </td>
+        <td>
+          382
+        </td>
+        <td>
+          628
+          -
+          711
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          {
+  &lt;artifact&gt; val qual$1: scalikejdbc.SQLToOption[java.sql.Timestamp,scalikejdbc.HasExtractor] @scala.reflect.internal.annotations.uncheckedBounds = scalikejdbc.`package`.scalikejdbcSQLInterpolationImplicitDef(scala.StringContext.apply(&quot;SELECT MAX(published_on) FROM blog&quot;)).sql[Nothing]().map[java.sql.Timestamp](((rs: scalikejdbc.WrappedResultSet) =&gt; rs.timestamp(1))).single();
+  &lt;artifact&gt; val x$1: scalikejdbc.AutoSession.type = session;
+  &lt;artifact&gt; val x$2: scalikejdbc.SQL[java.sql.Timestamp,scalikejdbc.HasExtractor] =:= scalikejdbc.SQL[java.sql.Timestamp,scalikejdbc.HasExtractor] @scala.reflect.internal.annotations.uncheckedBounds = GeneralizedTypeConstraintsForWithExtractor.this.=:=.tpEquals[scalikejdbc.SQL[java.sql.Timestamp,scalikejdbc.HasExtractor]];
+  &lt;artifact&gt; val x$3: scalikejdbc.ConnectionPoolContext = qual$1.apply$default$2();
+  qual$1.apply()(x$1, x$3, x$2)
+}
+        </td>
+      </tr><tr>
+        <td>
+          19
+        </td>
+        <td>
+          379
+        </td>
+        <td>
+          709
+          -
+          709
+        </td>
+        <td>
+          TypeApply
+        </td>
+        <td>
+          scalikejdbc.GeneralizedTypeConstraintsForWithExtractor.=:=.tpEquals
+        </td>
+        <td style="background: #F0ADAD">
+          GeneralizedTypeConstraintsForWithExtractor.this.=:=.tpEquals[scalikejdbc.SQL[java.sql.Timestamp,scalikejdbc.HasExtractor]]
+        </td>
+      </tr><tr>
+        <td>
+          19
+        </td>
+        <td>
+          378
+        </td>
+        <td>
+          628
+          -
+          703
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scalikejdbc.SQL.single
+        </td>
+        <td style="background: #F0ADAD">
+          scalikejdbc.`package`.scalikejdbcSQLInterpolationImplicitDef(scala.StringContext.apply(&quot;SELECT MAX(published_on) FROM blog&quot;)).sql[Nothing]().map[java.sql.Timestamp](((rs: scalikejdbc.WrappedResultSet) =&gt; rs.timestamp(1))).single()
+        </td>
+      </tr><tr>
+        <td>
+          19
+        </td>
+        <td>
+          381
+        </td>
+        <td>
+          628
+          -
+          711
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          scalikejdbc.SQLToResult.apply
+        </td>
+        <td style="background: #F0ADAD">
+          qual$1.apply()(x$1, x$3, x$2)
+        </td>
+      </tr><tr>
+        <td>
+          19
+        </td>
+        <td>
+          380
+        </td>
+        <td>
+          709
+          -
+          709
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scalikejdbc.SQLToResult.apply$default$2
+        </td>
+        <td style="background: #F0ADAD">
+          qual$1.apply$default$2()
+        </td>
+      </tr><tr>
+        <td>
+          22
+        </td>
+        <td>
+          383
+        </td>
+        <td>
+          761
+          -
+          787
+        </td>
+        <td>
+          Throw
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          throw new java.sql.SQLException(ex)
+        </td>
+      </tr><tr>
+        <td>
+          23
+        </td>
+        <td>
+          384
+        </td>
+        <td>
+          816
+          -
+          839
+        </td>
+        <td>
+          Throw
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          throw new scala.`package`.Exception(ex)
+        </td>
+      </tr><tr>
+        <td>
+          26
+        </td>
+        <td>
+          385
+        </td>
+        <td>
+          866
+          -
+          881
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scalikejdbc.DBSession.close
+        </td>
+        <td style="background: #F0ADAD">
+          session.close()
+        </td>
+      </tr><tr>
+        <td>
+          26
+        </td>
+        <td>
+          386
+        </td>
+        <td>
+          866
+          -
+          881
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          scalikejdbc.DBSession.close
+        </td>
+        <td style="background: #F0ADAD">
+          session.close()
+        </td>
+      </tr><tr>
+        <td>
+          36
+        </td>
+        <td>
+          387
+        </td>
+        <td>
+          1155
+          -
+          1166
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          scalikejdbc.AutoSession
+        </td>
+        <td style="background: #F0ADAD">
+          scalikejdbc.AutoSession
+        </td>
+      </tr><tr>
+        <td>
+          37
+        </td>
+        <td>
+          395
+        </td>
+        <td>
+          1183
+          -
+          1418
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          {
+  val listOfscores: List[com.knoldus.leader_board.GetScore] = {
+    &lt;artifact&gt; val qual$2: scalikejdbc.SQLToList[com.knoldus.leader_board.GetScore,scalikejdbc.HasExtractor] @scala.reflect.internal.annotations.uncheckedBounds = scalikejdbc.SQL.apply[Nothing](&quot;SELECT knolder_id, overall_score FROM all_time&quot;).map[com.knoldus.leader_board.GetScore](((rs: scalikejdbc.WrappedResultSet) =&gt; com.knoldus.leader_board.GetScore.apply(rs.int(&quot;knolder_id&quot;), rs.int(&quot;overall_score&quot;)))).list();
+    &lt;artifact&gt; val x$4: scalikejdbc.AutoSession.type = session;
+    &lt;artifact&gt; val x$5: scalikejdbc.SQL[com.knoldus.leader_board.GetScore,scalikejdbc.HasExtractor] =:= scalikejdbc.SQL[com.knoldus.leader_board.GetScore,scalikejdbc.HasExtractor] @scala.reflect.internal.annotations.uncheckedBounds = GeneralizedTypeConstraintsForWithExtractor.this.=:=.tpEquals[scalikejdbc.SQL[com.knoldus.leader_board.GetScore,scalikejdbc.HasExtractor]];
+    &lt;artifact&gt; val x$6: scalikejdbc.ConnectionPoolContext = qual$2.apply$default$2();
+    qual$2.apply()(x$4, x$6, x$5)
+  };
+  listOfscores.sortBy[Int](((getScore: com.knoldus.leader_board.GetScore) =&gt; getScore.score))(math.this.Ordering.Int).reverse
+}
+        </td>
+      </tr><tr>
+        <td>
+          40
+        </td>
+        <td>
+          391
+        </td>
+        <td>
+          1210
+          -
+          1356
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          scalikejdbc.SQLToResult.apply
+        </td>
+        <td style="background: #F0ADAD">
+          qual$2.apply()(x$4, x$6, x$5)
+        </td>
+      </tr><tr>
+        <td>
+          40
+        </td>
+        <td>
+          388
+        </td>
+        <td>
+          1210
+          -
+          1348
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scalikejdbc.SQL.list
+        </td>
+        <td style="background: #F0ADAD">
+          scalikejdbc.SQL.apply[Nothing](&quot;SELECT knolder_id, overall_score FROM all_time&quot;).map[com.knoldus.leader_board.GetScore](((rs: scalikejdbc.WrappedResultSet) =&gt; com.knoldus.leader_board.GetScore.apply(rs.int(&quot;knolder_id&quot;), rs.int(&quot;overall_score&quot;)))).list()
+        </td>
+      </tr><tr>
+        <td>
+          40
+        </td>
+        <td>
+          390
+        </td>
+        <td>
+          1354
+          -
+          1354
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scalikejdbc.SQLToResult.apply$default$2
+        </td>
+        <td style="background: #F0ADAD">
+          qual$2.apply$default$2()
+        </td>
+      </tr><tr>
+        <td>
+          40
+        </td>
+        <td>
+          389
+        </td>
+        <td>
+          1354
+          -
+          1354
+        </td>
+        <td>
+          TypeApply
+        </td>
+        <td>
+          scalikejdbc.GeneralizedTypeConstraintsForWithExtractor.=:=.tpEquals
+        </td>
+        <td style="background: #F0ADAD">
+          GeneralizedTypeConstraintsForWithExtractor.this.=:=.tpEquals[scalikejdbc.SQL[com.knoldus.leader_board.GetScore,scalikejdbc.HasExtractor]]
+        </td>
+      </tr><tr>
+        <td>
+          41
+        </td>
+        <td>
+          394
+        </td>
+        <td>
+          1363
+          -
+          1418
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          scala.collection.immutable.List.reverse
+        </td>
+        <td style="background: #F0ADAD">
+          listOfscores.sortBy[Int](((getScore: com.knoldus.leader_board.GetScore) =&gt; getScore.score))(math.this.Ordering.Int).reverse
+        </td>
+      </tr><tr>
+        <td>
+          41
+        </td>
+        <td>
+          393
+        </td>
+        <td>
+          1382
+          -
+          1382
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          scala.math.Ordering.Int
+        </td>
+        <td style="background: #F0ADAD">
+          math.this.Ordering.Int
+        </td>
+      </tr><tr>
+        <td>
+          41
+        </td>
+        <td>
+          392
+        </td>
+        <td>
+          1395
+          -
+          1409
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          com.knoldus.leader_board.GetScore.score
+        </td>
+        <td style="background: #F0ADAD">
+          getScore.score
+        </td>
+      </tr><tr>
+        <td>
+          44
+        </td>
+        <td>
+          396
+        </td>
+        <td>
+          1468
+          -
+          1494
+        </td>
+        <td>
+          Throw
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          throw new java.sql.SQLException(ex)
+        </td>
+      </tr><tr>
+        <td>
+          45
+        </td>
+        <td>
+          397
+        </td>
+        <td>
+          1523
+          -
+          1546
+        </td>
+        <td>
+          Throw
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          throw new scala.`package`.Exception(ex)
+        </td>
+      </tr><tr>
+        <td>
+          48
+        </td>
+        <td>
+          399
+        </td>
+        <td>
+          1573
+          -
+          1588
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          scalikejdbc.DBSession.close
+        </td>
+        <td style="background: #F0ADAD">
+          session.close()
+        </td>
+      </tr><tr>
+        <td>
+          48
+        </td>
+        <td>
+          398
+        </td>
+        <td>
+          1573
+          -
+          1588
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scalikejdbc.DBSession.close
+        </td>
+        <td style="background: #F0ADAD">
+          session.close()
+        </td>
+      </tr><tr>
+        <td>
+          59
+        </td>
+        <td>
+          400
+        </td>
+        <td>
+          1913
+          -
+          1924
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          scalikejdbc.AutoSession
+        </td>
+        <td style="background: #F0ADAD">
+          scalikejdbc.AutoSession
+        </td>
+      </tr><tr>
+        <td>
+          62
+        </td>
+        <td>
+          403
+        </td>
+        <td>
+          2066
+          -
+          2066
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scalikejdbc.SQLToResult.apply$default$2
+        </td>
+        <td style="background: #F0ADAD">
+          qual$3.apply$default$2()
+        </td>
+      </tr><tr>
+        <td>
+          62
+        </td>
+        <td>
+          405
+        </td>
+        <td>
+          1941
+          -
+          2068
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          {
+  &lt;artifact&gt; val qual$3: scalikejdbc.SQLToOption[Int,scalikejdbc.HasExtractor] @scala.reflect.internal.annotations.uncheckedBounds = scalikejdbc.SQL.apply[Nothing](&quot;SELECT id FROM knolder WHERE wordpress_id = ?&quot;).bind(scores.authorLogin).map[Int](((rs: scalikejdbc.WrappedResultSet) =&gt; rs.int(&quot;id&quot;))).single();
+  &lt;artifact&gt; val x$7: scalikejdbc.AutoSession.type = session;
+  &lt;artifact&gt; val x$8: scalikejdbc.SQL[Int,scalikejdbc.HasExtractor] =:= scalikejdbc.SQL[Int,scalikejdbc.HasExtractor] @scala.reflect.internal.annotations.uncheckedBounds = GeneralizedTypeConstraintsForWithExtractor.this.=:=.tpEquals[scalikejdbc.SQL[Int,scalikejdbc.HasExtractor]];
+  &lt;artifact&gt; val x$9: scalikejdbc.ConnectionPoolContext = qual$3.apply$default$2();
+  qual$3.apply()(x$7, x$9, x$8)
+}
+        </td>
+      </tr><tr>
+        <td>
+          62
+        </td>
+        <td>
+          402
+        </td>
+        <td>
+          2066
+          -
+          2066
+        </td>
+        <td>
+          TypeApply
+        </td>
+        <td>
+          scalikejdbc.GeneralizedTypeConstraintsForWithExtractor.=:=.tpEquals
+        </td>
+        <td style="background: #F0ADAD">
+          GeneralizedTypeConstraintsForWithExtractor.this.=:=.tpEquals[scalikejdbc.SQL[Int,scalikejdbc.HasExtractor]]
+        </td>
+      </tr><tr>
+        <td>
+          62
+        </td>
+        <td>
+          401
+        </td>
+        <td>
+          1941
+          -
+          2060
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scalikejdbc.SQL.single
+        </td>
+        <td style="background: #F0ADAD">
+          scalikejdbc.SQL.apply[Nothing](&quot;SELECT id FROM knolder WHERE wordpress_id = ?&quot;).bind(scores.authorLogin).map[Int](((rs: scalikejdbc.WrappedResultSet) =&gt; rs.int(&quot;id&quot;))).single()
+        </td>
+      </tr><tr>
+        <td>
+          62
+        </td>
+        <td>
+          404
+        </td>
+        <td>
+          1941
+          -
+          2068
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          scalikejdbc.SQLToResult.apply
+        </td>
+        <td style="background: #F0ADAD">
+          qual$3.apply()(x$7, x$9, x$8)
+        </td>
+      </tr><tr>
+        <td>
+          65
+        </td>
+        <td>
+          406
+        </td>
+        <td>
+          2118
+          -
+          2144
+        </td>
+        <td>
+          Throw
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          throw new java.sql.SQLException(ex)
+        </td>
+      </tr><tr>
+        <td>
+          66
+        </td>
+        <td>
+          407
+        </td>
+        <td>
+          2173
+          -
+          2196
+        </td>
+        <td>
+          Throw
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          throw new scala.`package`.Exception(ex)
+        </td>
+      </tr><tr>
+        <td>
+          68
+        </td>
+        <td>
+          409
+        </td>
+        <td>
+          2219
+          -
+          2234
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          scalikejdbc.DBSession.close
+        </td>
+        <td style="background: #F0ADAD">
+          session.close()
+        </td>
+      </tr><tr>
+        <td>
+          68
+        </td>
+        <td>
+          408
+        </td>
+        <td>
+          2219
+          -
+          2234
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scalikejdbc.DBSession.close
+        </td>
+        <td style="background: #F0ADAD">
+          session.close()
+        </td>
+      </tr><tr>
+        <td>
+          80
+        </td>
+        <td>
+          410
+        </td>
+        <td>
+          2644
+          -
+          2655
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          scalikejdbc.AutoSession
+        </td>
+        <td style="background: #F0ADAD">
+          scalikejdbc.AutoSession
+        </td>
+      </tr><tr>
+        <td>
+          83
+        </td>
+        <td>
+          415
+        </td>
+        <td>
+          2672
+          -
+          2804
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          {
+  &lt;artifact&gt; val qual$4: scalikejdbc.SQLToOption[Int,scalikejdbc.HasExtractor] @scala.reflect.internal.annotations.uncheckedBounds = scalikejdbc.SQL.apply[Nothing](&quot;SELECT knolder_id FROM all_time WHERE knolder_id = ?&quot;).bind(authorId).map[Int](((rs: scalikejdbc.WrappedResultSet) =&gt; rs.int(&quot;knolder_id&quot;))).single();
+  &lt;artifact&gt; val x$10: scalikejdbc.AutoSession.type = session;
+  &lt;artifact&gt; val x$11: scalikejdbc.SQL[Int,scalikejdbc.HasExtractor] =:= scalikejdbc.SQL[Int,scalikejdbc.HasExtractor] @scala.reflect.internal.annotations.uncheckedBounds = GeneralizedTypeConstraintsForWithExtractor.this.=:=.tpEquals[scalikejdbc.SQL[Int,scalikejdbc.HasExtractor]];
+  &lt;artifact&gt; val x$12: scalikejdbc.ConnectionPoolContext = qual$4.apply$default$2();
+  qual$4.apply()(x$10, x$12, x$11)
+}
+        </td>
+      </tr><tr>
+        <td>
+          83
+        </td>
+        <td>
+          412
+        </td>
+        <td>
+          2802
+          -
+          2802
+        </td>
+        <td>
+          TypeApply
+        </td>
+        <td>
+          scalikejdbc.GeneralizedTypeConstraintsForWithExtractor.=:=.tpEquals
+        </td>
+        <td style="background: #F0ADAD">
+          GeneralizedTypeConstraintsForWithExtractor.this.=:=.tpEquals[scalikejdbc.SQL[Int,scalikejdbc.HasExtractor]]
+        </td>
+      </tr><tr>
+        <td>
+          83
+        </td>
+        <td>
+          414
+        </td>
+        <td>
+          2672
+          -
+          2804
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          scalikejdbc.SQLToResult.apply
+        </td>
+        <td style="background: #F0ADAD">
+          qual$4.apply()(x$10, x$12, x$11)
+        </td>
+      </tr><tr>
+        <td>
+          83
+        </td>
+        <td>
+          411
+        </td>
+        <td>
+          2672
+          -
+          2796
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scalikejdbc.SQL.single
+        </td>
+        <td style="background: #F0ADAD">
+          scalikejdbc.SQL.apply[Nothing](&quot;SELECT knolder_id FROM all_time WHERE knolder_id = ?&quot;).bind(authorId).map[Int](((rs: scalikejdbc.WrappedResultSet) =&gt; rs.int(&quot;knolder_id&quot;))).single()
+        </td>
+      </tr><tr>
+        <td>
+          83
+        </td>
+        <td>
+          413
+        </td>
+        <td>
+          2802
+          -
+          2802
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scalikejdbc.SQLToResult.apply$default$2
+        </td>
+        <td style="background: #F0ADAD">
+          qual$4.apply$default$2()
+        </td>
+      </tr><tr>
+        <td>
+          86
+        </td>
+        <td>
+          416
+        </td>
+        <td>
+          2854
+          -
+          2880
+        </td>
+        <td>
+          Throw
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          throw new java.sql.SQLException(ex)
+        </td>
+      </tr><tr>
+        <td>
+          87
+        </td>
+        <td>
+          417
+        </td>
+        <td>
+          2909
+          -
+          2932
+        </td>
+        <td>
+          Throw
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          throw new scala.`package`.Exception(ex)
+        </td>
+      </tr><tr>
+        <td>
+          90
+        </td>
+        <td>
+          418
+        </td>
+        <td>
+          2959
+          -
+          2974
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scalikejdbc.DBSession.close
+        </td>
+        <td style="background: #F0ADAD">
+          session.close()
+        </td>
+      </tr><tr>
+        <td>
+          90
+        </td>
+        <td>
+          419
+        </td>
+        <td>
+          2959
+          -
+          2974
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          scalikejdbc.DBSession.close
+        </td>
+        <td style="background: #F0ADAD">
+          session.close()
+        </td>
+      </tr><tr>
+        <td>
+          101
+        </td>
+        <td>
+          420
+        </td>
+        <td>
+          3335
+          -
+          3346
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          scalikejdbc.AutoSession
+        </td>
+        <td style="background: #F0ADAD">
+          scalikejdbc.AutoSession
+        </td>
+      </tr><tr>
+        <td>
+          102
+        </td>
+        <td>
+          426
+        </td>
+        <td>
+          3363
+          -
+          3722
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          {
+  val fetchReputation: List[com.knoldus.leader_board.GetAuthorScore] = {
+    &lt;artifact&gt; val qual$5: scalikejdbc.SQLToList[com.knoldus.leader_board.GetAuthorScore,scalikejdbc.HasExtractor] @scala.reflect.internal.annotations.uncheckedBounds = scalikejdbc.SQL.apply[Nothing](&quot;SELECT full_name, overall_score, overall_rank FROM all_time INNER JOIN knolder ON all_time.knolder_id = knolder.id ORDER BY overall_score ASC&quot;).map[com.knoldus.leader_board.GetAuthorScore](((rs: scalikejdbc.WrappedResultSet) =&gt; com.knoldus.leader_board.GetAuthorScore.apply(rs.string(&quot;full_name&quot;), rs.int(&quot;overall_score&quot;), rs.int(&quot;overall_rank&quot;)))).list();
+    &lt;artifact&gt; val x$13: scalikejdbc.AutoSession.type = session;
+    &lt;artifact&gt; val x$14: scalikejdbc.SQL[com.knoldus.leader_board.GetAuthorScore,scalikejdbc.HasExtractor] =:= scalikejdbc.SQL[com.knoldus.leader_board.GetAuthorScore,scalikejdbc.HasExtractor] @scala.reflect.internal.annotations.uncheckedBounds = GeneralizedTypeConstraintsForWithExtractor.this.=:=.tpEquals[scalikejdbc.SQL[com.knoldus.leader_board.GetAuthorScore,scalikejdbc.HasExtractor]];
+    &lt;artifact&gt; val x$15: scalikejdbc.ConnectionPoolContext = qual$5.apply$default$2();
+    qual$5.apply()(x$13, x$15, x$14)
+  };
+  fetchReputation.reverse
+}
+        </td>
+      </tr><tr>
+        <td>
+          107
+        </td>
+        <td>
+          424
+        </td>
+        <td>
+          3393
+          -
+          3692
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          scalikejdbc.SQLToResult.apply
+        </td>
+        <td style="background: #F0ADAD">
+          qual$5.apply()(x$13, x$15, x$14)
+        </td>
+      </tr><tr>
+        <td>
+          107
+        </td>
+        <td>
+          421
+        </td>
+        <td>
+          3393
+          -
+          3684
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scalikejdbc.SQL.list
+        </td>
+        <td style="background: #F0ADAD">
+          scalikejdbc.SQL.apply[Nothing](&quot;SELECT full_name, overall_score, overall_rank FROM all_time INNER JOIN knolder ON all_time.knolder_id = knolder.id ORDER BY overall_score ASC&quot;).map[com.knoldus.leader_board.GetAuthorScore](((rs: scalikejdbc.WrappedResultSet) =&gt; com.knoldus.leader_board.GetAuthorScore.apply(rs.string(&quot;full_name&quot;), rs.int(&quot;overall_score&quot;), rs.int(&quot;overall_rank&quot;)))).list()
+        </td>
+      </tr><tr>
+        <td>
+          107
+        </td>
+        <td>
+          423
+        </td>
+        <td>
+          3690
+          -
+          3690
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scalikejdbc.SQLToResult.apply$default$2
+        </td>
+        <td style="background: #F0ADAD">
+          qual$5.apply$default$2()
+        </td>
+      </tr><tr>
+        <td>
+          107
+        </td>
+        <td>
+          422
+        </td>
+        <td>
+          3690
+          -
+          3690
+        </td>
+        <td>
+          TypeApply
+        </td>
+        <td>
+          scalikejdbc.GeneralizedTypeConstraintsForWithExtractor.=:=.tpEquals
+        </td>
+        <td style="background: #F0ADAD">
+          GeneralizedTypeConstraintsForWithExtractor.this.=:=.tpEquals[scalikejdbc.SQL[com.knoldus.leader_board.GetAuthorScore,scalikejdbc.HasExtractor]]
+        </td>
+      </tr><tr>
+        <td>
+          108
+        </td>
+        <td>
+          425
+        </td>
+        <td>
+          3699
+          -
+          3722
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          scala.collection.immutable.List.reverse
+        </td>
+        <td style="background: #F0ADAD">
+          fetchReputation.reverse
+        </td>
+      </tr><tr>
+        <td>
+          111
+        </td>
+        <td>
+          427
+        </td>
+        <td>
+          3772
+          -
+          3798
+        </td>
+        <td>
+          Throw
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          throw new java.sql.SQLException(ex)
+        </td>
+      </tr><tr>
+        <td>
+          112
+        </td>
+        <td>
+          428
+        </td>
+        <td>
+          3827
+          -
+          3850
+        </td>
+        <td>
+          Throw
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          throw new scala.`package`.Exception(ex)
+        </td>
+      </tr><tr>
+        <td>
+          115
+        </td>
+        <td>
+          430
+        </td>
+        <td>
+          3877
+          -
+          3892
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          scalikejdbc.DBSession.close
+        </td>
+        <td style="background: #F0ADAD">
+          session.close()
+        </td>
+      </tr><tr>
+        <td>
+          115
+        </td>
+        <td>
+          429
+        </td>
+        <td>
+          3877
+          -
+          3892
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scalikejdbc.DBSession.close
+        </td>
+        <td style="background: #F0ADAD">
+          session.close()
+        </td>
+      </tr>
+    </table>
+          </div>
+        </div>
+      </body>
+    </html>

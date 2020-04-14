@@ -1,0 +1,5 @@
+[0m[[0m[0minfo[0m] [0m[0m[info] Cleaning datadir [/home/knoldus/IdeaProjects/knoldus_leaderboard/app/target/scala-2.12/scoverage-data][0m
+[0m[[0m[0minfo[0m] [0m[0m[info] Beginning coverage instrumentation[0m
+[0m[[0m[0minfo[0m] [0m[0m[info] Instrumentation completed [481 statements][0m
+[0m[[0m[0minfo[0m] [0m[0m[info] Wrote instrumentation file [/home/knoldus/IdeaProjects/knoldus_leaderboard/app/target/scala-2.12/scoverage-data/scoverage.coverage.xml][0m
+[0m[[0m[0minfo[0m] [0m[0m[info] Will write measurement data to [/home/knoldus/IdeaProjects/knoldus_leaderboard/app/target/scala-2.12/scoverage-data][0m
