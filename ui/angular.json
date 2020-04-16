@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
-  "defaultProject": "app",
+  "defaultProject": "leaderboard",
   "newProjectRoot": "projects",
   "projects": {
     "app": {
@@ -9,7 +9,9 @@
       "sourceRoot": "src",
       "projectType": "application",
       "prefix": "app",
-      "schematics": {},
+      "schematics": {
+        "style": "scss"
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",

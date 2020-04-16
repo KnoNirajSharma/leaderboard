@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {EmployeeActivityService} from '../../services/employee-activity.service';
-import {EmployeeModel} from '../../models/employee.model';
+import {AuthorModel} from '../../models/author.model';
 
 @Component({
   selector: 'app-main',
@@ -10,9 +10,9 @@ import {EmployeeModel} from '../../models/employee.model';
 export class MainPage implements OnInit {
 
   constructor(private employeeActivityService: EmployeeActivityService) { }
-  employeeData: EmployeeModel[];
+  employeeData: AuthorModel[];
   ngOnInit() {
-    this.employeeActivityService.getData().subscribe((data: EmployeeModel[]) => {
+    this.employeeActivityService.getData().subscribe((data: AuthorModel[]) => {
       this.employeeData = data;
         });
   }

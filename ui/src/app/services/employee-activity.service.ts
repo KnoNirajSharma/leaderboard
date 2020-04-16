@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {EmployeeModel} from '../models/employee.model';
+import {AuthorModel} from '../models/author.model';
 
 
 @Injectable({
@@ -14,8 +14,8 @@ export class EmployeeActivityService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getData(): Observable<EmployeeModel[]> {
-    return this.httpClient.get<EmployeeModel[]>(this.url);
+  getData(): Observable<AuthorModel[]> {
+    return this.httpClient.get<AuthorModel[]>(this.url);
   }
 }
 
