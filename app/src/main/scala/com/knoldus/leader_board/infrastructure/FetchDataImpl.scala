@@ -7,6 +7,7 @@ import scalikejdbc._
 
 class FetchDataImpl(databaseConnection: DatabaseConnection) extends FetchData {
   implicit val connection: Connection = databaseConnection.connection
+  implicit val session: DBSession = DB.readOnlySession()
 
   /**
    * Fetches Maximum publication date of blog present in blog table.
@@ -14,13 +15,7 @@ class FetchDataImpl(databaseConnection: DatabaseConnection) extends FetchData {
    * @return Maximum publication date of blog wrapped in option.
    */
   override def fetchMaxBlogPublicationDate: Option[Timestamp] = {
-    implicit val session: DBSession = DB.readOnlySession()
-    try {
-      sql"SELECT MAX(published_on) FROM blog".map(rs => rs.timestamp(1)).single().apply()
-    }
-    finally {
-      session.close()
-    }
+    sql"SELECT MAX(published_on) FROM blog".map(rs => rs.timestamp(1)).single().apply()
   }
 
   /**
@@ -29,16 +24,10 @@ class FetchDataImpl(databaseConnection: DatabaseConnection) extends FetchData {
    * @return List of GetScore case class objects, which specifies overall score for each knolder.
    */
   override def fetchScores: List[GetScore] = {
-    implicit val session: DBSession = DB.readOnlySession()
-    try {
-      val listOfscores =
-        SQL("SELECT knolder_id, overall_score FROM all_time")
-          .map(rs => GetScore(rs.int("knolder_id"), rs.int("overall_score"))).list().apply()
-      listOfscores.sortBy(getScore => getScore.score).reverse
-    }
-    finally {
-      session.close()
-    }
+    val listOfscores =
+      SQL("SELECT knolder_id, overall_score FROM all_time")
+        .map(rs => GetScore(rs.int("knolder_id"), rs.int("overall_score"))).list().apply()
+    listOfscores.sortBy(getScore => getScore.score).reverse
   }
 
   /**
@@ -48,14 +37,8 @@ class FetchDataImpl(databaseConnection: DatabaseConnection) extends FetchData {
    * @return Knolder id wrapped in option.
    */
   override def fetchKnolderIdFromKnolder(scores: AuthorScore): Option[Int] = {
-    implicit val session: DBSession = DB.readOnlySession()
-    try {
-      SQL("SELECT id FROM knolder WHERE wordpress_id = ?").bind(scores.authorLogin)
-        .map(rs => rs.int("id")).single().apply()
-    }
-    finally {
-      session.close()
-    }
+    SQL("SELECT id FROM knolder WHERE wordpress_id = ?").bind(scores.authorLogin)
+      .map(rs => rs.int("id")).single().apply()
   }
 
   /**
@@ -66,14 +49,8 @@ class FetchDataImpl(databaseConnection: DatabaseConnection) extends FetchData {
    * @return Knolder id wrapped in option.
    */
   override def fetchKnolderIdFromAllTime(scores: AuthorScore, authorId: Option[Int]): Option[Int] = {
-    implicit val session: DBSession = DB.readOnlySession()
-    try {
-      SQL("SELECT knolder_id FROM all_time WHERE knolder_id = ?").bind(authorId)
-        .map(rs => rs.int("knolder_id")).single().apply()
-    }
-    finally {
-      session.close()
-    }
+    SQL("SELECT knolder_id FROM all_time WHERE knolder_id = ?").bind(authorId)
+      .map(rs => rs.int("knolder_id")).single().apply()
   }
 
   /**
@@ -83,17 +60,15 @@ class FetchDataImpl(databaseConnection: DatabaseConnection) extends FetchData {
    *         overall rank of each knolder.
    */
   override def fetchAllTimeData: List[GetAuthorScore] = {
-    implicit val session: DBSession = DB.readOnlySession()
-    try {
-      val fetchReputation =
-        SQL("SELECT full_name, overall_score, overall_rank FROM all_time " +
-          "INNER JOIN knolder ON all_time.knolder_id = knolder.id ORDER BY overall_score ASC")
-          .map(rs => GetAuthorScore(rs.string("full_name"), rs.int("overall_score")
-            , rs.int("overall_rank"))).list.apply()
-      fetchReputation.reverse
-    }
-    finally {
-      session.close()
-    }
+    val fetchReputation =
+      SQL("SELECT full_name, overall_score, overall_rank FROM all_time " +
+        "INNER JOIN knolder ON all_time.knolder_id = knolder.id ORDER BY overall_score ASC")
+        .map(rs => GetAuthorScore(rs.string("full_name"), rs.int("overall_score")
+          , rs.int("overall_rank"))).list.apply()
+    fetchReputation.reverse
+  }
+
+  override def finalize(): Unit = {
+    session.close()
   }
 }
