@@ -1,25 +1,23 @@
+package com.knoldus.leader_board.business
+
 import java.sql.Timestamp
 import java.time.{Instant, ZoneOffset, ZonedDateTime}
 
-import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model.{HttpRequest, HttpResponse}
 import akka.http.scaladsl.settings.ClientConnectionSettings
 import akka.http.scaladsl.unmarshalling.Unmarshal
-import akka.stream.SystemMaterializer
 import akka.stream.scaladsl.{Flow, Sink, Source}
-import com.typesafe.config.{Config, ConfigFactory}
+import com.knoldus.leader_board.infrastructure.FetchData
+import com.knoldus.leader_board.{Author, Blog, BlogAuthor, CreateActorSystem}
+import com.typesafe.config.Config
 import net.liftweb.json.{DefaultFormats, parse}
 
+import scala.concurrent.Future
 import scala.concurrent.duration._
-import scala.concurrent.{ExecutionContextExecutor, Future}
 
-class Blogs(fetchData: FetchData) {
-  val config: Config = ConfigFactory.load()
+class BlogsImpl(fetchData: FetchData, config: Config) extends Blogs with CreateActorSystem {
   implicit val formats: DefaultFormats.type = DefaultFormats
-  implicit val system: ActorSystem = ActorSystem("myactor")
-  implicit val materializer: SystemMaterializer = SystemMaterializer(system)
-  implicit val executionContext: ExecutionContextExecutor = system.dispatcher
   val connectionFlow: Flow[HttpRequest, HttpResponse, Future[Http.OutgoingConnection]] =
     Http().outgoingConnectionHttps(config.getString("host"),
       settings = ClientConnectionSettings(system).withIdleTimeout(5.minutes))
@@ -31,7 +29,7 @@ class Blogs(fetchData: FetchData) {
    *
    * @return BlogAuthor case class object which contains list of all blogs and knolders.
    */
-  def getAllBlogsAndAuthors: Future[BlogAuthor] = {
+  override def getAllBlogsAndAuthors: Future[BlogAuthor] = {
     val totalNoOfPosts: Future[Int] = getTotalNoOfPosts
     totalNoOfPosts.flatMap { totalNoOfPosts =>
       val totalPosts = totalNoOfPosts
@@ -53,7 +51,7 @@ class Blogs(fetchData: FetchData) {
    *
    * @return Total number of posts to be fetched from wordpress API.
    */
-  def getTotalNoOfPosts: Future[Int] = {
+  override def getTotalNoOfPosts: Future[Int] = {
     val response: Future[HttpResponse] = dispatchRequest(
       HttpRequest(uri = config.getString("uri") + "?page=1"))
     response.flatMap(res =>
@@ -64,11 +62,16 @@ class Blogs(fetchData: FetchData) {
           totalPosts
         }
       } else {
-        val ex = new RuntimeException(s"Service failed with status: ${res.status}")
-        throw ex
+        throw new RuntimeException(s"Service failed with status: ${res.status}")
       })
   }.recoverWith {
     case ex: Exception => Future.failed(new Exception("Service failed", ex))
+  }
+
+  private def dispatchRequest(request: HttpRequest): Future[HttpResponse] = {
+    Source.single(request)
+      .via(connectionFlow)
+      .runWith(Sink.head)
   }
 
   /**
@@ -77,7 +80,7 @@ class Blogs(fetchData: FetchData) {
    * @param lastPage Specifies end page number upto which wordpress API needs to be hit from first page.
    * @return BlogAuthor case class object which contains list of all blogs and knolders.
    */
-  def getAllBlogs(lastPage: Int): Future[BlogAuthor] = {
+  override def getAllBlogs(lastPage: Int): Future[BlogAuthor] = {
     @scala.annotation.tailrec
     def getBlogs(blogsAndAuthorsList: Future[BlogAuthor], currentPage: Int, end: Int): Future[BlogAuthor] = {
       if (currentPage > end) {
@@ -101,12 +104,6 @@ class Blogs(fetchData: FetchData) {
     case ex: Exception => Future.failed(new Exception("Service failed", ex))
   }
 
-  def dispatchRequest(request: HttpRequest): Future[HttpResponse] = {
-    Source.single(request)
-      .via(connectionFlow)
-      .runWith(Sink.head)
-  }
-
   /**
    * Extracts blogs data from wordpress API.
    * Extracts only those blogs which are not yet added in blog table.
@@ -115,7 +112,7 @@ class Blogs(fetchData: FetchData) {
    * @return List of Blog case class objects, which specifies blog id, wordpress id of knolder, date of blog,
    *         title of blog.
    */
-  def getListOfBlogs(blogs: String): List[Blog] = {
+  override def getListOfBlogs(blogs: String): List[Blog] = {
     val parsedBlogs = parse(blogs)
     val listOfBlogs = (parsedBlogs \ "posts").children map { blog =>
       val blogId = (blog \ "ID").extract[Option[Int]]
@@ -129,20 +126,10 @@ class Blogs(fetchData: FetchData) {
       val minimumTime = Instant.parse("0000-04-01T09:37:10Z")
       val parsedDate = Timestamp.from(minimumTime)
       fetchMaxDate match {
-        case Some(value) => val date = value
-          if (publishedOn.compareTo(date) == 1) {
-            Blog(blogId, authorLogin, publishedOn, title)
-          }
-          else {
-            Blog(None, None, parsedDate, None)
-          }
-        case None =>
-          if (publishedOn.compareTo(parsedDate) == 1) {
-            Blog(blogId, authorLogin, publishedOn, title)
-          }
-          else {
-            Blog(None, None, parsedDate, None)
-          }
+        case Some(value) if publishedOn.compareTo(value) == 1 => Blog(blogId, authorLogin, publishedOn, title)
+        case Some(value) if publishedOn.compareTo(value) != 1 => Blog(None, None, parsedDate, None)
+        case None if publishedOn.compareTo(parsedDate) == 1 => Blog(blogId, authorLogin, publishedOn, title)
+        case None if publishedOn.compareTo(parsedDate) != 1 => Blog(None, None, parsedDate, None)
       }
     }
     listOfBlogs.filter(blog => blog.blogId.isDefined && blog.authorLogin.isDefined)
@@ -155,7 +142,7 @@ class Blogs(fetchData: FetchData) {
    * @param blogs JSON string of blogs data fetched from wordpress API.
    * @return List of Author case class objects, which specifies name of knolder, wordpress id of knolder.
    */
-  def getListOfAuthors(blogs: String): List[Author] = {
+  override def getListOfAuthors(blogs: String): List[Author] = {
     val parsedBlogs = parse(blogs)
     val listOfAuthors = (parsedBlogs \ "posts").children map { blog =>
       val authorName = (blog \ "author" \ "name").extract[Option[String]]
@@ -165,22 +152,13 @@ class Blogs(fetchData: FetchData) {
       val odtInstanceAtUTC = odtInstanceAtOffset.withZoneSameInstant(ZoneOffset.UTC)
       val publishedOn = Timestamp.from(odtInstanceAtUTC.toInstant)
       val fetchMaxDate = fetchData.fetchMaxBlogPublicationDate
+      val minimumTime = Instant.parse("0000-04-01T09:37:10Z")
+      val parsedDate = Timestamp.from(minimumTime)
       fetchMaxDate match {
-        case Some(value) => val date = value
-          if (publishedOn.compareTo(date) == 1) {
-            Author(authorName, authorLogin)
-          }
-          else {
-            Author(None, None)
-          }
-        case None => val minimumTime = Instant.parse("0000-04-01T09:37:10Z")
-          val parsedDate = Timestamp.from(minimumTime)
-          if (publishedOn.compareTo(parsedDate) == 1) {
-            Author(authorName, authorLogin)
-          }
-          else {
-            Author(None, None)
-          }
+        case Some(value) if publishedOn.compareTo(value) == 1 => Author(authorName, authorLogin)
+        case Some(value) if publishedOn.compareTo(value) != 1 => Author(None, None)
+        case None if publishedOn.compareTo(parsedDate) == 1 => Author(authorName, authorLogin)
+        case None if publishedOn.compareTo(parsedDate) != 1 => Author(None, None)
       }
     }
     listOfAuthors.distinct.filter(author => author.authorLogin.isDefined)

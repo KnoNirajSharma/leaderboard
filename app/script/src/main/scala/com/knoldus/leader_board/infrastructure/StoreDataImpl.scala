@@ -1,9 +1,10 @@
-import java.sql.SQLException
+package com.knoldus.leader_board.infrastructure
 
-import scalikejdbc.{DB, SQL}
+import com.knoldus.leader_board.{BlogAuthor, DatabaseConnection}
+import scalikejdbc.{DB, DBSession, SQL}
 
-class StoreData(databaseConnection: DatabaseConnection) {
-
+class StoreDataImpl(databaseConnection: DatabaseConnection) extends StoreData {
+  implicit val session: DBSession = DB.autoCommitSession()
 
   /**
    * Stores list of blogs in blog table.
@@ -12,29 +13,15 @@ class StoreData(databaseConnection: DatabaseConnection) {
    *                              all knolders.
    * @return Message specifying data is stored and database connection is closed.
    */
-  def insertKnolder(listOfBlogsAndAuthors: BlogAuthor): List[Int] = {
-    implicit val session = DB.autoCommitSession()
-
-    try {
+  override def insertKnolder(listOfBlogsAndAuthors: BlogAuthor): List[Int] = {
 
       listOfBlogsAndAuthors.authors.map { author =>
-
         SQL("INSERT INTO knolder(full_name, wordpress_id) SELECT ?, ? " +
           "WHERE NOT EXISTS (SELECT wordpress_id FROM knolder WHERE wordpress_id = ?)")
           .bind(author.authorName, author.authorLogin, author.authorLogin)
           .update().apply()
-
-
       }
 
-    }
-    catch {
-      case ex: SQLException => throw new SQLException(ex)
-      case ex: Exception => throw new Exception(ex)
-    }
-    finally {
-      session.close()
-    }
 
   }
 
@@ -45,29 +32,15 @@ class StoreData(databaseConnection: DatabaseConnection) {
    *                              all knolders.
    * @return Message specifying data is stored and database connection is closed.
    */
-  def insertBlog(listOfBlogsAndAuthors: BlogAuthor): List[Int] = {
-    implicit val session = DB.autoCommitSession()
-
-    try {
-
+  override def insertBlog(listOfBlogsAndAuthors: BlogAuthor): List[Int] =
       listOfBlogsAndAuthors.blogs.map { blog =>
-
         SQL("INSERT INTO blog(id , wordpress_id, published_on, title)" +
           " SELECT ?, ?, ?, ? WHERE NOT EXISTS (SELECT id FROM blog WHERE id = ?)")
           .bind(blog.blogId, blog.authorLogin, blog.publishedOn, blog.title, blog.blogId)
           .update().apply()
-
       }
 
-    }
-    catch {
-      case ex: SQLException => throw new SQLException(ex)
-      case ex: Exception => throw new Exception(ex)
-    }
-    finally {
-      session.close()
-    }
 
-  }
+
 
 }
