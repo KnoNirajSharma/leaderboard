@@ -8,10 +8,10 @@ import com.typesafe.config.ConfigFactory
 import org.scalatest.{BeforeAndAfterEach, DoNotDiscover}
 
 @DoNotDiscover
-class FetchDataSpec extends DBSpec with BeforeAndAfterEach {
+class FetchDataImplSpec extends DBSpec with BeforeAndAfterEach {
   val databaseConnection = new DatabaseConnection(ConfigFactory.load())
   implicit val connection: Connection = databaseConnection.connection
-  val fetchData = new FetchData(databaseConnection)
+  val fetchData: FetchData = new FetchDataImpl(databaseConnection)
 
   override def afterEach(): Unit = {
     cleanUpDatabase(connection)

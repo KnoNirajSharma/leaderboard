@@ -2,18 +2,18 @@ package com.knoldus.leader_board.infrastructure
 
 import java.sql.{Connection, PreparedStatement}
 
-import com.knoldus.leader_board.business.OverallRank
+import com.knoldus.leader_board.business.OverallRankImpl
 import com.knoldus.leader_board.{AuthorScore, DatabaseConnection, GetRank}
 import com.typesafe.config.ConfigFactory
 import org.mockito.MockitoSugar
 import org.scalatest.{BeforeAndAfterEach, DoNotDiscover}
 
 @DoNotDiscover
-class UpdateDataSpec extends DBSpec with BeforeAndAfterEach with MockitoSugar{
+class UpdateDataImplSpec extends DBSpec with BeforeAndAfterEach with MockitoSugar{
   val databaseConnection = new DatabaseConnection(ConfigFactory.load())
   implicit val connection: Connection = databaseConnection.connection
-  val mockOverallRank: OverallRank = mock[OverallRank]
-  val updateData = new UpdateData(databaseConnection, mockOverallRank)
+  val mockOverallRank: OverallRankImpl = mock[OverallRankImpl]
+  val updateData: UpdateData = new UpdateDataImpl(databaseConnection, mockOverallRank)
 
   override def afterEach(): Unit = {
     cleanUpDatabase(connection)

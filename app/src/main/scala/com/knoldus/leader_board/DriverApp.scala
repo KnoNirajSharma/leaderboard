@@ -1,8 +1,8 @@
 package com.knoldus.leader_board
 
-import com.knoldus.leader_board.application.AllTimeDataOnAPI
-import com.knoldus.leader_board.business.{Blogs, OverallRank, OverallScore}
-import com.knoldus.leader_board.infrastructure.{FetchData, StoreData, UpdateData}
+import com.knoldus.leader_board.application.{AllTimeDataOnAPI, AllTimeDataOnAPIImpl}
+import com.knoldus.leader_board.business.{Blogs, BlogsImpl, OverallRank, OverallRankImpl, OverallScore, OverallScoreImpl}
+import com.knoldus.leader_board.infrastructure.{FetchData, FetchDataImpl, StoreData, StoreDataImpl, UpdateData, UpdateDataImpl}
 import com.typesafe.config.{Config, ConfigFactory}
 
 import scala.concurrent.Await
@@ -11,13 +11,13 @@ import scala.concurrent.duration._
 object DriverApp extends App {
   val config: Config = ConfigFactory.load()
   val databaseConnection = new DatabaseConnection(config)
-  val fetchData = new FetchData(databaseConnection)
-  val storeData = new StoreData(databaseConnection)
-  val overallRank = new OverallRank(fetchData)
-  val updateData = new UpdateData(databaseConnection, overallRank)
-  val allTimeDataOnAPI = new AllTimeDataOnAPI(fetchData, config)
-  val blogs = new Blogs(fetchData, config)
-  val overallScore = new OverallScore(fetchData, storeData, updateData)
+  val fetchData: FetchData = new FetchDataImpl(databaseConnection)
+  val storeData: StoreData = new StoreDataImpl(databaseConnection)
+  val overallRank: OverallRank = new OverallRankImpl(fetchData)
+  val updateData: UpdateData = new UpdateDataImpl(databaseConnection, overallRank)
+  val allTimeDataOnAPI: AllTimeDataOnAPI = new AllTimeDataOnAPIImpl(fetchData, config)
+  val blogs: Blogs = new BlogsImpl(fetchData, config)
+  val overallScore: OverallScore = new OverallScoreImpl(fetchData, storeData, updateData)
 
   val getAllBlogsAndAuthors = blogs.getAllBlogsAndAuthors
   val listOfBlogsAndAuthors = Await.result(getAllBlogsAndAuthors, 3.minutes)

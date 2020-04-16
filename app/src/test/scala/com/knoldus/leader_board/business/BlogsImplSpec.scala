@@ -3,7 +3,7 @@ package com.knoldus.leader_board.business
 import java.sql.{Connection, Timestamp}
 import java.time.{Instant, ZoneOffset, ZonedDateTime}
 
-import com.knoldus.leader_board.infrastructure.FetchData
+import com.knoldus.leader_board.infrastructure.FetchDataImpl
 import com.knoldus.leader_board.{Author, Blog, BlogAuthor, DatabaseConnection}
 import com.typesafe.config.ConfigFactory
 import org.mockito.MockitoSugar
@@ -12,13 +12,13 @@ import org.scalatest.flatspec.AnyFlatSpec
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class BlogsSpec extends AnyFlatSpec with MockitoSugar {
+class BlogsImplSpec extends AnyFlatSpec with MockitoSugar {
   val databaseConnection = new DatabaseConnection(ConfigFactory.load())
   implicit val connection: Connection = databaseConnection.connection
-  val fetchData = new FetchData(databaseConnection)
+  val fetchData = new FetchDataImpl(databaseConnection)
 
-  val mockFetchData: FetchData = mock[FetchData]
-  val blogs = new Blogs(mockFetchData, ConfigFactory.load())
+  val mockFetchData: FetchDataImpl = mock[FetchDataImpl]
+  val blogs: Blogs = new BlogsImpl(mockFetchData, ConfigFactory.load())
   val spyBlogs: Blogs = spy(blogs)
 
   "get all blogs and authors" should "give blog author object" in {

@@ -1,0 +1,45 @@
+package com.knoldus.leader_board.infrastructure
+
+import com.knoldus.leader_board.business.OverallRank
+import com.knoldus.leader_board.{AuthorScore, DatabaseConnection, GetRank}
+import scalikejdbc.{DB, DBSession, SQL}
+
+class UpdateDataImpl(databaseConnection: DatabaseConnection, overallRank: OverallRank) extends UpdateData {
+
+  /**
+   * Updates rank of each knolder according to their overall score in all_time table.
+   *
+   * @return Message specifying data is updated and database connection is closed.
+   */
+  override def updateRank(): List[Int] = {
+    val listOfRanks: List[GetRank] = overallRank.calculateRank
+    implicit val session: DBSession = DB.autoCommitSession()
+    try {
+      listOfRanks.map { ranks =>
+        SQL("UPDATE all_time SET overall_rank = ? WHERE knolder_id = ?").bind(ranks.rank, ranks.knolderId)
+          .update().apply()
+      }
+    }
+    finally {
+      session.close()
+    }
+  }
+
+  /**
+   * Updates overall score of knolder in all_time table.
+   *
+   * @param scores   AuthorScore case class object which contains score of each knolder.
+   * @param authorId Knolder id wrapped in option.
+   * @return Integer which display the status of query execution.
+   */
+  override def updateAllTimeData(scores: AuthorScore, authorId: Option[Int]): Int = {
+    implicit val session: DBSession = DB.autoCommitSession()
+    try {
+      SQL("UPDATE all_time SET overall_score = overall_score + ? WHERE knolder_id = ?")
+        .bind(scores.score, authorId).update().apply()
+    }
+    finally {
+      session.close()
+    }
+  }
+}

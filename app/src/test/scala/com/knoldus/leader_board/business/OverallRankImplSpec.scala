@@ -1,13 +1,13 @@
 package com.knoldus.leader_board.business
 
-import com.knoldus.leader_board.infrastructure.FetchData
+import com.knoldus.leader_board.infrastructure.FetchDataImpl
 import com.knoldus.leader_board.{GetRank, GetScore}
 import org.mockito.MockitoSugar
 import org.scalatest.flatspec.AnyFlatSpec
 
-class OverallRankSpec extends AnyFlatSpec with MockitoSugar {
-  val mockFetchData: FetchData = mock[FetchData]
-  val overallRank = new OverallRank(mockFetchData)
+class OverallRankImplSpec extends AnyFlatSpec with MockitoSugar {
+  val mockFetchData: FetchDataImpl = mock[FetchDataImpl]
+  val overallRank: OverallRankImpl = new OverallRankImpl(mockFetchData)
 
   "calculate rank" should "give overall rank of each knolder" in {
     val listOfScores = List(GetScore(1, 10), GetScore(2, 5), GetScore(3, 5))

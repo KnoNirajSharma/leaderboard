@@ -4,11 +4,11 @@ import java.sql.Timestamp
 import java.time.Instant
 
 import com.knoldus.leader_board._
-import com.knoldus.leader_board.infrastructure.{FetchData, StoreData, UpdateData}
+import com.knoldus.leader_board.infrastructure.{FetchDataImpl, StoreDataImpl, UpdateDataImpl}
 import org.mockito.MockitoSugar
 import org.scalatest.flatspec.AnyFlatSpec
 
-class OverallScoreSpec extends AnyFlatSpec with MockitoSugar {
+class OverallScoreImplSpec extends AnyFlatSpec with MockitoSugar {
   val listOfBlogs = List(
     Blog(Option(1001), Option("mukesh01"),
       Timestamp.from(Instant.parse("2020-04-13T14:56:40Z")),
@@ -35,11 +35,11 @@ class OverallScoreSpec extends AnyFlatSpec with MockitoSugar {
     AuthorScore(Option("abhishek02"), Option("Abhishek Baranwal"), 5, 0),
     AuthorScore(Option("komal03"), Option("Komal Rajpal"), 5, 0))
 
-  val mockFetchData: FetchData = mock[FetchData]
-  val mockStoreData: StoreData = mock[StoreData]
-  val mockUpdateData: UpdateData = mock[UpdateData]
+  val mockFetchData: FetchDataImpl = mock[FetchDataImpl]
+  val mockStoreData: StoreDataImpl = mock[StoreDataImpl]
+  val mockUpdateData: UpdateDataImpl = mock[UpdateDataImpl]
 
-  val overallScore = new OverallScore(mockFetchData, mockStoreData, mockUpdateData)
+  val overallScore: OverallScore = new OverallScoreImpl(mockFetchData, mockStoreData, mockUpdateData)
 
   "calculate score" should "calculate overall score of each knolder" in {
     val actualResult = overallScore.calculateScore(blogAuthor)
