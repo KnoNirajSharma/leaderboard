@@ -3,20 +3,24 @@ package com.knoldus.leader_board.business
 import java.sql.Timestamp
 import java.time.{Instant, ZoneOffset, ZonedDateTime}
 
+import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model.{HttpRequest, HttpResponse}
 import akka.http.scaladsl.settings.ClientConnectionSettings
 import akka.http.scaladsl.unmarshalling.Unmarshal
+import akka.stream.SystemMaterializer
 import akka.stream.scaladsl.{Flow, Sink, Source}
 import com.knoldus.leader_board.infrastructure.FetchData
-import com.knoldus.leader_board.{Author, Blog, BlogAuthor, CreateActorSystem}
+import com.knoldus.leader_board.{Author, Blog, BlogAuthor}
 import com.typesafe.config.Config
 import net.liftweb.json.{DefaultFormats, parse}
 
-import scala.concurrent.Future
 import scala.concurrent.duration._
+import scala.concurrent.{ExecutionContextExecutor, Future}
 
-class BlogsImpl(fetchData: FetchData, config: Config) extends Blogs with CreateActorSystem {
+class BlogsImpl(fetchData: FetchData, config: Config)(implicit system: ActorSystem,
+                                                      materializer: SystemMaterializer,
+                                                      executionContext: ExecutionContextExecutor) extends Blogs {
   implicit val formats: DefaultFormats.type = DefaultFormats
   val connectionFlow: Flow[HttpRequest, HttpResponse, Future[Http.OutgoingConnection]] =
     Http().outgoingConnectionHttps(config.getString("host"),
@@ -68,12 +72,6 @@ class BlogsImpl(fetchData: FetchData, config: Config) extends Blogs with CreateA
     case ex: Exception => Future.failed(new Exception("Service failed", ex))
   }
 
-  private def dispatchRequest(request: HttpRequest): Future[HttpResponse] = {
-    Source.single(request)
-      .via(connectionFlow)
-      .runWith(Sink.head)
-  }
-
   /**
    * Hits wordpress API page wise and unmarshalls the response.
    *
@@ -102,6 +100,12 @@ class BlogsImpl(fetchData: FetchData, config: Config) extends Blogs with CreateA
     blogsAndAuthorsList
   }.recoverWith {
     case ex: Exception => Future.failed(new Exception("Service failed", ex))
+  }
+
+  private def dispatchRequest(request: HttpRequest): Future[HttpResponse] = {
+    Source.single(request)
+      .via(connectionFlow)
+      .runWith(Sink.head)
   }
 
   /**

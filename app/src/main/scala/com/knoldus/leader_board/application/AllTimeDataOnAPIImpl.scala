@@ -1,18 +1,22 @@
 package com.knoldus.leader_board.application
 
+import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model._
 import akka.http.scaladsl.server.Directives
+import akka.stream.SystemMaterializer
+import com.knoldus.leader_board.GetAuthorScore
 import com.knoldus.leader_board.infrastructure.FetchData
-import com.knoldus.leader_board.{CreateActorSystem, GetAuthorScore}
 import com.typesafe.config.Config
 import net.liftweb.json.Extraction.decompose
 import net.liftweb.json.{DefaultFormats, compactRender}
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContextExecutor, Future}
 
-class AllTimeDataOnAPIImpl(fetchData: FetchData, config: Config) extends AllTimeDataOnAPI with Directives
-  with CreateActorSystem {
+class AllTimeDataOnAPIImpl(fetchData: FetchData, config: Config)(implicit system: ActorSystem,
+                                                                 materializer: SystemMaterializer,
+                                                                 executionContext: ExecutionContextExecutor)
+  extends AllTimeDataOnAPI with Directives {
   implicit val formats: DefaultFormats.type = net.liftweb.json.DefaultFormats
 
   /**
@@ -20,7 +24,8 @@ class AllTimeDataOnAPIImpl(fetchData: FetchData, config: Config) extends AllTime
    *
    * @return Http request binded with server port.
    */
-  override def pushAllTimeDataOnAPI: Future[Http.ServerBinding] = {
+  override def pushAllTimeDataOnAPI(implicit system: ActorSystem, materializer: SystemMaterializer,
+                                    executionContext: ExecutionContextExecutor): Future[Http.ServerBinding] = {
     val scoreForBlogsPerAuthor: List[GetAuthorScore] = fetchData.fetchAllTimeData
     val reputation = compactRender(decompose(scoreForBlogsPerAuthor))
     val route =

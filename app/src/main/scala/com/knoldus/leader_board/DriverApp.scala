@@ -1,14 +1,19 @@
 package com.knoldus.leader_board
 
+import akka.actor.ActorSystem
+import akka.stream.SystemMaterializer
 import com.knoldus.leader_board.application.{AllTimeDataOnAPI, AllTimeDataOnAPIImpl}
-import com.knoldus.leader_board.business.{Blogs, BlogsImpl, OverallRank, OverallRankImpl, OverallScore, OverallScoreImpl}
-import com.knoldus.leader_board.infrastructure.{FetchData, FetchDataImpl, StoreData, StoreDataImpl, UpdateData, UpdateDataImpl}
+import com.knoldus.leader_board.business._
+import com.knoldus.leader_board.infrastructure._
 import com.typesafe.config.{Config, ConfigFactory}
 
-import scala.concurrent.Await
 import scala.concurrent.duration._
+import scala.concurrent.{Await, ExecutionContextExecutor}
 
 object DriverApp extends App {
+  implicit val system: ActorSystem = ActorSystem()
+  implicit val materializer: SystemMaterializer = SystemMaterializer(system)
+  implicit val executionContext: ExecutionContextExecutor = system.dispatcher
   val config: Config = ConfigFactory.load()
   val databaseConnection = new DatabaseConnection(config)
   val fetchData: FetchData = new FetchDataImpl(databaseConnection)
