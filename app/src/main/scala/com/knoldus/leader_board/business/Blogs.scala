@@ -18,8 +18,7 @@ import net.liftweb.json.{DefaultFormats, parse}
 import scala.concurrent.duration._
 import scala.concurrent.{ExecutionContextExecutor, Future}
 
-class Blogs(fetchData: FetchData) {
-  val config: Config = ConfigFactory.load()
+class Blogs(fetchData: FetchData, config: Config) {
   implicit val formats: DefaultFormats.type = DefaultFormats
   implicit val system: ActorSystem = ActorSystem("myactor")
   implicit val materializer: SystemMaterializer = SystemMaterializer(system)
@@ -57,7 +56,7 @@ class Blogs(fetchData: FetchData) {
    *
    * @return Total number of posts to be fetched from wordpress API.
    */
-  private def getTotalNoOfPosts: Future[Int] = {
+  def getTotalNoOfPosts: Future[Int] = {
     val response: Future[HttpResponse] = dispatchRequest(
       HttpRequest(uri = config.getString("uri") + "?page=1"))
     response.flatMap(res =>
@@ -75,13 +74,19 @@ class Blogs(fetchData: FetchData) {
     case ex: Exception => Future.failed(new Exception("Service failed", ex))
   }
 
+  private def dispatchRequest(request: HttpRequest): Future[HttpResponse] = {
+    Source.single(request)
+      .via(connectionFlow)
+      .runWith(Sink.head)
+  }
+
   /**
    * Hits wordpress API page wise and unmarshalls the response.
    *
    * @param lastPage Specifies end page number upto which wordpress API needs to be hit from first page.
    * @return BlogAuthor case class object which contains list of all blogs and knolders.
    */
-  private def getAllBlogs(lastPage: Int): Future[BlogAuthor] = {
+  def getAllBlogs(lastPage: Int): Future[BlogAuthor] = {
     @scala.annotation.tailrec
     def getBlogs(blogsAndAuthorsList: Future[BlogAuthor], currentPage: Int, end: Int): Future[BlogAuthor] = {
       if (currentPage > end) {
@@ -105,12 +110,6 @@ class Blogs(fetchData: FetchData) {
     case ex: Exception => Future.failed(new Exception("Service failed", ex))
   }
 
-  private def dispatchRequest(request: HttpRequest): Future[HttpResponse] = {
-    Source.single(request)
-      .via(connectionFlow)
-      .runWith(Sink.head)
-  }
-
   /**
    * Extracts blogs data from wordpress API.
    * Extracts only those blogs which are not yet added in blog table.
@@ -119,7 +118,7 @@ class Blogs(fetchData: FetchData) {
    * @return List of Blog case class objects, which specifies blog id, wordpress id of knolder, date of blog,
    *         title of blog.
    */
-  private def getListOfBlogs(blogs: String): List[Blog] = {
+  def getListOfBlogs(blogs: String): List[Blog] = {
     val parsedBlogs = parse(blogs)
     val listOfBlogs = (parsedBlogs \ "posts").children map { blog =>
       val blogId = (blog \ "ID").extract[Option[Int]]
@@ -159,7 +158,7 @@ class Blogs(fetchData: FetchData) {
    * @param blogs JSON string of blogs data fetched from wordpress API.
    * @return List of Author case class objects, which specifies name of knolder, wordpress id of knolder.
    */
-  private def getListOfAuthors(blogs: String): List[Author] = {
+  def getListOfAuthors(blogs: String): List[Author] = {
     val parsedBlogs = parse(blogs)
     val listOfAuthors = (parsedBlogs \ "posts").children map { blog =>
       val authorName = (blog \ "author" \ "name").extract[Option[String]]

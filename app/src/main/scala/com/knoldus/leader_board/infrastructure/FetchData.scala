@@ -1,6 +1,6 @@
 package com.knoldus.leader_board.infrastructure
 
-import java.sql.{Connection, SQLException, Timestamp}
+import java.sql.{Connection, Timestamp}
 
 import com.knoldus.leader_board.{AuthorScore, DatabaseConnection, GetAuthorScore, GetScore}
 import scalikejdbc._
@@ -17,10 +17,6 @@ class FetchData(databaseConnection: DatabaseConnection) {
     implicit val session: AutoSession.type = AutoSession
     try {
       sql"SELECT MAX(published_on) FROM blog".map(rs => rs.timestamp(1)).single().apply()
-    }
-    catch {
-      case ex: SQLException => throw new SQLException(ex)
-      case ex: Exception => throw new Exception(ex)
     }
     finally {
       session.close()
@@ -40,10 +36,6 @@ class FetchData(databaseConnection: DatabaseConnection) {
           .map(rs => GetScore(rs.int("knolder_id"), rs.int("overall_score"))).list().apply()
       listOfscores.sortBy(getScore => getScore.score).reverse
     }
-    catch {
-      case ex: SQLException => throw new SQLException(ex)
-      case ex: Exception => throw new Exception(ex)
-    }
     finally {
       session.close()
     }
@@ -61,10 +53,7 @@ class FetchData(databaseConnection: DatabaseConnection) {
       SQL("SELECT id FROM knolder WHERE wordpress_id = ?").bind(scores.authorLogin)
         .map(rs => rs.int("id")).single().apply()
     }
-    catch {
-      case ex: SQLException => throw new SQLException(ex)
-      case ex: Exception => throw new Exception(ex)
-    } finally {
+    finally {
       session.close()
     }
   }
@@ -81,10 +70,6 @@ class FetchData(databaseConnection: DatabaseConnection) {
     try {
       SQL("SELECT knolder_id FROM all_time WHERE knolder_id = ?").bind(authorId)
         .map(rs => rs.int("knolder_id")).single().apply()
-    }
-    catch {
-      case ex: SQLException => throw new SQLException(ex)
-      case ex: Exception => throw new Exception(ex)
     }
     finally {
       session.close()
@@ -106,10 +91,6 @@ class FetchData(databaseConnection: DatabaseConnection) {
           .map(rs => GetAuthorScore(rs.string("full_name"), rs.int("overall_score")
             , rs.int("overall_rank"))).list.apply()
       fetchReputation.reverse
-    }
-    catch {
-      case ex: SQLException => throw new SQLException(ex)
-      case ex: Exception => throw new Exception(ex)
     }
     finally {
       session.close()

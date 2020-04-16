@@ -5,9 +5,10 @@ import java.time.Instant
 
 import com.knoldus.leader_board._
 import com.knoldus.leader_board.infrastructure.{FetchData, StoreData, UpdateData}
+import org.mockito.MockitoSugar
 import org.scalatest.flatspec.AnyFlatSpec
 
-class OverallScoreSpec extends AnyFlatSpec {
+class OverallScoreSpec extends AnyFlatSpec with MockitoSugar {
   val listOfBlogs = List(
     Blog(Option(1001), Option("mukesh01"),
       Timestamp.from(Instant.parse("2020-04-13T14:56:40Z")),
@@ -34,12 +35,38 @@ class OverallScoreSpec extends AnyFlatSpec {
     AuthorScore(Option("abhishek02"), Option("Abhishek Baranwal"), 5, 0),
     AuthorScore(Option("komal03"), Option("Komal Rajpal"), 5, 0))
 
-  val overallScore = new OverallScore(fetchData = new FetchData(new DatabaseConnection),
-    new StoreData(new DatabaseConnection), new UpdateData(new DatabaseConnection))
+  val mockFetchData: FetchData = mock[FetchData]
+  val mockStoreData: StoreData = mock[StoreData]
+  val mockUpdateData: UpdateData = mock[UpdateData]
+
+  val overallScore = new OverallScore(mockFetchData, mockStoreData, mockUpdateData)
 
   "calculate score" should "calculate overall score of each knolder" in {
     val actualResult = overallScore.calculateScore(blogAuthor)
     val expectedResult = listOfAuthorScores
     assert(actualResult == expectedResult)
+  }
+
+  val authorScore: AuthorScore = AuthorScore(Option("mukesh01"), Option("Mukesh Kumar"), 15, 0)
+  val listOfAuthorScore: List[AuthorScore] = List(AuthorScore(Option("mukesh01"), Option("Mukesh Kumar"), 15, 0))
+
+  "manage scores" should "update scores in all_time table" in {
+    when(mockFetchData.fetchKnolderIdFromKnolder(authorScore))
+      .thenReturn(Option(1))
+    when(mockFetchData.fetchKnolderIdFromAllTime(authorScore, Option(1)))
+      .thenReturn(Option(1))
+    when(mockUpdateData.updateAllTimeData(authorScore, Option(1)))
+      .thenReturn(1)
+    assert(overallScore.manageScores(listOfAuthorScore).sum == 1)
+  }
+
+  "manage scores" should "insert scores in all_time table" in {
+    when(mockFetchData.fetchKnolderIdFromKnolder(authorScore))
+      .thenReturn(Option(1))
+    when(mockFetchData.fetchKnolderIdFromAllTime(authorScore, Option(1)))
+      .thenReturn(None)
+    when(mockStoreData.insertAllTimeData(authorScore, Option(1)))
+      .thenReturn(1)
+    assert(overallScore.manageScores(listOfAuthorScore).sum == 1)
   }
 }

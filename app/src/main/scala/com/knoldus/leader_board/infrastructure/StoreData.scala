@@ -1,7 +1,5 @@
 package com.knoldus.leader_board.infrastructure
 
-import java.sql.SQLException
-
 import com.knoldus.leader_board.{AuthorScore, BlogAuthor, DatabaseConnection}
 import scalikejdbc.{DB, DBSession, SQL}
 
@@ -23,10 +21,6 @@ class StoreData(databaseConnection: DatabaseConnection) {
           .bind(author.authorName, author.authorLogin, author.authorLogin)
           .update().apply()
       }
-    }
-    catch {
-      case ex: SQLException => throw new SQLException(ex)
-      case ex: Exception => throw new Exception(ex)
     }
     finally {
       session.close()
@@ -50,10 +44,6 @@ class StoreData(databaseConnection: DatabaseConnection) {
           .update().apply()
       }
     }
-    catch {
-      case ex: SQLException => throw new SQLException(ex)
-      case ex: Exception => throw new Exception(ex)
-    }
     finally {
       session.close()
     }
@@ -62,7 +52,7 @@ class StoreData(databaseConnection: DatabaseConnection) {
   /**
    * Stores overall score of knolder in all_time table.
    *
-   * @param scores AuthorScore case class object which contains score of each knolder.
+   * @param scores   AuthorScore case class object which contains score of each knolder.
    * @param authorId Knolder id wrapped in option.
    * @return Integer which display the status of query execution.
    */
@@ -71,10 +61,6 @@ class StoreData(databaseConnection: DatabaseConnection) {
     try {
       SQL("INSERT INTO all_time(knolder_id, overall_score, overall_rank) values (?,?,?)")
         .bind(authorId, scores.score, 0).update().apply()
-    }
-    catch {
-      case ex: SQLException => throw new SQLException(ex)
-      case ex: Exception => throw new Exception(ex)
     }
     finally {
       session.close()
