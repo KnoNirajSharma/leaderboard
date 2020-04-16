@@ -1,22 +1,23 @@
 import { TestBed } from '@angular/core/testing';
-
 import { EmployeeActivityService } from './employee-activity.service';
 import { HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
-// import {AuthorModel} from '../models/author.model';
+import {AuthorModel} from '../models/author.model';
+
 
 describe('EmployeeActivityService', () => {
   let employeeActivityService: EmployeeActivityService;
-  // let httpTestingController: HttpTestingController;
+  let httpTestingController: HttpTestingController;
 
   beforeEach(() => TestBed.configureTestingModule({
-        imports: [HttpClientTestingModule]
+        imports: [HttpClientTestingModule],
+        providers: [EmployeeActivityService]
       }
   ));
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
     employeeActivityService = TestBed.get(EmployeeActivityService);
-    // httpTestingController = TestBed.inject(HttpTestingController);
+    httpTestingController = TestBed.get(HttpTestingController);
   });
 
   it('should be created', () => {
@@ -27,22 +28,33 @@ describe('EmployeeActivityService', () => {
   //   employeeActivityService.getData().subscribe(values => {
   //     expect(values).toBeTruthy('No output returned');
   //
-  //     const requestCheck = httpTestingController.expectOne(/assets/data/authorProfile.json);
-  //   } );
-  // });
-
-  // it('should retrieve author data from the API via GET', () => {
-  //   const dummyAuthorData: AuthorModel[] = [{
-  //     authorName: 'mark';
-  //     score: 100;
-  //     rank: 5;
-  //   }, {
-  //     authorName: 'sam';
-  //     score: 120;
-  //     rank: 2;
-  //   }];
-  //   employeeActivityService.getData().subscribe(data =>{
-  //     expect(data);
+  //     const requestCheck = httpTestingController.expectOne('/assets/data/authorProfile.json');
+  //     expect(requestCheck.request.method).toEqual('GET');
+  //     requestCheck.flush(values);
+  //
+  //     httpTestingController.verify();
   //   });
   // });
+
+  it('should retrieve author data from the API via GET', () => {
+  const dummyAuthorData: AuthorModel[] = [{
+    authorName: 'mark',
+    score: 100,
+    rank: 5,
+  }, {
+    authorName: 'sam',
+    score: 120,
+    rank: 2,
+  }];
+  employeeActivityService.getData().subscribe(authorData => {
+    expect(authorData).toEqual(dummyAuthorData);
+  });
+  const requestCheck = httpTestingController.expectOne('/assets/data/authorProfile.json');
+  expect(requestCheck.request.method).toBe('GET');
+  requestCheck.flush(dummyAuthorData);
+});
+
+  afterEach(() => {
+  httpTestingController.verify();
+});
 });

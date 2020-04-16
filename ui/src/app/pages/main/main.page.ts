@@ -11,6 +11,7 @@ export class MainPage implements OnInit {
 
   constructor(private employeeActivityService: EmployeeActivityService) { }
   employeeData: AuthorModel[];
+
   ngOnInit() {
     this.employeeActivityService.getData().subscribe((data: AuthorModel[]) => {
       this.employeeData = data;
