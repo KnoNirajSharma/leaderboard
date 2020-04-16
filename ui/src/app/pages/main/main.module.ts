@@ -5,12 +5,21 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { MainPage } from './main.page';
+import {RouterModule, Routes} from '@angular/router';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: MainPage,
+  },
+];
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    IonicModule
+    IonicModule,
+    RouterModule.forChild(routes)
   ],
   declarations: [MainPage]
 })
