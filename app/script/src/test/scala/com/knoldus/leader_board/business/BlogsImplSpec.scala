@@ -2,17 +2,19 @@ package com.knoldus.leader_board.business
 
 import java.sql.{Connection, Timestamp}
 import java.time.{Instant, ZoneOffset, ZonedDateTime}
-
+import akka.actor.ActorSystem
+import akka.stream.SystemMaterializer
 import com.knoldus.leader_board.infrastructure.FetchDataImpl
 import com.knoldus.leader_board.{Author, Blog, BlogAuthor, DatabaseConnection}
 import com.typesafe.config.ConfigFactory
 import org.mockito.MockitoSugar
 import org.scalatest.flatspec.AnyFlatSpec
-
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContextExecutor, Future}
 
 class BlogsImplSpec extends AnyFlatSpec with MockitoSugar {
+  implicit val system: ActorSystem = ActorSystem()
+  implicit val materializer: SystemMaterializer = SystemMaterializer(system)
+  implicit val executionContext: ExecutionContextExecutor = system.dispatcher
   val databaseConnection = new DatabaseConnection(ConfigFactory.load())
   implicit val connection: Connection = databaseConnection.connection
   val fetchData = new FetchDataImpl(databaseConnection)

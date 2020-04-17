@@ -21,10 +21,7 @@ class StoreDataImpl(databaseConnection: DatabaseConnection) extends StoreData {
           .bind(author.authorName, author.authorLogin, author.authorLogin)
           .update().apply()
       }
-
-
   }
-
   /**
    * Stores list of knolders in knolder table.
    *
@@ -39,8 +36,4 @@ class StoreDataImpl(databaseConnection: DatabaseConnection) extends StoreData {
           .bind(blog.blogId, blog.authorLogin, blog.publishedOn, blog.title, blog.blogId)
           .update().apply()
       }
-
-
-
-
 }

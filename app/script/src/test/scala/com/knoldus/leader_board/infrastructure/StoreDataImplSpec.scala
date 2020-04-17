@@ -55,7 +55,5 @@ class StoreDataImplSpec extends DBSpec with BeforeAndAfterEach {
       val result = storeData.insertBlog(blogAuthor)
       result.sum shouldBe 4
     }
-
-
   }
 }

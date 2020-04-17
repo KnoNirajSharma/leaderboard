@@ -85,7 +85,5 @@ class FetchDataImplSpec extends DBSpec with BeforeAndAfterEach {
         date shouldBe Timestamp.from(Instant.parse("2020-04-13T14:56:40Z"))
       }
     }
-
-
   }
 }

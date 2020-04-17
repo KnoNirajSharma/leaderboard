@@ -16,9 +16,6 @@ class FetchDataImpl(databaseConnection: DatabaseConnection) extends FetchData {
    */
   override def fetchMaxBlogPublicationDate: Option[Timestamp] = {
 
-      sql"SELECT MAX(published_on) FROM blog".map(rs => rs.timestamp(1)).single().apply()
-
+    sql"SELECT MAX(published_on) FROM blog".map(rs => rs.timestamp(1)).single().apply()
   }
-
-
 }

@@ -3,20 +3,24 @@ package com.knoldus.leader_board.business
 import java.sql.Timestamp
 import java.time.{Instant, ZoneOffset, ZonedDateTime}
 
+import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model.{HttpRequest, HttpResponse}
 import akka.http.scaladsl.settings.ClientConnectionSettings
 import akka.http.scaladsl.unmarshalling.Unmarshal
+import akka.stream.SystemMaterializer
 import akka.stream.scaladsl.{Flow, Sink, Source}
 import com.knoldus.leader_board.infrastructure.FetchData
-import com.knoldus.leader_board.{Author, Blog, BlogAuthor, CreateActorSystem}
+import com.knoldus.leader_board.{Author, Blog, BlogAuthor}
 import com.typesafe.config.Config
 import net.liftweb.json.{DefaultFormats, parse}
 
-import scala.concurrent.Future
 import scala.concurrent.duration._
+import scala.concurrent.{ExecutionContextExecutor, Future}
 
-class BlogsImpl(fetchData: FetchData, config: Config) extends Blogs with CreateActorSystem {
+class BlogsImpl(fetchData: FetchData, config: Config)(implicit system: ActorSystem,
+                                                      materializer: SystemMaterializer,
+                                                      executionContext: ExecutionContextExecutor) extends Blogs {
   implicit val formats: DefaultFormats.type = DefaultFormats
   val connectionFlow: Flow[HttpRequest, HttpResponse, Future[Http.OutgoingConnection]] =
     Http().outgoingConnectionHttps(config.getString("host"),
@@ -42,7 +46,7 @@ class BlogsImpl(fetchData: FetchData, config: Config) extends Blogs with CreateA
         getAllBlogs(page)
       }
     }
-  }.recoverWith {
+    }.recoverWith {
     case ex: Exception => Future.failed(new Exception("Service failed", ex))
   }
 
@@ -64,7 +68,7 @@ class BlogsImpl(fetchData: FetchData, config: Config) extends Blogs with CreateA
       } else {
         throw new RuntimeException(s"Service failed with status: ${res.status}")
       })
-  }.recoverWith {
+    }.recoverWith {
     case ex: Exception => Future.failed(new Exception("Service failed", ex))
   }
 
@@ -100,7 +104,7 @@ class BlogsImpl(fetchData: FetchData, config: Config) extends Blogs with CreateA
       BlogAuthor(List.empty, List.empty)
     }, 1, lastPage)
     blogsAndAuthorsList
-  }.recoverWith {
+    }.recoverWith {
     case ex: Exception => Future.failed(new Exception("Service failed", ex))
   }
 

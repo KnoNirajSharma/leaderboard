@@ -6,5 +6,4 @@ trait StoreData {
   def insertKnolder(listOfBlogsAndAuthors: BlogAuthor): List[Int]
 
   def insertBlog(listOfBlogsAndAuthors: BlogAuthor): List[Int]
-
 }
