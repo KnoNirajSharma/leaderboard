@@ -9,7 +9,7 @@ import org.mockito.MockitoSugar
 import org.scalatest.{BeforeAndAfterEach, DoNotDiscover}
 
 @DoNotDiscover
-class UpdateDataImplSpec extends DBSpec with BeforeAndAfterEach with MockitoSugar{
+class UpdateDataImplSpec extends DBSpec with BeforeAndAfterEach with MockitoSugar {
   val databaseConnection = new DatabaseConnection(ConfigFactory.load())
   implicit val connection: Connection = databaseConnection.connection
   val mockOverallRank: OverallRankImpl = mock[OverallRankImpl]

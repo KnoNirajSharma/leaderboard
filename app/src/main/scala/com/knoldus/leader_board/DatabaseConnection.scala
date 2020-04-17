@@ -2,7 +2,7 @@ package com.knoldus.leader_board
 
 import java.sql.Connection
 
-import com.typesafe.config.{Config, ConfigFactory}
+import com.typesafe.config.Config
 import scalikejdbc.ConnectionPool
 
 class DatabaseConnection(config: Config) {

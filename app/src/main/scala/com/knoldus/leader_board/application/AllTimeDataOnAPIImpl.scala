@@ -24,8 +24,7 @@ class AllTimeDataOnAPIImpl(fetchData: FetchData, config: Config)(implicit system
    *
    * @return Http request binded with server port.
    */
-  override def pushAllTimeDataOnAPI(implicit system: ActorSystem, materializer: SystemMaterializer,
-                                    executionContext: ExecutionContextExecutor): Future[Http.ServerBinding] = {
+  override def pushAllTimeDataOnAPI: Future[Http.ServerBinding] = {
     val scoreForBlogsPerAuthor: List[GetAuthorScore] = fetchData.fetchAllTimeData
     val reputation = compactRender(decompose(scoreForBlogsPerAuthor))
     val route =

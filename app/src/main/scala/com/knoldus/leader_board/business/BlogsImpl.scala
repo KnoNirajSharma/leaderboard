@@ -72,6 +72,12 @@ class BlogsImpl(fetchData: FetchData, config: Config)(implicit system: ActorSyst
     case ex: Exception => Future.failed(new Exception("Service failed", ex))
   }
 
+  private def dispatchRequest(request: HttpRequest): Future[HttpResponse] = {
+    Source.single(request)
+      .via(connectionFlow)
+      .runWith(Sink.head)
+  }
+
   /**
    * Hits wordpress API page wise and unmarshalls the response.
    *
@@ -100,12 +106,6 @@ class BlogsImpl(fetchData: FetchData, config: Config)(implicit system: ActorSyst
     blogsAndAuthorsList
   }.recoverWith {
     case ex: Exception => Future.failed(new Exception("Service failed", ex))
-  }
-
-  private def dispatchRequest(request: HttpRequest): Future[HttpResponse] = {
-    Source.single(request)
-      .via(connectionFlow)
-      .runWith(Sink.head)
   }
 
   /**

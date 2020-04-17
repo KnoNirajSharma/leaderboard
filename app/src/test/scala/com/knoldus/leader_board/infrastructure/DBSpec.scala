@@ -3,10 +3,9 @@ package com.knoldus.leader_board.infrastructure
 import java.io.FileReader
 import java.sql.Connection
 
-import org.scalatest.matchers.should.Matchers
 import org.h2.tools.RunScript
+import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpecLike
-
 
 class DBSpec extends AnyWordSpecLike with Matchers {
 
