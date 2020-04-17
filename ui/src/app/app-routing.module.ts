@@ -3,7 +3,6 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
 
-
   {
     path: '',
     loadChildren: () => import('./pages/main/main.module').then( m => m.MainPageModule)
@@ -20,5 +19,3 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule {}
-
-
