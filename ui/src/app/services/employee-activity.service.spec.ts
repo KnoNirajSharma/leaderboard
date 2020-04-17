@@ -24,18 +24,6 @@ describe('EmployeeActivityService', () => {
     expect(employeeActivityService).toBeTruthy();
   });
 
-  // it('should return list of employees activity', () => {
-  //   employeeActivityService.getData().subscribe(values => {
-  //     expect(values).toBeTruthy('No output returned');
-  //
-  //     const requestCheck = httpTestingController.expectOne('/assets/data/authorProfile.json');
-  //     expect(requestCheck.request.method).toEqual('GET');
-  //     requestCheck.flush(values);
-  //
-  //     httpTestingController.verify();
-  //   });
-  // });
-
   it('should retrieve author data from the API via GET', () => {
   const dummyAuthorData: AuthorModel[] = [{
     authorName: 'mark',

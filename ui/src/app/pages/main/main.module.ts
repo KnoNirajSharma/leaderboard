@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { MainPage } from './main.page';
 import {RouterModule, Routes} from '@angular/router';
+import {IonicModule} from "@ionic/angular";
 
 const routes: Routes = [
   {
@@ -13,11 +14,12 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    RouterModule.forChild(routes)
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        RouterModule.forChild(routes),
+        IonicModule
+    ],
   declarations: [MainPage]
 })
 export class MainPageModule {}
