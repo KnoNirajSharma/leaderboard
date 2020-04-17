@@ -31,8 +31,4 @@ class UpdateDataImpl(databaseConnection: DatabaseConnection, overallRank: Overal
     SQL("UPDATE all_time SET overall_score = overall_score + ? WHERE knolder_id = ?")
       .bind(scores.score, authorId).update().apply()
   }
-
-  override def finalize(): Unit = {
-    session.close()
-  }
 }

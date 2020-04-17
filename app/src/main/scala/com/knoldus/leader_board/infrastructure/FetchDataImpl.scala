@@ -67,8 +67,4 @@ class FetchDataImpl(databaseConnection: DatabaseConnection) extends FetchData {
           , rs.int("overall_rank"))).list.apply()
     fetchReputation.reverse
   }
-
-  override def finalize(): Unit = {
-    session.close()
-  }
 }

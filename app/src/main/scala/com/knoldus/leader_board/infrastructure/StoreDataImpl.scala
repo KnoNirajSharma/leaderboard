@@ -49,8 +49,4 @@ class StoreDataImpl(databaseConnection: DatabaseConnection) extends StoreData {
     SQL("INSERT INTO all_time(knolder_id, overall_score, overall_rank) values (?,?,?)")
       .bind(authorId, scores.score, 0).update().apply()
   }
-
-  override def finalize(): Unit = {
-    session.close()
-  }
 }
