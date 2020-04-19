@@ -1,9 +1,9 @@
 package com.knoldus.leader_board.infrastructure
 
-import com.knoldus.leader_board.{AuthorScore, BlogAuthor, DatabaseConnection}
+import com.knoldus.leader_board.{AuthorScore, BlogAuthor}
 import scalikejdbc.{DB, DBSession, SQL}
 
-class StoreDataImpl(databaseConnection: DatabaseConnection) extends StoreData {
+class StoreDataImpl extends StoreData {
   implicit val session: DBSession = DB.autoCommitSession()
 
   /**
