@@ -10,12 +10,12 @@ class OverallRankImpl(fetchData: FetchData) extends OverallRank {
    *
    * @return List of GetRank case class objects, which specifies overall rank for each knolder.
    */
-  override def calculateRank: List[GetRank] = {
+  override def calculateRank: Vector[GetRank] = {
     val listOfScores: List[GetScore] = fetchData.fetchScores
-    val rankList = List.empty[GetRank]
+    val rankList = Vector.empty[GetRank]
 
     @scala.annotation.tailrec
-    def getRank(listOfScores: List[GetScore], rankList: List[GetRank], rankListIndex: Int): List[GetRank] = {
+    def getRank(listOfScores: List[GetScore], rankList: Vector[GetRank], rankListIndex: Int): Vector[GetRank] = {
       listOfScores match {
         case Nil => rankList
         case _ :: Nil => rankList

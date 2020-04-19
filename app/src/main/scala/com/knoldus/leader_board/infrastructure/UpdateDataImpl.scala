@@ -13,7 +13,7 @@ class UpdateDataImpl(overallRank: OverallRank) extends UpdateData {
    * @return Message specifying data is updated and database connection is closed.
    */
   override def updateRank(): List[Int] = {
-    val listOfRanks: List[GetRank] = overallRank.calculateRank
+    val listOfRanks: List[GetRank] = overallRank.calculateRank.toList
     listOfRanks.map { ranks =>
       SQL("UPDATE all_time SET overall_rank = ? WHERE knolder_id = ?").bind(ranks.rank, ranks.knolderId)
         .update().apply()

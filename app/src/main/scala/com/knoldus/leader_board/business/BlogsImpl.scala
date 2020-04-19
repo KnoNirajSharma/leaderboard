@@ -96,8 +96,13 @@ class BlogsImpl(fetchData: FetchData, config: Config)(implicit system: ActorSyst
       BlogAuthor(List.empty, List.empty)
     }, 1, lastPage)
     blogsAndAuthorsList
-  }.recoverWith {
-    case ex: Exception => Future.failed(new Exception("Service failed", ex))
+      .recoverWith {
+        case ex: Exception =>
+          val blogsAndAuthorsList = getBlogs(Future {
+            BlogAuthor(List.empty, List.empty)
+          }, 1, lastPage)
+          blogsAndAuthorsList
+      }
   }
 
   private def dispatchRequest(request: HttpRequest): Future[HttpResponse] = {
