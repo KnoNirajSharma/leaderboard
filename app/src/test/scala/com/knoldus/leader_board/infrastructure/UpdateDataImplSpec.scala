@@ -13,7 +13,7 @@ class UpdateDataImplSpec extends DBSpec with BeforeAndAfterEach with MockitoSuga
   val databaseConnection = new DatabaseConnection(ConfigFactory.load())
   implicit val connection: Connection = databaseConnection.connection
   val mockOverallRank: OverallRankImpl = mock[OverallRankImpl]
-  val updateData: UpdateData = new UpdateDataImpl(databaseConnection, mockOverallRank)
+  val updateData: UpdateData = new UpdateDataImpl(mockOverallRank)
 
   override def afterEach(): Unit = {
     cleanUpDatabase(connection)

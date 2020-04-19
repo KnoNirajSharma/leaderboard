@@ -4,7 +4,6 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model._
 import akka.http.scaladsl.server.Directives
-import akka.stream.SystemMaterializer
 import com.knoldus.leader_board.GetAuthorScore
 import com.knoldus.leader_board.infrastructure.FetchData
 import com.typesafe.config.Config
@@ -14,7 +13,6 @@ import net.liftweb.json.{DefaultFormats, compactRender}
 import scala.concurrent.{ExecutionContextExecutor, Future}
 
 class AllTimeDataOnAPIImpl(fetchData: FetchData, config: Config)(implicit system: ActorSystem,
-                                                                 materializer: SystemMaterializer,
                                                                  executionContext: ExecutionContextExecutor)
   extends AllTimeDataOnAPI with Directives {
   implicit val formats: DefaultFormats.type = net.liftweb.json.DefaultFormats

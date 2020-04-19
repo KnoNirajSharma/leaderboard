@@ -1,10 +1,10 @@
 package com.knoldus.leader_board.infrastructure
 
 import com.knoldus.leader_board.business.OverallRank
-import com.knoldus.leader_board.{AuthorScore, DatabaseConnection, GetRank}
+import com.knoldus.leader_board.{AuthorScore, GetRank}
 import scalikejdbc.{DB, DBSession, SQL}
 
-class UpdateDataImpl(databaseConnection: DatabaseConnection, overallRank: OverallRank) extends UpdateData {
+class UpdateDataImpl(overallRank: OverallRank) extends UpdateData {
   implicit val session: DBSession = DB.autoCommitSession()
 
   /**
