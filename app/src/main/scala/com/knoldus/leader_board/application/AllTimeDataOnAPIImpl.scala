@@ -4,6 +4,8 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model._
 import akka.http.scaladsl.server.Directives
+import ch.megard.akka.http.cors.scaladsl.CorsDirectives
+import ch.megard.akka.http.cors.scaladsl.settings.CorsSettings
 import com.knoldus.leader_board.GetAuthorScore
 import com.knoldus.leader_board.infrastructure.FetchData
 import com.typesafe.config.Config
@@ -14,7 +16,7 @@ import scala.concurrent.{ExecutionContextExecutor, Future}
 
 class AllTimeDataOnAPIImpl(fetchData: FetchData, config: Config)(implicit system: ActorSystem,
                                                                  executionContext: ExecutionContextExecutor)
-  extends AllTimeDataOnAPI with Directives {
+  extends AllTimeDataOnAPI with Directives with CorsDirectives {
   implicit val formats: DefaultFormats.type = net.liftweb.json.DefaultFormats
 
   /**
@@ -25,12 +27,13 @@ class AllTimeDataOnAPIImpl(fetchData: FetchData, config: Config)(implicit system
   override def pushAllTimeDataOnAPI: Future[Http.ServerBinding] = {
     val scoreForBlogsPerAuthor: List[GetAuthorScore] = fetchData.fetchAllTimeData
     val reputation = compactRender(decompose(scoreForBlogsPerAuthor))
-    val route =
+    val route = cors(settings = CorsSettings.defaultSettings) {
       path("reputation") {
         get {
           complete(HttpEntity(ContentTypes.`application/json`, reputation))
         }
       }
+    }
     Http().bindAndHandle(route, config.getString("interface"), config.getInt("port"))
   }.recoverWith {
     case ex: Exception => Future.failed(new Exception("Service failed", ex))
