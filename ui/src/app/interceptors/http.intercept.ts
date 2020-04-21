@@ -9,7 +9,12 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 export class HttpIntercept implements HttpInterceptor {
     intercept( request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        request = request.clone({ headers: request.headers.set('Accept', '/assets/data/authorProfile.json') });
+        request = request.clone({
+            setHeaders: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+        });
         return next.handle(request)
             .pipe(
                 catchError((error: HttpErrorResponse) => {

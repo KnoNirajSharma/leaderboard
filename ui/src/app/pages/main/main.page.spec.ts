@@ -6,6 +6,7 @@ import {AuthorModel} from '../../models/author.model';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {of} from 'rxjs';
+import {IonicModule} from '@ionic/angular';
 
 describe('MainPage', () => {
   let component: MainPage;
@@ -26,23 +27,14 @@ describe('MainPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ MainPage ],
+      imports: [HttpClientTestingModule, RouterTestingModule, IonicModule]
     }).compileComponents();
   }));
-
-  beforeEach(() => ({
-    imports: [HttpClientTestingModule, RouterTestingModule]
-  }
-  ));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MainPage);
     component = fixture.componentInstance;
     mockEmployeeService = TestBed.get(EmployeeActivityService);
-    // fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
   });
 
   it('should return the authorData as per api call', () => {

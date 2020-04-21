@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {AuthorModel} from '../models/author.model';
-
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeActivityService {
 
-  private url = '/assets/data/authorProfile.json';
+  private url = environment.api.baseUrl;
 
   constructor(private httpClient: HttpClient) {
   }
