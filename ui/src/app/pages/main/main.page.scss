@@ -1,17 +1,19 @@
 $primary1: black;
+$primary2: white;
+$primary3: lightgrey;
 
 ion-content ion-toolbar {
   --background: translucent;
 }
 
 .bar-positive {
-  color: black;
+  color: $primary1;
 }
 
 ion-title.large-title {
-  color: black;
+  color: $primary1;
   //color: white;
-  background-color: white ;
+  background-color: $primary2 ;
   //background-color: #4854e0;
   font-size: 2em;
   font-weight: bold;
@@ -20,29 +22,29 @@ ion-title.large-title {
 
 .title {
   font-weight: bold;
-  color: white;
+  color: $primary2;
 }
 
 .color-style {
-  color: black;
+  color: $primary1;
 }
 
 .cell-class {
-  border-color: black;
+  border-color: $primary1;
   border-width: .01em;
   border-style:solid; margin-bottom : -1px;
-  background-color: lightgrey;
+  background-color: $primary3;
 }
 
 .col-class {
-  border-color: black;
+  border-color: $primary1;
   border-width: .0015em;
   border-style:solid;
   box-shadow: gray;
 }
 
 .ion-grid-content {
-  background-color: lightgrey;
+  background-color: $primary3;
   //padding: 0.5em;
   box-shadow: -1px 0px 2px rgba(0, 0, 0, 0.2), 1px 0px 2px rgba(0, 0, 0, 0.2);
 
