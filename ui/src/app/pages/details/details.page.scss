@@ -2,10 +2,11 @@ $primary1: black;
 $primary2: white;
 $primary3: lightgrey;
 
-ion-content ion-toolbar {
-  --background: translucent;
+ion-content {
+  ion-toolbar {
+    --background: translucent;
+  }
 }
-
 .cell-class {
   border-color: $primary1;
   border-width: .01em;

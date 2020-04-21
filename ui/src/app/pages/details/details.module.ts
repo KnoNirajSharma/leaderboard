@@ -4,7 +4,8 @@ import { FormsModule } from '@angular/forms';
 
 import { DetailsPage } from './details.page';
 import {RouterModule, Routes} from '@angular/router';
-import {IonicModule} from "@ionic/angular";
+import {IonicModule} from '@ionic/angular';
+import {HeadersComponent} from '../../components/headers/headers.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,6 @@ const routes: Routes = [
         RouterModule.forChild(routes),
         IonicModule
     ],
-  declarations: [DetailsPage]
+    declarations: [DetailsPage, HeadersComponent]
 })
 export class DetailsPageModule {}

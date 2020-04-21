@@ -2,54 +2,53 @@ $primary1: black;
 $primary2: white;
 $primary3: lightgrey;
 
-ion-content ion-toolbar {
-  --background: translucent;
+ion-content {
+  ion-toolbar {
+    --background: translucent;
+  }
 }
-
 .bar-positive {
   color: $primary1;
 }
-
-ion-title.large-title {
-  color: $primary1;
-  //color: white;
-  background-color: $primary2 ;
-  //background-color: #4854e0;
-  font-size: 2em;
-  font-weight: bold;
-  text-align: center;
+ion-title {
+  .large-title {
+    color: $primary1;
+    background-color: $primary2 ;
+    font: {
+      size: 2em;
+      weight: bold;
+    }
+    text-align: center;
+  }
 }
-
 .title {
   font-weight: bold;
   color: $primary2;
 }
-
 .color-style {
   color: $primary1;
 }
-
 .cell-class {
-  border-color: $primary1;
-  border-width: .01em;
-  border-style:solid; margin-bottom : -1px;
-  background-color: $primary3;
+  border: {
+    color: $primary1;
+    width: .01em;
+    style:solid;
+  }
+  margin-bottom : -1px;
+  color: $primary3;
 }
-
 .col-class {
-  border-color: $primary1;
-  border-width: .0015em;
-  border-style:solid;
+  border: {
+    color: $primary1;
+    width: .0015em;
+    style:solid;
+  }
   box-shadow: gray;
 }
-
 .ion-grid-content {
   background-color: $primary3;
-  //padding: 0.5em;
   box-shadow: -1px 0px 2px rgba(0, 0, 0, 0.2), 1px 0px 2px rgba(0, 0, 0, 0.2);
-
 }
-
 .ion-grid-header {
-  background-color: #4854e0;
+  background-color: #4854E0;
 }
