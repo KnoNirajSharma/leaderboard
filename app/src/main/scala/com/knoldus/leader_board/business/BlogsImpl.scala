@@ -22,7 +22,7 @@ class BlogsImpl(fetchData: FetchData, config: Config)(implicit system: ActorSyst
   implicit val formats: DefaultFormats.type = DefaultFormats
   val connectionFlow: Flow[HttpRequest, HttpResponse, Future[Http.OutgoingConnection]] =
     Http().outgoingConnectionHttps(config.getString("host"),
-      settings = ClientConnectionSettings(system).withIdleTimeout(5.minutes))
+      settings = ClientConnectionSettings(system).withIdleTimeout(5.minutes).withConnectingTimeout(3.minutes))
 
   /**
    * Calculates total number of pages of wordpress API which needs to be hit.
@@ -97,7 +97,7 @@ class BlogsImpl(fetchData: FetchData, config: Config)(implicit system: ActorSyst
     }, 1, lastPage)
     blogsAndAuthorsList
       .recoverWith {
-        case ex: Exception =>
+        case _: Exception =>
           val blogsAndAuthorsList = getBlogs(Future {
             BlogAuthor(List.empty, List.empty)
           }, 1, lastPage)
