@@ -1,0 +1,24 @@
+<app-headers title="Knoldus Leader Board"></app-headers>
+<ion-content [fullscreen]="true">
+    <ion-grid>
+        <ion-card>
+            <ion-card-header>
+                <ion-row class="cell-class ion-grid-header">
+                    <ion-col *ngFor="let category of headerData" class="col-class">
+                        <div class="bar bar-header bar-positive">
+                            <h6 class="title">{{category.categoryName}}</h6>
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-row *ngFor="let employee of employeeData" class="cell-class ion-grid-content">
+                    <ion-col class="col-class color-style">{{employee.authorName}}</ion-col>
+                    <ion-col class="col-class color-style">{{employee.score}}</ion-col>
+                    <ion-col class="col-class color-style">{{employee.rank}}</ion-col>
+                </ion-row>
+            </ion-card-content>
+        </ion-card>
+    </ion-grid>
+</ion-content>
+
