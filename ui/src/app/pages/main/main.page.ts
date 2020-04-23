@@ -19,9 +19,10 @@ export class MainPage implements OnInit {
     }
 
     ngOnInit() {
-        this.employeeActivityService.getData().subscribe((data: AuthorModel[]) => {
-            this.employeeData = data;
-        });
+        this.employeeData = this.employeeActivityService.getData()
+            .subscribe((data: AuthorModel[]) => {
+                this.employeeData = data;
+            });
     }
 
 }

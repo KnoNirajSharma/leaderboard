@@ -43,6 +43,7 @@ describe('EmployeeActivityService', () => {
     });
 
     afterEach(() => {
-        httpTestingController.verify();
+        httpTestingController
+            .verify();
     });
 });
