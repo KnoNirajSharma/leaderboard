@@ -1,16 +1,17 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 
-import { MainPage } from './main.page';
+import {MainPage} from './main.page';
 import {RouterModule, Routes} from '@angular/router';
-import {IonicModule} from "@ionic/angular";
+import {IonicModule} from '@ionic/angular';
+import {HeadersComponent} from '../../components/headers/headers.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: MainPage,
-  },
+    {
+        path: '',
+        component: MainPage,
+    },
 ];
 
 @NgModule({
@@ -20,6 +21,7 @@ const routes: Routes = [
         RouterModule.forChild(routes),
         IonicModule
     ],
-  declarations: [MainPage]
+    declarations: [MainPage, HeadersComponent]
 })
-export class MainPageModule {}
+export class MainPageModule {
+}

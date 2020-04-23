@@ -1,22 +1,21 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {AuthorModel} from '../models/author.model';
-import { environment } from '../../environments/environment';
+import {environment} from '../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class EmployeeActivityService {
+    private url = environment.api.baseUrl;
 
-  private url = environment.api.baseUrl;
+    constructor(private httpClient: HttpClient) {
+    }
 
-  constructor(private httpClient: HttpClient) {
-  }
-
-  getData(): Observable<AuthorModel[]> {
-    return this.httpClient.get<AuthorModel[]>(this.url);
-  }
+    getData(): Observable<AuthorModel[]> {
+        return this.httpClient.get<AuthorModel[]>(this.url);
+    }
 }
 
 

@@ -75,7 +75,6 @@
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
 }
-
 @media (prefers-color-scheme: dark) {
   /*
    * Dark Colors
@@ -102,6 +101,7 @@
     --ion-color-tertiary-contrast: #ffffff;
     --ion-color-tertiary-contrast-rgb: 255,255,255;
     --ion-color-tertiary-shade: #5d58e0;
+    --ion-color-tertiary-blue: #4854E0;
     --ion-color-tertiary-tint: #7974ff;
 
     --ion-color-success: #2fdf75;
