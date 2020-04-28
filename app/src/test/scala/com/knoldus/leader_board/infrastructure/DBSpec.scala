@@ -14,11 +14,6 @@ class DBSpec extends AnyWordSpecLike with Matchers {
     RunScript.execute(jdbcConnection, new FileReader(fileName))
   }
 
-  def insertData(jdbcConnection: Connection): Unit = {
-    val fileName = "src/main/resources/insertData.sql"
-    RunScript.execute(jdbcConnection, new FileReader(fileName))
-  }
-
   def cleanUpDatabase(jdbcConnection: Connection): Unit = {
     RunScript.execute(jdbcConnection, new FileReader("src/main/resources/dropTable.sql"))
   }

@@ -1,52 +1,24 @@
 package com.knoldus.leader_board.infrastructure
 
-import com.knoldus.leader_board.{AuthorScore, BlogAuthor}
-import scalikejdbc.{DB, DBSession, SQL}
+import java.sql.Connection
 
-class StoreDataImpl extends StoreData {
+import com.knoldus.leader_board.{BlogCount, DatabaseConnection}
+import scalikejdbc.{DB, DBSession, SQL}
+import com.typesafe.scalalogging._
+
+class StoreDataImpl(databaseConnection: DatabaseConnection) extends StoreData with LazyLogging {
+  implicit val connection: Connection = databaseConnection.connection
   implicit val session: DBSession = DB.autoCommitSession()
 
   /**
-   * Stores list of blogs in blog table.
+   * Stores blog count of knolder in all_time table.
    *
-   * @param listOfBlogsAndAuthors BlogAuthor case class object which contains list of all blogs and list of
-   *                              all knolders.
-   * @return Message specifying data is stored and database connection is closed.
+   * @param blogCount Number of blogs per Knolder.
+   * @return Integer which displays the status of query execution.
    */
-  override def insertKnolder(listOfBlogsAndAuthors: BlogAuthor): List[Int] = {
-    listOfBlogsAndAuthors.authors.map { author =>
-      SQL("INSERT INTO knolder(full_name, wordpress_id) SELECT ?, ? " +
-        "WHERE NOT EXISTS (SELECT wordpress_id FROM knolder WHERE wordpress_id = ?)")
-        .bind(author.authorName, author.authorLogin, author.authorLogin)
-        .update().apply()
-    }
-  }
-
-  /**
-   * Stores list of knolders in knolder table.
-   *
-   * @param listOfBlogsAndAuthors BlogAuthor case class object which contains list of all blogs and list of
-   *                              all knolders.
-   * @return Message specifying data is stored and database connection is closed.
-   */
-  override def insertBlog(listOfBlogsAndAuthors: BlogAuthor): List[Int] = {
-    listOfBlogsAndAuthors.blogs.map { blog =>
-      SQL("INSERT INTO blog(id , wordpress_id, published_on, title)" +
-        " SELECT ?, ?, ?, ? WHERE NOT EXISTS (SELECT id FROM blog WHERE id = ?)")
-        .bind(blog.blogId, blog.authorLogin, blog.publishedOn, blog.title, blog.blogId)
-        .update().apply()
-    }
-  }
-
-  /**
-   * Stores overall score of knolder in all_time table.
-   *
-   * @param scores   AuthorScore case class object which contains score of each knolder.
-   * @param authorId Knolder id wrapped in option.
-   * @return Integer which display the status of query execution.
-   */
-  override def insertAllTimeData(scores: AuthorScore, authorId: Option[Int]): Int = {
-    SQL("INSERT INTO all_time(knolder_id, overall_score, overall_rank) values (?,?,?)")
-      .bind(authorId, scores.score, 0).update().apply()
+  override def insertAllTimeData(blogCount: BlogCount): Int = {
+    logger.info("Querying all time table to insert blog count of each knolder.")
+    SQL("INSERT INTO all_time(knolder_id, number_of_blogs) VALUES (?,?)")
+      .bind(blogCount.knolderId, blogCount.numberOfBlogs).update().apply()
   }
 }

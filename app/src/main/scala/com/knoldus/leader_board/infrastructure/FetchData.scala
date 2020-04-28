@@ -1,17 +1,13 @@
 package com.knoldus.leader_board.infrastructure
 
-import java.sql.Timestamp
-
-import com.knoldus.leader_board.{AuthorScore, GetAuthorScore, GetScore}
+import com.knoldus.leader_board._
 
 trait FetchData {
-  def fetchMaxBlogPublicationDate: Option[Timestamp]
+  def fetchKnolderIdFromAllTime(authorId: Int): Option[Int]
 
-  def fetchScores: List[GetScore]
+  def fetchAllTimeData: List[GetAllTime]
 
-  def fetchKnolderIdFromKnolder(scores: AuthorScore): Option[Int]
+  def fetchKnolders: List[Knolder]
 
-  def fetchKnolderIdFromAllTime(scores: AuthorScore, authorId: Option[Int]): Option[Int]
-
-  def fetchAllTimeData: List[GetAuthorScore]
+  def fetchKnoldersWithBlogs: List[KnolderBlog]
 }
