@@ -5,7 +5,7 @@ import com.knoldus.leader_board.{GetAllTime, GetScore, Reputation}
 import com.typesafe.config.Config
 import com.typesafe.scalalogging._
 
-class OverallReputationImpl(fetchData: FetchData, config: Config) extends OverallReputation with LazyLogging{
+class OverallReputationImpl(fetchData: FetchData, config: Config) extends OverallReputation with LazyLogging {
 
   /**
    * Calculates reputation of each Knolder by using list of all time data of Knolders.

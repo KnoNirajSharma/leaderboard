@@ -1,10 +1,6 @@
 package com.knoldus.leader_board
 
-import java.sql.Timestamp
-
 final case class Knolder(knolderId: Int, fullName: String, wordPressId: String, email: String)
-
-//final case class Blog(blogId: Option[Int], wordpressId: Option[String], publishedOn: Timestamp, title: Option[String])
 
 final case class KnolderBlog(blogId: Int, wordpressId: String)
 
