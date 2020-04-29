@@ -14,14 +14,17 @@ object DriverApp extends App {
   val config: Config = ConfigFactory.load()
 
   val databaseConnection = new DatabaseConnection(config)
-  val fetchData: FetchData = new FetchDataImpl(databaseConnection)
-  val storeData: StoreData = new StoreDataImpl(databaseConnection)
-  val updateData: UpdateData = new UpdateDataImpl(databaseConnection)
-  val numberOfBlogsPerKnolder: NumberOfBlogsPerKnolder = new NumberOfBlogsPerKnolderImpl(fetchData, updateData, storeData)
-  val overallReputation: OverallReputation = new OverallReputationImpl(fetchData, config)
+  val readKnolder = new ReadKnolderImpl(databaseConnection)
+  val readBlog = new ReadBlogImpl(databaseConnection)
+  val readAllTime = new ReadAllTimeImpl(databaseConnection)
+  val writeAllTime = new WriteAllTimeImpl(databaseConnection)
+  val numberOfBlogsPerKnolder: NumberOfBlogsPerKnolder = new NumberOfBlogsPerKnolderImpl(readKnolder: ReadKnolder,
+    readBlog: ReadBlog, readAllTime: ReadAllTime, writeAllTime: WriteAllTime)
+  val overallReputation: OverallReputation = new OverallReputationImpl(readAllTime, config)
   val allTimeDataOnAPI: AllTimeDataOnAPI = new AllTimeDataOnAPIImpl(overallReputation, config)
 
-  val blogCount = numberOfBlogsPerKnolder.getNumberOfBlogsPerKnolder
-  numberOfBlogsPerKnolder.manageAllTimeData(blogCount)
+  val blogCounts = numberOfBlogsPerKnolder.getNumberOfBlogsPerKnolder
+  numberOfBlogsPerKnolder.insertBlogCount(blogCounts)
+  numberOfBlogsPerKnolder.updateBlogCount(blogCounts)
   allTimeDataOnAPI.pushAllTimeDataOnAPI
 }

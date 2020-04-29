@@ -1,11 +1,11 @@
 package com.knoldus.leader_board.business
 
-import com.knoldus.leader_board.infrastructure.FetchData
+import com.knoldus.leader_board.infrastructure.ReadAllTime
 import com.knoldus.leader_board.{GetAllTime, GetScore, Reputation}
 import com.typesafe.config.Config
 import com.typesafe.scalalogging._
 
-class OverallReputationImpl(fetchData: FetchData, config: Config) extends OverallReputation with LazyLogging {
+class OverallReputationImpl(readAllTime: ReadAllTime, config: Config) extends OverallReputation with LazyLogging {
 
   /**
    * Calculates reputation of each Knolder by using list of all time data of Knolders.
@@ -13,7 +13,7 @@ class OverallReputationImpl(fetchData: FetchData, config: Config) extends Overal
    * @return List of reputation of each Knolder.
    */
   override def calculateReputation: List[Reputation] = {
-    val allTimeData: List[GetAllTime] = fetchData.fetchAllTimeData
+    val allTimeData: List[GetAllTime] = readAllTime.fetchAllTimeData
     logger.info("Fetched all time details of each knolder. ")
 
     logger.info("Calculating score of each knolder.")

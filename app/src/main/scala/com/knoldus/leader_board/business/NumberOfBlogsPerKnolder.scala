@@ -5,5 +5,7 @@ import com.knoldus.leader_board.BlogCount
 trait NumberOfBlogsPerKnolder {
   def getNumberOfBlogsPerKnolder: List[BlogCount]
 
-  def manageAllTimeData(numberOfBlogsOfKnolders: List[BlogCount]): List[Int]
+  def insertBlogCount(numberOfBlogsOfKnolders: List[BlogCount]): List[Int]
+
+  def updateBlogCount(numberOfBlogsOfKnolders: List[BlogCount]): List[Int]
 }
