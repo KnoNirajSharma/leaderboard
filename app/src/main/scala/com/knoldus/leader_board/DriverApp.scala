@@ -24,7 +24,8 @@ object DriverApp extends App {
   val allTimeDataOnAPI: AllTimeDataOnAPI = new AllTimeDataOnAPIImpl(overallReputation, config)
 
   val blogCounts = numberOfBlogsPerKnolder.getNumberOfBlogsPerKnolder
-  numberOfBlogsPerKnolder.insertBlogCount(blogCounts)
-  numberOfBlogsPerKnolder.updateBlogCount(blogCounts)
+  val knolderBlogCounts = numberOfBlogsPerKnolder.getKnolderBlogCount(blogCounts)
+  numberOfBlogsPerKnolder.insertBlogCount(knolderBlogCounts)
+  numberOfBlogsPerKnolder.updateBlogCount(knolderBlogCounts)
   allTimeDataOnAPI.pushAllTimeDataOnAPI
 }

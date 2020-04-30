@@ -1,7 +1,7 @@
 package com.knoldus.leader_board.business
 
-import com.knoldus.leader_board.BlogCount
 import com.knoldus.leader_board.infrastructure.{ReadAllTime, ReadBlog, ReadKnolder, WriteAllTime}
+import com.knoldus.leader_board.{BlogCount, KnolderBlogCount}
 import com.typesafe.scalalogging._
 
 class NumberOfBlogsPerKnolderImpl(readKnolder: ReadKnolder, readBlog: ReadBlog, readAllTime: ReadAllTime,
@@ -26,19 +26,32 @@ class NumberOfBlogsPerKnolderImpl(readKnolder: ReadKnolder, readBlog: ReadBlog, 
   }
 
   /**
+   * Gets knolder id of knolders from all time table.
+   *
+   * @param numberOfBlogsOfKnolders List of blog count of knolders.
+   * @return List of blog count of knolders along with their knolder id fetched from all time table.
+   */
+  override def getKnolderBlogCount(numberOfBlogsOfKnolders: List[BlogCount]): List[KnolderBlogCount] = {
+    numberOfBlogsOfKnolders.map { numberOfBlogsOfKnolder =>
+      KnolderBlogCount(readAllTime.fetchKnolderIdFromAllTime(numberOfBlogsOfKnolder.knolderId),
+        numberOfBlogsOfKnolder)
+    }
+  }
+
+  /**
    * Verifies whether knolder already exist in all_time table or not, if not then it inserts it into the table with its
    * blog count.
    *
-   * @param numberOfBlogsOfKnolders List of blog count of knolders.
+   * @param numberOfBlogsOfKnolders List of blog count of knolders along with their knolder id fetched from all time
+   *                                table.
    * @return List of Integer which displays the status of query execution.
    */
-  def insertBlogCount(numberOfBlogsOfKnolders: List[BlogCount]): List[Int] = {
+  def insertBlogCount(numberOfBlogsOfKnolders: List[KnolderBlogCount]): List[Int] = {
     logger.info("Insert blog count of knolder in all time table.")
     numberOfBlogsOfKnolders.map { numberOfBlogsOfKnolder =>
-      val knolderId = readAllTime.fetchKnolderIdFromAllTime(numberOfBlogsOfKnolder.knolderId)
-      knolderId match {
+      numberOfBlogsOfKnolder.knolderId match {
         case Some(_) => 0
-        case None => writeAllTime.insertAllTimeData(numberOfBlogsOfKnolder)
+        case None => writeAllTime.insertAllTimeData(numberOfBlogsOfKnolder.blogCount)
       }
     }
   }
@@ -46,15 +59,15 @@ class NumberOfBlogsPerKnolderImpl(readKnolder: ReadKnolder, readBlog: ReadBlog, 
   /**
    * Verifies whether knolder already exist in all_time table or not, if it does then it updates its blog count.
    *
-   * @param numberOfBlogsOfKnolders List of blog count of knolders.
+   * @param numberOfBlogsOfKnolders List of blog count of knolders along with their knolder id fetched from all time
+   *                                table.
    * @return List of Integer which displays the status of query execution.
    */
-  def updateBlogCount(numberOfBlogsOfKnolders: List[BlogCount]): List[Int] = {
+  def updateBlogCount(numberOfBlogsOfKnolders: List[KnolderBlogCount]): List[Int] = {
     logger.info("Update blog count of knolder in all time table.")
     numberOfBlogsOfKnolders.map { numberOfBlogsOfKnolder =>
-      val knolderId = readAllTime.fetchKnolderIdFromAllTime(numberOfBlogsOfKnolder.knolderId)
-      knolderId match {
-        case Some(_) => writeAllTime.updateAllTimeData(numberOfBlogsOfKnolder)
+      numberOfBlogsOfKnolder.knolderId match {
+        case Some(_) => writeAllTime.updateAllTimeData(numberOfBlogsOfKnolder.blogCount)
         case None => 0
       }
     }

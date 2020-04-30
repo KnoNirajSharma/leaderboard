@@ -27,11 +27,18 @@ class NumberOfBlogsPerKnolderImplSpec extends AnyFlatSpec with MockitoSugar {
       BlogCount(2, "abhishek02", "Abhishek Baranwal", 1), BlogCount(3, "komal03", "Komal Rajpal", 1)))
   }
 
-  val blogCount = List(BlogCount(1, "mukesh01", "Mukesh Gupta", 2))
+  "get knolder blog count" should "return blog count of each knolder along with their knolder id" in {
+    val blogCount = List(BlogCount(1, "mukesh01", "Mukesh Gupta", 2))
+    val knolderBlogCount = List(KnolderBlogCount(Some(1), BlogCount(1, "mukesh01", "Mukesh Gupta", 2)))
+
+    when(mockReadAllTime.fetchKnolderIdFromAllTime(1))
+      .thenReturn(Option(1))
+
+    assert(numberOfBlogs.getKnolderBlogCount(blogCount) == knolderBlogCount)
+  }
 
   "insert all time data" should "insert number of blogs in all_time table" in {
-    when(mockReadAllTime.fetchKnolderIdFromAllTime(1))
-      .thenReturn(None)
+    val blogCount = List(KnolderBlogCount(None, BlogCount(1, "mukesh01", "Mukesh Gupta", 2)))
 
     when(mockWriteAllTime.insertAllTimeData(BlogCount(1, "mukesh01", "Mukesh Gupta", 2)))
       .thenReturn(1)
@@ -40,8 +47,7 @@ class NumberOfBlogsPerKnolderImplSpec extends AnyFlatSpec with MockitoSugar {
   }
 
   "update all time " should "update number of blogs in all_time table" in {
-    when(mockReadAllTime.fetchKnolderIdFromAllTime(1))
-      .thenReturn(Option(1))
+    val blogCount = List(KnolderBlogCount(Option(1), BlogCount(1, "mukesh01", "Mukesh Gupta", 2)))
 
     when(mockWriteAllTime.updateAllTimeData(BlogCount(1, "mukesh01", "Mukesh Gupta", 2)))
       .thenReturn(1)
