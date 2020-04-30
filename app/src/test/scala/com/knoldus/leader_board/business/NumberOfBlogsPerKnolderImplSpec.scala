@@ -46,6 +46,13 @@ class NumberOfBlogsPerKnolderImplSpec extends AnyFlatSpec with MockitoSugar {
     assert(numberOfBlogs.insertBlogCount(blogCount).sum == 1)
   }
 
+  "insert all time data" should "not insert number of blogs in all_time table when knolder already exist in all time " +
+    "table" in {
+    val blogCount = List(KnolderBlogCount(Some(1), BlogCount(1, "mukesh01", "Mukesh Gupta", 2)))
+
+    assert(numberOfBlogs.insertBlogCount(blogCount).sum == 0)
+  }
+
   "update all time " should "update number of blogs in all_time table" in {
     val blogCount = List(KnolderBlogCount(Option(1), BlogCount(1, "mukesh01", "Mukesh Gupta", 2)))
 
@@ -53,5 +60,12 @@ class NumberOfBlogsPerKnolderImplSpec extends AnyFlatSpec with MockitoSugar {
       .thenReturn(1)
 
     assert(numberOfBlogs.updateBlogCount(blogCount).sum == 1)
+  }
+
+  "update all time " should "not update number of blogs in all_time table when knolder does not exist in all time " +
+    "table" in {
+    val blogCount = List(KnolderBlogCount(None, BlogCount(1, "mukesh01", "Mukesh Gupta", 2)))
+
+    assert(numberOfBlogs.updateBlogCount(blogCount).sum == 0)
   }
 }
