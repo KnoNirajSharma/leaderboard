@@ -8,9 +8,8 @@ import org.scalatest.{BeforeAndAfterEach, DoNotDiscover}
 
 @DoNotDiscover
 class WriteAllTimeImplSpec extends DBSpec with BeforeAndAfterEach {
-  val databaseConnection = new DatabaseConnection(ConfigFactory.load())
-  implicit val connection: Connection = databaseConnection.connection
-  val writeAllTime: WriteAllTime = new WriteAllTimeImpl(databaseConnection)
+  implicit val connection: Connection = DatabaseConnection.connection(ConfigFactory.load())
+  val writeAllTime: WriteAllTime = new WriteAllTimeImpl(ConfigFactory.load())
 
   override def afterEach(): Unit = {
     cleanUpDatabase(connection)

@@ -36,16 +36,14 @@ class OverallReputationImpl(readAllTime: ReadAllTime, config: Config) extends Ov
         case first :: second :: Nil =>
           if (second.score != first.score) {
             reputationPerKnolder :+ Reputation(second.knolderName, second.score, reputationPerKnolder(index).rank + 1)
-          }
-          else {
+          } else {
             reputationPerKnolder :+ Reputation(second.knolderName, second.score, reputationPerKnolder(index).rank)
           }
         case first :: second :: rest =>
           if (second.score != first.score) {
             getReputation(second :: rest, reputationPerKnolder :+ Reputation(second.knolderName, second.score,
               reputationPerKnolder(index).rank + 1), index + 1)
-          }
-          else {
+          } else {
             getReputation(second :: rest, reputationPerKnolder :+ Reputation(second.knolderName, second.score,
               reputationPerKnolder(index).rank), index + 1)
           }

@@ -13,11 +13,10 @@ object DriverApp extends App {
   implicit val executionContext: ExecutionContextExecutor = system.dispatcher
   val config: Config = ConfigFactory.load()
 
-  val databaseConnection = new DatabaseConnection(config)
-  val readKnolder = new ReadKnolderImpl(databaseConnection)
-  val readBlog = new ReadBlogImpl(databaseConnection)
-  val readAllTime = new ReadAllTimeImpl(databaseConnection)
-  val writeAllTime = new WriteAllTimeImpl(databaseConnection)
+  val readKnolder = new ReadKnolderImpl(config)
+  val readBlog = new ReadBlogImpl(config)
+  val readAllTime = new ReadAllTimeImpl(config)
+  val writeAllTime = new WriteAllTimeImpl(config)
   val numberOfBlogsPerKnolder: NumberOfBlogsPerKnolder = new NumberOfBlogsPerKnolderImpl(readKnolder: ReadKnolder,
     readBlog: ReadBlog, readAllTime: ReadAllTime, writeAllTime: WriteAllTime)
   val overallReputation: OverallReputation = new OverallReputationImpl(readAllTime, config)

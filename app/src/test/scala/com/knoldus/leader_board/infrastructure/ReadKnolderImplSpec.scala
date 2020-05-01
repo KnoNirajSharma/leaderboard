@@ -8,9 +8,8 @@ import org.scalatest.{BeforeAndAfterEach, DoNotDiscover}
 
 @DoNotDiscover
 class ReadKnolderImplSpec extends DBSpec with BeforeAndAfterEach {
-  val databaseConnection = new DatabaseConnection(ConfigFactory.load())
-  implicit val connection: Connection = databaseConnection.connection
-  val readKnolder: ReadKnolder = new ReadKnolderImpl(databaseConnection)
+  implicit val connection: Connection = DatabaseConnection.connection(ConfigFactory.load())
+  val readKnolder: ReadKnolder = new ReadKnolderImpl(ConfigFactory.load())
 
   override def afterEach(): Unit = {
     cleanUpDatabase(connection)

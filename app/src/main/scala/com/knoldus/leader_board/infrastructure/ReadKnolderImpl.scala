@@ -3,11 +3,12 @@ package com.knoldus.leader_board.infrastructure
 import java.sql.Connection
 
 import com.knoldus.leader_board.{DatabaseConnection, Knolder}
+import com.typesafe.config.Config
 import com.typesafe.scalalogging._
 import scalikejdbc.{DB, DBSession, SQL}
 
-class ReadKnolderImpl(databaseConnection: DatabaseConnection) extends ReadKnolder with LazyLogging {
-  implicit val connection: Connection = databaseConnection.connection
+class ReadKnolderImpl(config: Config) extends ReadKnolder with LazyLogging {
+  implicit val connection: Connection = DatabaseConnection.connection(config)
   implicit val session: DBSession = DB.readOnlySession()
 
   /**

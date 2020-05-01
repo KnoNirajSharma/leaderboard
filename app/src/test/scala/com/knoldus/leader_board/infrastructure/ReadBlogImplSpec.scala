@@ -9,9 +9,8 @@ import org.scalatest.{BeforeAndAfterEach, DoNotDiscover}
 
 @DoNotDiscover
 class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
-  val databaseConnection = new DatabaseConnection(ConfigFactory.load())
-  implicit val connection: Connection = databaseConnection.connection
-  val readBlog: ReadBlog = new ReadBlogImpl(databaseConnection)
+  implicit val connection: Connection = DatabaseConnection.connection(ConfigFactory.load())
+  val readBlog: ReadBlog = new ReadBlogImpl(ConfigFactory.load())
 
   override def afterEach(): Unit = {
     cleanUpDatabase(connection)

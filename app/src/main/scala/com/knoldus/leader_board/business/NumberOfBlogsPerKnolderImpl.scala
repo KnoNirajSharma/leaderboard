@@ -48,11 +48,10 @@ class NumberOfBlogsPerKnolderImpl(readKnolder: ReadKnolder, readBlog: ReadBlog, 
    */
   def insertBlogCount(numberOfBlogsOfKnolders: List[KnolderBlogCount]): List[Int] = {
     logger.info("Insert blog count of knolder in all time table.")
-    numberOfBlogsOfKnolders.map { numberOfBlogsOfKnolder =>
-      numberOfBlogsOfKnolder.knolderId match {
-        case Some(_) => 0
-        case None => writeAllTime.insertAllTimeData(numberOfBlogsOfKnolder.blogCount)
-      }
+    numberOfBlogsOfKnolders.filter { numberOfBlogsOfKnolder =>
+      numberOfBlogsOfKnolder.knolderId.isEmpty
+    }.map { numberOfBlogsOfKnolder =>
+      writeAllTime.insertAllTimeData(numberOfBlogsOfKnolder.blogCount)
     }
   }
 
@@ -65,11 +64,10 @@ class NumberOfBlogsPerKnolderImpl(readKnolder: ReadKnolder, readBlog: ReadBlog, 
    */
   def updateBlogCount(numberOfBlogsOfKnolders: List[KnolderBlogCount]): List[Int] = {
     logger.info("Update blog count of knolder in all time table.")
-    numberOfBlogsOfKnolders.map { numberOfBlogsOfKnolder =>
-      numberOfBlogsOfKnolder.knolderId match {
-        case Some(_) => writeAllTime.updateAllTimeData(numberOfBlogsOfKnolder.blogCount)
-        case None => 0
-      }
+    numberOfBlogsOfKnolders.filter { numberOfBlogsOfKnolder =>
+      numberOfBlogsOfKnolder.knolderId.isDefined
+    }.map { numberOfBlogsOfKnolder =>
+      writeAllTime.updateAllTimeData(numberOfBlogsOfKnolder.blogCount)
     }
   }
 }

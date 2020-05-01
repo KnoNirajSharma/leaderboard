@@ -3,11 +3,12 @@ package com.knoldus.leader_board.infrastructure
 import java.sql.Connection
 
 import com.knoldus.leader_board.{BlogCount, DatabaseConnection}
+import com.typesafe.config.Config
 import com.typesafe.scalalogging._
 import scalikejdbc.{DB, DBSession, SQL}
 
-class WriteAllTimeImpl(databaseConnection: DatabaseConnection) extends WriteAllTime with LazyLogging {
-  implicit val connection: Connection = databaseConnection.connection
+class WriteAllTimeImpl(config: Config) extends WriteAllTime with LazyLogging {
+  implicit val connection: Connection = DatabaseConnection.connection(config)
   implicit val session: DBSession = DB.autoCommitSession()
 
   /**
