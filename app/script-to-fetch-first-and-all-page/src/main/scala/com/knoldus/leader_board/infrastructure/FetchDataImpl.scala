@@ -3,10 +3,11 @@ package com.knoldus.leader_board.infrastructure
 import java.sql.{Connection, Timestamp}
 
 import com.knoldus.leader_board.DatabaseConnection
+import com.typesafe.config.Config
 import scalikejdbc._
 
-class FetchDataImpl(databaseConnection: DatabaseConnection) extends FetchData {
-  implicit val connection: Connection = databaseConnection.connection
+class FetchDataImpl(config: Config) extends FetchData {
+  implicit val connection: Connection = DatabaseConnection.connection(config)
   implicit val session: DBSession = DB.readOnlySession()
 
   /**

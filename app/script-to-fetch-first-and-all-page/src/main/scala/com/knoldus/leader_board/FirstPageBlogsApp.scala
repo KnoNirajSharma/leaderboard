@@ -6,22 +6,19 @@ import com.knoldus.leader_board.business._
 import com.knoldus.leader_board.infrastructure._
 import com.typesafe.config.{Config, ConfigFactory}
 import com.typesafe.scalalogging._
-
-import scala.concurrent.duration._
-import scala.concurrent.{Await, ExecutionContextExecutor}
+import scala.concurrent.ExecutionContextExecutor
 
 object FirstPageBlogsApp extends App with LazyLogging {
   implicit val system: ActorSystem = ActorSystem()
   implicit val executionContext: ExecutionContextExecutor = system.dispatcher
   val config: Config = ConfigFactory.load()
 
-  val databaseConnection = new DatabaseConnection(config)
-  val fetchData: FetchData = new FetchDataImpl(databaseConnection)
-  val storeData: StoreData = new StoreDataImpl(databaseConnection)
+  val fetchData: FetchData = new FetchDataImpl(config)
+  val storeData: StoreData = new StoreDataImpl(config)
   val blogs: Blogs = new BlogsImpl(fetchData, config)
 
   val getBlogsFromAPI = blogs.getFirstPageBlogsFromAPI
-  val listOfBlogs = Await.result(getBlogsFromAPI, 3.minutes)
+  val listOfBlogs = getBlogsFromAPI
   storeData.insertBlog(listOfBlogs)
   logger.info("Blogs stored successfully!")
 }

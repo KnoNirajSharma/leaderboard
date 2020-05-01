@@ -9,9 +9,8 @@ import org.scalatest.{BeforeAndAfterEach, DoNotDiscover}
 
 @DoNotDiscover
 class StoreDataImplSpec extends DBSpec with BeforeAndAfterEach {
-  val databaseConnection = new DatabaseConnection(ConfigFactory.load())
-  implicit val connection: Connection = databaseConnection.connection
-  val storeData: StoreData = new StoreDataImpl(databaseConnection)
+  implicit val connection: Connection = DatabaseConnection.connection(ConfigFactory.load())
+  val storeData: StoreData = new StoreDataImpl(ConfigFactory.load())
 
   override def afterEach(): Unit = {
     cleanUpDatabase(connection)

@@ -11,11 +11,11 @@ import org.scalatest.wordspec.AnyWordSpecLike
 class DBSpec extends AnyWordSpecLike with Matchers {
 
   def createTable(jdbcConnection: Connection): Unit = {
-    val fileName = "src/main/resources/createTable.sql"
+    val fileName = "src/test/resources/createTable.sql"
     RunScript.execute(jdbcConnection, new FileReader(fileName))
   }
 
   def cleanUpDatabase(jdbcConnection: Connection): Unit = {
-    RunScript.execute(jdbcConnection, new FileReader("src/main/resources/dropTable.sql"))
+    RunScript.execute(jdbcConnection, new FileReader("src/test/resources/dropTable.sql"))
   }
 }
