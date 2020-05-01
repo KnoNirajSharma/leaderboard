@@ -6,6 +6,7 @@ import com.knoldus.leader_board.business._
 import com.knoldus.leader_board.infrastructure._
 import com.typesafe.config.{Config, ConfigFactory}
 import com.typesafe.scalalogging._
+
 import scala.concurrent.ExecutionContextExecutor
 
 object FirstPageBlogsApp extends App with LazyLogging {
@@ -16,9 +17,6 @@ object FirstPageBlogsApp extends App with LazyLogging {
   val fetchData: FetchData = new FetchDataImpl(config)
   val storeData: StoreData = new StoreDataImpl(config)
   val blogs: Blogs = new BlogsImpl(fetchData, config)
-
-  val getBlogsFromAPI = blogs.getFirstPageBlogsFromAPI
-  val listOfBlogs = getBlogsFromAPI
-  storeData.insertBlog(listOfBlogs)
+  storeData.insertBlog(blogs.getFirstPageBlogsFromAPI)
   logger.info("Blogs stored successfully!")
 }

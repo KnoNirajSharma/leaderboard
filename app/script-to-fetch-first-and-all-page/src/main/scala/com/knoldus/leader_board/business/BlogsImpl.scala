@@ -1,7 +1,7 @@
 package com.knoldus.leader_board.business
 
 import java.sql.Timestamp
-import java.time.{Instant, ZoneOffset, ZonedDateTime}
+import java.time.{ZoneOffset, ZonedDateTime}
 
 import com.knoldus.leader_board.Blog
 import com.knoldus.leader_board.infrastructure.FetchData
@@ -59,9 +59,9 @@ class BlogsImpl(fetchData: FetchData, config: Config) extends Blogs with LazyLog
    * @return List of blogs.
    */
   override def getFirstPageBlogsFromAPI: List[Blog] = {
-    val page = 1
-    logger.info(s"Blogs will be extracted from $page page of Wordpress API.")
-    getAllBlogs(page)
+    logger.info(s"Blogs will be extracted from 1 page of Wordpress API.")
+    val blogsData = getResponse(config.getString("uri") + "?page=1")
+    getListOfBlogs(blogsData)
   }
 
   /**
@@ -82,9 +82,7 @@ class BlogsImpl(fetchData: FetchData, config: Config) extends Blogs with LazyLog
         getBlogs(blogsList ::: getListOfBlogs(unParsedBlogs), currentPage + 1, lastPage)
       }
     }
-
-    val blogsList = getBlogs(List.empty, 1, lastPage)
-    blogsList
+    getBlogs(List.empty, 1, lastPage)
   }
 
   /**
@@ -96,6 +94,8 @@ class BlogsImpl(fetchData: FetchData, config: Config) extends Blogs with LazyLog
    */
   override def getListOfBlogs(unparsedBlogs: String): List[Blog] = {
     logger.info("Parsing JSON string of blogs information.")
+    val fetchMaxDate = fetchData.fetchMaxBlogPublicationDate
+
     val parsedBlogs = parse(unparsedBlogs)
     val blogs = (parsedBlogs \ "posts").children map { parsedBlog =>
       val blogId = (parsedBlog \ "ID").extract[Option[Int]]
@@ -105,15 +105,11 @@ class BlogsImpl(fetchData: FetchData, config: Config) extends Blogs with LazyLog
       val odtInstanceAtUTC = odtInstanceAtOffset.withZoneSameInstant(ZoneOffset.UTC)
       val publishedOn = Timestamp.from(odtInstanceAtUTC.toInstant)
       val title = (parsedBlog \ "title").extract[Option[String]]
-      val fetchMaxDate = fetchData.fetchMaxBlogPublicationDate
-      val minimumTimeStamp = Instant.parse("0000-04-01T09:37:10Z")
-      val parsedDate = Timestamp.from(minimumTimeStamp)
       logger.info("Modelling blogs information from JSON format to case class object.")
       fetchMaxDate match {
         case Some(value) if publishedOn.compareTo(value) == 1 => Blog(blogId, wordpressId, publishedOn, title)
-        case Some(value) if publishedOn.compareTo(value) != 1 => Blog(None, None, parsedDate, None)
-        case None if publishedOn.compareTo(parsedDate) == 1 => Blog(blogId, wordpressId, publishedOn, title)
-        case None if publishedOn.compareTo(parsedDate) != 1 => Blog(None, None, parsedDate, None)
+        case Some(value) if publishedOn.compareTo(value) != 1 => Blog(None, None, publishedOn, None)
+        case None => Blog(blogId, wordpressId, publishedOn, title)
       }
     }
     blogs.filter(blog => blog.blogId.isDefined && blog.wordpressId.isDefined)

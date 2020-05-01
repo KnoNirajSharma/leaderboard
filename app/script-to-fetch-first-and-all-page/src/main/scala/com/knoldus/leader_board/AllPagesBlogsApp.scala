@@ -14,9 +14,6 @@ object AllPagesBlogsApp extends App with LazyLogging {
   val fetchData: FetchData = new FetchDataImpl(config)
   val storeData: StoreData = new StoreDataImpl(config)
   val blogs: Blogs = new BlogsImpl(fetchData, config)
-
-  val getBlogsFromAPI = blogs.getAllPagesBlogsFromAPI
-  val listOfBlogs = getBlogsFromAPI
-  storeData.insertBlog(listOfBlogs)
+  storeData.insertBlog(blogs.getAllPagesBlogsFromAPI)
   logger.info("Blogs stored successfully!")
 }

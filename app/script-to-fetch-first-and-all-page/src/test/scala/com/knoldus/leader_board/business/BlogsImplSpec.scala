@@ -44,30 +44,6 @@ class BlogsImplSpec extends AnyFlatSpec with MockitoSugar {
      assert(spyBlogs.getAllPagesBlogsFromAPI== listOfBlogs)
   }
 
-  "get first page all blogs from api" should "give blog author object" in {
-
-    val listOfBlogs = List(
-      Blog(Option(1001), Option("mukesh01"),
-        Timestamp.from(Instant.parse("2020-04-13T14:56:40Z")),
-        Option("windows handling using selenium webdriver")),
-      Blog(Option(1002), Option("abhishek02"),
-        Timestamp.from(Instant.parse("2020-04-13T13:10:40Z")),
-        Option("ChatOps : Make your life easy")),
-      Blog(Option(1003), Option("komal03"),
-        Timestamp.from(Instant.parse("2020-04-13T12:57:27Z")),
-        Option("Automating Windows Controls in Selenium")),
-      Blog(Option(1004), Option("mukesh01"),
-        Timestamp.from(Instant.parse("2020-04-13T12:40:20Z")),
-        Option("Java 9: Enhance your Jav…ptional API enhancement")))
-
-    when(spyBlogs.getAllBlogs(1))
-      .thenReturn(
-        listOfBlogs
-      )
-
-    assert(spyBlogs.getFirstPageBlogsFromAPI == listOfBlogs)
-  }
-
   val blogsData: String =
     """{
       |  "found": 2071,
@@ -114,23 +90,9 @@ class BlogsImplSpec extends AnyFlatSpec with MockitoSugar {
     assert(blogs.getListOfBlogs(blogsData) == List())
   }
 
-  "get list of blogs" should "give list of blogs if maximum publication date of blog is not present" in {
-    when(mockFetchData.fetchMaxBlogPublicationDate)
-      .thenReturn(None)
-    val date = "2020-04-14T12:35:30+05:30"
-    val odtInstanceAtOffset = ZonedDateTime.parse(date)
-    val odtInstanceAtUTC = odtInstanceAtOffset.withZoneSameInstant(ZoneOffset.UTC)
-    val publishedOn = Timestamp.from(odtInstanceAtUTC.toInstant)
 
-    assert(blogs.getListOfBlogs(blogsData) == List(Blog(
-      Option(70547),
-      Option("pankajchaudhary5"),
-      publishedOn,
-      Option("Get a Look on Key Rust Crates for WebAssembly"))))
-  }
 
-  "get list of blogs" should "not give list of blogs if maximum publication date of blog is not present and blog " +
-    "date is smaller than minimum date" in {
+  "get list of blogs" should "not give list of blogs if maximum publication date of blog is not present and blog "in {
     val blogData: String =
       """{
         |  "found": 2071,
@@ -156,8 +118,16 @@ class BlogsImplSpec extends AnyFlatSpec with MockitoSugar {
         |}""".stripMargin
     when(mockFetchData.fetchMaxBlogPublicationDate)
       .thenReturn(None)
+    val date = "2020-04-14T12:35:30+05:30"
+    val odtInstanceAtOffset = ZonedDateTime.parse(date)
+    val odtInstanceAtUTC = odtInstanceAtOffset.withZoneSameInstant(ZoneOffset.UTC)
+    val publishedOn = Timestamp.from(odtInstanceAtUTC.toInstant)
 
-    assert(blogs.getListOfBlogs(blogData) == List())
+    assert(blogs.getListOfBlogs(blogsData) == List(Blog(
+      Option(70547),
+      Option("pankajchaudhary5"),
+      publishedOn,
+      Option("Get a Look on Key Rust Crates for WebAssembly"))))
   }
   "get total no of posts" should "total no. of posts" in{
     val blogData: String =
