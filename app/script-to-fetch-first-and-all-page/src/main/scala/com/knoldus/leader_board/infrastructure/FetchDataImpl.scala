@@ -17,7 +17,7 @@ class FetchDataImpl(config: Config) extends FetchData with LazyLogging{
    * @return Maximum publication date of blog wrapped in option.
    */
   override def fetchMaxBlogPublicationDate: Option[Timestamp] = {
-    logger.info("query to fetch latest data")
+    logger.info("query to fetch latest date")
     sql"SELECT MAX(published_on) FROM blog".map(rs => rs.timestamp(1)).single().apply()
   }
 }
