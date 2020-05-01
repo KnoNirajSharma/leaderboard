@@ -17,6 +17,7 @@ class ReadAllTimeImpl(config: Config) extends ReadAllTime with LazyLogging {
    * @return List of all time data of each knolder.
    */
   override def fetchAllTimeData: List[GetAllTime] = {
+    logger.info("Fetching all time details of each knolder.")
     SQL("SELECT knolder_id, full_name, number_of_blogs FROM all_time RIGHT JOIN knolder " +
       "ON all_time.knolder_id = knolder.id")
       .map(rs => GetAllTime(rs.string("full_name"), rs.intOpt("number_of_blogs"))).list.apply()

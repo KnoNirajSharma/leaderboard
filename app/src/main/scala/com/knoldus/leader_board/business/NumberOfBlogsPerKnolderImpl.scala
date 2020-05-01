@@ -15,7 +15,6 @@ class NumberOfBlogsPerKnolderImpl(readKnolder: ReadKnolder, readBlog: ReadBlog, 
    */
   override def getNumberOfBlogsPerKnolder: List[BlogCount] = {
     val knolders = readKnolder.fetchKnolders
-    logger.info("Fetching details of knolders with blogs.")
     val knoldersWithBlogs = readBlog.fetchKnoldersWithBlogs
     logger.info("Calculating number of blogs of each knolder.")
     knolders.map { knolder =>
@@ -31,6 +30,7 @@ class NumberOfBlogsPerKnolderImpl(readKnolder: ReadKnolder, readBlog: ReadBlog, 
    * @return List of blog count of knolders along with their knolder id fetched from all time table.
    */
   override def getKnolderBlogCount(numberOfBlogsOfKnolders: List[BlogCount]): List[KnolderBlogCount] = {
+    logger.info("Fetching knolder id of knolders from all time table.")
     numberOfBlogsOfKnolders.map { numberOfBlogsOfKnolder =>
       KnolderBlogCount(readAllTime.fetchKnolderIdFromAllTime(numberOfBlogsOfKnolder.knolderId),
         numberOfBlogsOfKnolder)

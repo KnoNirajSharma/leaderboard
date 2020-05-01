@@ -13,7 +13,6 @@ class OverallReputationImpl(readAllTime: ReadAllTime, config: Config) extends Ov
    * @return List of reputation of each knolder.
    */
   override def calculateReputation: List[Reputation] = {
-    logger.info("Fetching all time details of each knolder. ")
     val allTimeData: List[GetAllTime] = readAllTime.fetchAllTimeData
     logger.info("Calculating score of each knolder.")
     val scorePerKnolder: List[GetScore] = allTimeData.map { allTimeDataPerKnolder =>

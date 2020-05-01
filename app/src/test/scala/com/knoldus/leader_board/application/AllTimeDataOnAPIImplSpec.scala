@@ -34,8 +34,8 @@ class AllTimeDataOnAPIImplSpec extends AnyWordSpecLike with MockitoSugar with Ma
         }
       }
       Get("/reputation") ~> route ~> check {
-        allTimeDataOnAPI.pushAllTimeDataOnAPI.map { pushedReputation =>
-          responseAs[String] shouldEqual pushedReputation
+        allTimeDataOnAPI.displayAllTimeDataOnAPI.map { displayedReputation =>
+          responseAs[String] shouldEqual displayedReputation
         }
       }
     }

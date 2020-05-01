@@ -25,7 +25,7 @@ class AllTimeDataOnAPIImpl(overallReputation: OverallReputation, config: Config)
    *
    * @return Http request binded with server port.
    */
-  override def pushAllTimeDataOnAPI: Future[Http.ServerBinding] = {
+  override def displayAllTimeDataOnAPI: Future[Http.ServerBinding] = {
     val reputationOfKnolders: List[Reputation] = overallReputation.calculateReputation
     val reputation = compactRender(decompose(reputationOfKnolders))
     logger.info("Displaying reputation of each knolder on the API.")

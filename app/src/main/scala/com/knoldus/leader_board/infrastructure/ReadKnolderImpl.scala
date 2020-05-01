@@ -17,6 +17,7 @@ class ReadKnolderImpl(config: Config) extends ReadKnolder with LazyLogging {
    * @return List of knolders.
    */
   override def fetchKnolders: List[Knolder] = {
+    logger.info("Fetching details of knolders.")
     SQL("SELECT * FROM knolder").map(rs => Knolder(rs.int("id"), rs.string("full_name"),
       rs.string("wordpress_id"), rs.string("email_id"))).list().apply()
   }

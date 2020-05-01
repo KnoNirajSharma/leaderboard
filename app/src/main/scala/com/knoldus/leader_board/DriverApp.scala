@@ -26,5 +26,5 @@ object DriverApp extends App {
   val knolderBlogCounts = numberOfBlogsPerKnolder.getKnolderBlogCount(blogCounts)
   numberOfBlogsPerKnolder.insertBlogCount(knolderBlogCounts)
   numberOfBlogsPerKnolder.updateBlogCount(knolderBlogCounts)
-  allTimeDataOnAPI.pushAllTimeDataOnAPI
+  allTimeDataOnAPI.displayAllTimeDataOnAPI
 }

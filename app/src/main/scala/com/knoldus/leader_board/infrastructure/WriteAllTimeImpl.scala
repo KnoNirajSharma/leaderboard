@@ -4,10 +4,9 @@ import java.sql.Connection
 
 import com.knoldus.leader_board.{BlogCount, DatabaseConnection}
 import com.typesafe.config.Config
-import com.typesafe.scalalogging._
 import scalikejdbc.{DB, DBSession, SQL}
 
-class WriteAllTimeImpl(config: Config) extends WriteAllTime with LazyLogging {
+class WriteAllTimeImpl(config: Config) extends WriteAllTime {
   implicit val connection: Connection = DatabaseConnection.connection(config)
   implicit val session: DBSession = DB.autoCommitSession()
 
@@ -29,7 +28,6 @@ class WriteAllTimeImpl(config: Config) extends WriteAllTime with LazyLogging {
    * @return Integer which displays the status of query execution.
    */
   override def updateAllTimeData(blogCount: BlogCount): Int = {
-    logger.info("Querying all time table to update blog count of each knolder.")
     SQL("UPDATE all_time SET number_of_blogs = ? WHERE knolder_id = ?")
       .bind(blogCount.numberOfBlogs, blogCount.knolderId).update().apply()
   }
