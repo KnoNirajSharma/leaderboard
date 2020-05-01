@@ -17,5 +17,7 @@ libraryDependencies ++= Seq(
   "com.typesafe.scala-logging" %% "scala-logging" % "3.7.2",
   "com.h2database" % "h2" % "1.4.196",
   "org.scalatest" %% "scalatest" % "3.1.0" % Test,
-  "org.mockito" %% "mockito-scala" % "1.11.4" % Test
+  "org.mockito" %% "mockito-scala" % "1.11.4" % Test,
+  "org.apache.commons" % "commons-io" % "1.3.2",
+  "org.apache.httpcomponents" % "httpclient" % "4.5.11"
 )
