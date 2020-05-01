@@ -21,7 +21,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
     createTable(connection)
   }
 
-  "ReadBlog" should {
+  "read blog" should {
 
     "return knolders who have written blogs" in {
       val insertKnolder1: String =

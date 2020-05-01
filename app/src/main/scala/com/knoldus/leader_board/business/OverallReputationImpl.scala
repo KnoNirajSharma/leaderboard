@@ -8,14 +8,13 @@ import com.typesafe.scalalogging._
 class OverallReputationImpl(readAllTime: ReadAllTime, config: Config) extends OverallReputation with LazyLogging {
 
   /**
-   * Calculates reputation of each Knolder by using list of all time data of Knolders.
+   * Calculates reputation of each knolder by using list of all time data of knolders.
    *
-   * @return List of reputation of each Knolder.
+   * @return List of reputation of each knolder.
    */
   override def calculateReputation: List[Reputation] = {
+    logger.info("Fetching all time details of each knolder. ")
     val allTimeData: List[GetAllTime] = readAllTime.fetchAllTimeData
-    logger.info("Fetched all time details of each knolder. ")
-
     logger.info("Calculating score of each knolder.")
     val scorePerKnolder: List[GetScore] = allTimeData.map { allTimeDataPerKnolder =>
       allTimeDataPerKnolder.numberOfBlogs match {

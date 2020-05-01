@@ -9,15 +9,14 @@ class NumberOfBlogsPerKnolderImpl(readKnolder: ReadKnolder, readBlog: ReadBlog, 
   extends NumberOfBlogsPerKnolder with LazyLogging {
 
   /**
-   * Calculates number of blogs of each Knolder by using list of Knolders with Blogs and list of all Knolders.
+   * Calculates number of blogs of each knolder by using list of knolders with blogs and list of all knolders.
    *
    * @return List of number of blogs of each Knolder.
    */
   override def getNumberOfBlogsPerKnolder: List[BlogCount] = {
     val knolders = readKnolder.fetchKnolders
-    logger.info("Fetched details of knolders.")
+    logger.info("Fetching details of knolders with blogs.")
     val knoldersWithBlogs = readBlog.fetchKnoldersWithBlogs
-    logger.info("Fetched details of knolders with blogs.")
     logger.info("Calculating number of blogs of each knolder.")
     knolders.map { knolder =>
       BlogCount(knolder.knolderId, knolder.wordPressId, knolder.fullName,
@@ -47,7 +46,7 @@ class NumberOfBlogsPerKnolderImpl(readKnolder: ReadKnolder, readBlog: ReadBlog, 
    * @return List of Integer which displays the status of query execution.
    */
   def insertBlogCount(numberOfBlogsOfKnolders: List[KnolderBlogCount]): List[Int] = {
-    logger.info("Insert blog count of knolder in all time table.")
+    logger.info("Inserting blog count of knolder in all time table.")
     numberOfBlogsOfKnolders.filter { numberOfBlogsOfKnolder =>
       numberOfBlogsOfKnolder.knolderId.isEmpty
     }.map { numberOfBlogsOfKnolder =>
@@ -63,7 +62,7 @@ class NumberOfBlogsPerKnolderImpl(readKnolder: ReadKnolder, readBlog: ReadBlog, 
    * @return List of Integer which displays the status of query execution.
    */
   def updateBlogCount(numberOfBlogsOfKnolders: List[KnolderBlogCount]): List[Int] = {
-    logger.info("Update blog count of knolder in all time table.")
+    logger.info("Updating blog count of knolder in all time table.")
     numberOfBlogsOfKnolders.filter { numberOfBlogsOfKnolder =>
       numberOfBlogsOfKnolder.knolderId.isDefined
     }.map { numberOfBlogsOfKnolder =>

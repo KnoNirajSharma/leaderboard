@@ -20,7 +20,7 @@ class ReadKnolderImplSpec extends DBSpec with BeforeAndAfterEach {
     createTable(connection)
   }
 
-  "ReadKnolder" should {
+  "read knolder" should {
 
     "return knolders from knolder table" in {
       val insertKnolder1: String =

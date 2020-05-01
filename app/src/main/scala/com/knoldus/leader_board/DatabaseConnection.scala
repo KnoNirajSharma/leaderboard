@@ -6,7 +6,8 @@ import com.typesafe.config.Config
 import scalikejdbc.{ConnectionPool, GlobalSettings, LoggingSQLAndTimeSettings}
 
 object DatabaseConnection {
-  GlobalSettings.loggingSQLAndTime = LoggingSQLAndTimeSettings(enabled = false, singleLineMode = true, logLevel = 'DEBUG)
+  GlobalSettings.loggingSQLAndTime = LoggingSQLAndTimeSettings(enabled = false, singleLineMode = false)
+  GlobalSettings.loggingConnections = false
 
   def connection(config: Config): Connection = {
     val url = config.getString("url")

@@ -20,7 +20,7 @@ class WriteAllTimeImplSpec extends DBSpec with BeforeAndAfterEach {
     createTable(connection)
   }
 
-  "WriteAllTime" should {
+  "write all time" should {
 
     "return number of rows affected when insertion in all_time table" in {
       val blogCount = BlogCount(1, "mukesh01", "Mukesh Gupta", 2)

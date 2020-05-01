@@ -17,7 +17,6 @@ class ReadAllTimeImpl(config: Config) extends ReadAllTime with LazyLogging {
    * @return List of all time data of each knolder.
    */
   override def fetchAllTimeData: List[GetAllTime] = {
-    logger.info("Querying all time table joined with knolder table to get blog count and details of each knolder.")
     SQL("SELECT knolder_id, full_name, number_of_blogs FROM all_time RIGHT JOIN knolder " +
       "ON all_time.knolder_id = knolder.id")
       .map(rs => GetAllTime(rs.string("full_name"), rs.intOpt("number_of_blogs"))).list.apply()
@@ -30,7 +29,6 @@ class ReadAllTimeImpl(config: Config) extends ReadAllTime with LazyLogging {
    * @return Knolder id wrapped in option.
    */
   override def fetchKnolderIdFromAllTime(knolderId: Int): Option[Int] = {
-    logger.info("Querying all time table to get knolder id to check whether a knolder exist in all time table or not.")
     SQL("SELECT knolder_id FROM all_time WHERE knolder_id = ?").bind(knolderId)
       .map(rs => rs.int("knolder_id")).single().apply()
   }

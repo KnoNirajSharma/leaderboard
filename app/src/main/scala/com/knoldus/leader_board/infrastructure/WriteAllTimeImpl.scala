@@ -18,7 +18,6 @@ class WriteAllTimeImpl(config: Config) extends WriteAllTime with LazyLogging {
    * @return Integer which displays the status of query execution.
    */
   override def insertAllTimeData(blogCount: BlogCount): Int = {
-    logger.info("Querying all time table to insert blog count of each knolder.")
     SQL("INSERT INTO all_time(knolder_id, number_of_blogs) VALUES (?,?)")
       .bind(blogCount.knolderId, blogCount.numberOfBlogs).update().apply()
   }

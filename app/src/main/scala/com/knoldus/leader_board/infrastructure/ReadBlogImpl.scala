@@ -17,7 +17,6 @@ class ReadBlogImpl(config: Config) extends ReadBlog with LazyLogging {
    * @return List of knolder with its wordpress id.
    */
   override def fetchKnoldersWithBlogs: List[KnolderBlog] = {
-    logger.info("Querying blog table joined with knolder table to get details of blogs of each knolder.")
     SQL("SELECT blog.id, blog.wordpress_id FROM blog INNER JOIN knolder ON knolder.wordpress_id = blog.wordpress_id")
       .map(rs => KnolderBlog(rs.int("id"), rs.string("wordpress_id"))).list().apply()
   }

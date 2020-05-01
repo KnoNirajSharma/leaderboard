@@ -20,7 +20,7 @@ class ReadAllTimeImplSpec extends DBSpec with BeforeAndAfterEach {
     createTable(connection)
   }
 
-  "ReadAllTime" should {
+  "read all time" should {
 
     "return all time data of knolders" in {
       val insertKnolder1: String =
