@@ -6,14 +6,12 @@ import io.gatling.core.structure.ScenarioBuilder
 import io.gatling.http.Predef._
 import io.gatling.http.protocol.HttpProtocolBuilder
 
-
 /**
  * galting test for Knoldus LeaderBoard API .
  */
 class LeaderBoardAPI extends Simulation {
 
   val config: Config = ConfigFactory.load("application.conf")
-
   val url: String = config.getString("url")
   val users: Int = config.getInt("users")
   val OK = 200
@@ -27,11 +25,8 @@ class LeaderBoardAPI extends Simulation {
         .get(url).check(status.is(OK))
         .check(jsonPath(path).findAll))
       .pause(pauseDuration)
-
     scene
-
   }
-
   def setUp(): Unit = {
     /**
      * to set up the scenario and to inject the number of users.
@@ -40,9 +35,7 @@ class LeaderBoardAPI extends Simulation {
     val httpProtocol: HttpProtocolBuilder = http.baseUrl(url)
     setUp(scenarioBuilder.inject(atOnceUsers(users)).protocols(httpProtocol))
   }
-
   setUp()
-
 }
 
 
