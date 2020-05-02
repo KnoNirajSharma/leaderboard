@@ -1,31 +1,49 @@
 package com.knoldus
 
-import com.typesafe.config.ConfigFactory
+import com.typesafe.config.{Config, ConfigFactory}
 import io.gatling.core.Predef._
 import io.gatling.core.structure.ScenarioBuilder
 import io.gatling.http.Predef._
 import io.gatling.http.protocol.HttpProtocolBuilder
 
 
+/**
+ * galting test for Knoldus LeaderBoard API .
+ */
 class LeaderBoardAPI extends Simulation {
 
-  /**
-   * galting test for Knoldus LeaderBoard API .
-   */
+  val config: Config = ConfigFactory.load("application.conf")
 
-  val config = ConfigFactory.load("application.conf")
+  val url: String = config.getString("url")
+  val users: Int = config.getInt("users")
+  val OK = 200
 
-  val url = config.getString("url")
+  def createScenarioBuilder(scenarioName: String, requestName: String, path: String, pauseDuration: Int): ScenarioBuilder = {
+    /**
+     * generic method for creating a scenario
+     */
+    val scene: ScenarioBuilder = scenario("KLB api test")
+      .exec(http(requestName)
+        .get(url).check(status.is(OK))
+        .check(jsonPath(path).findAll))
+      .pause(pauseDuration)
 
+    scene
 
-  val httpProtocol: HttpProtocolBuilder = http.baseUrl(url)
-  val scene: ScenarioBuilder = scenario("KLB api test")
-    .exec(http("request1")
-      .get(url).check(status.is(200))
-      .check(jsonPath("$..rank").findAll))
-    .pause(1)
+  }
 
-  setUp(scene.inject(atOnceUsers(500)).protocols(httpProtocol))
+  def setUp(): Unit = {
+    /**
+     * to set up the scenario and to inject the number of users.
+     */
+    val scenarioBuilder = createScenarioBuilder("KLB api test", "request1", "$..rank", 1)
+    val httpProtocol: HttpProtocolBuilder = http.baseUrl(url)
+    setUp(scenarioBuilder.inject(atOnceUsers(users)).protocols(httpProtocol))
+  }
+
+  setUp()
 
 }
+
+
 
