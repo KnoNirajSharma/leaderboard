@@ -60,8 +60,7 @@ class BlogsImpl(fetchData: FetchData, config: Config) extends Blogs with LazyLog
    */
   override def getFirstPageBlogsFromAPI: List[Blog] = {
     logger.info(s"Blogs will be extracted from 1 page of Wordpress API.")
-    val blogsData = getResponse(config.getString("uri") + "?page=1")
-    getListOfBlogs(blogsData)
+    getListOfBlogs(getResponse(config.getString("uri") + "?page=1"))
   }
 
   /**
