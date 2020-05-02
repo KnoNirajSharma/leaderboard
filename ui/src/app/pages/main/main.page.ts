@@ -9,7 +9,7 @@ import {EmployeeActivityService} from '../../services/employee-activity.service'
     styleUrls: ['./main.page.scss'],
 })
 export class MainPage implements OnInit {
-    blogCount = 0;
+    blogCount: any;
     knolxCount = 'N/A';
     webinarCount = 'N/A';
     techhubTemplateCount = 'N/A';

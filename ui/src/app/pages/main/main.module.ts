@@ -8,11 +8,12 @@ import {CardComponent} from '../../components/card/card.component';
 import {HeadersComponent} from '../../components/headers/headers.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: MainPage,
-  },
+    {
+        path: '',
+        component: MainPage,
+    },
 ];
+
 @NgModule({
     imports: [
         CommonModule,
