@@ -37,6 +37,3 @@ class LeaderBoardAPI extends Simulation {
   }
   setUp()
 }
-
-
-
