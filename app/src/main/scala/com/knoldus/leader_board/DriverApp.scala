@@ -6,28 +6,25 @@ import com.knoldus.leader_board.business._
 import com.knoldus.leader_board.infrastructure._
 import com.typesafe.config.{Config, ConfigFactory}
 
-import scala.concurrent.duration._
-import scala.concurrent.{Await, ExecutionContextExecutor}
+import scala.concurrent.ExecutionContextExecutor
 
 object DriverApp extends App {
   implicit val system: ActorSystem = ActorSystem()
   implicit val executionContext: ExecutionContextExecutor = system.dispatcher
   val config: Config = ConfigFactory.load()
-  val databaseConnection = new DatabaseConnection(config)
-  val fetchData: FetchData = new FetchDataImpl(databaseConnection)
-  val storeData: StoreData = new StoreDataImpl
-  val overallRank: OverallRank = new OverallRankImpl(fetchData)
-  val updateData: UpdateData = new UpdateDataImpl(overallRank)
-  val allTimeDataOnAPI: AllTimeDataOnAPI = new AllTimeDataOnAPIImpl(fetchData, config)
-  val blogs: Blogs = new BlogsImpl(fetchData, config)
-  val overallScore: OverallScore = new OverallScoreImpl(fetchData, storeData, updateData)
 
-  val getAllBlogsAndAuthors = blogs.getAllBlogsAndAuthors
-  val listOfBlogsAndAuthors = Await.result(getAllBlogsAndAuthors, 3.minutes)
-  val storedKnolders = storeData.insertKnolder(listOfBlogsAndAuthors)
-  val storedBlogs = storeData.insertBlog(listOfBlogsAndAuthors)
-  val calculatedScores = overallScore.calculateScore(listOfBlogsAndAuthors)
-  val storedScores = overallScore.manageScores(calculatedScores)
-  val updatedRank = updateData.updateRank()
-  allTimeDataOnAPI.pushAllTimeDataOnAPI
+  val readKnolder = new ReadKnolderImpl(config)
+  val readBlog = new ReadBlogImpl(config)
+  val readAllTime = new ReadAllTimeImpl(config)
+  val writeAllTime = new WriteAllTimeImpl(config)
+  val numberOfBlogsPerKnolder: NumberOfBlogsPerKnolder = new NumberOfBlogsPerKnolderImpl(readKnolder: ReadKnolder,
+    readBlog: ReadBlog, readAllTime: ReadAllTime, writeAllTime: WriteAllTime)
+  val overallReputation: OverallReputation = new OverallReputationImpl(readAllTime, config)
+  val allTimeDataOnAPI: AllTimeDataOnAPI = new AllTimeDataOnAPIImpl(overallReputation, config)
+
+  val blogCounts = numberOfBlogsPerKnolder.getNumberOfBlogsPerKnolder
+  val knolderBlogCounts = numberOfBlogsPerKnolder.getKnolderBlogCount(blogCounts)
+  numberOfBlogsPerKnolder.insertBlogCount(knolderBlogCounts)
+  numberOfBlogsPerKnolder.updateBlogCount(knolderBlogCounts)
+  allTimeDataOnAPI.displayAllTimeDataOnAPI
 }

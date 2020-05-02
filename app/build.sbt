@@ -14,8 +14,11 @@ libraryDependencies ++= Seq(
   "org.postgresql" % "postgresql" % "42.2.11",
   "org.scalikejdbc" %% "scalikejdbc" % "3.4.1",
   "ch.qos.logback" % "logback-classic" % "1.2.3",
+  "com.typesafe.scala-logging" %% "scala-logging" % "3.7.2",
   "com.h2database" % "h2" % "1.4.196",
   "ch.megard" %% "akka-http-cors" % "0.4.3",
+  "com.typesafe.akka" %% "akka-stream-testkit" % "2.6.1" % Test,
+  "com.typesafe.akka" %% "akka-http-testkit" % "10.1.11" % Test,
   "org.scalatest" %% "scalatest" % "3.1.0" % Test,
   "org.mockito" %% "mockito-scala" % "1.11.4" % Test
 )

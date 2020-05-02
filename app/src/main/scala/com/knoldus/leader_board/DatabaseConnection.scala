@@ -5,10 +5,11 @@ import java.sql.Connection
 import com.typesafe.config.Config
 import scalikejdbc.{ConnectionPool, GlobalSettings, LoggingSQLAndTimeSettings}
 
-class DatabaseConnection(config: Config) {
-  GlobalSettings.loggingSQLAndTime = LoggingSQLAndTimeSettings(enabled = true, singleLineMode = true, logLevel = 'DEBUG)
+object DatabaseConnection {
+  GlobalSettings.loggingSQLAndTime = LoggingSQLAndTimeSettings(enabled = false, singleLineMode = false)
+  GlobalSettings.loggingConnections = false
 
-  def connection: Connection = {
+  def connection(config: Config): Connection = {
     val url = config.getString("url")
     val driver = config.getString("driver")
     val username = config.getString("username")
