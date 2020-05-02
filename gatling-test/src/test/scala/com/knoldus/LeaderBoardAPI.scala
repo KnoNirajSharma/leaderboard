@@ -22,7 +22,7 @@ class LeaderBoardAPI extends Simulation {
     /**
      * generic method for creating a scenario
      */
-    val scene: ScenarioBuilder = scenario("KLB api test")
+    val scene: ScenarioBuilder = scenario(scenarioName)
       .exec(http(requestName)
         .get(url).check(status.is(OK))
         .check(jsonPath(path).findAll))
