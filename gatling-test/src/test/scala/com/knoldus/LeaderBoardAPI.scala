@@ -1,21 +1,17 @@
 package com.knoldus
-
 import com.typesafe.config.{Config, ConfigFactory}
 import io.gatling.core.Predef._
 import io.gatling.core.structure.ScenarioBuilder
 import io.gatling.http.Predef._
 import io.gatling.http.protocol.HttpProtocolBuilder
-
 /**
  * galting test for Knoldus LeaderBoard API .
  */
 class LeaderBoardAPI extends Simulation {
-
   val config: Config = ConfigFactory.load("application.conf")
   val url: String = config.getString("url")
   val users: Int = config.getInt("users")
   val OK = 200
-
   def createScenarioBuilder(scenarioName: String, requestName: String, path: String, pauseDuration: Int): ScenarioBuilder = {
     /**
      * generic method for creating a scenario
