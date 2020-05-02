@@ -1,0 +1,15 @@
+ion-title {
+  color: var(--ion-color-warning-contrast);
+  background-color: var(--ion-color-primary-contrast);
+  text-align: center;
+  font: {
+    size: 2em;
+    weight: bold;
+  }
+}
+
+ion-content {
+  ion-toolbar {
+    --background: translucent;
+  }
+}

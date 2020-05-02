@@ -5,7 +5,7 @@ export const environment = {
         version: '1.0.0',
         baseUrl: '/',
         routes: {
-            author: {endpoint: '/assets/data/authorProfile.json', method: 'GET'}
+            author: {endpoint: 'assets/data/authorProfile.json', method: 'GET'}
         }
     }
 };
