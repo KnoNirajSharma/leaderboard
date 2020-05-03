@@ -9,17 +9,16 @@ import {EmployeeActivityService} from '../../services/employee-activity.service'
     styleUrls: ['./main.page.scss'],
 })
 export class MainPage implements OnInit {
-    blogCount: any;
-    knolxCount = 'N/A';
-    webinarCount = 'N/A';
-    techhubTemplateCount = 'N/A';
     employeeData: AuthorModel[];
-    cardData: CardDataModel[];
-    workCountList = [];
-    cardTitleFontSize = '3em';
-    cardSubtitleFontSize = '1.5em';
-    cardBgColor = 'linear-gradient(to bottom, #157AE3, #096EDB, #0162D2, #0155C9, #0549BF)';
-    cardFontColor = 'white';
+    private cardDataForMainPg: CardDataModel[];
+    private blogCount = 0;
+    private knolxCount = 0;
+    private webinarCount = 0;
+    private techhubTemplateCount = 0;
+    private cardTitleFontSize = '3em';
+    private cardSubtitleFontSize = '1.5em';
+    private cardBgColor = '#0162D2';
+    private cardFontColor = 'white';
 
     constructor(private service: EmployeeActivityService) {
     }
@@ -33,21 +32,43 @@ export class MainPage implements OnInit {
     }
 
     prepareCardData() {
-        this.workCountList = this.calCount();
-        this.cardData = [
-            {cardTitle: this.workCountList[0], subtitle: 'Blogs', titleFontSize: this.cardTitleFontSize,
-                subtitleFontSize: this.cardSubtitleFontSize, bgColor: this.cardBgColor, fontColor: this.cardFontColor},
-            {cardTitle: this.workCountList[1], subtitle: 'Knolx', titleFontSize: this.cardTitleFontSize,
-                subtitleFontSize: this.cardSubtitleFontSize, bgColor: this.cardBgColor, fontColor: this.cardFontColor},
-            {cardTitle: this.workCountList[2], subtitle: 'Webinars', titleFontSize: this.cardTitleFontSize,
-                subtitleFontSize: this.cardSubtitleFontSize, bgColor: this.cardBgColor, fontColor: this.cardFontColor},
-            {cardTitle: this.workCountList[3], subtitle: 'TechHub Templates', titleFontSize: this.cardTitleFontSize,
-                subtitleFontSize: this.cardSubtitleFontSize, bgColor: this.cardBgColor, fontColor: this.cardFontColor},
+        this.cardDataForMainPg = [
+            {
+                cardTitle: this.getTotalCount('blogs').toString(), subtitle: 'Blogs', titleFontSize: this.cardTitleFontSize,
+                subtitleFontSize: this.cardSubtitleFontSize, bgColor: this.cardBgColor, fontColor: this.cardFontColor
+            },
+
+            {
+                cardTitle: this.getTotalCount('knolx').toString(), subtitle: 'Knolx', titleFontSize: this.cardTitleFontSize,
+                subtitleFontSize: this.cardSubtitleFontSize, bgColor: this.cardBgColor, fontColor: this.cardFontColor
+            },
+
+            {
+                cardTitle: this.getTotalCount('webinars').toString(), subtitle: 'Webinars', titleFontSize: this.cardTitleFontSize,
+                subtitleFontSize: this.cardSubtitleFontSize, bgColor: this.cardBgColor, fontColor: this.cardFontColor
+            },
+
+            {
+                cardTitle: this.getTotalCount('techhubTemplates').toString(), subtitle: 'TechHub Templates',
+                titleFontSize: this.cardTitleFontSize, subtitleFontSize: this.cardSubtitleFontSize, bgColor: this.cardBgColor,
+                fontColor: this.cardFontColor
+            },
         ];
     }
 
-    calCount(): Array<any> {
-        this.blogCount = this.employeeData.reduce((sum, current) => sum + current.score / 5, 0);
-        return [this.blogCount, this.knolxCount, this.webinarCount, this.techhubTemplateCount];
+    getTotalCount(category: string): number {
+        if (category === 'blogs') {
+            this.blogCount = (this.employeeData.reduce((sum, current) => sum + current.score / 5, 0));
+            return this.blogCount;
+        }
+        if (category === 'knolx') {
+            return this.knolxCount;
+        }
+        if (category === 'webinars') {
+            return this.webinarCount;
+        }
+        if (category === 'techhubTemplates') {
+            return this.techhubTemplateCount;
+        }
     }
 }

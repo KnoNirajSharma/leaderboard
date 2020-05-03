@@ -1,7 +1,7 @@
 export interface CardDataModel {
-    cardTitle: any;
-    subtitle?: any;
-    cardContent?: any;
+    cardTitle: string;
+    subtitle?: string;
+    cardContent?: string;
     titleFontSize?: string;
     subtitleFontSize?: string;
     bgColor?: string;

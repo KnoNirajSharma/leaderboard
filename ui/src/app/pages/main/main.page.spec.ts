@@ -25,7 +25,7 @@ describe('MainPage', () => {
             rank: 2,
         }
     ];
-    const dummyTotalWork: Array<any> = [4, 'N/A', 'N/A', 'N/A'];
+    const dummyBlogCount = 4;
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [MainPage, CardComponent, HeadersComponent],
@@ -51,6 +51,6 @@ describe('MainPage', () => {
     it('should return the sum of the work', () => {
         spyOn(mockEmployeeService, 'getData').and.returnValue(of(dummyAuthorData));
         component.ngOnInit();
-        expect(component.calCount()).toEqual(dummyTotalWork);
+        expect(component.getTotalCount('blogs')).toEqual(dummyBlogCount);
     });
 });

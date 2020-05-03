@@ -3,7 +3,6 @@ import {IonicModule} from '@ionic/angular';
 
 import {CardComponent} from './card.component';
 import {Component} from '@angular/core';
-import {CardDataModel} from '../../models/cardData.model';
 
 describe('CardComponent', () => {
     let component: CardComponent;
@@ -32,8 +31,10 @@ describe('CardComponent', () => {
 class ParentComponent {
     cardTitleFontSize = '3em';
     cardSubtitleFontSize = '1.5em';
-    cardBgColor = 'linear-gradient(to bottom, #157AE3, #096EDB, #0162D2, #0155C9, #0549BF)';
+    cardBgColor = 'white';
     cardFontColor = 'white';
-    cardData = new CardDataModel('test', 'test', 'test',
-        this.cardTitleFontSize, this.cardSubtitleFontSize, this.cardBgColor, this.cardFontColor);
+    cardData = {
+        cardTitle: 'test', subtitle: 'Blogs', titleFontSize: this.cardTitleFontSize,
+        subtitleFontSize: this.cardSubtitleFontSize, bgColor: this.cardBgColor, fontColor: this.cardFontColor
+    };
 }
