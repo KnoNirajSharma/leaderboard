@@ -35,17 +35,14 @@ export class MainPage implements OnInit {
     prepareCardData() {
         this.workCountList = this.calCount();
         this.cardData = [
-            new CardDataModel(this.workCountList[0], 'Blogs', '',
-                this.cardTitleFontSize, this.cardSubtitleFontSize, this.cardBgColor, this.cardFontColor),
-
-            new CardDataModel(this.workCountList[1], 'knolx', '',
-                this.cardTitleFontSize, this.cardSubtitleFontSize, this.cardBgColor, this.cardFontColor),
-
-            new CardDataModel(this.workCountList[2], 'Webinars', '',
-                this.cardTitleFontSize, this.cardSubtitleFontSize, this.cardBgColor, this.cardFontColor),
-
-            new CardDataModel(this.workCountList[3], 'TechHub Templates', '',
-                this.cardTitleFontSize, this.cardSubtitleFontSize, this.cardBgColor, this.cardFontColor)
+            {cardTitle: this.workCountList[0], subtitle: 'Blogs', titleFontSize: this.cardTitleFontSize,
+                subtitleFontSize: this.cardSubtitleFontSize, bgColor: this.cardBgColor, fontColor: this.cardFontColor},
+            {cardTitle: this.workCountList[1], subtitle: 'Knolx', titleFontSize: this.cardTitleFontSize,
+                subtitleFontSize: this.cardSubtitleFontSize, bgColor: this.cardBgColor, fontColor: this.cardFontColor},
+            {cardTitle: this.workCountList[2], subtitle: 'Webinars', titleFontSize: this.cardTitleFontSize,
+                subtitleFontSize: this.cardSubtitleFontSize, bgColor: this.cardBgColor, fontColor: this.cardFontColor},
+            {cardTitle: this.workCountList[3], subtitle: 'TechHub Templates', titleFontSize: this.cardTitleFontSize,
+                subtitleFontSize: this.cardSubtitleFontSize, bgColor: this.cardBgColor, fontColor: this.cardFontColor},
         ];
     }
 
