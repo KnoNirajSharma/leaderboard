@@ -1,0 +1,27 @@
+.title {
+  font-weight: bold;
+  color: black;
+  padding-bottom: 3px;
+}
+
+ion-row:hover {
+  box-shadow: 0 0 4px 0 rgba(0,0,0,0.75);
+  border-left: 2px solid blue;
+}
+
+ion-col {
+  border: .0015em solid #9d9fa6;
+  box-shadow: var(--ion-color-step-500);
+  color: #1e1e1e;
+  height: 3em;
+}
+
+.ion-grid-header {
+  background-image: linear-gradient(to bottom, #157AE3, #096EDB, #0162D2, #0155C9, #0549BF
+  );
+}
+
+.ion-grid-content {
+  background-color: var(--ion-color-step-850);
+  box-shadow: -1px 0px 2px rgba(0, 0, 0, 0.2), 1px 0px 2px rgba(0, 0, 0, 0.2);
+}

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CardDataModel} from '../../models/cardData.model';
 import {AuthorModel} from '../../models/author.model';
 import {EmployeeActivityService} from '../../services/employee-activity.service';
+import {PageTitle} from '../../models/header.model';
 
 @Component({
     selector: 'app-main',
@@ -11,14 +12,33 @@ import {EmployeeActivityService} from '../../services/employee-activity.service'
 export class MainPage implements OnInit {
     cardData: CardDataModel[];
     employeeData: AuthorModel[];
+    titleKeys: string[];
+    dataKeys: string[];
+    pageTitles: PageTitle[];
 
     constructor(private service: EmployeeActivityService) {
     }
 
     ngOnInit() {
+        this.pageTitles = [
+            {title: 'Author Name'},
+            {title: 'Score'},
+            {title: 'Rank'},
+            {title: 'Monthly Score'},
+            {title: 'Monthly Rank'},
+            {title: '3 Monthly Streak'}
+        ];
+        this.titleKeys = Object.keys(this.pageTitles[0]);
+        console.log(this.titleKeys)
         this.service.getData()
             .subscribe((data: AuthorModel[]) => {
-                this.employeeData = data;
+                this.employeeData = data.map((value: AuthorModel) => {
+                    value.monthlyScore = 'N/A';
+                    value.monthlyRank = 'N/A';
+                    value.monthlyStreak = 'N/A';
+                    return value;
+                });
+                this.dataKeys = Object.keys(this.employeeData[0]);
                 this.prepareCardData();
             });
     }

@@ -6,6 +6,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {MainPage} from './main.page';
 import {CardComponent} from '../../components/card/card.component';
 import {HeadersComponent} from '../../components/headers/headers.component';
+import {TableComponent} from '../../components/table/table.component';
 
 const routes: Routes = [
     {
@@ -21,7 +22,7 @@ const routes: Routes = [
         IonicModule,
         RouterModule.forChild(routes),
     ],
-    declarations: [MainPage, CardComponent, HeadersComponent]
+    declarations: [MainPage, CardComponent, HeadersComponent, TableComponent]
 })
 export class MainPageModule {
 }
