@@ -105,4 +105,3 @@ insert into knolder(full_name,wordpress_id)values('Joseph Ross','rossjoseph246')
 insert into knolder(full_name,wordpress_id)values('JustinB','justinbeile');
 insert into knolder(full_name,wordpress_id)values('Rachel Jones','jrachel098');
 insert into knolder(full_name,wordpress_id)values('Mansi Babbar','mansibabbar1998');
-
