@@ -12,7 +12,7 @@ enablePlugins(AshScriptPlugin)
 
 mainClass in Compile := Some("com.knoldus.leader_board.DriverApp")
 
-dockerBaseImage := "openjdk:jre-alpine"
+dockerBaseImage := "openjdk:8-jre-alpine"
 
 libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-http" % "10.1.11",
