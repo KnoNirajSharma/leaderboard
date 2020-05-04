@@ -25,7 +25,7 @@ describe('MainPage', () => {
             rank: 2,
         }
     ];
-    const dummyBlogCount = 4;
+    const dummyBlogCount = '4';
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [MainPage, CardComponent, HeadersComponent],
