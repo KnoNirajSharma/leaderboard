@@ -1,0 +1,9 @@
+<app-headers title="LEADERBOARD"></app-headers>
+
+<ion-grid class="main-container">
+    <ion-row class="container-row">
+        <ion-col *ngFor="let data of cardData" size-lg="3" size-md="6" size-xs="6">
+            <app-card [cardData]="data" class="cards"></app-card>
+        </ion-col>
+    </ion-row>
+</ion-grid>
