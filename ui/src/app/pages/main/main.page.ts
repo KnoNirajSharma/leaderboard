@@ -51,21 +51,18 @@ export class MainPage implements OnInit {
         switch (category) {
             case 'blogs': {
                 count = (this.employeeData.reduce((sum, current) => sum + current.score / 5, 0)).toString();
-                return count;
+                break;
             }
             case 'knolx': {
-                return count;
+                break;
             }
             case 'webinars': {
-                return count;
+                break;
             }
             case 'techhubTemplates': {
-                return count;
-            }
-            default: {
-                return count;
+                break;
             }
         }
-
+        return count;
     }
 }
