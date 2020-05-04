@@ -7,7 +7,7 @@ import {Component, OnInit} from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
     sideBarData = [
-        {title: 'Home', titleIcon: '../../../assets/icon/home-icon.png', link: '/'},
+        {title: 'Home', titleIcon: '../../../assets/icon/home-icon.png', link: './'},
     ];
 
     constructor() {
