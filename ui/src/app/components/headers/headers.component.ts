@@ -7,10 +7,14 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class HeadersComponent implements OnInit {
     @Input() title: string;
-
+    public show = false;
     constructor() {
     }
 
     ngOnInit() {
+    }
+
+    toggle() {
+        this.show = !this.show;
     }
 }

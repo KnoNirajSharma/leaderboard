@@ -1,7 +1,14 @@
 <ion-header [translucent]="true">
     <ion-toolbar>
+        <ion-button slot="start"  (click)="toggle()" id="bt">
+                <label>&#9776;</label>
+        </ion-button>
         <ion-title>
             {{title}}
         </ion-title>
     </ion-toolbar>
 </ion-header>
+<ng-container *ngIf="show">
+    <app-sidebar class="sidebar">
+    </app-sidebar>
+</ng-container>

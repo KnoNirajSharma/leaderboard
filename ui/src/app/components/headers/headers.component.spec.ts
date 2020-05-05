@@ -2,6 +2,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {IonicModule} from '@ionic/angular';
 import {HeadersComponent} from './headers.component';
 import {Component} from '@angular/core';
+import {SidebarComponent} from '../sidebar/sidebar.component';
 
 describe('HeadersComponent', () => {
     let component: HeadersComponent;
@@ -9,7 +10,7 @@ describe('HeadersComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [HeadersComponent, ParentComponent],
+            declarations: [HeadersComponent, ParentComponent, SidebarComponent],
             imports: [IonicModule.forRoot()]
         }).compileComponents();
 

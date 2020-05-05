@@ -10,6 +10,26 @@ ion-title {
 
 ion-content {
   ion-toolbar {
+    display: flex;
     --background: translucent;
+    .bt {
+      display: none;
+    }
   }
 }
+ion-button {
+  display: none;
+}
+.sidebar {
+   display: none;
+}
+
+@media only screen and (max-width: 959px) {
+  ion-button {
+    display: block;
+  }
+  .sidebar {
+    display: block;
+  }
+}
+

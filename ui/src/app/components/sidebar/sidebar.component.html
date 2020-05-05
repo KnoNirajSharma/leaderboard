@@ -1,11 +1,11 @@
 <div>
     <div class="sidebar">
         <div class="sidebar-logo-container">
-            <a routerLink="./"><img alt="knoldus-logo" class="sidebar-logo" src="../../../assets/icon/knoldus-logo-transparent.png"></a>
+            <a routerLink="./"><img alt="knoldus-logo" class="sidebar-logo" src="./assets/icon/knoldus-logo-transparent.png"></a>
         </div>
         <div class="sidebar-content-container">
-            <div *ngFor="let data of sideBarData" routerLink="{{data.link}}" class="sidebar-content" >
-               <img alt=" '{{data.title}}' -logo" class="sidebar-content-logo" src="{{data.titleIcon}}"/>
+            <div *ngFor="let data of sideBarData" [routerLink]="data.link" class="sidebar-content" >
+               <img [alt]=" data.title + '-logo'" class="sidebar-content-logo" [src]="data.titleIcon"/>
                 <span>{{data.title}}</span>
             </div>
         </div>

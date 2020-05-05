@@ -6,3 +6,9 @@
     margin-top: -1rem;
   }
 }
+
+@media only screen and (max-width: 959px) {
+  .sidebar {
+    display: none;
+  }
+}
