@@ -31,5 +31,10 @@ ion-button {
   .sidebar {
     display: block;
   }
+  ion-title {
+    span {
+      margin-left: -1em;
+    }
+  }
 }
 
