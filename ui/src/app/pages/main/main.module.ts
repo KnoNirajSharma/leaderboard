@@ -7,6 +7,7 @@ import {MainPage} from './main.page';
 import {CardComponent} from '../../components/card/card.component';
 import {HeadersComponent} from '../../components/headers/headers.component';
 import {SidebarComponent} from '../../components/sidebar/sidebar.component';
+import {TableComponent} from '../../components/table/table.component';
 
 const routes: Routes = [
     {
@@ -22,7 +23,7 @@ const routes: Routes = [
         IonicModule,
         RouterModule.forChild(routes),
     ],
-    declarations: [MainPage, CardComponent, HeadersComponent, SidebarComponent]
+    declarations: [MainPage, CardComponent, HeadersComponent, TableComponent, SidebarComponent]
 })
 export class MainPageModule {
 }

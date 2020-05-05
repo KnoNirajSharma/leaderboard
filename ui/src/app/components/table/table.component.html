@@ -1,0 +1,18 @@
+<ion-grid>
+     <ion-card>
+         <ion-card-header>
+             <ion-row>
+                 <ion-col *ngFor="let header of tableHeaders">
+                     <div>
+                         <h6 class="title">{{header.title}}</h6>
+                     </div>
+                 </ion-col>
+             </ion-row>
+         </ion-card-header>
+         <ion-card-content>
+             <ion-row *ngFor="let tableRow of tableRows; let i = index" [ngClass]="(i % 2 == 0) ? 'odd' : 'even'"  class="row-style" >
+                 <ion-col *ngFor="let key of dataKeys">{{tableRow[key]}}</ion-col>
+             </ion-row>
+         </ion-card-content>
+     </ion-card>
+</ion-grid>

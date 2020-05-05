@@ -1,3 +1,4 @@
+<ion-content>
 <ion-grid class="main-container">
     <ion-row>
         <ion-col class="sidebar-col" size-md="0" size-lg="2" size-sm="0" size-xs="0" size-xl="2">
@@ -12,4 +13,6 @@
             </ion-row>
         </ion-col>
     </ion-row>
+    <app-table [tableRows]="employeeData" [dataKeys]="dataKeys" [tableHeaders]="tableHeaders" ></app-table>
 </ion-grid>
+</ion-content>
