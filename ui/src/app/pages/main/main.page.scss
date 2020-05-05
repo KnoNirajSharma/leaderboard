@@ -1,12 +1,18 @@
 .main-container {
   padding: 0;
   width: 100%;
+  background-color: #FAF8FB;
   .sidebar-col {
     margin-left: -1rem;
     margin-top: -1rem;
   }
   .main-content {
     width: 100%;
+    ion-card {
+      box-shadow: -1px 0px 34px -19px rgba(0,0,0,0.73);
+      --ion-background-color: white;
+      padding-top: 1em;
+    }
   }
 }
 ion-grid {
