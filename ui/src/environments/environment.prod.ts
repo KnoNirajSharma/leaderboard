@@ -3,9 +3,9 @@ export const environment = {
     appVersion: '1.0.0',
     api: {
         version: '1.0.0',
-        baseUrl: '/',
+        baseUrl: 'http://34.68.95.196:8000/',
         routes: {
-            author: {endpoint: 'assets/data/authorProfile.json', method: 'GET'}
+            author: {endpoint: 'reputation', method: 'GET'}
         }
     }
 };

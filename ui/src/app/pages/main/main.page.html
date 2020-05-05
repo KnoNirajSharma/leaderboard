@@ -5,12 +5,13 @@
         </ion-col>
         <ion-col class="main-content" size-md="12" size-lg="10" size-sm="12" size-xs="12" size-xl="10">
             <app-headers title="LEADERBOARD"></app-headers>
+            <ion-content>
             <ion-row class="cards-row">
                 <ion-col *ngFor="let data of cardData" size-lg="3" size-md="6" size-xs="6">
                     <app-card [cardData]="data" class="card"></app-card>
                 </ion-col>
             </ion-row>
-<ion-content>
+
             <app-table [tableRows]="employeeData" [dataKeys]="dataKeys" [tableHeaders]="tableHeaders" ></app-table>
 </ion-content>
         </ion-col>

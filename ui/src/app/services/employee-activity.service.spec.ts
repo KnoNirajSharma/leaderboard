@@ -37,7 +37,7 @@ describe('EmployeeActivityService', () => {
         employeeActivityService.getData().subscribe(authorData => {
             expect(authorData).toEqual(dummyAuthorData);
         });
-        const requestCheck = httpTestingController.expectOne('/assets/data/authorProfile.json');
+        const requestCheck = httpTestingController.expectOne('http://34.68.95.196:8000/reputation');
         expect(requestCheck.request.method).toBe('GET');
         requestCheck.flush(dummyAuthorData);
     });
