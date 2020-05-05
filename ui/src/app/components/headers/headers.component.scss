@@ -2,6 +2,9 @@ ion-title {
   color: var(--ion-color-warning-contrast);
   background-color: var(--ion-color-primary-contrast);
   text-align: center;
+  span {
+    margin-left: -1em;
+  }
   font: {
     size: 2em;
     weight: bold;
