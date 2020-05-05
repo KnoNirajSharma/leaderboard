@@ -9,6 +9,7 @@ import {AuthorModel} from '../../models/author.model';
 import {CardComponent} from '../../components/card/card.component';
 import {HeadersComponent} from '../../components/headers/headers.component';
 import {of} from 'rxjs';
+import {TableComponent} from '../../components/table/table.component';
 
 describe('MainPage', () => {
     let component: MainPage;
@@ -28,7 +29,7 @@ describe('MainPage', () => {
     const dummyBlogCount = '4';
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [MainPage, CardComponent, HeadersComponent],
+            declarations: [MainPage, CardComponent, HeadersComponent, TableComponent],
             imports: [HttpClientTestingModule, IonicModule.forRoot(), RouterTestingModule]
         }).compileComponents();
 

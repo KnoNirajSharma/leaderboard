@@ -2,3 +2,15 @@
   width: 100%;
   background-color: #FAF8FB;
 }
+
+ion-content {
+  --ion-background-color: #FAF8FB;
+  ion-toolbar {
+    --background: translucent;
+  }
+  ion-card {
+    box-shadow: -1px 0px 34px -19px rgba(0,0,0,0.73);
+    --ion-background-color: white;
+    padding-top: 1em;
+  }
+}
