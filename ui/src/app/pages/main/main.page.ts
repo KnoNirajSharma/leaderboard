@@ -14,20 +14,19 @@ export class MainPage implements OnInit {
     employeeData: AuthorModel[];
     titleKeys: string[];
     dataKeys: string[];
-    pageTitles: PageTitleModel[];
+    pageTitles: PageTitleModel[] = [
+        {title: 'Author Name'},
+        {title: 'Score'},
+        {title: 'Rank'},
+        {title: 'Monthly Score'},
+        {title: 'Monthly Rank'},
+        {title: '3 Monthly Streak'}
+    ];
 
     constructor(private service: EmployeeActivityService) {
     }
 
     ngOnInit() {
-        this.pageTitles = [
-            {title: 'Author Name'},
-            {title: 'Score'},
-            {title: 'Rank'},
-            {title: 'Monthly Score'},
-            {title: 'Monthly Rank'},
-            {title: '3 Monthly Streak'}
-        ];
         this.titleKeys = Object.keys(this.pageTitles[0]);
         this.service.getData()
             .subscribe((data: AuthorModel[]) => {
