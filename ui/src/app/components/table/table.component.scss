@@ -1,12 +1,12 @@
 .title {
   font-weight: bold;
   color: black;
-  padding-bottom: 3px;
+  padding-bottom: 0.3em;
 }
 ​,
 ion-row:hover {
-  box-shadow: 0 0 4px 0 rgba(0,0,0,0.75);
-  border-left: 2px solid blue;
+  box-shadow: 0 0 0.4em 0 rgba(0,0,0,0.75);
+  border-left: 0.2em solid blue;
 }
 ​,
 ion-col {
@@ -23,5 +23,5 @@ ion-col {
 ​,
 .ion-grid-content {
   background-color: var(--ion-color-step-850);
-  box-shadow: -1px 0px 2px rgba(0, 0, 0, 0.2), 1px 0px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: -0.1em 0px 0.2em rgba(0, 0, 0, 0.2), 0.1em 0px 0.2em rgba(0, 0, 0, 0.2);
 }
