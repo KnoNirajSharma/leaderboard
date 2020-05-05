@@ -42,21 +42,24 @@ export class MainPage implements OnInit {
     prepareCardData() {
         const fontSizeTitle = '3em';
         const fontSizeSubTitle = '1.5em';
-        const backgroundColor = '#0162D2';
+        const bgColorPurple = '#A38CC6';
+        const bgColorYellow = '#FFCA5B';
+        const bgColorGreen = '#4DE5D5';
+        const bgColorBlue = '#6AB8F7';
         const fontColor = 'white';
         this.cardData = [
             {
                 cardTitle: this.getTotalCount('blogs'), subtitle: 'Blogs', titleFontSize: fontSizeTitle,
-                subtitleFontSize: fontSizeSubTitle, bgColor: backgroundColor, fontColor
+                subtitleFontSize: fontSizeSubTitle, bgColor: bgColorPurple, fontColor
             }, {
                 cardTitle: this.getTotalCount('knolx'), subtitle: 'Knolx', titleFontSize: fontSizeTitle,
-                subtitleFontSize: fontSizeSubTitle, bgColor: backgroundColor, fontColor
+                subtitleFontSize: fontSizeSubTitle, bgColor: bgColorYellow, fontColor
             }, {
                 cardTitle: this.getTotalCount('webinars'), subtitle: 'Webinars', titleFontSize: fontSizeTitle,
-                subtitleFontSize: fontSizeSubTitle, bgColor: backgroundColor, fontColor
+                subtitleFontSize: fontSizeSubTitle, bgColor: bgColorGreen, fontColor
             }, {
                 cardTitle: this.getTotalCount('techhubTemplates'), subtitle: 'TechHub Templates',
-                titleFontSize: fontSizeTitle, subtitleFontSize: fontSizeSubTitle, bgColor: backgroundColor,
+                titleFontSize: fontSizeTitle, subtitleFontSize: fontSizeSubTitle, bgColor: bgColorBlue,
                 fontColor
             },
         ];
