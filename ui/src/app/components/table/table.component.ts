@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AuthorModel} from '../../models/author.model';
-import {PageTitleModel} from '../../models/pageTitle.model';
+import {TableHeaderModel} from '../../models/tableHeader.model';
 
 @Component({
     selector: 'app-table',
@@ -9,9 +9,8 @@ import {PageTitleModel} from '../../models/pageTitle.model';
 })
 
 export class TableComponent implements OnInit {
-    @Input() pageTitle: PageTitleModel[];
-    @Input() employee: AuthorModel[];
-    @Input() titleKeys: string[];
+    @Input() tableHeaders: TableHeaderModel[];
+    @Input() tableRows: AuthorModel[];
     @Input() dataKeys: string[];
 
     constructor() {

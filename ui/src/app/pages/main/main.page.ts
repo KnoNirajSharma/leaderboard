@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CardDataModel} from '../../models/cardData.model';
 import {AuthorModel} from '../../models/author.model';
 import {EmployeeActivityService} from '../../services/employee-activity.service';
-import {PageTitleModel} from '../../models/pageTitle.model';
+import {TableHeaderModel} from '../../models/tableHeader.model';
 
 @Component({
     selector: 'app-main',
@@ -12,9 +12,9 @@ import {PageTitleModel} from '../../models/pageTitle.model';
 export class MainPage implements OnInit {
     cardData: CardDataModel[];
     employeeData: AuthorModel[];
-    titleKeys: string[];
+    headerKeys: string[];
     dataKeys: string[];
-    pageTitles: PageTitleModel[] = [
+    tableHeaders: TableHeaderModel[] = [
         {title: 'Author Name'},
         {title: 'Score'},
         {title: 'Rank'},
@@ -27,7 +27,6 @@ export class MainPage implements OnInit {
     }
 
     ngOnInit() {
-        this.titleKeys = Object.keys(this.pageTitles[0]);
         this.service.getData()
             .subscribe((data: AuthorModel[]) => {
                 this.employeeData = data.map((value: AuthorModel) => {

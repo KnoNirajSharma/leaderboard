@@ -1,17 +1,17 @@
 <ion-grid>
      <ion-card>
          <ion-card-header>
-             <ion-row >
-                 <ion-col *ngFor="let page of pageTitle">
-                     <div *ngFor="let key of titleKeys">
-                         <h6 class="title">{{page[key]}}</h6>
+             <ion-row>
+                 <ion-col *ngFor="let header of tableHeaders">
+                     <div>
+                         <h6 class="title">{{header.title}}</h6>
                      </div>
                  </ion-col>
              </ion-row>
          </ion-card-header>
          <ion-card-content>
-             <ion-row *ngFor="let data of employee">
-                 <ion-col *ngFor="let key of dataKeys">{{data[key]}}</ion-col>
+             <ion-row *ngFor="let tableRow of tableRows">
+                 <ion-col *ngFor="let key of dataKeys">{{tableRow[key]}}</ion-col>
              </ion-row>
          </ion-card-content>
      </ion-card>
