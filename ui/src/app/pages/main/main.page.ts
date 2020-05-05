@@ -12,7 +12,6 @@ import {TableHeaderModel} from '../../models/tableHeader.model';
 export class MainPage implements OnInit {
     cardData: CardDataModel[];
     employeeData: AuthorModel[];
-    headerKeys: string[];
     dataKeys: string[];
     tableHeaders: TableHeaderModel[] = [
         {title: 'Author Name'},
