@@ -2,9 +2,9 @@
     <ion-card>
         <ion-card-header>
             <ion-row>
-                <ion-col *ngFor="let header of tableHeaders" size="2">
-                    <div>
-                        <h6 class="title">{{header.title}}</h6>
+                <ion-col *ngFor="let header of tableHeaders" [id]="header.id">
+                    <div >
+                        <h6 class="title" >{{header.title}}</h6>
                     </div>
                 </ion-col>
             </ion-row>
@@ -12,7 +12,7 @@
         <ion-card-content>
             <ion-row *ngFor="let tableRow of tableRows; let i = index" [ngClass]="(i % 2 == 0) ? 'odd' : 'even'"
                      class="row-style">
-                <ion-col *ngFor="let key of dataKeys">{{tableRow[key]}}</ion-col>
+                <ion-col [class]="key" *ngFor="let key of dataKeys">{{tableRow[key]}}</ion-col>
             </ion-row>
         </ion-card-content>
     </ion-card>

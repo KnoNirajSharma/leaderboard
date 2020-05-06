@@ -14,12 +14,12 @@ export class MainPage implements OnInit {
     employeeData: AuthorModel[];
     dataKeys: string[];
     tableHeaders: TableHeaderModel[] = [
-        {title: 'Author Name'},
-        {title: 'Score'},
-        {title: 'Rank'},
-        {title: 'Monthly Score'},
-        {title: 'Monthly Rank'},
-        {title: '3 Monthly Streak'}
+        {title: 'Author Name', id: 'name'},
+        {title: 'Score', id: 'score'},
+        {title: 'Rank', id: 'rank' },
+        {title: 'Monthly Score', id: 'm-score' },
+        {title: 'Monthly Rank', id: 'm-rank'},
+        {title: '3 Monthly Streak', id: 'streak'}
     ];
 
     constructor(private service: EmployeeActivityService) {
