@@ -12,10 +12,7 @@ export class TableComponent implements OnInit {
     @Input() tableHeaders: TableHeaderModel[];
     @Input() tableRows: AuthorModel[];
     @Input() dataKeys: string[];
-
-    constructor() {
-    }
-
+    constructor() { }
     ngOnInit() {
     }
 }

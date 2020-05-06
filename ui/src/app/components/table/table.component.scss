@@ -7,7 +7,9 @@
 ​,
 ion-card {
   background-color: white;
-
+  ion-card-header {
+    margin-bottom: .3em;
+  }
   ion-card-content {
     text-align: center;
   }
@@ -26,6 +28,21 @@ ion-col {
   background-color: white;
 }
 .row-style:hover {
-  box-shadow: 0 0 4px 0 rgba(0,0,0,0.75);
-    border-left: 0.2em solid blue;
+  box-shadow: -1px 2px 12px -1px rgba(0,0,0,0.75);
+  border-left: 0.2em solid blue;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 959px) {
+  .title {
+    font-size: 0.85em;
+    height: 20px;
+  }
+  .row-style {
+    font-size: 13px;
+    margin-top: .35em;
+    height: 5em;
+    text-align: center;
+    vertical-align: middle;
+  }
 }

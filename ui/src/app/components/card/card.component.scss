@@ -2,7 +2,7 @@ ion-card {
   border-radius: 5px;
 
   ion-card-header {
-   // padding-top: 1rem;
+    padding-top: 1rem;
     padding-bottom: 0;
 
     ion-card-title {
@@ -12,7 +12,19 @@ ion-card {
 }
 
 @media only screen and (max-width: 959px) {
-    span {
-      font-size: 0.72em;
+  span {
+    font-size: 0.72em;
+  }
+  ion-card {
+    ion-card-header {
+      padding-top: 0;
     }
+  }
+}
+
+@media only screen and (max-width: 380px) {
+  .subtitle {
+    padding-top: 0;
+    font-size: 0.6em;
+  }
 }
