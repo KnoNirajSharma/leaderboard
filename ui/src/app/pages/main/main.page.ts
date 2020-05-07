@@ -28,12 +28,17 @@ export class MainPage implements OnInit {
     ngOnInit() {
         this.service.getData()
             .subscribe((data: AuthorModel[]) => {
-                this.employeeData = data.map((value: AuthorModel) => {
-                    value.monthlyScore = 'N/A';
-                    value.monthlyRank = 'N/A';
-                    value.monthlyStreak = 'N/A';
-                    return value;
-                });
+                if ( window.innerWidth > 750 ) {
+                    this.employeeData = data.map((value: AuthorModel) => {
+                        value.monthlyScore = 'N/A';
+                        value.monthlyRank = 'N/A';
+                        value.monthlyStreak = 'N/A';
+                        return value;
+                    });
+                } else {
+                    this.employeeData = data;
+                    this.tableHeaders = this.tableHeaders.slice(0, 3);
+                }
                 this.dataKeys = Object.keys(this.employeeData[0]);
                 this.prepareCardData();
             });
@@ -42,10 +47,10 @@ export class MainPage implements OnInit {
     prepareCardData() {
         const fontSizeTitle = '3em';
         const fontSizeSubTitle = '1.5em';
-        const bgColorPurple = '#A38CC6';
-        const bgColorYellow = '#FFCA5B';
-        const bgColorGreen = '#4DE5D5';
-        const bgColorBlue = '#6AB8F7';
+        const bgColorPurple = '#995d81';
+        const bgColorRed = '#f78154';
+        const bgColorGreen = '#5fad56';
+        const bgColorBlue = '#3581B8';
         const fontColor = 'white';
         this.cardData = [
             {
@@ -53,7 +58,7 @@ export class MainPage implements OnInit {
                 subtitleFontSize: fontSizeSubTitle, bgColor: bgColorPurple, fontColor
             }, {
                 cardTitle: this.getTotalCount('knolx'), subtitle: 'Knolx', titleFontSize: fontSizeTitle,
-                subtitleFontSize: fontSizeSubTitle, bgColor: bgColorYellow, fontColor
+                subtitleFontSize: fontSizeSubTitle, bgColor: bgColorRed, fontColor
             }, {
                 cardTitle: this.getTotalCount('webinars'), subtitle: 'Webinars', titleFontSize: fontSizeTitle,
                 subtitleFontSize: fontSizeSubTitle, bgColor: bgColorGreen, fontColor
