@@ -50,14 +50,3 @@ ion-col {
     text-align: center;
   }
 }
-
-@media only screen and (max-width: 550px) {
-  .monthlyScore, .monthlyRank, .monthlyStreak {
-    display: none;
-  }
-
-  .m-score, .m-rank, .streak {
-    display: none;
-    width: 0;
-  }
-}

@@ -28,12 +28,17 @@ export class MainPage implements OnInit {
     ngOnInit() {
         this.service.getData()
             .subscribe((data: AuthorModel[]) => {
-                this.employeeData = data.map((value: AuthorModel) => {
-                    value.monthlyScore = 'N/A';
-                    value.monthlyRank = 'N/A';
-                    value.monthlyStreak = 'N/A';
-                    return value;
-                });
+                if ( window.innerWidth > 750 ) {
+                    this.employeeData = data.map((value: AuthorModel) => {
+                        value.monthlyScore = 'N/A';
+                        value.monthlyRank = 'N/A';
+                        value.monthlyStreak = 'N/A';
+                        return value;
+                    });
+                } else {
+                    this.employeeData = data;
+                    this.tableHeaders = this.tableHeaders.slice(0, 3);
+                }
                 this.dataKeys = Object.keys(this.employeeData[0]);
                 this.prepareCardData();
             });
