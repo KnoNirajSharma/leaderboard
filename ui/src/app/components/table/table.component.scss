@@ -4,16 +4,20 @@
   padding-bottom: 0.3em;
   text-align: center;
 }
+
 ​,
 ion-card {
   background-color: white;
+
   ion-card-header {
     margin-bottom: .3em;
   }
+
   ion-card-content {
     text-align: center;
   }
 }
+
 ​,
 ion-col {
   box-shadow: var(--ion-color-step-500);
@@ -21,14 +25,16 @@ ion-col {
   height: 3em;
 }
 
-.odd{
+.odd {
   background-color: #E8E8E8;
 }
-.even{
+
+.even {
   background-color: white;
 }
+
 .row-style:hover {
-  box-shadow: -1px 2px 12px -1px rgba(0,0,0,0.75);
+  box-shadow: -1px 2px 12px -1px rgba(0, 0, 0, 0.75);
   border-left: 0.2em solid blue;
   cursor: pointer;
 }
@@ -43,30 +49,16 @@ ion-col {
     margin-top: .35em;
     height: 3.5em;
     text-align: center;
-    //vertical-align: middle;
   }
 }
 
 @media only screen and (max-width: 550px) {
-  .monthlyScore {
-    display: none;
-  }
-  .monthlyRank {
-    display: none;
-  }
-  .monthlyStreak {
-    display: none;
-  }
-  #m-score {
-    display: none;
-    width: 0;
-  }
-  #m-rank {
-    display: none;
-    width: 0;
-  }
-  #streak {
+  .monthlyScore, .monthlyRank, .monthlyStreak {
     display: none;
   }
 
+  .m-score, .m-rank, .streak {
+    display: none;
+    width: 0;
+  }
 }

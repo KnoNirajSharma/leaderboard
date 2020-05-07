@@ -2,7 +2,7 @@
     <ion-card>
         <ion-card-header>
             <ion-row>
-                <ion-col *ngFor="let header of tableHeaders" [id]="header.id">
+                <ion-col *ngFor="let header of tableHeaders" [class]="header.id">
                     <div >
                         <h6 class="title" >{{header.title}}</h6>
                     </div>
