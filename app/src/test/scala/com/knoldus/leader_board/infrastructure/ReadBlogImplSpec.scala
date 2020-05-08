@@ -3,7 +3,7 @@ package com.knoldus.leader_board.infrastructure
 import java.sql.{Connection, PreparedStatement, Timestamp}
 import java.time.Instant
 
-import com.knoldus.leader_board.{BlogCount, DatabaseConnection, KnolderBlog}
+import com.knoldus.leader_board.{BlogCount, DatabaseConnection}
 import com.typesafe.config.ConfigFactory
 import org.scalatest.{BeforeAndAfterEach, DoNotDiscover}
 

@@ -4,9 +4,10 @@ import java.sql.Connection
 
 import com.knoldus.leader_board.{DatabaseConnection, KnolderReputation}
 import com.typesafe.config.Config
+import com.typesafe.scalalogging.LazyLogging
 import scalikejdbc.{DB, DBSession, SQL}
 
-class WriteAllTimeReputationImpl(config: Config) extends WriteAllTimeReputation {
+class WriteAllTimeReputationImpl(config: Config) extends WriteAllTimeReputation with LazyLogging {
   implicit val connection: Connection = DatabaseConnection.connection(config)
   implicit val session: DBSession = DB.autoCommitSession()
 
@@ -19,6 +20,7 @@ class WriteAllTimeReputationImpl(config: Config) extends WriteAllTimeReputation 
    * @return List of Integer which displays the status of query execution.
    */
   override def insertAllTimeReputationData(reputationOfKnolders: List[KnolderReputation]): List[Int] = {
+    logger.info("Inserting reputation of knolder in all time reputation table.")
     reputationOfKnolders.filter { reputationOfKnolder =>
       reputationOfKnolder.knolderId.isEmpty
     }.map { reputationOfKnolder =>
@@ -37,6 +39,7 @@ class WriteAllTimeReputationImpl(config: Config) extends WriteAllTimeReputation 
    * @return List of Integer which displays the status of query execution.
    */
   override def updateAllTimeReputationData(reputationOfKnolders: List[KnolderReputation]): List[Int] = {
+    logger.info("Updating reputation of knolder in all time reputation table.")
     reputationOfKnolders.filter { reputationOfKnolder =>
       reputationOfKnolder.knolderId.isDefined
     }.map { reputationOfKnolder =>

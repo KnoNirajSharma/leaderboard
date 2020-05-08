@@ -6,10 +6,8 @@ import org.mockito.MockitoSugar
 import org.scalatest.flatspec.AnyFlatSpec
 
 class NumberOfBlogsPerKnolderImplSpec extends AnyFlatSpec with MockitoSugar {
-  val mockReadKnolder: ReadKnolder = mock[ReadKnolderImpl]
   val mockReadBlog: ReadBlog = mock[ReadBlogImpl]
   val mockReadAllTime: ReadAllTime = mock[ReadAllTimeImpl]
-  val mockWriteAllTime: WriteAllTime = mock[WriteAllTimeImpl]
   val numberOfBlogs: NumberOfBlogsPerKnolder =
     new NumberOfBlogsPerKnolderImpl(mockReadBlog, mockReadAllTime)
 
