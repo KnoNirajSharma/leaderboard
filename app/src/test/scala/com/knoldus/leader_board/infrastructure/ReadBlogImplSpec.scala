@@ -3,7 +3,7 @@ package com.knoldus.leader_board.infrastructure
 import java.sql.{Connection, PreparedStatement, Timestamp}
 import java.time.Instant
 
-import com.knoldus.leader_board.{DatabaseConnection, KnolderBlog}
+import com.knoldus.leader_board.{BlogCount, DatabaseConnection, KnolderBlog}
 import com.typesafe.config.ConfigFactory
 import org.scalatest.{BeforeAndAfterEach, DoNotDiscover}
 
@@ -122,8 +122,9 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt7.execute
       preparedStmt7.close()
 
-      val knoldersWithBlogs = List(KnolderBlog(1001, "mukesh01"), KnolderBlog(1002, "abhishek02"),
-        KnolderBlog(1003, "komal03"), KnolderBlog(1004, "mukesh01"))
+      val knoldersWithBlogs = List(BlogCount(3, "komal03", "Komal Rajpal", 1),
+        BlogCount(1, "mukesh01", "Mukesh Kumar", 2),
+        BlogCount(2, "abhishek02", "Abhishek Baranwal", 1))
       val result = readBlog.fetchKnoldersWithBlogs
       result shouldBe knoldersWithBlogs
     }

@@ -2,12 +2,11 @@ package com.knoldus.leader_board.infrastructure
 
 import java.sql.Connection
 
-import com.knoldus.leader_board.business.OverallReputation
 import com.knoldus.leader_board.{DatabaseConnection, KnolderReputation}
 import com.typesafe.config.Config
 import scalikejdbc.{DB, DBSession, SQL}
 
-class WriteAllTimeReputationImpl(config: Config, overallReputation: OverallReputation) extends WriteAllTimeReputation {
+class WriteAllTimeReputationImpl(config: Config) extends WriteAllTimeReputation {
   implicit val connection: Connection = DatabaseConnection.connection(config)
   implicit val session: DBSession = DB.autoCommitSession()
 

@@ -22,8 +22,8 @@ object DriverApp extends App {
   val overallReputation: OverallReputation = new OverallReputationImpl(readAllTime, config)
   val readAllTimeReputation: ReadAllTimeReputation = new ReadAllTimeReputationImpl(config)
   val reputationPerKnolder: ReputationPerKnolder = new ReputationPerKnolderImpl(overallReputation, readAllTimeReputation)
-  val writeAllTimeReputation: WriteAllTimeReputation = new WriteAllTimeReputationImpl(config, overallReputation)
-  val allTimeDataOnAPI: AllTimeDataOnAPI = new AllTimeDataOnAPIImpl(overallReputation, readAllTimeReputation, config)
+  val writeAllTimeReputation: WriteAllTimeReputation = new WriteAllTimeReputationImpl(config)
+  val allTimeDataOnAPI: AllTimeDataOnAPI = new AllTimeDataOnAPIImpl(readAllTimeReputation, config)
   val task1 = new Runnable {
     override def run() {
       val knolderBlogCounts = numberOfBlogsPerKnolder.getKnolderBlogCount

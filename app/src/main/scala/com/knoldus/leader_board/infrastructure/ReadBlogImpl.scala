@@ -18,8 +18,8 @@ class ReadBlogImpl(config: Config) extends ReadBlog with LazyLogging {
    */
   override def fetchKnoldersWithBlogs: List[BlogCount] = {
     logger.info("Fetching details of knolders with blogs.")
-    SQL("SELECT knolder.id, knolder.wordpress_id, knolder.full_name, count( blog.id) FROM blog inner JOIN knolder ON " +
-      "knolder.wordpress_id = blog.wordpress_id group by knolder.id, knolder.wordpress_id, knolder.full_name")
+    SQL("SELECT knolder.id, knolder.wordpress_id, knolder.full_name, COUNT(blog.id) AS count FROM blog inner JOIN knolder ON " +
+      "knolder.wordpress_id = blog.wordpress_id GROUP BY knolder.id, knolder.wordpress_id, knolder.full_name")
       .map(rs => BlogCount(rs.int("id"), rs.string("wordpress_id"),
         rs.string("full_name"), rs.int("count"))).list().apply()
   }
