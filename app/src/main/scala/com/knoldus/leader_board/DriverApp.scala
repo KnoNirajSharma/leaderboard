@@ -5,7 +5,6 @@ import com.knoldus.leader_board.application.{AllTimeDataOnAPI, AllTimeDataOnAPII
 import com.knoldus.leader_board.business._
 import com.knoldus.leader_board.infrastructure._
 import com.typesafe.config.{Config, ConfigFactory}
-
 import scala.concurrent.ExecutionContextExecutor
 import scala.concurrent.duration._
 
@@ -25,23 +24,21 @@ object DriverApp extends App {
   val reputationPerKnolder: ReputationPerKnolder = new ReputationPerKnolderImpl(overallReputation, readAllTimeReputation)
   val writeAllTimeReputation: WriteAllTimeReputation = new WriteAllTimeReputationImpl(config, overallReputation)
   val allTimeDataOnAPI: AllTimeDataOnAPI = new AllTimeDataOnAPIImpl(overallReputation, readAllTimeReputation, config)
-
   val task1 = new Runnable {
-    override def run(): Unit = {
+    override def run() {
       val knolderBlogCounts = numberOfBlogsPerKnolder.getKnolderBlogCount
       writeAllTime.insertAllTimeData(knolderBlogCounts)
       writeAllTime.updateAllTimeData(knolderBlogCounts)
     }
   }
-
   val task2 = new Runnable {
-    override def run(): Unit = {
+    override def run() {
       val knolderReputations = reputationPerKnolder.getKnolderReputation
       writeAllTimeReputation.insertAllTimeReputationData(knolderReputations)
       writeAllTimeReputation.updateAllTimeReputationData(knolderReputations)
     }
   }
-  system.scheduler.scheduleWithFixedDelay(0.seconds, 30.seconds)(task1)
-  system.scheduler.scheduleWithFixedDelay(0.seconds, 30.seconds)(task2)
+  system.scheduler.scheduleWithFixedDelay(0.seconds, 23.hours)(task1)
+  system.scheduler.scheduleWithFixedDelay(20.seconds, 24.hours)(task2)
   allTimeDataOnAPI.displayAllTimeDataOnAPI
 }
