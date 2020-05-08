@@ -11,13 +11,12 @@ class NumberOfBlogsPerKnolderImplSpec extends AnyFlatSpec with MockitoSugar {
   val mockReadAllTime: ReadAllTime = mock[ReadAllTimeImpl]
   val mockWriteAllTime: WriteAllTime = mock[WriteAllTimeImpl]
   val numberOfBlogs: NumberOfBlogsPerKnolder =
-    new NumberOfBlogsPerKnolderImpl(mockReadKnolder, mockReadBlog, mockReadAllTime, mockWriteAllTime)
+    new NumberOfBlogsPerKnolderImpl(mockReadBlog, mockReadAllTime)
 
   "get knolder blog count" should "return blog count of each knolder along with their knolder id" in {
 
     when(mockReadBlog.fetchKnoldersWithBlogs)
       .thenReturn(List(BlogCount(1, "mukesh01", "Mukesh Gupta", 2)))
-    val blogCount = List(BlogCount(1, "mukesh01", "Mukesh Gupta", 2))
     val knolderBlogCount = List(KnolderBlogCount(Some(1), BlogCount(1, "mukesh01", "Mukesh Gupta", 2)))
 
     when(mockReadAllTime.fetchKnolderIdFromAllTime(1))

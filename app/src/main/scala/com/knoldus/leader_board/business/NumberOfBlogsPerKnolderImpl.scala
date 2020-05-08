@@ -1,11 +1,10 @@
 package com.knoldus.leader_board.business
 
-import com.knoldus.leader_board.infrastructure.{ReadAllTime, ReadBlog, ReadKnolder, WriteAllTime}
+import com.knoldus.leader_board.infrastructure.{ReadAllTime, ReadBlog}
 import com.knoldus.leader_board.{BlogCount, KnolderBlogCount}
 import com.typesafe.scalalogging._
 
-class NumberOfBlogsPerKnolderImpl(readKnolder: ReadKnolder, readBlog: ReadBlog, readAllTime: ReadAllTime,
-                                  writeAllTime: WriteAllTime)
+class NumberOfBlogsPerKnolderImpl(readBlog: ReadBlog, readAllTime: ReadAllTime)
   extends NumberOfBlogsPerKnolder with LazyLogging {
   /**
    * Gets knolder id of knolders from all time table.
