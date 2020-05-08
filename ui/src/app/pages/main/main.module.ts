@@ -23,6 +23,9 @@ const routes: Routes = [
         IonicModule,
         RouterModule.forChild(routes),
     ],
+    exports: [
+        HeadersComponent
+    ],
     declarations: [MainPage, CardComponent, HeadersComponent, TableComponent, SidebarComponent]
 })
 export class MainPageModule {

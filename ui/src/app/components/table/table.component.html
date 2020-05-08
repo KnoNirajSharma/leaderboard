@@ -10,7 +10,7 @@
             </ion-row>
         </ion-card-header>
         <ion-card-content>
-            <ion-row *ngFor="let tableRow of tableRows; let i = index" [ngClass]="(i % 2 == 0) ? 'odd' : 'even'"
+            <ion-row (click)="presentModal(tableRow)" *ngFor="let tableRow of tableRows; let i = index" [ngClass]="(i % 2 == 0) ? 'odd' : 'even'"
                      class="row-style">
                 <ion-col *ngFor="let key of dataKeys">{{tableRow[key]}}</ion-col>
             </ion-row>
