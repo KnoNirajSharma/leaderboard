@@ -8,6 +8,10 @@
   }
   .main-content {
     width: 100%;
+    .tabs {
+      margin-left: 30%;
+      //align-self: center;
+    }
   }
 }
 ion-grid {
@@ -22,5 +26,12 @@ ion-grid {
 @media only screen and (max-width: 959px) {
   .sidebar {
     display: none;
+  }
+  .main-container {
+    .main-content {
+      .tabs {
+        margin-left: 4%;
+      }
+    }
   }
 }

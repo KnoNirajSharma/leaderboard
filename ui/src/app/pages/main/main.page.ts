@@ -1,8 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
 import {CardDataModel} from '../../models/cardData.model';
 import {AuthorModel} from '../../models/author.model';
 import {EmployeeActivityService} from '../../services/employee-activity.service';
-import {TableHeaderModel} from '../../models/tableHeader.model';
+import {TableComponent} from '../../components/table/table.component';
+import {MonthlyTableComponent} from '../../components/monthly-table/monthly-table.component';
+import {MonthlyStreakTableComponent} from '../../components/monthly-streak-table/monthly-streak-table.component';
 
 @Component({
     selector: 'app-main',
@@ -10,10 +12,19 @@ import {TableHeaderModel} from '../../models/tableHeader.model';
     styleUrls: ['./main.page.scss'],
 })
 export class MainPage implements OnInit {
+    @ViewChild('dynamicTable', {static: true, read: ViewContainerRef}) entry: ViewContainerRef;
+    componentRef: any;
     cardData: CardDataModel[];
     employeeData: AuthorModel[];
+    tabValue = 'overall';
+    tabData =  [
+        {tabName: 'Overall', id: 'overall'},
+        {tabName: 'Monthly', id: 'monthly'},
+        {tabName: '3 month streak', id: 'streak'}
+    ];
 
-    constructor(private service: EmployeeActivityService) {
+    constructor(private service: EmployeeActivityService,
+                private resolver: ComponentFactoryResolver) {
     }
 
     ngOnInit() {
@@ -22,6 +33,26 @@ export class MainPage implements OnInit {
                 this.employeeData = data;
                 this.prepareCardData();
             });
+        this.createComponent();
+    }
+    showTable(value) {
+        this.tabValue = value;
+        this.createComponent();
+    }
+    createComponent() {
+        this.entry.clear();
+        if (this.tabValue === 'overall') {
+            const factory = this.resolver.resolveComponentFactory(TableComponent);
+            this.componentRef = this.entry.createComponent(factory);
+        }
+        if (this.tabValue === 'monthly') {
+            const factory = this.resolver.resolveComponentFactory(MonthlyTableComponent);
+            this.componentRef = this.entry.createComponent(factory);
+        }
+        if (this.tabValue === 'streak') {
+            const factory = this.resolver.resolveComponentFactory(MonthlyStreakTableComponent);
+            this.componentRef = this.entry.createComponent(factory);
+        }
     }
 
     prepareCardData() {

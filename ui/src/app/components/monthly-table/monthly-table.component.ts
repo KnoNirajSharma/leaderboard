@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-// import {MonthlyReputationService} from '../../services/monthly-reputation.service';
 import {MonthlyReputationModel} from '../../models/monthlyReputation.model';
-import {TableHeaderModel} from '../../models/tableHeader.model';
 import {EmployeeActivityService} from '../../services/employee-activity.service';
 
 @Component({

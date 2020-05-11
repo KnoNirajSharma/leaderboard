@@ -1,0 +1,6 @@
+<div class="tab-bar">
+  <div *ngFor="let data of tabData; let i = index" [ngClass]="{'selected': data.id == selected, 'even': i%2==0}"
+       class="tab" [id]="data.id"  (click)="select(data.id)">
+    {{data.tabName}}
+  </div>
+</div>
