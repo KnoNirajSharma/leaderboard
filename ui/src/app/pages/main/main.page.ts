@@ -12,15 +12,6 @@ import {TableHeaderModel} from '../../models/tableHeader.model';
 export class MainPage implements OnInit {
     cardData: CardDataModel[];
     employeeData: AuthorModel[];
-    dataKeys: string[];
-    tableHeaders: TableHeaderModel[] = [
-        {title: 'Author Name'},
-        {title: 'Score'},
-        {title: 'Rank'},
-        {title: 'Monthly Score'},
-        {title: 'Monthly Rank'},
-        {title: '3 Monthly Streak'}
-    ];
 
     constructor(private service: EmployeeActivityService) {
     }
@@ -28,18 +19,7 @@ export class MainPage implements OnInit {
     ngOnInit() {
         this.service.getData()
             .subscribe((data: AuthorModel[]) => {
-                if ( window.innerWidth > 750 ) {
-                    this.employeeData = data.map((value: AuthorModel) => {
-                        value.monthlyScore = 'N/A';
-                        value.monthlyRank = 'N/A';
-                        value.monthlyStreak = 'N/A';
-                        return value;
-                    });
-                } else {
-                    this.employeeData = data;
-                    this.tableHeaders = this.tableHeaders.slice(0, 3);
-                }
-                this.dataKeys = Object.keys(this.employeeData[0]);
+                this.employeeData = data;
                 this.prepareCardData();
             });
     }

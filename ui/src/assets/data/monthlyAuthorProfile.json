@@ -1,0 +1,732 @@
+[
+  {
+    "authorName": "V Hazrati",
+    "scoreStreak": 820,
+    "streakRank": 1
+  },
+  {
+    "authorName": "Rishi Khandelwal",
+    "scoreStreak": 375,
+    "streakRank": 2
+  },
+  {
+    "authorName": "Ayush Mishra",
+    "scoreStreak": 355,
+    "streakRank": 3
+  },
+  {
+    "authorName": "JustinB",
+    "scoreStreak": 355,
+    "streakRank": 3
+  },
+  {
+    "authorName": "Joseph Ross",
+    "scoreStreak": 315,
+    "streakRank": 4
+  },
+  {
+    "authorName": "Rachel Jones",
+    "scoreStreak": 285,
+    "streakRank": 5
+  },
+  {
+    "authorName": "Himanshu Gupta",
+    "scoreStreak": 280,
+    "streakRank": 6
+  },
+  {
+    "authorName": "Harmeet Singh(Taara)",
+    "scoreStreak": 150,
+    "streakRank": 7
+  },
+  {
+    "authorName": "Anmol Sarna",
+    "scoreStreak": 145,
+    "streakRank": 8
+  },
+  {
+    "authorName": "Anurag Srivastava",
+    "scoreStreak": 145,
+    "streakRank": 8
+  },
+  {
+    "authorName": "Deepak Mehra",
+    "scoreStreak": 135,
+    "streakRank": 9
+  },
+  {
+    "authorName": "Mahesh Chand",
+    "scoreStreak": 130,
+    "streakRank": 10
+  },
+  {
+    "authorName": "Charmy Garg",
+    "scoreStreak": 125,
+    "streakRank": 11
+  },
+  {
+    "authorName": "Anubhav Tarar",
+    "scoreStreak": 125,
+    "streakRank": 11
+  },
+  {
+    "authorName": "Shubham Goyal",
+    "scoreStreak": 120,
+    "streakRank": 12
+  },
+  {
+    "authorName": "Akshansh Jain",
+    "scoreStreak": 115,
+    "streakRank": 13
+  },
+  {
+    "authorName": "Pallavi Singh",
+    "scoreStreak": 115,
+    "streakRank": 13
+  },
+  {
+    "authorName": "Manish Mishra",
+    "scoreStreak": 115,
+    "streakRank": 13
+  },
+  {
+    "authorName": "Pawan Bisht",
+    "scoreStreak": 100,
+    "streakRank": 14
+  },
+  {
+    "authorName": "Sidharth Khattri",
+    "scoreStreak": 100,
+    "streakRank": 14
+  },
+  {
+    "authorName": "Sahil Sawhney",
+    "scoreStreak": 100,
+    "streakRank": 14
+  },
+  {
+    "authorName": "Shivangi Gupta",
+    "scoreStreak": 100,
+    "streakRank": 14
+  },
+  {
+    "authorName": "Prabhat Kashyap",
+    "scoreStreak": 95,
+    "streakRank": 15
+  },
+  {
+    "authorName": "Ramandeep",
+    "scoreStreak": 95,
+    "streakRank": 15
+  },
+  {
+    "authorName": "Vinisha Sharma",
+    "scoreStreak": 90,
+    "streakRank": 16
+  },
+  {
+    "authorName": "Piyush Rana",
+    "scoreStreak": 90,
+    "streakRank": 16
+  },
+  {
+    "authorName": "Nitin Arora",
+    "scoreStreak": 85,
+    "streakRank": 17
+  },
+  {
+    "authorName": "Pranjut Gogoi",
+    "scoreStreak": 85,
+    "streakRank": 17
+  },
+  {
+    "authorName": "Anuj Saxena",
+    "scoreStreak": 85,
+    "streakRank": 17
+  },
+  {
+    "authorName": "Himani Arora",
+    "scoreStreak": 85,
+    "streakRank": 17
+  },
+  {
+    "authorName": "Ayush Prashar",
+    "scoreStreak": 80,
+    "streakRank": 18
+  },
+  {
+    "authorName": "Prashant Sharma",
+    "scoreStreak": 80,
+    "streakRank": 18
+  },
+  {
+    "authorName": "Akhil Vijayan",
+    "scoreStreak": 75,
+    "streakRank": 19
+  },
+  {
+    "authorName": "Anmol Mehta",
+    "scoreStreak": 75,
+    "streakRank": 19
+  },
+  {
+    "authorName": "kunal sethi",
+    "scoreStreak": 70,
+    "streakRank": 20
+  },
+  {
+    "authorName": "Sangeeta Gulia",
+    "scoreStreak": 70,
+    "streakRank": 20
+  },
+  {
+    "authorName": "Shubham Agarwal",
+    "scoreStreak": 70,
+    "streakRank": 20
+  },
+  {
+    "authorName": "Jasmine Kaur",
+    "scoreStreak": 65,
+    "streakRank": 21
+  },
+  {
+    "authorName": "Narayan Kumar",
+    "scoreStreak": 65,
+    "streakRank": 21
+  },
+  {
+    "authorName": "Rudar",
+    "scoreStreak": 65,
+    "streakRank": 21
+  },
+  {
+    "authorName": "Bhawna Sharma",
+    "scoreStreak": 65,
+    "streakRank": 21
+  },
+  {
+    "authorName": "Neha Bhardwaj",
+    "scoreStreak": 60,
+    "streakRank": 22
+  },
+  {
+    "authorName": "Shubham Verma",
+    "scoreStreak": 60,
+    "streakRank": 22
+  },
+  {
+    "authorName": "Ayush Hooda",
+    "scoreStreak": 60,
+    "streakRank": 22
+  },
+  {
+    "authorName": "Niharika Datta",
+    "scoreStreak": 55,
+    "streakRank": 23
+  },
+  {
+    "authorName": "Girish Bharti",
+    "scoreStreak": 55,
+    "streakRank": 23
+  },
+  {
+    "authorName": "Yatharth Sharma",
+    "scoreStreak": 55,
+    "streakRank": 23
+  },
+  {
+    "authorName": "munandersingh",
+    "scoreStreak": 50,
+    "streakRank": 24
+  },
+  {
+    "authorName": "Ruchika Dubey",
+    "scoreStreak": 50,
+    "streakRank": 24
+  },
+  {
+    "authorName": "Juoko Virtanen",
+    "scoreStreak": 50,
+    "streakRank": 24
+  },
+  {
+    "authorName": "Shubham Dangare",
+    "scoreStreak": 50,
+    "streakRank": 24
+  },
+  {
+    "authorName": "Jyoti Sachdeva",
+    "scoreStreak": 50,
+    "streakRank": 24
+  },
+  {
+    "authorName": "Sudeep James Tirkey",
+    "scoreStreak": 50,
+    "streakRank": 24
+  },
+  {
+    "authorName": "Nitin Aggarwal",
+    "scoreStreak": 50,
+    "streakRank": 24
+  },
+  {
+    "authorName": "Geetika Gupta",
+    "scoreStreak": 50,
+    "streakRank": 24
+  },
+  {
+    "authorName": "Alok Jha",
+    "scoreStreak": 50,
+    "streakRank": 24
+  },
+  {
+    "authorName": "Neeraj Chugh",
+    "scoreStreak": 45,
+    "streakRank": 25
+  },
+  {
+    "authorName": "Pankaj Chaudhary",
+    "scoreStreak": 45,
+    "streakRank": 25
+  },
+  {
+    "authorName": "Nancy Jain",
+    "scoreStreak": 45,
+    "streakRank": 25
+  },
+  {
+    "authorName": "Neelam Lakra",
+    "scoreStreak": 45,
+    "streakRank": 25
+  },
+  {
+    "authorName": "Mudit Chhabra",
+    "scoreStreak": 45,
+    "streakRank": 25
+  },
+  {
+    "authorName": "Sourabh Verma",
+    "scoreStreak": 45,
+    "streakRank": 25
+  },
+  {
+    "authorName": "Divya Dua",
+    "scoreStreak": 45,
+    "streakRank": 25
+  },
+  {
+    "authorName": "Mayank Bairagi",
+    "scoreStreak": 45,
+    "streakRank": 25
+  },
+  {
+    "authorName": "Vinay Kumar",
+    "scoreStreak": 45,
+    "streakRank": 25
+  },
+  {
+    "authorName": "Divyansh Jain",
+    "scoreStreak": 45,
+    "streakRank": 25
+  },
+  {
+    "authorName": "Sonu Mehrotra",
+    "scoreStreak": 40,
+    "streakRank": 26
+  },
+  {
+    "authorName": "Pankhurie",
+    "scoreStreak": 40,
+    "streakRank": 26
+  },
+  {
+    "authorName": "Ayush Tiwari",
+    "scoreStreak": 40,
+    "streakRank": 26
+  },
+  {
+    "authorName": "Ayush Aggarwal",
+    "scoreStreak": 40,
+    "streakRank": 26
+  },
+  {
+    "authorName": "Rahul Kumar",
+    "scoreStreak": 40,
+    "streakRank": 26
+  },
+  {
+    "authorName": "Himanshu Rajput",
+    "scoreStreak": 40,
+    "streakRank": 26
+  },
+  {
+    "authorName": "Abhishek Baranwal",
+    "scoreStreak": 40,
+    "streakRank": 26
+  },
+  {
+    "authorName": "Ayushi Hasija",
+    "scoreStreak": 40,
+    "streakRank": 26
+  },
+  {
+    "authorName": "GauravShukla",
+    "scoreStreak": 40,
+    "streakRank": 26
+  },
+  {
+    "authorName": "Azmat Hasan",
+    "scoreStreak": 40,
+    "streakRank": 26
+  },
+  {
+    "authorName": "etash2901",
+    "scoreStreak": 40,
+    "streakRank": 26
+  },
+  {
+    "authorName": "Rahul Bhati",
+    "scoreStreak": 40,
+    "streakRank": 26
+  },
+  {
+    "authorName": "Mukesh Kumar",
+    "scoreStreak": 35,
+    "streakRank": 27
+  },
+  {
+    "authorName": "Bhavya Aggarwal",
+    "scoreStreak": 35,
+    "streakRank": 27
+  },
+  {
+    "authorName": "Jatin Demla",
+    "scoreStreak": 35,
+    "streakRank": 27
+  },
+  {
+    "authorName": "Vidisha Gupta",
+    "scoreStreak": 35,
+    "streakRank": 27
+  },
+  {
+    "authorName": "Dhirendra Kumar Kashyap",
+    "scoreStreak": 35,
+    "streakRank": 27
+  },
+  {
+    "authorName": "Komal Rajpal",
+    "scoreStreak": 35,
+    "streakRank": 27
+  },
+  {
+    "authorName": "Sarfaraz Hussain",
+    "scoreStreak": 35,
+    "streakRank": 27
+  },
+  {
+    "authorName": "Priyanka Thakur",
+    "scoreStreak": 30,
+    "streakRank": 28
+  },
+  {
+    "authorName": "Miral Gandhi",
+    "scoreStreak": 30,
+    "streakRank": 28
+  },
+  {
+    "authorName": "Amita Yadav",
+    "scoreStreak": 30,
+    "streakRank": 28
+  },
+  {
+    "authorName": "Harshit Daga",
+    "scoreStreak": 30,
+    "streakRank": 28
+  },
+  {
+    "authorName": "Teena Vashist",
+    "scoreStreak": 30,
+    "streakRank": 28
+  },
+  {
+    "authorName": "kundankumarr",
+    "scoreStreak": 30,
+    "streakRank": 28
+  },
+  {
+    "authorName": "Ankur Thakur",
+    "scoreStreak": 25,
+    "streakRank": 29
+  },
+  {
+    "authorName": "girdharshubham",
+    "scoreStreak": 25,
+    "streakRank": 29
+  },
+  {
+    "authorName": "Jashan Goyal",
+    "scoreStreak": 25,
+    "streakRank": 29
+  },
+  {
+    "authorName": "Rahul Khanna",
+    "scoreStreak": 25,
+    "streakRank": 29
+  },
+  {
+    "authorName": "Aashrita Goel",
+    "scoreStreak": 25,
+    "streakRank": 29
+  },
+  {
+    "authorName": "Simarpreet Kaur Monga",
+    "scoreStreak": 25,
+    "streakRank": 29
+  },
+  {
+    "authorName": "Yash Bhardwaj",
+    "scoreStreak": 25,
+    "streakRank": 29
+  },
+  {
+    "authorName": "Sakshi Gupta",
+    "scoreStreak": 25,
+    "streakRank": 29
+  },
+  {
+    "authorName": "Vandana Yadav",
+    "scoreStreak": 20,
+    "streakRank": 30
+  },
+  {
+    "authorName": "Megha Jatana",
+    "scoreStreak": 20,
+    "streakRank": 30
+  },
+  {
+    "authorName": "Ayush_Singhal",
+    "scoreStreak": 20,
+    "streakRank": 30
+  },
+  {
+    "authorName": "Sachin Slathia",
+    "scoreStreak": 20,
+    "streakRank": 30
+  },
+  {
+    "authorName": "Manjot Kaur",
+    "scoreStreak": 20,
+    "streakRank": 30
+  },
+  {
+    "authorName": "Shivraj Singh",
+    "scoreStreak": 20,
+    "streakRank": 30
+  },
+  {
+    "authorName": "Mukesh Yadav",
+    "scoreStreak": 15,
+    "streakRank": 31
+  },
+  {
+    "authorName": "Jyoti Jali",
+    "scoreStreak": 15,
+    "streakRank": 31
+  },
+  {
+    "authorName": "Gautam Singal",
+    "scoreStreak": 15,
+    "streakRank": 31
+  },
+  {
+    "authorName": "Utkarsha Musmade",
+    "scoreStreak": 15,
+    "streakRank": 31
+  },
+  {
+    "authorName": "Shubham Dangare",
+    "scoreStreak": 15,
+    "streakRank": 31
+  },
+  {
+    "authorName": "Swantika Gupta",
+    "scoreStreak": 15,
+    "streakRank": 31
+  },
+  {
+    "authorName": "Sakshi Gawande",
+    "scoreStreak": 15,
+    "streakRank": 31
+  },
+  {
+    "authorName": "Randhir kumar",
+    "scoreStreak": 15,
+    "streakRank": 31
+  },
+  {
+    "authorName": "Aakash Jain",
+    "scoreStreak": 15,
+    "streakRank": 31
+  },
+  {
+    "authorName": "Paramjeet Yadav",
+    "scoreStreak": 15,
+    "streakRank": 31
+  },
+  {
+    "authorName": "Lokesh Aggarwal",
+    "scoreStreak": 10,
+    "streakRank": 32
+  },
+  {
+    "authorName": "Kaushik Nath",
+    "scoreStreak": 10,
+    "streakRank": 32
+  },
+  {
+    "authorName": "Praful Bangar",
+    "scoreStreak": 10,
+    "streakRank": 32
+  },
+  {
+    "authorName": "Anjali Sharma",
+    "scoreStreak": 10,
+    "streakRank": 32
+  },
+  {
+    "authorName": "Swapnil Gosavi",
+    "scoreStreak": 10,
+    "streakRank": 32
+  },
+  {
+    "authorName": "Ayush Sharma",
+    "scoreStreak": 10,
+    "streakRank": 32
+  },
+  {
+    "authorName": "Shubhrank Rastogi",
+    "scoreStreak": 10,
+    "streakRank": 32
+  },
+  {
+    "authorName": "Siddhant",
+    "scoreStreak": 10,
+    "streakRank": 32
+  },
+  {
+    "authorName": "Ram Indukuri",
+    "scoreStreak": 10,
+    "streakRank": 32
+  },
+  {
+    "authorName": "Upanshu Chaudhary",
+    "scoreStreak": 5,
+    "streakRank": 33
+  },
+  {
+    "authorName": "Sudeep James",
+    "scoreStreak": 5,
+    "streakRank": 33
+  },
+  {
+    "authorName": "Sanjana Aggarwal",
+    "scoreStreak": 5,
+    "streakRank": 33
+  },
+  {
+    "authorName": "Sonu Mehrotra",
+    "scoreStreak": 5,
+    "streakRank": 33
+  },
+  {
+    "authorName": "Manas Kashyap",
+    "scoreStreak": 5,
+    "streakRank": 33
+  },
+  {
+    "authorName": "Shah Fahed",
+    "scoreStreak": 5,
+    "streakRank": 33
+  },
+  {
+    "authorName": "Rachna Bulbule",
+    "scoreStreak": 5,
+    "streakRank": 33
+  },
+  {
+    "authorName": "Pinku Swargiary",
+    "scoreStreak": 5,
+    "streakRank": 33
+  },
+  {
+    "authorName": "Rahul Khanna",
+    "scoreStreak": 5,
+    "streakRank": 33
+  },
+  {
+    "authorName": "Kamlesh prajapati",
+    "scoreStreak": 5,
+    "streakRank": 33
+  },
+  {
+    "authorName": "Sajit Gupta",
+    "scoreStreak": 5,
+    "streakRank": 33
+  },
+  {
+    "authorName": "Divya Gupta",
+    "scoreStreak": 5,
+    "streakRank": 33
+  },
+  {
+    "authorName": "Mehak Juneja",
+    "scoreStreak": 5,
+    "streakRank": 33
+  },
+  {
+    "authorName": "Neelu Aggarwal",
+    "scoreStreak": 5,
+    "streakRank": 33
+  },
+  {
+    "authorName": "Sugandha Arora",
+    "scoreStreak": 5,
+    "streakRank": 33
+  },
+  {
+    "authorName": "Rajeev Thakur",
+    "scoreStreak": 5,
+    "streakRank": 33
+  },
+  {
+    "authorName": "Umang Kesari",
+    "scoreStreak": 5,
+    "streakRank": 33
+  },
+  {
+    "authorName": "Jatin Dhawan",
+    "scoreStreak": 5,
+    "streakRank": 33
+  },
+  {
+    "authorName": "Kritika Khandelwal",
+    "scoreStreak": 5,
+    "streakRank": 33
+  },
+  {
+    "authorName": "Deepankar",
+    "scoreStreak": 5,
+    "streakRank": 33
+  },
+  {
+    "authorName": "Neelaksh",
+    "scoreStreak": 5,
+    "streakRank": 33
+  },
+  {
+    "authorName": "Muskan Gupta",
+    "scoreStreak": 5,
+    "streakRank": 33
+  }
+]

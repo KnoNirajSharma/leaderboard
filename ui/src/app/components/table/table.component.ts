@@ -1,6 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthorModel} from '../../models/author.model';
 import {TableHeaderModel} from '../../models/tableHeader.model';
+import {EmployeeActivityService} from '../../services/employee-activity.service';
 
 @Component({
     selector: 'app-table',
@@ -9,13 +10,23 @@ import {TableHeaderModel} from '../../models/tableHeader.model';
 })
 
 export class TableComponent implements OnInit {
-    @Input() tableHeaders: TableHeaderModel[];
-    @Input() tableRows: AuthorModel[];
-    @Input() dataKeys: string[];
+    tableRows: AuthorModel[];
+    dataKeys: string[];
+    // tabValue: string;
+    tableHeaders: TableHeaderModel[] = [
+        {title: 'Author Name'},
+        {title: 'Score'},
+        {title: 'Rank'}
+    ];
 
-    constructor() {
+    constructor(private service: EmployeeActivityService) {
     }
 
     ngOnInit() {
+        this.service.getData()
+            .subscribe((data: AuthorModel[]) => {
+                this.tableRows = data;
+                this.dataKeys = Object.keys(this.tableRows[0]);
+            });
     }
 }
