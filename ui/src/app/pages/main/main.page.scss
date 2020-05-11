@@ -2,17 +2,21 @@
   padding: 0;
   width: 100%;
   background-color: #FAF8FB;
+
   .sidebar-col {
     margin-left: -1rem;
     margin-top: -1rem;
   }
+
   .main-content {
     width: 100%;
   }
 }
+
 ion-grid {
   padding-right: 0;
   margin-right: 0;
+
   ion-content {
     --ion-background-color: #FAF8FB;
     height: 100vh;

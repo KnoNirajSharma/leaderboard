@@ -28,7 +28,7 @@ export class MainPage implements OnInit {
     ngOnInit() {
         this.service.getData()
             .subscribe((data: AuthorModel[]) => {
-                if ( window.innerWidth > 750 ) {
+                if (window.innerWidth > 750) {
                     this.employeeData = data.map((value: AuthorModel) => {
                         value.monthlyScore = 'N/A';
                         value.monthlyRank = 'N/A';

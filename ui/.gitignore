@@ -11,8 +11,12 @@
 /node_modules
 
 # IDEs and editors
+<<<<<<< HEAD
 /.idea
 **.idea**
+=======
+**/.idea**
+>>>>>>> df78e7d3f300212466b8b7070eea77005c0df64c
 *.sublime-project
 *.sublime-workspace
 
