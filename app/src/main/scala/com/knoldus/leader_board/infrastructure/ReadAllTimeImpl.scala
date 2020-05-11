@@ -18,15 +18,16 @@ class ReadAllTimeImpl(config: Config) extends ReadAllTime with LazyLogging {
    */
   override def fetchAllTimeData: List[GetAllTime] = {
     logger.info("Fetching all time details of each knolder.")
-    SQL("SELECT knolder_id, full_name, number_of_blogs FROM all_time RIGHT JOIN knolder " +
+    SQL("SELECT knolder.id, full_name, number_of_blogs FROM all_time RIGHT JOIN knolder " +
       "ON all_time.knolder_id = knolder.id")
-      .map(rs => GetAllTime(rs.string("full_name"), rs.intOpt("number_of_blogs"))).list.apply()
+      .map(rs => GetAllTime(rs.int("id"), rs.string("full_name"),
+        rs.intOpt("number_of_blogs"))).list.apply()
   }
 
   /**
    * Fetches foreign key i.e. knolder id in all_time table.
    *
-   * @param knolderId Knolder id wrapped in option.
+   * @param knolderId Knolder id.
    * @return Knolder id wrapped in option.
    */
   override def fetchKnolderIdFromAllTime(knolderId: Int): Option[Int] = {

@@ -1,9 +1,9 @@
 package com.knoldus.leader_board.infrastructure
 
-import com.knoldus.leader_board.BlogCount
+import com.knoldus.leader_board.KnolderBlogCount
 
 trait WriteAllTime {
-  def insertAllTimeData(blogCount: BlogCount): Int
+  def insertAllTimeData(numberOfBlogsOfKnolders: List[KnolderBlogCount]): List[Int]
 
-  def updateAllTimeData(blogCount: BlogCount): Int
+  def updateAllTimeData(numberOfBlogsOfKnolders: List[KnolderBlogCount]): List[Int]
 }
