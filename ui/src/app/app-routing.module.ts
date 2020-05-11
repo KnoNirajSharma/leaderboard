@@ -5,7 +5,7 @@ const routes: Routes = [
     {
         path: '',
         loadChildren: './pages/main/main.module#MainPageModule'
-    }
+    },
 ];
 
 @NgModule({

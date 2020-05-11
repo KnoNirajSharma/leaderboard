@@ -3,7 +3,17 @@
       "experimentalDecorators": true,
     "module": "commonjs",
     "target": "es5",
+<<<<<<< HEAD
+    "sourceMap": true,
+    "lib": [
+      "dom",
+      "es5",
+      "scripthost",
+      "es2015.promise"
+    ]
+=======
     "sourceMap": true
+>>>>>>> df78e7d3f300212466b8b7070eea77005c0df64c
   },
   "exclude": [
     "node_modules"

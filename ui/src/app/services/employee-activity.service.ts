@@ -8,7 +8,7 @@ import {environment} from '../../environments/environment';
     providedIn: 'root'
 })
 export class EmployeeActivityService {
-    private url = environment.api.baseUrl;
+    private url = environment.api.baseUrl + environment.api.routes.author.endpoint;
 
     constructor(private httpClient: HttpClient) {
     }

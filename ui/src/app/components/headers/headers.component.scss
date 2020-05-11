@@ -1,17 +1,53 @@
-ion-title {
-  .large-title {
+ion-header {
+  background-color: var(--ion-color-primary-contrast);
+  margin-top: -1em;
+
+  ion-title {
     color: var(--ion-color-warning-contrast);
-    background-color: var(--ion-color-primary-contrast);;
+    background-color: var(--ion-color-primary-contrast);
+    text-align: center;
+
+    span {
+      margin-left: -1em;
+    }
+
     font: {
       size: 2em;
       weight: bold;
     }
-    text-align: center;
+  }
+
+  ion-toolbar {
+    display: flex;
+    --background: translucent;
+
+    .bt {
+      display: none;
+    }
   }
 }
 
-ion-content {
-  ion-toolbar {
-    --background: translucent;
+ion-button {
+  display: none;
+}
+
+.sidebar {
+  display: none;
+}
+
+@media only screen and (max-width: 959px) {
+
+  ion-button {
+    display: block;
+  }
+  .sidebar {
+    display: block;
+  }
+
+  ion-title {
+    span {
+      margin-left: -1em;
+      font-size: 0.8em;
+    }
   }
 }

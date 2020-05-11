@@ -1,24 +1,18 @@
-<app-headers title="Knoldus Leader Board"></app-headers>
-<ion-content [fullscreen]="true">
-    <ion-grid>
-        <ion-card>
-            <ion-card-header>
-                <ion-row class="cell-class ion-grid-header">
-                    <ion-col *ngFor="let category of headerData" class="col-class">
-                        <div class="bar bar-header bar-positive">
-                            <h6 class="title">{{category.categoryName}}</h6>
-                        </div>
+<ion-grid class="main-container">
+    <ion-row>
+        <ion-col class="sidebar-col" size-lg="2" size-md="0" size-sm="0" size-xl="2" size-xs="0">
+            <app-sidebar class="sidebar"></app-sidebar>
+        </ion-col>
+        <ion-content>
+            <ion-col class="main-content" size-lg="10" size-md="12" size-sm="12" size-xl="10" size-xs="12">
+                <app-headers title="LEADERBOARD"></app-headers>
+                <ion-row class="cards-row">
+                    <ion-col *ngFor="let data of cardData" size-lg="3" size-md="6" size-xs="6">
+                        <app-card [cardData]="data" class="card"></app-card>
                     </ion-col>
                 </ion-row>
-            </ion-card-header>
-            <ion-card-content>
-                <ion-row *ngFor="let employee of employeeData" class="cell-class ion-grid-content">
-                    <ion-col class="col-class color-style">{{employee.authorName}}</ion-col>
-                    <ion-col class="col-class color-style">{{employee.score}}</ion-col>
-                    <ion-col class="col-class color-style">{{employee.rank}}</ion-col>
-                </ion-row>
-            </ion-card-content>
-        </ion-card>
-    </ion-grid>
-</ion-content>
-
+                <app-table [dataKeys]="dataKeys" [tableHeaders]="tableHeaders" [tableRows]="employeeData"></app-table>
+            </ion-col>
+        </ion-content>
+    </ion-row>
+</ion-grid>
