@@ -12,7 +12,6 @@ import {EmployeeActivityService} from '../../services/employee-activity.service'
 export class TableComponent implements OnInit {
     tableRows: AuthorModel[];
     dataKeys: string[];
-    // tabValue: string;
     tableHeaders: TableHeaderModel[] = [
         {title: 'Author Name'},
         {title: 'Score'},

@@ -44,12 +44,6 @@ describe('MainPage', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should return the authorData as per api call', () => {
-        spyOn(mockEmployeeService, 'getData').and.returnValue(of(dummyAuthorData));
-        component.ngOnInit();
-        expect(component.employeeData).toEqual(dummyAuthorData);
-    });
-
     it('should return the sum of the work', () => {
         spyOn(mockEmployeeService, 'getData').and.returnValue(of(dummyAuthorData));
         component.ngOnInit();
