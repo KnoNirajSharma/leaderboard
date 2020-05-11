@@ -3,6 +3,7 @@ CREATE DATABASE knoldus_leaderboard;
 CREATE TABLE knolder(id SERIAL PRIMARY KEY NOT NULL, full_name VARCHAR(100) NOT NULL, wordpress_id VARCHAR(100) UNIQUE, email_id VARCHAR(100) UNIQUE);
 CREATE TABLE blog(id INT PRIMARY KEY NOT NULL, wordpress_id VARCHAR(100) NOT NULL, published_on TIMESTAMP NOT NULL, title VARCHAR(255) NOT NULL);
 CREATE TABLE all_time(id SERIAL PRIMARY KEY NOT NULL, knolder_id INT REFERENCES knolder(id) NOT NULL, number_of_blogs INT);
+CREATE TABLE all_time_reputation(id SERIAL PRIMARY KEY NOT NULL, knolder_id INT REFERENCES knolder(id), full_name VARCHAR(100) NOT NULL, score INT NOT NULL, rank INT NOT NULL);
 insert into knolder(full_name,wordpress_id)values('Sidharth Khattri','sidharthkhattri');
 insert into knolder(full_name,wordpress_id)values('Manish Kumar Mishra','knoldermanish');
 insert into knolder(full_name,wordpress_id)values('Narayan Kumar','narayan343');
@@ -105,4 +106,3 @@ insert into knolder(full_name,wordpress_id)values('Joseph Ross','rossjoseph246')
 insert into knolder(full_name,wordpress_id)values('JustinB','justinbeile');
 insert into knolder(full_name,wordpress_id)values('Rachel Jones','jrachel098');
 insert into knolder(full_name,wordpress_id)values('Mansi Babbar','mansibabbar1998');
-
