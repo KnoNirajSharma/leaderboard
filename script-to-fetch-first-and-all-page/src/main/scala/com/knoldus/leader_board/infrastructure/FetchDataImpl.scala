@@ -7,7 +7,7 @@ import com.typesafe.config.Config
 import com.typesafe.scalalogging.LazyLogging
 import scalikejdbc._
 
-class FetchDataImpl(config: Config) extends FetchData with LazyLogging{
+class FetchDataImpl(config: Config) extends FetchData with LazyLogging {
   implicit val connection: Connection = DatabaseConnection.connection(config)
   implicit val session: DBSession = DB.readOnlySession()
 
@@ -17,7 +17,7 @@ class FetchDataImpl(config: Config) extends FetchData with LazyLogging{
    * @return Maximum publication date of blog wrapped in option.
    */
   override def fetchMaxBlogPublicationDate: Option[Timestamp] = {
-    logger.info("query to fetch latest date")
+    logger.info("Querying blog table to fetch maximum publication date of blogs.")
     sql"SELECT MAX(published_on) FROM blog".map(rs => rs.timestamp(1)).single().apply()
   }
 }

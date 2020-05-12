@@ -16,10 +16,13 @@ class BlogsImpl(fetchData: FetchData, config: Config) extends Blogs with LazyLog
   implicit val formats: DefaultFormats.type = DefaultFormats
 
   /**
-   * @param url takes string of url to request from that url
-   * @return respaonse entity in form of string
+   * Gets response from given URL.
+   *
+   * @param url Takes string of url to request from that URL.
+   * @return Respaonse entity in form of string.
    */
   override def getResponse(url: String): String = {
+    logger.info(s"Gettting response from $url")
     val request = new HttpGet(url)
     val client = HttpClientBuilder.create().build()
     val response = client.execute(request)
@@ -36,9 +39,8 @@ class BlogsImpl(fetchData: FetchData, config: Config) extends Blogs with LazyLog
   override def getAllPagesBlogsFromAPI: List[Blog] = {
     val totalNoOfPosts: Int = getTotalNoOfPosts
     logger.info("Retrieving total number of blogs are available on Wordpress API.")
-
     val page = (totalNoOfPosts.toFloat / 20).ceil.toInt
-    logger.info(s"Blogs will be extracted from $page page of Wordpress API.")
+    logger.info(s"Extracting blogs from $page pages of Wordpress API.")
     getAllBlogs(page)
   }
 
@@ -59,7 +61,7 @@ class BlogsImpl(fetchData: FetchData, config: Config) extends Blogs with LazyLog
    * @return List of blogs.
    */
   override def getFirstPageBlogsFromAPI: List[Blog] = {
-    logger.info(s"Blogs will be extracted from 1 page of Wordpress API.")
+    logger.info("Latest blogs will be extracted from first page of Wordpress API.")
     getListOfBlogs(getResponse(config.getString("uri") + "?page=1"))
   }
 
@@ -70,7 +72,7 @@ class BlogsImpl(fetchData: FetchData, config: Config) extends Blogs with LazyLog
    * @return List of blogs.
    */
   override def getAllBlogs(lastPage: Int): List[Blog] = {
-    logger.info(s"Wordpress API is being hit to pull blogs details from $lastPage pages of Wordpress API.")
+    logger.info(s"Hitting Wordpress API to pull blog details in JSON format from $lastPage pages of the API.")
 
     @scala.annotation.tailrec
     def getBlogs(blogsList: List[Blog], currentPage: Int, lastPage: Int): List[Blog] = {
@@ -81,6 +83,7 @@ class BlogsImpl(fetchData: FetchData, config: Config) extends Blogs with LazyLog
         getBlogs(blogsList ::: getListOfBlogs(unParsedBlogs), currentPage + 1, lastPage)
       }
     }
+
     getBlogs(List.empty, 1, lastPage)
   }
 
@@ -94,7 +97,6 @@ class BlogsImpl(fetchData: FetchData, config: Config) extends Blogs with LazyLog
   override def getListOfBlogs(unparsedBlogs: String): List[Blog] = {
     logger.info("Parsing JSON string of blogs information.")
     val fetchMaxDate = fetchData.fetchMaxBlogPublicationDate
-
     val parsedBlogs = parse(unparsedBlogs)
     val blogs = (parsedBlogs \ "posts").children map { parsedBlog =>
       val blogId = (parsedBlog \ "ID").extract[Option[Int]]
