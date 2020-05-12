@@ -24,7 +24,7 @@ object DriverApp extends App {
   val writeAllTimeReputation: WriteAllTimeReputation = new WriteAllTimeReputationImpl(config)
   val allTimeDataOnAPI: AllTimeDataOnAPI = new AllTimeDataOnAPIImpl(readAllTimeReputation, config)
 
-  val task1 = new Runnable {
+  val taskCountAndStoreBlogs = new Runnable {
     override def run() {
       val knolderBlogCounts = numberOfBlogsPerKnolder.getKnolderBlogCount
       writeAllTime.insertAllTimeData(knolderBlogCounts)
@@ -32,7 +32,7 @@ object DriverApp extends App {
     }
   }
 
-  val task2 = new Runnable {
+  val taskCalculateAndStoreRank = new Runnable {
     override def run() {
       val knolderReputations = reputationPerKnolder.getKnolderReputation
       writeAllTimeReputation.insertAllTimeReputationData(knolderReputations)
@@ -40,7 +40,7 @@ object DriverApp extends App {
     }
   }
 
-  system.scheduler.scheduleWithFixedDelay(0.seconds, 23.hours)(task1)
-  system.scheduler.scheduleWithFixedDelay(20.seconds, 24.hours)(task2)
+  system.scheduler.scheduleWithFixedDelay(0.seconds, 23.hours)(taskCountAndStoreBlogs)
+  system.scheduler.scheduleWithFixedDelay(20.seconds, 24.hours)(taskCalculateAndStoreRank)
   allTimeDataOnAPI.displayAllTimeDataOnAPI
 }
