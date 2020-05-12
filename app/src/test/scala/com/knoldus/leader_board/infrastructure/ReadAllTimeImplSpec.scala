@@ -104,9 +104,9 @@ class ReadAllTimeImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt6.execute
       preparedStmt6.close()
 
-      val allTimeData = List(GetAllTime("Mukesh Kumar", Option(2)),
-        GetAllTime("Abhishek Baranwal", Option(1)),
-        GetAllTime("Komal Rajpal", Option(1)))
+      val allTimeData = List(GetAllTime(1, "Mukesh Kumar", Option(2)),
+        GetAllTime(2, "Abhishek Baranwal", Option(1)),
+        GetAllTime(3, "Komal Rajpal", Option(1)))
       val result = readAllTime.fetchAllTimeData
       result shouldBe allTimeData
     }
