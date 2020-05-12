@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {IonicModule, ModalController, NavParams} from '@ionic/angular';
 
 import {ModalPage} from './modal.page';
@@ -28,9 +28,12 @@ describe('ModalPage', () => {
     expect(component).toBeTruthy();
   });
 
-  it ('should close when clicked `closeModal` button', async () => {
-    spyOn(component, 'closeModal').and.callThrough();
+  it ('should open when clicked `closeModal` button', fakeAsync( () => {
+    spyOn(component, 'closeModal');
+    const button = fixture.debugElement.nativeElement.querySelector('ion-button');
     fixture.detectChanges();
+    button.click();
+    tick();
     expect(component.closeModal).toBeTruthy('closeModal should now be true');
-  });
+  }));
 });
