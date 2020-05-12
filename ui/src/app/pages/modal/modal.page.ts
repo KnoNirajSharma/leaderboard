@@ -1,7 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {AuthorModel} from '../../models/author.model';
+import {Component, OnInit} from '@angular/core';
 import {ModalController, NavParams} from '@ionic/angular';
-import {TableHeaderModel} from '../../models/tableHeader.model';
 
 @Component({
   selector: 'app-modal',
@@ -9,16 +7,10 @@ import {TableHeaderModel} from '../../models/tableHeader.model';
   styleUrls: ['./modal.page.scss'],
 })
 export class ModalPage implements OnInit {
-  authorDetails: AuthorModel;
-  authorHeaders: TableHeaderModel;
 
-  constructor(private modalController: ModalController, private navParams: NavParams) {
+  constructor(private modalController: ModalController) {
   }
   ngOnInit() {
-    this.authorDetails = this.navParams.data.authorData;
-    this.authorHeaders = this.navParams.data.tableHeader;
-    console.log(this.authorDetails);
-    console.log(this.authorHeaders);
   }
 
   async closeModal() {
