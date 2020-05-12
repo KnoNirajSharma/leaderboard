@@ -30,6 +30,7 @@ class ReadAllTimeReputationImpl(config: Config) extends ReadAllTimeReputation wi
    * @return Knolder id wrapped in option.
    */
   override def fetchKnolderIdFromAllTimeReputation(knolderId: Int): Option[Int] = {
+    logger.info("Fetching knolder id of knolder from all time reputation table.")
     SQL("SELECT knolder_id FROM all_time_reputation WHERE knolder_id = ?").bind(knolderId)
       .map(rs => rs.int("knolder_id")).single().apply()
   }
