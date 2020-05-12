@@ -1,5 +1,7 @@
 package com.knoldus.leader_board
 
+import java.time.{LocalTime, ZoneId, ZonedDateTime}
+
 import akka.actor.ActorSystem
 import com.knoldus.leader_board.application.{AllTimeDataOnAPI, AllTimeDataOnAPIImpl}
 import com.knoldus.leader_board.business._
@@ -24,6 +26,23 @@ object DriverApp extends App {
   val writeAllTimeReputation: WriteAllTimeReputation = new WriteAllTimeReputationImpl(config)
   val allTimeDataOnAPI: AllTimeDataOnAPI = new AllTimeDataOnAPIImpl(readAllTimeReputation, config)
 
+  val indiaCurrentTime = ZonedDateTime.now(ZoneId.of("Asia/Calcutta"))
+  val startTimeOfCalculateBlogCount = LocalTime.of(0, 0, 0,0).toSecondOfDay
+  val totalSecondsOfDayTillCurrentTime = indiaCurrentTime.toLocalTime.toSecondOfDay
+  val startTimeToCalculateScoreAndRank = LocalTime.of(1, 0, 0,0).toSecondOfDay
+  val calculatedTimeWhenBlogCountTaskStart =
+    if (startTimeOfCalculateBlogCount - totalSecondsOfDayTillCurrentTime < 0) {
+      (86400 + startTimeOfCalculateBlogCount - totalSecondsOfDayTillCurrentTime)
+    } else {
+      startTimeOfCalculateBlogCount - totalSecondsOfDayTillCurrentTime
+    }
+  val calculatedTimeWhenStoreScoreAndRankTaskStart =
+    if (startTimeToCalculateScoreAndRank - totalSecondsOfDayTillCurrentTime < 0) {
+      (86400 + startTimeToCalculateScoreAndRank - totalSecondsOfDayTillCurrentTime)
+    } else {
+      startTimeToCalculateScoreAndRank - totalSecondsOfDayTillCurrentTime
+    }
+
   val taskCountAndStoreBlogs = new Runnable {
     override def run() {
       val knolderBlogCounts = numberOfBlogsPerKnolder.getKnolderBlogCount
@@ -40,7 +59,8 @@ object DriverApp extends App {
     }
   }
 
-  system.scheduler.scheduleWithFixedDelay(0.seconds, 23.hours)(taskCountAndStoreBlogs)
-  system.scheduler.scheduleWithFixedDelay(20.seconds, 24.hours)(taskCalculateAndStoreRank)
+  system.scheduler.scheduleAtFixedRate(calculatedTimeWhenBlogCountTaskStart.seconds, 24.hours)(taskCountAndStoreBlogs)
+  system.scheduler.scheduleAtFixedRate(calculatedTimeWhenStoreScoreAndRankTaskStart.seconds, 24.hours)(taskCalculateAndStoreRank)
   allTimeDataOnAPI.displayAllTimeDataOnAPI
 }
+
