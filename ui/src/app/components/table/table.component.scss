@@ -1,20 +1,18 @@
-.title {
-  font-weight: bold;
-  color: black;
-  padding-bottom: 0.3em;
-  text-align: center;
-}
-​,
 ion-card {
   background-color: white;
   ion-card-header {
     margin-bottom: .3em;
+    .title {
+      font-weight: bold;
+      color: black;
+      padding-bottom: 0.3em;
+      text-align: center;
+    }
   }
   ion-card-content {
     text-align: center;
   }
 }
-​,
 ion-col {
   box-shadow: var(--ion-color-step-500);
   color: #1e1e1e;
