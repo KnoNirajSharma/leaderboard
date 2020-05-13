@@ -30,15 +30,17 @@ object DriverApp extends App {
   val startTimeOfCalculateBlogCount = LocalTime.of(0, 0, 0,0).toSecondOfDay
   val totalSecondsOfDayTillCurrentTime = indiaCurrentTime.toLocalTime.toSecondOfDay
   val startTimeToCalculateScoreAndRank = LocalTime.of(1, 0, 0,0).toSecondOfDay
+  val secondsInDay=24*60*60
+
   val calculatedTimeWhenBlogCountTaskStart =
     if (startTimeOfCalculateBlogCount - totalSecondsOfDayTillCurrentTime < 0) {
-      (86400 + startTimeOfCalculateBlogCount - totalSecondsOfDayTillCurrentTime)
+      (secondsInDay + startTimeOfCalculateBlogCount - totalSecondsOfDayTillCurrentTime)
     } else {
       startTimeOfCalculateBlogCount - totalSecondsOfDayTillCurrentTime
     }
   val calculatedTimeWhenStoreScoreAndRankTaskStart =
     if (startTimeToCalculateScoreAndRank - totalSecondsOfDayTillCurrentTime < 0) {
-      (86400 + startTimeToCalculateScoreAndRank - totalSecondsOfDayTillCurrentTime)
+      (secondsInDay + startTimeToCalculateScoreAndRank - totalSecondsOfDayTillCurrentTime)
     } else {
       startTimeToCalculateScoreAndRank - totalSecondsOfDayTillCurrentTime
     }
