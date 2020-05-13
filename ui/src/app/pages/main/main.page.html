@@ -14,7 +14,7 @@
                 <ion-row>
                     <app-tab class="tabs ion-float-right" selected="overall" (showTable)="showTable($event)" [tabData]="tabData"></app-tab>
                 </ion-row>
-                <template #dynamicTable></template>
+                <app-table [dataKeys]="dataKeys" [tableHeaders]="tableHeaders" [tableRows]="employeeData"></app-table>
             </ion-col>
         </ion-content>
     </ion-row>

@@ -9,8 +9,6 @@ import {HeadersComponent} from '../../components/headers/headers.component';
 import {SidebarComponent} from '../../components/sidebar/sidebar.component';
 import {TableComponent} from '../../components/table/table.component';
 import {TabComponent} from '../../components/tab/tab.component';
-import {MonthlyTableComponent} from '../../components/monthly-table/monthly-table.component';
-import {MonthlyStreakTableComponent} from '../../components/monthly-streak-table/monthly-streak-table.component';
 
 const routes: Routes = [
     {
@@ -27,8 +25,7 @@ const routes: Routes = [
         RouterModule.forChild(routes),
     ],
     declarations: [MainPage, CardComponent, HeadersComponent, TableComponent, SidebarComponent,
-        TabComponent, MonthlyTableComponent, MonthlyStreakTableComponent],
-    entryComponents: [TableComponent, MonthlyTableComponent, MonthlyStreakTableComponent]
+        TabComponent],
 })
 export class MainPageModule {
 }

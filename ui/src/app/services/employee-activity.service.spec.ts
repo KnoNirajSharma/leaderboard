@@ -42,6 +42,45 @@ describe('EmployeeActivityService', () => {
         requestCheck.flush(dummyAuthorData);
     });
 
+    it('should retrieve monthly author data from the API via GET', () => {
+        const dummyMonthlyData: AuthorModel[] = [
+            {
+                authorName: 'mark',
+                monthlyScore: 10,
+                monthlyRank: 2,
+            }, {
+                authorName: 'mark',
+                monthlyScore: 1,
+                monthlyRank: 8,
+            }
+        ];
+        employeeActivityService.getMonthlyData().subscribe(authorData => {
+            expect(authorData).toEqual(dummyMonthlyData);
+        });
+        const requestCheck = httpTestingController.expectOne('/assets/data/monthlyAuthorProfile.json');
+        expect(requestCheck.request.method).toBe('GET');
+        requestCheck.flush(dummyMonthlyData);
+    });
+
+    it('should retrieve streak data from the API via GET', () => {
+        const dummyMonthlyData: AuthorModel[] = [
+            {
+                authorName: 'mark',
+                streakScore: '9-9-9',
+                rank: 2,
+            }, {
+                authorName: 'mark',
+                streakScore: '9-0-8',
+                rank: 8,
+            }
+        ];
+        employeeActivityService.getStreakData().subscribe(authorData => {
+            expect(authorData).toEqual(dummyMonthlyData);
+        });
+        const requestCheck = httpTestingController.expectOne('/assets/data/streakData.json');
+        expect(requestCheck.request.method).toBe('GET');
+        requestCheck.flush(dummyMonthlyData);
+    });
     afterEach(() => {
         httpTestingController.verify();
     });

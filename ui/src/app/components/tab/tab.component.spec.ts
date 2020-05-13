@@ -2,7 +2,6 @@ import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/t
 import { IonicModule } from '@ionic/angular';
 import { TabComponent } from './tab.component';
 import {Component} from '@angular/core';
-import {HeadersComponent} from '../headers/headers.component';
 
 describe('TabComponent', () => {
   let component: TabComponent;
@@ -27,6 +26,8 @@ describe('TabComponent', () => {
     tick();
     component.select('monthly');
     expect(component.currentlySelected).toEqual('monthly');
+    component.select('streak');
+    expect(component.currentlySelected).toEqual('streak');
   }));
 });
 

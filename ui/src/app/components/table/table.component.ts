@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {AuthorModel} from '../../models/author.model';
 import {TableHeaderModel} from '../../models/tableHeader.model';
 import {EmployeeActivityService} from '../../services/employee-activity.service';
@@ -10,22 +10,13 @@ import {EmployeeActivityService} from '../../services/employee-activity.service'
 })
 
 export class TableComponent implements OnInit {
-    tableRows: AuthorModel[];
-    dataKeys: string[];
-    tableHeaders: TableHeaderModel[] = [
-        {title: 'Author Name'},
-        {title: 'Score'},
-        {title: 'Rank'}
-    ];
+    @Input() tableHeaders: TableHeaderModel[];
+    @Input() tableRows: AuthorModel[];
+    @Input() dataKeys: string[];
 
-    constructor(private service: EmployeeActivityService) {
+    constructor() {
     }
 
     ngOnInit() {
-        this.service.getData()
-            .subscribe((data: AuthorModel[]) => {
-                this.tableRows = data;
-                this.dataKeys = Object.keys(this.tableRows[0]);
-            });
     }
 }

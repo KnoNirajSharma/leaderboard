@@ -1,10 +1,8 @@
-import {Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CardDataModel} from '../../models/cardData.model';
 import {AuthorModel} from '../../models/author.model';
 import {EmployeeActivityService} from '../../services/employee-activity.service';
-import {TableComponent} from '../../components/table/table.component';
-import {MonthlyTableComponent} from '../../components/monthly-table/monthly-table.component';
-import {MonthlyStreakTableComponent} from '../../components/monthly-streak-table/monthly-streak-table.component';
+import {TableHeaderModel} from '../../models/tableHeader.model';
 
 @Component({
     selector: 'app-main',
@@ -12,10 +10,25 @@ import {MonthlyStreakTableComponent} from '../../components/monthly-streak-table
     styleUrls: ['./main.page.scss'],
 })
 export class MainPage implements OnInit {
-    @ViewChild('dynamicTable', {static: true, read: ViewContainerRef}) entry: ViewContainerRef;
-    componentRef: any;
     cardData: CardDataModel[];
     employeeData: AuthorModel[];
+    dataKeys: string[];
+    tableHeaders: TableHeaderModel[];
+    private overallTableHeaders: TableHeaderModel[] = [
+        {title: 'Author Name'},
+        {title: 'Score'},
+        {title: 'Rank'},
+    ];
+    private monthlyTableHeaders: TableHeaderModel[] =  [
+        {title: 'Author Name'},
+        {title: 'Monthly Score'},
+        {title: 'Monthly Rank'},
+    ];
+    private streakTableHeaders: TableHeaderModel[] = [
+        {title: 'Author Name'},
+        {title: '3 Month Streak'},
+        {title: 'Rank'},
+    ];
     tabValue = 'overall';
     tabData =  [
         {tabName: 'Overall', id: 'overall'},
@@ -23,35 +36,52 @@ export class MainPage implements OnInit {
         {tabName: '3 month streak', id: 'streak'}
     ];
 
-    constructor(private service: EmployeeActivityService,
-                private resolver: ComponentFactoryResolver) {
+    constructor(private service: EmployeeActivityService) {
     }
 
     ngOnInit() {
         this.service.getData()
             .subscribe((data: AuthorModel[]) => {
                 this.employeeData = data;
+                this.dataKeys = Object.keys(this.employeeData[0]);
                 this.prepareCardData();
             });
-        this.createComponent();
+        this.tableHeaders = this.overallTableHeaders;
     }
     showTable(value) {
         this.tabValue = value;
         this.createComponent();
     }
     createComponent() {
-        this.entry.clear();
-        if (this.tabValue === 'overall') {
-            const factory = this.resolver.resolveComponentFactory(TableComponent);
-            this.componentRef = this.entry.createComponent(factory);
-        }
-        if (this.tabValue === 'monthly') {
-            const factory = this.resolver.resolveComponentFactory(MonthlyTableComponent);
-            this.componentRef = this.entry.createComponent(factory);
-        }
-        if (this.tabValue === 'streak') {
-            const factory = this.resolver.resolveComponentFactory(MonthlyStreakTableComponent);
-            this.componentRef = this.entry.createComponent(factory);
+        switch (this.tabValue) {
+            case 'overall': {
+                this.tableHeaders = this.overallTableHeaders;
+                this.service.getData()
+                    .subscribe((data: AuthorModel[]) => {
+                        this.employeeData = data;
+                        this.dataKeys = Object.keys(this.employeeData[0]);
+                    });
+                break;
+            }
+            case 'monthly': {
+                this.tableHeaders = this.monthlyTableHeaders;
+                this.service.getMonthlyData()
+                    .subscribe((data: AuthorModel[]) => {
+                        this.employeeData = data;
+                        this.dataKeys = Object.keys(this.employeeData[0]);
+                    });
+                break;
+            }
+            case 'streak': {
+                this.tableHeaders = this.streakTableHeaders;
+                this.service.getStreakData()
+                    .subscribe((data: AuthorModel[]) => {
+                        this.employeeData = data;
+                        this.dataKeys = Object.keys(this.employeeData[0]);
+                    });
+                break;
+            }
+
         }
     }
 

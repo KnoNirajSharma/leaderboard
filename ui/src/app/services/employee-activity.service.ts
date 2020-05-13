@@ -3,16 +3,14 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {AuthorModel} from '../models/author.model';
 import {environment} from '../../environments/environment';
-import {MonthlyReputationModel} from '../models/monthlyReputation.model';
-import {StreakReputationModel} from '../models/streakReputation.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class EmployeeActivityService {
     private url = environment.api.baseUrl + environment.api.routes.author.endpoint;
-    private  monthlyApiUrl = '/assets/data/monthlyAuthorProfile.json';
-    private scoreStreakApiUrl =  '/assets/data/streakData.json';
+    private  monthlyApiUrl = environment.api.routes.monthlyReputation.endpoint;
+    private scoreStreakApiUrl =  environment.api.routes.streakReputation.endpoint;
     constructor(private httpClient: HttpClient) {
     }
 
@@ -20,11 +18,11 @@ export class EmployeeActivityService {
         return this.httpClient.get<AuthorModel[]>(this.url);
     }
 
-    getMonthlyData(): Observable<MonthlyReputationModel[]> {
-        return this.httpClient.get<MonthlyReputationModel[]>(this.monthlyApiUrl);
+    getMonthlyData(): Observable<AuthorModel[]> {
+        return this.httpClient.get<AuthorModel[]>(this.monthlyApiUrl);
     }
 
-    getStreakData(): Observable<StreakReputationModel[]> {
-        return this.httpClient.get<StreakReputationModel[]>(this.scoreStreakApiUrl);
+    getStreakData(): Observable<AuthorModel[]> {
+        return this.httpClient.get<AuthorModel[]>(this.scoreStreakApiUrl);
     }
 }

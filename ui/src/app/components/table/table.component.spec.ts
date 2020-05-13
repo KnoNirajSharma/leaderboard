@@ -4,44 +4,48 @@ import {TableComponent} from './table.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {FormsModule} from '@angular/forms';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {Component} from '@angular/core';
+import {TableHeaderModel} from '../../models/tableHeader.model';
 import {AuthorModel} from '../../models/author.model';
-import {EmployeeActivityService} from '../../services/employee-activity.service';
-import {of} from 'rxjs';
 
 describe('TableComponent', () => {
     let component: TableComponent;
-    let fixture: ComponentFixture<TableComponent>;
-    let mockEmployeeService: EmployeeActivityService;
-    const dummyAuthorData: AuthorModel[] = [
-        {
-            authorName: 'mark',
-            score: 100,
-            rank: 5,
-        }, {
-            authorName: 'sam',
-            score: 120,
-            rank: 2,
-        }
-    ];
-
+    let fixture: ComponentFixture<ParentComponent>;
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [TableComponent],
+            declarations: [TableComponent, ParentComponent],
             imports: [HttpClientTestingModule, IonicModule.forRoot(), RouterTestingModule, FormsModule]
         }).compileComponents();
 
-        fixture = TestBed.createComponent(TableComponent);
-        component = fixture.componentInstance;
-        mockEmployeeService = TestBed.get(EmployeeActivityService);
+        fixture = TestBed.createComponent(ParentComponent);
+        component = fixture.debugElement.children[0].componentInstance;
         fixture.detectChanges();
     }));
 
     it('should create', () => {
         expect(component).toBeTruthy();
     });
-    it('should return the authorData as per api call', () => {
-        spyOn(mockEmployeeService, 'getData').and.returnValue(of(dummyAuthorData));
-        component.ngOnInit();
-        expect(component.tableRows).toEqual(dummyAuthorData);
-    });
 });
+@Component({
+    selector: 'parent',
+    template: '<app-table [dataKeys]="dataKeys" [tableHeaders]="tableHeaders" [tableRows]="employeeData"></app-table>'
+})
+class ParentComponent {
+    tableHeaders: TableHeaderModel[] = [
+        {title: 'Author Name'},
+        {title: 'Score'},
+        {title: 'Rank'},
+    ];
+    employeeData: AuthorModel[] = [
+        {
+            authorName: 'mark',
+            score: 10,
+            rank: 2,
+        }, {
+            authorName: 'sam',
+            score: 10,
+            rank: 2,
+        }
+    ];
+    dataKeys = Object.keys(this.employeeData[0]);
+}
