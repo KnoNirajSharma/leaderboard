@@ -18,11 +18,11 @@ describe('MainPage', () => {
     let mockEmployeeService: EmployeeActivityService;
     const dummyAuthorData: AuthorModel[] = [
         {
-            authorName: 'mark',
+            knolderName: 'mark',
             score: 10,
             rank: 2,
         }, {
-            authorName: 'sam',
+            knolderName: 'sam',
             score: 10,
             rank: 2,
         }
