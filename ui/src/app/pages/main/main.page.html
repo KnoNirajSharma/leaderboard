@@ -13,14 +13,14 @@
                 </ion-row>
                 <ion-row class="tabs">
                     <div>
-                    <div class="tab-bar">
-                        <div *ngFor="let data of tabData; let i = index" [ngClass]="{'selected': data.id == currentlySelectedTab, 'even': i%2==0}"
-                             class="tab" [id]="data.id"  (click)="selectTab(data.id)">
-                            {{data.tabName}}
+                        <div class="tab-bar">
+                            <div (click)="selectTab(data.id)"
+                                 *ngFor="let data of tabData; let i = index"
+                                 [id]="data.id" [ngClass]="{'selected': data.id == currentlySelectedTab, 'even': i%2==0}" class="tab">
+                                {{data.tabName}}
+                            </div>
                         </div>
                     </div>
-                    </div>
-<!--                    <app-tab class="tabs ion-float-right" selected="overall" (showTable)="showTable($event)" [tabData]="tabData"></app-tab>-->
                 </ion-row>
                 <app-table [dataKeys]="dataKeys" [tableHeaders]="tableHeaders" [tableRows]="employeeData"></app-table>
             </ion-col>
