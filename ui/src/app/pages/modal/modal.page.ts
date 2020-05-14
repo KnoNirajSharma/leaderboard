@@ -19,7 +19,6 @@ export class ModalPage implements OnInit {
   ngOnInit() {
     this.authorDetails = this.navParams.data.authorData;
     this.authorHeaders = this.navParams.data.tableHeader;
-    console.log(this.authorDetails);
   }
 
   async closeModal() {

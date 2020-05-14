@@ -8,7 +8,6 @@ import {HeadersComponent} from '../../components/headers/headers.component';
 import {TableComponent} from '../../components/table/table.component';
 import {SidebarComponent} from '../../components/sidebar/sidebar.component';
 import {AuthorModel} from '../../models/author.model';
-// import {of} from 'rxjs';
 
 describe('ModalPage', () => {
   let component: ModalPage;
@@ -53,6 +52,13 @@ describe('ModalPage', () => {
 
   it('should use injected data', () => {
     component.ngOnInit();
-    expect(component.authorDetails).toEqual(navParams.data);
+    expect(component.authorDetails).toEqual({
+      knolderName: 'mark',
+      score: 100,
+      rank: 2,
+      monthlyScore: 'N/A',
+      monthlyRank: 'N/A',
+      monthlyStreak: 'N/A'
+    });
   });
 });
