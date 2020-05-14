@@ -21,9 +21,13 @@ export class TableComponent implements OnInit {
     ngOnInit() {
     }
 
-    async presentModal() {
+    async presentModal(authorData: AuthorModel) {
         const modal = await this.modalController.create({
             component: ModalPage,
+            componentProps: {
+                authorData,
+                tableHeader: this.tableHeaders
+            }
         });
         return await modal.present();
     }
