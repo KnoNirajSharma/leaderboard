@@ -16,7 +16,7 @@
                         <div class="tab-bar">
                             <div (click)="selectTab(data.id)"
                                  *ngFor="let data of tabData; let i = index"
-                                 [id]="data.id" [ngClass]="{'selected': data.id == currentlySelectedTab, 'even': i%2==0}" class="tab">
+                                 [id]="data.id" [ngClass]="{'evenTabs': i%2==0}" class="tab">
                                 {{data.tabName}}
                             </div>
                         </div>

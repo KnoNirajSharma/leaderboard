@@ -30,6 +30,7 @@ export class MainPage implements OnInit {
                 this.employeeData = data;
                 this.dataKeys = Object.keys(this.employeeData[0]);
                 this.prepareCardData();
+                document.querySelector<HTMLElement>('#' + this.currentlySelectedTab).classList.add('selected');
             });
         this.tableHeaders = [
             {title: 'Name'},
@@ -41,11 +42,11 @@ export class MainPage implements OnInit {
     selectTab(value) {
         if (this.currentlySelectedTab !== value) {
             this.currentlySelectedTab = value;
-            const tabs = document.getElementsByClassName('tab');
+            const tabs = document.querySelectorAll<HTMLElement>('.tab');
             for (let index = 0; index < tabs.length; index++) {
                 tabs.item(index).classList.remove('selected');
             }
-            document.getElementById(value).classList.add('selected');
+            document.querySelector<HTMLElement>('#' + value).classList.add('selected');
             this.populateTable();
         } else {
             this.currentlySelectedTab = value;

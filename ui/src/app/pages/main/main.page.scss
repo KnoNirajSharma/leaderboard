@@ -11,51 +11,50 @@
   .main-content {
     width: 100%;
 
-    .tab-bar {
-      width: 30vw;
-      display: flex;
-
-      .tab {
-        background-color: white;
-        border-top: .1em #0074D9 solid;
-        border-bottom: .1em #0074D9 solid;
-        font-size: 1.3em;
-        color: #0074D9;
-        width: 33%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-      }
-
-      .even {
-        border-left: .1em #0074D9 solid;
-        border-right: .1em #0074D9 solid;
-      }
-
-      .selected {
-        background-color: #0074D9;
-        color: white;
-      }
-    }
-
     .tabs {
       margin-left: 30%;
-      //align-self: center;
+
+      .tab-bar {
+        width: 30vw;
+        display: flex;
+
+        .tab {
+          background-color: white;
+          border-top: .1em #0074D9 solid;
+          border-bottom: .1em #0074D9 solid;
+          font-size: 1.3em;
+          color: #0074D9;
+          width: 33%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+        }
+
+        .tab:first-child {
+          border-radius: 5px 0 0 5px;
+        }
+
+        .tab:last-child {
+          border-radius: 0 5px 5px 0;
+        }
+
+        .tab:hover {
+          cursor: pointer;
+        }
+
+        .evenTabs {
+          border-left: .1em #0074D9 solid;
+          border-right: .1em #0074D9 solid;
+        }
+
+        .selected {
+          background-color: #0074D9;
+          color: white;
+        }
+      }
     }
   }
-}
-
-.tab:first-child {
-  border-radius: 5px 0 0 5px;
-}
-
-.tab:last-child {
-  border-radius: 0 5px 5px 0;
-}
-
-.tab:hover {
-  cursor: pointer;
 }
 
 ion-grid {
@@ -72,22 +71,23 @@ ion-grid {
   .sidebar {
     display: none;
   }
+
   .main-container {
     .main-content {
-      .tab-bar {
-        width: 95vw;
-        height: 5vh;
-
-        .tab {
-          font-size: 1em;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-      }
-
       .tabs {
         margin-left: 4%;
+
+        .tab-bar {
+          width: 95vw;
+          height: 5vh;
+
+          .tab {
+            font-size: 1em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+        }
       }
     }
   }
