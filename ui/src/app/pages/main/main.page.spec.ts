@@ -87,8 +87,8 @@ describe('MainPage', () => {
         ];
         component.currentlySelectedTab = 'overall';
         spyOn(component, 'selectTab');
-        const butn = fixture.debugElement.query(By.css('#streak'));
-        butn.triggerEventHandler('click', {});
+        const tab = fixture.debugElement.query(By.css('#streak'));
+        tab.triggerEventHandler('click', {});
         fixture.detectChanges();
         expect(component.selectTab).toHaveBeenCalled();
     });
