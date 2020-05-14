@@ -1,17 +1,6 @@
 <app-headers title="Details"></app-headers>
 <ion-content>
-         <ion-row>
-            <ion-col *ngFor="let header of authorHeaders">{{header.title}}
-            </ion-col>
-         </ion-row>
-         <ion-row>
-            <ion-col>{{authorDetails.knolderName}}</ion-col>
-            <ion-col>{{authorDetails.score}}</ion-col>
-            <ion-col>{{authorDetails.rank}}</ion-col>
-            <ion-col>{{authorDetails.monthlyScore}}</ion-col>
-            <ion-col>{{authorDetails.monthlyRank}}</ion-col>
-            <ion-col>{{authorDetails.monthlyStreak}}</ion-col>
-         </ion-row>
+
    <ion-button (click)="closeModal()" color="light" expand="full">Close</ion-button>
 </ion-content>
 

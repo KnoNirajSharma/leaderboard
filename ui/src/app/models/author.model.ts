@@ -1,5 +1,5 @@
 export interface AuthorModel {
-    knolderName: string;
+    authorName: string;
     score: number;
     rank: number;
     monthlyScore?: string;

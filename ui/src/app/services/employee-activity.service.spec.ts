@@ -26,11 +26,11 @@ describe('EmployeeActivityService', () => {
 
     it('should retrieve author data from the API via GET', () => {
         const dummyAuthorData: AuthorModel[] = [{
-            knolderName: 'mark',
+            authorName: 'mark',
             score: 100,
             rank: 5,
         }, {
-            knolderName: 'sam',
+            authorName: 'sam',
             score: 120,
             rank: 2,
         }];
