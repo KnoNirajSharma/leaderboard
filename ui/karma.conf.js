@@ -20,7 +20,6 @@ module.exports = function (config) {
       reports: ['html', 'lcovonly', 'text-summary', 'cobertura'],
       fixWebpackSourcePaths: true,
       thresholds: {
-        // emitWarning: false,
         statements: 80,
         lines: 80,
         branches: 80,

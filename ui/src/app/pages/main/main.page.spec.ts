@@ -71,9 +71,6 @@ describe('MainPage', () => {
         spyOn(mockEmployeeService, 'getData').and.returnValue(of(dummyAuthorData));
         component.ngOnInit();
         expect(component.getTotalCount('blogs')).toEqual(dummyBlogCount);
-        expect(component.getTotalCount('knolx')).toEqual('0');
-        expect(component.getTotalCount('webinars')).toEqual('0');
-        expect(component.getTotalCount('techhubTemplates')).toEqual('0');
     });
 
     it('should return the authorData as per api call', () => {
@@ -114,21 +111,21 @@ describe('MainPage', () => {
         expect(component.populateTable).toHaveBeenCalled();
     });
 
-    it('should call change currentlySeleedTab to streak', () => {
+    it('should populate the table to with all time', () => {
         component.currentlySelectedTab = 'overall';
         spyOn(mockEmployeeService, 'getData').and.returnValue(of(dummyAuthorData));
         component.populateTable();
         expect(component.employeeData).toEqual(dummyAuthorData);
     });
 
-    it('should call change currentlySelecedTab to streak', () => {
+    it('should populate the table with monthly data', () => {
         component.currentlySelectedTab = 'monthly';
         spyOn(mockEmployeeService, 'getMonthlyData').and.returnValue(of(dummyMonthlyAuthorData));
         component.populateTable();
         expect(component.employeeData).toEqual(dummyMonthlyAuthorData);
     });
 
-    it('should call change currentlySelecedTab to streak', () => {
+    it('should populate the table with streak data', () => {
         component.currentlySelectedTab = 'streak';
         spyOn(mockEmployeeService, 'getStreakData').and.returnValue(of(dummyStreakAuthorData));
         component.populateTable();
