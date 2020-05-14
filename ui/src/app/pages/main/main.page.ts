@@ -14,24 +14,9 @@ export class MainPage implements OnInit {
     employeeData: AuthorModel[];
     dataKeys: string[];
     tableHeaders: TableHeaderModel[];
-    private overallTableHeaders: TableHeaderModel[] = [
-        {title: 'Author Name'},
-        {title: 'Score'},
-        {title: 'Rank'},
-    ];
-    private monthlyTableHeaders: TableHeaderModel[] =  [
-        {title: 'Author Name'},
-        {title: 'Monthly Score'},
-        {title: 'Monthly Rank'},
-    ];
-    private streakTableHeaders: TableHeaderModel[] = [
-        {title: 'Author Name'},
-        {title: '3 Month Streak'},
-        {title: 'Rank'},
-    ];
-    tabValue = 'overall';
-    tabData =  [
-        {tabName: 'Overall', id: 'overall'},
+    currentlySelectedTab = 'overall';
+    tabData = [
+        {tabName: 'All time', id: 'overall'},
         {tabName: 'Monthly', id: 'monthly'},
         {tabName: '3 month streak', id: 'streak'}
     ];
@@ -46,16 +31,35 @@ export class MainPage implements OnInit {
                 this.dataKeys = Object.keys(this.employeeData[0]);
                 this.prepareCardData();
             });
-        this.tableHeaders = this.overallTableHeaders;
+        this.tableHeaders = [
+            {title: 'Name'},
+            {title: 'Score'},
+            {title: 'Rank'},
+        ];
     }
-    showTable(value) {
-        this.tabValue = value;
-        this.createComponent();
+
+    selectTab(value) {
+        if (this.currentlySelectedTab !== value) {
+            this.currentlySelectedTab = value;
+            const tabs = document.getElementsByClassName('tab');
+            for (let index = 0; index < tabs.length; index++) {
+                tabs.item(index).classList.remove('selected');
+            }
+            document.getElementById(value).classList.add('selected');
+            this.populateTable();
+        } else {
+            this.currentlySelectedTab = value;
+        }
     }
-    createComponent() {
-        switch (this.tabValue) {
+
+    populateTable() {
+        switch (this.currentlySelectedTab) {
             case 'overall': {
-                this.tableHeaders = this.overallTableHeaders;
+                this.tableHeaders = [
+                    {title: 'Name'},
+                    {title: 'Score'},
+                    {title: 'Rank'},
+                ];
                 this.service.getData()
                     .subscribe((data: AuthorModel[]) => {
                         this.employeeData = data;
@@ -64,7 +68,11 @@ export class MainPage implements OnInit {
                 break;
             }
             case 'monthly': {
-                this.tableHeaders = this.monthlyTableHeaders;
+                this.tableHeaders = [
+                    {title: 'Name'},
+                    {title: 'Monthly Score'},
+                    {title: 'Monthly Rank'},
+                ];
                 this.service.getMonthlyData()
                     .subscribe((data: AuthorModel[]) => {
                         this.employeeData = data;
@@ -73,7 +81,11 @@ export class MainPage implements OnInit {
                 break;
             }
             case 'streak': {
-                this.tableHeaders = this.streakTableHeaders;
+                this.tableHeaders = [
+                    {title: 'Name'},
+                    {title: '3 Month Streak'},
+                    {title: 'Rank'},
+                ];
                 this.service.getStreakData()
                     .subscribe((data: AuthorModel[]) => {
                         this.employeeData = data;
@@ -81,7 +93,6 @@ export class MainPage implements OnInit {
                     });
                 break;
             }
-
         }
     }
 

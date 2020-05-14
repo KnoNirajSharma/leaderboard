@@ -38,11 +38,11 @@ class ParentComponent {
     ];
     employeeData: AuthorModel[] = [
         {
-            authorName: 'mark',
+            knolderName: 'mark',
             score: 10,
             rank: 2,
         }, {
-            authorName: 'sam',
+            knolderName: 'sam',
             score: 10,
             rank: 2,
         }

@@ -11,7 +11,7 @@ import {HeadersComponent} from '../../components/headers/headers.component';
 import {of} from 'rxjs';
 import {SidebarComponent} from '../../components/sidebar/sidebar.component';
 import {TableComponent} from '../../components/table/table.component';
-import {TabComponent} from '../../components/tab/tab.component';
+import {By} from '@angular/platform-browser';
 
 describe('MainPage', () => {
     let component: MainPage;
@@ -19,33 +19,33 @@ describe('MainPage', () => {
     let mockEmployeeService: EmployeeActivityService;
     const dummyAuthorData: AuthorModel[] = [
         {
-            authorName: 'mark',
+            knolderName: 'mark',
             score: 10,
             rank: 2,
         }, {
-            authorName: 'sam',
+            knolderName: 'sam',
             score: 10,
             rank: 2,
         }
     ];
     const dummyMonthlyAuthorData: AuthorModel[] = [
         {
-            authorName: 'mark',
+            knolderName: 'mark',
             monthlyScore: 10,
             monthlyRank: 2,
         }, {
-            authorName: 'mark',
+            knolderName: 'mark',
             monthlyScore: 1,
             monthlyRank: 8,
         }
     ];
     const dummyStreakAuthorData: AuthorModel[] = [
         {
-            authorName: 'mark',
+            knolderName: 'mark',
             streakScore: '10-10-5',
             streakRank: 2,
         }, {
-            authorName: 'mark',
+            knolderName: 'mark',
             streakScore: '10-9-8',
             streakRank: 8,
         }
@@ -53,7 +53,7 @@ describe('MainPage', () => {
     const dummyBlogCount = '4';
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [MainPage, CardComponent, HeadersComponent, TableComponent, SidebarComponent, TabComponent],
+            declarations: [MainPage, CardComponent, HeadersComponent, TableComponent, SidebarComponent],
             imports: [HttpClientTestingModule, IonicModule.forRoot(), RouterTestingModule]
         }).compileComponents();
 
@@ -71,6 +71,9 @@ describe('MainPage', () => {
         spyOn(mockEmployeeService, 'getData').and.returnValue(of(dummyAuthorData));
         component.ngOnInit();
         expect(component.getTotalCount('blogs')).toEqual(dummyBlogCount);
+        expect(component.getTotalCount('knolx')).toEqual('0');
+        expect(component.getTotalCount('webinars')).toEqual('0');
+        expect(component.getTotalCount('techhubTemplates')).toEqual('0');
     });
 
     it('should return the authorData as per api call', () => {
@@ -79,18 +82,56 @@ describe('MainPage', () => {
         expect(component.employeeData).toEqual(dummyAuthorData);
     });
 
-    it('should change the employeeData array', () => {
-        component.tabValue = 'overall';
+    it('should call selectTab method', () => {
+        component.tabData = [
+            {tabName: 'All time', id: 'overall'},
+            {tabName: 'Monthly', id: 'monthly'},
+            {tabName: '3 month streak', id: 'streak'}
+        ];
+        component.currentlySelectedTab = 'overall';
+        spyOn(component, 'selectTab');
+        const butn = fixture.debugElement.query(By.css('#streak'));
+        butn.triggerEventHandler('click', {});
+        fixture.detectChanges();
+        expect(component.selectTab).toHaveBeenCalled();
+    });
+
+    it('should call change currentlySelectedTab to overall', () => {
+        component.currentlySelectedTab = 'null';
+        component.selectTab('overall');
+        expect(component.currentlySelectedTab).toEqual('overall');
+    });
+
+    it('should call change currentlySelectedTab to monthly', () => {
+        component.currentlySelectedTab = 'monthly';
+        component.selectTab('monthly');
+        expect(component.currentlySelectedTab).toEqual('monthly');
+    });
+
+    it('should call populateTable', () => {
+        spyOn(component, 'populateTable');
+        component.selectTab('streak');
+        expect(component.populateTable).toHaveBeenCalled();
+    });
+
+    it('should call change currentlySeleedTab to streak', () => {
+        component.currentlySelectedTab = 'overall';
         spyOn(mockEmployeeService, 'getData').and.returnValue(of(dummyAuthorData));
-        component.createComponent();
+        component.populateTable();
         expect(component.employeeData).toEqual(dummyAuthorData);
-        component.tabValue = 'monthly';
+    });
+
+    it('should call change currentlySelecedTab to streak', () => {
+        component.currentlySelectedTab = 'monthly';
         spyOn(mockEmployeeService, 'getMonthlyData').and.returnValue(of(dummyMonthlyAuthorData));
-        component.createComponent();
+        component.populateTable();
         expect(component.employeeData).toEqual(dummyMonthlyAuthorData);
-        component.tabValue = 'streak';
+    });
+
+    it('should call change currentlySelecedTab to streak', () => {
+        component.currentlySelectedTab = 'streak';
         spyOn(mockEmployeeService, 'getStreakData').and.returnValue(of(dummyStreakAuthorData));
-        component.createComponent();
+        component.populateTable();
         expect(component.employeeData).toEqual(dummyStreakAuthorData);
     });
 });
