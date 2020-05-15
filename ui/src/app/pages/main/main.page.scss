@@ -12,40 +12,29 @@
     width: 100%;
 
     .tabs {
-      margin-left: 30%;
+      margin-left: 33%;
 
       .tab-bar {
-        width: 30vw;
+        width: 29vw;
         display: flex;
+        border-radius: 5px 5px 5px 5px;
+        border: .1em #0074D9 solid;
+        background-color: white;
 
         .tab {
-          background-color: white;
-          border-top: .1em #0074D9 solid;
-          border-bottom: .1em #0074D9 solid;
           font-size: 1.3em;
           color: #0074D9;
-          width: 33%;
+          width: 33.4%;
           display: flex;
           justify-content: center;
           align-items: center;
           text-align: center;
-        }
-
-        .tab:first-child {
-          border-radius: 5px 0 0 5px;
-        }
-
-        .tab:last-child {
-          border-radius: 0 5px 5px 0;
+          border-left: .05em #0074D9 solid;
+          border-right: .05em #0074D9 solid;
         }
 
         .tab:hover {
           cursor: pointer;
-        }
-
-        .evenTabs {
-          border-left: .1em #0074D9 solid;
-          border-right: .1em #0074D9 solid;
         }
 
         .selected {
