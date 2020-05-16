@@ -2,7 +2,7 @@ package com.knoldus.leader_board.infrastructure
 
 import java.sql.{Connection, PreparedStatement}
 
-import com.knoldus.leader_board.{DatabaseConnection, GetAllTime}
+import com.knoldus.leader_board.{DatabaseConnection, GetAllTimeCount}
 import com.typesafe.config.ConfigFactory
 import org.scalatest.{BeforeAndAfterEach, DoNotDiscover}
 
@@ -104,9 +104,10 @@ class ReadAllTimeImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt6.execute
       preparedStmt6.close()
 
-      val allTimeData = List(GetAllTime(1, "Mukesh Kumar", Option(2)),
-        GetAllTime(2, "Abhishek Baranwal", Option(1)),
-        GetAllTime(3, "Komal Rajpal", Option(1)))
+      val allTimeData = List(GetAllTimeCount(1, "Mukesh Kumar", Option(2)),
+        GetAllTimeCount(2, "Abhishek Baranwal", Option(1)),
+        GetAllTimeCount(3, "Komal Rajpal", Option(1)))
+
       val result = readAllTime.fetchAllTimeData
       result shouldBe allTimeData
     }

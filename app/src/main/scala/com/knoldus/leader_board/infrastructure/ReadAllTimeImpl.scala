@@ -2,7 +2,7 @@ package com.knoldus.leader_board.infrastructure
 
 import java.sql.Connection
 
-import com.knoldus.leader_board.{DatabaseConnection, GetAllTime}
+import com.knoldus.leader_board.{DatabaseConnection, GetAllTimeCount}
 import com.typesafe.config.Config
 import com.typesafe.scalalogging._
 import scalikejdbc.{DB, DBSession, SQL}
@@ -16,11 +16,11 @@ class ReadAllTimeImpl(config: Config) extends ReadAllTime with LazyLogging {
    *
    * @return List of all time data of each knolder.
    */
-  override def fetchAllTimeData: List[GetAllTime] = {
-    logger.info("Fetching all time details of each knolder.")
+  override def fetchAllTimeData: List[GetAllTimeCount] = {
+    logger.info("Fetching all time reputation details of each knolder.")
     SQL("SELECT knolder.id, full_name, number_of_blogs FROM all_time RIGHT JOIN knolder " +
       "ON all_time.knolder_id = knolder.id")
-      .map(rs => GetAllTime(rs.int("id"), rs.string("full_name"),
+      .map(rs => GetAllTimeCount(rs.int("id"), rs.string("full_name"),
         rs.intOpt("number_of_blogs"))).list.apply()
   }
 
