@@ -11,17 +11,19 @@
                         <app-card [cardData]="data" class="card"></app-card>
                     </ion-col>
                 </ion-row>
-                <ion-row class="tabs">
-                    <div>
+                <ion-row class="table-content">
+                    <ion-col size="12">
                         <div class="tab-bar">
-                            <div (click)="selectTab(data.id)"
-                                 *ngFor="let data of tabData" [id]="data.id" class="tab">
-                                {{data.tabName}}
+                            <div (click)="selectTab(tab.id)"
+                                 *ngFor="let tab of tabs" [ngClass]="tab.id===currentlySelectedTab && 'selected'" [id]="tab.id" class="tab">
+                                {{tab.tabName}}
                             </div>
                         </div>
-                    </div>
+                        </ion-col>
+                    <ion-col size="12">
+                <app-table class="table" [dataKeys]="dataKeys" [tableHeaders]="tableHeaders" [tableRows]="employeeData"></app-table>
+                    </ion-col>
                 </ion-row>
-                <app-table [dataKeys]="dataKeys" [tableHeaders]="tableHeaders" [tableRows]="employeeData"></app-table>
             </ion-col>
         </ion-content>
     </ion-row>

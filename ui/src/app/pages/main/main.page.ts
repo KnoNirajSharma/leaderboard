@@ -15,7 +15,7 @@ export class MainPage implements OnInit {
     dataKeys: string[];
     tableHeaders: TableHeaderModel[];
     currentlySelectedTab = 'overall';
-    tabData = [
+    tabs = [
         {tabName: 'All time', id: 'overall'},
         {tabName: 'Monthly', id: 'monthly'},
         {tabName: '3 month streak', id: 'streak'}
@@ -30,7 +30,6 @@ export class MainPage implements OnInit {
                 this.employeeData = data;
                 this.dataKeys = Object.keys(this.employeeData[0]);
                 this.prepareCardData();
-                document.querySelector<HTMLElement>('#' + this.currentlySelectedTab).classList.add('selected');
             });
         this.tableHeaders = [
             {title: 'Name'},

@@ -9,28 +9,31 @@
   }
 
   .main-content {
+    .cards-row {
+      margin-top: 1em;
+    }
     width: 100%;
-
-    .tabs {
-      margin-left: 33%;
-
+    .table-content {
+      background-color: white;
+      margin-top: 2em;
+      width: 95%;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 2px 36px -12px rgba(0,0,0,0.16);
+      border-radius: 5px;
       .tab-bar {
-        width: 29vw;
         display: flex;
-        border-radius: 5px 5px 5px 5px;
-        border: .1em #0074D9 solid;
         background-color: white;
+        border-bottom: 1.5px solid lightgrey;
 
         .tab {
-          font-size: 1.3em;
-          color: #0074D9;
-          width: 33.4%;
+          font-size: 1em;
           display: flex;
           justify-content: center;
           align-items: center;
           text-align: center;
-          border-left: .05em #0074D9 solid;
-          border-right: .05em #0074D9 solid;
+          padding: .5em;
+          margin: 14px 14px -1px;
         }
 
         .tab:hover {
@@ -38,8 +41,7 @@
         }
 
         .selected {
-          background-color: #0074D9;
-          color: white;
+          border-bottom: 3px solid blue;
         }
       }
     }
@@ -56,42 +58,25 @@ ion-grid {
   }
 }
 
-@media only screen and (max-width: 959px) {
+@media only screen and (max-width: 720px) {
   .sidebar {
     display: none;
   }
+}
 
+@media only screen and (max-width: 480px) {
   .main-container {
     .main-content {
-      .tabs {
-        margin-left: 4%;
-
+      .table-content {
         .tab-bar {
-          width: 95vw;
-          height: 5vh;
-
           .tab {
-            font-size: 1em;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: .9em;
+            padding: 2px;
           }
         }
       }
-    }
-  }
-}
-
-@media only screen and (max-width: 500px) {
-  .tab-bar {
-    width: 95vw;
-    height: 5vh;
-
-    .tab {
-      font-size: 1em;
-      display: flex;
-      justify-content: center;
-      align-items: center;
     }
   }
 }
