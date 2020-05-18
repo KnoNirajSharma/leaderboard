@@ -4,6 +4,6 @@ import akka.http.scaladsl.Http
 
 import scala.concurrent.Future
 
-trait AllTimeDataOnAPI {
-  def displayAllTimeDataOnAPI: Future[Http.ServerBinding]
+trait ReputationOnAPI {
+  def displayReputationOnAPI: Future[Http.ServerBinding]
 }
