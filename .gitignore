@@ -1,36 +1,35 @@
-*~
-*.sw[mnpcod]
-.tmp
-*.tmp
-*.tmp.*
-*.sublime-project
-*.sublime-workspace
-.DS_Store
-Thumbs.db
-UserInterfaceState.xcuserstate
-$RECYCLE.BIN/
-
+*.class
 *.log
-log.txt
-npm-debug.log*
 
-**/.idea**
-/.ionic
-/.sass-cache
-/.sourcemaps
-/.versions
-/coverage
-/dist
-/node_modules
-/platforms
-/plugins
-/www
+# sbt specific
+.cache
+.history
+.lib/
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
 
-package-lock.json
+# Scala-IDE specific
+.scala_dependencies
+.config/
+.classpath
+.project
+.settings
+*.tmp
+*.bak
+*.swp
+.worksheet
 
+# IntelliJ Specific
+.idea/
+*.iml
+.idea_modules
+projectFilesBackup
 
-
-
-
-
+metastore_db/
+check*/
+stats/
 
