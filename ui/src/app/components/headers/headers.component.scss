@@ -35,14 +35,15 @@ ion-button {
   display: none;
 }
 
-
 @media only screen and (max-width: 959px) {
+
   ion-button {
     display: block;
   }
   .sidebar {
     display: block;
   }
+
   ion-title {
     span {
       margin-left: -1em;
@@ -50,5 +51,3 @@ ion-button {
     }
   }
 }
-
-

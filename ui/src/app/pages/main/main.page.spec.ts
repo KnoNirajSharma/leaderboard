@@ -80,7 +80,7 @@ describe('MainPage', () => {
     });
 
     it('should call selectTab method', () => {
-        component.tabData = [
+        component.tabs = [
             {tabName: 'All time', id: 'overall'},
             {tabName: 'Monthly', id: 'monthly'},
             {tabName: '3 month streak', id: 'streak'}

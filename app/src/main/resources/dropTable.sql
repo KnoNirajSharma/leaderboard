@@ -1,0 +1,4 @@
+DROP TABLE knolder IF EXISTS;
+DROP TABLE blog IF EXISTS;
+DROP TABLE all_time IF EXISTS;
+DROP TABLE all_time_reputation IF EXISTS;
