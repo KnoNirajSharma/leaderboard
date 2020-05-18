@@ -9,7 +9,7 @@ import {environment} from '../../environments/environment';
 })
 export class EmployeeActivityService {
     private url = environment.api.baseUrl + environment.api.routes.author.endpoint;
-    private  monthlyApiUrl = environment.api.routes.monthlyReputation.endpoint;
+    private  monthlyApiUrl = environment.api.baseUrl + environment.api.routes.monthlyReputation.endpoint;
     private scoreStreakApiUrl =  environment.api.routes.streakReputation.endpoint;
     constructor(private httpClient: HttpClient) {
     }

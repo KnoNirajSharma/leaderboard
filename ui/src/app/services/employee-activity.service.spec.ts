@@ -57,7 +57,7 @@ describe('EmployeeActivityService', () => {
         employeeActivityService.getMonthlyData().subscribe(authorData => {
             expect(authorData).toEqual(dummyMonthlyData);
         });
-        const requestCheck = httpTestingController.expectOne('/assets/data/monthlyAuthorProfile.json');
+        const requestCheck = httpTestingController.expectOne('http://34.68.95.196:8000/reputation/monthly');
         expect(requestCheck.request.method).toBe('GET');
         requestCheck.flush(dummyMonthlyData);
     });
