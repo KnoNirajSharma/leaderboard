@@ -1,28 +1,16 @@
 package com.knoldus.leader_board.business
 
-import com.knoldus.leader_board.infrastructure.ReadAllTime
-import com.knoldus.leader_board.{GetAllTime, GetScore, Reputation}
-import com.typesafe.config.Config
+import com.knoldus.leader_board.{GetScore, Reputation}
 import com.typesafe.scalalogging._
 
-class OverallReputationImpl(readAllTime: ReadAllTime, config: Config) extends OverallReputation with LazyLogging {
+class KnolderRankImpl extends KnolderRank with LazyLogging {
+
   /**
-   * Calculates reputation of each knolder by using list of all time data of knolders.
+   * Calculates rank of each knolder.
    *
    * @return List of reputation of each knolder.
    */
-  override def calculateReputation: List[Reputation] = {
-    val allTimeData: List[GetAllTime] = readAllTime.fetchAllTimeData
-    logger.info("Calculating score of each knolder.")
-    val scorePerKnolder: List[GetScore] = allTimeData.map { allTimeDataPerKnolder =>
-      allTimeDataPerKnolder.numberOfBlogs match {
-        case Some(blogCount) => logger.info("Alloted score to the knolder who has written any blog.")
-          GetScore(allTimeDataPerKnolder.knolderId, allTimeDataPerKnolder.knolderName,
-            blogCount * config.getInt("scorePerBlog"))
-        case None => logger.info("Alloted score zero to the knolder who has not written any blog.")
-          GetScore(allTimeDataPerKnolder.knolderId, allTimeDataPerKnolder.knolderName, 0)
-      }
-    }.sortBy(knolder => knolder.score).reverse
+  override def calculateRank(scorePerKnolder: List[GetScore]): List[Reputation] = {
     val reputationPerKnolder = Vector.empty[Reputation]
 
     @scala.annotation.tailrec
