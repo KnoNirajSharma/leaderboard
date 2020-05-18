@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AuthorModel} from '../../models/author.model';
 import {TableHeaderModel} from '../../models/tableHeader.model';
+import {EmployeeActivityService} from '../../services/employee-activity.service';
 
 @Component({
     selector: 'app-table',
