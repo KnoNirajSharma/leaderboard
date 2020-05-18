@@ -30,13 +30,13 @@ class ReputationOnAPIImplSpec extends AnyWordSpecLike with MockitoSugar with Mat
 
     "display all time reputation of knolders to routed path" in {
       val routeForAllTimeData = {
-        path("all-time-reputation") {
+        path("reputation") {
           get {
             complete(HttpEntity(ContentTypes.`application/json`, compactRender(decompose(reputationOfKnolders))))
           }
         }
       }
-      Get("/all-time-reputation") ~> routeForAllTimeData ~> check {
+      Get("/reputation") ~> routeForAllTimeData ~> check {
         reputationOnAPI.displayReputationOnAPI.map { displayedReputation =>
           responseAs[String] shouldEqual displayedReputation
         }
@@ -45,13 +45,13 @@ class ReputationOnAPIImplSpec extends AnyWordSpecLike with MockitoSugar with Mat
 
     "display monthly reputation of knolders to routed path" in {
       val routeForMonthlyData = {
-        path("monthly-reputation") {
+        path("reputation"/"monthly") {
           get {
             complete(HttpEntity(ContentTypes.`application/json`, compactRender(decompose(reputationOfKnolders))))
           }
         }
       }
-      Get("/monthly-reputation") ~> routeForMonthlyData ~> check {
+      Get("/reputation/monthly") ~> routeForMonthlyData ~> check {
         reputationOnAPI.displayReputationOnAPI.map { displayedReputation =>
           responseAs[String] shouldEqual displayedReputation
         }

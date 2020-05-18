@@ -27,7 +27,7 @@ class ReputationOnAPIImpl(readAllTimeReputation: ReadAllTimeReputation, readMont
   override def displayReputationOnAPI: Future[Http.ServerBinding] = {
     logger.info("Displaying all time reputation of each knolder on the API.")
     val routeForAllTimeData = cors(settings = CorsSettings.defaultSettings) {
-      path("all-time-reputation") {
+      path("reputation") {
         get {
           complete(HttpEntity(ContentTypes.`application/json`,
             compactRender(decompose(readAllTimeReputation.fetchAllTimeReputationData))))
@@ -37,7 +37,7 @@ class ReputationOnAPIImpl(readAllTimeReputation: ReadAllTimeReputation, readMont
 
     logger.info("Displaying monthly reputation of each knolder on the API.")
     val routeForMonthlyData = cors(settings = CorsSettings.defaultSettings) {
-      path("monthly-reputation") {
+      path("reputation"/"monthly") {
         get {
           complete(HttpEntity(ContentTypes.`application/json`,
             compactRender(decompose(readMonthlyReputation.fetchMonthlyReputationData))))
