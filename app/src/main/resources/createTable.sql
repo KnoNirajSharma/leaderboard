@@ -25,3 +25,11 @@ full_name VARCHAR(100) NOT NULL,
 score INT NOT NULL,
 rank INT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS monthly_reputation(
+id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+knolder_id INT NOT NULL,
+full_name VARCHAR(100) NOT NULL,
+score INT NOT NULL,
+rank INT NOT NULL
+);
