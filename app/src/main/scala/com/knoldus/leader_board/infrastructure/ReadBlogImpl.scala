@@ -32,6 +32,7 @@ class ReadBlogImpl(config: Config) extends ReadBlog with LazyLogging {
    * @return List of monthly data of each knolder.
    */
   override def fetchKnoldersWithMonthlyBlogs: List[GetMonthlyCount] = {
+    logger.info("Fetching details of knolders with blogs of current month.")
     val currentMonth = Timestamp.valueOf(ZonedDateTime.now(ZoneId.of("Asia/Calcutta"))
       .withDayOfMonth(1).toLocalDate.atStartOfDay())
 
