@@ -2,6 +2,7 @@ import {TestBed} from '@angular/core/testing';
 import {EmployeeActivityService} from './employee-activity.service';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {AuthorModel} from '../models/author.model';
+import {environment} from '../../environments/environment';
 
 
 describe('EmployeeActivityService', () => {
@@ -34,10 +35,11 @@ describe('EmployeeActivityService', () => {
             score: 120,
             rank: 2,
         }];
+        const allTimeApiUrl = `${environment.api.baseUrl}${environment.api.routes.author.endpoint}`;
         employeeActivityService.getData().subscribe(authorData => {
             expect(authorData).toEqual(dummyAuthorData);
         });
-        const requestCheck = httpTestingController.expectOne('http://34.68.95.196:8000/reputation');
+        const requestCheck = httpTestingController.expectOne(allTimeApiUrl);
         expect(requestCheck.request.method).toBe('GET');
         requestCheck.flush(dummyAuthorData);
     });
@@ -54,10 +56,11 @@ describe('EmployeeActivityService', () => {
                 monthlyRank: 8,
             }
         ];
+        const monthlyApiUrl = `${environment.api.baseUrl}${environment.api.routes.monthlyReputation.endpoint}`;
         employeeActivityService.getMonthlyData().subscribe(authorData => {
             expect(authorData).toEqual(dummyMonthlyData);
         });
-        const requestCheck = httpTestingController.expectOne('/assets/data/monthlyAuthorProfile.json');
+        const requestCheck = httpTestingController.expectOne(monthlyApiUrl);
         expect(requestCheck.request.method).toBe('GET');
         requestCheck.flush(dummyMonthlyData);
     });
@@ -74,10 +77,11 @@ describe('EmployeeActivityService', () => {
                 rank: 8,
             }
         ];
+        const streakApiUrl = '/assets/data/streakData.json';
         employeeActivityService.getStreakData().subscribe(authorData => {
             expect(authorData).toEqual(dummyMonthlyData);
         });
-        const requestCheck = httpTestingController.expectOne('/assets/data/streakData.json');
+        const requestCheck = httpTestingController.expectOne(streakApiUrl);
         expect(requestCheck.request.method).toBe('GET');
         requestCheck.flush(dummyMonthlyData);
     });

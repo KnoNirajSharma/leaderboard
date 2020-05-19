@@ -6,7 +6,7 @@ export const environment = {
         baseUrl: 'http://34.68.95.196:8000/',
         routes: {
             author: {endpoint: 'reputation', method: 'GET'},
-            monthlyReputation: {endpoint: '/assets/data/monthlyAuthorProfile.json', method: 'GET'},
+            monthlyReputation: {endpoint: 'reputation/monthly', method: 'GET'},
             streakReputation: {endpoint: '/assets/data/streakData.json', method: 'GET'},
         }
     }
