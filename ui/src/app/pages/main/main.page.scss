@@ -9,7 +9,9 @@
   }
 
   .main-content {
-
+  .header {
+    margin-top: -10em;
+  }
     .cards-row {
       margin-top: 1em;
     }
@@ -60,12 +62,6 @@ ion-grid {
   ion-content {
     --ion-background-color: #FAF8FB;
     height: 100vh;
-  }
-}
-
-@media only screen and (max-width: 720px) {
-  .sidebar {
-    display: none;
   }
 }
 
