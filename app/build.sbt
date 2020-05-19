@@ -16,6 +16,10 @@ dockerBaseImage := "openjdk:8-jre-alpine"
 
 coverageExcludedPackages := ".*DriverApp*"
 
+coverageMinimum := 80
+
+coverageFailOnMinimum := true
+
 libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-http" % "10.1.11",
   "com.typesafe.akka" %% "akka-stream" % "2.6.1",

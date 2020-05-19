@@ -10,7 +10,8 @@
     "test": "ng test",
     "lint": "ng lint --ts-config tsconfig.json --tslint-config tslint.json",
     "e2e": "ng e2e",
-    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\""
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "build:prod": "npm test --code-coverage && ng build --prod"
   },
   "private": true,
   "dependencies": {

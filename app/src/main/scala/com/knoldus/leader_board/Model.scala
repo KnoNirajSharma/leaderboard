@@ -8,7 +8,9 @@ final case class GetScore(knolderId: Int, knolderName: String, score: Int)
 
 final case class Reputation(knolderId: Int, knolderName: String, score: Int, rank: Int)
 
-final case class GetAllTime(knolderId: Int, knolderName: String, numberOfBlogs: Option[Int])
+final case class GetAllTimeCount(knolderId: Int, knolderName: String, numberOfBlogs: Option[Int])
+
+final case class GetMonthlyCount(knolderId: Int, knolderName: String, numberOfBlogs: Int)
 
 final case class KnolderReputation(knolderId: Option[Int], reputation: Reputation)
 
