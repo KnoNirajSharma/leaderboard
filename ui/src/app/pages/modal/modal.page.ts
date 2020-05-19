@@ -12,7 +12,7 @@ export class ModalPage implements OnInit {
   authorDetails: AuthorModel;
   authorHeaders: TableHeaderModel[];
 
-  constructor(private modalController: ModalController, private navParams: NavParams) {
+  constructor(private modalController: ModalController, public navParams: NavParams) {
   }
   ngOnInit() {
     this.authorDetails = this.navParams.data.authorData;
