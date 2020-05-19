@@ -6,4 +6,5 @@ export interface AuthorModel {
     monthlyRank?: number;
     streakScore?: string;
     streakRank?: number;
+
 }
