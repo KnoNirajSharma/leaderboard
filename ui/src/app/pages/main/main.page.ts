@@ -20,6 +20,7 @@ export class MainPage implements OnInit {
         {tabName: 'Monthly', id: 'monthly'},
         {tabName: '3 month streak', id: 'streak'}
     ];
+    pageTitle = 'LEADERBOARD';
 
     constructor(private service: EmployeeActivityService) {
     }
