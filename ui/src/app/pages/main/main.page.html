@@ -3,9 +3,9 @@
         <ion-col class="sidebar-col" size-lg="2" size-md="0" size-sm="0" size-xl="2" size-xs="0">
             <app-sidebar class="sidebar"></app-sidebar>
         </ion-col>
+        <ion-content>
             <ion-col class="main-content" size-lg="10" size-md="12" size-sm="12" size-xl="10" size-xs="12">
-                <app-headers class="header" title="LEADERBOARD"></app-headers>
-                <ion-content>
+                <app-headers title="LEADERBOARD"></app-headers>
                 <ion-row class="cards-row">
                     <ion-col *ngFor="let data of cardData" size-lg="3" size-md="6" size-xs="6">
                         <app-card [cardData]="data" class="card"></app-card>
@@ -26,7 +26,7 @@
                                    class="table"></app-table>
                     </ion-col>
                 </ion-row>
-                </ion-content>
             </ion-col>
+        </ion-content>
     </ion-row>
 </ion-grid>
