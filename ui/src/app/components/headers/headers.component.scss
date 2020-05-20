@@ -1,7 +1,7 @@
 ion-header {
   background-color: var(--ion-color-primary-contrast);
-  //margin-top: -0.2em;
-  //width: 85vw;
+  margin-top: -0.2em;
+  width: 85vw;
 
   ion-title {
     color: var(--ion-color-warning-contrast);
@@ -45,7 +45,7 @@ ion-button {
     display: block;
   }
   ion-header {
-    //width: 100vw;
+    width: 100vw;
 
     ion-title {
       span {
