@@ -1,5 +1,6 @@
 ion-header {
   background-color: var(--ion-color-primary-contrast);
+  box-shadow: 0 4 4 -5 rgba(133,133,133,1);
 
   ion-title {
     color: var(--ion-color-warning-contrast);
@@ -7,46 +8,25 @@ ion-header {
     text-align: center;
 
     span {
-      margin-left: -1em;
-    }
-
-    font: {
-      size: 2em;
-      weight: bold;
+      font-size: 1.9em;
+      font-weight: bold;
     }
   }
 
   ion-toolbar {
-    display: flex;
     --background: translucent;
-
-    .bt {
-      display: none;
-    }
   }
-}
-
-ion-button {
-  display: none;
-}
-
-.sidebar {
-  display: none;
 }
 
 @media only screen and (max-width: 959px) {
 
-  ion-button {
-    display: block;
-  }
-  .sidebar {
-    display: block;
-  }
+  ion-header {
 
-  ion-title {
-    span {
-      margin-left: -1em;
-      font-size: 0.8em;
+    ion-title {
+
+      span {
+        font-size: 1.4em;
+      }
     }
   }
 }
