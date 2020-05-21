@@ -26,7 +26,7 @@ export class TableComponent implements OnInit {
             component: ModalPage,
             componentProps: {
                 authorData,
-                tableHeader: this.tableHeaders
+                authorHeader: this.tableHeaders
             }
         });
         return await modal.present();
