@@ -57,11 +57,5 @@ describe('ModalPage', () => {
     tick();
     expect(component.closeModal).toBeTruthy('closeModal should now be true');
   }));
-
-  it('should use injected data', () => {
-    component.ngOnInit();
-    expect(component.authorDetails.authorName).toEqual('mark');
-    expect(component.authorHeaders.length).toBe(2);
-    });
 });
 
