@@ -7,27 +7,6 @@ import {HeadersComponent} from '../../components/headers/headers.component';
 import {TableComponent} from '../../components/table/table.component';
 import {SidebarComponent} from '../../components/sidebar/sidebar.component';
 
-class NavParamsMock {
-  data = {
-    authorData:  {
-      authorName: 'mark',
-      score: 100,
-      rank: 2,
-      monthlyScore: 'N/A',
-      monthlyRank: 'N/A',
-      monthlyStreak: 'N/A'
-    },
-    tableHeader: [{
-      title: 'name'
-    },
-      {title: 'points'}
-    ]
-  };
-  get(param) {
-    return this.data[param];
-  }
-}
-
 describe('ModalPage', () => {
   let component: ModalPage;
   let fixture: ComponentFixture<ModalPage>;
@@ -36,10 +15,7 @@ describe('ModalPage', () => {
     TestBed.configureTestingModule({
       declarations: [ModalPage, HeadersComponent, TableComponent, SidebarComponent],
       imports: [HttpClientTestingModule, IonicModule.forRoot(), RouterTestingModule],
-      providers: [
-        {provide: NavParams, useClass: NavParamsMock},
-        ModalController
-      ]
+      providers: [ModalController]
     }).compileComponents();
     fixture = TestBed.createComponent(ModalPage);
     component = fixture.componentInstance;
@@ -52,7 +28,6 @@ describe('ModalPage', () => {
   it ('should open when clicked `closeModal` button', fakeAsync( () => {
     spyOn(component, 'closeModal');
     const button = fixture.debugElement.nativeElement.querySelector('ion-button');
-    fixture.detectChanges();
     button.click();
     tick();
     expect(component.closeModal).toBeTruthy('closeModal should now be true');

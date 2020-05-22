@@ -1,8 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ModalController, NavParams} from '@ionic/angular';
+import {ModalController} from '@ionic/angular';
 import {TableHeaderModel} from '../../models/tableHeader.model';
 import {AuthorModel} from '../../models/author.model';
-import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-modal',
@@ -12,11 +11,30 @@ import {ActivatedRoute} from '@angular/router';
 export class ModalPage implements OnInit {
 
   @Input() authorData: AuthorModel;
-  @Input() authorHeader: TableHeaderModel[];
+  @Input() authorHeader: TableHeaderModel;
+  modalContent;
+  modalHeading;
 
   constructor(private modalController: ModalController) {
   }
   ngOnInit() {
+    this.modalContent = `<ion-row>
+      <ion-col>` + this.authorData.authorName + `</ion-col>
+      <ion-col>` + this.authorData.score + `</ion-col>
+      <ion-col>` + this.authorData.rank + `</ion-col>
+      <ion-col>` + this.authorData.monthlyStreak + `</ion-col>
+      <ion-col>` + this.authorData.monthlyScore + `</ion-col>
+      <ion-col>` + this.authorData.monthlyRank + `</ion-col>
+      </ion-row>`;
+
+    this.modalHeading = `<ion-row>
+     <ion-col>` + this.authorHeader[0].title + `</ion-col>
+     <ion-col>` + this.authorHeader[1].title + `</ion-col>
+     <ion-col>` + this.authorHeader[2].title + `</ion-col>
+     <ion-col>` + this.authorHeader[3].title + `</ion-col>
+     <ion-col>` + this.authorHeader[4].title + `</ion-col>
+     <ion-col>` + this.authorHeader[5].title + `</ion-col>
+     </ion-row>`;
   }
 
   async closeModal() {
