@@ -1,14 +1,7 @@
 <ion-header [translucent]="true">
     <ion-toolbar>
-        <ion-button (click)="toggleSidebar()" color="dark" fill="clear" id="bt" slot="start">
-            <label>&#9776;</label>
-        </ion-button>
         <ion-title>
             <span>{{title}}</span>
         </ion-title>
     </ion-toolbar>
 </ion-header>
-<ng-container *ngIf="visibility">
-    <app-sidebar class="sidebar">
-    </app-sidebar>
-</ng-container>

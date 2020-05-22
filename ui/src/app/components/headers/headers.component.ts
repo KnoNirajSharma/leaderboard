@@ -14,8 +14,4 @@ export class HeadersComponent implements OnInit {
 
     ngOnInit() {
     }
-
-    toggleSidebar() {
-        this.visibility = !this.visibility;
-    }
 }
