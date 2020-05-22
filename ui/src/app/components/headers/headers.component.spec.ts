@@ -2,7 +2,6 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {IonicModule} from '@ionic/angular';
 import {HeadersComponent} from './headers.component';
 import {Component} from '@angular/core';
-import {SidebarComponent} from '../sidebar/sidebar.component';
 import {RouterTestingModule} from '@angular/router/testing';
 
 describe('HeadersComponent', () => {
@@ -10,7 +9,7 @@ describe('HeadersComponent', () => {
     let fixture: ComponentFixture<ParentComponent>;
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [HeadersComponent, ParentComponent, SidebarComponent],
+            declarations: [HeadersComponent, ParentComponent],
             imports: [IonicModule.forRoot(), RouterTestingModule]
         }).compileComponents();
 
