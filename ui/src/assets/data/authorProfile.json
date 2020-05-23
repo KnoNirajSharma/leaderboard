@@ -1,75 +1,76 @@
 [
   {
-    "name": "andrew",
+    "knolderName": "andrew",
     "score": 1100,
     "rank": 2,
-    "monthlyStreak": "70-80-100",
+    "quarterlyStreak": "70-80-100",
     "monthlyScore": 90,
     "monthlyRank": 1
 
   },
   {
-    "name": "sam",
+    "knolderName": "sam",
     "score": 1000,
     "rank": 3,
-    "monthlyStreak": "60-80-100",
+    "quarterlyStreak": "60-80-100",
     "monthlyScore": 80,
     "monthlyRank": 2
   },
   {
-    "name": "bill",
+    "knolderName": "bill",
     "score": 1200,
     "rank": 1,
-    "monthlyStreak": "70-90-100",
+    "quarterlyStreak": "70-90-100",
     "monthlyScore": 85,
     "monthlyRank": 3
   },
   {
-    "name": "andrew",
+    "knolderName": "andrew",
     "score": 1100,
     "rank": 2,
-    "monthlyStreak": "70-80-100",
+    "quarterlyStreak": "70-80-100",
     "monthlyScore": 90,
     "monthlyRank": 1
 
   },
   {
-    "name": "sam",
+    "knolderName": "sam",
     "score": 1000,
     "rank": 3,
-    "monthlyStreak": "60-80-100",
+    "quarterlyStreak": "60-80-100",
     "monthlyScore": 80,
     "monthlyRank": 2
   },
   {
-    "name": "bill",
+    "knolderName": "bill",
     "score": 1200,
     "rank": 1,
-    "monthlyStreak": "70-90-100",
+    "quarterlyStreak": "70-90-100",
     "monthlyScore": 85,
     "monthlyRank": 3
-  }, {
-  "name": "andrew",
+  },
+  {
+  "knolderName": "andrew",
   "score": 1100,
   "rank": 2,
-  "monthlyStreak": "70-80-100",
+  "quarterlyStreak": "70-80-100",
   "monthlyScore": 90,
   "monthlyRank": 1
 
 },
   {
-    "name": "sam",
+    "knolderName": "sam",
     "score": 1000,
     "rank": 3,
-    "monthlyStreak": "60-80-100",
+    "quarterlyStreak": "60-80-100",
     "monthlyScore": 80,
     "monthlyRank": 2
   },
   {
-    "name": "bill",
+    "knolderName": "bill",
     "score": 1200,
     "rank": 1,
-    "monthlyStreak": "70-90-100",
+    "quarterlyStreak": "70-90-100",
     "monthlyScore": 85,
     "monthlyRank": 3
   }

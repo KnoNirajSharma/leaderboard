@@ -2,7 +2,7 @@ export interface AuthorModel {
     knolderName: string;
     score?: number;
     rank?: number;
-    monthlyStreak?: string;
+    quarterlyStreak?: string;
     monthlyScore?: number;
     monthlyRank?: number;
 }

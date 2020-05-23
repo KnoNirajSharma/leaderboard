@@ -20,14 +20,14 @@ describe('MainPage', () => {
             knolderName: 'mark',
             score: 10,
             rank: 2,
-            monthlyStreak: '5-6-7',
+            quarterlyStreak: '5-6-7',
             monthlyScore: 7,
             monthlyRank: 1
         }, {
             knolderName: 'sam',
             score: 15,
             rank: 1,
-            monthlyStreak: '5-6-8',
+            quarterlyStreak: '5-6-8',
             monthlyScore: 5,
             monthlyRank: 2
         }
