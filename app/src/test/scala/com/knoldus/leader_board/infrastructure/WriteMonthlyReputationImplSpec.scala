@@ -22,7 +22,7 @@ class WriteMonthlyReputationImplSpec extends DBSpec with BeforeAndAfterEach {
 
   "write monthly reputation" should {
 
-    "return number of rows affected when insertion in monthly_reputation table" in {
+    "return number of rows affected when insertion in monthly reputation table" in {
       val reputationOfKnolders = List(KnolderReputation(None, Reputation(1, "Mukesh Gupta", 10, 1)),
         KnolderReputation(None, Reputation(2, "Abhishek Baranwal", 5, 2)),
         KnolderReputation(None, Reputation(3, "Komal Rajpal", 5, 2)))
@@ -31,7 +31,7 @@ class WriteMonthlyReputationImplSpec extends DBSpec with BeforeAndAfterEach {
       result.sum shouldBe 3
     }
 
-    "return number of rows affected when insertion in monthly_reputation table when one entry will not get " +
+    "return number of rows affected when insertion in monthly reputation table when one entry will not get " +
       "inserted" in {
       val reputationOfKnolders = List(KnolderReputation(None, Reputation(1, "Mukesh Gupta", 10, 1)),
         KnolderReputation(None, Reputation(2, "Abhishek Baranwal", 5, 2)),
@@ -41,14 +41,14 @@ class WriteMonthlyReputationImplSpec extends DBSpec with BeforeAndAfterEach {
       result.sum shouldBe 2
     }
 
-    "return number of rows affected when updation in monthly_reputation table" in {
-      val insertAllTimeReputationData1: String =
+    "return number of rows affected when updation in monthly reputation table" in {
+      val insertMonthlyReputationData1: String =
         """
           |insert into monthly_reputation(id, knolder_id, full_name, score, rank)
           |values (?,?,?,?,?)
 """.stripMargin
 
-      val preparedStmt1: PreparedStatement = connection.prepareStatement(insertAllTimeReputationData1)
+      val preparedStmt1: PreparedStatement = connection.prepareStatement(insertMonthlyReputationData1)
       preparedStmt1.setInt(1, 1)
       preparedStmt1.setInt(2, 1)
       preparedStmt1.setString(3, "Mukesh Gupta")
@@ -57,13 +57,13 @@ class WriteMonthlyReputationImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt1.execute
       preparedStmt1.close()
 
-      val insertAllTimeReputationData2: String =
+      val insertMonthlyReputationData2: String =
         """
           |insert into monthly_reputation(id, knolder_id, full_name, score, rank)
           |values (?,?,?,?,?)
 """.stripMargin
 
-      val preparedStmt2: PreparedStatement = connection.prepareStatement(insertAllTimeReputationData2)
+      val preparedStmt2: PreparedStatement = connection.prepareStatement(insertMonthlyReputationData2)
       preparedStmt2.setInt(1, 2)
       preparedStmt2.setInt(2, 2)
       preparedStmt2.setString(3, "Abhishek Baranwal")
@@ -72,13 +72,13 @@ class WriteMonthlyReputationImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt2.execute
       preparedStmt2.close()
 
-      val insertAllTimeReputationData3: String =
+      val insertMonthlyReputationData3: String =
         """
           |insert into monthly_reputation(id, knolder_id, full_name, score, rank)
           |values (?,?,?,?,?)
 """.stripMargin
 
-      val preparedStmt3: PreparedStatement = connection.prepareStatement(insertAllTimeReputationData3)
+      val preparedStmt3: PreparedStatement = connection.prepareStatement(insertMonthlyReputationData3)
       preparedStmt3.setInt(1, 3)
       preparedStmt3.setInt(2, 3)
       preparedStmt3.setString(3, "Komal Rajpal")
@@ -95,14 +95,14 @@ class WriteMonthlyReputationImplSpec extends DBSpec with BeforeAndAfterEach {
       result.sum shouldBe 3
     }
 
-    "return number of rows affected when updation in monthly_time table when one entry will not get updated" in {
-      val insertAllTimeReputationData1: String =
+    "return number of rows affected when updation in monthly reputation table when one entry will not get updated" in {
+      val insertMonthlyeputationData1: String =
         """
           |insert into monthly_reputation(id, knolder_id, full_name, score, rank)
           |values (?,?,?,?,?)
 """.stripMargin
 
-      val preparedStmt1: PreparedStatement = connection.prepareStatement(insertAllTimeReputationData1)
+      val preparedStmt1: PreparedStatement = connection.prepareStatement(insertMonthlyeputationData1)
       preparedStmt1.setInt(1, 1)
       preparedStmt1.setInt(2, 1)
       preparedStmt1.setString(3, "Mukesh Gupta")
@@ -111,13 +111,13 @@ class WriteMonthlyReputationImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt1.execute
       preparedStmt1.close()
 
-      val insertAllTimeReputationData2: String =
+      val insertMonthlyReputationData2: String =
         """
           |insert into monthly_reputation(id, knolder_id, full_name, score, rank)
           |values (?,?,?,?,?)
 """.stripMargin
 
-      val preparedStmt2: PreparedStatement = connection.prepareStatement(insertAllTimeReputationData2)
+      val preparedStmt2: PreparedStatement = connection.prepareStatement(insertMonthlyReputationData2)
       preparedStmt2.setInt(1, 2)
       preparedStmt2.setInt(2, 2)
       preparedStmt2.setString(3, "Abhishek Baranwal")
@@ -126,13 +126,13 @@ class WriteMonthlyReputationImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt2.execute
       preparedStmt2.close()
 
-      val insertAllTimeReputationData3: String =
+      val insertMonthlyReputationData3: String =
         """
           |insert into monthly_reputation(id, knolder_id, full_name, score, rank)
           |values (?,?,?,?,?)
 """.stripMargin
 
-      val preparedStmt3: PreparedStatement = connection.prepareStatement(insertAllTimeReputationData3)
+      val preparedStmt3: PreparedStatement = connection.prepareStatement(insertMonthlyReputationData3)
       preparedStmt3.setInt(1, 3)
       preparedStmt3.setInt(2, 3)
       preparedStmt3.setString(3, "Komal Rajpal")

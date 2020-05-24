@@ -75,7 +75,7 @@ class ReadMonthlyReputationImplSpec extends DBSpec with BeforeAndAfterEach {
       result shouldBe monthlyReputationData
     }
 
-    "return knolder id from monthly_reputation table" in {
+    "return knolder id from monthly reputation table" in {
       val insertMonthlyReputationData: String =
         """
           |insert into monthly_reputation(id, knolder_id, full_name, score, rank)

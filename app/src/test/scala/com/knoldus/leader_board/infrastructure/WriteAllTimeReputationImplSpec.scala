@@ -22,7 +22,7 @@ class WriteAllTimeReputationImplSpec extends DBSpec with BeforeAndAfterEach {
 
   "write all time reputation" should {
 
-    "return number of rows affected when insertion in all_time_reputation table" in {
+    "return number of rows affected when insertion in all time reputation table" in {
       val reputationOfKnolders = List(KnolderReputation(None, Reputation(1, "Mukesh Gupta", 10, 1)),
         KnolderReputation(None, Reputation(2, "Abhishek Baranwal", 5, 2)),
         KnolderReputation(None, Reputation(3, "Komal Rajpal", 5, 2)))
@@ -31,7 +31,7 @@ class WriteAllTimeReputationImplSpec extends DBSpec with BeforeAndAfterEach {
       result.sum shouldBe 3
     }
 
-    "return number of rows affected when insertion in all_time_reputation table when one entry will not get " +
+    "return number of rows affected when insertion in all time reputation table when one entry will not get " +
       "inserted" in {
       val reputationOfKnolders = List(KnolderReputation(None, Reputation(1, "Mukesh Gupta", 10, 1)),
         KnolderReputation(None, Reputation(2, "Abhishek Baranwal", 5, 2)),
@@ -41,7 +41,7 @@ class WriteAllTimeReputationImplSpec extends DBSpec with BeforeAndAfterEach {
       result.sum shouldBe 2
     }
 
-    "return number of rows affected when updation in all_time_reputation table" in {
+    "return number of rows affected when updation in all time reputation table" in {
       val insertAllTimeReputationData1: String =
         """
           |insert into all_time_reputation(id, knolder_id, full_name, score, rank)
@@ -95,7 +95,7 @@ class WriteAllTimeReputationImplSpec extends DBSpec with BeforeAndAfterEach {
       result.sum shouldBe 3
     }
 
-    "return number of rows affected when updation in all_time table when one entry will not get updated" in {
+    "return number of rows affected when updation in all time reputation table when one entry will not get updated" in {
       val insertAllTimeReputationData1: String =
         """
           |insert into all_time_reputation(id, knolder_id, full_name, score, rank)

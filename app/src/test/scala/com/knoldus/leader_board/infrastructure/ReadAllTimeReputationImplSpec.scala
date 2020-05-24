@@ -75,7 +75,7 @@ class ReadAllTimeReputationImplSpec extends DBSpec with BeforeAndAfterEach {
       result shouldBe allTimeReputationData
     }
 
-    "return knolder id from all_time_reputation table" in {
+    "return knolder id from all time reputation table" in {
       val insertAllTimeReputationData: String =
         """
           |insert into all_time_reputation(id, knolder_id, full_name, score, rank)
