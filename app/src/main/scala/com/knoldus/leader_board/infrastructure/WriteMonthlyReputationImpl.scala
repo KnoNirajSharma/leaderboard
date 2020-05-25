@@ -15,7 +15,8 @@ class WriteMonthlyReputationImpl(config: Config) extends LazyLogging with WriteM
    * Verifies whether knolder already exist in monthly_reputation table or not, if not then it inserts it into the
    * table with its score and rank.
    *
-   * @param reputationOfKnolders List of reputation of knolders along with their knolder id.
+   * @param reputationOfKnolders List of reputation of knolders along with their knolder id fetched from monthly
+   *                             reputation table..
    * @return List of Integer which displays the status of query execution.
    */
   override def insertMonthlyReputationData(reputationOfKnolders: List[KnolderReputation]): List[Int] = {
@@ -33,7 +34,8 @@ class WriteMonthlyReputationImpl(config: Config) extends LazyLogging with WriteM
    * Verifies whether knolder already exist in monthly_reputation table or not, if it does then it updates its score
    * and rank.
    *
-   * @param reputationOfKnolders List of reputation of knolders along with their knolder id.
+   * @param reputationOfKnolders List of reputation of knolders along with their knolder id fetched from monthly
+   *                             reputation table.
    * @return List of Integer which displays the status of query execution.
    */
   override def updateMonthlyReputationData(reputationOfKnolders: List[KnolderReputation]): List[Int] = {

@@ -5,17 +5,22 @@ import com.knoldus.leader_board.infrastructure._
 import org.mockito.MockitoSugar
 import org.scalatest.flatspec.AnyFlatSpec
 
-class MonthlyReputationPerKnolderImplSpec extends AnyFlatSpec with MockitoSugar {
+class MonthlyReputationImplSpec extends AnyFlatSpec with MockitoSugar {
   val mockReadMonthlyReputation: ReadMonthlyReputation = mock[ReadMonthlyReputationImpl]
   val mockKnolderRank: KnolderRank = mock[KnolderRankImpl]
-  val mockMonthlyScore: MonthlyScore = mock[MonthlyScoreImpl]
-  val monthlyReputationPerKnolder: MonthlyReputationPerKnolder =
-    new MonthlyReputationPerKnolderImpl(mockKnolderRank, mockReadMonthlyReputation, mockMonthlyScore)
+  val mockReadBlog: ReadBlog = mock[ReadBlogImpl]
+  val mockKnolderScore: KnolderScore = mock[KnolderScoreImpl]
+  val monthlyReputation: MonthlyReputation =
+    new MonthlyReputationImpl(mockReadBlog, mockKnolderRank, mockKnolderScore, mockReadMonthlyReputation)
 
   "get monthly reputation" should "return monthly knolder reputation of each knolder along with their knolder id" in {
     val scorePerKnolder = List(GetScore(1, "Mukesh Gupta", 15))
+    val blogCounts = List(GetCount(1, "Mukesh Gupta", 3))
 
-    when(mockMonthlyScore.calculateMonthlyScore)
+    when(mockReadBlog.fetchKnoldersWithMonthlyBlogs)
+      .thenReturn(List(GetCount(1, "Mukesh Gupta", 3)))
+
+    when(mockKnolderScore.calculateScore(blogCounts))
       .thenReturn(scorePerKnolder)
 
     when(mockKnolderRank.calculateRank(scorePerKnolder))
@@ -24,8 +29,8 @@ class MonthlyReputationPerKnolderImplSpec extends AnyFlatSpec with MockitoSugar 
     when(mockReadMonthlyReputation.fetchKnolderIdFromMonthlyReputation(1))
       .thenReturn(Option(1))
 
-    val knolderReputation = List(KnolderReputation(Some(1), Reputation(1, "Mukesh Gupta", 15, 1)))
+    val reputationOfKnolders = List(KnolderReputation(Some(1), Reputation(1, "Mukesh Gupta", 15, 1)))
 
-    assert(monthlyReputationPerKnolder.getKnolderMonthlyReputation == knolderReputation)
+    assert(monthlyReputation.getKnolderMonthlyReputation == reputationOfKnolders)
   }
 }
