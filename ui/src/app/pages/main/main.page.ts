@@ -13,14 +13,14 @@ export class MainPage implements OnInit {
     cardData: CardDataModel[];
     employeeData: AuthorModel[];
     dataKeys: string[];
-    tableHeaders: TableHeaderModel[] = [
-        {title: 'Author Name'},
-        {title: 'Score'},
-        {title: 'Rank'},
-        {title: 'Monthly Score'},
-        {title: 'Monthly Rank'},
-        {title: '3 Monthly Streak'}
+    tableHeaders: TableHeaderModel[];
+    currentlySelectedTab = 'overall';
+    tabs = [
+        {tabName: 'All time', id: 'overall'},
+        {tabName: 'Monthly', id: 'monthly'},
+        {tabName: '3 month streak', id: 'streak'}
     ];
+    pageTitle = 'LEADERBOARD';
 
     constructor(private service: EmployeeActivityService) {
     }
@@ -28,20 +28,73 @@ export class MainPage implements OnInit {
     ngOnInit() {
         this.service.getData()
             .subscribe((data: AuthorModel[]) => {
-                if ( window.innerWidth > 750 ) {
-                    this.employeeData = data.map((value: AuthorModel) => {
-                        value.monthlyScore = 'N/A';
-                        value.monthlyRank = 'N/A';
-                        value.monthlyStreak = 'N/A';
-                        return value;
-                    });
-                } else {
-                    this.employeeData = data;
-                    this.tableHeaders = this.tableHeaders.slice(0, 3);
-                }
+                this.employeeData = data;
                 this.dataKeys = Object.keys(this.employeeData[0]);
                 this.prepareCardData();
             });
+        this.tableHeaders = [
+            {title: 'Name'},
+            {title: 'Score'},
+            {title: 'Rank'},
+        ];
+    }
+
+    selectTab(value) {
+        if (this.currentlySelectedTab !== value) {
+            this.currentlySelectedTab = value;
+            const tabs = document.querySelectorAll<HTMLElement>('.tab');
+            for (let index = 0; index < tabs.length; index++) {
+                tabs.item(index).classList.remove('selected');
+            }
+            document.querySelector<HTMLElement>('#' + value).classList.add('selected');
+            this.populateTable();
+        } else {
+            this.currentlySelectedTab = value;
+        }
+    }
+
+    populateTable() {
+        switch (this.currentlySelectedTab) {
+            case 'overall': {
+                this.tableHeaders = [
+                    {title: 'Name'},
+                    {title: 'Score'},
+                    {title: 'Rank'},
+                ];
+                this.service.getData()
+                    .subscribe((data: AuthorModel[]) => {
+                        this.employeeData = data;
+                        this.dataKeys = Object.keys(this.employeeData[0]);
+                    });
+                break;
+            }
+            case 'monthly': {
+                this.tableHeaders = [
+                    {title: 'Name'},
+                    {title: 'Monthly Score'},
+                    {title: 'Monthly Rank'},
+                ];
+                this.service.getMonthlyData()
+                    .subscribe((data: AuthorModel[]) => {
+                        this.employeeData = data;
+                        this.dataKeys = Object.keys(this.employeeData[0]);
+                    });
+                break;
+            }
+            case 'streak': {
+                this.tableHeaders = [
+                    {title: 'Name'},
+                    {title: '3 Month Streak'},
+                    {title: 'Rank'},
+                ];
+                this.service.getStreakData()
+                    .subscribe((data: AuthorModel[]) => {
+                        this.employeeData = data;
+                        this.dataKeys = Object.keys(this.employeeData[0]);
+                    });
+                break;
+            }
+        }
     }
 
     prepareCardData() {

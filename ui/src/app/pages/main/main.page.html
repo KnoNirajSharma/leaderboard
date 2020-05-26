@@ -1,18 +1,27 @@
-<ion-grid class="main-container">
-    <ion-row>
-        <ion-col class="sidebar-col" size-lg="2" size-md="0" size-sm="0" size-xl="2" size-xs="0">
-            <app-sidebar class="sidebar"></app-sidebar>
-        </ion-col>
-        <ion-content>
-            <ion-col class="main-content" size-lg="10" size-md="12" size-sm="12" size-xl="10" size-xs="12">
-                <app-headers title="LEADERBOARD"></app-headers>
+<app-headers [title]="pageTitle"></app-headers>
+<div class="main-container">
+    <ion-content>
+        <div class="main-content">
+            <ion-grid>
                 <ion-row class="cards-row">
                     <ion-col *ngFor="let data of cardData" size-lg="3" size-md="6" size-xs="6">
                         <app-card [cardData]="data" class="card"></app-card>
                     </ion-col>
                 </ion-row>
-                <app-table [dataKeys]="dataKeys" [tableHeaders]="tableHeaders" [tableRows]="employeeData"></app-table>
-            </ion-col>
-        </ion-content>
-    </ion-row>
-</ion-grid>
+            </ion-grid>
+            <div class="table-content">
+                <div class="tab-bar">
+                    <div (click)="selectTab(tab.id)"
+                         *ngFor="let tab of tabs" [id]="tab.id"
+                         [ngClass]="tab.id === currentlySelectedTab && 'selected'" class="tab">
+                        {{tab.tabName}}
+                    </div>
+                </div>
+                <div>
+                    <app-table [dataKeys]="dataKeys" [tableHeaders]="tableHeaders" [tableRows]="employeeData"
+                               class="table"></app-table>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</div>

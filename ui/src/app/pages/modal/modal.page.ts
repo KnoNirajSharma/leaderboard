@@ -19,10 +19,10 @@ export class ModalPage implements OnInit {
   }
   ngOnInit() {
     this.modalContent = `<ion-row>
-      <ion-col>` + this.authorData.authorName + `</ion-col>
+      <ion-col>` + this.authorData.knolderName + `</ion-col>
       <ion-col>` + this.authorData.score + `</ion-col>
       <ion-col>` + this.authorData.rank + `</ion-col>
-      <ion-col>` + this.authorData.monthlyStreak + `</ion-col>
+      <ion-col>` + this.authorData.streakScore + `</ion-col>
       <ion-col>` + this.authorData.monthlyScore + `</ion-col>
       <ion-col>` + this.authorData.monthlyRank + `</ion-col>
       </ion-row>`;

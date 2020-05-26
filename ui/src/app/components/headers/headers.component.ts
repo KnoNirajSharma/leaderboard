@@ -8,13 +8,10 @@ import {Component, Input, OnInit} from '@angular/core';
 export class HeadersComponent implements OnInit {
     @Input() title: string;
     visibility = false;
+
     constructor() {
     }
 
     ngOnInit() {
-    }
-
-    toggleSidebar() {
-        this.visibility = !this.visibility;
     }
 }

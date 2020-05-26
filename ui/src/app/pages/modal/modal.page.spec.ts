@@ -1,5 +1,5 @@
 import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
-import {IonicModule, ModalController, NavParams} from '@ionic/angular';
+import {IonicModule, ModalController} from '@ionic/angular';
 import {ModalPage} from './modal.page';
 import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';

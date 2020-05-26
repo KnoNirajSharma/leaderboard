@@ -1,4 +1,4 @@
-import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {IonicModule} from '@ionic/angular';
 import {HeadersComponent} from './headers.component';
 import {Component} from '@angular/core';
@@ -27,20 +27,6 @@ describe('HeadersComponent', () => {
         expect(component.title).toEqual('test');
     });
 
-    it('should call toggleSidebar function', fakeAsync(() => {
-        spyOn(component, 'toggleSidebar');
-        const button = fixture.debugElement.nativeElement.querySelector('ion-button');
-        button.click();
-        tick();
-        expect(component.toggleSidebar).toHaveBeenCalled();
-    }));
-
-    it('should call toggleSidebar function', fakeAsync(() => {
-        tick();
-        const visibility = !component.visibility;
-        component.toggleSidebar();
-        expect(component.visibility).toEqual(visibility);
-    }));
 });
 
 @Component({

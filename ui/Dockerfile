@@ -1,9 +1,10 @@
-FROM node:13-alpine
+FROM node:13-alpine as build
 WORKDIR /app
-ENV PATH /app/node_modules/.bin:$PATH
-COPY package.json /app/package.json
-RUN npm install -g @ionic/cli
+COPY package*.json /app/
+RUN npm install -g ionic
 RUN npm install
-COPY . /app
-EXPOSE 8100
-CMD ionic serve --address=0.0.0.0
+COPY ./ /app/
+RUN npm run-script build:prod
+FROM nginx:alpine
+RUN rm -rf /usr/share/nginx/html/*
+COPY --from=build /app/www/ /usr/share/nginx/html/
