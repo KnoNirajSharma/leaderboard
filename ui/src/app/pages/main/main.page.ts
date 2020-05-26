@@ -13,6 +13,9 @@ export class MainPage implements OnInit {
     cardData: CardDataModel[];
     employeeData: AuthorModel[];
     dataKeys: string[];
+    modalContent;
+    modalHeading;
+
     tableHeaders: TableHeaderModel[];
     currentlySelectedTab = 'overall';
     tabs = [
@@ -31,12 +34,32 @@ export class MainPage implements OnInit {
                 this.employeeData = data;
                 this.dataKeys = Object.keys(this.employeeData[0]);
                 this.prepareCardData();
+                this.employeeData.map((value: AuthorModel) => {
+                    this.modalContent = `<ion-row>
+                     <ion-col>` + value.knolderName + `</ion-col>
+                     <ion-col>` + value.score + `</ion-col>
+                     <ion-col>` + value.rank + `</ion-col>
+                     <ion-col>` + value.streakScore + `</ion-col>
+                     <ion-col>` + value.monthlyScore + `</ion-col>
+                     <ion-col>` + value.monthlyRank + `</ion-col>
+                     </ion-row>`;
+                    });
             });
         this.tableHeaders = [
             {title: 'Name'},
             {title: 'Score'},
             {title: 'Rank'},
+            {title: '3 Month Streak'},
+            {title: 'Monthly Score'},
+            {title: 'Monthly Rank'}
         ];
+        this.modalHeading = `<ion-row>
+                     <ion-col>` + this.tableHeaders[0].title + `</ion-col>
+                     <ion-col>` + this.tableHeaders[1].title + `</ion-col>
+                     <ion-col>` + this.tableHeaders[2].title + `</ion-col>
+                     <ion-col>` + this.tableHeaders[3].title + `</ion-col>
+                     <ion-col>` + this.tableHeaders[4].title + `</ion-col>
+                     </ion-row>`;
     }
 
     selectTab(value) {
