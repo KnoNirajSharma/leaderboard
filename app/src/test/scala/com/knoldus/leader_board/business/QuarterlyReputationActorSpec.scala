@@ -48,5 +48,21 @@ class QuarterlyReputationActorSpec extends TestKit(ActorSystem("QuarterlyActorSp
       probe.send(quarterlyReputationActor, "write quarterly reputation")
       probe.expectMsg("quarterly reputation saved")
     }
+    "insert and update quarterly reputation with incorrect message" in {
+      val probe = TestProbe()
+      val reputationOfKnolders = List(KnolderStreak(None, GetStreak(1, "Mukesh Gupta", "15-20-20")),
+        KnolderStreak(None, GetStreak(2, "anjali", "10-10-15")))
+      when(mockQuarterlyReputation.getKnolderQuarterlyReputation)
+        .thenReturn(reputationOfKnolders)
+      when(mockWriteQuarterlyReputation.insertQuarterlyReputationData(reputationOfKnolders))
+        .thenReturn(List(2))
+      when(mockWriteQuarterlyReputation.updateQuarterlyReputationData(reputationOfKnolders))
+        .thenReturn(List(2))
+      val quarterlyReputationActor = system.actorOf(Props(new QuarterlyReputationActor(mockQuarterlyReputation,
+        mockWriteQuarterlyReputation)))
+      probe watch quarterlyReputationActor
+      probe.send(quarterlyReputationActor, "read quarterly reputation")
+      probe.expectMsg("invalid message")
+    }
   }
 }

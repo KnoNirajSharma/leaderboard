@@ -1,8 +1,9 @@
 package com.knoldus.leader_board
 
-import java.sql.Timestamp
 import java.time.{ZoneId, ZonedDateTime}
+import java.util.TimeZone
 
 object Constant {
-val CURRENT_TIME=ZonedDateTime.now(ZoneId.of("Asia/Calcutta"))
+  val INDIAN_TIMEZONE = TimeZone.getTimeZone("Asia/Calcutta")
+  val CURRENT_TIME = ZonedDateTime.now(ZoneId.of("Asia/Calcutta"))
 }
