@@ -1,14 +1,17 @@
 package com.knoldus.leader_board
-import java.time.{LocalTime, ZoneId, ZonedDateTime}
-import java.util.TimeZone
+
+import java.time.LocalTime
+
 import akka.actor.{ActorSystem, Props}
 import com.knoldus.leader_board.application.{ReputationOnAPI, ReputationOnAPIImpl}
 import com.knoldus.leader_board.business._
 import com.knoldus.leader_board.infrastructure._
 import com.typesafe.akka.extension.quartz.QuartzSchedulerExtension
 import com.typesafe.config.{Config, ConfigFactory}
+
 import scala.concurrent.ExecutionContextExecutor
 import scala.concurrent.duration._
+
 object DriverApp extends App {
   implicit val system: ActorSystem = ActorSystem()
   val scheduler = QuartzSchedulerExtension
@@ -43,8 +46,8 @@ object DriverApp extends App {
   reputationOnAPI.displayReputationOnAPI
   val indiaCurrentTime = Constant.CURRENT_TIME
   val totalSecondsOfDayTillCurrentTime = indiaCurrentTime.toLocalTime.toSecondOfDay
-  val startTimeToCalculateAllTimeReputation = LocalTime.of(20, 37, 0, 0).toSecondOfDay
-  val startTimeToCalculateMonthlyReputation = LocalTime.of(20, 37, 0, 0).toSecondOfDay
+  val startTimeToCalculateAllTimeReputation = LocalTime.of(1, 0, 0, 0).toSecondOfDay
+  val startTimeToCalculateMonthlyReputation = LocalTime.of(1, 0, 0, 0).toSecondOfDay
   val secondsInDay = 24 * 60 * 60
   val timeForAllTimeReputation =
     if (startTimeToCalculateAllTimeReputation - totalSecondsOfDayTillCurrentTime < 0) {
@@ -81,7 +84,7 @@ object DriverApp extends App {
   val quarterlyReputationActorRef = system.actorOf(Props(new QuarterlyReputationActor(quarterlyReputation,
     writeQuarterlyReputation)), "quarterlyReputationActor")
   QuartzSchedulerExtension.get(system).createSchedule("quarterlyReputationScheduler", None,
-    "0 37 20 26 1/1 ? *", None, Constant.INDIAN_TIMEZONE)
+    "0 0 1 1 1/1 ? *", None, Constant.INDIAN_TIMEZONE)
   QuartzSchedulerExtension.get(system).schedule("quarterlyReputationScheduler", quarterlyReputationActorRef,
     "write quarterly reputation")
 }
