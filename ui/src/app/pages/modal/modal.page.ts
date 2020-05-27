@@ -10,9 +10,6 @@ import {AuthorModel} from '../../models/author.model';
 })
 export class ModalPage implements OnInit {
 
-  @Input() modalContent;
-  @Input() modalHeading;
-
   constructor(private modalController: ModalController) {
   }
   ngOnInit() {

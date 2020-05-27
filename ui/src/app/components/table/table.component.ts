@@ -14,8 +14,6 @@ export class TableComponent implements OnInit {
     @Input() tableHeaders: TableHeaderModel[];
     @Input() tableRows: AuthorModel[];
     @Input() dataKeys: string[];
-    @Input() modalHeading;
-    @Input() modalContent;
 
     constructor(private modalController: ModalController) {
     }
@@ -26,10 +24,6 @@ export class TableComponent implements OnInit {
     async presentModal() {
         const modal = await this.modalController.create({
             component: ModalPage,
-            componentProps: {
-                modalContent: this.modalContent,
-                modalHeading: this.modalHeading
-            }
         });
         return await modal.present();
     }
