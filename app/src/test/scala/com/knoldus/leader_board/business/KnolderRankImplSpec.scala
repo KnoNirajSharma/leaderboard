@@ -1,6 +1,6 @@
 package com.knoldus.leader_board.business
 
-import com.knoldus.leader_board.{GetScore, Reputation}
+import com.knoldus.leader_board.{GetReputation, GetScore}
 import org.scalatest.flatspec.AnyFlatSpec
 
 class KnolderRankImplSpec extends AnyFlatSpec {
@@ -11,9 +11,9 @@ class KnolderRankImplSpec extends AnyFlatSpec {
       GetScore(2, "Abhishek Baranwal", 5),
       GetScore(3, "Komal Rajpal", 5))
 
-    val reputationPerKnolder = List(Reputation(1, "Mukesh Gupta", 10, 1),
-      Reputation(2, "Abhishek Baranwal", 5, 2),
-      Reputation(3, "Komal Rajpal", 5, 2))
+    val reputationPerKnolder = List(GetReputation(1, "Mukesh Gupta", 10, 1),
+      GetReputation(2, "Abhishek Baranwal", 5, 2),
+      GetReputation(3, "Komal Rajpal", 5, 2))
 
     assert(knolderRank.calculateRank(scorePerKnolder) == reputationPerKnolder)
   }
@@ -23,9 +23,9 @@ class KnolderRankImplSpec extends AnyFlatSpec {
       GetScore(2, "Abhishek Baranwal", 5),
       GetScore(3, "Komal Rajpal", 0))
 
-    val reputationPerKnolder = List(Reputation(1, "Mukesh Gupta", 10, 1),
-      Reputation(2, "Abhishek Baranwal", 5, 2),
-      Reputation(3, "Komal Rajpal", 0, 3))
+    val reputationPerKnolder = List(GetReputation(1, "Mukesh Gupta", 10, 1),
+      GetReputation(2, "Abhishek Baranwal", 5, 2),
+      GetReputation(3, "Komal Rajpal", 0, 3))
 
     assert(knolderRank.calculateRank(scorePerKnolder) == reputationPerKnolder)
   }
@@ -33,7 +33,7 @@ class KnolderRankImplSpec extends AnyFlatSpec {
   "calculate rank" should "give reputation of each knolder if list of scores has no element" in {
     val scorePerKnolder = List.empty
 
-    val reputationPerKnolder = List(Reputation(0, "", 0, 1))
+    val reputationPerKnolder = List(GetReputation(0, "", 0, 1))
 
     assert(knolderRank.calculateRank(scorePerKnolder) == reputationPerKnolder)
   }
@@ -41,7 +41,7 @@ class KnolderRankImplSpec extends AnyFlatSpec {
   "calculate rank" should "give reputation of each knolder if list of scores has one element" in {
     val scorePerKnolder = List(GetScore(1, "Mukesh Gupta", 10))
 
-    val reputationPerKnolder = List(Reputation(1, "Mukesh Gupta", 10, 1))
+    val reputationPerKnolder = List(GetReputation(1, "Mukesh Gupta", 10, 1))
 
     assert(knolderRank.calculateRank(scorePerKnolder) == reputationPerKnolder)
   }
@@ -51,8 +51,8 @@ class KnolderRankImplSpec extends AnyFlatSpec {
     val scorePerKnolder = List(GetScore(1, "Mukesh Gupta", 10),
       GetScore(2, "Abhishek Baranwal", 5))
 
-    val reputationPerKnolder = List(Reputation(1, "Mukesh Gupta", 10, 1),
-      Reputation(2, "Abhishek Baranwal", 5, 2))
+    val reputationPerKnolder = List(GetReputation(1, "Mukesh Gupta", 10, 1),
+      GetReputation(2, "Abhishek Baranwal", 5, 2))
 
     assert(knolderRank.calculateRank(scorePerKnolder) == reputationPerKnolder)
   }
@@ -62,8 +62,8 @@ class KnolderRankImplSpec extends AnyFlatSpec {
     val scorePerKnolder = List(GetScore(1, "Mukesh Gupta", 10),
       GetScore(2, "Abhishek Baranwal", 10))
 
-    val reputationPerKnolder = List(Reputation(1, "Mukesh Gupta", 10, 1),
-      Reputation(2, "Abhishek Baranwal", 10, 1))
+    val reputationPerKnolder = List(GetReputation(1, "Mukesh Gupta", 10, 1),
+      GetReputation(2, "Abhishek Baranwal", 10, 1))
 
     assert(knolderRank.calculateRank(scorePerKnolder) == reputationPerKnolder)
   }
@@ -74,9 +74,9 @@ class KnolderRankImplSpec extends AnyFlatSpec {
       GetScore(2, "Abhishek Baranwal", 5),
       GetScore(3, "Komal Rajpal", 5))
 
-    val reputationPerKnolder = List(Reputation(1, "Mukesh Gupta", 10, 1),
-      Reputation(2, "Abhishek Baranwal", 5, 2),
-      Reputation(3, "Komal Rajpal", 5, 2))
+    val reputationPerKnolder = List(GetReputation(1, "Mukesh Gupta", 10, 1),
+      GetReputation(2, "Abhishek Baranwal", 5, 2),
+      GetReputation(3, "Komal Rajpal", 5, 2))
 
     assert(knolderRank.calculateRank(scorePerKnolder) == reputationPerKnolder)
   }
@@ -87,9 +87,9 @@ class KnolderRankImplSpec extends AnyFlatSpec {
       GetScore(2, "Abhishek Baranwal", 10),
       GetScore(3, "Komal Rajpal", 5))
 
-    val reputationPerKnolder = List(Reputation(1, "Mukesh Gupta", 10, 1),
-      Reputation(2, "Abhishek Baranwal", 10, 1),
-      Reputation(3, "Komal Rajpal", 5, 2))
+    val reputationPerKnolder = List(GetReputation(1, "Mukesh Gupta", 10, 1),
+      GetReputation(2, "Abhishek Baranwal", 10, 1),
+      GetReputation(3, "Komal Rajpal", 5, 2))
 
     assert(knolderRank.calculateRank(scorePerKnolder) == reputationPerKnolder)
   }
