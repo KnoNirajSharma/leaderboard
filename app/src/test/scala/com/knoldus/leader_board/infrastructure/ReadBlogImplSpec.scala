@@ -3,7 +3,7 @@ package com.knoldus.leader_board.infrastructure
 import java.sql.{Connection, PreparedStatement, Timestamp}
 import java.time.Instant
 
-import com.knoldus.leader_board.{DatabaseConnection, GetCount}
+import com.knoldus.leader_board.{Constant, DatabaseConnection, GetCount}
 import com.typesafe.config.ConfigFactory
 import org.scalatest.{BeforeAndAfterEach, DoNotDiscover}
 
@@ -21,6 +21,14 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
   }
 
   "read blog" should {
+    val currentMonth = Timestamp.valueOf(Constant.CURRENT_TIME
+      .withDayOfMonth(1).toLocalDate.atStartOfDay())
+    val firstMonth = Timestamp.valueOf(Constant.CURRENT_TIME
+      .withDayOfMonth(1).toLocalDate.minusMonths(3).atStartOfDay())
+    val secondMonth = Timestamp.valueOf(Constant.CURRENT_TIME
+      .withDayOfMonth(1).toLocalDate.minusMonths(2).atStartOfDay())
+    val thirdMonth = Timestamp.valueOf(Constant.CURRENT_TIME
+      .withDayOfMonth(1).toLocalDate.minusMonths(1).atStartOfDay())
 
     "return knolders who have written blogs" in {
       val insertKnolder1: String =
@@ -181,7 +189,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       val preparedStmt4: PreparedStatement = connection.prepareStatement(insertBlog1)
       preparedStmt4.setInt(1, 1001)
       preparedStmt4.setString(2, "mukesh01")
-      preparedStmt4.setTimestamp(3, Timestamp.from(Instant.parse("2020-04-13T14:56:40Z")))
+      preparedStmt4.setTimestamp(3, currentMonth)
       preparedStmt4.setString(4, "windows handling using selenium webdriver")
       preparedStmt4.execute
       preparedStmt4.close()
@@ -195,7 +203,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       val preparedStmt5: PreparedStatement = connection.prepareStatement(insertBlog2)
       preparedStmt5.setInt(1, 1002)
       preparedStmt5.setString(2, "abhishek02")
-      preparedStmt5.setTimestamp(3, Timestamp.from(Instant.parse("2020-04-13T13:10:40Z")))
+      preparedStmt5.setTimestamp(3, currentMonth)
       preparedStmt5.setString(4, "ChatOps : Make your life easy")
       preparedStmt5.execute
       preparedStmt5.close()
@@ -209,7 +217,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       val preparedStmt6: PreparedStatement = connection.prepareStatement(insertBlog3)
       preparedStmt6.setInt(1, 1003)
       preparedStmt6.setString(2, "komal03")
-      preparedStmt6.setTimestamp(3, Timestamp.from(Instant.parse("2020-05-13T12:57:27Z")))
+      preparedStmt6.setTimestamp(3, currentMonth)
       preparedStmt6.setString(4, "Automating Windows Controls in Selenium")
       preparedStmt6.execute
       preparedStmt6.close()
@@ -223,14 +231,14 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       val preparedStmt7: PreparedStatement = connection.prepareStatement(insertBlog4)
       preparedStmt7.setInt(1, 1004)
       preparedStmt7.setString(2, "mukesh01")
-      preparedStmt7.setTimestamp(3, Timestamp.from(Instant.parse("2020-05-13T12:40:20Z")))
+      preparedStmt7.setTimestamp(3, currentMonth)
       preparedStmt7.setString(4, "Java 9: Enhance your Jav…ptional API enhancement")
       preparedStmt7.execute
       preparedStmt7.close()
 
       val knoldersWithMonthlyBlogs = List(GetCount(3, "Komal Rajpal", 1),
-        GetCount(1, "Mukesh Kumar", 1),
-        GetCount(2, "Abhishek Baranwal", 0))
+        GetCount(1, "Mukesh Kumar", 2),
+        GetCount(2, "Abhishek Baranwal", 1))
 
       val result = readBlog.fetchKnoldersWithMonthlyBlogs
       result shouldBe knoldersWithMonthlyBlogs
@@ -288,7 +296,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       val preparedStmt4: PreparedStatement = connection.prepareStatement(insertBlog1)
       preparedStmt4.setInt(1, 1001)
       preparedStmt4.setString(2, "mukesh01")
-      preparedStmt4.setTimestamp(3, Timestamp.from(Instant.parse("2020-02-13T14:56:40Z")))
+      preparedStmt4.setTimestamp(3, firstMonth)
       preparedStmt4.setString(4, "windows handling using selenium webdriver")
       preparedStmt4.execute
       preparedStmt4.close()
@@ -302,7 +310,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       val preparedStmt5: PreparedStatement = connection.prepareStatement(insertBlog2)
       preparedStmt5.setInt(1, 1002)
       preparedStmt5.setString(2, "abhishek02")
-      preparedStmt5.setTimestamp(3, Timestamp.from(Instant.parse("2020-03-13T13:10:40Z")))
+      preparedStmt5.setTimestamp(3, firstMonth)
       preparedStmt5.setString(4, "ChatOps : Make your life easy")
       preparedStmt5.execute
       preparedStmt5.close()
@@ -316,7 +324,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       val preparedStmt6: PreparedStatement = connection.prepareStatement(insertBlog3)
       preparedStmt6.setInt(1, 1003)
       preparedStmt6.setString(2, "komal03")
-      preparedStmt6.setTimestamp(3, Timestamp.from(Instant.parse("2020-04-13T12:57:27Z")))
+      preparedStmt6.setTimestamp(3, firstMonth)
       preparedStmt6.setString(4, "Automating Windows Controls in Selenium")
       preparedStmt6.execute
       preparedStmt6.close()
@@ -330,14 +338,14 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       val preparedStmt7: PreparedStatement = connection.prepareStatement(insertBlog4)
       preparedStmt7.setInt(1, 1004)
       preparedStmt7.setString(2, "mukesh01")
-      preparedStmt7.setTimestamp(3, Timestamp.from(Instant.parse("2020-05-13T12:40:20Z")))
+      preparedStmt7.setTimestamp(3, firstMonth)
       preparedStmt7.setString(4, "Java 9: Enhance your Jav…ptional API enhancement")
       preparedStmt7.execute
       preparedStmt7.close()
 
-      val knoldersWithQuarterlyBlogs = List(GetCount(3, "Komal Rajpal", 0),
-        GetCount(1, "Mukesh Kumar", 1),
-        GetCount(2, "Abhishek Baranwal", 0))
+      val knoldersWithQuarterlyBlogs = List(GetCount(3, "Komal Rajpal", 1),
+        GetCount(1, "Mukesh Kumar", 2),
+        GetCount(2, "Abhishek Baranwal", 1))
 
       val result = readBlog.fetchKnoldersWithQuarterFirstMonthBlogs
       result shouldBe knoldersWithQuarterlyBlogs
@@ -395,7 +403,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       val preparedStmt4: PreparedStatement = connection.prepareStatement(insertBlog1)
       preparedStmt4.setInt(1, 1001)
       preparedStmt4.setString(2, "mukesh01")
-      preparedStmt4.setTimestamp(3, Timestamp.from(Instant.parse("2020-02-13T14:56:40Z")))
+      preparedStmt4.setTimestamp(3, secondMonth)
       preparedStmt4.setString(4, "windows handling using selenium webdriver")
       preparedStmt4.execute
       preparedStmt4.close()
@@ -409,7 +417,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       val preparedStmt5: PreparedStatement = connection.prepareStatement(insertBlog2)
       preparedStmt5.setInt(1, 1002)
       preparedStmt5.setString(2, "abhishek02")
-      preparedStmt5.setTimestamp(3, Timestamp.from(Instant.parse("2020-03-13T13:10:40Z")))
+      preparedStmt5.setTimestamp(3, secondMonth)
       preparedStmt5.setString(4, "ChatOps : Make your life easy")
       preparedStmt5.execute
       preparedStmt5.close()
@@ -423,7 +431,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       val preparedStmt6: PreparedStatement = connection.prepareStatement(insertBlog3)
       preparedStmt6.setInt(1, 1003)
       preparedStmt6.setString(2, "komal03")
-      preparedStmt6.setTimestamp(3, Timestamp.from(Instant.parse("2020-04-13T12:57:27Z")))
+      preparedStmt6.setTimestamp(3, secondMonth)
       preparedStmt6.setString(4, "Automating Windows Controls in Selenium")
       preparedStmt6.execute
       preparedStmt6.close()
@@ -437,13 +445,13 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       val preparedStmt7: PreparedStatement = connection.prepareStatement(insertBlog4)
       preparedStmt7.setInt(1, 1004)
       preparedStmt7.setString(2, "mukesh01")
-      preparedStmt7.setTimestamp(3, Timestamp.from(Instant.parse("2020-05-13T12:40:20Z")))
+      preparedStmt7.setTimestamp(3, secondMonth)
       preparedStmt7.setString(4, "Java 9: Enhance your Jav…ptional API enhancement")
       preparedStmt7.execute
       preparedStmt7.close()
 
-      val knoldersWithQuarterlyBlogs = List(GetCount(3, "Komal Rajpal", 0),
-        GetCount(1, "Mukesh Kumar", 0),
+      val knoldersWithQuarterlyBlogs = List(GetCount(3, "Komal Rajpal", 1),
+        GetCount(1, "Mukesh Kumar", 2),
         GetCount(2, "Abhishek Baranwal", 1))
 
       val result = readBlog.fetchKnoldersWithQuarterSecondMonthBlogs
@@ -502,7 +510,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       val preparedStmt4: PreparedStatement = connection.prepareStatement(insertBlog1)
       preparedStmt4.setInt(1, 1001)
       preparedStmt4.setString(2, "mukesh01")
-      preparedStmt4.setTimestamp(3, Timestamp.from(Instant.parse("2020-02-13T14:56:40Z")))
+      preparedStmt4.setTimestamp(3, thirdMonth)
       preparedStmt4.setString(4, "windows handling using selenium webdriver")
       preparedStmt4.execute
       preparedStmt4.close()
@@ -516,7 +524,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       val preparedStmt5: PreparedStatement = connection.prepareStatement(insertBlog2)
       preparedStmt5.setInt(1, 1002)
       preparedStmt5.setString(2, "abhishek02")
-      preparedStmt5.setTimestamp(3, Timestamp.from(Instant.parse("2020-03-13T13:10:40Z")))
+      preparedStmt5.setTimestamp(3, thirdMonth)
       preparedStmt5.setString(4, "ChatOps : Make your life easy")
       preparedStmt5.execute
       preparedStmt5.close()
@@ -530,7 +538,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       val preparedStmt6: PreparedStatement = connection.prepareStatement(insertBlog3)
       preparedStmt6.setInt(1, 1003)
       preparedStmt6.setString(2, "komal03")
-      preparedStmt6.setTimestamp(3, Timestamp.from(Instant.parse("2020-04-13T12:57:27Z")))
+      preparedStmt6.setTimestamp(3, thirdMonth)
       preparedStmt6.setString(4, "Automating Windows Controls in Selenium")
       preparedStmt6.execute
       preparedStmt6.close()
@@ -544,14 +552,14 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       val preparedStmt7: PreparedStatement = connection.prepareStatement(insertBlog4)
       preparedStmt7.setInt(1, 1004)
       preparedStmt7.setString(2, "mukesh01")
-      preparedStmt7.setTimestamp(3, Timestamp.from(Instant.parse("2020-05-13T12:40:20Z")))
+      preparedStmt7.setTimestamp(3, thirdMonth)
       preparedStmt7.setString(4, "Java 9: Enhance your Jav…ptional API enhancement")
       preparedStmt7.execute
       preparedStmt7.close()
 
       val knoldersWithQuarterlyBlogs = List(GetCount(3, "Komal Rajpal", 1),
-        GetCount(1, "Mukesh Kumar", 0),
-        GetCount(2, "Abhishek Baranwal", 0))
+        GetCount(1, "Mukesh Kumar", 2),
+        GetCount(2, "Abhishek Baranwal", 1))
 
       val result = readBlog.fetchKnoldersWithQuarterThirdMonthBlogs
       result shouldBe knoldersWithQuarterlyBlogs
