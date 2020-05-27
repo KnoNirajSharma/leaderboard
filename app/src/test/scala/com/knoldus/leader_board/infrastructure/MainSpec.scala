@@ -9,5 +9,6 @@ class MainSpec extends Suites(
   new WriteMonthlyReputationImplSpec,
   new ReadMonthlyReputationImplSpec,
   new WriteQuarterlyReputationImplSpec,
-  new ReadQuarterlyReputationImplSpec
+  new ReadQuarterlyReputationImplSpec,
+  new FetchReputationImplSpec
 )

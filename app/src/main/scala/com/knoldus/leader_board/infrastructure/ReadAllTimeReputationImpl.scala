@@ -2,7 +2,7 @@ package com.knoldus.leader_board.infrastructure
 
 import java.sql.Connection
 
-import com.knoldus.leader_board.{DatabaseConnection, GetReputation}
+import com.knoldus.leader_board.DatabaseConnection
 import com.typesafe.config.Config
 import com.typesafe.scalalogging._
 import scalikejdbc.{DB, DBSession, SQL}
@@ -10,18 +10,6 @@ import scalikejdbc.{DB, DBSession, SQL}
 class ReadAllTimeReputationImpl(config: Config) extends ReadAllTimeReputation with LazyLogging {
   implicit val connection: Connection = DatabaseConnection.connection(config)
   implicit val session: DBSession = DB.readOnlySession()
-
-  /**
-   * Queries all_time_reputation table to get all time reputation data of each knolder.
-   *
-   * @return List of all time reputation data of each knolder.
-   */
-  override def fetchAllTimeReputationData: List[GetReputation] = {
-    logger.info("Fetching all time reputation details of each knolder.")
-    SQL("SELECT full_name, score, rank FROM all_time_reputation ORDER BY score DESC")
-      .map(rs => GetReputation(rs.string("full_name"), rs.int("score"),
-        rs.int("rank"))).list.apply()
-  }
 
   /**
    * Fetches foreign key i.e. knolder id in all_time_reputation table.

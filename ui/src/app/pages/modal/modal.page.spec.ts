@@ -5,7 +5,6 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {HeadersComponent} from '../../components/headers/headers.component';
 import {TableComponent} from '../../components/table/table.component';
-import {SidebarComponent} from '../../components/sidebar/sidebar.component';
 
 describe('ModalPage', () => {
   let component: ModalPage;
@@ -13,7 +12,7 @@ describe('ModalPage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ModalPage, HeadersComponent, TableComponent, SidebarComponent],
+      declarations: [ModalPage, HeadersComponent, TableComponent],
       imports: [HttpClientTestingModule, IonicModule.forRoot(), RouterTestingModule],
       providers: [ModalController]
     }).compileComponents();
