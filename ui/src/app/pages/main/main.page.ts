@@ -13,9 +13,6 @@ export class MainPage implements OnInit {
     cardData: CardDataModel[];
     employeeData: AuthorModel[];
     dataKeys: string[];
-    modalContent;
-    modalHeading;
-
     tableHeaders: TableHeaderModel[];
     currentlySelectedTab = 'overall';
     tabs = [
