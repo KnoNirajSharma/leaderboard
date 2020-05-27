@@ -17,7 +17,7 @@ class FetchReputationImpl(config: Config) extends FetchReputation {
       "INNER JOIN all_time_reputation ON knolder.id = all_time_reputation.knolder_id INNER JOIN monthly_reputation ON " +
       "knolder.id = monthly_reputation.knolder_id INNER JOIN quarterly_reputation ON knolder.id = " +
       "quarterly_reputation.knolder_id  ORDER BY monthly_reputation.score DESC")
-      .map(rs => Reputation(rs.string("full_name"), rs.int("allTImeScore"),
+      .map(rs => Reputation(rs.string("full_name"), rs.int("allTimeScore"),
         rs.int("allTimeRank"), rs.string("quarterlyStreak"), rs.int("monthlyScore"),
         rs.int("monthlyRank"))).list().apply()
   }
