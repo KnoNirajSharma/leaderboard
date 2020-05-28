@@ -15,9 +15,10 @@ final case class KnolderStreak(knolderId: Option[Int], streak: GetStreak)
 final case class Reputation(knolderId: Int, knolderName: String, allTimeScore: Int, allTimeRank: Int,
                             quarterlyStreak: String, monthlyScore: Int, monthlyRank: Int)
 
-final case class ContributionScores(knolderName: String, allTimeScore: Int, monthlyScore: Int, blogScore: Int)
+final case class ContributionScores(knolderName: String, currentMonthAndYear: String, allTimeScore: Int,
+                                    monthlyScore: Int, blogScore: Int)
 
 final case class ContributionTitles(title: String, date: String)
 
-final case class KnolderDetails(knolderName: String, allTimeScore: Int, monthlyScore: Int, blogScore: Int,
-                                blogDetails: List[ContributionTitles])
+final case class KnolderDetails(knolderName: String, currentMonthAndYear: String, allTimeScore: Int, monthlyScore: Int,
+                                blogScore: Int, blogDetails: List[ContributionTitles])
