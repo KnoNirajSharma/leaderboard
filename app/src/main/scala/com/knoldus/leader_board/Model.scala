@@ -1,7 +1,5 @@
 package com.knoldus.leader_board
 
-import java.sql.Timestamp
-
 final case class GetCount(knolderId: Int, knolderName: String, numberOfBlogs: Int)
 
 final case class GetScore(knolderId: Int, knolderName: String, score: Int)
@@ -19,7 +17,7 @@ final case class Reputation(knolderId: Int, knolderName: String, allTimeScore: I
 
 final case class ContributionScores(knolderName: String, allTimeScore: Int, monthlyScore: Int, blogScore: Int)
 
-final case class ContributionTitles(title: String, date: Timestamp)
+final case class ContributionTitles(title: String, date: String)
 
 final case class KnolderDetails(knolderName: String, allTimeScore: Int, monthlyScore: Int, blogScore: Int,
                                 blogDetails: List[ContributionTitles])

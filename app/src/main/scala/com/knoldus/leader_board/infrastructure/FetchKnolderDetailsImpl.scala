@@ -38,7 +38,7 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
     val titles = SQL("SELECT blog.title, blog.published_on FROM knolder LEFT JOIN blog ON knolder.wordpress_id = " +
       "blog.wordpress_id WHERE knolder.id = ? AND published_on >= ? AND published_on < ?")
       .bind(knolderId, currentMonth, nextMonth)
-      .map(rs => ContributionTitles(rs.string("title"), rs.timestamp("published_on")))
+      .map(rs => ContributionTitles(rs.string("title"), rs.string("published_on")))
       .list().apply()
 
     scores.map(scores => KnolderDetails(scores.knolderName, scores.allTimeScore, scores.monthlyScore, scores.blogScore,
