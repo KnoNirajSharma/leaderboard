@@ -11,7 +11,3 @@ libraryDependencies += "org.seleniumhq.selenium" % "selenium-chrome-driver" % se
 libraryDependencies += "org.seleniumhq.selenium" % "selenium-java" % seleniumJavaVersion
 libraryDependencies += "org.testng" % "testng" % testNGVersion
 libraryDependencies += "com.typesafe" % "config" % typesafeVersion
-
-
-
-//libraryDependencies += "com.typesafe.sbt" % "sbt-interface" % typesafeVersion
