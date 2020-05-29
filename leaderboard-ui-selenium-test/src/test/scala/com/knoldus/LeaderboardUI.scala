@@ -13,8 +13,11 @@ class LeaderboardUI extends TestNGSuite {
   System.setProperty(Driver, DriverPath)
   val driver = new ChromeDriver()
   def Card(): Unit = {
+    /**
+     * method for extracting the cards template of Blogs, Knolx, Webinars and TechHub templates
+     */
     val cardName = driver.findElementsByXPath("//*[@class='title']")
-    for (iterator <- 0 until b.size()) {
+    for (iterator <- 0 until cardName.size()) {
     }
     Reporter.log("Blog card is present and its value is " + cardName.get(0).getText)
     Reporter.log("Knolx card is present and its value is " + cardName.get(1).getText)
@@ -23,6 +26,9 @@ class LeaderboardUI extends TestNGSuite {
   }
   @DataProvider
   def knolder(name: String): Unit = {
+    /**
+     * method for providing the Knolder name/detail
+     */
     val NAME = driver.findElementByXPath("//ion-col[contains(text(),'" + name + "')]")
     val nameText = NAME.getText.trim
     val rank = driver.findElementByXPath("//ion-col[contains(text(),'" + name + "')]/following-sibling::ion-col/following-sibling::ion-col")
@@ -35,8 +41,11 @@ class LeaderboardUI extends TestNGSuite {
   }
   @Test(priority = 1)
   def allTimeTable(): Unit = {
+    /**
+     * method for testing the All time table.
+     */
     driver.manage().window().maximize()
-    driver.get(url                                                )
+    driver.get(url)
     Thread.sleep(3000)
     Reporter.log("Site is accessible")
     Card()
@@ -50,6 +59,9 @@ class LeaderboardUI extends TestNGSuite {
   }
   @Test(priority = 2)
   def monthlyTable(): Unit = {
+    /**
+     * method for testing the Monthly table.
+     */
     driver.findElementByCssSelector("#monthly").click()
     Card()
     Thread.sleep(2000)
@@ -64,6 +76,9 @@ class LeaderboardUI extends TestNGSuite {
   }
   @Test(priority = 3)
   def threeMonthStreak(): Unit = {
+    /**
+     * method for testing the Three Month Streak table.
+     */
     Card()
     driver.findElementByCssSelector("#streak").click()
     Reporter.log("Tab switched to 3 month Streak")
