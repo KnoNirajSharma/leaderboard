@@ -13,13 +13,13 @@ class LeaderboardUI extends TestNGSuite {
   System.setProperty(Driver, DriverPath)
   val driver = new ChromeDriver()
   def Card(): Unit = {
-    val b = driver.findElementsByXPath("//*[@class='title']")
+    val cardName = driver.findElementsByXPath("//*[@class='title']")
     for (iterator <- 0 until b.size()) {
     }
-    Reporter.log("Blog card is present and its value is " + b.get(0).getText)
-    Reporter.log("Knolx card is present and its value is " + b.get(1).getText)
-    Reporter.log("Webinars card is present and its value is " + b.get(2).getText)
-    Reporter.log("TechHub Template card is present and its value is " + b.get(3).getText)
+    Reporter.log("Blog card is present and its value is " + cardName.get(0).getText)
+    Reporter.log("Knolx card is present and its value is " + cardName.get(1).getText)
+    Reporter.log("Webinars card is present and its value is " + cardName.get(2).getText)
+    Reporter.log("TechHub Template card is present and its value is " + cardName.get(3).getText)
   }
   @DataProvider
   def knolder(name: String): Unit = {
