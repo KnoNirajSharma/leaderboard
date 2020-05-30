@@ -1,7 +1,7 @@
 package com.knoldus.leader_board.business
 
 import com.knoldus.leader_board.infrastructure.{ReadBlog, ReadQuarterlyReputation}
-import com.knoldus.leader_board.{KnolderStreak, Streak}
+import com.knoldus.leader_board.{GetStreak, KnolderStreak}
 import com.typesafe.scalalogging.LazyLogging
 
 class QuarterlyReputationImpl(readBlog: ReadBlog, knolderScore: KnolderScore,
@@ -25,7 +25,7 @@ class QuarterlyReputationImpl(readBlog: ReadBlog, knolderScore: KnolderScore,
 
     val reputationOfKnolders = (scoresForFirstMonth, scoresForSecondMonth, scoresForThirdMonth).zipped.toList.map {
       knolder =>
-        Streak(knolder._1.knolderId,
+        GetStreak(knolder._1.knolderId,
           knolder._1.knolderName,
           s"${knolder._1.score.toString}-${knolder._2.score.toString}-${knolder._3.score.toString}")
     }
