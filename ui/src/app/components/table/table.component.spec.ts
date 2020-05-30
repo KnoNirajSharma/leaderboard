@@ -38,14 +38,22 @@ class ParentComponent {
     ];
     employeeData: AuthorModel[] = [
         {
+            knolderId: 1,
             knolderName: 'mark',
-            score: 10,
-            rank: 2,
+            allTimeScore: 10,
+            allTimeRank: 2,
+            quarterlyStreak: '5-6-7',
+            monthlyScore: 7,
+            monthlyRank: 1
         }, {
+            knolderId: 2,
             knolderName: 'sam',
-            score: 10,
-            rank: 2,
+            allTimeScore: 10,
+            allTimeRank: 2,
+            quarterlyStreak: '5-6-7',
+            monthlyScore: 7,
+            monthlyRank: 1
         }
     ];
-    dataKeys = Object.keys(this.employeeData[0]);
+    dataKeys = (Object.keys(this.employeeData[0])).slice(1, 7);
 }
