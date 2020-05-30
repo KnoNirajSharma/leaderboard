@@ -2,7 +2,7 @@ package com.knoldus.leader_board.infrastructure
 
 import java.sql.{Connection, PreparedStatement}
 
-import com.knoldus.leader_board.{DatabaseConnection, KnolderReputation, Reputation}
+import com.knoldus.leader_board.{DatabaseConnection, GetReputation, KnolderReputation}
 import com.typesafe.config.ConfigFactory
 import org.scalatest.{BeforeAndAfterEach, DoNotDiscover}
 
@@ -15,17 +15,16 @@ class WriteAllTimeReputationImplSpec extends DBSpec with BeforeAndAfterEach {
     cleanUpDatabase(connection)
   }
 
-  override protected def beforeEach(): Unit = {
-    cleanUpDatabase(connection)
+  override def beforeEach(): Unit = {
     createTable(connection)
   }
 
   "write all time reputation" should {
 
     "return number of rows affected when insertion in all time reputation table" in {
-      val reputationOfKnolders = List(KnolderReputation(None, Reputation(1, "Mukesh Gupta", 10, 1)),
-        KnolderReputation(None, Reputation(2, "Abhishek Baranwal", 5, 2)),
-        KnolderReputation(None, Reputation(3, "Komal Rajpal", 5, 2)))
+      val reputationOfKnolders = List(KnolderReputation(None, GetReputation(1, "Mukesh Gupta", 10, 1)),
+        KnolderReputation(None, GetReputation(2, "Abhishek Baranwal", 5, 2)),
+        KnolderReputation(None, GetReputation(3, "Komal Rajpal", 5, 2)))
 
       val result = writeAllTimeReputation.insertAllTimeReputationData(reputationOfKnolders)
       result.sum shouldBe 3
@@ -33,9 +32,9 @@ class WriteAllTimeReputationImplSpec extends DBSpec with BeforeAndAfterEach {
 
     "return number of rows affected when insertion in all time reputation table when one entry will not get " +
       "inserted" in {
-      val reputationOfKnolders = List(KnolderReputation(None, Reputation(1, "Mukesh Gupta", 10, 1)),
-        KnolderReputation(None, Reputation(2, "Abhishek Baranwal", 5, 2)),
-        KnolderReputation(Option(3), Reputation(3, "Komal Rajpal", 5, 2)))
+      val reputationOfKnolders = List(KnolderReputation(None, GetReputation(1, "Mukesh Gupta", 10, 1)),
+        KnolderReputation(None, GetReputation(2, "Abhishek Baranwal", 5, 2)),
+        KnolderReputation(Option(3), GetReputation(3, "Komal Rajpal", 5, 2)))
 
       val result = writeAllTimeReputation.insertAllTimeReputationData(reputationOfKnolders)
       result.sum shouldBe 2
@@ -87,9 +86,9 @@ class WriteAllTimeReputationImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt3.execute
       preparedStmt3.close()
 
-      val reputationOfKnolders = List(KnolderReputation(Option(1), Reputation(1, "Mukesh Gupta", 10, 1)),
-        KnolderReputation(Option(2), Reputation(2, "Abhishek Baranwal", 5, 2)),
-        KnolderReputation(Option(3), Reputation(3, "Komal Rajpal", 5, 2)))
+      val reputationOfKnolders = List(KnolderReputation(Option(1), GetReputation(1, "Mukesh Gupta", 10, 1)),
+        KnolderReputation(Option(2), GetReputation(2, "Abhishek Baranwal", 5, 2)),
+        KnolderReputation(Option(3), GetReputation(3, "Komal Rajpal", 5, 2)))
 
       val result = writeAllTimeReputation.updateAllTimeReputationData(reputationOfKnolders)
       result.sum shouldBe 3
@@ -141,9 +140,9 @@ class WriteAllTimeReputationImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt3.execute
       preparedStmt3.close()
 
-      val reputationOfKnolders = List(KnolderReputation(Option(1), Reputation(1, "Mukesh Gupta", 10, 1)),
-        KnolderReputation(Option(2), Reputation(2, "Abhishek Baranwal", 5, 2)),
-        KnolderReputation(None, Reputation(3, "Komal Rajpal", 5, 2)))
+      val reputationOfKnolders = List(KnolderReputation(Option(1), GetReputation(1, "Mukesh Gupta", 10, 1)),
+        KnolderReputation(Option(2), GetReputation(2, "Abhishek Baranwal", 5, 2)),
+        KnolderReputation(None, GetReputation(3, "Komal Rajpal", 5, 2)))
 
       val result = writeAllTimeReputation.updateAllTimeReputationData(reputationOfKnolders)
       result.sum shouldBe 2

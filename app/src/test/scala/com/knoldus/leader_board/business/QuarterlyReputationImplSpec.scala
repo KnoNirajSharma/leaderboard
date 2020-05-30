@@ -42,8 +42,8 @@ class QuarterlyReputationImplSpec extends AnyFlatSpec with MockitoSugar {
     when(mockReadQuarterlyReputation.fetchKnolderIdFromQuarterlyReputation(2))
       .thenReturn(Option(2))
 
-    val reputationOfKnolders = List(KnolderStreak(Some(1), Streak(1, "Mukesh Gupta", "15-20-20")),
-      KnolderStreak(Some(2), Streak(2, "anjali", "10-10-15")))
+    val reputationOfKnolders = List(KnolderStreak(Some(1), GetStreak(1, "Mukesh Gupta", "15-20-20")),
+      KnolderStreak(Some(2), GetStreak(2, "anjali", "10-10-15")))
 
     assert(quarterlyReputation.getKnolderQuarterlyReputation == reputationOfKnolders)
   }

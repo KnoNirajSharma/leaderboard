@@ -15,8 +15,7 @@ class ReadQuarterlyReputationImplSpec extends DBSpec with BeforeAndAfterEach {
     cleanUpDatabase(connection)
   }
 
-  override protected def beforeEach(): Unit = {
-    cleanUpDatabase(connection)
+  override def beforeEach(): Unit = {
     createTable(connection)
   }
 

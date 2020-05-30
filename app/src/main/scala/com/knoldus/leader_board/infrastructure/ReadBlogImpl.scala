@@ -1,7 +1,6 @@
 package com.knoldus.leader_board.infrastructure
 
 import java.sql.{Connection, Timestamp}
-import java.time.{ZoneId, ZonedDateTime}
 
 import com.knoldus.leader_board.{Constant, DatabaseConnection, GetCount}
 import com.typesafe.config.Config
@@ -34,10 +33,8 @@ class ReadBlogImpl(config: Config) extends ReadBlog with LazyLogging {
     logger.info("Fetching details of knolders with blogs of current month.")
     val currentMonth = Timestamp.valueOf(Constant.CURRENT_TIME
       .withDayOfMonth(1).toLocalDate.atStartOfDay())
-
     val nextMonth = Timestamp.valueOf(Constant.CURRENT_TIME
       .withDayOfMonth(1).toLocalDate.plusMonths(1).atStartOfDay())
-
     SQL("SELECT knolder.id, knolder.full_name, COUNT(blog.id) AS count FROM blog RIGHT JOIN knolder ON " +
       "knolder.wordpress_id = blog.wordpress_id AND published_on >= ? AND published_on < ? " +
       "GROUP BY knolder.id, knolder.wordpress_id, knolder.full_name;").bind(currentMonth, nextMonth)
@@ -54,10 +51,8 @@ class ReadBlogImpl(config: Config) extends ReadBlog with LazyLogging {
     logger.info("Fetching details of knolders with blogs of first month of quarter.")
     val firstMonth = Timestamp.valueOf(Constant.CURRENT_TIME
       .withDayOfMonth(1).toLocalDate.minusMonths(3).atStartOfDay())
-
     val nextMonth = Timestamp.valueOf(Constant.CURRENT_TIME
       .withDayOfMonth(1).toLocalDate.minusMonths(2).atStartOfDay())
-
     SQL("SELECT knolder.id, knolder.full_name, COUNT(blog.id) AS count FROM blog RIGHT JOIN knolder ON " +
       "knolder.wordpress_id = blog.wordpress_id AND published_on >= ? AND published_on < ? " +
       "GROUP BY knolder.id, knolder.wordpress_id, knolder.full_name;").bind(firstMonth, nextMonth)
@@ -74,10 +69,8 @@ class ReadBlogImpl(config: Config) extends ReadBlog with LazyLogging {
     logger.info("Fetching details of knolders with blogs of second month of quarter.")
     val secondMonth = Timestamp.valueOf(Constant.CURRENT_TIME
       .withDayOfMonth(1).toLocalDate.minusMonths(2).atStartOfDay())
-
     val nextMonth = Timestamp.valueOf(Constant.CURRENT_TIME
       .withDayOfMonth(1).toLocalDate.minusMonths(1).atStartOfDay())
-
     SQL("SELECT knolder.id, knolder.full_name, COUNT(blog.id) AS count FROM blog RIGHT JOIN knolder ON " +
       "knolder.wordpress_id = blog.wordpress_id AND published_on >= ? AND published_on < ? " +
       "GROUP BY knolder.id, knolder.wordpress_id, knolder.full_name;").bind(secondMonth, nextMonth)
@@ -94,10 +87,8 @@ class ReadBlogImpl(config: Config) extends ReadBlog with LazyLogging {
     logger.info("Fetching details of knolders with blogs of third month of quarter.")
     val thirdMonth = Timestamp.valueOf(Constant.CURRENT_TIME
       .withDayOfMonth(1).toLocalDate.minusMonths(1).atStartOfDay())
-
     val nextMonth = Timestamp.valueOf(Constant.CURRENT_TIME
       .withDayOfMonth(1).toLocalDate.atStartOfDay())
-
     SQL("SELECT knolder.id, knolder.full_name, COUNT(blog.id) AS count FROM blog RIGHT JOIN knolder ON " +
       "knolder.wordpress_id = blog.wordpress_id AND published_on >= ? AND published_on < ? " +
       "GROUP BY knolder.id, knolder.wordpress_id, knolder.full_name;").bind(thirdMonth, nextMonth)

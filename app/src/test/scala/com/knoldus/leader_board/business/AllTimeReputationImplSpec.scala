@@ -18,18 +18,18 @@ class AllTimeReputationImplSpec extends AnyFlatSpec with MockitoSugar {
     val blogCounts = List(GetCount(1, "Mukesh Gupta", 2))
 
     when(mockReadBlog.fetchKnoldersWithBlogs)
-      .thenReturn(List(GetCount(1, "Mukesh Gupta", 2)))
+      .thenReturn(blogCounts)
 
     when(mockKnolderScore.calculateScore(blogCounts))
       .thenReturn(scorePerKnolder)
 
     when(mockKnolderRank.calculateRank(scorePerKnolder))
-      .thenReturn(List(Reputation(1, "Mukesh Gupta", 10, 1)))
+      .thenReturn(List(GetReputation(1, "Mukesh Gupta", 10, 1)))
 
     when(mockReadAllTimeReputation.fetchKnolderIdFromAllTimeReputation(1))
       .thenReturn(Option(1))
 
-    val reputationOfKnolders = List(KnolderReputation(Some(1), Reputation(1, "Mukesh Gupta", 10, 1)))
+    val reputationOfKnolders = List(KnolderReputation(Some(1), GetReputation(1, "Mukesh Gupta", 10, 1)))
 
     assert(allTimeReputation.getKnolderReputation == reputationOfKnolders)
   }

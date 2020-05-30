@@ -17,7 +17,6 @@ object DriverApp extends App {
   val scheduler = QuartzSchedulerExtension
   implicit val executionContext: ExecutionContextExecutor = system.dispatcher
   val config: Config = ConfigFactory.load()
-
   val knolderScore: KnolderScore = new KnolderScoreImpl(config)
   val knolderRank: KnolderRank = new KnolderRankImpl
   val readBlog = new ReadBlogImpl(config)
