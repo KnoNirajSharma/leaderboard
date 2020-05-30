@@ -15,3 +15,4 @@ class QuarterlyReputationActor(quarterlyReputation: QuarterlyReputation,
     case _ => sender() ! "invalid message"
   }
 }
+
