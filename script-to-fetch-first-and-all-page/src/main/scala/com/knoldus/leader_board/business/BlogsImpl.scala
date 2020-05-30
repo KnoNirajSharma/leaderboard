@@ -71,7 +71,7 @@ class BlogsImpl(fetchData: FetchData, URLResponse: URLResponse, config: Config) 
     val parsedBlogs = parse(unparsedBlogs)
     val blogs = (parsedBlogs \ "posts").children map { parsedBlog =>
       val blogId = (parsedBlog \ "ID").extract[Option[Int]]
-      val wordpressId = (parsedBlog \ "author" \ "login").extract[Option[String]]
+      val wordpressId = (parsedBlog \ "author" \ "nice_name").extract[Option[String]]
       val date = (parsedBlog \ "date").extract[String]
       val odtInstanceAtOffset = ZonedDateTime.parse(date)
       val odtInstanceAtUTC = odtInstanceAtOffset.withZoneSameInstant(ZoneOffset.UTC)
