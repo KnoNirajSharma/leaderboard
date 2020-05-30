@@ -13,6 +13,6 @@ export class EmployeeActivityService {
     }
 
     getData(): Observable<AuthorModel[]> {
-        return this.httpClient.get<AuthorModel[]>('/assets/data/authorProfile.json');
+        return this.httpClient.get<AuthorModel[]>(this.url);
     }
 }
