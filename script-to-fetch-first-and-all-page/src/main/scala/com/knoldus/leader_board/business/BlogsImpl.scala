@@ -8,11 +8,8 @@ import com.knoldus.leader_board.infrastructure.FetchData
 import com.typesafe.config.Config
 import com.typesafe.scalalogging._
 import net.liftweb.json.{DefaultFormats, parse}
-import org.apache.commons.io.IOUtils
-import org.apache.http.client.methods.HttpGet
-import org.apache.http.impl.client.HttpClientBuilder
 
-class BlogsImpl(fetchData: FetchData, config: Config) extends Blogs with LazyLogging {
+class BlogsImpl(fetchData: FetchData, URLResponse: URLResponse, config: Config) extends Blogs with LazyLogging {
   implicit val formats: DefaultFormats.type = DefaultFormats
 
   /**
@@ -36,23 +33,9 @@ class BlogsImpl(fetchData: FetchData, config: Config) extends Blogs with LazyLog
    * @return Total number of posts to be fetched from wordpress API.
    */
   override def getTotalNoOfPosts: Int = {
-    val blogsData = getResponse(config.getString("urlForAllBlogs") + "?page=1")
+    val blogsData = URLResponse.getResponse(config.getString("urlForAllBlogs") + "?page=1")
     val parsedBlogsData = parse(blogsData)
     (parsedBlogsData \ "found").extract[Int]
-  }
-
-  /**
-   * Gets response from given URL.
-   *
-   * @param url Takes string of URL to request from that URL.
-   * @return Respaonse entity in form of string.
-   */
-  private def getResponse(url: String): String = {
-    logger.info(s"Gettting response from $url")
-    val request = new HttpGet(url)
-    val client = HttpClientBuilder.create().build()
-    val response = client.execute(request)
-    IOUtils.toString(response.getEntity.getContent)
   }
 
   /**
@@ -69,7 +52,7 @@ class BlogsImpl(fetchData: FetchData, config: Config) extends Blogs with LazyLog
       if (currentPage > lastPage) {
         blogsList
       } else {
-        val unParsedBlogs = getResponse(config.getString("urlForAllBlogs") + "?page=" + currentPage)
+        val unParsedBlogs = URLResponse.getResponse(config.getString("urlForAllBlogs") + "?page=" + currentPage)
         getBlogs(blogsList ::: getListOfAllBlogs(unParsedBlogs), currentPage + 1, lastPage)
       }
     }
@@ -109,7 +92,7 @@ class BlogsImpl(fetchData: FetchData, config: Config) extends Blogs with LazyLog
     logger.info("Latest blogs will be extracted from first page of Wordpress API.")
     val fetchMaxDate = fetchData.fetchMaxBlogPublicationDate.getOrElse("0000-00-00 00:00:00").toString
       .replace(' ', 'T')
-    getListOfLatestBlogs(getResponse(config.getString("urlForFreshBlogs") +
+    getListOfLatestBlogs(URLResponse.getResponse(config.getString("urlForLatestBlogs") +
       s"?per_page=100&after=$fetchMaxDate&_embed=author"))
   }
 
