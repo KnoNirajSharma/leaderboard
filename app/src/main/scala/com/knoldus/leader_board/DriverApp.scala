@@ -26,24 +26,27 @@ object DriverApp extends App {
     readAllTimeReputation)
   val readMonthlyReputation: ReadMonthlyReputation = new ReadMonthlyReputationImpl(config)
   val writeMonthlyReputation: WriteMonthlyReputation = new WriteMonthlyReputationImpl(config)
-  val monthlyReputationPerKnolder: MonthlyReputation = new MonthlyReputationImpl(readBlog, knolderRank, knolderScore,
+  val monthlyReputation: MonthlyReputation = new MonthlyReputationImpl(readBlog, knolderRank, knolderScore,
     readMonthlyReputation)
   val readQuarterlyReputation: ReadQuarterlyReputation = new ReadQuarterlyReputationImpl(config)
   val writeQuarterlyReputation: WriteQuarterlyReputation = new WriteQuarterlyReputationImpl(config)
   val quarterlyReputation: QuarterlyReputation = new QuarterlyReputationImpl(readBlog, knolderScore,
     readQuarterlyReputation)
-  val combineReputation: FetchReputation = new FetchReputationImpl(config)
-  val reputationOnAPI: ReputationOnAPI = new ReputationOnAPIImpl(combineReputation, config)
+  val fetchReputation: FetchReputation = new FetchReputationImpl(config)
+  val fetchKnolderDetails: FetchKnolderDetails = new FetchKnolderDetailsImpl(config)
+  val reputationOnAPI: ReputationOnAPI = new ReputationOnAPIImpl(fetchKnolderDetails, fetchReputation, config)
+
   val allTimeReputations = allTimeReputation.getKnolderReputation
   writeAllTimeReputation.insertAllTimeReputationData(allTimeReputations)
   writeAllTimeReputation.updateAllTimeReputationData(allTimeReputations)
-  val monthlyReputations = monthlyReputationPerKnolder.getKnolderMonthlyReputation
+  val monthlyReputations = monthlyReputation.getKnolderMonthlyReputation
   writeMonthlyReputation.insertMonthlyReputationData(monthlyReputations)
   writeMonthlyReputation.updateMonthlyReputationData(monthlyReputations)
   val quarterlyReputations = quarterlyReputation.getKnolderQuarterlyReputation
   writeQuarterlyReputation.insertQuarterlyReputationData(quarterlyReputations)
   writeQuarterlyReputation.updateQuarterlyReputationData(quarterlyReputations)
   reputationOnAPI.displayReputationOnAPI
+
   val indiaCurrentTime = Constant.CURRENT_TIME
   val totalSecondsOfDayTillCurrentTime = indiaCurrentTime.toLocalTime.toSecondOfDay
   val startTimeToCalculateAllTimeReputation = LocalTime.of(1, 0, 0, 0).toSecondOfDay
@@ -63,20 +66,21 @@ object DriverApp extends App {
     }
   val taskToCalculateAndStoreAllTimeReputation = new Runnable {
     override def run() {
-      val knolderReputations = allTimeReputation.getKnolderReputation
-      writeAllTimeReputation.insertAllTimeReputationData(knolderReputations)
-      writeAllTimeReputation.updateAllTimeReputationData(knolderReputations)
+      val allTimeReputations = allTimeReputation.getKnolderReputation
+      writeAllTimeReputation.insertAllTimeReputationData(allTimeReputations)
+      writeAllTimeReputation.updateAllTimeReputationData(allTimeReputations)
     }
   }
   val taskToCalculateAndStoreMonthlyReputation = new Runnable {
     override def run() {
-      val monthlyReputation = monthlyReputationPerKnolder.getKnolderMonthlyReputation
-      writeMonthlyReputation.insertMonthlyReputationData(monthlyReputation)
-      writeMonthlyReputation.updateMonthlyReputationData(monthlyReputation)
+      val monthlyReputations = monthlyReputation.getKnolderMonthlyReputation
+      writeMonthlyReputation.insertMonthlyReputationData(monthlyReputations)
+      writeMonthlyReputation.updateMonthlyReputationData(monthlyReputations)
     }
   }
   system.scheduler.scheduleAtFixedRate(timeForAllTimeReputation.seconds, 24.hours)(taskToCalculateAndStoreAllTimeReputation)
   system.scheduler.scheduleAtFixedRate(timeForMonthlyReputation.seconds, 24.hours)(taskToCalculateAndStoreMonthlyReputation)
+
   /**
    * Calculating and storing quarterly reputation at first day of every month using Akka Quartz Scheduler by providing
    * the required cron expression.

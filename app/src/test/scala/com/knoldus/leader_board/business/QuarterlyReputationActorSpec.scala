@@ -4,31 +4,22 @@ import java.sql.Connection
 
 import akka.actor.{ActorSystem, Props}
 import akka.testkit.{ImplicitSender, TestKit, TestProbe}
-import com.knoldus.leader_board.infrastructure.{DBSpec, WriteQuarterlyReputation, WriteQuarterlyReputationImpl}
+import com.knoldus.leader_board.infrastructure.{WriteQuarterlyReputation, WriteQuarterlyReputationImpl}
 import com.knoldus.leader_board.{DatabaseConnection, GetStreak, KnolderStreak}
 import com.typesafe.config.ConfigFactory
 import org.mockito.MockitoSugar
+import org.scalatest.BeforeAndAfterAll
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpecLike
-import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach}
 
-class QuarterlyReputationActorSpec extends TestKit(ActorSystem("QuarterlyActorSpec")) with ImplicitSender with AnyWordSpecLike
-  with Matchers with BeforeAndAfterAll with BeforeAndAfterEach with MockitoSugar with DBSpec {
+class QuarterlyReputationActorSpec extends TestKit(ActorSystem("QuarterlyActorSpec")) with ImplicitSender
+  with AnyWordSpecLike with Matchers with BeforeAndAfterAll with MockitoSugar {
   implicit val connection: Connection = DatabaseConnection.connection(ConfigFactory.load())
   val mockQuarterlyReputation: QuarterlyReputation = mock[QuarterlyReputationImpl]
   val mockWriteQuarterlyReputation: WriteQuarterlyReputation = mock[WriteQuarterlyReputationImpl]
 
   override def afterAll: Unit = {
     TestKit.shutdownActorSystem(system)
-  }
-
-  override def afterEach(): Unit = {
-    cleanUpDatabase(connection)
-  }
-
-  override protected def beforeEach(): Unit = {
-    cleanUpDatabase(connection)
-    createTable(connection)
   }
 
   "Quarterly reputation actor" must {
@@ -48,6 +39,7 @@ class QuarterlyReputationActorSpec extends TestKit(ActorSystem("QuarterlyActorSp
       probe.send(quarterlyReputationActor, "write quarterly reputation")
       probe.expectMsg("quarterly reputation saved")
     }
+
     "insert and update quarterly reputation with incorrect message" in {
       val probe = TestProbe()
       val reputationOfKnolders = List(KnolderStreak(None, GetStreak(1, "Mukesh Gupta", "15-20-20")),
