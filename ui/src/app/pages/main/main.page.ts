@@ -27,6 +27,7 @@ export class MainPage implements OnInit {
                 this.prepareCardData();
             });
         this.tableHeaders = [
+            {title: 'Id'},
             {title: 'Name'},
             {title: 'Score'},
             {title: 'Rank'},

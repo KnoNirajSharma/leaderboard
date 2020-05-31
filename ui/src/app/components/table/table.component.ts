@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AuthorModel} from '../../models/author.model';
 import {TableHeaderModel} from '../../models/tableHeader.model';
-import {ModalPage} from '../../pages/modal/modal.page';
+import {DrilldownModalPage} from '../../pages/drilldown-modal/drilldown-modal.page';
 import {ModalController} from '@ionic/angular';
 
 @Component({
@@ -21,9 +21,12 @@ export class TableComponent implements OnInit {
     ngOnInit() {
     }
 
-    async presentModal() {
+    async presentModal(id: number) {
         const modal = await this.modalController.create({
-            component: ModalPage,
+            component: DrilldownModalPage,
+            componentProps: {
+                id
+            }
         });
         return await modal.present();
     }

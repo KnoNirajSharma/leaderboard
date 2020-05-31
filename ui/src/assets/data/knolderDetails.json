@@ -1,0 +1,24 @@
+{
+  "knolderName": "Muskan Gupta",
+  "allTimeScore": 35,
+  "monthlyScore": 20,
+  "blogScore": 20,
+  "blogDetails": [
+    {
+      "title": "Serialization in Lagom",
+      "date": "2020-05-06 14:16:23"
+    },
+    {
+      "title": "Akka-Streams: All About Graphs!",
+      "date": "2020-05-06 13:39:53"
+    },
+    {
+      "title": "Akka-Streams: All About Materialization!",
+      "date": "2020-05-06 13:34:09"
+    },
+    {
+      "title": "Getting Started with Akka-Streams",
+      "date": "2020-05-06 13:29:14"
+    }
+  ]
+}

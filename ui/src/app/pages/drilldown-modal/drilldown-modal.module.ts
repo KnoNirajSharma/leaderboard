@@ -4,14 +4,14 @@ import {FormsModule} from '@angular/forms';
 
 import {IonicModule} from '@ionic/angular';
 
-import {ModalPage} from './modal.page';
+import {DrilldownModalPage} from './drilldown-modal.page';
 import {RouterModule, Routes} from '@angular/router';
 import {MainPageModule} from '../main/main.module';
 
 const routes: Routes = [
     {
         path: '',
-        component: ModalPage
+        component: DrilldownModalPage
     }
 ];
 
@@ -23,7 +23,7 @@ const routes: Routes = [
         RouterModule.forChild(routes),
         MainPageModule
     ],
-    declarations: [ModalPage]
+    declarations: [DrilldownModalPage]
 })
-export class ModalPageModule {
+export class DrilldownModalPageModule {
 }

@@ -6,6 +6,7 @@ export const environment = {
         baseUrl: '/',
         routes: {
             author: {endpoint: 'assets/data/authorProfile.json', method: 'GET'},
+            knolderDetails: {endpoint: 'assets/data/knolderDetails.json', method: 'GET'}
         }
     }
 };
