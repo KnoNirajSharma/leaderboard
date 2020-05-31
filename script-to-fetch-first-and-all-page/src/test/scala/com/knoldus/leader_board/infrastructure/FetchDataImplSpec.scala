@@ -17,7 +17,6 @@ class FetchDataImplSpec extends DBSpec with BeforeAndAfterEach {
   }
 
   override protected def beforeEach(): Unit = {
-    cleanUpDatabase(connection)
     createTable(connection)
   }
 
