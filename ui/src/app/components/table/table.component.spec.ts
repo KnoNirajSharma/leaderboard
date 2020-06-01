@@ -29,7 +29,7 @@ describe('TableComponent', () => {
 
     it ('should open when clicked `presentModal` button', fakeAsync( () => {
         spyOn(component, 'presentModal');
-        const button = fixture.debugElement.nativeElement.querySelector('ion-row');
+        const button = fixture.debugElement.nativeElement.querySelector('td');
         fixture.detectChanges();
         button.click();
         tick();
@@ -42,20 +42,31 @@ describe('TableComponent', () => {
 })
 class ParentComponent {
     tableHeaders: TableHeaderModel[] = [
-        {title: 'Author Name'},
+        {title: 'Name'},
         {title: 'Score'},
         {title: 'Rank'},
+        {title: '3 Month Streak'},
+        {title: 'Monthly Score'},
+        {title: 'Monthly Rank'}
     ];
     employeeData: AuthorModel[] = [
         {
+            knolderId: 1,
             knolderName: 'mark',
-            score: 10,
-            rank: 2,
+            allTimeScore: 10,
+            allTimeRank: 2,
+            quarterlyStreak: '5-6-7',
+            monthlyScore: 7,
+            monthlyRank: 1
         }, {
+            knolderId: 2,
             knolderName: 'sam',
-            score: 10,
-            rank: 2,
+            allTimeScore: 10,
+            allTimeRank: 2,
+            quarterlyStreak: '5-6-7',
+            monthlyScore: 7,
+            monthlyRank: 1
         }
     ];
-    dataKeys = Object.keys(this.employeeData[0]);
+    dataKeys = (Object.keys(this.employeeData[0])).slice(1, 7);
 }

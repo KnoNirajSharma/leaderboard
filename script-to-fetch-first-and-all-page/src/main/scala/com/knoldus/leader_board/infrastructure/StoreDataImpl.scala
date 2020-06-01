@@ -4,8 +4,8 @@ import java.sql.Connection
 
 import com.knoldus.leader_board.{Blog, DatabaseConnection}
 import com.typesafe.config.Config
-import com.typesafe.scalalogging._
-import scalikejdbc.{DB, DBSession, SQL}
+import com.typesafe.scalalogging.LazyLogging
+import scalikejdbc._
 
 class StoreDataImpl(config: Config) extends StoreData with LazyLogging {
   implicit val connection: Connection = DatabaseConnection.connection(config)
@@ -21,8 +21,9 @@ class StoreDataImpl(config: Config) extends StoreData with LazyLogging {
     logger.info("Querying blog table to insert blog details.")
     listOfBlogs.map { blog =>
       SQL("INSERT INTO blog(id , wordpress_id, published_on, title)" +
-        " SELECT ?, ?, ?, ? WHERE EXISTS (SELECT id FROM knolder WHERE wordpress_id = ?)")
-        .bind(blog.blogId, blog.wordpressId, blog.publishedOn, blog.title, blog.wordpressId)
+        " SELECT ?, ?, ?, ? WHERE EXISTS (SELECT id FROM knolder WHERE wordpress_id = ?) AND " +
+        "NOT EXISTS (SELECT id FROM blog WHERE id = ?)")
+        .bind(blog.blogId, blog.wordpressId, blog.publishedOn, blog.title, blog.wordpressId, blog.blogId)
         .update().apply()
     }
   }

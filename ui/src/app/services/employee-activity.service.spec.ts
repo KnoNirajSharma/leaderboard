@@ -28,13 +28,21 @@ describe('EmployeeActivityService', () => {
 
     it('should retrieve author data from the API via GET', () => {
         const dummyAuthorData: AuthorModel[] = [{
+            knolderId: 1,
             knolderName: 'mark',
-            score: 100,
-            rank: 5,
+            allTimeScore: 10,
+            allTimeRank: 2,
+            quarterlyStreak: '5-6-7',
+            monthlyScore: 7,
+            monthlyRank: 1
         }, {
+            knolderId: 2,
             knolderName: 'sam',
-            score: 120,
-            rank: 2,
+            allTimeScore: 10,
+            allTimeRank: 2,
+            quarterlyStreak: '5-6-7',
+            monthlyScore: 7,
+            monthlyRank: 1
         }];
         const allTimeApiUrl = `${environment.api.baseUrl}${environment.api.routes.author.endpoint}`;
         employeeActivityService.getData().subscribe(authorData => {

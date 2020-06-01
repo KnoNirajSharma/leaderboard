@@ -18,18 +18,18 @@ class MonthlyReputationImplSpec extends AnyFlatSpec with MockitoSugar {
     val blogCounts = List(GetCount(1, "Mukesh Gupta", 3))
 
     when(mockReadBlog.fetchKnoldersWithMonthlyBlogs)
-      .thenReturn(List(GetCount(1, "Mukesh Gupta", 3)))
+      .thenReturn(blogCounts)
 
     when(mockKnolderScore.calculateScore(blogCounts))
       .thenReturn(scorePerKnolder)
 
     when(mockKnolderRank.calculateRank(scorePerKnolder))
-      .thenReturn(List(Reputation(1, "Mukesh Gupta", 15, 1)))
+      .thenReturn(List(GetReputation(1, "Mukesh Gupta", 15, 1)))
 
     when(mockReadMonthlyReputation.fetchKnolderIdFromMonthlyReputation(1))
       .thenReturn(Option(1))
 
-    val reputationOfKnolders = List(KnolderReputation(Some(1), Reputation(1, "Mukesh Gupta", 15, 1)))
+    val reputationOfKnolders = List(KnolderReputation(Some(1), GetReputation(1, "Mukesh Gupta", 15, 1)))
 
     assert(monthlyReputation.getKnolderMonthlyReputation == reputationOfKnolders)
   }

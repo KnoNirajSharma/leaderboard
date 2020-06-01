@@ -2,7 +2,7 @@ package com.knoldus.leader_board.infrastructure
 
 import java.sql.{Connection, PreparedStatement}
 
-import com.knoldus.leader_board.{DatabaseConnection, KnolderStreak, Streak}
+import com.knoldus.leader_board.{DatabaseConnection, GetStreak, KnolderStreak}
 import com.typesafe.config.ConfigFactory
 import org.scalatest.{BeforeAndAfterEach, DoNotDiscover}
 
@@ -15,16 +15,15 @@ class WriteQuarterlyReputationImplSpec extends DBSpec with BeforeAndAfterEach {
     cleanUpDatabase(connection)
   }
 
-  override protected def beforeEach(): Unit = {
-    cleanUpDatabase(connection)
+  override def beforeEach(): Unit = {
     createTable(connection)
   }
 
   "write quarterly reputation" should {
 
     "return number of rows affected when insertion in quarterly reputation table" in {
-      val reputationOfKnolders = List(KnolderStreak(None, Streak(1, "Mukesh Gupta", "15-20-20")),
-        KnolderStreak(None, Streak(2, "anjali", "10-10-15")))
+      val reputationOfKnolders = List(KnolderStreak(None, GetStreak(1, "Mukesh Gupta", "15-20-20")),
+        KnolderStreak(None, GetStreak(2, "anjali", "10-10-15")))
 
       val result = writeQuarterlyReputation.insertQuarterlyReputationData(reputationOfKnolders)
       result.sum shouldBe 2
@@ -32,8 +31,8 @@ class WriteQuarterlyReputationImplSpec extends DBSpec with BeforeAndAfterEach {
 
     "return number of rows affected when insertion in quarterly reputation table when one entry will not get " +
       "inserted" in {
-      val reputationOfKnolders = List(KnolderStreak(None, Streak(1, "Mukesh Gupta", "15-20-20")),
-        KnolderStreak(Some(2), Streak(2, "anjali", "10-10-15")))
+      val reputationOfKnolders = List(KnolderStreak(None, GetStreak(1, "Mukesh Gupta", "15-20-20")),
+        KnolderStreak(Some(2), GetStreak(2, "anjali", "10-10-15")))
 
       val result = writeQuarterlyReputation.insertQuarterlyReputationData(reputationOfKnolders)
       result.sum shouldBe 1
@@ -68,8 +67,8 @@ class WriteQuarterlyReputationImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt2.execute
       preparedStmt2.close()
 
-      val reputationOfKnolders = List(KnolderStreak(Some(1), Streak(1, "Mukesh Gupta", "15-20-20")),
-        KnolderStreak(Some(2), Streak(2, "anjali", "10-10-15")))
+      val reputationOfKnolders = List(KnolderStreak(Some(1), GetStreak(1, "Mukesh Gupta", "15-20-20")),
+        KnolderStreak(Some(2), GetStreak(2, "anjali", "10-10-15")))
 
       val result = writeQuarterlyReputation.updateQuarterlyReputationData(reputationOfKnolders)
       result.sum shouldBe 2
@@ -104,8 +103,8 @@ class WriteQuarterlyReputationImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt2.execute
       preparedStmt2.close()
 
-      val reputationOfKnolders = List(KnolderStreak(Some(1), Streak(1, "Mukesh Gupta", "15-20-20")),
-        KnolderStreak(None, Streak(2, "anjali", "10-10-15")))
+      val reputationOfKnolders = List(KnolderStreak(Some(1), GetStreak(1, "Mukesh Gupta", "15-20-20")),
+        KnolderStreak(None, GetStreak(2, "anjali", "10-10-15")))
 
       val result = writeQuarterlyReputation.updateQuarterlyReputationData(reputationOfKnolders)
       result.sum shouldBe 1

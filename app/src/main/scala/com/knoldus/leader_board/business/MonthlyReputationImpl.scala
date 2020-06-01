@@ -1,7 +1,7 @@
 package com.knoldus.leader_board.business
 
 import com.knoldus.leader_board.infrastructure.{ReadBlog, ReadMonthlyReputation}
-import com.knoldus.leader_board.{KnolderReputation, Reputation}
+import com.knoldus.leader_board.{GetReputation, KnolderReputation}
 import com.typesafe.scalalogging.LazyLogging
 
 class MonthlyReputationImpl(readBlog: ReadBlog, knolderRank: KnolderRank, knolderScore: KnolderScore,
@@ -15,7 +15,7 @@ class MonthlyReputationImpl(readBlog: ReadBlog, knolderRank: KnolderRank, knolde
   override def getKnolderMonthlyReputation: List[KnolderReputation] = {
     val blogCounts = readBlog.fetchKnoldersWithMonthlyBlogs
     val scorePerKnolder = knolderScore.calculateScore(blogCounts)
-    val reputationOfKnolders: List[Reputation] = knolderRank.calculateRank(scorePerKnolder)
+    val reputationOfKnolders: List[GetReputation] = knolderRank.calculateRank(scorePerKnolder)
     logger.info("Fetching knolder id of knolders from monthly reputation table.")
     reputationOfKnolders.map { reputationOfKnolder =>
       KnolderReputation(readMonthlyReputation.fetchKnolderIdFromMonthlyReputation(reputationOfKnolder.knolderId),

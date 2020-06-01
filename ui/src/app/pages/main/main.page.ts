@@ -23,11 +23,10 @@ export class MainPage implements OnInit {
         this.service.getData()
             .subscribe((data: AuthorModel[]) => {
                 this.employeeData = data;
-                this.dataKeys = Object.keys(this.employeeData[0]);
+                this.dataKeys = (Object.keys(this.employeeData[0])).slice(1, 7);
                 this.prepareCardData();
             });
         this.tableHeaders = [
-            {title: 'Id'},
             {title: 'Name'},
             {title: 'Score'},
             {title: 'Rank'},
@@ -67,7 +66,7 @@ export class MainPage implements OnInit {
         let count = '0';
         switch (category) {
             case 'blogs': {
-                count = (this.employeeData.reduce((sum, current) => sum + current.score / 5, 0)).toString();
+                count = (this.employeeData.reduce((sum, current) => sum + current.allTimeScore / 5, 0)).toString();
                 break;
             }
             case 'knolx': {

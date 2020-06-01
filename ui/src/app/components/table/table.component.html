@@ -1,19 +1,24 @@
-<ion-grid>
-    <ion-card>
-        <ion-card-header>
-            <ion-row>
-                <ion-col *ngFor="let header of tableHeaders">
-                    <div>
-                        <h6 class="title">{{header.title}}</h6>
-                    </div>
-                </ion-col>
-            </ion-row>
-        </ion-card-header>
-        <ion-card-content>
-            <ion-row *ngFor="let tableRow of tableRows; let i = index" (click)="presentModal(tableRow.knolderId)" [ngClass]="(i % 2 == 0) ? 'odd' : 'even'"
-                     class="row-style">
-                <ion-col *ngFor="let key of dataKeys">{{tableRow[key]}}</ion-col>
-            </ion-row>
-        </ion-card-content>
-    </ion-card>
-</ion-grid>
+<div class="table-block">
+    <div class="table-block-content">
+        <div class="table-responsive">
+            <div>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th *ngFor="let header of tableHeaders;
+                        let i = index" [ngClass]="{'first-td': (i==0)}">{{header.title}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let tableRow of tableRows">
+                        <td *ngFor="let dataKey of dataKeys;
+                        let i = index" [ngClass]="{'first-td': (i==0)}" (click)="presentModal(tableRow.knolderId)">
+                            {{tableRow[dataKey]}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
