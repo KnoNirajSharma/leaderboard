@@ -17,16 +17,18 @@ describe('MainPage', () => {
     let mockEmployeeService: EmployeeActivityService;
     const dummyAuthorData: AuthorModel[] = [
         {
+            knolderId: 1,
             knolderName: 'mark',
-            score: 10,
-            rank: 2,
+            allTimeScore: 10,
+            allTimeRank: 2,
             quarterlyStreak: '5-6-7',
             monthlyScore: 7,
             monthlyRank: 1
         }, {
+            knolderId: 2,
             knolderName: 'sam',
-            score: 15,
-            rank: 1,
+            allTimeScore: 15,
+            allTimeRank: 1,
             quarterlyStreak: '5-6-8',
             monthlyScore: 5,
             monthlyRank: 2
