@@ -17,8 +17,7 @@ export class DrilldownModalPage implements OnInit {
         allTimeScore: 0,
         knolderName: ''
     };
-    title;
-    date;
+    modalContent;
 
     constructor(private service: EmployeeActivityService, private modalController: ModalController) {
     }
@@ -28,8 +27,11 @@ export class DrilldownModalPage implements OnInit {
             .subscribe((data: KnolderDetailsModel) => {
                 this.modalData = data;
                 this.modalData.blogDetails.map((value) => {
-                    this.title = value.title;
-                    this.date = value.date;
+                    this.modalContent =  `<div>` + data.knolderName + `</div>
+                    <div>` + data.allTimeScore + `</div>
+                    <div>` + data.monthlyScore + `</div>
+                    <div>` + data.blogScore + `</div>
+                    <div>` + value.title + value.date + `</div>`;
                 });
             });
     }
