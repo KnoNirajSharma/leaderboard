@@ -32,9 +32,12 @@ describe('TableComponent', () => {
 })
 class ParentComponent {
     tableHeaders: TableHeaderModel[] = [
-        {title: 'Author Name'},
+        {title: 'Name'},
         {title: 'Score'},
         {title: 'Rank'},
+        {title: '3 Month Streak'},
+        {title: 'Monthly Score'},
+        {title: 'Monthly Rank'}
     ];
     employeeData: AuthorModel[] = [
         {
