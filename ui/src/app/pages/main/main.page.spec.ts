@@ -10,6 +10,8 @@ import {CardComponent} from '../../components/card/card.component';
 import {HeadersComponent} from '../../components/headers/headers.component';
 import {of} from 'rxjs';
 import {TableComponent} from '../../components/table/table.component';
+import {EmployeeFilterPipe} from '../../pipe/employee-filter.pipe';
+import {ReactiveFormsModule} from '@angular/forms';
 
 describe('MainPage', () => {
     let component: MainPage;
@@ -38,8 +40,8 @@ describe('MainPage', () => {
     const dummyBlogCount = '5';
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [MainPage, CardComponent, HeadersComponent, TableComponent],
-            imports: [HttpClientTestingModule, IonicModule.forRoot(), RouterTestingModule]
+            declarations: [MainPage, CardComponent, HeadersComponent, TableComponent, EmployeeFilterPipe],
+            imports: [HttpClientTestingModule, IonicModule.forRoot(), RouterTestingModule, ReactiveFormsModule]
         }).compileComponents();
 
         fixture = TestBed.createComponent(MainPage);

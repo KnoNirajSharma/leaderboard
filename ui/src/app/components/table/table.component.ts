@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AuthorModel} from '../../models/author.model';
 import {TableHeaderModel} from '../../models/tableHeader.model';
-import {EmployeeActivityService} from '../../services/employee-activity.service';
+import {FormControl} from '@angular/forms';
 
 @Component({
     selector: 'app-table',
@@ -13,6 +13,7 @@ export class TableComponent implements OnInit {
     @Input() tableHeaders: TableHeaderModel[];
     @Input() tableRows: AuthorModel[];
     @Input() dataKeys: string[];
+    searchBar = new FormControl('');
 
     constructor() {
     }

@@ -7,6 +7,16 @@
   .table-block-content {
     padding: 20px 20px;
 
+    label {
+      margin-bottom: 20px;
+      .search {
+        border: 3px solid #28a8e8;
+        padding: 5px;
+        height: 40px;
+        border-radius: 5px;
+      }
+    }
+
     th {
       padding: 20px 20px;
       font-size: 1.1em;
