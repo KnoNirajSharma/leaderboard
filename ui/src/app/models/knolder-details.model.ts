@@ -3,10 +3,10 @@ export interface KnolderDetailsModel {
     allTimeScore?: number;
     monthlyScore?: number;
     blogScore?: number;
-    'blogDetails': [
+    blogDetails: [
         {
-            'title'?: string,
-            'date'?: string
+            title?: string,
+            date?: string
         }
     ];
 }
