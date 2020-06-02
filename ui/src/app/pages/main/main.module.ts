@@ -23,6 +23,9 @@ const routes: Routes = [
         RouterModule.forChild(routes),
     ],
     declarations: [MainPage, CardComponent, HeadersComponent, TableComponent],
+    exports: [
+        HeadersComponent
+    ]
 })
 export class MainPageModule {
 }
