@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ModalController} from '@ionic/angular';
 import {KnolderDetailsModel} from '../../models/knolder-details.model';
 import {EmployeeActivityService} from '../../services/employee-activity.service';
+import {TableHeaderModel} from '../../models/tableHeader.model';
 
 @Component({
     selector: 'app-modal',
@@ -11,6 +12,8 @@ import {EmployeeActivityService} from '../../services/employee-activity.service'
 export class DrilldownModalPage implements OnInit {
     @Input() id;
     modalData: KnolderDetailsModel;
+    modalHeading: TableHeaderModel[];
+    blogDetails: TableHeaderModel[];
 
     constructor(private service: EmployeeActivityService, private modalController: ModalController) {
     }
@@ -20,6 +23,18 @@ export class DrilldownModalPage implements OnInit {
             .subscribe((data: KnolderDetailsModel) => {
                 this.modalData = data;
             });
+        this.modalHeading = [
+            {title: 'Score Drilldown'},
+            {title: 'Current Month/Year'},
+            {title: 'Overall Score'},
+            {title: 'Monthly Score'},
+            {title: 'Blog Score'}
+        ];
+
+        this.blogDetails = [
+            {title: 'Blog Title'},
+            {title: 'Blog Date/Time'}
+        ];
     }
 
     async closeModal() {
