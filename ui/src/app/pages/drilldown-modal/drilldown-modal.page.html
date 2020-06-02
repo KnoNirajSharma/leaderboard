@@ -1,9 +1,26 @@
 <app-headers title="Details"></app-headers>
-<ion-content>
-    <div>{{modalData.knolderName}}</div>
-    <div>{{modalData.allTimeScore}}</div>
-    <div>{{modalData.monthlyScore}}</div>
-    <div>{{modalData.blogScore}}</div>
-    <div *ngFor="let details of modalData.blogDetails">{{details.title}}{{details.date}}</div>
-</ion-content>
+<ion-grid>
+    <ion-row>
+        <ion-col>
+            <div *ngFor="let heading of modalHeading" class="bold-font">{{heading.title}}</div>
+        </ion-col>
+        <ion-col>
+            <div>{{modalData.knolderName}}</div>
+            <div>{{modalData.currentMonthAndYear}}</div>
+            <div>{{modalData.allTimeScore}}</div>
+            <div>{{modalData.monthlyScore}}</div>
+            <div>{{modalData.blogScore}}</div>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col *ngFor="let detail of blogDetails">
+            <div class="bold-font">{{detail.title}}</div>
+        </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let details of modalData.blogDetails">
+        <ion-col>{{details.title}}</ion-col>
+        <ion-col>{{details.date}}</ion-col>
+    </ion-row>
+</ion-grid>
 <ion-button (click)="closeModal()" color="light" expand="full">Close</ion-button>
+
