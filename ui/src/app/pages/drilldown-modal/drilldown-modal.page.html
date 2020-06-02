@@ -1,0 +1,9 @@
+<app-headers title="Details"></app-headers>
+<ion-content>
+    <div>{{modalData.knolderName}}</div>
+    <div>{{modalData.allTimeScore}}</div>
+    <div>{{modalData.monthlyScore}}</div>
+    <div>{{modalData.blogScore}}</div>
+    <div *ngFor="let details of modalData.blogDetails">{{details.title}}{{details.date}}</div>
+</ion-content>
+<ion-button (click)="closeModal()" color="light" expand="full">Close</ion-button>

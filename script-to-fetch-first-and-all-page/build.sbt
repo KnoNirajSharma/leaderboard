@@ -8,6 +8,8 @@ scapegoatVersion in ThisBuild := "1.3.8"
 
 cancelable in Global := false
 
+coverageExcludedPackages := ".*AllBlogsApp*;.*LatestBlogsApp*"
+
 libraryDependencies ++= Seq(
   "net.liftweb" %% "lift-json" % "3.4.1",
   "org.postgresql" % "postgresql" % "42.2.11",

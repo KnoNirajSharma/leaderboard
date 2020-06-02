@@ -25,6 +25,9 @@ const routes: Routes = [
         RouterModule.forChild(routes),
     ],
     declarations: [MainPage, CardComponent, HeadersComponent, TableComponent, EmployeeFilterPipe],
+    exports: [
+        HeadersComponent
+    ]
 })
 export class MainPageModule {
 }
