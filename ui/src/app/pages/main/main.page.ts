@@ -20,7 +20,6 @@ export class MainPage implements OnInit {
     searchBar = new FormControl('');
     empFilterPipe = new EmployeeFilterPipe();
     filteredEmpData: AuthorModel[];
-    x: string;
 
     constructor(private service: EmployeeActivityService) {
     }
