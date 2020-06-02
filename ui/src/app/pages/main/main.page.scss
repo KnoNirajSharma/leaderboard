@@ -1,7 +1,8 @@
 .main-container {
   padding: 0;
-  width: 100%;
+  width: 85%;
   background-color: #FAF8FB;
+  margin: auto;
 
   .main-content {
 
@@ -23,4 +24,10 @@ ion-card {
   box-shadow: -1px 0px 34px -19px rgba(0,0,0,0.73);
   --ion-background-color: white;
   padding-top: 1em;
+}
+
+@media only screen and (max-width: 992px) {
+  .main-container {
+    width: 100%;
+  }
 }
