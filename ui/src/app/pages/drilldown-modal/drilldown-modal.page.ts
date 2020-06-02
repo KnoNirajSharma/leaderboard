@@ -10,13 +10,7 @@ import {EmployeeActivityService} from '../../services/employee-activity.service'
 })
 export class DrilldownModalPage implements OnInit {
     @Input() id;
-    modalData: KnolderDetailsModel = {
-        blogDetails: [{}],
-        blogScore: 0,
-        monthlyScore: 0,
-        allTimeScore: 0,
-        knolderName: ''
-    };
+    modalData: KnolderDetailsModel;
 
     constructor(private service: EmployeeActivityService, private modalController: ModalController) {
     }
