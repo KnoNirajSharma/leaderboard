@@ -1,11 +1,5 @@
-<ion-header [translucent]="true">
-    <ion-toolbar>
-        <ion-title>
-            <h1 class="title">{{title}}</h1>
-        </ion-title>
-    </ion-toolbar>
-</ion-header>
 <ion-grid>
+    <h1 class="title">{{title}}</h1>
     <ion-row>
         <ion-col>
             <div *ngFor="let heading of modalHeading" class="bold-font">{{heading.title}}</div>
