@@ -18,7 +18,9 @@ export class MainPage implements OnInit {
     tableHeaders: TableHeaderModel[];
     pageTitle = 'LEADERBOARD';
     searchBar = new FormControl('');
-    tpipe = new EmployeeFilterPipe();
+    empFilterPipe = new EmployeeFilterPipe();
+    filteredEmpData: AuthorModel[];
+    x: string;
 
     constructor(private service: EmployeeActivityService) {
     }
@@ -29,6 +31,7 @@ export class MainPage implements OnInit {
                 this.employeeData = data;
                 this.dataKeys = (Object.keys(this.employeeData[0])).slice(1, 7);
                 this.prepareCardData();
+                this.filteredEmpData = this.employeeData;
             });
         this.tableHeaders = [
             {title: 'Name'},
@@ -87,10 +90,6 @@ export class MainPage implements OnInit {
     }
 
     filterEmp() {
-        this.service.getData()
-            .subscribe((data: AuthorModel[]) => {
-                // this.employeeData = this.tpipe.transform(data, this.searchBar.value);
-            });
-        // this.employeeData = this.tpipe.transform(this.employeeData, this.searchBar.value);
+        this.filteredEmpData = this.empFilterPipe.transform(this.employeeData, this.searchBar.value);
     }
 }

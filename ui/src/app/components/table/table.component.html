@@ -1,9 +1,5 @@
 <div class="table-block">
     <div class="table-block-content">
-        <label class="col-12 col-md-3 float-right">
-            <input [formControl]="searchBar" class="search form-control"
-                   placeholder="Search..." type="text">
-        </label>
         <div class="table-responsive">
             <div>
                 <table class="table table-hover">
@@ -14,7 +10,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let tableRow of tableRows | employeeFilter: searchBar.value">
+                    <tr *ngFor="let tableRow of tableRows">
                         <td *ngFor="let dataKey of dataKeys;
                         let i = index" [ngClass]="{'first-td': (i==0)}">{{tableRow[dataKey]}}</td>
                     </tr>

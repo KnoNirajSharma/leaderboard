@@ -1,6 +1,6 @@
 <app-headers [title]="pageTitle"></app-headers>
 <ion-content [fullscreen]="true">
-<div class="main-container">
+    <div class="main-container">
         <div class="main-content">
             <ion-grid>
                 <ion-row class="cards-row">
@@ -9,13 +9,15 @@
                     </ion-col>
                 </ion-row>
             </ion-grid>
-            <label class="col-12 col-md-3 float-right">
-                <input [formControl]="searchBar" class="search form-control"
-                       placeholder="Search..." type="text" (keyup)="filterEmp()">
-            </label>
-                <ion-card>
-                    <app-table [dataKeys]="dataKeys" [tableHeaders]="tableHeaders" [tableRows]="tpipe.transform(employeeData, searchBar.value)"></app-table></ion-card>
+            <ion-card>
+                <label class="col-sm-12 col-md-4 col-lg-3">
+                    <input (keyup)="filterEmp()" [formControl]="searchBar"
+                           class="search form-control" placeholder="Search..." type="text">
+                </label>
+                <app-table [dataKeys]="dataKeys" [tableHeaders]="tableHeaders"
+                           [tableRows]="filteredEmpData"></app-table>
+            </ion-card>
         </div>
-</div>
+    </div>
 </ion-content>
 
