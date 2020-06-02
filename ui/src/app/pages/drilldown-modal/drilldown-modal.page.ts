@@ -11,6 +11,7 @@ import {TableHeaderModel} from '../../models/tableHeader.model';
 })
 export class DrilldownModalPage implements OnInit {
     @Input() id;
+    title = 'Details';
     modalData: KnolderDetailsModel;
     modalHeading: TableHeaderModel[];
     blogDetails: TableHeaderModel[];
@@ -25,7 +26,7 @@ export class DrilldownModalPage implements OnInit {
             });
         this.modalHeading = [
             {title: 'Score Drilldown'},
-            {title: 'Current Month/Year'},
+            {title: 'Current Month'},
             {title: 'Overall Score'},
             {title: 'Monthly Score'},
             {title: 'Blog Score'}

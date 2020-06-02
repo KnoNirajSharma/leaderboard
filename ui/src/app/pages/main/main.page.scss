@@ -1,21 +1,17 @@
 .main-container {
   font-family: 'Open Sans';
   padding: 0;
-  width: 85%;
+  width: 80%;
   background-color: #FAF8FB;
   margin: auto;
-
   .main-content {
-
     .cards-row {
       margin-top: 1em;
     }
-
     width: 100%;
-
     label {
-      margin-bottom: 20px;
-
+      margin-top: 10px;
+      background-color: white;
       .search {
         border: 3px solid #28a8e8;
         padding: 5px;
@@ -25,7 +21,6 @@
     }
   }
 }
-
 ion-content {
   --ion-background-color: #FAF8FB;
   height: 100vh;
@@ -37,8 +32,10 @@ ion-content {
     margin: 0 !important;
     padding: 0 !important;
   }
+  ion-card {
+    background-color: white;
+  }
 }
-
 @media only screen and (max-width: 992px) {
   .main-container {
     width: 100%;
