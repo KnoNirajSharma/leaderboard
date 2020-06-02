@@ -29,8 +29,8 @@ class LeaderboardUI extends TestNGSuite {
     /**
      * method for providing the Knolder name/detail
      */
-    val NAME = driver.findElementByXPath("//ion-col[contains(text(),'" + name + "')]")
-    val nameText = NAME.getText.trim
+    val knolderName = driver.findElementByXPath("//ion-col[contains(text(),'" + name + "')]")
+    val nameText = knolderName.getText.trim
     val rank = driver.findElementByXPath("//ion-col[contains(text(),'" + name + "')]/following-sibling::ion-col/following-sibling::ion-col")
     val rankText = rank.getText.trim
     val score = driver.findElementByXPath("//ion-col[contains(text(),'" + name + "')]/following-sibling::ion-col")
