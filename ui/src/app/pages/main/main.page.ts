@@ -3,6 +3,8 @@ import {CardDataModel} from '../../models/cardData.model';
 import {AuthorModel} from '../../models/author.model';
 import {EmployeeActivityService} from '../../services/employee-activity.service';
 import {TableHeaderModel} from '../../models/tableHeader.model';
+import {FormControl} from '@angular/forms';
+import {EmployeeFilterPipe} from '../../pipe/employee-filter.pipe';
 
 @Component({
     selector: 'app-main',
@@ -15,6 +17,8 @@ export class MainPage implements OnInit {
     dataKeys: string[];
     tableHeaders: TableHeaderModel[];
     pageTitle = 'LEADERBOARD';
+    searchBar = new FormControl('');
+    tpipe = new EmployeeFilterPipe();
 
     constructor(private service: EmployeeActivityService) {
     }
@@ -80,5 +84,13 @@ export class MainPage implements OnInit {
             }
         }
         return count;
+    }
+
+    filterEmp() {
+        this.service.getData()
+            .subscribe((data: AuthorModel[]) => {
+                // this.employeeData = this.tpipe.transform(data, this.searchBar.value);
+            });
+        // this.employeeData = this.tpipe.transform(this.employeeData, this.searchBar.value);
     }
 }

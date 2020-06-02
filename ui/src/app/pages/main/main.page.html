@@ -9,7 +9,12 @@
                     </ion-col>
                 </ion-row>
             </ion-grid>
-                <ion-card><app-table [dataKeys]="dataKeys" [tableHeaders]="tableHeaders" [tableRows]="employeeData"></app-table></ion-card>
+            <label class="col-12 col-md-3 float-right">
+                <input [formControl]="searchBar" class="search form-control"
+                       placeholder="Search..." type="text" (keyup)="filterEmp()">
+            </label>
+                <ion-card>
+                    <app-table [dataKeys]="dataKeys" [tableHeaders]="tableHeaders" [tableRows]="tpipe.transform(employeeData, searchBar.value)"></app-table></ion-card>
         </div>
 </div>
 </ion-content>

@@ -10,6 +10,6 @@ export class EmployeeFilterPipe implements PipeTransform {
             return employees;
         }
         return employees.filter(employee =>
-            employee.knolderName.toLocaleLowerCase().indexOf(searchTerm.toLocaleLowerCase()) !== -1);
+            employee.knolderName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1);
     }
 }
