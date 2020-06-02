@@ -8,8 +8,11 @@ import {EmployeeActivityService} from '../../services/employee-activity.service'
 import {AuthorModel} from '../../models/author.model';
 import {CardComponent} from '../../components/card/card.component';
 import {HeadersComponent} from '../../components/headers/headers.component';
-import {of} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {TableComponent} from '../../components/table/table.component';
+import {EmployeeFilterPipe} from '../../pipe/employee-filter.pipe';
+import {ReactiveFormsModule} from '@angular/forms';
+import {By} from '@angular/platform-browser';
 
 describe('MainPage', () => {
     let component: MainPage;
@@ -38,8 +41,9 @@ describe('MainPage', () => {
     const dummyBlogCount = '5';
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [MainPage, CardComponent, HeadersComponent, TableComponent],
-            imports: [HttpClientTestingModule, IonicModule.forRoot(), RouterTestingModule]
+            declarations: [MainPage, CardComponent, HeadersComponent, TableComponent, EmployeeFilterPipe],
+            imports: [HttpClientTestingModule, IonicModule.forRoot(), RouterTestingModule, ReactiveFormsModule],
+            providers: [EmployeeFilterPipe]
         }).compileComponents();
 
         fixture = TestBed.createComponent(MainPage);
@@ -64,4 +68,20 @@ describe('MainPage', () => {
         expect(component.employeeData).toEqual(dummyAuthorData);
     });
 
+    it('should call the filterEmp on keyup', () => {
+        spyOn(component, 'filterEmp');
+        fixture.detectChanges();
+        const input = fixture.debugElement.query(By.css('input'));
+        const inputElement = input.nativeElement;
+        inputElement.dispatchEvent(new Event('keyup'));
+        expect(component.filterEmp).toHaveBeenCalled();
+    });
+
+    it('should filter Employee', () => {
+        component.empFilterPipe = new EmployeeFilterPipe();
+        component.employeeData = dummyAuthorData;
+        component.searchBar.setValue('mark');
+        component.filterEmp();
+        expect(component.filteredEmpData).toEqual([dummyAuthorData[0]]);
+    });
 });

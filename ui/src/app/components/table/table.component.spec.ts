@@ -2,18 +2,19 @@ import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/t
 import {IonicModule, ModalController} from '@ionic/angular';
 import {TableComponent} from './table.component';
 import {RouterTestingModule} from '@angular/router/testing';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {Component} from '@angular/core';
 import {TableHeaderModel} from '../../models/tableHeader.model';
 import {AuthorModel} from '../../models/author.model';
+import {EmployeeFilterPipe} from '../../pipe/employee-filter.pipe';
 
 describe('TableComponent', () => {
     let component: TableComponent;
     let fixture: ComponentFixture<ParentComponent>;
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [TableComponent, ParentComponent],
+            declarations: [TableComponent, ParentComponent, EmployeeFilterPipe],
             imports: [HttpClientTestingModule, IonicModule.forRoot(), RouterTestingModule, FormsModule],
             providers: [ModalController]
         }).compileComponents();
