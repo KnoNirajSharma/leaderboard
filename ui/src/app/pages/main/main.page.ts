@@ -43,27 +43,15 @@ export class MainPage implements OnInit {
     }
 
     prepareCardData() {
-        const fontSizeTitle = '3em';
-        const fontSizeSubTitle = '1.5em';
-        const bgColorPurple = '#995d81';
-        const bgColorRed = '#f78154';
-        const bgColorGreen = '#5fad56';
-        const bgColorBlue = '#3581B8';
-        const fontColor = 'white';
         this.cardData = [
             {
-                cardTitle: this.getTotalCount('blogs'), subtitle: 'Blogs', titleFontSize: fontSizeTitle,
-                subtitleFontSize: fontSizeSubTitle, bgColor: bgColorPurple, fontColor
+                cardTitle: this.getTotalCount('blogs'), subtitle: 'Blogs'
             }, {
-                cardTitle: this.getTotalCount('knolx'), subtitle: 'Knolx', titleFontSize: fontSizeTitle,
-                subtitleFontSize: fontSizeSubTitle, bgColor: bgColorRed, fontColor
+                cardTitle: this.getTotalCount('knolx'), subtitle: 'Knolx'
             }, {
-                cardTitle: this.getTotalCount('webinars'), subtitle: 'Webinars', titleFontSize: fontSizeTitle,
-                subtitleFontSize: fontSizeSubTitle, bgColor: bgColorGreen, fontColor
+                cardTitle: this.getTotalCount('webinars'), subtitle: 'Webinars'
             }, {
-                cardTitle: this.getTotalCount('techhubTemplates'), subtitle: 'TechHub Templates',
-                titleFontSize: fontSizeTitle, subtitleFontSize: fontSizeSubTitle, bgColor: bgColorBlue,
-                fontColor
+                cardTitle: this.getTotalCount('techhubTemplates'), subtitle: 'TechHub Templates'
             },
         ];
     }
