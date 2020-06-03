@@ -28,7 +28,7 @@ export class MainPage implements OnInit {
         this.service.getData()
             .subscribe((data: AuthorModel[]) => {
                 this.employeeData = data;
-                this.dataKeys = (Object.keys(this.employeeData[0])).slice(1, 7);
+                this.dataKeys = ['knolderName', 'allTimeScore', 'allTimeRank', 'monthlyScore', 'monthlyRank', 'quarterlyStreak'];
                 this.prepareCardData();
                 this.filteredEmpData = this.employeeData;
             });
@@ -36,9 +36,9 @@ export class MainPage implements OnInit {
             {title: 'Name'},
             {title: 'Score'},
             {title: 'Rank'},
-            {title: '3 Month Streak'},
             {title: 'Monthly Score'},
-            {title: 'Monthly Rank'}
+            {title: 'Monthly Rank'},
+            {title: '3 Month Streak'}
         ];
     }
 
