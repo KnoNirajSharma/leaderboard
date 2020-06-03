@@ -1,9 +1,11 @@
-.title {
-  margin-top: 1em;
-  text-align: center;
-  font-weight: bold;
-}
-
-.bold-font {
-  font-weight: bold;
+ion-grid {
+  margin: 0;
+  .title {
+    margin-top: 1em;
+    text-align: center;
+    font-weight: bold;
+  }
+  .bold-font {
+    font-weight: bold;
+  }
 }

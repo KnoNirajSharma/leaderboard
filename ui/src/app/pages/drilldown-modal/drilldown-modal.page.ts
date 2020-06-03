@@ -20,7 +20,7 @@ export class DrilldownModalPage implements OnInit {
     }
 
     ngOnInit() {
-        this.service.getDetails()
+        this.service.getDetails(this.id)
             .subscribe((data: KnolderDetailsModel) => {
                 this.modalData = data;
             });
