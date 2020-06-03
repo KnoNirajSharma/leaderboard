@@ -9,3 +9,5 @@ addSbtPlugin("com.sksamuel.scapegoat" %% "sbt-scapegoat" % "1.1.0")
 addSbtPlugin("com.github.sbt" % "sbt-cpd" % "2.0.0")
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.7.0")
+
+addSbtPlugin("nl.codestar" % "sbt-findsecbugs" % "0.16")

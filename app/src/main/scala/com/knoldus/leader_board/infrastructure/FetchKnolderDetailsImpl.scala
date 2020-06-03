@@ -30,7 +30,7 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
 
     val scores = SQL("SELECT knolder.full_name, all_time_reputation.score AS allTimeScore, monthly_reputation.score " +
       s"AS monthlyScore,COUNT(blog.title) * ${config.getInt("scorePerBlog")} As blogScore FROM knolder INNER JOIN " +
-      s"all_time_reputation ON knolder.id = all_time_reputation.knolder_id " + "INNER JOIN monthly_reputation ON " +
+      "all_time_reputation ON knolder.id = all_time_reputation.knolder_id INNER JOIN monthly_reputation ON " +
       "knolder.id = monthly_reputation.knolder_id LEFT JOIN blog ON knolder.wordpress_id = blog.wordpress_id AND " +
       "published_on >= ? AND published_on < ? WHERE knolder.id = ? GROUP BY knolder.full_name, all_time_reputation.score, " +
       "monthly_reputation.score")
