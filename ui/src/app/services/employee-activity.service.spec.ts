@@ -9,7 +9,7 @@ import {KnolderDetailsModel} from '../models/knolder-details.model';
 describe('EmployeeActivityService', () => {
     let employeeActivityService: EmployeeActivityService;
     let httpTestingController: HttpTestingController;
-    const Url = `${environment.api.baseUrl}${environment.api.routes.author.endpoint}`;
+    const url = `${environment.api.baseUrl}${environment.api.routes.author.endpoint}`;
     const dummyAuthorData: AuthorModel[] = [{
         knolderId: 1,
         knolderName: 'mark',
@@ -61,7 +61,7 @@ describe('EmployeeActivityService', () => {
         employeeActivityService.getData().subscribe(authorData => {
             expect(authorData).toEqual(dummyAuthorData);
         });
-        const requestCheck = httpTestingController.expectOne(Url);
+        const requestCheck = httpTestingController.expectOne(url);
         expect(requestCheck.request.method).toBe('GET');
         requestCheck.flush(dummyAuthorData);
     });
@@ -70,7 +70,7 @@ describe('EmployeeActivityService', () => {
         employeeActivityService.getDetails(id).subscribe(modalData => {
             expect(modalData).toEqual(dummyModalData);
         });
-        const requestCheck = httpTestingController.expectOne(Url + '/' + id);
+        const requestCheck = httpTestingController.expectOne(url + '/' + id);
         expect(requestCheck.request.method).toBe('GET');
         requestCheck.flush(dummyModalData);
     });
