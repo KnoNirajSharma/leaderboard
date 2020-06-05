@@ -36,7 +36,7 @@ class ReputationOnAPIImpl(fetchKnolderDetails: FetchKnolderDetails, fetchReputat
         }
       }
     }
-    logger.info("Displaying all time details of each knolder on the API.")
+    logger.info("Displaying monthly details of each knolder on the API.")
     val monthlyDetailsRoute = cors(settings = CorsSettings.defaultSettings) {
       path("reputation" / IntNumber) { id =>
         parameters("month", "year") { (month, year) =>
@@ -48,7 +48,7 @@ class ReputationOnAPIImpl(fetchKnolderDetails: FetchKnolderDetails, fetchReputat
         }
       }
     }
-    logger.info("Displaying monthly details of each knolder on the API.")
+    logger.info("Displaying all time details of each knolder on the API.")
     val allTimeDetailsRoute = cors(settings = CorsSettings.defaultSettings) {
       path("reputation" / IntNumber) { id =>
         get {
