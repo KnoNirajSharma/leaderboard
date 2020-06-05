@@ -57,9 +57,10 @@ class ReputationOnAPIImpl(fetchKnolderDetails: FetchKnolderDetails, fetchReputat
         }
       }
     }
-    val mainRoute = reputationRoute ~ allTimeDetailsRoute ~ monthlyDetailsRoute
+    val mainRoute = reputationRoute ~ monthlyDetailsRoute ~ allTimeDetailsRoute
     Http().bindAndHandle(mainRoute, config.getString("interface"), config.getInt("port"))
-    }.recoverWith {
+  }.recoverWith {
     case ex: Exception => Future.failed(new Exception("Service failed", ex))
   }
 }
+
