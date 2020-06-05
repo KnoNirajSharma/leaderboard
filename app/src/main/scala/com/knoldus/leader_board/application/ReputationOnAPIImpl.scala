@@ -1,5 +1,7 @@
 package com.knoldus.leader_board.application
 
+import java.time.Month
+
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model._
@@ -34,16 +36,28 @@ class ReputationOnAPIImpl(fetchKnolderDetails: FetchKnolderDetails, fetchReputat
         }
       }
     }
-    logger.info("Displaying details of each knolder on the API.")
-    val detailsRoute = cors(settings = CorsSettings.defaultSettings) {
+    logger.info("Displaying all time details of each knolder on the API.")
+    val monthlyDetailsRoute = cors(settings = CorsSettings.defaultSettings) {
       path("reputation" / IntNumber) { id =>
-        get {
-          complete(HttpEntity(ContentTypes.`application/json`,
-            compactRender(decompose(fetchKnolderDetails.fetchKnolderDetails(id)))))
+        parameters("month", "year") { (month, year) =>
+          get {
+            complete(HttpEntity(ContentTypes.`application/json`,
+              compactRender(decompose(fetchKnolderDetails.fetchKnolderMonthlyDetails(id,
+                Month.valueOf(month.toUpperCase).getValue, year.toInt)))))
+          }
         }
       }
     }
-    val mainRoute = reputationRoute ~ detailsRoute
+    logger.info("Displaying monthly details of each knolder on the API.")
+    val allTimeDetailsRoute = cors(settings = CorsSettings.defaultSettings) {
+      path("reputation" / IntNumber) { id =>
+        get {
+          complete(HttpEntity(ContentTypes.`application/json`,
+            compactRender(decompose(fetchKnolderDetails.fetchKnolderAllTimeDetails(id)))))
+        }
+      }
+    }
+    val mainRoute = reputationRoute ~ allTimeDetailsRoute ~ monthlyDetailsRoute
     Http().bindAndHandle(mainRoute, config.getString("interface"), config.getInt("port"))
     }.recoverWith {
     case ex: Exception => Future.failed(new Exception("Service failed", ex))
