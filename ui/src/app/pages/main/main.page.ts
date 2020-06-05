@@ -34,8 +34,8 @@ export class MainPage implements OnInit {
             });
         this.tableHeaders = [
             {title: 'Name'},
-            {title: 'Score'},
-            {title: 'Rank'},
+            {title: 'Overall Score'},
+            {title: 'Overall Rank'},
             {title: 'Monthly Score'},
             {title: 'Monthly Rank'},
             {title: '3 Month Streak'}
