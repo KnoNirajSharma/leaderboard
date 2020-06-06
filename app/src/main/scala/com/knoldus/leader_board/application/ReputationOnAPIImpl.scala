@@ -1,5 +1,7 @@
 package com.knoldus.leader_board.application
+
 import java.time.Month
+
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model._
@@ -11,11 +13,14 @@ import com.typesafe.config.Config
 import com.typesafe.scalalogging._
 import net.liftweb.json.Extraction.decompose
 import net.liftweb.json.{DefaultFormats, compactRender}
+
 import scala.concurrent.{ExecutionContextExecutor, Future}
+
 class ReputationOnAPIImpl(fetchKnolderDetails: FetchKnolderDetails, fetchReputation: FetchReputation, config: Config)
                          (implicit system: ActorSystem, executionContext: ExecutionContextExecutor)
   extends ReputationOnAPI with Directives with CorsDirectives with LazyLogging {
   implicit val formats: DefaultFormats.type = net.liftweb.json.DefaultFormats
+
   /**
    * Displays reputation and details of each knolder on API.
    *
@@ -28,6 +33,7 @@ class ReputationOnAPIImpl(fetchKnolderDetails: FetchKnolderDetails, fetchReputat
         case ex: Exception => Future.failed(new Exception("Service failed", ex))
       }
   }
+
   /**
    * Displays reputation of each knolder on API.
    *
@@ -44,6 +50,7 @@ class ReputationOnAPIImpl(fetchKnolderDetails: FetchKnolderDetails, fetchReputat
       }
     }
   }
+
   /**
    * Displays monthly details of particular knolder on API.
    *
@@ -63,6 +70,7 @@ class ReputationOnAPIImpl(fetchKnolderDetails: FetchKnolderDetails, fetchReputat
       }
     }
   }
+
   /**
    * Displays all time details of particular knolder on API.
    *
