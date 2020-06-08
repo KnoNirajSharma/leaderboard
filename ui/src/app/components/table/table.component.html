@@ -12,7 +12,7 @@
                     <tbody>
                     <tr *ngFor="let tableRow of tableRows">
                         <td *ngFor="let dataKey of dataKeys;
-                        let i = index" [ngClass]="{'first-td': (i==0)}" (click)="presentModal(tableRow.knolderId)">
+                        let i = index" [ngClass]="{'first-td': (i==0)}">
                             {{tableRow[dataKey]}}
                         </td>
                     </tr>
