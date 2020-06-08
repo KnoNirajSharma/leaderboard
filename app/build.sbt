@@ -6,6 +6,8 @@ scalaVersion := "2.12.6"
 
 scapegoatVersion in ThisBuild := "1.3.8"
 
+cancelable in Global := false
+
 enablePlugins(JavaAppPackaging)
 enablePlugins(DockerPlugin)
 enablePlugins(AshScriptPlugin)
@@ -14,7 +16,7 @@ mainClass in Compile := Some("com.knoldus.leader_board.DriverApp")
 
 dockerBaseImage := "openjdk:8-jre-alpine"
 
-coverageExcludedPackages := ".*DriverApp*"
+coverageExcludedPackages := ".*DriverApp*;.*URLResponse*"
 
 coverageMinimum := 80
 
@@ -39,5 +41,7 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-http-testkit" % akkaHttpVersion % Test,
   "org.scalatest" %% "scalatest" % "3.1.0" % Test,
   "org.mockito" %% "mockito-scala" % "1.11.4" % Test,
-  "com.enragedginger" %% "akka-quartz-scheduler" % "1.8.3-akka-2.6.x"
+  "com.enragedginger" %% "akka-quartz-scheduler" % "1.8.3-akka-2.6.x",
+  "org.apache.commons" % "commons-io" % "1.3.2",
+  "org.apache.httpcomponents" % "httpclient" % "4.5.11"
 )
