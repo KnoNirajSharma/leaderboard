@@ -1,0 +1,22 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>details</ion-title>
+    </ion-toolbar>
+</ion-header>
+<div *ngIf="knolderDetails">
+<div>{{knolderDetails.knolderName}}</div>
+<div>{{knolderDetails.score}}</div>
+<div *ngFor="let contribution of knolderDetails.scoreBreakDown">
+    blogs: {{contribution.contributionCount}} {{contribution.contributionScore}}
+</div>
+ -------<br/>
+details <br/>
+ -------
+<div *ngFor="let contribution of knolderDetails.scoreBreakDown">
+    {{contribution.contributionType}}
+    <div *ngFor="let details of contribution.contributionDetails">
+        {{details.title}} | {{details.date}}
+    </div>
+</div>
+</div>
+

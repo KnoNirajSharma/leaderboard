@@ -4,12 +4,14 @@ import {HttpClientTestingModule, HttpTestingController} from '@angular/common/ht
 import {AuthorModel} from '../models/author.model';
 import {environment} from '../../environments/environment';
 import {KnolderDetailsModel} from '../models/knolder-details.model';
+import {computeStackId} from '@ionic/angular/directives/navigation/stack-utils';
 
 
 describe('EmployeeActivityService', () => {
     let employeeActivityService: EmployeeActivityService;
     let httpTestingController: HttpTestingController;
     const url = `${environment.api.baseUrl}${environment.api.routes.author.endpoint}`;
+    const detailApiUrl = environment.api.routes.details.endpoint;
     const dummyAuthorData: AuthorModel[] = [{
         knolderId: 1,
         knolderName: 'mark',
@@ -27,17 +29,22 @@ describe('EmployeeActivityService', () => {
         monthlyScore: 7,
         monthlyRank: 1
     }];
-    const dummyModalData: KnolderDetailsModel = {
-        knolderName: 'mark',
-        allTimeScore: 100,
-        monthlyScore: 20,
-        blogScore: 20,
-        blogDetails: [
-            {
-                title: 'abc',
-                date: '2020-05-06 13:34:09'
-            }
-        ]
+    const dummyDetailData: KnolderDetailsModel = {
+        knolderName: 'Muskan Gupta',
+            score: 20,
+        scoreBreakDown: [
+        {
+            contributionType: 'Blog',
+            contributionCount: 4,
+            contributionScore: 20,
+            contributionDetails: [
+                {
+                    title: 'Serialization in Lagom',
+                    date: '2020-05-06 14:16:23'
+                }
+            ]
+        }
+    ]
     };
     const id = 1;
 
@@ -67,12 +74,12 @@ describe('EmployeeActivityService', () => {
     });
 
     it('should retrieve author data from the API via GET', () => {
-        employeeActivityService.getDetails(id).subscribe(modalData => {
-            expect(modalData).toEqual(dummyModalData);
+        employeeActivityService.getDetails(id).subscribe(data => {
+            expect(data).toEqual(dummyDetailData);
         });
-        const requestCheck = httpTestingController.expectOne(url + '/' + id);
+        const requestCheck = httpTestingController.expectOne(detailApiUrl);
         expect(requestCheck.request.method).toBe('GET');
-        requestCheck.flush(dummyModalData);
+        requestCheck.flush(dummyDetailData);
     });
 
     afterEach(() => {
