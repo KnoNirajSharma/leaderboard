@@ -9,7 +9,6 @@ import {HeadersComponent} from '../../components/headers/headers.component';
 import {TableComponent} from '../../components/table/table.component';
 import {EmployeeFilterPipe} from '../../pipe/employee-filter.pipe';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
-import {Sort} from '@angular/material/sort';
 
 const routes: Routes = [
     {
