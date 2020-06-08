@@ -28,7 +28,7 @@ export class MainPage implements OnInit {
         this.service.getData()
             .subscribe((data: AuthorModel[]) => {
                 this.employeeData = data;
-                this.dataKeys = (Object.keys(this.employeeData[1])).slice(1, 7);
+                this.dataKeys = (Object.keys(this.employeeData[0])).slice(1, 7);
                 this.prepareCardData();
                 this.filteredEmpData = this.employeeData;
             });
