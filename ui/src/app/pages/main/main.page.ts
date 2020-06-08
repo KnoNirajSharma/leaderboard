@@ -2,10 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {CardDataModel} from '../../models/cardData.model';
 import {AuthorModel} from '../../models/author.model';
 import {EmployeeActivityService} from '../../services/employee-activity.service';
-import {TableHeaderModel} from '../../models/tableHeader.model';
 import {FormControl} from '@angular/forms';
 import {EmployeeFilterPipe} from '../../pipe/employee-filter.pipe';
-import {TableColumn} from '@swimlane/ngx-datatable';
 
 @Component({
     selector: 'app-main',
