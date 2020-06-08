@@ -5,6 +5,7 @@ import {EmployeeActivityService} from '../../services/employee-activity.service'
 import {TableHeaderModel} from '../../models/tableHeader.model';
 import {FormControl} from '@angular/forms';
 import {EmployeeFilterPipe} from '../../pipe/employee-filter.pipe';
+import {TableColumn} from '@swimlane/ngx-datatable';
 
 @Component({
     selector: 'app-main',
@@ -15,7 +16,7 @@ export class MainPage implements OnInit {
     cardData: CardDataModel[];
     employeeData: AuthorModel[];
     dataKeys: string[];
-    tableHeaders: TableHeaderModel[];
+    tableHeaders: TableColumn[];
     pageTitle = 'LEADERBOARD';
     searchBar = new FormControl('');
     empFilterPipe = new EmployeeFilterPipe();
@@ -28,17 +29,18 @@ export class MainPage implements OnInit {
         this.service.getData()
             .subscribe((data: AuthorModel[]) => {
                 this.employeeData = data;
-                this.dataKeys = (Object.keys(this.employeeData[0])).slice(1, 7);
+                this.dataKeys = (Object.keys(this.employeeData[1])).slice(1, 7);
                 this.prepareCardData();
                 this.filteredEmpData = this.employeeData;
+                console.log(this.filteredEmpData);
             });
         this.tableHeaders = [
-            {title: 'Name'},
-            {title: 'Score'},
-            {title: 'Rank'},
-            {title: '3 Month Streak'},
-            {title: 'Monthly Score'},
-            {title: 'Monthly Rank'}
+            {name: 'Name'},
+            {name: 'Score'},
+            {name: 'Rank'},
+            {name: '3 Month Streak'},
+            {name: 'Monthly Score'},
+            {name: 'Monthly Rank'}
         ];
     }
 

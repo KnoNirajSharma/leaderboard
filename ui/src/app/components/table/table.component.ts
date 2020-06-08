@@ -3,6 +3,9 @@ import {AuthorModel} from '../../models/author.model';
 import {TableHeaderModel} from '../../models/tableHeader.model';
 import {DrilldownModalPage} from '../../pages/drilldown-modal/drilldown-modal.page';
 import {ModalController} from '@ionic/angular';
+import {TranslateService} from '@ngx-translate/core';
+import {EmployeeActivityService} from '../../services/employee-activity.service';
+import {TableColumn} from '@swimlane/ngx-datatable';
 
 @Component({
     selector: 'app-table',
@@ -11,7 +14,7 @@ import {ModalController} from '@ionic/angular';
 })
 
 export class TableComponent implements OnInit {
-    @Input() tableHeaders: TableHeaderModel[];
+    @Input() tableHeaders: TableColumn[];
     @Input() tableRows: AuthorModel[];
     @Input() dataKeys: string[];
 

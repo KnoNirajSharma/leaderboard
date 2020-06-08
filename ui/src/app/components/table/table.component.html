@@ -2,23 +2,34 @@
     <div class="table-block-content">
         <div class="table-responsive">
             <div>
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th *ngFor="let header of tableHeaders;
-                        let i = index" [ngClass]="{'first-td': (i==0)}">{{header.title}}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr *ngFor="let tableRow of tableRows">
-                        <td *ngFor="let dataKey of dataKeys;
-                        let i = index" [ngClass]="{'first-td': (i==0)}" (click)="presentModal(tableRow.knolderId)">
-                            {{tableRow[dataKey]}}
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                    <ngx-datatable class="material sorting" [rows]="tableRows" [columns]="tableHeaders" [sortType]="'multi'" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="50" [scrollbarV]="true">
+                    </ngx-datatable>
             </div>
         </div>
     </div>
 </div>
+
+<!--<div class="table-block">-->
+<!--    <div class="table-block-content">-->
+<!--        <div class="table-responsive">-->
+<!--            <div>-->
+<!--                <table class="table table-hover">-->
+<!--                    <thead>-->
+<!--                    <tr>-->
+<!--                        <th *ngFor="let header of tableHeaders;-->
+<!--                        let i = index" [ngClass]="{'first-td': (i==0)}">{{header.title}}</th>-->
+<!--                    </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody>-->
+<!--                    <tr *ngFor="let tableRow of tableRows">-->
+<!--                        <td *ngFor="let dataKey of dataKeys;-->
+<!--                        let i = index" [ngClass]="{'first-td': (i==0)}" (click)="presentModal(tableRow.knolderId)">-->
+<!--                            {{tableRow[dataKey]}}-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                    </tbody>-->
+<!--                </table>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
