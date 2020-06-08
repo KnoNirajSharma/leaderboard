@@ -8,6 +8,7 @@ import {TableComponent} from '../../components/table/table.component';
 import {of} from 'rxjs';
 import {EmployeeActivityService} from '../../services/employee-activity.service';
 import {KnolderDetailsModel} from '../../models/knolder-details.model';
+import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 
 describe('ModalPage', () => {
   let component: DrilldownModalPage;
@@ -29,7 +30,7 @@ describe('ModalPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [DrilldownModalPage, HeadersComponent, TableComponent],
-      imports: [HttpClientTestingModule, IonicModule.forRoot(), RouterTestingModule],
+      imports: [HttpClientTestingModule, IonicModule.forRoot(), RouterTestingModule, NgxDatatableModule],
       providers: [ModalController]
     }).compileComponents();
     fixture = TestBed.createComponent(DrilldownModalPage);

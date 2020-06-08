@@ -1,11 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AuthorModel} from '../../models/author.model';
-import {TableHeaderModel} from '../../models/tableHeader.model';
 import {DrilldownModalPage} from '../../pages/drilldown-modal/drilldown-modal.page';
 import {ModalController} from '@ionic/angular';
-import {TranslateService} from '@ngx-translate/core';
-import {EmployeeActivityService} from '../../services/employee-activity.service';
-import {TableColumn} from '@swimlane/ngx-datatable';
 
 @Component({
     selector: 'app-table',
@@ -14,9 +10,11 @@ import {TableColumn} from '@swimlane/ngx-datatable';
 })
 
 export class TableComponent implements OnInit {
-    @Input() tableHeaders: TableColumn[];
     @Input() tableRows: AuthorModel[];
     @Input() dataKeys: string[];
+    columns = [{ name: 'Name', prop: 'knolderName'}, { name: 'Overall Score', prop: 'allTimeScore'},
+        { name: 'Overall Rank', prop: 'allTimeRank'}, { name: 'Monthly Score', prop: 'monthlyScore'},
+        { name: 'Monthly Rank', prop: 'monthlyScore'}, { name: '3 Month Streak', prop: 'quarterlyStreak', sortable: false}];
 
     constructor(private modalController: ModalController) {
     }

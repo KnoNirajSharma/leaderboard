@@ -7,24 +7,8 @@
   .table-block-content {
     padding: 20px 20px;
 
-    th {
-      padding: 20px 20px;
-      font-size: 1.1em;
-      vertical-align: center;
-    }
-
-    tr:hover {
-      cursor: pointer;
-    }
-
-    td {
-      padding: 20px;
-      font-size: 1.2em;
-      width: 10%;
-    }
-
-    .first-td {
-      width: 20%;
+    ngx-datatable {
+      color: black;
     }
   }
 }
@@ -49,4 +33,5 @@
 
 .sorting {
   height: 400px !important;
+  width: 100%;
 }

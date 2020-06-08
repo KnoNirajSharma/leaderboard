@@ -16,7 +16,6 @@ export class MainPage implements OnInit {
     cardData: CardDataModel[];
     employeeData: AuthorModel[];
     dataKeys: string[];
-    tableHeaders: TableColumn[];
     pageTitle = 'LEADERBOARD';
     searchBar = new FormControl('');
     empFilterPipe = new EmployeeFilterPipe();
@@ -32,16 +31,7 @@ export class MainPage implements OnInit {
                 this.dataKeys = (Object.keys(this.employeeData[1])).slice(1, 7);
                 this.prepareCardData();
                 this.filteredEmpData = this.employeeData;
-                console.log(this.filteredEmpData);
             });
-        this.tableHeaders = [
-            {name: 'Name'},
-            {name: 'Score'},
-            {name: 'Rank'},
-            {name: '3 Month Streak'},
-            {name: 'Monthly Score'},
-            {name: 'Monthly Rank'}
-        ];
     }
 
     prepareCardData() {
