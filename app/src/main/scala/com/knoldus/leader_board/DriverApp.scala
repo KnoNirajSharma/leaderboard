@@ -75,6 +75,6 @@ object DriverApp extends App {
   /**
    * Fetching latest blogs from Wordpress API and storing in database.
    */
-  system.scheduler.scheduleAtFixedRate(timeForBlogScriptExecution.seconds, 30.minutes, scriptActorRef,
+  system.scheduler.scheduleAtFixedRate(timeForBlogScriptExecution.seconds, 24.hours, scriptActorRef,
     "execute blogs script")
 }
