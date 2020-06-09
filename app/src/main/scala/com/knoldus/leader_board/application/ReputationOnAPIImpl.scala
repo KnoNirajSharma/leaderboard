@@ -28,6 +28,9 @@ class ReputationOnAPIImpl(fetchKnolderDetails: FetchKnolderDetails, fetchReputat
         extractUri { _ =>
           complete(HttpResponse(StatusCodes.InternalServerError))
         }
+      case _: RuntimeException => extractUri { _ =>
+        complete(HttpResponse(StatusCodes.InternalServerError))
+      }
     }
 
   /**
@@ -88,12 +91,14 @@ class ReputationOnAPIImpl(fetchKnolderDetails: FetchKnolderDetails, fetchReputat
    * @return Route for displaying all time details of particular knolder on API.
    */
   override def allTimeDetailsRoute: Route = {
-    logger.info("Displaying all time details of particular knolder on API.")
-    cors(settings = CorsSettings.defaultSettings) {
-      path("reputation" / IntNumber) { id =>
-        get {
-          complete(HttpEntity(ContentTypes.`application/json`,
-            compactRender(decompose(fetchKnolderDetails.fetchKnolderAllTimeDetails(id)))))
+    handleExceptions(myExceptionHandler) {
+      logger.info("Displaying all time details of particular knolder on API.")
+      cors(settings = CorsSettings.defaultSettings) {
+        path("reputation" / IntNumber) { id =>
+          get {
+            complete(HttpEntity(ContentTypes.`application/json`,
+              compactRender(decompose(fetchKnolderDetails.fetchKnolderAllTimeDetails(id)))))
+          }
         }
       }
     }

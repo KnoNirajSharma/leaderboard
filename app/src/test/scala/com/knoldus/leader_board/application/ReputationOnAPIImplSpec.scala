@@ -1,6 +1,7 @@
 package com.knoldus.leader_board.application
 
 import akka.http.scaladsl.model.StatusCodes
+import akka.http.scaladsl.server.Route
 import akka.http.scaladsl.testkit.ScalatestRouteTest
 import com.knoldus.leader_board.infrastructure.{FetchKnolderDetails, FetchReputation}
 import com.knoldus.leader_board.{Contribution, ContributionDetails, KnolderDetails, Reputation}
@@ -26,7 +27,6 @@ class ReputationOnAPIImplSpec extends AnyWordSpecLike with MockitoSugar with Mat
   val contributions = List(blogDetails)
   val knolderDetails: Option[KnolderDetails] = Option(KnolderDetails("Mukesh Gupta", 10, contributions))
   when(mockFetchReputation.fetchReputation).thenReturn(reputations)
-  when(mockFetchKnolderDetails.fetchKnolderAllTimeDetails(1)).thenReturn(knolderDetails)
   "The service" should {
     "display reputation of knolders to routed path" in {
       Get("/reputation") ~> reputationOnAPI.reputationRoute ~> check {
@@ -49,8 +49,23 @@ class ReputationOnAPIImplSpec extends AnyWordSpecLike with MockitoSugar with Mat
       }
     }
     "display all time details of knolders to routed path" in {
+      when(mockFetchKnolderDetails.fetchKnolderAllTimeDetails(1)).thenReturn(knolderDetails)
       Get("/reputation/1") ~> reputationOnAPI.allTimeDetailsRoute ~> check {
         responseAs[String] shouldEqual compactRender(decompose(knolderDetails))
+      }
+    }
+
+    "display all time details of knolder of non existing knolder to routed path" in {
+      when(mockFetchKnolderDetails.fetchKnolderAllTimeDetails(0)).thenReturn(None)
+
+      Get("/reputation/0") ~> reputationOnAPI.allTimeDetailsRoute ~> check {
+        status shouldEqual StatusCodes.InternalServerError
+      }
+    }
+    "display all time details of knolder  with  garbage knolder id to routed path" in {
+
+      Get("/reputation/a") ~> Route.seal(reputationOnAPI.allTimeDetailsRoute )~> check {
+        status shouldEqual StatusCodes.NotFound
       }
     }
   }
