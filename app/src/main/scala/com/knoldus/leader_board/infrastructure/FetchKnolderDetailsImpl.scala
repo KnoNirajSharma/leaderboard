@@ -12,12 +12,12 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
   implicit val session: DBSession = DB.readOnlySession()
 
   /**
-   * Fetching monthly details of each knolder.
+   * Fetching monthly details of specific knolder.
    *
    * @return List of details of knolders.
    */
   override def fetchKnolderMonthlyDetails(knolderId: Int, month: Int, year: Int): Option[KnolderDetails] = {
-    logger.info("Fetching monthly details of each knolder.")
+    logger.info("Fetching monthly details of specific knolder.")
 
     val blogTitles = SQL("SELECT blog.title, blog.published_on FROM knolder LEFT JOIN blog ON knolder.wordpress_id = " +
       "blog.wordpress_id WHERE EXTRACT(month FROM published_on) = ? AND EXTRACT(year FROM published_on) = ? AND " +
@@ -46,12 +46,12 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
   }
 
   /**
-   * Fetching all time details of each knolder.
+   * Fetching all time details of specific knolder.
    *
    * @return List of details of knolders.
    */
   override def fetchKnolderAllTimeDetails(knolderId: Int): Option[KnolderDetails] = {
-    logger.info("Fetching all time details of each knolder.")
+    logger.info("Fetching all time details of specific knolder.")
 
     val blogTitles = SQL("SELECT blog.title, blog.published_on FROM knolder LEFT JOIN blog ON knolder.wordpress_id = " +
       "blog.wordpress_id WHERE knolder.id = ?")
