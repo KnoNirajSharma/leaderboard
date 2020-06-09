@@ -10,7 +10,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let tableRow of tableRows">
+                    <tr *ngFor="let tableRow of tableRows" [routerLink]="['/details', tableRow.knolderId]">
                         <td *ngFor="let dataKey of dataKeys;
                         let i = index" [ngClass]="{'first-td': (i==0)}">
                             {{tableRow[dataKey]}}

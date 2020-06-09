@@ -73,7 +73,7 @@ describe('EmployeeActivityService', () => {
         requestCheck.flush(dummyAuthorData);
     });
 
-    it('should retrieve author data from the API via GET', () => {
+    it('should retrieve knolder detail data from the API via GET', () => {
         employeeActivityService.getDetails(id).subscribe(data => {
             expect(data).toEqual(dummyDetailData);
         });

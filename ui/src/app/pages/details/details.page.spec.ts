@@ -46,7 +46,7 @@ describe('DetailsPage', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should return the modalData as per api call', () => {
+  it('should return the knolder details Data as per api call', () => {
     spyOn(mockEmployeeService, 'getDetails').and.returnValue(of(dummyKnolderDetails));
     component.ngOnInit();
     expect(component.knolderDetails).toEqual(dummyKnolderDetails);

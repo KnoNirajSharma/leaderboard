@@ -10,7 +10,7 @@ import {KnolderDetailsModel} from '../models/knolder-details.model';
 })
 export class EmployeeActivityService {
     private url = `${environment.api.baseUrl}${environment.api.routes.author.endpoint}`;
-    private tempDetailApiUrl = environment.api.routes.details.endpoint;
+    private knolderDetailApiUrl = environment.api.routes.details.endpoint;
     constructor(private httpClient: HttpClient) {
     }
 
@@ -19,6 +19,6 @@ export class EmployeeActivityService {
     }
 
     getDetails(id: number): Observable<KnolderDetailsModel> {
-        return this.httpClient.get<KnolderDetailsModel>(this.tempDetailApiUrl);
+        return this.httpClient.get<KnolderDetailsModel>(this.knolderDetailApiUrl);
     }
 }
