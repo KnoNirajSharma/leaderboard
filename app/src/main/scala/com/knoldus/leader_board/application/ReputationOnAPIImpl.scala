@@ -21,19 +21,20 @@ class ReputationOnAPIImpl(fetchKnolderDetails: FetchKnolderDetails, fetchReputat
   extends ReputationOnAPI with Directives with CorsDirectives with LazyLogging {
   implicit val formats: DefaultFormats.type = net.liftweb.json.DefaultFormats
 
+
+  val myExceptionHandler: ExceptionHandler =
+    ExceptionHandler {
+      case _: IllegalArgumentException =>
+        extractUri { _ =>
+          complete(HttpResponse(StatusCodes.InternalServerError))
+        }
+    }
+
   /**
    * Displays reputation and details of each knolder on API.
    *
    * @return Http request binded with server port.
    */
-  val myExceptionHandler: ExceptionHandler =
-    ExceptionHandler {
-      case _: IllegalArgumentException =>
-        extractUri { _ =>
-          complete(HttpResponse(StatusCodes.InternalServerError, entity = "Bad numbers, bad result!!!"))
-        }
-    }
-
   override def displayReputationOnAPI: Future[Http.ServerBinding] = {
     val mainRoute = reputationRoute ~ monthlyDetailsRoute ~ allTimeDetailsRoute
     Http().bindAndHandle(mainRoute, config.getString("interface"), config.getInt("port"))

@@ -1,4 +1,6 @@
 package com.knoldus.leader_board.application
+
+import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.testkit.ScalatestRouteTest
 import com.knoldus.leader_board.infrastructure.{FetchKnolderDetails, FetchReputation}
 import com.knoldus.leader_board.{Contribution, ContributionDetails, KnolderDetails, Reputation}
@@ -8,6 +10,7 @@ import net.liftweb.json.{DefaultFormats, compactRender}
 import org.mockito.MockitoSugar
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpecLike
+
 class ReputationOnAPIImplSpec extends AnyWordSpecLike with MockitoSugar with Matchers with ScalatestRouteTest {
   implicit val formats: DefaultFormats.type = net.liftweb.json.DefaultFormats
   val mockFetchReputation: FetchReputation = mock[FetchReputation]
@@ -23,7 +26,6 @@ class ReputationOnAPIImplSpec extends AnyWordSpecLike with MockitoSugar with Mat
   val contributions = List(blogDetails)
   val knolderDetails: Option[KnolderDetails] = Option(KnolderDetails("Mukesh Gupta", 10, contributions))
   when(mockFetchReputation.fetchReputation).thenReturn(reputations)
-  when(mockFetchKnolderDetails.fetchKnolderMonthlyDetails(1, 4, 2020)).thenReturn(knolderDetails)
   when(mockFetchKnolderDetails.fetchKnolderAllTimeDetails(1)).thenReturn(knolderDetails)
   "The service" should {
     "display reputation of knolders to routed path" in {
@@ -32,8 +34,18 @@ class ReputationOnAPIImplSpec extends AnyWordSpecLike with MockitoSugar with Mat
       }
     }
     "display monthly details of knolders to routed path" in {
+      when(mockFetchKnolderDetails.fetchKnolderMonthlyDetails(1, 4, 2020)).thenReturn(knolderDetails)
+
       Get("/reputation/1?month=April&year=2020") ~> reputationOnAPI.monthlyDetailsRoute ~> check {
         responseAs[String] shouldEqual compactRender(decompose(knolderDetails))
+      }
+
+    }
+    "display monthly details of knolders to routed path with incorrect parameter" in {
+      when(mockFetchKnolderDetails.fetchKnolderMonthlyDetails(1, 4, 2)).thenReturn(knolderDetails)
+
+      Get("/reputation/1?month=ap&year=2") ~> reputationOnAPI.monthlyDetailsRoute ~> check {
+        status shouldEqual StatusCodes.InternalServerError
       }
     }
     "display all time details of knolders to routed path" in {
