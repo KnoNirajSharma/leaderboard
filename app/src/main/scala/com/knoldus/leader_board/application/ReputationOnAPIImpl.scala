@@ -5,7 +5,7 @@ import java.time.Month
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model._
-import akka.http.scaladsl.server.{Directives, Route}
+import akka.http.scaladsl.server.{Directives, ExceptionHandler, Route}
 import ch.megard.akka.http.cors.scaladsl.CorsDirectives
 import ch.megard.akka.http.cors.scaladsl.settings.CorsSettings
 import com.knoldus.leader_board.infrastructure.{FetchKnolderDetails, FetchReputation}
@@ -26,6 +26,14 @@ class ReputationOnAPIImpl(fetchKnolderDetails: FetchKnolderDetails, fetchReputat
    *
    * @return Http request binded with server port.
    */
+  val myExceptionHandler: ExceptionHandler =
+    ExceptionHandler {
+      case _: IllegalArgumentException =>
+        extractUri { _ =>
+          complete(HttpResponse(StatusCodes.InternalServerError, entity = "Bad numbers, bad result!!!"))
+        }
+    }
+
   override def displayReputationOnAPI: Future[Http.ServerBinding] = {
     val mainRoute = reputationRoute ~ monthlyDetailsRoute ~ allTimeDetailsRoute
     Http().bindAndHandle(mainRoute, config.getString("interface"), config.getInt("port"))
@@ -57,14 +65,16 @@ class ReputationOnAPIImpl(fetchKnolderDetails: FetchKnolderDetails, fetchReputat
    * @return Route for displaying monthly details of particular knolder on API.
    */
   override def monthlyDetailsRoute: Route = {
-    logger.info("Displaying monthly details of particular knolder on API.")
-    cors(settings = CorsSettings.defaultSettings) {
-      path("reputation" / IntNumber) { id =>
-        parameters("month", "year") { (month, year) =>
-          get {
-            complete(HttpEntity(ContentTypes.`application/json`,
-              compactRender(decompose(fetchKnolderDetails.fetchKnolderMonthlyDetails(id,
-                Month.valueOf(month.toUpperCase).getValue, year.toInt)))))
+    handleExceptions(myExceptionHandler) {
+      logger.info("Displaying monthly details of particular knolder on API.")
+      cors(settings = CorsSettings.defaultSettings) {
+        path("reputation" / IntNumber) { id =>
+          parameters("month", "year") { (month, year) =>
+            get {
+              complete(HttpEntity(ContentTypes.`application/json`,
+                compactRender(decompose(fetchKnolderDetails.fetchKnolderMonthlyDetails(id,
+                  Month.valueOf(month.toUpperCase).getValue, year.toInt)))))
+            }
           }
         }
       }
