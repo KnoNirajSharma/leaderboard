@@ -48,6 +48,8 @@ object DriverApp extends App {
   val scriptActorRef = system.actorOf(Props(new ScriptActor(allTimeReputationActorRef, monthlyReputationActorRef,
     quarterlyReputationActorRef, storeBlogs, blogs)), "ScriptActor")
 
+  val latestBlogs = blogs.getLatestBlogsFromAPI
+  storeBlogs.insertBlog(latestBlogs)
   val allTimeReputations = allTimeReputation.getKnolderReputation
   writeAllTimeReputation.insertAllTimeReputationData(allTimeReputations)
   writeAllTimeReputation.updateAllTimeReputationData(allTimeReputations)
@@ -73,6 +75,6 @@ object DriverApp extends App {
   /**
    * Fetching latest blogs from Wordpress API and storing in database.
    */
-  system.scheduler.scheduleAtFixedRate(timeForBlogScriptExecution.seconds, 24.hours, scriptActorRef,
+  system.scheduler.scheduleAtFixedRate(timeForBlogScriptExecution.seconds, 30.minutes, scriptActorRef,
     "execute blogs script")
 }
