@@ -2,9 +2,8 @@
     <div class="table-block-content">
         <div class="table-responsive">
             <div>
-                    <ngx-datatable class="material sorting" [rows]="tableRows" [columns]="columns" [sortType]="'multi'"
-                                   [columnMode]="'force'" [headerHeight]="50" [rowHeight]="50" [scrollbarV]="true"
-                                   *ngFor="let tableRow of tableRows" (click)="presentModal(tableRow.knolderId)">
+                    <ngx-datatable class="material sorting" [rows]="tableRows" [sortType]="'multi'" [columns]="columns"
+                                   [headerHeight]="50" [rowHeight]="60" [scrollbarV]="true" [scrollbarH]="true">
                     </ngx-datatable>
             </div>
         </div>

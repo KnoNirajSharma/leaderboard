@@ -6,10 +6,6 @@
 
   .table-block-content {
     padding: 20px 20px;
-
-    ngx-datatable {
-      color: black;
-    }
   }
 }
 
@@ -18,12 +14,12 @@
 
     .table-block-content {
 
-      th {
+      ngx-datatable-column {
         padding: 10px 10px;
         font-size: 1em;
       }
 
-      td {
+      ngx-datatable-row-detail {
         padding: 10px;
         font-size: 1em;
       }
@@ -34,4 +30,13 @@
 .sorting {
   height: 400px !important;
   width: 100%;
+}
+
+.my-custom-header {
+  color: black;
+  font-weight: bold;
+}
+
+.my-custom-cell {
+  color: black;
 }
