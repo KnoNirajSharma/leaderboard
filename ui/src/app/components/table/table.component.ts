@@ -11,12 +11,18 @@ import {AuthorModel} from '../../models/author.model';
 export class TableComponent implements OnInit {
     @Input() tableRows: AuthorModel[];
     @Input() dataKeys: string[];
-    columns = [{ name: 'Name', prop: 'knolderName', headerClass: 'my-custom-header', cellClass: 'my-custom-cell'},
-        { name: 'Overall Score', prop: 'allTimeScore', headerClass: 'my-custom-header', cellClass: 'my-custom-cell'},
-        { name: 'Overall Rank', prop: 'allTimeRank', headerClass: 'my-custom-header', cellClass: 'my-custom-cell'},
-        { name: 'Monthly Score', prop: 'monthlyScore', headerClass: 'my-custom-header', cellClass: 'my-custom-cell'},
-        { name: 'Monthly Rank', prop: 'monthlyScore', headerClass: 'my-custom-header', cellClass: 'my-custom-cell'},
-        { name: '3 Month Streak', prop: 'quarterlyStreak', sortable: false, headerClass: 'my-custom-header', cellClass: 'my-custom-cell'}];
+    columns = [{name: 'Name', prop: 'knolderName', headerClass: 'tableHeaderStyle', cellClass: 'tableCellStyle'},
+        {name: 'Overall Score', prop: 'allTimeScore', headerClass: 'tableHeaderStyle', cellClass: 'tableCellStyle'},
+        {name: 'Overall Rank', prop: 'allTimeRank', headerClass: 'tableHeaderStyle', cellClass: 'tableCellStyle'},
+        {name: 'Monthly Score', prop: 'monthlyScore', headerClass: 'tableHeaderStyle', cellClass: 'tableCellStyle'},
+        {name: 'Monthly Rank', prop: 'monthlyScore', headerClass: 'tableHeaderStyle', cellClass: 'tableCellStyle'},
+        {
+            name: '3 Month Streak',
+            prop: 'quarterlyStreak',
+            sortable: false,
+            headerClass: 'tableHeaderStyle',
+            cellClass: 'tableCellStyle'
+        }];
 
     constructor() {
     }
