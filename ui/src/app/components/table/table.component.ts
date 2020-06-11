@@ -11,17 +11,17 @@ import {AuthorModel} from '../../models/author.model';
 export class TableComponent implements OnInit {
     @Input() tableRows: AuthorModel[];
     @Input() dataKeys: string[];
-    columns = [{name: 'Name', prop: 'knolderName', headerClass: 'tableHeaderStyle', cellClass: 'tableCellStyle'},
-        {name: 'Overall Score', prop: 'allTimeScore', headerClass: 'tableHeaderStyle', cellClass: 'tableCellStyle'},
-        {name: 'Overall Rank', prop: 'allTimeRank', headerClass: 'tableHeaderStyle', cellClass: 'tableCellStyle'},
-        {name: 'Monthly Score', prop: 'monthlyScore', headerClass: 'tableHeaderStyle', cellClass: 'tableCellStyle'},
-        {name: 'Monthly Rank', prop: 'monthlyScore', headerClass: 'tableHeaderStyle', cellClass: 'tableCellStyle'},
+    columns = [{name: 'Name', prop: 'knolderName', headerClass: 'table-header-style', cellClass: 'table-cell-style'},
+        {name: 'Overall Score', prop: 'allTimeScore', headerClass: 'table-header-style', cellClass: 'table-cell-style'},
+        {name: 'Overall Rank', prop: 'allTimeRank', headerClass: 'table-header-style', cellClass: 'table-cell-style'},
+        {name: 'Monthly Score', prop: 'monthlyScore', headerClass: 'table-header-style', cellClass: 'table-cell-style'},
+        {name: 'Monthly Rank', prop: 'monthlyScore', headerClass: 'table-header-style', cellClass: 'table-cell-style'},
         {
             name: '3 Month Streak',
             prop: 'quarterlyStreak',
             sortable: false,
-            headerClass: 'tableHeaderStyle',
-            cellClass: 'tableCellStyle'
+            headerClass: 'table-header-style',
+            cellClass: 'table-cell-style'
         }];
 
     constructor() {
