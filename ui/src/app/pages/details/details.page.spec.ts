@@ -78,13 +78,13 @@ describe('DetailsPage', () => {
     const testYear = 2020;
     spyOn(mockEmployeeService, 'getMonthlyDetails').and.returnValue(of(dummyKnolderDetails));
     component.getMonthlyDetails(testMonth, testYear);
-    expect(component.kd).toEqual(dummyKnolderDetails);
+    expect(component.knolderDetails).toEqual(dummyKnolderDetails);
   });
 
   it('should return the knolder Alltime details Data as per api call', () => {
     const testId = 1;
     spyOn(mockEmployeeService, 'getAllTimeDetails').and.returnValue(of(dummyKnolderDetails));
     component.getAllTimeDetails();
-    expect(component.kd).toEqual(dummyKnolderDetails);
+    expect(component.knolderDetails).toEqual(dummyKnolderDetails);
   });
 });
