@@ -21,4 +21,12 @@ export class EmployeeActivityService {
     getDetails(id: number): Observable<KnolderDetailsModel> {
         return this.httpClient.get<KnolderDetailsModel>(this.knolderDetailApiUrl);
     }
+
+    getAllTimeDetails(id: number): Observable<KnolderDetailsModel> {
+        return this.httpClient.get<KnolderDetailsModel>(this.url + '/' + id);
+    }
+
+    getMonthlyDetails(id: number, month: string, year: number): Observable<KnolderDetailsModel> {
+        return this.httpClient.get<KnolderDetailsModel>(this.url + '/' + id + '?month=' + month + '&year=' + year);
+    }
 }
