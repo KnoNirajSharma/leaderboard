@@ -1,6 +1,6 @@
 package com.knoldus.leader_board.application
+
 import java.time.Month
-import java.util.NoSuchElementException
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
@@ -15,6 +15,7 @@ import net.liftweb.json.Extraction.decompose
 import net.liftweb.json.{DefaultFormats, compactRender}
 
 import scala.concurrent.{ExecutionContextExecutor, Future}
+
 class ReputationOnAPIImpl(fetchKnolderDetails: FetchKnolderDetails, fetchReputation: FetchReputation, config: Config)
                          (implicit system: ActorSystem, executionContext: ExecutionContextExecutor)
   extends ReputationOnAPI with Directives with CorsDirectives with LazyLogging {
@@ -25,10 +26,8 @@ class ReputationOnAPIImpl(fetchKnolderDetails: FetchKnolderDetails, fetchReputat
         extractUri { _ =>
           complete(HttpResponse(StatusCodes.InternalServerError))
         }
-      case _: NoSuchElementException => extractUri { _ =>
-        complete(HttpResponse(StatusCodes.NotFound))
-      }
     }
+
   /**
    * Displays reputation and details of each knolder on API.
    *
@@ -41,6 +40,7 @@ class ReputationOnAPIImpl(fetchKnolderDetails: FetchKnolderDetails, fetchReputat
         case ex: Exception => Future.failed(new Exception("Service failed", ex))
       }
   }
+
   /**
    * Displays reputation of each knolder on API.
    *
@@ -57,40 +57,45 @@ class ReputationOnAPIImpl(fetchKnolderDetails: FetchKnolderDetails, fetchReputat
       }
     }
   }
+
   /**
    * Displays monthly details of particular knolder on API.
    *
    * @return Route for displaying monthly details of particular knolder on API.
    */
   override def monthlyDetailsRoute: Route = {
+    logger.info("Displaying monthly details of particular knolder on API.")
     handleExceptions(myExceptionHandler) {
-      logger.info("Displaying monthly details of particular knolder on API.")
       cors(settings = CorsSettings.defaultSettings) {
         path("reputation" / IntNumber) { id =>
           parameters("month", "year") { (month, year) =>
             get {
-              complete(HttpEntity(ContentTypes.`application/json`,
-                compactRender(decompose(fetchKnolderDetails.fetchKnolderMonthlyDetails(id,
-                  Month.valueOf(month.toUpperCase).getValue, year.toInt)))))
+              fetchKnolderDetails.fetchKnolderMonthlyDetails(id, Month.valueOf(month.toUpperCase).getValue, year.toInt) match {
+                case Some(value) => complete(HttpEntity(ContentTypes.`application/json`,
+                  compactRender(decompose(value))))
+                case None => complete(HttpResponse(StatusCodes.NotFound, entity = HttpEntity("invalid resource")))
+              }
             }
           }
         }
       }
     }
   }
+
   /**
    * Displays all time details of particular knolder on API.
    *
    * @return Route for displaying all time details of particular knolder on API.
    */
   override def allTimeDetailsRoute: Route = {
-    handleExceptions(myExceptionHandler) {
-      logger.info("Displaying all time details of particular knolder on API.")
-      cors(settings = CorsSettings.defaultSettings) {
-        path("reputation" / IntNumber) { id =>
-          get {
-            complete(HttpEntity(ContentTypes.`application/json`,
-              compactRender(decompose(fetchKnolderDetails.fetchKnolderAllTimeDetails(id).getOrElse(throw new NoSuchElementException())))))
+    logger.info("Displaying all time details of particular knolder on API.")
+    cors(settings = CorsSettings.defaultSettings) {
+      path("reputation" / IntNumber) { id =>
+        get {
+          fetchKnolderDetails.fetchKnolderAllTimeDetails(id) match {
+            case Some(value) => complete(HttpEntity(ContentTypes.`application/json`,
+              compactRender(decompose(value))))
+            case None => complete(HttpResponse(StatusCodes.NotFound, entity = HttpEntity("invalid resource")))
           }
         }
       }
