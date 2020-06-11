@@ -1,5 +1,7 @@
 package com.knoldus.leader_board.application
 import java.time.Month
+import java.util.NoSuchElementException
+
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model._
@@ -11,6 +13,7 @@ import com.typesafe.config.Config
 import com.typesafe.scalalogging._
 import net.liftweb.json.Extraction.decompose
 import net.liftweb.json.{DefaultFormats, compactRender}
+
 import scala.concurrent.{ExecutionContextExecutor, Future}
 class ReputationOnAPIImpl(fetchKnolderDetails: FetchKnolderDetails, fetchReputation: FetchReputation, config: Config)
                          (implicit system: ActorSystem, executionContext: ExecutionContextExecutor)
@@ -22,7 +25,7 @@ class ReputationOnAPIImpl(fetchKnolderDetails: FetchKnolderDetails, fetchReputat
         extractUri { _ =>
           complete(HttpResponse(StatusCodes.InternalServerError))
         }
-      case _: RuntimeException => extractUri { _ =>
+      case _: NoSuchElementException => extractUri { _ =>
         complete(HttpResponse(StatusCodes.NotFound))
       }
     }
@@ -87,7 +90,7 @@ class ReputationOnAPIImpl(fetchKnolderDetails: FetchKnolderDetails, fetchReputat
         path("reputation" / IntNumber) { id =>
           get {
             complete(HttpEntity(ContentTypes.`application/json`,
-              compactRender(decompose(fetchKnolderDetails.fetchKnolderAllTimeDetails(id)))))
+              compactRender(decompose(fetchKnolderDetails.fetchKnolderAllTimeDetails(id).getOrElse(throw new NoSuchElementException())))))
           }
         }
       }
