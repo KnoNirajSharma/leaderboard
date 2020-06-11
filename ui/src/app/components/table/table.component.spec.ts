@@ -15,8 +15,7 @@ describe('TableComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [TableComponent, ParentComponent, EmployeeFilterPipe],
-            imports: [HttpClientTestingModule, IonicModule.forRoot(), RouterTestingModule, FormsModule],
-            providers: [ModalController]
+            imports: [HttpClientTestingModule, IonicModule.forRoot(), RouterTestingModule, FormsModule]
         }).compileComponents();
 
         fixture = TestBed.createComponent(ParentComponent);
@@ -27,15 +26,6 @@ describe('TableComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
-
-    it ('should open when clicked `presentModal` button', fakeAsync( () => {
-        spyOn(component, 'presentModal');
-        const button = fixture.debugElement.nativeElement.querySelector('td');
-        fixture.detectChanges();
-        button.click();
-        tick();
-        expect(component.presentModal).toBeTruthy('presentModal should now be true');
-    }));
 });
 @Component({
     selector: 'parent',

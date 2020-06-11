@@ -1,13 +1,7 @@
+import {ScoreBreakDownModel} from './ScoreBreakDown.model';
+
 export interface KnolderDetailsModel {
-    knolderName?: string;
-    currentMonthAndYear?: string;
-    allTimeScore?: number;
-    monthlyScore?: number;
-    blogScore?: number;
-    blogDetails: [
-        {
-            title?: string,
-            date?: string
-        }
-    ];
+    knolderName: string;
+    score: number;
+    scoreBreakDown: ScoreBreakDownModel[];
 }
