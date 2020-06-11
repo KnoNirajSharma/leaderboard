@@ -4,7 +4,7 @@ import java.sql.Connection
 
 import akka.actor.{ActorRef, ActorSystem, Props}
 import akka.testkit.{ImplicitSender, TestKit, TestProbe}
-import com.knoldus.leader_board.DatabaseConnection
+import com.knoldus.leader_board.{DatabaseConnection, ExecuteBlogsScript}
 import com.knoldus.leader_board.infrastructure._
 import com.typesafe.config.ConfigFactory
 import org.mockito.MockitoSugar
@@ -49,7 +49,7 @@ class ScriptActorSpec extends TestKit(ActorSystem("ScriptActorSpec")) with Impli
       val scriptActor = system.actorOf(Props(new ScriptActor(mockActorRef, mockActorRef, mockActorRef, mockStoreBlogs,
         mockBlogs)))
       probe watch scriptActor
-      probe.send(scriptActor, "execute blogs script")
+      probe.send(scriptActor, ExecuteBlogsScript)
       probe.expectMsg("stored blogs")
     }
   }
