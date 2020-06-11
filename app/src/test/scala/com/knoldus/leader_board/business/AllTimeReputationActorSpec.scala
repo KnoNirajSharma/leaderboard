@@ -5,7 +5,7 @@ import java.sql.Connection
 import akka.actor.{ActorSystem, Props}
 import akka.testkit.{ImplicitSender, TestKit, TestProbe}
 import com.knoldus.leader_board.infrastructure.{WriteAllTimeReputation, WriteAllTimeReputationImpl}
-import com.knoldus.leader_board.{DatabaseConnection, GetReputation, KnolderReputation}
+import com.knoldus.leader_board.{DatabaseConnection, GetReputation, KnolderReputation, WriteAllTimeReputation}
 import com.typesafe.config.ConfigFactory
 import org.mockito.MockitoSugar
 import org.scalatest.BeforeAndAfterAll
@@ -22,7 +22,8 @@ class AllTimeReputationActorSpec extends TestKit(ActorSystem("AllTimeActorSpec")
     TestKit.shutdownActorSystem(system)
   }
 
-  "Quarterly reputation actor" must {
+  "All time reputation actor" must {
+
     "insert and update all time reputation" in {
       val probe = TestProbe()
       val reputationOfKnolders = List(KnolderReputation(None, GetReputation(1, "Mukesh Gupta", 10, 1)),
@@ -36,7 +37,7 @@ class AllTimeReputationActorSpec extends TestKit(ActorSystem("AllTimeActorSpec")
       val quarterlyReputationActor = system.actorOf(Props(new AllTimeReputationActor(mockAllTimeReputation,
         mockWriteAllTimeReputation)))
       probe watch quarterlyReputationActor
-      probe.send(quarterlyReputationActor, "write all time reputation")
+      probe.send(quarterlyReputationActor, WriteAllTimeReputation)
       probe.expectMsg("all time reputation saved")
     }
 

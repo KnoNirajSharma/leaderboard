@@ -5,7 +5,7 @@ import java.sql.Connection
 import akka.actor.{ActorSystem, Props}
 import akka.testkit.{ImplicitSender, TestKit, TestProbe}
 import com.knoldus.leader_board.infrastructure.{WriteQuarterlyReputation, WriteQuarterlyReputationImpl}
-import com.knoldus.leader_board.{DatabaseConnection, GetStreak, KnolderStreak}
+import com.knoldus.leader_board.{DatabaseConnection, GetStreak, KnolderStreak, WriteQuarterlyReputation}
 import com.typesafe.config.ConfigFactory
 import org.mockito.MockitoSugar
 import org.scalatest.BeforeAndAfterAll
@@ -23,6 +23,7 @@ class QuarterlyReputationActorSpec extends TestKit(ActorSystem("QuarterlyActorSp
   }
 
   "Quarterly reputation actor" must {
+
     "insert and update quarterly reputation" in {
       val probe = TestProbe()
       val reputationOfKnolders = List(KnolderStreak(None, GetStreak(1, "Mukesh Gupta", "15-20-20")),
@@ -36,7 +37,7 @@ class QuarterlyReputationActorSpec extends TestKit(ActorSystem("QuarterlyActorSp
       val quarterlyReputationActor = system.actorOf(Props(new QuarterlyReputationActor(mockQuarterlyReputation,
         mockWriteQuarterlyReputation)))
       probe watch quarterlyReputationActor
-      probe.send(quarterlyReputationActor, "write quarterly reputation")
+      probe.send(quarterlyReputationActor, WriteQuarterlyReputation)
       probe.expectMsg("quarterly reputation saved")
     }
 
