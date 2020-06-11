@@ -98,7 +98,7 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
 
       val blogTitles = List(ContributionDetails("windows handling using selenium webdriver", date.toString),
         ContributionDetails("Java 9: Enhance your Jav…ptional API enhancement", date.toString))
-      val blogDetails = Option(Contribution("Blog", 2, 10, blogTitles))
+      val blogDetails = Option(Contribution("Blogs", 2, 10, blogTitles))
       val contributions = List(blogDetails)
       val knolderDetails = KnolderDetails("Mukesh Gupta", 10, contributions)
 
@@ -182,7 +182,7 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
 
       val blogTitles = List(ContributionDetails("windows handling using selenium webdriver", date.toString),
         ContributionDetails("Java 9: Enhance your Jav…ptional API enhancement", date.toString))
-      val blogDetails = Option(Contribution("Blog", 2, 10, blogTitles))
+      val blogDetails = Option(Contribution("Blogs", 2, 10, blogTitles))
       val contributions = List(blogDetails)
       val knolderDetails = KnolderDetails("Mukesh Gupta", 10, contributions)
 
