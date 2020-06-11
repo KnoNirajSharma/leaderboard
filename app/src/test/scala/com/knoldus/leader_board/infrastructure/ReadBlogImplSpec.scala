@@ -42,7 +42,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt1.setString(2, "Mukesh Kumar")
       preparedStmt1.setString(3, "mukesh01")
       preparedStmt1.setString(4, "mukesh.kumar@knoldus.com")
-      preparedStmt1.setString(5, "Y")
+      preparedStmt1.setBoolean(5, true)
       preparedStmt1.execute
       preparedStmt1.close()
 
@@ -57,7 +57,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt2.setString(2, "Abhishek Baranwal")
       preparedStmt2.setString(3, "abhishek02")
       preparedStmt2.setString(4, "abhishek.baranwal@knoldus.com")
-      preparedStmt2.setString(5, "Y")
+      preparedStmt2.setBoolean(5, true)
       preparedStmt2.execute
       preparedStmt2.close()
 
@@ -72,7 +72,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt3.setString(2, "Komal Rajpal")
       preparedStmt3.setString(3, "komal03")
       preparedStmt3.setString(4, "komal.rajpal@knoldus.com")
-      preparedStmt3.setString(5, "Y")
+      preparedStmt3.setBoolean(5, true)
       preparedStmt3.execute
       preparedStmt3.close()
 
@@ -152,7 +152,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt1.setString(2, "Mukesh Kumar")
       preparedStmt1.setString(3, "mukesh01")
       preparedStmt1.setString(4, "mukesh.kumar@knoldus.com")
-      preparedStmt1.setString(5, "Y")
+      preparedStmt1.setBoolean(5, true)
       preparedStmt1.execute
       preparedStmt1.close()
 
@@ -167,7 +167,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt2.setString(2, "Abhishek Baranwal")
       preparedStmt2.setString(3, "abhishek02")
       preparedStmt2.setString(4, "abhishek.baranwal@knoldus.com")
-      preparedStmt2.setString(5, "Y")
+      preparedStmt2.setBoolean(5, true)
       preparedStmt2.execute
       preparedStmt2.close()
 
@@ -182,7 +182,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt3.setString(2, "Komal Rajpal")
       preparedStmt3.setString(3, "komal03")
       preparedStmt3.setString(4, "komal.rajpal@knoldus.com")
-      preparedStmt3.setString(5, "Y")
+      preparedStmt3.setBoolean(5, true)
       preparedStmt3.execute
       preparedStmt3.close()
 
@@ -262,7 +262,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt1.setString(2, "Mukesh Kumar")
       preparedStmt1.setString(3, "mukesh01")
       preparedStmt1.setString(4, "mukesh.kumar@knoldus.com")
-      preparedStmt1.setString(5, "Y")
+      preparedStmt1.setBoolean(5, true)
       preparedStmt1.execute
       preparedStmt1.close()
 
@@ -277,7 +277,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt2.setString(2, "Abhishek Baranwal")
       preparedStmt2.setString(3, "abhishek02")
       preparedStmt2.setString(4, "abhishek.baranwal@knoldus.com")
-      preparedStmt2.setString(5, "Y")
+      preparedStmt2.setBoolean(5, true)
       preparedStmt2.execute
       preparedStmt2.close()
 
@@ -292,7 +292,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt3.setString(2, "Komal Rajpal")
       preparedStmt3.setString(3, "komal03")
       preparedStmt3.setString(4, "komal.rajpal@knoldus.com")
-      preparedStmt3.setString(5, "Y")
+      preparedStmt3.setBoolean(5, true)
       preparedStmt3.execute
       preparedStmt3.close()
 
@@ -372,7 +372,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt1.setString(2, "Mukesh Kumar")
       preparedStmt1.setString(3, "mukesh01")
       preparedStmt1.setString(4, "mukesh.kumar@knoldus.com")
-      preparedStmt1.setString(5, "Y")
+      preparedStmt1.setBoolean(5, true)
       preparedStmt1.execute
       preparedStmt1.close()
 
@@ -387,7 +387,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt2.setString(2, "Abhishek Baranwal")
       preparedStmt2.setString(3, "abhishek02")
       preparedStmt2.setString(4, "abhishek.baranwal@knoldus.com")
-      preparedStmt2.setString(5, "Y")
+      preparedStmt2.setBoolean(5, true)
       preparedStmt2.execute
       preparedStmt2.close()
 
@@ -402,7 +402,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt3.setString(2, "Komal Rajpal")
       preparedStmt3.setString(3, "komal03")
       preparedStmt3.setString(4, "komal.rajpal@knoldus.com")
-      preparedStmt3.setString(5, "Y")
+      preparedStmt3.setBoolean(5, true)
       preparedStmt3.execute
       preparedStmt3.close()
 
@@ -482,7 +482,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt1.setString(2, "Mukesh Kumar")
       preparedStmt1.setString(3, "mukesh01")
       preparedStmt1.setString(4, "mukesh.kumar@knoldus.com")
-      preparedStmt1.setString(5, "Y")
+      preparedStmt1.setBoolean(5, true)
       preparedStmt1.execute
       preparedStmt1.close()
 
@@ -497,7 +497,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt2.setString(2, "Abhishek Baranwal")
       preparedStmt2.setString(3, "abhishek02")
       preparedStmt2.setString(4, "abhishek.baranwal@knoldus.com")
-      preparedStmt2.setString(5, "Y")
+      preparedStmt2.setBoolean(5, true)
       preparedStmt2.execute
       preparedStmt2.close()
 
@@ -512,7 +512,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt3.setString(2, "Komal Rajpal")
       preparedStmt3.setString(3, "komal03")
       preparedStmt3.setString(4, "komal.rajpal@knoldus.com")
-      preparedStmt3.setString(5, "Y")
+      preparedStmt3.setBoolean(5, true)
       preparedStmt3.execute
       preparedStmt3.close()
 

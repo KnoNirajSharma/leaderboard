@@ -92,7 +92,7 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt11.setString(2, "Mukesh Gupta")
       preparedStmt11.setString(3, "mukesh01")
       preparedStmt11.setString(4, "mukesh.kumar@knoldus.com")
-      preparedStmt11.setString(5, "Y")
+      preparedStmt11.setBoolean(5, true)
       preparedStmt11.execute
       preparedStmt11.close()
 
@@ -176,7 +176,7 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt11.setString(2, "Mukesh Gupta")
       preparedStmt11.setString(3, "mukesh01")
       preparedStmt11.setString(4, "mukesh.kumar@knoldus.com")
-      preparedStmt11.setString(5, "Y")
+      preparedStmt11.setBoolean(5, true)
       preparedStmt11.execute
       preparedStmt11.close()
 

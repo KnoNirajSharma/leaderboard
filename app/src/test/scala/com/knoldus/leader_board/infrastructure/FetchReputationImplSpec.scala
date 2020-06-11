@@ -165,7 +165,7 @@ class FetchReputationImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt10.setString(2, "Mukesh Gupta")
       preparedStmt10.setString(3, "mukesh01")
       preparedStmt10.setString(4, "mukesh.kumar@knoldus.com")
-      preparedStmt10.setString(5, "Y")
+      preparedStmt10.setBoolean(5, true)
       preparedStmt10.execute
       preparedStmt10.close()
 
@@ -180,7 +180,7 @@ class FetchReputationImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt11.setString(2, "Abhishek Baranwal")
       preparedStmt11.setString(3, "abhishek02")
       preparedStmt11.setString(4, "abhishek.baranwal@knoldus.com")
-      preparedStmt11.setString(5, "Y")
+      preparedStmt11.setBoolean(5, true)
       preparedStmt11.execute
       preparedStmt11.close()
 
@@ -195,7 +195,7 @@ class FetchReputationImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt12.setString(2, "Komal Rajpal")
       preparedStmt12.setString(3, "komal03")
       preparedStmt12.setString(4, "komal.rajpal@knoldus.com")
-      preparedStmt12.setString(5, "N")
+      preparedStmt12.setBoolean(5, false)
       preparedStmt12.execute
       preparedStmt12.close()
 
