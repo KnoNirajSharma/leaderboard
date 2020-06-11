@@ -16,7 +16,7 @@ mainClass in Compile := Some("com.knoldus.leader_board.DriverApp")
 
 dockerBaseImage := "openjdk:8-jre-alpine"
 
-coverageExcludedPackages := ".*DriverApp*;.*URLResponse*"
+coverageExcludedPackages := ".*DriverApp*"
 
 coverageMinimum := 80
 
