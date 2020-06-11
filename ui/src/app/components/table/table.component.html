@@ -2,9 +2,10 @@
     <div class="table-block-content">
         <div class="table-responsive">
             <div>
-                    <ngx-datatable class="material sorting" [rows]="tableRows" [sortType]="'multi'" [columns]="columns"
-                                   [columnMode]="'force'" [headerHeight]="50" [rowHeight]="60" [scrollbarV]="true" [scrollbarH]="true">
-                    </ngx-datatable>
+                <ngx-datatable [columnMode]="'force'" [columns]="columns" [headerHeight]="50" [rowHeight]="60"
+                               [rows]="tableRows" [scrollbarH]="true" [scrollbarV]="true" [sortType]="'multi'"
+                               class="material sorting">
+                </ngx-datatable>
             </div>
         </div>
     </div>

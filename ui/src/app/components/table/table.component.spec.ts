@@ -1,4 +1,4 @@
-import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {IonicModule, ModalController} from '@ionic/angular';
 import {TableComponent} from './table.component';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -27,15 +27,6 @@ describe('TableComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
-
-    it ('should open when clicked `presentModal` button', fakeAsync( () => {
-        spyOn(component, 'presentModal');
-        const button = fixture.debugElement.nativeElement.querySelector('ngx-datatable');
-        fixture.detectChanges();
-        button.click();
-        tick();
-        expect(component.presentModal).toBeTruthy('presentModal should now be true');
-    }));
 });
 @Component({
     selector: 'parent',

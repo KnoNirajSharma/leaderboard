@@ -1,7 +1,5 @@
 import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {AuthorModel} from '../../models/author.model';
-import {DrilldownModalPage} from '../../pages/drilldown-modal/drilldown-modal.page';
-import {ModalController} from '@ionic/angular';
 
 @Component({
     selector: 'app-table',
@@ -20,19 +18,9 @@ export class TableComponent implements OnInit {
         { name: 'Monthly Rank', prop: 'monthlyScore', headerClass: 'my-custom-header', cellClass: 'my-custom-cell'},
         { name: '3 Month Streak', prop: 'quarterlyStreak', sortable: false, headerClass: 'my-custom-header', cellClass: 'my-custom-cell'}];
 
-    constructor(private modalController: ModalController) {
+    constructor() {
     }
 
     ngOnInit() {
-    }
-
-    async presentModal(id: number) {
-        const modal = await this.modalController.create({
-            component: DrilldownModalPage,
-            componentProps: {
-                id
-            }
-        });
-        return await modal.present();
     }
 }
