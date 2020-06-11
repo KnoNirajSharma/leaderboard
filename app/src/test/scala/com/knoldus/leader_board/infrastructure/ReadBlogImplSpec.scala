@@ -33,8 +33,8 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
     "return knolders who have written blogs" in {
       val insertKnolder1: String =
         """
-          |insert into knolder(id, full_name, wordpress_id, email_id)
-          |values (?,?,?,?)
+          |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
+          |values (?,?,?,?,?)
 """.stripMargin
 
       val preparedStmt1: PreparedStatement = connection.prepareStatement(insertKnolder1)
@@ -42,13 +42,14 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt1.setString(2, "Mukesh Kumar")
       preparedStmt1.setString(3, "mukesh01")
       preparedStmt1.setString(4, "mukesh.kumar@knoldus.com")
+      preparedStmt1.setString(5, "Y")
       preparedStmt1.execute
       preparedStmt1.close()
 
       val insertKnolder2: String =
         """
-          |insert into knolder(id, full_name, wordpress_id, email_id)
-          |values (?,?,?,?)
+          |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
+          |values (?,?,?,?,?)
 """.stripMargin
 
       val preparedStmt2: PreparedStatement = connection.prepareStatement(insertKnolder2)
@@ -56,13 +57,14 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt2.setString(2, "Abhishek Baranwal")
       preparedStmt2.setString(3, "abhishek02")
       preparedStmt2.setString(4, "abhishek.baranwal@knoldus.com")
+      preparedStmt2.setString(5, "Y")
       preparedStmt2.execute
       preparedStmt2.close()
 
       val insertKnolder3: String =
         """
-          |insert into knolder(id, full_name, wordpress_id, email_id)
-          |values (?,?,?,?)
+          |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
+          |values (?,?,?,?,?)
 """.stripMargin
 
       val preparedStmt3: PreparedStatement = connection.prepareStatement(insertKnolder3)
@@ -70,6 +72,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt3.setString(2, "Komal Rajpal")
       preparedStmt3.setString(3, "komal03")
       preparedStmt3.setString(4, "komal.rajpal@knoldus.com")
+      preparedStmt3.setString(5, "Y")
       preparedStmt3.execute
       preparedStmt3.close()
 
@@ -140,8 +143,8 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
     "return number of blogs of each knolder in current month from blog table." in {
       val insertKnolder1: String =
         """
-          |insert into knolder(id, full_name, wordpress_id, email_id)
-          |values (?,?,?,?)
+          |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
+          |values (?,?,?,?,?)
 """.stripMargin
 
       val preparedStmt1: PreparedStatement = connection.prepareStatement(insertKnolder1)
@@ -149,13 +152,14 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt1.setString(2, "Mukesh Kumar")
       preparedStmt1.setString(3, "mukesh01")
       preparedStmt1.setString(4, "mukesh.kumar@knoldus.com")
+      preparedStmt1.setString(5, "Y")
       preparedStmt1.execute
       preparedStmt1.close()
 
       val insertKnolder2: String =
         """
-          |insert into knolder(id, full_name, wordpress_id, email_id)
-          |values (?,?,?,?)
+          |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
+          |values (?,?,?,?,?)
 """.stripMargin
 
       val preparedStmt2: PreparedStatement = connection.prepareStatement(insertKnolder2)
@@ -163,13 +167,14 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt2.setString(2, "Abhishek Baranwal")
       preparedStmt2.setString(3, "abhishek02")
       preparedStmt2.setString(4, "abhishek.baranwal@knoldus.com")
+      preparedStmt2.setString(5, "Y")
       preparedStmt2.execute
       preparedStmt2.close()
 
       val insertKnolder3: String =
         """
-          |insert into knolder(id, full_name, wordpress_id, email_id)
-          |values (?,?,?,?)
+          |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
+          |values (?,?,?,?,?)
 """.stripMargin
 
       val preparedStmt3: PreparedStatement = connection.prepareStatement(insertKnolder3)
@@ -177,6 +182,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt3.setString(2, "Komal Rajpal")
       preparedStmt3.setString(3, "komal03")
       preparedStmt3.setString(4, "komal.rajpal@knoldus.com")
+      preparedStmt3.setString(5, "Y")
       preparedStmt3.execute
       preparedStmt3.close()
 
@@ -247,8 +253,8 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
     "return number of blogs of each knolder in first month of quarter from blog table." in {
       val insertKnolder1: String =
         """
-          |insert into knolder(id, full_name, wordpress_id, email_id)
-          |values (?,?,?,?)
+          |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
+          |values (?,?,?,?,?)
 """.stripMargin
 
       val preparedStmt1: PreparedStatement = connection.prepareStatement(insertKnolder1)
@@ -256,13 +262,14 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt1.setString(2, "Mukesh Kumar")
       preparedStmt1.setString(3, "mukesh01")
       preparedStmt1.setString(4, "mukesh.kumar@knoldus.com")
+      preparedStmt1.setString(5, "Y")
       preparedStmt1.execute
       preparedStmt1.close()
 
       val insertKnolder2: String =
         """
-          |insert into knolder(id, full_name, wordpress_id, email_id)
-          |values (?,?,?,?)
+          |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
+          |values (?,?,?,?,?)
 """.stripMargin
 
       val preparedStmt2: PreparedStatement = connection.prepareStatement(insertKnolder2)
@@ -270,13 +277,14 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt2.setString(2, "Abhishek Baranwal")
       preparedStmt2.setString(3, "abhishek02")
       preparedStmt2.setString(4, "abhishek.baranwal@knoldus.com")
+      preparedStmt2.setString(5, "Y")
       preparedStmt2.execute
       preparedStmt2.close()
 
       val insertKnolder3: String =
         """
-          |insert into knolder(id, full_name, wordpress_id, email_id)
-          |values (?,?,?,?)
+          |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
+          |values (?,?,?,?,?)
 """.stripMargin
 
       val preparedStmt3: PreparedStatement = connection.prepareStatement(insertKnolder3)
@@ -284,6 +292,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt3.setString(2, "Komal Rajpal")
       preparedStmt3.setString(3, "komal03")
       preparedStmt3.setString(4, "komal.rajpal@knoldus.com")
+      preparedStmt3.setString(5, "Y")
       preparedStmt3.execute
       preparedStmt3.close()
 
@@ -354,8 +363,8 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
     "return number of blogs of each knolder in second month of quarter from blog table." in {
       val insertKnolder1: String =
         """
-          |insert into knolder(id, full_name, wordpress_id, email_id)
-          |values (?,?,?,?)
+          |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
+          |values (?,?,?,?,?)
 """.stripMargin
 
       val preparedStmt1: PreparedStatement = connection.prepareStatement(insertKnolder1)
@@ -363,13 +372,14 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt1.setString(2, "Mukesh Kumar")
       preparedStmt1.setString(3, "mukesh01")
       preparedStmt1.setString(4, "mukesh.kumar@knoldus.com")
+      preparedStmt1.setString(5, "Y")
       preparedStmt1.execute
       preparedStmt1.close()
 
       val insertKnolder2: String =
         """
-          |insert into knolder(id, full_name, wordpress_id, email_id)
-          |values (?,?,?,?)
+          |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
+          |values (?,?,?,?,?)
 """.stripMargin
 
       val preparedStmt2: PreparedStatement = connection.prepareStatement(insertKnolder2)
@@ -377,13 +387,14 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt2.setString(2, "Abhishek Baranwal")
       preparedStmt2.setString(3, "abhishek02")
       preparedStmt2.setString(4, "abhishek.baranwal@knoldus.com")
+      preparedStmt2.setString(5, "Y")
       preparedStmt2.execute
       preparedStmt2.close()
 
       val insertKnolder3: String =
         """
-          |insert into knolder(id, full_name, wordpress_id, email_id)
-          |values (?,?,?,?)
+          |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
+          |values (?,?,?,?,?)
 """.stripMargin
 
       val preparedStmt3: PreparedStatement = connection.prepareStatement(insertKnolder3)
@@ -391,6 +402,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt3.setString(2, "Komal Rajpal")
       preparedStmt3.setString(3, "komal03")
       preparedStmt3.setString(4, "komal.rajpal@knoldus.com")
+      preparedStmt3.setString(5, "Y")
       preparedStmt3.execute
       preparedStmt3.close()
 
@@ -461,8 +473,8 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
     "return number of blogs of each knolder in third month of quarter from blog table." in {
       val insertKnolder1: String =
         """
-          |insert into knolder(id, full_name, wordpress_id, email_id)
-          |values (?,?,?,?)
+          |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
+          |values (?,?,?,?,?)
 """.stripMargin
 
       val preparedStmt1: PreparedStatement = connection.prepareStatement(insertKnolder1)
@@ -470,13 +482,14 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt1.setString(2, "Mukesh Kumar")
       preparedStmt1.setString(3, "mukesh01")
       preparedStmt1.setString(4, "mukesh.kumar@knoldus.com")
+      preparedStmt1.setString(5, "Y")
       preparedStmt1.execute
       preparedStmt1.close()
 
       val insertKnolder2: String =
         """
-          |insert into knolder(id, full_name, wordpress_id, email_id)
-          |values (?,?,?,?)
+          |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
+          |values (?,?,?,?,?)
 """.stripMargin
 
       val preparedStmt2: PreparedStatement = connection.prepareStatement(insertKnolder2)
@@ -484,13 +497,14 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt2.setString(2, "Abhishek Baranwal")
       preparedStmt2.setString(3, "abhishek02")
       preparedStmt2.setString(4, "abhishek.baranwal@knoldus.com")
+      preparedStmt2.setString(5, "Y")
       preparedStmt2.execute
       preparedStmt2.close()
 
       val insertKnolder3: String =
         """
-          |insert into knolder(id, full_name, wordpress_id, email_id)
-          |values (?,?,?,?)
+          |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
+          |values (?,?,?,?,?)
 """.stripMargin
 
       val preparedStmt3: PreparedStatement = connection.prepareStatement(insertKnolder3)
@@ -498,6 +512,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt3.setString(2, "Komal Rajpal")
       preparedStmt3.setString(3, "komal03")
       preparedStmt3.setString(4, "komal.rajpal@knoldus.com")
+      preparedStmt3.setString(5, "Y")
       preparedStmt3.execute
       preparedStmt3.close()
 

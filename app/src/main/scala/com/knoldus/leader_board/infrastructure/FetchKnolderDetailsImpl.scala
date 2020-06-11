@@ -31,7 +31,7 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
       "blog.wordpress_id AND EXTRACT(month FROM published_on) = ? AND EXTRACT(year FROM published_on) = ? WHERE " +
       "knolder.id = ?")
       .bind(month, year, knolderId)
-      .map(rs => Contribution("Blog", rs.int("blogCount"), rs.int("blogScore"), blogTitles))
+      .map(rs => Contribution("Blogs", rs.int("blogCount"), rs.int("blogScore"), blogTitles))
       .single().apply()
 
     val contributions = List(blogDetails)
@@ -63,7 +63,7 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
       s"${config.getInt("scorePerBlog")} AS blogScore FROM blog RIGHT JOIN knolder ON knolder.wordpress_id = " +
       "blog.wordpress_id WHERE knolder.id = ?")
       .bind(knolderId)
-      .map(rs => Contribution("Blog", rs.int("blogCount"), rs.int("blogScore"), blogTitles))
+      .map(rs => Contribution("Blogs", rs.int("blogCount"), rs.int("blogScore"), blogTitles))
       .single().apply()
 
     val contributions = List(blogDetails)

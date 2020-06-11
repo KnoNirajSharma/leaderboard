@@ -22,7 +22,7 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
   "fetch knolder details" should {
     val date = Timestamp.valueOf("2020-04-13 13:10:40")
 
-    "return monthly details of each knolder" in {
+    "return monthly details of specific knolder" in {
       val insertAllTimeReputationData1: String =
         """
           |insert into all_time_reputation(id, knolder_id, full_name, score, rank)
@@ -83,8 +83,8 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
 
       val insertKnolder1: String =
         """
-          |insert into knolder(id, full_name, wordpress_id, email_id)
-          |values (?,?,?,?)
+          |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
+          |values (?,?,?,?,?)
 """.stripMargin
 
       val preparedStmt11: PreparedStatement = connection.prepareStatement(insertKnolder1)
@@ -92,6 +92,7 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt11.setString(2, "Mukesh Gupta")
       preparedStmt11.setString(3, "mukesh01")
       preparedStmt11.setString(4, "mukesh.kumar@knoldus.com")
+      preparedStmt11.setString(5, "Y")
       preparedStmt11.execute
       preparedStmt11.close()
 
@@ -105,7 +106,7 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
         map(details => assert(details == knolderDetails))
     }
 
-    "return all time details of each knolder" in {
+    "return all time details of specific knolder" in {
       val insertAllTimeReputationData1: String =
         """
           |insert into all_time_reputation(id, knolder_id, full_name, score, rank)
@@ -166,8 +167,8 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
 
       val insertKnolder1: String =
         """
-          |insert into knolder(id, full_name, wordpress_id, email_id)
-          |values (?,?,?,?)
+          |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
+          |values (?,?,?,?,?)
 """.stripMargin
 
       val preparedStmt11: PreparedStatement = connection.prepareStatement(insertKnolder1)
@@ -175,6 +176,7 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt11.setString(2, "Mukesh Gupta")
       preparedStmt11.setString(3, "mukesh01")
       preparedStmt11.setString(4, "mukesh.kumar@knoldus.com")
+      preparedStmt11.setString(5, "Y")
       preparedStmt11.execute
       preparedStmt11.close()
 

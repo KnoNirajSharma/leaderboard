@@ -156,8 +156,8 @@ class FetchReputationImplSpec extends DBSpec with BeforeAndAfterEach {
 
       val insertKnolder1: String =
         """
-          |insert into knolder(id, full_name, wordpress_id, email_id)
-          |values (?,?,?,?)
+          |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
+          |values (?,?,?,?,?)
 """.stripMargin
 
       val preparedStmt10: PreparedStatement = connection.prepareStatement(insertKnolder1)
@@ -165,13 +165,14 @@ class FetchReputationImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt10.setString(2, "Mukesh Gupta")
       preparedStmt10.setString(3, "mukesh01")
       preparedStmt10.setString(4, "mukesh.kumar@knoldus.com")
+      preparedStmt10.setString(5, "Y")
       preparedStmt10.execute
       preparedStmt10.close()
 
       val insertKnolder2: String =
         """
-          |insert into knolder(id, full_name, wordpress_id, email_id)
-          |values (?,?,?,?)
+          |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
+          |values (?,?,?,?,?)
 """.stripMargin
 
       val preparedStmt11: PreparedStatement = connection.prepareStatement(insertKnolder2)
@@ -179,13 +180,14 @@ class FetchReputationImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt11.setString(2, "Abhishek Baranwal")
       preparedStmt11.setString(3, "abhishek02")
       preparedStmt11.setString(4, "abhishek.baranwal@knoldus.com")
+      preparedStmt11.setString(5, "Y")
       preparedStmt11.execute
       preparedStmt11.close()
 
       val insertKnolder3: String =
         """
-          |insert into knolder(id, full_name, wordpress_id, email_id)
-          |values (?,?,?,?)
+          |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
+          |values (?,?,?,?,?)
 """.stripMargin
 
       val preparedStmt12: PreparedStatement = connection.prepareStatement(insertKnolder3)
@@ -193,12 +195,12 @@ class FetchReputationImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt12.setString(2, "Komal Rajpal")
       preparedStmt12.setString(3, "komal03")
       preparedStmt12.setString(4, "komal.rajpal@knoldus.com")
+      preparedStmt12.setString(5, "N")
       preparedStmt12.execute
       preparedStmt12.close()
 
       val reputations = List(Reputation(1, "Mukesh Gupta", 10, 1, "15-20-20", 10, 1),
-        Reputation(2, "Abhishek Baranwal", 5, 2, "10-10-15", 5, 2),
-        Reputation(3, "Komal Rajpal", 5, 2, "5-10-5", 5, 2))
+        Reputation(2, "Abhishek Baranwal", 5, 2, "10-10-15", 5, 2))
 
       assert(fetchReputation.fetchReputation == reputations)
     }
