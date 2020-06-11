@@ -17,7 +17,7 @@ export class TableComponent implements OnInit {
         {name: 'Overall Score', prop: 'allTimeScore', headerClass: 'table-header-style', cellClass: 'table-cell-style'},
         {name: 'Overall Rank', prop: 'allTimeRank', headerClass: 'table-header-style', cellClass: 'table-cell-style'},
         {name: 'Monthly Score', prop: 'monthlyScore', headerClass: 'table-header-style', cellClass: 'table-cell-style'},
-        {name: 'Monthly Rank', prop: 'monthlyScore', headerClass: 'table-header-style', cellClass: 'table-cell-style'},
+        {name: 'Monthly Rank', prop: 'monthlyRank', headerClass: 'table-header-style', cellClass: 'table-cell-style'},
         {
             name: '3 Month Streak',
             prop: 'quarterlyStreak',
