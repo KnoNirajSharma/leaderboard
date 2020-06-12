@@ -1,33 +1,32 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {AuthorModel} from '../../models/author.model';
-import {TableHeaderModel} from '../../models/tableHeader.model';
-import {DrilldownModalPage} from '../../pages/drilldown-modal/drilldown-modal.page';
-import {ModalController} from '@ionic/angular';
 
 @Component({
     selector: 'app-table',
     templateUrl: './table.component.html',
     styleUrls: ['./table.component.scss'],
+    encapsulation: ViewEncapsulation.None,
 })
 
 export class TableComponent implements OnInit {
-    @Input() tableHeaders: TableHeaderModel[];
     @Input() tableRows: AuthorModel[];
     @Input() dataKeys: string[];
+    columns = [{name: 'Name', prop: 'knolderName', headerClass: 'table-header-style', cellClass: 'table-cell-style'},
+        {name: 'Overall Score', prop: 'allTimeScore', headerClass: 'table-header-style', cellClass: 'table-cell-style'},
+        {name: 'Overall Rank', prop: 'allTimeRank', headerClass: 'table-header-style', cellClass: 'table-cell-style'},
+        {name: 'Monthly Score', prop: 'monthlyScore', headerClass: 'table-header-style', cellClass: 'table-cell-style'},
+        {name: 'Monthly Rank', prop: 'monthlyScore', headerClass: 'table-header-style', cellClass: 'table-cell-style'},
+        {
+            name: '3 Month Streak',
+            prop: 'quarterlyStreak',
+            sortable: false,
+            headerClass: 'table-header-style',
+            cellClass: 'table-cell-style'
+        }];
 
-    constructor(private modalController: ModalController) {
+    constructor() {
     }
 
     ngOnInit() {
-    }
-
-    async presentModal(id: number) {
-        const modal = await this.modalController.create({
-            component: DrilldownModalPage,
-            componentProps: {
-                id
-            }
-        });
-        return await modal.present();
     }
 }

@@ -8,6 +8,7 @@ import {CardComponent} from '../../components/card/card.component';
 import {HeadersComponent} from '../../components/headers/headers.component';
 import {TableComponent} from '../../components/table/table.component';
 import {EmployeeFilterPipe} from '../../pipe/employee-filter.pipe';
+import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 
 const routes: Routes = [
     {
@@ -23,6 +24,7 @@ const routes: Routes = [
         ReactiveFormsModule,
         IonicModule,
         RouterModule.forChild(routes),
+        NgxDatatableModule,
     ],
     declarations: [MainPage, CardComponent, HeadersComponent, TableComponent, EmployeeFilterPipe],
     exports: [
