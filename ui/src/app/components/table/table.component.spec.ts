@@ -20,9 +20,17 @@ describe('TableComponent', () => {
     const id = '2';
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [TableComponent, ParentComponent, EmployeeFilterPipe, DetailsPage],
-            imports: [HttpClientTestingModule, IonicModule.forRoot(), FormsModule,
-                NgxDatatableModule, RouterTestingModule.withRoutes([{
+            declarations: [
+                TableComponent,
+                ParentComponent,
+                EmployeeFilterPipe,
+                DetailsPage],
+            imports: [
+                HttpClientTestingModule,
+                IonicModule.forRoot(),
+                FormsModule,
+                NgxDatatableModule,
+                RouterTestingModule.withRoutes([{
                     path: 'details/:id',
                     component: DetailsPage
                 }])],
@@ -40,7 +48,7 @@ describe('TableComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it ('should open when clicked `onActivate` button', fakeAsync( () => {
+    it('should open when clicked `onActivate` button', fakeAsync(() => {
         spyOn(component, 'onActivate');
         const button = fixture.debugElement.nativeElement.querySelector('ngx-datatable');
         fixture.detectChanges();
