@@ -13,7 +13,6 @@ import {EmployeeFilterPipe} from '../../pipe/employee-filter.pipe';
 export class MainPage implements OnInit {
     cardData: CardDataModel[];
     employeeData: AuthorModel[];
-    dataKeys: string[];
     pageTitle = 'LEADERBOARD';
     searchBar = new FormControl('');
     empFilterPipe = new EmployeeFilterPipe();
@@ -26,7 +25,6 @@ export class MainPage implements OnInit {
         this.service.getData()
             .subscribe((data: AuthorModel[]) => {
                 this.employeeData = data;
-                this.dataKeys = (Object.keys(this.employeeData[0])).slice(1, 7);
                 this.prepareCardData();
                 this.filteredEmpData = this.employeeData;
             });

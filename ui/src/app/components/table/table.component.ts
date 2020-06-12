@@ -11,8 +11,6 @@ import {Router} from '@angular/router';
 
 export class TableComponent implements OnInit {
     @Input() tableRows: AuthorModel[];
-    @Input() dataKeys: string[];
-    id: number;
     columns = [{name: 'Name', prop: 'knolderName', headerClass: 'table-header-style', cellClass: 'table-cell-style'},
         {name: 'Overall Score', prop: 'allTimeScore', headerClass: 'table-header-style', cellClass: 'table-cell-style'},
         {name: 'Overall Rank', prop: 'allTimeRank', headerClass: 'table-header-style', cellClass: 'table-cell-style'},
@@ -33,9 +31,10 @@ export class TableComponent implements OnInit {
     }
 
     onActivate(event) {
+        let id: number;
         if (event.type === 'click') {
-            this.id = event.row.knolderId;
+             id = event.row.knolderId;
+             this.router.navigate(['/details', id]);
         }
-        this.router.navigate(['/details', this.id]);
     }
 }

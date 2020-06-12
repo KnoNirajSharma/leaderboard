@@ -24,7 +24,8 @@ describe('TableComponent', () => {
                 TableComponent,
                 ParentComponent,
                 EmployeeFilterPipe,
-                DetailsPage],
+                DetailsPage
+            ],
             imports: [
                 HttpClientTestingModule,
                 IonicModule.forRoot(),
@@ -54,7 +55,7 @@ describe('TableComponent', () => {
         fixture.detectChanges();
         button.click();
         tick();
-        expect(component.onActivate).toBeTruthy('onActivate should now be true');
+        expect(component.onActivate).toBeTruthy('onActivate should not be true');
         fixture.destroy();
         flush();
     }));
@@ -70,7 +71,7 @@ describe('TableComponent', () => {
 
 @Component({
     selector: 'parent',
-    template: '<app-table [dataKeys]="dataKeys" [tableRows]="employeeData"></app-table>'
+    template: '<app-table [tableRows]="employeeData"></app-table>'
 })
 class ParentComponent {
     employeeData: AuthorModel[] = [
@@ -92,5 +93,4 @@ class ParentComponent {
             monthlyRank: 1
         }
     ];
-    dataKeys = (Object.keys(this.employeeData[0])).slice(1, 7);
 }
