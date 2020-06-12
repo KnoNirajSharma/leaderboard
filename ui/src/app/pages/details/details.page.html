@@ -8,9 +8,10 @@
                 <div class="row justify-content-end p-1">
                     <form class="mr-4 mt-1">
                         <label>
-                            <input (bsValueChange)="onDateChange($event)" [bsConfig]="dpConfig"
-                                   [bsValue]=""
-                                   [formControl]="datePicker" [maxDate]="maxDate" [minDate]=""
+                            <input (bsValueChange)="onDateChange($event)"
+                                   [bsConfig]="dpConfig"
+                                   [formControl]="datePicker"
+                                   [maxDate]="maxDate"
                                    autocomplete="off"
                                    bsDatepicker
                                    class="form-control"
@@ -58,7 +59,7 @@
                 </div>
                 <div *ngFor="let knolderData of knolderDetails.scoreBreakDown">
                     <h3 class="detail-type"><span
-                            class="contri-type badge badge-secondary">{{knolderData.contributionType}}</span></h3>
+                            class="contribution-type badge badge-secondary">{{knolderData.contributionType}}</span></h3>
                     <div *ngIf="knolderDetails.scoreBreakDown['contributionDetails'] !== null" class="row ml-xl-1">
                         <div class="col-8 col-md-8"><h4>Title</h4></div>
                         <div class="col-4 col-md-4 text-right text-xl-center"><h4>Date | Time</h4></div>
