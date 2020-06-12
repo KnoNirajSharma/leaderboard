@@ -25,3 +25,9 @@ final case class Contribution(contributionType: String, contributionCount: Int, 
 final case class ContributionDetails(title: String, date: String)
 
 final case class KnolderDetails(knolderName: String, score: Int, scoreBreakDown: List[Option[Contribution]])
+
+case object WriteAllTimeReputation
+
+case object WriteMonthlyReputation
+
+case object WriteQuarterlyReputation
