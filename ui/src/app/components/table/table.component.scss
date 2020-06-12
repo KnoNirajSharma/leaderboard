@@ -6,26 +6,6 @@
 
   .table-block-content {
     padding: 20px 20px;
-
-    th {
-      padding: 20px 20px;
-      font-size: 1.1em;
-      vertical-align: center;
-    }
-
-    tr:hover {
-      cursor: pointer;
-    }
-
-    td {
-      padding: 15px;
-      font-size: 1.2em;
-      width: 10%;
-    }
-
-    .first-td {
-      width: 20%;
-    }
   }
 }
 
@@ -34,15 +14,31 @@
 
     .table-block-content {
 
-      th {
+      ngx-datatable-column {
         padding: 10px 10px;
         font-size: 1em;
       }
 
-      td {
+      ngx-datatable-row-detail {
         padding: 10px;
         font-size: 1em;
       }
     }
   }
+}
+
+.set-table-size {
+  height: 400px !important;
+  width: 100%;
+}
+
+.table-header-style {
+  color: black;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.table-cell-style {
+  color: black;
+  font-size: 1em;
 }

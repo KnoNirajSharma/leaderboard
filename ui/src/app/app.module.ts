@@ -9,13 +9,13 @@ import {AppRoutingModule} from './app-routing.module';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {HttpIntercept} from './interceptors/http.intercept';
 import {MainPageModule} from './pages/main/main.module';
-import {DrilldownModalPageModule} from './pages/drilldown-modal/drilldown-modal.module';
+import {DetailsPageModule} from './pages/details/details.module';
 
 
 @NgModule({
     declarations: [AppComponent],
     entryComponents: [],
-    imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, MainPageModule, DrilldownModalPageModule],
+    imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, MainPageModule, DetailsPageModule],
     providers: [
         StatusBar,
         SplashScreen,

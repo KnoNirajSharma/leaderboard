@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {CardDataModel} from '../../models/cardData.model';
 import {AuthorModel} from '../../models/author.model';
 import {EmployeeActivityService} from '../../services/employee-activity.service';
-import {TableHeaderModel} from '../../models/tableHeader.model';
 import {FormControl} from '@angular/forms';
 import {EmployeeFilterPipe} from '../../pipe/employee-filter.pipe';
 
@@ -15,7 +14,6 @@ export class MainPage implements OnInit {
     cardData: CardDataModel[];
     employeeData: AuthorModel[];
     dataKeys: string[];
-    tableHeaders: TableHeaderModel[];
     pageTitle = 'LEADERBOARD';
     searchBar = new FormControl('');
     empFilterPipe = new EmployeeFilterPipe();
@@ -28,18 +26,10 @@ export class MainPage implements OnInit {
         this.service.getData()
             .subscribe((data: AuthorModel[]) => {
                 this.employeeData = data;
-                this.dataKeys = ['knolderName', 'allTimeScore', 'allTimeRank', 'monthlyScore', 'monthlyRank', 'quarterlyStreak'];
+                this.dataKeys = (Object.keys(this.employeeData[0])).slice(1, 7);
                 this.prepareCardData();
                 this.filteredEmpData = this.employeeData;
             });
-        this.tableHeaders = [
-            {title: 'Name'},
-            {title: 'Score'},
-            {title: 'Rank'},
-            {title: 'Monthly Score'},
-            {title: 'Monthly Rank'},
-            {title: '3 Month Streak'}
-        ];
     }
 
     prepareCardData() {
