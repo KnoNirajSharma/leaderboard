@@ -8,11 +8,12 @@ import {EmployeeActivityService} from '../../services/employee-activity.service'
 import {AuthorModel} from '../../models/author.model';
 import {CardComponent} from '../../components/card/card.component';
 import {HeadersComponent} from '../../components/headers/headers.component';
-import {Observable, of} from 'rxjs';
+import {of} from 'rxjs';
 import {TableComponent} from '../../components/table/table.component';
 import {EmployeeFilterPipe} from '../../pipe/employee-filter.pipe';
 import {ReactiveFormsModule} from '@angular/forms';
 import {By} from '@angular/platform-browser';
+import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 
 describe('MainPage', () => {
     let component: MainPage;
@@ -42,7 +43,7 @@ describe('MainPage', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [MainPage, CardComponent, HeadersComponent, TableComponent, EmployeeFilterPipe],
-            imports: [HttpClientTestingModule, IonicModule.forRoot(), RouterTestingModule, ReactiveFormsModule],
+            imports: [HttpClientTestingModule, IonicModule.forRoot(), RouterTestingModule, ReactiveFormsModule, NgxDatatableModule],
             providers: [EmployeeFilterPipe]
         }).compileComponents();
 
