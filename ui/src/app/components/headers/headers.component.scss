@@ -11,6 +11,19 @@ ion-header {
     text-align: left;
     margin-left: auto;
     margin-right: auto;
+    button {
+      font-size: 1.1em;
+      color: white;
+      background: transparent;
+    }
+    .arrow-left {
+      border: solid white;
+      border-width: 0 3px 3px 0;
+      display: inline-block;
+      transform: rotate(135deg);
+      -webkit-transform: rotate(135deg);
+      padding: 6px;
+    }
     span {
       margin-right: 10px;
       font-size: 1.5em;
@@ -18,7 +31,7 @@ ion-header {
     }
     .knoldus-logo {
       height: 30px;
-      margin-top: 1px;
+      //margin-top;
     }
   }
   ion-toolbar {
@@ -40,9 +53,9 @@ ion-header {
   ion-header {
 
     ion-title {
-      text-align: right;
+      //text-align: right;
       span {
-        font-size: 1em;
+        //font-size: 1em;
       }
     }
   }

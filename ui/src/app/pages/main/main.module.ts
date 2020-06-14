@@ -8,6 +8,7 @@ import {HeadersComponent} from '../../components/headers/headers.component';
 import {TableComponent} from '../../components/table/table.component';
 import {EmployeeFilterPipe} from '../../pipe/employee-filter.pipe';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
+import {ComponentsModule} from '../../components/components.module';
 
 const routes: Routes = [
     {
@@ -24,11 +25,9 @@ const routes: Routes = [
         IonicModule,
         RouterModule.forChild(routes),
         NgxDatatableModule,
+        ComponentsModule,
     ],
-    declarations: [MainPage, HeadersComponent, TableComponent, EmployeeFilterPipe],
-    exports: [
-        HeadersComponent
-    ]
+    declarations: [MainPage, TableComponent, EmployeeFilterPipe]
 })
 export class MainPageModule {
 }

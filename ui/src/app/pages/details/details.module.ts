@@ -6,6 +6,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { DetailsPage } from './details.page';
 import {RouterModule, Routes} from '@angular/router';
+import {ComponentsModule} from '../../components/components.module';
+import {HeadersComponent} from '../../components/headers/headers.component';
 
 const routes: Routes = [
   {
@@ -15,12 +17,13 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes),
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        RouterModule.forChild(routes),
+        ComponentsModule,
+    ],
   declarations: [DetailsPage]
 })
 export class DetailsPageModule {}

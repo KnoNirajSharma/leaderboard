@@ -11,6 +11,7 @@ import {KnolderDetailsModel} from '../../models/knolder-details.model';
 export class DetailsPage implements OnInit {
   knolderDetails: KnolderDetailsModel;
   knolderId: number;
+  mainPageLink = '/';
   constructor(private route: ActivatedRoute,
               private service: EmployeeActivityService) { }
 
