@@ -4,7 +4,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {IonicModule} from '@ionic/angular';
 import {RouterModule, Routes} from '@angular/router';
 import {MainPage} from './main.page';
-import {CardComponent} from '../../components/card/card.component';
 import {HeadersComponent} from '../../components/headers/headers.component';
 import {TableComponent} from '../../components/table/table.component';
 import {EmployeeFilterPipe} from '../../pipe/employee-filter.pipe';
@@ -26,7 +25,7 @@ const routes: Routes = [
         RouterModule.forChild(routes),
         NgxDatatableModule,
     ],
-    declarations: [MainPage, CardComponent, HeadersComponent, TableComponent, EmployeeFilterPipe],
+    declarations: [MainPage, HeadersComponent, TableComponent, EmployeeFilterPipe],
     exports: [
         HeadersComponent
     ]

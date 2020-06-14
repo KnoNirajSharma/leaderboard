@@ -1,12 +1,18 @@
 .main-container {
   font-family: 'Open Sans';
   padding: 0;
-  width: 80%;
-  background-color: #FAF8FB;
+  background-color: white;
   margin: auto;
   .main-content {
-    .cards-row {
-      margin-top: 1em;
+
+    .page-title {
+      img {
+        height: 62px;
+      }
+
+      h1 {
+        font-size: 2.4em;
+      }
     }
     width: 100%;
     label {
@@ -22,22 +28,11 @@
   }
 }
 ion-content {
-  --ion-background-color: #FAF8FB;
   height: 100vh;
-  ion-grid {
-    padding: 0 !important;
-    margin: 0 !important;
-  }
-  ion-col {
-    margin: 0 !important;
-    padding: 0 !important;
-  }
+
   ion-card {
+    box-shadow: 0px 0px 34px -15px rgba(0,0,0,0.35);
     background-color: white;
   }
 }
-@media only screen and (max-width: 992px) {
-  .main-container {
-    width: 100%;
-  }
-}
+

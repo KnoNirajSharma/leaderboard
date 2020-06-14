@@ -1,7 +1,7 @@
 ion-header {
-  box-shadow: 0 4 4 -5 rgba(133, 133, 133, 1);
-  height: 10vh;
-  background: linear-gradient(90deg, rgba(68,125,230,1) 0%, rgba(21,40,168,1) 62%);
+  box-shadow: 0 0 34px -5px rgba(0,0,0,0.35);
+  height: 50px;
+  background-color: #2B35A8;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9,7 +9,6 @@ ion-header {
     padding: 0 !important;
     color: white;
     text-align: left;
-    width: 80%;
     margin-left: auto;
     margin-right: auto;
     span {
@@ -17,14 +16,9 @@ ion-header {
       font-size: 1.5em;
       font-weight: bold;
     }
-    .logo-icon {
-      height: 40px;
-      margin: 0 20px 0 15px;
-    }
     .knoldus-logo {
       height: 30px;
       margin-top: 1px;
-      margin-right: 25px;
     }
   }
   ion-toolbar {
@@ -33,9 +27,9 @@ ion-header {
 }
 @media only screen and (max-width: 992px) {
   ion-header {
-    height: 8vh;
+
     ion-title {
-      width: 100%;
+
       span {
         font-size: 1.4em;
       }
@@ -44,17 +38,11 @@ ion-header {
 }
 @media only screen and (max-width: 540px) {
   ion-header {
-    height: 8vh;
+
     ion-title {
       text-align: right;
       span {
         font-size: 1em;
-      }
-      .logo-icon {
-        height: 30px;
-      }
-      .knoldus-logo {
-        display: none;
       }
     }
   }
