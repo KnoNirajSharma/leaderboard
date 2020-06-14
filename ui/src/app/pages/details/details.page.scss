@@ -1,21 +1,4 @@
 .container-fluid {
-  .arrow-left {
-    border: solid blue;
-    border-width: 0 3px 3px 0;
-    display: inline-block;
-    transform: rotate(135deg);
-    -webkit-transform: rotate(135deg);
-  }
-
-  .back-btn:hover {
-    .arrow-left {
-      border: solid white;
-      border-width: 0 3px 3px 0;
-      display: inline-block;
-      transform: rotate(135deg);
-      -webkit-transform: rotate(135deg);
-    }
-  }
 
   .page-wrapper {
     margin-left: auto;
