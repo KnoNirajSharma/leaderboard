@@ -19,6 +19,7 @@ export class DetailsPage implements OnInit {
     dpConfig: Partial<BsDatepickerConfig> = new BsDatepickerConfig();
     monthList = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July',
         'August', 'September', 'October', 'November', 'December' ];
+    allTimeSelected: boolean;
     constructor(private route: ActivatedRoute,
                 private service: EmployeeActivityService) { }
 
@@ -40,9 +41,11 @@ export class DetailsPage implements OnInit {
         this.dpConfig.dateInputFormat = 'MMM-YYYY';
         this.dpConfig.minMode = 'month';
         this.maxDate.setMonth(this.maxDate.getMonth() + 1, 0);
+        this.allTimeSelected = false;
     }
 
     onDateChange(selectedDate: Date) {
+        this.allTimeSelected = false;
         this.getMonthlyDetails(this.monthList[selectedDate.getMonth()], selectedDate.getFullYear());
     }
 
@@ -59,6 +62,7 @@ export class DetailsPage implements OnInit {
     }
 
     getAllTimeDetails() {
+        this.allTimeSelected = true;
         /* this will call the service method with for all time details with id of a knolder
         right now the api is not available so i have commented this code
         once the api is set up i will remove the comments
