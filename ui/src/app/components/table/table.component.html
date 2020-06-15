@@ -4,7 +4,7 @@
             <div>
                 <ngx-datatable [columnMode]="'force'" [columns]="columns" [headerHeight]="50" [rowHeight]="60"
                                [rows]="tableRows" [scrollbarH]="true" [scrollbarV]="true" [sortType]="'multi'"
-                               class="material set-table-size">
+                               (activate)="onActivate($event)" class="material set-table-size">
                 </ngx-datatable>
             </div>
         </div>
