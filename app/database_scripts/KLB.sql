@@ -1,3 +1,7 @@
+-- knoldus_leaderboard schema
+
+-- !Ups
+
 CREATE DATABASE knoldus_leaderboard;
 \c knoldus_leaderboard
 CREATE TABLE knolder(id SERIAL PRIMARY KEY NOT NULL, full_name VARCHAR(100) NOT NULL, wordpress_id VARCHAR(100) UNIQUE, email_id VARCHAR(100) UNIQUE);
@@ -107,3 +111,7 @@ insert into knolder(full_name,wordpress_id)values('Joseph Ross','rossjoseph246')
 insert into knolder(full_name,wordpress_id)values('JustinB','justinbeile');
 insert into knolder(full_name,wordpress_id)values('Rachel Jones','jrachel098');
 insert into knolder(full_name,wordpress_id)values('Mansi Babbar','mansibabbar1998');
+
+-- !Downs
+
+DROP DATABASE knoldus_leaderboard;
