@@ -13,9 +13,9 @@ import {BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
 export class DetailsPage implements OnInit {
     knolderDetails: KnolderDetailsModel;
     knolderId: number;
-    currentDate = new Date();
-    maxDate = new Date();
-    datePicker = new FormControl(this.currentDate);
+    currentDate: Date;
+    maxDate: Date;
+    datePicker = new FormControl();
     dpConfig: Partial<BsDatepickerConfig> = new BsDatepickerConfig();
     monthList = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July',
         'August', 'September', 'October', 'November', 'December' ];
@@ -33,6 +33,9 @@ export class DetailsPage implements OnInit {
             .subscribe((data: KnolderDetailsModel) => {
                 this.knolderDetails = data;
             });
+        this.currentDate = new Date();
+        this.maxDate = new Date();
+        this.datePicker = new FormControl(this.currentDate);
         this.dpConfig.containerClass = 'theme-dark-blue';
         this.dpConfig.dateInputFormat = 'MMM-YYYY';
         this.dpConfig.minMode = 'month';

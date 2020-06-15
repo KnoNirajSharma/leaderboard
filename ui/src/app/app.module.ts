@@ -16,8 +16,13 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 @NgModule({
     declarations: [AppComponent],
     entryComponents: [],
-    imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,
-        HttpClientModule, MainPageModule, DetailsPageModule, BrowserAnimationsModule],
+    imports: [BrowserModule,
+        IonicModule.forRoot(),
+        AppRoutingModule,
+        HttpClientModule,
+        MainPageModule,
+        DetailsPageModule,
+        BrowserAnimationsModule],
     providers: [
         StatusBar,
         SplashScreen,
