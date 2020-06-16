@@ -1,5 +1,6 @@
 package com.knoldus.leader_board.business
 
+import java.net.URLEncoder
 import java.sql.Timestamp
 
 import com.knoldus.leader_board.Blog
@@ -21,7 +22,7 @@ class BlogsImpl(fetchData: FetchBlogs, URLResponse: URLResponse, config: Config)
     val fetchMaxDate = fetchData.fetchMaxBlogPublicationDate.getOrElse("0000-00-00 00:00:00").toString
       .replace(' ', 'T')
     getListOfLatestBlogs(URLResponse.getResponse(config.getString("urlForLatestBlogs") +
-      s"?per_page=100&after=$fetchMaxDate&_embed=author"))
+      s"?per_page=100&after=${URLEncoder.encode(fetchMaxDate)}&_embed=author"))
   }
 
   /**

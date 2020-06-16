@@ -13,7 +13,7 @@ class URLResponse extends LazyLogging {
    * @return Respaonse entity in form of string.
    */
   def getResponse(url: String): String = {
-    logger.info(s"Gettting response from $url")
+    logger.info(s"Gettting response from Wordpress API")
     val request = new HttpGet(url)
     val client = HttpClientBuilder.create().build()
     val response = client.execute(request)
