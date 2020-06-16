@@ -16,7 +16,6 @@ export class DetailsPage implements OnInit {
     knolderDetails: KnolderDetailsModel;
     knolderId: number;
     currentDate: Date;
-    maxDate: Date;
     datePicker = new FormControl();
     dpConfig: Partial<BsDatepickerConfig> = new BsDatepickerConfig();
     monthList = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July',
@@ -33,12 +32,10 @@ export class DetailsPage implements OnInit {
                 }
             );
         this.currentDate = new Date();
-        this.maxDate = new Date();
         this.datePicker = new FormControl(this.currentDate);
         this.dpConfig.containerClass = 'theme-dark-blue';
         this.dpConfig.dateInputFormat = 'MMM-YYYY';
         this.dpConfig.minMode = 'month';
-        this.maxDate.setMonth(this.maxDate.getMonth() + 1, 0);
         this.allTimeSelected = false;
         this.service.getMonthlyDetails(this.knolderId, this.monthList[this.currentDate.getMonth()], this.currentDate.getFullYear())
             .subscribe((data: KnolderDetailsModel) => {
