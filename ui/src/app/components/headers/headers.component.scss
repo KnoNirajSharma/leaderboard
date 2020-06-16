@@ -5,17 +5,20 @@ ion-header {
   display: flex;
   align-items: center;
   justify-content: center;
+
   ion-title {
     padding: 0 !important;
     color: white;
     text-align: left;
     margin-left: auto;
     margin-right: auto;
+
     button {
       font-size: 1.1em;
       color: white;
       background: transparent;
     }
+
     .arrow-left {
       border: solid white;
       border-width: 0 3px 3px 0;
@@ -24,16 +27,18 @@ ion-header {
       -webkit-transform: rotate(135deg);
       padding: 6px;
     }
+
     span {
       margin-right: 10px;
       font-size: 1.5em;
       font-weight: bold;
     }
+
     .knoldus-logo {
       height: 30px;
-      //margin-top;
     }
   }
+
   ion-toolbar {
     --background: translucent;
   }
@@ -45,17 +50,6 @@ ion-header {
 
       span {
         font-size: 1.4em;
-      }
-    }
-  }
-}
-@media only screen and (max-width: 540px) {
-  ion-header {
-
-    ion-title {
-      //text-align: right;
-      span {
-        //font-size: 1em;
       }
     }
   }
