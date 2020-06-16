@@ -52,7 +52,6 @@ describe('TableComponent', () => {
 
         fixture = TestBed.createComponent(ParentComponent);
         component = fixture.debugElement.children[0].componentInstance;
-        // router.initialNavigation();
     }));
 
     it('should create', () => {
