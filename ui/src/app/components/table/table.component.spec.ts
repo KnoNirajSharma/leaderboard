@@ -20,6 +20,7 @@ describe('TableComponent', () => {
     let router: Router;
     let location: Location;
     const id = '2';
+    const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
@@ -41,6 +42,9 @@ describe('TableComponent', () => {
                     path: 'details/:id',
                     component: DetailsPage
                 }])],
+            providers: [
+                {provide: Router, useValue: routerSpy}
+            ]
         }).compileComponents();
 
         router = TestBed.get(Router);
@@ -48,7 +52,7 @@ describe('TableComponent', () => {
 
         fixture = TestBed.createComponent(ParentComponent);
         component = fixture.debugElement.children[0].componentInstance;
-        router.initialNavigation();
+        // router.initialNavigation();
     }));
 
     it('should create', () => {
@@ -66,13 +70,20 @@ describe('TableComponent', () => {
         flush();
     }));
 
-    it('navigate to "details" takes you to /details', fakeAsync(() => {
-        router.navigate(['/details', id]).then(() => {
-            expect(location.path()).toBe('/details/2');
-        });
-        fixture.destroy();
-        flush();
-    }));
+    it('should change route on click of row', () => {
+        const event = {type: 'click', row: {knolderId: 2}};
+        component.onActivate(event);
+        expect(routerSpy.navigate).toHaveBeenCalledWith(['/details', event.row.knolderId]);
+        const nonClickEvent = {type: 'notClick', row: {knolderId: 2}};
+        component.onActivate(nonClickEvent);
+        expect(routerSpy.navigate).toHaveBeenCalledWith(['/']);
+    });
+
+    it('should stay on same route on other events', () => {
+        const nonClickEvent = {type: 'notClick', row: {knolderId: 2}};
+        component.onActivate(nonClickEvent);
+        expect(routerSpy.navigate).toHaveBeenCalledWith(['/']);
+    });
 });
 
 @Component({

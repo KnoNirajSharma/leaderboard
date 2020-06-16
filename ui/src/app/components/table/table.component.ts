@@ -11,6 +11,7 @@ import {Router} from '@angular/router';
 
 export class TableComponent implements OnInit {
     @Input() tableRows: AuthorModel[];
+    eventCheck;
     columns = [
         {
             name: 'Name',
