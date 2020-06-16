@@ -51,27 +51,17 @@ export class DetailsPage implements OnInit {
     }
 
     getMonthlyDetails(month: string, year: number) {
-        /* this will call the service method with the selected month and year when date
-        right now the api is not available
-        once the api is set up i will remove the comments
-
         this.service.getMonthlyDetails(this.knolderId, month, year)
             .subscribe((data: KnolderDetailsModel) => {
                 this.knolderDetails = data;
             });
-         */
     }
 
     getAllTimeDetails() {
         this.allTimeSelected = true;
-        /* this will call the service method with for all time details with id of a knolder
-        right now the api is not available so i have commented this code
-        once the api is set up i will remove the comments
-
         this.service.getAllTimeDetails(this.knolderId)
             .subscribe((data: KnolderDetailsModel) => {
                 this.knolderDetails = data;
             });
-         */
     }
 }
