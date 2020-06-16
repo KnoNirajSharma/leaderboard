@@ -19,7 +19,8 @@ class ReadBlogImpl(config: Config) extends ReadBlog with LazyLogging {
   override def fetchKnoldersWithBlogs: List[GetCount] = {
     logger.info("Fetching details of knolders with blogs.")
     SQL("SELECT knolder.id, knolder.full_name, COUNT(blog.id) AS count FROM blog RIGHT JOIN knolder ON " +
-      "knolder.wordpress_id = blog.wordpress_id GROUP BY knolder.id, knolder.wordpress_id, knolder.full_name")
+      "knolder.wordpress_id = blog.wordpress_id WHERE knolder.active_status = true GROUP BY knolder.id, " +
+      "knolder.wordpress_id, knolder.full_name")
       .map(rs => GetCount(rs.int("id"), rs.string("full_name"),
         rs.int("count"))).list().apply()
   }
@@ -36,8 +37,9 @@ class ReadBlogImpl(config: Config) extends ReadBlog with LazyLogging {
     val nextMonth = Timestamp.valueOf(Constant.CURRENT_TIME
       .withDayOfMonth(1).toLocalDate.plusMonths(1).atStartOfDay())
     SQL("SELECT knolder.id, knolder.full_name, COUNT(blog.id) AS count FROM blog RIGHT JOIN knolder ON " +
-      "knolder.wordpress_id = blog.wordpress_id AND published_on >= ? AND published_on < ? " +
-      "GROUP BY knolder.id, knolder.wordpress_id, knolder.full_name;").bind(currentMonth, nextMonth)
+      "knolder.wordpress_id = blog.wordpress_id AND published_on >= ? AND published_on < ? WHERE " +
+      "knolder.active_status = true GROUP BY knolder.id, knolder.wordpress_id, knolder.full_name;")
+      .bind(currentMonth, nextMonth)
       .map(rs => GetCount(rs.int("id"), rs.string("full_name"),
         rs.int("count"))).list.apply()
   }
@@ -54,8 +56,9 @@ class ReadBlogImpl(config: Config) extends ReadBlog with LazyLogging {
     val nextMonth = Timestamp.valueOf(Constant.CURRENT_TIME
       .withDayOfMonth(1).toLocalDate.minusMonths(2).atStartOfDay())
     SQL("SELECT knolder.id, knolder.full_name, COUNT(blog.id) AS count FROM blog RIGHT JOIN knolder ON " +
-      "knolder.wordpress_id = blog.wordpress_id AND published_on >= ? AND published_on < ? " +
-      "GROUP BY knolder.id, knolder.wordpress_id, knolder.full_name;").bind(firstMonth, nextMonth)
+      "knolder.wordpress_id = blog.wordpress_id AND published_on >= ? AND published_on < ? WHERE " +
+      "knolder.active_status = true GROUP BY knolder.id, knolder.wordpress_id, knolder.full_name;")
+      .bind(firstMonth, nextMonth)
       .map(rs => GetCount(rs.int("id"), rs.string("full_name"),
         rs.int("count"))).list.apply()
   }
@@ -72,8 +75,9 @@ class ReadBlogImpl(config: Config) extends ReadBlog with LazyLogging {
     val nextMonth = Timestamp.valueOf(Constant.CURRENT_TIME
       .withDayOfMonth(1).toLocalDate.minusMonths(1).atStartOfDay())
     SQL("SELECT knolder.id, knolder.full_name, COUNT(blog.id) AS count FROM blog RIGHT JOIN knolder ON " +
-      "knolder.wordpress_id = blog.wordpress_id AND published_on >= ? AND published_on < ? " +
-      "GROUP BY knolder.id, knolder.wordpress_id, knolder.full_name;").bind(secondMonth, nextMonth)
+      "knolder.wordpress_id = blog.wordpress_id AND published_on >= ? AND published_on < ? WHERE " +
+      "knolder.active_status = true GROUP BY knolder.id, knolder.wordpress_id, knolder.full_name;")
+      .bind(secondMonth, nextMonth)
       .map(rs => GetCount(rs.int("id"), rs.string("full_name"),
         rs.int("count"))).list.apply()
   }
@@ -90,8 +94,9 @@ class ReadBlogImpl(config: Config) extends ReadBlog with LazyLogging {
     val nextMonth = Timestamp.valueOf(Constant.CURRENT_TIME
       .withDayOfMonth(1).toLocalDate.atStartOfDay())
     SQL("SELECT knolder.id, knolder.full_name, COUNT(blog.id) AS count FROM blog RIGHT JOIN knolder ON " +
-      "knolder.wordpress_id = blog.wordpress_id AND published_on >= ? AND published_on < ? " +
-      "GROUP BY knolder.id, knolder.wordpress_id, knolder.full_name;").bind(thirdMonth, nextMonth)
+      "knolder.wordpress_id = blog.wordpress_id AND published_on >= ? AND published_on < ? WHERE " +
+      "knolder.active_status = true GROUP BY knolder.id, knolder.wordpress_id, knolder.full_name;")
+      .bind(thirdMonth, nextMonth)
       .map(rs => GetCount(rs.int("id"), rs.string("full_name"),
         rs.int("count"))).list.apply()
   }

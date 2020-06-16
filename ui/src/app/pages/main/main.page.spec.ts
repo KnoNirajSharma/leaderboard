@@ -13,6 +13,7 @@ import {EmployeeFilterPipe} from '../../pipe/employee-filter.pipe';
 import {ReactiveFormsModule} from '@angular/forms';
 import {By} from '@angular/platform-browser';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
+import {ComponentsModule} from '../../components/components.module';
 
 describe('MainPage', () => {
     let component: MainPage;
@@ -40,8 +41,13 @@ describe('MainPage', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [MainPage, HeadersComponent, TableComponent, EmployeeFilterPipe],
-            imports: [HttpClientTestingModule, IonicModule.forRoot(), RouterTestingModule, ReactiveFormsModule, NgxDatatableModule],
+            declarations: [MainPage, TableComponent, EmployeeFilterPipe],
+            imports: [HttpClientTestingModule,
+                IonicModule.forRoot(),
+                RouterTestingModule,
+                ReactiveFormsModule,
+                NgxDatatableModule,
+            ComponentsModule],
             providers: [EmployeeFilterPipe]
         }).compileComponents();
 
