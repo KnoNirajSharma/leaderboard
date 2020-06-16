@@ -31,10 +31,6 @@ export class DetailsPage implements OnInit {
                     this.knolderId = params.id;
                 }
             );
-        this.service.getDetails(this.knolderId)
-            .subscribe((data: KnolderDetailsModel) => {
-                this.knolderDetails = data;
-            });
         this.currentDate = new Date();
         this.maxDate = new Date();
         this.datePicker = new FormControl(this.currentDate);
@@ -43,6 +39,10 @@ export class DetailsPage implements OnInit {
         this.dpConfig.minMode = 'month';
         this.maxDate.setMonth(this.maxDate.getMonth() + 1, 0);
         this.allTimeSelected = false;
+        this.service.getMonthlyDetails(this.knolderId, this.monthList[this.currentDate.getMonth()], this.currentDate.getFullYear())
+            .subscribe((data: KnolderDetailsModel) => {
+                this.knolderDetails = data;
+            });
     }
 
     onDateChange(selectedDate: Date) {
