@@ -59,11 +59,10 @@ export class DetailsPage implements OnInit {
     }
 
     getAllTimeDetails() {
-        this.allTimeSelected = true;
         this.service.getAllTimeDetails(this.knolderId)
             .subscribe((data: KnolderDetailsModel) => {
                 this.knolderDetails = data;
             });
-        this.datePicker = new FormControl('');
+        this.allTimeSelected = true;
     }
 }
