@@ -63,12 +63,11 @@
                 <div *ngFor="let knolderData of knolderDetails.scoreBreakDown">
                     <h3 class="detail-type"><span
                             class="contribution-type badge badge-secondary">{{knolderData.contributionType}}</span></h3>
-                    <div *ngIf="knolderDetails.scoreBreakDown['contributionDetails'] !== null" class="row ml-xl-1">
-                        <div>{{knolderDetails.scoreBreakDown[['contributionDetails']]}}</div>
+                    <div *ngIf="knolderData.contributionDetails.length !== 0" class="row ml-xl-1">
                         <div class="col-8 col-md-8"><h4>Title</h4></div>
                         <div class="col-4 col-md-4 text-right text-xl-center"><h4>Date | Time</h4></div>
                     </div>
-                    <div *ngIf="knolderDetails.scoreBreakDown['contributionDetails'] === emptyList">
+                    <div *ngIf="knolderData.contributionDetails.length === 0">
                         <span class="text-secondary font-italic">No details to display</span>
                     </div>
                     <div *ngFor="let knolderDetails of knolderData.contributionDetails" class="detail-row row pt-3 ml-xl-1">

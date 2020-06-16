@@ -21,7 +21,6 @@ export class DetailsPage implements OnInit {
     dpConfig: Partial<BsDatepickerConfig> = new BsDatepickerConfig();
     monthList = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July',
         'August', 'September', 'October', 'November', 'December' ];
-    emptyList: ContributionDetailsModel[] = [];
     allTimeSelected: boolean;
     constructor(private route: ActivatedRoute,
                 private service: EmployeeActivityService) { }
