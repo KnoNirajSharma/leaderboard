@@ -64,5 +64,6 @@ export class DetailsPage implements OnInit {
             .subscribe((data: KnolderDetailsModel) => {
                 this.knolderDetails = data;
             });
+        this.datePicker = new FormControl('');
     }
 }
