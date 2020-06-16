@@ -11,6 +11,7 @@ import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import {DetailsPage} from '../../pages/details/details.page';
 import {Router} from '@angular/router';
 import {Location} from '@angular/common';
+import {ComponentsModule} from '../components.module';
 
 describe('TableComponent', () => {
     let component: TableComponent;
@@ -31,6 +32,7 @@ describe('TableComponent', () => {
                 IonicModule.forRoot(),
                 FormsModule,
                 NgxDatatableModule,
+                ComponentsModule,
                 RouterTestingModule.withRoutes([{
                     path: 'details/:id',
                     component: DetailsPage

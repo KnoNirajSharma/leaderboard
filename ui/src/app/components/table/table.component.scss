@@ -100,11 +100,12 @@
           }
         }
       }
+    }
 
-      .ngx-datatable.bootstrap:not(.cell-selection) .datatable-body-row:hover,
-      .ngx-datatable.material:not(.cell-selection) .datatable-body-row:hover .datatable-row-group {
-        background: lightgrey;
-      }
+    .ngx-datatable.bootstrap:not(.cell-selection) .datatable-body-row:hover,
+    .ngx-datatable.material:not(.cell-selection) .datatable-body-row:hover .datatable-row-group {
+      background: #e8ebe9;
+      cursor: pointer;
     }
   }
 }

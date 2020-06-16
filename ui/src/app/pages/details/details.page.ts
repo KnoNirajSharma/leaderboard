@@ -11,6 +11,7 @@ import {BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
   styleUrls: ['./details.page.scss'],
 })
 export class DetailsPage implements OnInit {
+  mainPageLink = '/';
     knolderDetails: KnolderDetailsModel;
     knolderId: number;
     currentDate: Date;

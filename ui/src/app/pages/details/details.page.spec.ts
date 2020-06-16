@@ -10,6 +10,7 @@ import {EmployeeActivityService} from '../../services/employee-activity.service'
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {By} from '@angular/platform-browser';
+import {ComponentsModule} from '../../components/components.module';
 
 describe('DetailsPage', () => {
     let component: DetailsPage;
@@ -41,7 +42,8 @@ describe('DetailsPage', () => {
                 RouterTestingModule,
                 BsDatepickerModule.forRoot(),
                 FormsModule,
-                ReactiveFormsModule]
+                ReactiveFormsModule,
+                ComponentsModule]
         }).compileComponents();
 
         fixture = TestBed.createComponent(DetailsPage);

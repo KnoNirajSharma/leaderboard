@@ -6,7 +6,6 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {EmployeeActivityService} from '../../services/employee-activity.service';
 import {AuthorModel} from '../../models/author.model';
-import {CardComponent} from '../../components/card/card.component';
 import {HeadersComponent} from '../../components/headers/headers.component';
 import {of} from 'rxjs';
 import {TableComponent} from '../../components/table/table.component';
@@ -14,6 +13,7 @@ import {EmployeeFilterPipe} from '../../pipe/employee-filter.pipe';
 import {ReactiveFormsModule} from '@angular/forms';
 import {By} from '@angular/platform-browser';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
+import {ComponentsModule} from '../../components/components.module';
 
 describe('MainPage', () => {
     let component: MainPage;
@@ -39,11 +39,15 @@ describe('MainPage', () => {
         }
     ];
 
-    const dummyBlogCount = '5';
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [MainPage, CardComponent, HeadersComponent, TableComponent, EmployeeFilterPipe],
-            imports: [HttpClientTestingModule, IonicModule.forRoot(), RouterTestingModule, ReactiveFormsModule, NgxDatatableModule],
+            declarations: [MainPage, TableComponent, EmployeeFilterPipe],
+            imports: [HttpClientTestingModule,
+                IonicModule.forRoot(),
+                RouterTestingModule,
+                ReactiveFormsModule,
+                NgxDatatableModule,
+            ComponentsModule],
             providers: [EmployeeFilterPipe]
         }).compileComponents();
 
@@ -55,12 +59,6 @@ describe('MainPage', () => {
 
     it('should create', () => {
         expect(component).toBeTruthy();
-    });
-
-    it('should return the sum of the work', () => {
-        spyOn(mockEmployeeService, 'getData').and.returnValue(of(dummyAuthorData));
-        component.ngOnInit();
-        expect(component.getTotalCount('blogs')).toEqual(dummyBlogCount);
     });
 
     it('should return the authorData as per api call', () => {
