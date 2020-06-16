@@ -2,7 +2,7 @@ import {async, ComponentFixture, fakeAsync, flush, TestBed, tick} from '@angular
 import {IonicModule} from '@ionic/angular';
 import {TableComponent} from './table.component';
 import {RouterTestingModule} from '@angular/router/testing';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {Component} from '@angular/core';
 import {AuthorModel} from '../../models/author.model';
@@ -12,6 +12,7 @@ import {DetailsPage} from '../../pages/details/details.page';
 import {Router} from '@angular/router';
 import {Location} from '@angular/common';
 import {ComponentsModule} from '../components.module';
+import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 
 describe('TableComponent', () => {
     let component: TableComponent;
@@ -33,6 +34,9 @@ describe('TableComponent', () => {
                 FormsModule,
                 NgxDatatableModule,
                 ComponentsModule,
+                BsDatepickerModule.forRoot(),
+                FormsModule,
+                ReactiveFormsModule,
                 RouterTestingModule.withRoutes([{
                     path: 'details/:id',
                     component: DetailsPage
