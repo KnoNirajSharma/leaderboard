@@ -40,8 +40,10 @@ export class TableComponent implements OnInit {
     onActivate(event) {
         let id: number;
         if (event.type === 'click') {
-             id = event.row.knolderId;
-             this.router.navigate(['/details', id]);
+            id = event.row.knolderId;
+            this.router.navigate(['/details', id]);
+        } else {
+            this.router.navigate(['/']);
         }
     }
 }

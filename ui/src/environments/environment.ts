@@ -6,7 +6,6 @@ export const environment = {
         baseUrl: 'http://34.68.95.196:8000/',
         routes: {
             author: {endpoint: 'reputation', method: 'GET'},
-            details : {endpoint: '/assets/data/knolderDetails.json', method: 'GET'}
         }
     }
 };

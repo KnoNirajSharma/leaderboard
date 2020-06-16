@@ -2,7 +2,7 @@ import {async, ComponentFixture, fakeAsync, flush, TestBed, tick} from '@angular
 import {IonicModule} from '@ionic/angular';
 import {TableComponent} from './table.component';
 import {RouterTestingModule} from '@angular/router/testing';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {Component} from '@angular/core';
 import {AuthorModel} from '../../models/author.model';
@@ -12,6 +12,7 @@ import {DetailsPage} from '../../pages/details/details.page';
 import {Router} from '@angular/router';
 import {Location} from '@angular/common';
 import {ComponentsModule} from '../components.module';
+import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 
 describe('TableComponent', () => {
     let component: TableComponent;
@@ -19,6 +20,7 @@ describe('TableComponent', () => {
     let router: Router;
     let location: Location;
     const id = '2';
+    const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
@@ -33,10 +35,16 @@ describe('TableComponent', () => {
                 FormsModule,
                 NgxDatatableModule,
                 ComponentsModule,
+                BsDatepickerModule.forRoot(),
+                FormsModule,
+                ReactiveFormsModule,
                 RouterTestingModule.withRoutes([{
                     path: 'details/:id',
                     component: DetailsPage
                 }])],
+            providers: [
+                {provide: Router, useValue: routerSpy}
+            ]
         }).compileComponents();
 
         router = TestBed.get(Router);
@@ -44,7 +52,6 @@ describe('TableComponent', () => {
 
         fixture = TestBed.createComponent(ParentComponent);
         component = fixture.debugElement.children[0].componentInstance;
-        router.initialNavigation();
     }));
 
     it('should create', () => {
@@ -62,13 +69,20 @@ describe('TableComponent', () => {
         flush();
     }));
 
-    it('navigate to "details" takes you to /details', fakeAsync(() => {
-        router.navigate(['/details', id]).then(() => {
-            expect(location.path()).toBe('/details/2');
-        });
-        fixture.destroy();
-        flush();
-    }));
+    it('should change route on click of row', () => {
+        const event = {type: 'click', row: {knolderId: 2}};
+        component.onActivate(event);
+        expect(routerSpy.navigate).toHaveBeenCalledWith(['/details', event.row.knolderId]);
+        const nonClickEvent = {type: 'notClick', row: {knolderId: 2}};
+        component.onActivate(nonClickEvent);
+        expect(routerSpy.navigate).toHaveBeenCalledWith(['/']);
+    });
+
+    it('should stay on same route on other events', () => {
+        const nonClickEvent = {type: 'notClick', row: {knolderId: 2}};
+        component.onActivate(nonClickEvent);
+        expect(routerSpy.navigate).toHaveBeenCalledWith(['/']);
+    });
 });
 
 @Component({
