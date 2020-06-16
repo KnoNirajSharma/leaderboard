@@ -22,7 +22,7 @@ class BlogsImpl(fetchData: FetchBlogs, URLResponse: URLResponse, config: Config)
     val fetchMaxDate = fetchData.fetchMaxBlogPublicationDate.getOrElse("0000-00-00 00:00:00").toString
       .replace(' ', 'T')
     getListOfLatestBlogs(URLResponse.getResponse(config.getString("urlForLatestBlogs") +
-      s"?per_page=100&after=${URLEncoder.encode(fetchMaxDate)}&_embed=author"))
+      s"?per_page=100&after=${URLEncoder.encode(fetchMaxDate, "UTF-8")}&_embed=author"))
   }
 
   /**
