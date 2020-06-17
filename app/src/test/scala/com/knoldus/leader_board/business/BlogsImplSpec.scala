@@ -51,26 +51,21 @@ class BlogsImplSpec extends AnyWordSpecLike with MockitoSugar with BeforeAndAfte
     "return latest blogs from API" in {
       when(mockFetchData.fetchMaxBlogPublicationDate)
         .thenReturn(Option(Timestamp.from(Instant.parse("2020-04-13T14:56:40Z"))))
-
-      when(mockURLResponse.getResponse(ConfigFactory.load.getString("urlForLatestBlogs")))
-        .thenReturn(blogData)
-
       val date = "2020-05-30 02:20:11"
+      when(mockURLResponse.getResponse(ConfigFactory.load.getString("urlForLatestBlogs"), date))
+        .thenReturn(blogData)
       val publishedOn = Timestamp.valueOf(date)
-
       val listOfBlogs = List(Blog(
         Option(74399),
         Option("ramindukuri"),
         publishedOn,
         Option("Realtime Supply Chains")))
-
       assert(blogs.getLatestBlogsFromAPI == List())
     }
 
     "return list of latest blogs" in {
       val date = "2020-05-30 02:20:11"
       val publishedOn = Timestamp.valueOf(date)
-
       assert(blogs.getListOfLatestBlogs(blogData) == List(Blog(
         Option(74399),
         Option("ramindukuri"),
