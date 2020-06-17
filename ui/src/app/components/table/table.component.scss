@@ -6,6 +6,37 @@
 
   .table-block-content {
     padding: 20px 20px;
+
+    ngx-datatable {
+      height: 60vh !important;
+    }
+
+    .datatable-body-row
+    {
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+    }
+    .ngx-datatable{
+      .sortable .sort-btn:before {
+        font-family: data-table;
+        font-size: 20px;
+        content: "\2193 \2191";
+      }
+      .sortable .sort-btn.datatable-icon-down:before {
+        font-size: 20px;
+        content: "\2191";
+      }
+      .sortable .sort-btn.datatable-icon-up:before {
+        font-size: 20px;
+        content: "\2193";
+      }
+    }
+    .ngx-datatable.bootstrap:not(.cell-selection) .datatable-body-row:hover,
+    .ngx-datatable.material:not(.cell-selection) .datatable-body-row:hover .datatable-row-group
+    {
+      background: lightgrey;
+    }
   }
 }
 
