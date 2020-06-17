@@ -1,9 +1,7 @@
 package com.knoldus.leader_board.business
 
 import java.sql.{Connection, Timestamp}
-import java.time.{Instant, ZoneOffset, ZonedDateTime}
 
-import com.knoldus.leader_board.infrastructure.FetchDataImpl
 import com.knoldus.leader_board.{Blog, DatabaseConnection}
 import com.typesafe.config.ConfigFactory
 import org.mockito.{Mockito, MockitoSugar}
@@ -12,36 +10,11 @@ import org.scalatest.wordspec.AnyWordSpecLike
 
 class BlogsImplSpec extends AnyWordSpecLike with MockitoSugar with BeforeAndAfterEach {
   implicit val connection: Connection = DatabaseConnection.connection(ConfigFactory.load())
-  val mockFetchData: FetchDataImpl = mock[FetchDataImpl]
   val mockURLResponse: URLResponse = mock[URLResponse]
-  val blogs: Blogs = new BlogsImpl(mockFetchData, mockURLResponse, ConfigFactory.load())
+  val blogs: Blogs = new BlogsImpl(mockURLResponse, ConfigFactory.load())
   val spyBlogs: Blogs = spy(blogs)
 
   "Blogs" should {
-
-    val blogsData: String =
-      """{
-        |  "found": 2071,
-        |  "posts": [{
-        |   "ID": 70547,
-        |   "site_ID": 24082517,
-        |   "author": {
-        |    "ID": 141,
-        |    "login": "pankajchaudhary5",
-        |    "email": false,
-        |    "name": "Pankaj Chaudhary",
-        |    "first_name": "Pankaj",
-        |    "last_name": "Chaudhary",
-        |    "nice_name": "pankajchaudhary5",
-        |    "URL": "",
-        |    "avatar_URL": "https:\/\/secure.gravatar.com\/avatar\/52bed28ffaa1c0cb6e78963e007841f3?s=96&d=monsterid&r=g",
-        |    "profile_URL": "https:\/\/en.gravatar.com\/52bed28ffaa1c0cb6e78963e007841f3"
-        |   },
-        |   "date": "2020-04-14T12:35:30+05:30",
-        |   "modified": "2020-04-14T12:35:31+05:30",
-        |   "title": "Get a Look on Key Rust Crates for WebAssembly"
-        |  }]
-        |}""".stripMargin
 
     val blogData: String =
       """[{
@@ -74,61 +47,22 @@ class BlogsImplSpec extends AnyWordSpecLike with MockitoSugar with BeforeAndAfte
 
     "return all blogs from API" in {
       MockitoSugar.doReturn(4).when(spyBlogs).getTotalNoOfPosts
-
-      val date = "2020-04-14T12:35:30+05:30"
-      val odtInstanceAtOffset = ZonedDateTime.parse(date)
-      val odtInstanceAtUTC = odtInstanceAtOffset.withZoneSameInstant(ZoneOffset.UTC)
-      val publishedOn = Timestamp.from(odtInstanceAtUTC.toInstant)
-
+      val date = "2020-04-14 12:35:30"
+      val publishedOn = Timestamp.valueOf(date)
       val listOfBlogs = List(Blog(
         Option(70547),
         Option("pankajchaudhary5"),
         publishedOn,
         Option("Get a Look on Key Rust Crates for WebAssembly"))
       )
-
       Mockito.doAnswer(_ => listOfBlogs).when(spyBlogs).getAllBlogs(1)
-
       assert(spyBlogs.getAllBlogsFromAPI == listOfBlogs)
     }
 
-    "return list of all blogs" in {
-      val date = "2020-04-14T12:35:30+05:30"
-      val odtInstanceAtOffset = ZonedDateTime.parse(date)
-      val odtInstanceAtUTC = odtInstanceAtOffset.withZoneSameInstant(ZoneOffset.UTC)
-      val publishedOn = Timestamp.from(odtInstanceAtUTC.toInstant)
-
-      assert(blogs.getListOfAllBlogs(blogsData) == List(Blog(
-        Option(70547),
-        Option("pankajchaudhary5"),
-        publishedOn,
-        Option("Get a Look on Key Rust Crates for WebAssembly"))))
-    }
-
-    "return latest blogs from API" in {
-      when(mockFetchData.fetchMaxBlogPublicationDate)
-        .thenReturn(Option(Timestamp.from(Instant.parse("2020-04-13T14:56:40Z"))))
-
-      when(mockURLResponse.getResponse(ConfigFactory.load.getString("urlForLatestBlogs")))
-        .thenReturn(blogData)
-
+    "return list of blogs" in {
       val date = "2020-05-30 02:20:11"
       val publishedOn = Timestamp.valueOf(date)
-
-      val listOfBlogs = List(Blog(
-        Option(74399),
-        Option("ramindukuri"),
-        publishedOn,
-        Option("Realtime Supply Chains")))
-
-      assert(blogs.getLatestBlogsFromAPI == List())
-    }
-
-    "return list of latest blogs" in {
-      val date = "2020-05-30 02:20:11"
-      val publishedOn = Timestamp.valueOf(date)
-
-      assert(blogs.getListOfLatestBlogs(blogData) == List(Blog(
+      assert(blogs.getListOfBlogs(blogData) == List(Blog(
         Option(74399),
         Option("ramindukuri"),
         publishedOn,
@@ -140,20 +74,15 @@ class BlogsImplSpec extends AnyWordSpecLike with MockitoSugar with BeforeAndAfte
     }
 
     "return list of blogs if last page is not first page" in {
-      when(mockURLResponse.getResponse(ConfigFactory.load.getString("urlForLatestBlogs")))
-        .thenReturn(blogsData)
-
-      val date = "2020-04-14T12:35:30+05:30"
-      val odtInstanceAtOffset = ZonedDateTime.parse(date)
-      val odtInstanceAtUTC = odtInstanceAtOffset.withZoneSameInstant(ZoneOffset.UTC)
-      val publishedOn = Timestamp.from(odtInstanceAtUTC.toInstant)
-
+      when(mockURLResponse.getResponse(ConfigFactory.load.getString("urlForAllBlogs")))
+        .thenReturn(blogData)
+      val date = "2020-05-30 02:20:11"
+      val publishedOn = Timestamp.valueOf(date)
       val listOfBlogs = List(Blog(
-        Option(70547),
-        Option("pankajchaudhary5"),
+        Option(74399),
+        Option("ramindukuri"),
         publishedOn,
-        Option("Get a Look on Key Rust Crates for WebAssembly")))
-
+        Option("Realtime Supply Chains")))
       assert(blogs.getAllBlogs(2) == List())
     }
   }
