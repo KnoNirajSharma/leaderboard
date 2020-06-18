@@ -25,31 +25,29 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
     "return monthly details of specific knolder" in {
       val insertAllTimeReputationData1: String =
         """
-          |insert into all_time_reputation(id, knolder_id, full_name, score, rank)
-          |values (?,?,?,?,?)
+          |insert into all_time_reputation(id, knolder_id, score, rank)
+          |values (?,?,?,?)
 """.stripMargin
 
       val preparedStmt1: PreparedStatement = connection.prepareStatement(insertAllTimeReputationData1)
       preparedStmt1.setInt(1, 1)
       preparedStmt1.setInt(2, 1)
-      preparedStmt1.setString(3, "Mukesh Gupta")
-      preparedStmt1.setInt(4, 10)
-      preparedStmt1.setInt(5, 1)
+      preparedStmt1.setInt(3, 10)
+      preparedStmt1.setInt(4, 1)
       preparedStmt1.execute
       preparedStmt1.close()
 
       val insertMonthlyReputationData1: String =
         """
-          |insert into monthly_reputation(id, knolder_id, full_name, score, rank)
-          |values (?,?,?,?,?)
+          |insert into monthly_reputation(id, knolder_id, score, rank)
+          |values (?,?,?,?)
 """.stripMargin
 
       val preparedStmt4: PreparedStatement = connection.prepareStatement(insertMonthlyReputationData1)
       preparedStmt4.setInt(1, 1)
       preparedStmt4.setInt(2, 1)
-      preparedStmt4.setString(3, "Mukesh Gupta")
-      preparedStmt4.setInt(4, 10)
-      preparedStmt4.setInt(5, 1)
+      preparedStmt4.setInt(3, 10)
+      preparedStmt4.setInt(4, 1)
       preparedStmt4.execute
       preparedStmt4.close()
 
@@ -109,31 +107,29 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
     "return all time details of specific knolder" in {
       val insertAllTimeReputationData1: String =
         """
-          |insert into all_time_reputation(id, knolder_id, full_name, score, rank)
-          |values (?,?,?,?,?)
+          |insert into all_time_reputation(id, knolder_id, score, rank)
+          |values (?,?,?,?)
 """.stripMargin
 
       val preparedStmt1: PreparedStatement = connection.prepareStatement(insertAllTimeReputationData1)
       preparedStmt1.setInt(1, 1)
       preparedStmt1.setInt(2, 1)
-      preparedStmt1.setString(3, "Mukesh Gupta")
-      preparedStmt1.setInt(4, 10)
-      preparedStmt1.setInt(5, 1)
+      preparedStmt1.setInt(3, 10)
+      preparedStmt1.setInt(4, 1)
       preparedStmt1.execute
       preparedStmt1.close()
 
       val insertMonthlyReputationData1: String =
         """
-          |insert into monthly_reputation(id, knolder_id, full_name, score, rank)
-          |values (?,?,?,?,?)
+          |insert into monthly_reputation(id, knolder_id, score, rank)
+          |values (?,?,?,?)
 """.stripMargin
 
       val preparedStmt4: PreparedStatement = connection.prepareStatement(insertMonthlyReputationData1)
       preparedStmt4.setInt(1, 1)
       preparedStmt4.setInt(2, 1)
-      preparedStmt4.setString(3, "Mukesh Gupta")
-      preparedStmt4.setInt(4, 10)
-      preparedStmt4.setInt(5, 1)
+      preparedStmt4.setInt(3, 10)
+      preparedStmt4.setInt(4, 1)
       preparedStmt4.execute
       preparedStmt4.close()
 
