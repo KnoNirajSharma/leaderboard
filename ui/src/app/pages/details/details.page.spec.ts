@@ -11,6 +11,7 @@ import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {By} from '@angular/platform-browser';
 import {ComponentsModule} from '../../components/components.module';
+import {FirstWordPipe} from '../../pipe/first-word.pipe';
 
 describe('DetailsPage', () => {
     let component: DetailsPage;
@@ -36,7 +37,7 @@ describe('DetailsPage', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [DetailsPage],
+            declarations: [DetailsPage, FirstWordPipe],
             imports: [HttpClientTestingModule,
                 IonicModule.forRoot(),
                 RouterTestingModule,

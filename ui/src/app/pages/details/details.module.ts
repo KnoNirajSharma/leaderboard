@@ -9,6 +9,8 @@ import {RouterModule, Routes} from '@angular/router';
 import {ComponentsModule} from '../../components/components.module';
 import {HeadersComponent} from '../../components/headers/headers.component';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
+import {first} from 'rxjs/operators';
+import {FirstWordPipe} from '../../pipe/first-word.pipe';
 
 const routes: Routes = [
   {
@@ -27,6 +29,6 @@ const routes: Routes = [
     ReactiveFormsModule,
       ComponentsModule,
   ],
-  declarations: [DetailsPage]
+  declarations: [DetailsPage, FirstWordPipe]
 })
 export class DetailsPageModule {}

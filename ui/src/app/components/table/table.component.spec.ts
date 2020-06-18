@@ -13,6 +13,7 @@ import {Router} from '@angular/router';
 import {Location} from '@angular/common';
 import {ComponentsModule} from '../components.module';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
+import {FirstWordPipe} from '../../pipe/first-word.pipe';
 
 describe('TableComponent', () => {
     let component: TableComponent;
@@ -27,7 +28,8 @@ describe('TableComponent', () => {
                 TableComponent,
                 ParentComponent,
                 EmployeeFilterPipe,
-                DetailsPage
+                DetailsPage,
+                FirstWordPipe
             ],
             imports: [
                 HttpClientTestingModule,
