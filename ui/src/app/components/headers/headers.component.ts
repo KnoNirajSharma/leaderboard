@@ -7,6 +7,8 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class HeadersComponent implements OnInit {
     @Input() title: string;
+    @Input() backBtn: boolean;
+    @Input() backBtnLink: string;
 
     constructor() {
     }

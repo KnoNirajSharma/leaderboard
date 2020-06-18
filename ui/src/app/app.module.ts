@@ -11,12 +11,20 @@ import {HttpIntercept} from './interceptors/http.intercept';
 import {MainPageModule} from './pages/main/main.module';
 import {DetailsPageModule} from './pages/details/details.module';
 import {DataTablePagerComponent} from '@swimlane/ngx-datatable';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
 
 
 @NgModule({
     declarations: [AppComponent],
     entryComponents: [],
-    imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, MainPageModule, DetailsPageModule],
+    imports: [BrowserModule,
+        IonicModule.forRoot(),
+        AppRoutingModule,
+        HttpClientModule,
+        MainPageModule,
+        DetailsPageModule,
+        BrowserAnimationsModule],
     providers: [
         StatusBar,
         SplashScreen,

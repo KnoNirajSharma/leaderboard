@@ -2,9 +2,9 @@
     <div class="table-block-content">
         <div class="table-responsive">
             <div>
-                <ngx-datatable [columnMode]="'force'" [columns]="columns" [headerHeight]="50" [rowHeight]="50"
-                               [rows]="tableRows" [scrollbarH]="true" [scrollbarV]="true"
-                               class="material set-table-size" style="height: 700px">
+                <ngx-datatable [columnMode]="'force'" [columns]="columns" [headerHeight]="50" [rowHeight]="'auto'"
+                               [limit]="15" [footerHeight]="50" [rows]="tableRows" [scrollbarH]="true"
+                               (activate)="onActivate($event)" class="material">
                 </ngx-datatable>
             </div>
         </div>

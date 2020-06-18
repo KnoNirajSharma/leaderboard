@@ -11,7 +11,7 @@ describe('EmployeeActivityService', () => {
     let employeeActivityService: EmployeeActivityService;
     let httpTestingController: HttpTestingController;
     const url = `${environment.api.baseUrl}${environment.api.routes.author.endpoint}`;
-    const detailApiUrl = environment.api.routes.details.endpoint;
+
     const dummyAuthorData: AuthorModel[] = [{
         knolderId: 1,
         knolderName: 'mark',
@@ -47,6 +47,8 @@ describe('EmployeeActivityService', () => {
     ]
     };
     const id = 1;
+    const month = 'june';
+    const year = 2020;
 
     beforeEach(() => TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
@@ -73,11 +75,20 @@ describe('EmployeeActivityService', () => {
         requestCheck.flush(dummyAuthorData);
     });
 
-    it('should retrieve knolder detail data from the API via GET', () => {
-        employeeActivityService.getDetails(id).subscribe(data => {
+    it('should retrieve knolder all time detail data from the API via GET', () => {
+        employeeActivityService.getMonthlyDetails(id, month, year).subscribe(data => {
             expect(data).toEqual(dummyDetailData);
         });
-        const requestCheck = httpTestingController.expectOne(detailApiUrl);
+        const requestCheck = httpTestingController.expectOne(url + '/' + id + '?month=' + month + '&year=' + year);
+        expect(requestCheck.request.method).toBe('GET');
+        requestCheck.flush(dummyDetailData);
+    });
+
+    it('should retrieve knolder monthly detail data from the API via GET', () => {
+        employeeActivityService.getAllTimeDetails(id).subscribe(data => {
+            expect(data).toEqual(dummyDetailData);
+        });
+        const requestCheck = httpTestingController.expectOne(url + '/' + id);
         expect(requestCheck.request.method).toBe('GET');
         requestCheck.flush(dummyDetailData);
     });

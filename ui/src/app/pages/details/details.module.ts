@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
 import { DetailsPage } from './details.page';
 import {RouterModule, Routes} from '@angular/router';
+import {ComponentsModule} from '../../components/components.module';
+import {HeadersComponent} from '../../components/headers/headers.component';
+import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 
 const routes: Routes = [
   {
@@ -19,7 +22,10 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
+    BsDatepickerModule.forRoot(),
     RouterModule.forChild(routes),
+    ReactiveFormsModule,
+      ComponentsModule,
   ],
   declarations: [DetailsPage]
 })

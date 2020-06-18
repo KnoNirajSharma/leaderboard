@@ -15,6 +15,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/animations": "^8.2.14",
     "@angular/common": "~8.2.14",
     "@angular/core": "~8.2.14",
     "@angular/forms": "~8.2.14",
@@ -28,6 +29,7 @@
     "@swimlane/ngx-datatable": "^15.0.0",
     "bootstrap": "^4.5.0",
     "core-js": "^2.5.4",
+    "ngx-bootstrap": "^5.6.1",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
