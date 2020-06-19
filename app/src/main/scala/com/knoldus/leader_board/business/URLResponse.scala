@@ -11,13 +11,14 @@ class URLResponse extends LazyLogging {
    * Gets response from given URL and setting parameters.
    *
    * @param url  Takes string of URL to request from that URL.
-   * @param date Takes date for fetching blogs published after that date.
+   * @param afterDate Takes date for fetching blogs published after that date.
    * @return Response entity in form of string.
    */
-  def getResponse(url: String, date: String): String = {
+  def getResponse(url: String, afterDate: String): String = {
     logger.info("Gettting response from Wordpress API")
     val builder = new URIBuilder(url)
-    builder.setParameter("per_page", "100").setParameter("after", date).setParameter("_embed", "author")
+    builder.setParameter("per_page", "100").setParameter("after", afterDate)
+      .setParameter("_embed", "author")
     val request = new HttpGet(builder.build())
     val client = HttpClientBuilder.create().build()
     val response = client.execute(request)
