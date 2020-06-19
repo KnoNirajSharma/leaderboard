@@ -1,7 +1,7 @@
 package com.knoldus.leader_board.business
 
 import java.sql.Timestamp
-import java.text.SimpleDateFormat
+import java.text.{ParseException, SimpleDateFormat}
 
 import com.knoldus.leader_board.Blog
 import com.typesafe.config.Config
@@ -10,7 +10,9 @@ import net.liftweb.json.{DefaultFormats, parse}
 
 class BlogsImpl(URLResponse: URLResponse, config: Config) extends Blogs with LazyLogging {
   implicit val formats: DefaultFormats.type = DefaultFormats
-  val dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+  val formatOne = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+  val formatTwo = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+  val formatThree = new SimpleDateFormat("yyyy-MM-dd")
 
   /**
    * Calls method to get total number of posts available on wordpress API.
@@ -76,8 +78,20 @@ class BlogsImpl(URLResponse: URLResponse, config: Config) extends Blogs with Laz
         (author \ "slug").extract[Option[String]]
       }
       val date = (parsedBlog \ "date").extract[String]
-      val formatDate = dateFormat.parse(date)
-      val publishedOn = new Timestamp(formatDate.getTime)
+      val publishedOn = try {
+        val formatDate = formatOne.parse(date)
+        new Timestamp(formatDate.getTime)
+      }
+      catch {
+        case _: ParseException => try {
+          val formatDate = formatTwo.parse(date)
+          new Timestamp(formatDate.getTime)
+        }
+        catch {
+          case _: ParseException => val formatDate = formatThree.parse(date)
+            new Timestamp(formatDate.getTime)
+        }
+      }
       val title = (parsedBlog \ "title" \ "rendered").extract[Option[String]]
       logger.info("Modelling blogs information from JSON format to case class object.")
       wordpressId.map(id => Blog(blogId, id, publishedOn, title))
