@@ -16,6 +16,11 @@ export class MainPage implements OnInit {
     searchBar = new FormControl('');
     empFilterPipe = new EmployeeFilterPipe();
     filteredEmpData: AuthorModel[];
+    currentDate = new Date();
+    currentMonth: string;
+    currentYear: number;
+    monthList = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July',
+        'August', 'September', 'October', 'November', 'December' ];
 
     constructor(private service: EmployeeActivityService) {
     }
@@ -26,6 +31,8 @@ export class MainPage implements OnInit {
                 this.employeeData = data;
                 this.filteredEmpData = this.employeeData;
             });
+        this.currentMonth = this.monthList[new Date().getMonth()];
+        this.currentYear = new Date().getFullYear();
     }
 
     filterEmp() {
