@@ -19,7 +19,7 @@ class LeaderboardUI extends TestNGSuite {
      * method for extracting the cards template of Blogs, Knolx, Webinars and TechHub templates which may me added in the upcoming sprints
      */
     driver.manage().window().maximize()
-    driver.get("http://34.68.95.196:8100/")
+    driver.get(url)
     Thread.sleep(2000)
     val cardName = driver.findElementsByCssSelector("span[class='title']")
     for (iterator <- 0 until cardName.size()) {
