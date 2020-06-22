@@ -1,10 +1,10 @@
 package com.knoldus.leader_board.business
 
-import com.knoldus.leader_board.infrastructure.{ReadBlog, ReadQuarterlyReputation}
+import com.knoldus.leader_board.infrastructure.{ReadContribution, ReadQuarterlyReputation}
 import com.knoldus.leader_board.{GetStreak, KnolderStreak}
 import com.typesafe.scalalogging.LazyLogging
 
-class QuarterlyReputationImpl(readBlog: ReadBlog, knolderScore: KnolderScore,
+class QuarterlyReputationImpl(readContribution: ReadContribution, knolderScore: KnolderScore,
                               readQuarterlyReputation: ReadQuarterlyReputation)
   extends LazyLogging with QuarterlyReputation {
 
@@ -14,14 +14,14 @@ class QuarterlyReputationImpl(readBlog: ReadBlog, knolderScore: KnolderScore,
    * @return List of quarterly reputation of knolders along with their knolder id.
    */
   override def getKnolderQuarterlyReputation: List[KnolderStreak] = {
-    val firstMonthBlogCount = readBlog.fetchKnoldersWithQuarterFirstMonthBlogs
-    val scoresForFirstMonth = knolderScore.calculateScore(firstMonthBlogCount).sortBy(knolder => knolder.knolderId)
+    val firstMonthContribution = readContribution.fetchKnoldersWithQuarterFirstMonthContributions
+    val scoresForFirstMonth = knolderScore.calculateScore(firstMonthContribution).sortBy(knolder => knolder.knolderId)
 
-    val secondMonthBlogCount = readBlog.fetchKnoldersWithQuarterSecondMonthBlogs
-    val scoresForSecondMonth = knolderScore.calculateScore(secondMonthBlogCount).sortBy(knolder => knolder.knolderId)
+    val secondMonthContribution = readContribution.fetchKnoldersWithQuarterSecondMonthContributions
+    val scoresForSecondMonth = knolderScore.calculateScore(secondMonthContribution).sortBy(knolder => knolder.knolderId)
 
-    val thirdMonthBlogCount = readBlog.fetchKnoldersWithQuarterThirdMonthBlogs
-    val scoresForThirdMonth = knolderScore.calculateScore(thirdMonthBlogCount).sortBy(knolder => knolder.knolderId)
+    val thirdMonthContribution = readContribution.fetchKnoldersWithQuarterThirdMonthContributions
+    val scoresForThirdMonth = knolderScore.calculateScore(thirdMonthContribution).sortBy(knolder => knolder.knolderId)
 
     val reputationOfKnolders = (scoresForFirstMonth, scoresForSecondMonth, scoresForThirdMonth).zipped.toList.map {
       knolder =>
