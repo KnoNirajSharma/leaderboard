@@ -52,7 +52,6 @@ describe('DetailsPage', () => {
         fixture = TestBed.createComponent(DetailsPage);
         component = fixture.componentInstance;
         mockEmployeeService = TestBed.get(EmployeeActivityService);
-        // loadingController = TestBed.get(LoadingController);
         fixture.detectChanges();
     }));
 
