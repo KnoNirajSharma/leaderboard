@@ -25,4 +25,8 @@ export class EmployeeActivityService {
     getMonthlyDetails(id: number, month: string, year: number): Observable<KnolderDetailsModel> {
         return this.httpClient.get<KnolderDetailsModel>(this.url + '/' + id + '?month=' + month + '&year=' + year);
     }
+
+    getDetails(): Observable<KnolderDetailsModel> {
+        return this.httpClient.get<KnolderDetailsModel>('/assets/data/knolderDetails.json');
+    }
 }

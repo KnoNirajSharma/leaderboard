@@ -14,13 +14,19 @@ import {ContributionDetailsModel} from '../../models/ContributionDetails.model';
 export class DetailsPage implements OnInit {
   mainPageLink = '/';
     knolderDetails: KnolderDetailsModel;
+    allTimeDetails: KnolderDetailsModel;
     knolderId: number;
     currentDate: Date;
     datePicker = new FormControl();
     dpConfig: Partial<BsDatepickerConfig> = new BsDatepickerConfig();
     monthList = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July',
         'August', 'September', 'October', 'November', 'December' ];
+    graphData: { month: string; score: number }[] = [];
     allTimeSelected: boolean;
+    public colorScheme = {
+        domain: ['#1862c6']
+    };
+
     constructor(private route: ActivatedRoute,
                 private service: EmployeeActivityService) { }
 
@@ -37,9 +43,12 @@ export class DetailsPage implements OnInit {
         this.dpConfig.dateInputFormat = 'MMM-YYYY';
         this.dpConfig.minMode = 'month';
         this.allTimeSelected = false;
-        this.service.getMonthlyDetails(this.knolderId, this.monthList[this.currentDate.getMonth()], this.currentDate.getFullYear())
+        this.getMonthlyDetails(this.monthList[this.currentDate.getMonth()], this.currentDate.getFullYear());
+        this.service.getDetails()
             .subscribe((data: KnolderDetailsModel) => {
-                this.knolderDetails = data;
+                this.allTimeDetails = data;
+                this.graphData = this.allTimeDetails.pastTrend;
+                console.log(this.allTimeDetails.scoreBreakDown[0].s);
             });
     }
 
