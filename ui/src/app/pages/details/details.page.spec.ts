@@ -1,5 +1,5 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {IonicModule} from '@ionic/angular';
+import {IonicModule, LoadingController} from '@ionic/angular';
 
 import {DetailsPage} from './details.page';
 import {of} from 'rxjs';
@@ -37,18 +37,22 @@ describe('DetailsPage', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [DetailsPage],
-            imports: [HttpClientTestingModule,
+            imports: [
+                HttpClientTestingModule,
                 IonicModule.forRoot(),
                 RouterTestingModule,
                 BsDatepickerModule.forRoot(),
                 FormsModule,
                 ReactiveFormsModule,
-                ComponentsModule]
+                ComponentsModule,
+            ],
+            providers: [LoadingController]
         }).compileComponents();
 
         fixture = TestBed.createComponent(DetailsPage);
         component = fixture.componentInstance;
         mockEmployeeService = TestBed.get(EmployeeActivityService);
+        // loadingController = TestBed.get(LoadingController);
         fixture.detectChanges();
     }));
 

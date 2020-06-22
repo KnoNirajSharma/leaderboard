@@ -4,15 +4,15 @@ import {EmployeeActivityService} from '../../services/employee-activity.service'
 import {KnolderDetailsModel} from '../../models/knolder-details.model';
 import {FormControl} from '@angular/forms';
 import {BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
-import {ContributionDetailsModel} from '../../models/ContributionDetails.model';
+import {LoadingController} from '@ionic/angular';
 
 @Component({
-  selector: 'app-details',
-  templateUrl: './details.page.html',
-  styleUrls: ['./details.page.scss'],
+    selector: 'app-details',
+    templateUrl: './details.page.html',
+    styleUrls: ['./details.page.scss'],
 })
 export class DetailsPage implements OnInit {
-  mainPageLink = '/';
+    mainPageLink = '/';
     knolderDetails: KnolderDetailsModel;
     knolderId: number;
     currentDate: Date;
@@ -21,8 +21,10 @@ export class DetailsPage implements OnInit {
     monthList = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July',
         'August', 'September', 'October', 'November', 'December' ];
     allTimeSelected: boolean;
+    private loading;
     constructor(private route: ActivatedRoute,
-                private service: EmployeeActivityService) { }
+                private service: EmployeeActivityService,
+                private loadingController: LoadingController) { }
 
     ngOnInit() {
         this.route.params
@@ -31,6 +33,12 @@ export class DetailsPage implements OnInit {
                     this.knolderId = params.id;
                 }
             );
+        this.loadingController.create({
+            message: 'Loading...'
+        }).then((overlay) => {
+            this.loading = overlay;
+            this.loading.present();
+        });
         this.currentDate = new Date();
         this.datePicker = new FormControl(this.currentDate);
         this.dpConfig.containerClass = 'theme-dark-blue';
@@ -40,6 +48,7 @@ export class DetailsPage implements OnInit {
         this.service.getMonthlyDetails(this.knolderId, this.monthList[this.currentDate.getMonth()], this.currentDate.getFullYear())
             .subscribe((data: KnolderDetailsModel) => {
                 this.knolderDetails = data;
+                this.loading.dismiss();
             });
     }
 
@@ -63,3 +72,5 @@ export class DetailsPage implements OnInit {
         this.allTimeSelected = true;
     }
 }
+
+

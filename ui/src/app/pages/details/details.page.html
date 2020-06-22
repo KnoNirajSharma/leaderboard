@@ -1,4 +1,5 @@
 <app-headers [backBtn]="true" [backBtnLink]="mainPageLink"></app-headers>
+
 <ion-content>
     <div class="container-fluid">
         <div class="page-wrapper mt-5 col-12 col-xl-10 ion-no-padding">
@@ -19,11 +20,11 @@
                                    readonly>
                         </label>
                     </form>
-                    <div >
-                    <button (click)="getAllTimeDetails()"
-                            class="all-time-btn btn btn-primary px-1 mr-2 mt-1" [ngClass]="{'btn-primary': allTimeSelected}"> All
-                        time
-                    </button>
+                    <div>
+                        <button (click)="getAllTimeDetails()"
+                                class="all-time-btn btn btn-primary px-1 mr-2 mt-1" [ngClass]="{'btn-primary': allTimeSelected}"> All
+                            time
+                        </button>
                     </div>
                 </div>
             </div>

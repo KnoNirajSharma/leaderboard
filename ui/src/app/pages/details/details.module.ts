@@ -25,7 +25,7 @@ const routes: Routes = [
     BsDatepickerModule.forRoot(),
     RouterModule.forChild(routes),
     ReactiveFormsModule,
-      ComponentsModule,
+    ComponentsModule
   ],
   declarations: [DetailsPage]
 })
