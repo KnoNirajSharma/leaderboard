@@ -8,9 +8,9 @@ import com.typesafe.config.ConfigFactory
 import org.scalatest.{BeforeAndAfterEach, DoNotDiscover}
 
 @DoNotDiscover
-class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
+class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
   implicit val connection: Connection = DatabaseConnection.connection(ConfigFactory.load())
-  val readBlog: ReadBlog = new ReadBlogImpl(ConfigFactory.load())
+  val readContribution: ReadContribution = new ReadContributionImpl(ConfigFactory.load())
 
   override def afterEach(): Unit = {
     cleanUpDatabase(connection)
@@ -20,7 +20,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
     createTable(connection)
   }
 
-  "read blog" should {
+  "read contribution" should {
     val currentMonth = Timestamp.valueOf(Constant.CURRENT_TIME
       .withDayOfMonth(1).toLocalDate.atStartOfDay())
     val firstMonth = Timestamp.valueOf(Constant.CURRENT_TIME
@@ -30,7 +30,7 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
     val thirdMonth = Timestamp.valueOf(Constant.CURRENT_TIME
       .withDayOfMonth(1).toLocalDate.minusMonths(1).atStartOfDay())
 
-    "return knolders who have written blogs" in {
+    "return number of contributions of each knolder" in {
       val insertKnolder1: String =
         """
           |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
@@ -132,15 +132,43 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt7.execute
       preparedStmt7.close()
 
-      val knoldersWithBlogs = List(GetCount(3, "Komal Rajpal", 1),
-        GetCount(1, "Mukesh Kumar", 2),
-        GetCount(2, "Abhishek Baranwal", 1))
+      val insertKnolx1: String =
+        """
+          |insert into knolx(id, email_id, delivered_on, title)
+          |values (?,?,?,?)
+""".stripMargin
 
-      val result = readBlog.fetchKnoldersWithBlogs
+      val preparedStmt8: PreparedStatement = connection.prepareStatement(insertKnolx1)
+      preparedStmt8.setInt(1, 1)
+      preparedStmt8.setString(2, "mukesh.kumar@knoldus.com")
+      preparedStmt8.setTimestamp(3, Timestamp.from(Instant.parse("2020-04-13T12:40:20Z")))
+      preparedStmt8.setString(4, "Reactive Microservices")
+      preparedStmt8.execute
+      preparedStmt8.close()
+
+      val insertKnolx2: String =
+        """
+          |insert into knolx(id, email_id, delivered_on, title)
+          |values (?,?,?,?)
+""".stripMargin
+
+      val preparedStmt9: PreparedStatement = connection.prepareStatement(insertKnolx2)
+      preparedStmt9.setInt(1, 4)
+      preparedStmt9.setString(2, "mukesh.kumar@knoldus.com")
+      preparedStmt9.setTimestamp(3, Timestamp.from(Instant.parse("2020-04-13T12:40:20Z")))
+      preparedStmt9.setString(4, "Delta Lake")
+      preparedStmt9.execute
+      preparedStmt9.close()
+
+      val knoldersWithBlogs = List(GetCount(1, "Mukesh Kumar", 2, 2),
+        GetCount(3, "Komal Rajpal", 1, 0),
+        GetCount(2, "Abhishek Baranwal", 1, 0))
+
+      val result = readContribution.fetchKnoldersWithContributions
       result shouldBe knoldersWithBlogs
     }
 
-    "return number of blogs of each knolder in current month from blog table." in {
+    "return number of contributions of each knolder in current month" in {
       val insertKnolder1: String =
         """
           |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
@@ -242,15 +270,43 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt7.execute
       preparedStmt7.close()
 
-      val knoldersWithMonthlyBlogs = List(GetCount(3, "Komal Rajpal", 1),
-        GetCount(1, "Mukesh Kumar", 2),
-        GetCount(2, "Abhishek Baranwal", 1))
+      val insertKnolx1: String =
+        """
+          |insert into knolx(id, email_id, delivered_on, title)
+          |values (?,?,?,?)
+""".stripMargin
 
-      val result = readBlog.fetchKnoldersWithMonthlyBlogs
+      val preparedStmt8: PreparedStatement = connection.prepareStatement(insertKnolx1)
+      preparedStmt8.setInt(1, 1)
+      preparedStmt8.setString(2, "mukesh.kumar@knoldus.com")
+      preparedStmt8.setTimestamp(3, currentMonth)
+      preparedStmt8.setString(4, "Reactive Microservices")
+      preparedStmt8.execute
+      preparedStmt8.close()
+
+      val insertKnolx2: String =
+        """
+          |insert into knolx(id, email_id, delivered_on, title)
+          |values (?,?,?,?)
+""".stripMargin
+
+      val preparedStmt9: PreparedStatement = connection.prepareStatement(insertKnolx2)
+      preparedStmt9.setInt(1, 4)
+      preparedStmt9.setString(2, "mukesh.kumar@knoldus.com")
+      preparedStmt9.setTimestamp(3, currentMonth)
+      preparedStmt9.setString(4, "Delta Lake")
+      preparedStmt9.execute
+      preparedStmt9.close()
+
+      val knoldersWithMonthlyBlogs = List(GetCount(1, "Mukesh Kumar", 2, 2),
+        GetCount(3, "Komal Rajpal", 1, 0),
+        GetCount(2, "Abhishek Baranwal", 1, 0))
+
+      val result = readContribution.fetchKnoldersWithMonthlyContributions
       result shouldBe knoldersWithMonthlyBlogs
     }
 
-    "return number of blogs of each knolder in first month of quarter from blog table." in {
+    "return number of contributions of each knolder in first month of quarter" in {
       val insertKnolder1: String =
         """
           |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
@@ -352,15 +408,43 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt7.execute
       preparedStmt7.close()
 
-      val knoldersWithQuarterlyBlogs = List(GetCount(3, "Komal Rajpal", 1),
-        GetCount(1, "Mukesh Kumar", 2),
-        GetCount(2, "Abhishek Baranwal", 1))
+      val insertKnolx1: String =
+        """
+          |insert into knolx(id, email_id, delivered_on, title)
+          |values (?,?,?,?)
+""".stripMargin
 
-      val result = readBlog.fetchKnoldersWithQuarterFirstMonthBlogs
+      val preparedStmt8: PreparedStatement = connection.prepareStatement(insertKnolx1)
+      preparedStmt8.setInt(1, 1)
+      preparedStmt8.setString(2, "mukesh.kumar@knoldus.com")
+      preparedStmt8.setTimestamp(3, firstMonth)
+      preparedStmt8.setString(4, "Reactive Microservices")
+      preparedStmt8.execute
+      preparedStmt8.close()
+
+      val insertKnolx2: String =
+        """
+          |insert into knolx(id, email_id, delivered_on, title)
+          |values (?,?,?,?)
+""".stripMargin
+
+      val preparedStmt9: PreparedStatement = connection.prepareStatement(insertKnolx2)
+      preparedStmt9.setInt(1, 4)
+      preparedStmt9.setString(2, "mukesh.kumar@knoldus.com")
+      preparedStmt9.setTimestamp(3, firstMonth)
+      preparedStmt9.setString(4, "Delta Lake")
+      preparedStmt9.execute
+      preparedStmt9.close()
+
+      val knoldersWithQuarterlyBlogs = List(GetCount(1, "Mukesh Kumar", 2, 2),
+        GetCount(3, "Komal Rajpal", 1, 0),
+        GetCount(2, "Abhishek Baranwal", 1, 0))
+
+      val result = readContribution.fetchKnoldersWithQuarterFirstMonthContributions
       result shouldBe knoldersWithQuarterlyBlogs
     }
 
-    "return number of blogs of each knolder in second month of quarter from blog table." in {
+    "return number of contributiobns of each knolder in second month of quarter" in {
       val insertKnolder1: String =
         """
           |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
@@ -462,15 +546,43 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt7.execute
       preparedStmt7.close()
 
-      val knoldersWithQuarterlyBlogs = List(GetCount(3, "Komal Rajpal", 1),
-        GetCount(1, "Mukesh Kumar", 2),
-        GetCount(2, "Abhishek Baranwal", 1))
+      val insertKnolx1: String =
+        """
+          |insert into knolx(id, email_id, delivered_on, title)
+          |values (?,?,?,?)
+""".stripMargin
 
-      val result = readBlog.fetchKnoldersWithQuarterSecondMonthBlogs
+      val preparedStmt8: PreparedStatement = connection.prepareStatement(insertKnolx1)
+      preparedStmt8.setInt(1, 1)
+      preparedStmt8.setString(2, "mukesh.kumar@knoldus.com")
+      preparedStmt8.setTimestamp(3, secondMonth)
+      preparedStmt8.setString(4, "Reactive Microservices")
+      preparedStmt8.execute
+      preparedStmt8.close()
+
+      val insertKnolx2: String =
+        """
+          |insert into knolx(id, email_id, delivered_on, title)
+          |values (?,?,?,?)
+""".stripMargin
+
+      val preparedStmt9: PreparedStatement = connection.prepareStatement(insertKnolx2)
+      preparedStmt9.setInt(1, 4)
+      preparedStmt9.setString(2, "mukesh.kumar@knoldus.com")
+      preparedStmt9.setTimestamp(3, secondMonth)
+      preparedStmt9.setString(4, "Delta Lake")
+      preparedStmt9.execute
+      preparedStmt9.close()
+
+      val knoldersWithQuarterlyBlogs = List(GetCount(1, "Mukesh Kumar", 2, 2),
+        GetCount(3, "Komal Rajpal", 1, 0),
+        GetCount(2, "Abhishek Baranwal", 1, 0))
+
+      val result = readContribution.fetchKnoldersWithQuarterSecondMonthContributions
       result shouldBe knoldersWithQuarterlyBlogs
     }
 
-    "return number of blogs of each knolder in third month of quarter from blog table." in {
+    "return number of contributions of each knolder in third month of quarter" in {
       val insertKnolder1: String =
         """
           |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
@@ -572,11 +684,39 @@ class ReadBlogImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt7.execute
       preparedStmt7.close()
 
-      val knoldersWithQuarterlyBlogs = List(GetCount(3, "Komal Rajpal", 1),
-        GetCount(1, "Mukesh Kumar", 2),
-        GetCount(2, "Abhishek Baranwal", 1))
+      val insertKnolx1: String =
+        """
+          |insert into knolx(id, email_id, delivered_on, title)
+          |values (?,?,?,?)
+""".stripMargin
 
-      val result = readBlog.fetchKnoldersWithQuarterThirdMonthBlogs
+      val preparedStmt8: PreparedStatement = connection.prepareStatement(insertKnolx1)
+      preparedStmt8.setInt(1, 1)
+      preparedStmt8.setString(2, "mukesh.kumar@knoldus.com")
+      preparedStmt8.setTimestamp(3, thirdMonth)
+      preparedStmt8.setString(4, "Reactive Microservices")
+      preparedStmt8.execute
+      preparedStmt8.close()
+
+      val insertKnolx2: String =
+        """
+          |insert into knolx(id, email_id, delivered_on, title)
+          |values (?,?,?,?)
+""".stripMargin
+
+      val preparedStmt9: PreparedStatement = connection.prepareStatement(insertKnolx2)
+      preparedStmt9.setInt(1, 4)
+      preparedStmt9.setString(2, "mukesh.kumar@knoldus.com")
+      preparedStmt9.setTimestamp(3, thirdMonth)
+      preparedStmt9.setString(4, "Delta Lake")
+      preparedStmt9.execute
+      preparedStmt9.close()
+
+      val knoldersWithQuarterlyBlogs = List(GetCount(1, "Mukesh Kumar", 2, 2),
+        GetCount(3, "Komal Rajpal", 1, 0),
+        GetCount(2, "Abhishek Baranwal", 1, 0))
+
+      val result = readContribution.fetchKnoldersWithQuarterThirdMonthContributions
       result shouldBe knoldersWithQuarterlyBlogs
     }
   }
