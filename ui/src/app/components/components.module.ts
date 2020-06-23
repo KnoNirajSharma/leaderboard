@@ -1,21 +1,18 @@
-import {CommonModule, DatePipe} from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {IonicModule} from '@ionic/angular';
 import {HeadersComponent} from './headers/headers.component';
 import {RouterModule} from '@angular/router';
-import {VerticalBarChartComponent} from './vertical-bar-chart/vertical-bar-chart.component';
-import {BarChartModule, NgxChartsModule} from '@swimlane/ngx-charts';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
+import {PieChartComponent} from './pie-chart/pie-chart.component';
 
 @NgModule({
-    imports: [IonicModule, CommonModule, RouterModule, NgxChartsModule,],
+    imports: [IonicModule, CommonModule, RouterModule, NgxChartsModule ],
     exports: [
         HeadersComponent,
-        VerticalBarChartComponent
+        PieChartComponent
     ],
-    declarations: [HeadersComponent, VerticalBarChartComponent],
-    providers: [
-        DatePipe,
-    ],
+    declarations: [HeadersComponent, PieChartComponent],
 })
 export class ComponentsModule {
 }

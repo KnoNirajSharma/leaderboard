@@ -66,7 +66,6 @@ describe('DetailsPage', () => {
     }));
 
     it('should return the knolder monthly details Data as per api call', () => {
-        const testId = 1;
         const testMonth = 'june';
         const testYear = 2020;
         spyOn(mockEmployeeService, 'getMonthlyDetails').and.returnValue(of(dummyKnolderDetails));
@@ -75,8 +74,8 @@ describe('DetailsPage', () => {
     });
 
     it('should return the knolder Alltime details Data as per api call', () => {
-        const testId = 1;
         spyOn(mockEmployeeService, 'getAllTimeDetails').and.returnValue(of(dummyKnolderDetails));
+        component.ngOnInit();
         component.getAllTimeDetails();
         expect(component.knolderDetails).toEqual(dummyKnolderDetails);
     });
