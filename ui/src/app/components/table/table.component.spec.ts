@@ -13,14 +13,12 @@ import {Router} from '@angular/router';
 import {Location} from '@angular/common';
 import {ComponentsModule} from '../components.module';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
-import {FirstWordPipe} from '../../pipe/first-word.pipe';
 
 describe('TableComponent', () => {
     let component: TableComponent;
     let fixture: ComponentFixture<ParentComponent>;
     let router: Router;
     let location: Location;
-    const id = '2';
     const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -29,7 +27,6 @@ describe('TableComponent', () => {
                 ParentComponent,
                 EmployeeFilterPipe,
                 DetailsPage,
-                FirstWordPipe
             ],
             imports: [
                 HttpClientTestingModule,
