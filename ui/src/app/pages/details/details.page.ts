@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {EmployeeActivityService} from '../../services/employee-activity.service';
 import {KnolderDetailsModel} from '../../models/knolder-details.model';
@@ -18,12 +18,14 @@ export class DetailsPage implements OnInit {
     currentDate: Date;
     datePicker = new FormControl();
     dpConfig: Partial<BsDatepickerConfig> = new BsDatepickerConfig();
-    monthList = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July',
-        'August', 'September', 'October', 'November', 'December' ];
+    monthList = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+        'August', 'September', 'October', 'November', 'December'];
     allTimeSelected: boolean;
+
     constructor(private route: ActivatedRoute,
                 private service: EmployeeActivityService,
-                private loadingControllerService: LoadingControllerService) { }
+                private loadingControllerService: LoadingControllerService) {
+    }
 
     ngOnInit() {
         this.route.params
