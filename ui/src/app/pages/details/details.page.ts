@@ -23,9 +23,6 @@ export class DetailsPage implements OnInit {
         'August', 'September', 'October', 'November', 'December'];
     pieChartData: ScoreBreakDownModel[] = [];
     allTimeSelected: boolean;
-    pieChartColor = {
-        domain: ['#1862c6', '#3380e6']
-    };
 
     constructor(private route: ActivatedRoute,
                 private service: EmployeeActivityService) {
@@ -48,7 +45,6 @@ export class DetailsPage implements OnInit {
         this.service.getAllTimeDetails(this.knolderId)
             .subscribe((data: KnolderDetailsModel) => {
                 this.allTimeDetails = data;
-                console.log(this.allTimeDetails.scoreBreakDown);
                 this.pieChartData = this.allTimeDetails.scoreBreakDown;
             });
     }

@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ScoreBreakDownModel} from '../../models/ScoreBreakDown.model';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-pie-chart',
@@ -8,7 +9,7 @@ import {ScoreBreakDownModel} from '../../models/ScoreBreakDown.model';
 })
 export class PieChartComponent implements OnInit {
   @Input() inputResult: ScoreBreakDownModel[];
-  @Input() colorScheme: {domain: string[]};
+  colorScheme = environment.pieChartColorScheme;
 
   result: {name: string, value: number}[] = [];
 

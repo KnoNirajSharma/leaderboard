@@ -7,5 +7,9 @@ export const environment = {
         routes: {
             author: {endpoint: 'reputation', method: 'GET'},
         }
+    },
+    pieChartColorScheme: {
+        domain: ['#15509e', '#1862c6', '#1a81ff', '#3a84e6', '#5ca6ff', '#d2e3f9']
     }
 };
+

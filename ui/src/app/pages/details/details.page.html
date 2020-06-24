@@ -36,8 +36,7 @@
                         </div>
                         <div *ngIf="knolderDetails" class="block-content">
                             <div class="row total-score mt-2">
-                                <div class="col-4 col-sm-3 col-xl-2">Score</div>
-                                :
+                                <div class="col-4 col-sm-3 col-xl-2">Score:</div>
                                 <div class="col-3 col-xl-2"><span
                                         class="badge badge-pill badge-warning">{{knolderDetails.score}}</span>
                                 </div>
@@ -51,8 +50,7 @@
                             </div>
                             <div *ngFor="let knolderData of knolderDetails.scoreBreakDown"
                                  class="row score-table">
-                                <div class="col-4 col-sm-3 col-xl-2 contribution-type">{{knolderData.contributionType}}</div>
-                                <span class="">:</span>
+                                <div class="col-4 col-sm-3 col-xl-2 contribution-type">{{knolderData.contributionType}}:</div>
                                 <span class="col-4 col-md-4 col-xl-3">{{knolderData.contributionCount}}</span>
                                 <span class="col-3 col-md-3 col-xl-2">{{knolderData.contributionScore}}</span>
                             </div>
@@ -89,7 +87,7 @@
                                 <h4 class="font-weight-normal m-0">All Time</h4>
                             </div>
                         </div>
-                        <app-pie-chart [colorScheme]="pieChartColor" [inputResult]="pieChartData"></app-pie-chart>
+                        <app-pie-chart [inputResult]="pieChartData"></app-pie-chart>
                     </div>
                 </div>
             </div>

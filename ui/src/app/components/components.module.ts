@@ -7,12 +7,18 @@ import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {PieChartComponent} from './pie-chart/pie-chart.component';
 
 @NgModule({
-    imports: [IonicModule, CommonModule, RouterModule, NgxChartsModule ],
+    imports: [
+        IonicModule,
+        CommonModule,
+        RouterModule,
+        NgxChartsModule],
     exports: [
         HeadersComponent,
         PieChartComponent
     ],
-    declarations: [HeadersComponent, PieChartComponent],
+    declarations: [
+        HeadersComponent,
+        PieChartComponent],
 })
 export class ComponentsModule {
 }
