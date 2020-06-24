@@ -11,16 +11,11 @@ import {EmployeeFilterPipe} from '../../pipe/employee-filter.pipe';
 })
 export class MainPage implements OnInit {
     employeeData: AuthorModel[];
-    dataKeys: string[];
     pageTitle = 'Leaderboard';
     searchBar = new FormControl('');
     empFilterPipe = new EmployeeFilterPipe();
     filteredEmpData: AuthorModel[];
-    currentDate = new Date();
-    currentMonth: string;
-    currentYear: number;
-    monthList = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July',
-        'August', 'September', 'October', 'November', 'December' ];
+    currentDate: Date;
 
     constructor(private service: EmployeeActivityService) {
     }
@@ -31,8 +26,7 @@ export class MainPage implements OnInit {
                 this.employeeData = data;
                 this.filteredEmpData = this.employeeData;
             });
-        this.currentMonth = this.monthList[new Date().getMonth()];
-        this.currentYear = new Date().getFullYear();
+        this.currentDate = new Date();
     }
 
     filterEmp() {
