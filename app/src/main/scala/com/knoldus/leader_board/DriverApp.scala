@@ -35,11 +35,12 @@ object DriverApp extends App {
   val fetchKnolderDetails: FetchKnolderDetails = new FetchKnolderDetailsImpl(config)
   val reputationOnAPI: ReputationOnAPI = new ReputationOnAPIImpl(fetchKnolderDetails, fetchReputation, config)
   val fetchBlogs: FetchBlogs = new FetchBlogsImpl(config)
+  val fetchKnolx: FetchKnolx = new FetchKnolxImpl(config)
   val storeBlogs: StoreBlogs = new StoreBlogsImpl(config)
   val storeKnolx: StoreKnolx = new StoreKnolxImpl(config)
   val URLResponse: URLResponse = new URLResponse
   val blogs: Blogs = new BlogsImpl(fetchBlogs, URLResponse, config)
-  val knolx: Knolxs = new KnolxImpl(URLResponse, config)
+  val knolx: Knolxs = new KnolxImpl(fetchKnolx, URLResponse, config)
   val allTimeReputationActorRef = system.actorOf(Props(new AllTimeReputationActor(allTimeReputation,
     writeAllTimeReputation)), "allTimeReputationActor")
   val monthlyReputationActorRef = system.actorOf(Props(new MonthlyReputationActor(monthlyReputation,
@@ -80,7 +81,7 @@ object DriverApp extends App {
   system.scheduler.scheduleAtFixedRate(timeForBlogScriptExecution.seconds, 24.hours, blogScriptActorRef,
     ExecuteBlogsScript)
   /**
-   * Fetching latest knolx from knolx API and storing in database.
+   * Fetching latest knolx from Knolx API and storing in database.
    */
   QuartzSchedulerExtension.get(system).createSchedule("knolxScriptScheduler", None,
     "0 0 0 ? * 6 *", None, Constant.INDIAN_TIMEZONE)
