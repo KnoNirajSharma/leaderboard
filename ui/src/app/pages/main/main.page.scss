@@ -1,10 +1,11 @@
 .main-container {
-  font-family: 'Open Sans';
+  font-family: 'Open Sans', sans-serif;
   padding: 0;
   background-color: white;
   margin: auto;
 
   .main-content {
+    width: 100%;
 
     .page-title {
       img {
@@ -15,8 +16,6 @@
         font-size: 2.4em;
       }
     }
-
-    width: 100%;
 
     label {
       margin-top: 10px;
@@ -48,9 +47,7 @@ ion-content {
 
 @media only screen and (max-width: 768px)  {
   .main-container {
-
     .main-content {
-
       .current-month {
         font-size: 1em;
       }
