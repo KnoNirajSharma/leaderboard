@@ -4,8 +4,10 @@ import org.scalatest.Suites
 
 class MainSpec extends Suites(
   new StoreBlogsImplSpec,
+  new StoreKnolxImplSpec,
   new FetchBlogsImplSpec,
-  new ReadBlogImplSpec,
+  new FetchKnolxImplSpec,
+  new ReadContributionImplSpec,
   new WriteAllTimeReputationImplSpec,
   new ReadAllTimeReputationImplSpec,
   new WriteMonthlyReputationImplSpec,
