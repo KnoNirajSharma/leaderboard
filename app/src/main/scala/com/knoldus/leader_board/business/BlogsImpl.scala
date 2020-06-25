@@ -18,9 +18,9 @@ class BlogsImpl(fetchData: FetchBlogs, URLResponse: URLResponse, config: Config)
    */
   override def getLatestBlogsFromAPI: List[Blog] = {
     logger.info("Latest blogs will be extracted from first page of Wordpress API.")
-    val fetchMaxDate = fetchData.fetchMaxBlogPublicationDate.getOrElse("0000-00-00 00:00:00").toString
+    val maxDate = fetchData.fetchMaxBlogPublicationDate.getOrElse("0000-00-00 00:00:00").toString
       .replace(' ', 'T')
-    getListOfLatestBlogs(URLResponse.getResponse(config.getString("urlForLatestBlogs"), fetchMaxDate))
+    getListOfLatestBlogs(URLResponse.getBlogResponse(config.getString("urlForLatestBlogs"), maxDate))
   }
 
   /**
