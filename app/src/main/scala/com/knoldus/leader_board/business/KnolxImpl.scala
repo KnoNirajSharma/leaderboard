@@ -1,13 +1,15 @@
 package com.knoldus.leader_board.business
 
 import java.sql.Timestamp
+import java.text.SimpleDateFormat
 
-import com.knoldus.leader_board.Knolx
+import com.knoldus.leader_board.infrastructure.FetchKnolx
+import com.knoldus.leader_board.{Constant, Knolx}
 import com.typesafe.config.Config
 import com.typesafe.scalalogging.LazyLogging
 import net.liftweb.json.{DefaultFormats, parse}
 
-class KnolxImpl(URLResponse: URLResponse, config: Config) extends LazyLogging with Knolxs {
+class KnolxImpl(fetchKnolx: FetchKnolx, URLResponse: URLResponse, config: Config) extends LazyLogging with Knolxs {
   implicit val formats: DefaultFormats.type = DefaultFormats
 
   /**
@@ -17,7 +19,10 @@ class KnolxImpl(URLResponse: URLResponse, config: Config) extends LazyLogging wi
    */
   override def getLatestKnolxFromAPI: List[Knolx] = {
     logger.info("Latest knolx will be extracted from knolx API.")
-    getListOfLatestKnolx(URLResponse.getResponse(config.getString("urlForLatestKnolx")))
+    val maxDate = fetchKnolx.fetchMaxKnolxDeliveredDate.getOrElse(Timestamp.valueOf("0001-01-01 00:00:00"))
+    val startDate = maxDate.getTime.toString
+    val endDate = Timestamp.valueOf(Constant.CURRENT_TIME.toLocalDateTime).getTime.toString
+    getListOfLatestKnolx(URLResponse.getKnolxResponse(config.getString("urlForLatestKnolx"), startDate, endDate))
   }
 
   /**
@@ -29,13 +34,20 @@ class KnolxImpl(URLResponse: URLResponse, config: Config) extends LazyLogging wi
   override def getListOfLatestKnolx(unparsedKnolx: String): List[Knolx] = {
     logger.info("Parsing JSON string of knolx information.")
     val parsedKnolx = parse(unparsedKnolx)
-    parsedKnolx.children map { knolxDetails =>
-      val knolxId = (knolxDetails \ "id").extract[Option[Int]]
-      val emailId = (knolxDetails \ "email_id").extract[Option[String]]
-      val date = Timestamp.valueOf((knolxDetails \ "date").extract[String])
-      val title = (knolxDetails \ "title").extract[Option[String]]
-      logger.info("Modelling knolx information from JSON format to case class object.")
-      Knolx(knolxId, emailId, date, title)
+    val knolxs = parsedKnolx.children map { knolx =>
+      val emailId = (knolx \ "emailId").extract[Option[String]]
+      (knolx \ "knolxDetails").children.map { knolxDetails =>
+        val dateOfSession = (knolxDetails \ "dateOfSession").extract[Option[String]]
+        val delivered_on = dateOfSession.map { date =>
+          val formatter = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy")
+          new Timestamp(formatter.parse(date).getTime)
+        }
+        val knolxId = (knolxDetails \ "id").extract[Option[String]]
+        val title = (knolxDetails \ "title").extract[Option[String]]
+
+        Knolx(knolxId, emailId, delivered_on, title)
+      }
     }
+    knolxs.flatten.filter(knolx => knolx.knolxId.isDefined && knolx.title.isDefined)
   }
 }
