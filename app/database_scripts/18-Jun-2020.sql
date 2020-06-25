@@ -5,3 +5,9 @@
 ALTER TABLE all_time_reputation DROP COLUMN IF EXISTS full_name CASCADE;
 ALTER TABLE monthly_reputation DROP COLUMN IF EXISTS full_name CASCADE;
 ALTER TABLE quarterly_reputation DROP COLUMN IF EXISTS full_name CASCADE;
+
+-- !Downs
+
+ALTER TABLE all_time_reputation ADD COLUMN full_name VARCHAR(100);
+ALTER TABLE monthly_reputation ADD COLUMN full_name VARCHAR(100);
+ALTER TABLE quarterly_reputation ADD COLUMN full_name VARCHAR(100);
