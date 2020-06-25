@@ -13,8 +13,6 @@ import {DetailsPageModule} from './pages/details/details.module';
 import {DataTablePagerComponent} from '@swimlane/ngx-datatable';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-
-
 @NgModule({
     declarations: [AppComponent],
     entryComponents: [],
