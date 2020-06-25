@@ -16,7 +16,7 @@ export class MainPage implements OnInit {
     searchBar = new FormControl('');
     empFilterPipe = new EmployeeFilterPipe();
     filteredEmpData: AuthorModel[];
-    today: number = Date.now();
+    today: Date = new Date();
 
     constructor(private service: EmployeeActivityService) {
     }
