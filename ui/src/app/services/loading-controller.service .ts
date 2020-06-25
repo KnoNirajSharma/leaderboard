@@ -14,7 +14,7 @@ export class LoadingControllerService {
         this.isLoading = true;
         return await this.loadingController
             .create({
-                message: 'Loading...',
+                message: 'Loading the score details...',
                 translucent: false,
             })
             .then(loader => {
