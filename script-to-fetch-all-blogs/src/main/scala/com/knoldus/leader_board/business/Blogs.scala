@@ -9,9 +9,5 @@ trait Blogs {
 
   def getAllBlogs(lastPage: Int): List[Blog]
 
-  def getListOfAllBlogs(unparsedBlogs: String): List[Blog]
-
-  def getLatestBlogsFromAPI: List[Blog]
-
-  def getListOfLatestBlogs(unparsedBlogs: String): List[Blog]
+  def getListOfBlogs(unparsedBlogs: String): List[Blog]
 }
