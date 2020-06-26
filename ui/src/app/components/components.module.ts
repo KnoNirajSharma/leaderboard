@@ -11,7 +11,8 @@ import {PieChartComponent} from './pie-chart/pie-chart.component';
         IonicModule,
         CommonModule,
         RouterModule,
-        NgxChartsModule],
+        NgxChartsModule
+    ],
     exports: [
         HeadersComponent,
         PieChartComponent
