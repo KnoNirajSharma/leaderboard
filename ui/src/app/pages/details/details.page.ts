@@ -34,7 +34,11 @@ export class DetailsPage implements OnInit {
                     this.knolderId = params.id;
                 }
             );
-        this.loadingControllerService.present();
+        this.loadingControllerService.present({
+            message: 'Loading the score details...',
+            translucent: 'false',
+            spinner: 'lines'
+        });
         this.currentDate = new Date();
         this.datePicker = new FormControl(this.currentDate);
         this.dpConfig.containerClass = 'theme-dark-blue';

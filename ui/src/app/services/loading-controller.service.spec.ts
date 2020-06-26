@@ -5,6 +5,7 @@ import {LoadingControllerService} from './loading-controller.service ';
 describe('LoadingControllerService', () => {
     let loadingControllerService: LoadingControllerService;
     let httpTestingController: HttpTestingController;
+    const options: object = { message: 'Loading'};
 
     beforeEach(() => TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
@@ -20,7 +21,7 @@ describe('LoadingControllerService', () => {
 
     it('should present', async () => {
         const presentSpy = spyOn(loadingControllerService, 'present');
-        loadingControllerService.present();
+        loadingControllerService.present(options);
         expect(presentSpy).toHaveBeenCalled();
     });
 

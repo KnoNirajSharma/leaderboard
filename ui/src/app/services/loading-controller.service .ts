@@ -10,13 +10,10 @@ export class LoadingControllerService {
     constructor(private loadingController: LoadingController) {
     }
 
-    async present() {
+    async present(options: object) {
         this.isLoading = true;
         return await this.loadingController
-            .create({
-                message: 'Loading the score details...',
-                translucent: false,
-            })
+            .create(options)
             .then(loader => {
                 loader.present().then(() => {
                     if (!this.isLoading) {
