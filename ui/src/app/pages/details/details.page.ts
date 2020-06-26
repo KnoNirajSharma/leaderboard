@@ -37,7 +37,7 @@ export class DetailsPage implements OnInit {
         this.loadingControllerService.present({
             message: 'Loading the score details...',
             translucent: 'false',
-            spinner: 'lines'
+            spinner: 'bubbles'
         });
         this.currentDate = new Date();
         this.datePicker = new FormControl(this.currentDate);
