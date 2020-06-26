@@ -1,4 +1,4 @@
-name := "script-to-fetch-first-and-all-page"
+name := "script-to-fetch-all-blogs"
 
 version := "0.1"
 
@@ -8,7 +8,7 @@ scapegoatVersion in ThisBuild := "1.3.8"
 
 cancelable in Global := false
 
-coverageExcludedPackages := ".*AllBlogsApp*;.*LatestBlogsApp*"
+coverageExcludedPackages := ".*AllBlogsApp*"
 
 libraryDependencies ++= Seq(
   "net.liftweb" %% "lift-json" % "3.4.1",

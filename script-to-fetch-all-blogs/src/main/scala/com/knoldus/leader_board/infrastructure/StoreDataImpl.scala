@@ -27,4 +27,13 @@ class StoreDataImpl(config: Config) extends StoreData with LazyLogging {
         .update().apply()
     }
   }
+
+  override def updateBlog(listOfBlogs: List[Blog]): List[Int] = {
+    logger.info("Querying blog table to update blog date.")
+    listOfBlogs.map { blog =>
+      SQL("UPDATE blog SET published_on = ? WHERE id = ?")
+        .bind(blog.publishedOn, blog.blogId)
+        .update().apply()
+    }
+  }
 }

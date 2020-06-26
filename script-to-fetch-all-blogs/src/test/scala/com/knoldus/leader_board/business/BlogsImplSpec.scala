@@ -1,20 +1,17 @@
 package com.knoldus.leader_board.business
 
 import java.sql.{Connection, Timestamp}
-import java.time.Instant
 
-import com.knoldus.leader_board.infrastructure.FetchBlogsImpl
 import com.knoldus.leader_board.{Blog, DatabaseConnection}
 import com.typesafe.config.ConfigFactory
-import org.mockito.MockitoSugar
+import org.mockito.{Mockito, MockitoSugar}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.wordspec.AnyWordSpecLike
 
 class BlogsImplSpec extends AnyWordSpecLike with MockitoSugar with BeforeAndAfterEach {
   implicit val connection: Connection = DatabaseConnection.connection(ConfigFactory.load())
-  val mockFetchData: FetchBlogsImpl = mock[FetchBlogsImpl]
   val mockURLResponse: URLResponse = mock[URLResponse]
-  val blogs: Blogs = new BlogsImpl(mockFetchData, mockURLResponse, ConfigFactory.load())
+  val blogs: Blogs = new BlogsImpl(mockURLResponse, ConfigFactory.load())
   val spyBlogs: Blogs = spy(blogs)
 
   "Blogs" should {
@@ -48,29 +45,45 @@ class BlogsImplSpec extends AnyWordSpecLike with MockitoSugar with BeforeAndAfte
         |  }
         |}]""".stripMargin
 
-    "return latest blogs from API" in {
-      when(mockFetchData.fetchMaxBlogPublicationDate)
-        .thenReturn(Option(Timestamp.from(Instant.parse("2020-04-13T14:56:40Z"))))
+    "return all blogs from API" in {
+      MockitoSugar.doReturn(4).when(spyBlogs).getTotalNoOfPosts
+      val date = "2020-04-14 12:35:30"
+      val publishedOn = Timestamp.valueOf(date)
+      val listOfBlogs = List(Blog(
+        Option(70547),
+        Option("pankajchaudhary5"),
+        publishedOn,
+        Option("Get a Look on Key Rust Crates for WebAssembly"))
+      )
+      Mockito.doAnswer(_ => listOfBlogs).when(spyBlogs).getAllBlogs(1)
+      assert(spyBlogs.getAllBlogsFromAPI == listOfBlogs)
+    }
+
+    "return list of blogs" in {
       val date = "2020-05-30 02:20:11"
-      when(mockURLResponse.getResponse(ConfigFactory.load.getString("urlForLatestBlogs"), date))
+      val publishedOn = Timestamp.valueOf(date)
+      assert(blogs.getListOfBlogs(blogData) == List(Blog(
+        Option(74399),
+        Option("ramindukuri"),
+        publishedOn,
+        Option("Realtime Supply Chains"))))
+    }
+
+    "return list of blogs if last page is the first page" in {
+      assert(blogs.getAllBlogs(1) == List())
+    }
+
+    "return list of blogs if last page is not first page" in {
+      when(mockURLResponse.getResponse(ConfigFactory.load.getString("urlForAllBlogs")))
         .thenReturn(blogData)
+      val date = "2020-05-30 02:20:11"
       val publishedOn = Timestamp.valueOf(date)
       val listOfBlogs = List(Blog(
         Option(74399),
         Option("ramindukuri"),
         publishedOn,
         Option("Realtime Supply Chains")))
-      assert(blogs.getLatestBlogsFromAPI == List())
-    }
-
-    "return list of latest blogs" in {
-      val date = "2020-05-30 02:20:11"
-      val publishedOn = Timestamp.valueOf(date)
-      assert(blogs.getListOfLatestBlogs(blogData) == List(Blog(
-        Option(74399),
-        Option("ramindukuri"),
-        publishedOn,
-        Option("Realtime Supply Chains"))))
+      assert(blogs.getAllBlogs(2) == List())
     }
   }
 }

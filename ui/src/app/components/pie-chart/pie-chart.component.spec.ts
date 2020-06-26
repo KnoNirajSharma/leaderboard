@@ -35,7 +35,7 @@ describe('PieChartComponent', () => {
 
 @Component({
   selector: 'parent',
-  template: '<app-pie-chart [inputResult]="dummyKnolderDetails.scoreBreakDown" [colorScheme]="pieChartColor"></app-pie-chart>'
+  template: '<app-pie-chart [inputResult]="dummyKnolderDetails.scoreBreakDown"></app-pie-chart>'
 })
 class ParentComponent {
   dummyKnolderDetails: KnolderDetailsModel = {
@@ -54,9 +54,5 @@ class ParentComponent {
         ]
       }
     ]
-  };
-
-  pieChartColor = {
-    domain: ['#1862c6', '#3380e6']
   };
 }
