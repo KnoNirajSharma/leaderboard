@@ -9,10 +9,15 @@
                 <h1 class="col-sm-4 col-9 col-sm-10">{{pageTitle}}</h1>
             </div>
             <ion-card>
-                <label class="col-sm-12 col-md-4 col-lg-3">
+                <div class="row px-3">
+                <label class="col-8 col-md-4 col-lg-3">
                     <input (keyup)="filterEmp()" [formControl]="searchBar"
                            class="search form-control" placeholder="Search..." type="text">
                 </label>
+                    <div class="col-4 col-md-2 ml-auto my-auto text-center current-month">
+                        {{ currentDate | date: 'MMM-yyyy'}}
+                    </div>
+                </div>
                 <app-table [tableRows]="filteredEmpData"></app-table>
             </ion-card>
         </div>
