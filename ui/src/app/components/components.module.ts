@@ -3,13 +3,23 @@ import {NgModule} from '@angular/core';
 import {IonicModule} from '@ionic/angular';
 import {HeadersComponent} from './headers/headers.component';
 import {RouterModule} from '@angular/router';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
+import {PieChartComponent} from './pie-chart/pie-chart.component';
 
 @NgModule({
-    imports: [IonicModule, CommonModule, RouterModule],
-    exports: [
-        HeadersComponent
+    imports: [
+        IonicModule,
+        CommonModule,
+        RouterModule,
+        NgxChartsModule
     ],
-    declarations: [HeadersComponent]
+    exports: [
+        HeadersComponent,
+        PieChartComponent
+    ],
+    declarations: [
+        HeadersComponent,
+        PieChartComponent],
 })
 export class ComponentsModule {
 }

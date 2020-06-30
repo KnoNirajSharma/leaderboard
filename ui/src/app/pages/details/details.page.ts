@@ -4,6 +4,7 @@ import {EmployeeActivityService} from '../../services/employee-activity.service'
 import {KnolderDetailsModel} from '../../models/knolder-details.model';
 import {FormControl} from '@angular/forms';
 import {BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
+import {ScoreBreakDownModel} from '../../models/ScoreBreakDown.model';
 import {LoadingControllerService} from '../../services/loading-controller.service ';
 
 @Component({
@@ -14,12 +15,14 @@ import {LoadingControllerService} from '../../services/loading-controller.servic
 export class DetailsPage implements OnInit {
     mainPageLink = '/';
     knolderDetails: KnolderDetailsModel;
+    allTimeDetails: KnolderDetailsModel;
     knolderId: number;
     currentDate: Date;
     datePicker = new FormControl();
     dpConfig: Partial<BsDatepickerConfig> = new BsDatepickerConfig();
     monthList = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
         'August', 'September', 'October', 'November', 'December'];
+    pieChartData: ScoreBreakDownModel[] = [];
     allTimeSelected: boolean;
 
     constructor(private route: ActivatedRoute,
@@ -45,9 +48,11 @@ export class DetailsPage implements OnInit {
         this.dpConfig.dateInputFormat = 'MMM-YYYY';
         this.dpConfig.minMode = 'month';
         this.allTimeSelected = false;
-        this.service.getMonthlyDetails(this.knolderId, this.monthList[this.currentDate.getMonth()], this.currentDate.getFullYear())
+        this.getMonthlyDetails(this.monthList[this.currentDate.getMonth()], this.currentDate.getFullYear());
+        this.service.getAllTimeDetails(this.knolderId)
             .subscribe((data: KnolderDetailsModel) => {
-                this.knolderDetails = data;
+                this.allTimeDetails = data;
+                this.pieChartData = this.allTimeDetails.scoreBreakDown;
                 this.loadingControllerService.dismiss();
             });
     }
@@ -65,10 +70,7 @@ export class DetailsPage implements OnInit {
     }
 
     getAllTimeDetails() {
-        this.service.getAllTimeDetails(this.knolderId)
-            .subscribe((data: KnolderDetailsModel) => {
-                this.knolderDetails = data;
-            });
+        this.knolderDetails = this.allTimeDetails;
         this.allTimeSelected = true;
     }
 }

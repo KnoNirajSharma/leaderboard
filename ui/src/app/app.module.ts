@@ -10,7 +10,6 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {HttpIntercept} from './interceptors/http.intercept';
 import {MainPageModule} from './pages/main/main.module';
 import {DetailsPageModule} from './pages/details/details.module';
-import {DataTablePagerComponent} from '@swimlane/ngx-datatable';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({

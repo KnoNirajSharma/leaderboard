@@ -6,6 +6,7 @@ import { DetailsPage } from './details.page';
 import {RouterModule, Routes} from '@angular/router';
 import {ComponentsModule} from '../../components/components.module';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
 
 const routes: Routes = [
     {
@@ -23,6 +24,7 @@ const routes: Routes = [
         RouterModule.forChild(routes),
         ReactiveFormsModule,
         ComponentsModule,
+    NgxChartsModule,
     ],
     declarations: [DetailsPage]
 })
