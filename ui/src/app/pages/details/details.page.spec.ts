@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {IonicModule} from '@ionic/angular';
 
 import {DetailsPage} from './details.page';
@@ -11,11 +11,14 @@ import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {By} from '@angular/platform-browser';
 import {ComponentsModule} from '../../components/components.module';
+import {LoadingControllerService} from '../../services/loading-controller.service ';
+
 
 describe('DetailsPage', () => {
     let component: DetailsPage;
     let fixture: ComponentFixture<DetailsPage>;
     let mockEmployeeService: EmployeeActivityService;
+    let loadingControllerService: LoadingControllerService;
     const dummyKnolderDetails: KnolderDetailsModel = {
         knolderName: 'Muskan Gupta',
         score: 20,
@@ -37,18 +40,21 @@ describe('DetailsPage', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [DetailsPage],
-            imports: [HttpClientTestingModule,
+            imports: [
+                HttpClientTestingModule,
                 IonicModule.forRoot(),
                 RouterTestingModule,
                 BsDatepickerModule.forRoot(),
                 FormsModule,
                 ReactiveFormsModule,
-                ComponentsModule]
+                ComponentsModule,
+            ]
         }).compileComponents();
 
         fixture = TestBed.createComponent(DetailsPage);
         component = fixture.componentInstance;
         mockEmployeeService = TestBed.get(EmployeeActivityService);
+        loadingControllerService = TestBed.get(LoadingControllerService);
         fixture.detectChanges();
     }));
 
@@ -80,4 +86,12 @@ describe('DetailsPage', () => {
         component.getAllTimeDetails();
         expect(component.knolderDetails).toEqual(dummyKnolderDetails);
     });
+
+    it('should invoke loader', fakeAsync(() => {
+        spyOn(loadingControllerService, 'present').and.callThrough();
+        component.ngOnInit();
+        tick();
+        fixture.detectChanges();
+        expect(loadingControllerService.present).toHaveBeenCalled();
+    }));
 });
