@@ -30,11 +30,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="score-drilldown-wrapper block shadow-box px-2">
+                    <div *ngIf="knolderDetails" class="score-drilldown-wrapper block shadow-box px-2">
                         <div class="block-title col-12">
                             <h2>Score drill-down</h2>
                         </div>
-                        <div *ngIf="knolderDetails" class="block-content">
+                        <div class="block-content">
                             <div class="row total-score mt-2">
                                 <div class="col-4 col-sm-3 col-xl-2">Score:</div>
                                 <div class="col-3 col-xl-2"><span

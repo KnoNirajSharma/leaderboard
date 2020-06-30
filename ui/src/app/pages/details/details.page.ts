@@ -5,6 +5,7 @@ import {KnolderDetailsModel} from '../../models/knolder-details.model';
 import {FormControl} from '@angular/forms';
 import {BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
 import {ScoreBreakDownModel} from '../../models/ScoreBreakDown.model';
+import {LoadingControllerService} from '../../services/loading-controller.service ';
 
 @Component({
     selector: 'app-details',
@@ -25,7 +26,8 @@ export class DetailsPage implements OnInit {
     allTimeSelected: boolean;
 
     constructor(private route: ActivatedRoute,
-                private service: EmployeeActivityService) {
+                private service: EmployeeActivityService,
+                private loadingControllerService: LoadingControllerService) {
     }
 
     ngOnInit() {
@@ -35,6 +37,11 @@ export class DetailsPage implements OnInit {
                     this.knolderId = params.id;
                 }
             );
+        this.loadingControllerService.present({
+            message: 'Loading the score details...',
+            translucent: 'false',
+            spinner: 'bubbles'
+        });
         this.currentDate = new Date();
         this.datePicker = new FormControl(this.currentDate);
         this.dpConfig.containerClass = 'theme-dark-blue';
@@ -46,6 +53,7 @@ export class DetailsPage implements OnInit {
             .subscribe((data: KnolderDetailsModel) => {
                 this.allTimeDetails = data;
                 this.pieChartData = this.allTimeDetails.scoreBreakDown;
+                this.loadingControllerService.dismiss();
             });
     }
 

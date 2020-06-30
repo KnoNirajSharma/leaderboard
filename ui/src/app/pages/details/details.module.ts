@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { DetailsPage } from './details.page';
@@ -9,23 +9,24 @@ import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: DetailsPage
-  }
+    {
+        path: '',
+        component: DetailsPage
+    }
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    BsDatepickerModule.forRoot(),
-    RouterModule.forChild(routes),
-    ReactiveFormsModule,
-    ComponentsModule,
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        BsDatepickerModule.forRoot(),
+        RouterModule.forChild(routes),
+        ReactiveFormsModule,
+        ComponentsModule,
     NgxChartsModule,
-  ],
-  declarations: [DetailsPage]
+    ],
+    declarations: [DetailsPage]
 })
-export class DetailsPageModule {}
+export class DetailsPageModule {
+}
