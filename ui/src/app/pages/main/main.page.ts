@@ -11,11 +11,13 @@ import {EmployeeFilterPipe} from '../../pipe/employee-filter.pipe';
 })
 export class MainPage implements OnInit {
     employeeData: AuthorModel[];
-    dataKeys: string[];
     pageTitle = 'Leaderboard';
     searchBar = new FormControl('');
     empFilterPipe = new EmployeeFilterPipe();
     filteredEmpData: AuthorModel[];
+    today: Date = new Date();
+    currentDate: Date;
+
 
     constructor(private service: EmployeeActivityService) {
     }
@@ -26,6 +28,7 @@ export class MainPage implements OnInit {
                 this.employeeData = data;
                 this.filteredEmpData = this.employeeData;
             });
+        this.currentDate = new Date();
     }
 
     filterEmp() {

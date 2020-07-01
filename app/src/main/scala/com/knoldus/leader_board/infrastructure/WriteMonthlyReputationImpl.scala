@@ -24,9 +24,9 @@ class WriteMonthlyReputationImpl(config: Config) extends LazyLogging with WriteM
     reputationOfKnolders.filter { reputationOfKnolder =>
       reputationOfKnolder.knolderId.isEmpty
     }.map { reputationOfKnolder =>
-      SQL("INSERT INTO monthly_reputation(knolder_id, full_name, score, rank) VALUES (?,?,?,?)")
-        .bind(reputationOfKnolder.reputation.knolderId, reputationOfKnolder.reputation.knolderName,
-          reputationOfKnolder.reputation.score, reputationOfKnolder.reputation.rank).update().apply()
+      SQL("INSERT INTO monthly_reputation(knolder_id, score, rank) VALUES (?,?,?)")
+        .bind(reputationOfKnolder.reputation.knolderId, reputationOfKnolder.reputation.score,
+          reputationOfKnolder.reputation.rank).update().apply()
     }
   }
 

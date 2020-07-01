@@ -253,3 +253,4 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
     }
   }
 }
+
