@@ -41,7 +41,7 @@ class URLResponse extends LazyLogging {
   def getKnolxResponse(url: String, startDate: String, endDate: String): String = {
     logger.info("Gettting response from knolx API")
     val builder = new URIBuilder(url)
-    builder.setParameter("startDate", startDate).setParameter("endDate", endDate)
+    builder.setParameter("startDate", "1577836800").setParameter("endDate", "1592897891")
     val request = new HttpGet(builder.build())
     getResponse(request)
   }
