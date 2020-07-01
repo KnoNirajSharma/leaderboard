@@ -37,7 +37,6 @@ update knolder set email_id='munander.singh@knoldus.com' where wordpress_id='mun
 update knolder set email_id='harshit@knoldus.com' where wordpress_id='dagaharshit';
 update knolder set email_id='ankur.thakur@knoldus.com' where wordpress_id='ankurthakur25';
 update knolder set email_id='prashant.sharma@knoldus.com' where wordpress_id='prashantsharma12';
-update knolder set email_id='nitinarora1519@gmail.com' where wordpress_id='nitinarora1519';
 update knolder set email_id='anjali.sharma@knoldus.com' where wordpress_id='anjalisharma96';
 update knolder set email_id='manas.kashyap@knoldus.com' where wordpress_id='manaskashyap';
 update knolder set email_id='jashan.goyal@knoldus.com' where wordpress_id='jashangoyal09';
