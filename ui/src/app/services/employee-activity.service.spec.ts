@@ -4,8 +4,6 @@ import {HttpClientTestingModule, HttpTestingController} from '@angular/common/ht
 import {AuthorModel} from '../models/author.model';
 import {environment} from '../../environments/environment';
 import {KnolderDetailsModel} from '../models/knolder-details.model';
-import {computeStackId} from '@ionic/angular/directives/navigation/stack-utils';
-
 
 describe('EmployeeActivityService', () => {
     let employeeActivityService: EmployeeActivityService;
@@ -31,20 +29,20 @@ describe('EmployeeActivityService', () => {
     }];
     const dummyDetailData: KnolderDetailsModel = {
         knolderName: 'Muskan Gupta',
-            score: 20,
+        score: 20,
         scoreBreakDown: [
-        {
-            contributionType: 'Blog',
-            contributionCount: 4,
-            contributionScore: 20,
-            contributionDetails: [
-                {
-                    title: 'Serialization in Lagom',
-                    date: '2020-05-06 14:16:23'
-                }
-            ]
-        }
-    ]
+            {
+                contributionType: 'Blog',
+                contributionCount: 4,
+                contributionScore: 20,
+                contributionDetails: [
+                    {
+                        title: 'Serialization in Lagom',
+                        date: '2020-05-06 14:16:23'
+                    }
+                ]
+            }
+        ]
     };
     const id = 1;
     const month = 'june';

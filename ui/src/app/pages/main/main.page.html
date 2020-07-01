@@ -1,19 +1,25 @@
 <app-headers [backBtn]="false"></app-headers>
 <ion-content [fullscreen]="true">
+    <div class="float-right set-style">Last updated: {{today | date:'dd MMMM yyyy 00:00:00'}}</div>
     <div class="main-container col-12 col-xl-10">
         <div class="main-content">
-            <div class="page-title mt-4 mb-5 ml-0 row justify-content-center justify-content-sm-start" style="border-bottom: 5px solid; border-color: blue">
-                <img src="./assets/icon/icons-trophy.png" alt="" class="m-0 pt-4">
+            <div class="page-title mt-4 mb-5 ml-0 row justify-content-center justify-content-sm-start"
+                 style="border-bottom: 5px solid; border-color: blue">
+                <img alt="icon of a trophy" class="m-0 pt-4" src="./assets/icon/icons-trophy.png">
                 <h1 class="col-sm-4 col-9 col-sm-10">{{pageTitle}}</h1>
             </div>
             <ion-card>
-                <label class="col-sm-12 col-md-4 col-lg-3">
+                <div class="row px-3">
+                <label class="col-8 col-md-4 col-lg-3">
                     <input (keyup)="filterEmp()" [formControl]="searchBar"
                            class="search form-control" placeholder="Search..." type="text">
                 </label>
+                    <div class="col-4 col-md-2 ml-auto my-auto text-center current-month">
+                        {{ currentDate | date: 'MMM-yyyy'}}
+                    </div>
+                </div>
                 <app-table [tableRows]="filteredEmpData"></app-table>
             </ion-card>
         </div>
     </div>
 </ion-content>
-

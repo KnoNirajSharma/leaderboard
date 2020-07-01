@@ -24,15 +24,14 @@ class ReadQuarterlyReputationImplSpec extends DBSpec with BeforeAndAfterEach {
     "return knolder id from quarterly reputation table" in {
       val insertQuarterlyReputationData: String =
         """
-          |insert into quarterly_reputation(id, knolder_id, full_name, streak)
-          |values (?,?,?,?)
+          |insert into quarterly_reputation(id, knolder_id, streak)
+          |values (?,?,?)
 """.stripMargin
 
       val preparedStmt4: PreparedStatement = connection.prepareStatement(insertQuarterlyReputationData)
       preparedStmt4.setInt(1, 1)
       preparedStmt4.setInt(2, 1)
-      preparedStmt4.setString(3, "Mukesh Gupta")
-      preparedStmt4.setString(4, "15-20-20")
+      preparedStmt4.setString(3, "15-20-20")
       preparedStmt4.execute
       preparedStmt4.close()
 

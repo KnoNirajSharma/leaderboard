@@ -41,29 +41,27 @@ class WriteQuarterlyReputationImplSpec extends DBSpec with BeforeAndAfterEach {
     "return number of rows affected when updation in quarterly reputation table" in {
       val insertQuarterlyReputationData1: String =
         """
-          |insert into quarterly_reputation(id, knolder_id, full_name, streak)
-          |values (?,?,?,?)
+          |insert into quarterly_reputation(id, knolder_id, streak)
+          |values (?,?,?)
 """.stripMargin
 
       val preparedStmt1: PreparedStatement = connection.prepareStatement(insertQuarterlyReputationData1)
       preparedStmt1.setInt(1, 1)
       preparedStmt1.setInt(2, 1)
-      preparedStmt1.setString(3, "Mukesh Gupta")
-      preparedStmt1.setString(4, "15-20-20")
+      preparedStmt1.setString(3, "15-20-20")
       preparedStmt1.execute
       preparedStmt1.close()
 
       val insertQuarterlyReputationData2: String =
         """
-          |insert into quarterly_reputation(id, knolder_id, full_name, streak)
-          |values (?,?,?,?)
+          |insert into quarterly_reputation(id, knolder_id, streak)
+          |values (?,?,?)
 """.stripMargin
 
       val preparedStmt2: PreparedStatement = connection.prepareStatement(insertQuarterlyReputationData2)
       preparedStmt2.setInt(1, 2)
       preparedStmt2.setInt(2, 2)
-      preparedStmt2.setString(3, "anjali")
-      preparedStmt2.setString(4, "10-10-15")
+      preparedStmt2.setString(3, "10-10-15")
       preparedStmt2.execute
       preparedStmt2.close()
 
@@ -77,29 +75,27 @@ class WriteQuarterlyReputationImplSpec extends DBSpec with BeforeAndAfterEach {
     "return number of rows affected when updation in quarterly reputation table when one entry will not get updated" in {
       val insertQuarterlyReputationData1: String =
         """
-          |insert into quarterly_reputation(id, knolder_id, full_name, streak)
-          |values (?,?,?,?)
+          |insert into quarterly_reputation(id, knolder_id, streak)
+          |values (?,?,?)
 """.stripMargin
 
       val preparedStmt1: PreparedStatement = connection.prepareStatement(insertQuarterlyReputationData1)
       preparedStmt1.setInt(1, 1)
       preparedStmt1.setInt(2, 1)
-      preparedStmt1.setString(3, "Mukesh Gupta")
-      preparedStmt1.setString(4, "15-20-20")
+      preparedStmt1.setString(3, "15-20-20")
       preparedStmt1.execute
       preparedStmt1.close()
 
       val insertQuarterlyReputationData2: String =
         """
-          |insert into quarterly_reputation(id, knolder_id, full_name, streak)
-          |values (?,?,?,?)
+          |insert into quarterly_reputation(id, knolder_id, streak)
+          |values (?,?,?)
 """.stripMargin
 
       val preparedStmt2: PreparedStatement = connection.prepareStatement(insertQuarterlyReputationData2)
       preparedStmt2.setInt(1, 2)
       preparedStmt2.setInt(2, 2)
-      preparedStmt2.setString(3, "anjali")
-      preparedStmt2.setString(4, "10-10-15")
+      preparedStmt2.setString(3, "10-10-15")
       preparedStmt2.execute
       preparedStmt2.close()
 

@@ -43,46 +43,43 @@ class WriteAllTimeReputationImplSpec extends DBSpec with BeforeAndAfterEach {
     "return number of rows affected when updation in all time reputation table" in {
       val insertAllTimeReputationData1: String =
         """
-          |insert into all_time_reputation(id, knolder_id, full_name, score, rank)
-          |values (?,?,?,?,?)
+          |insert into all_time_reputation(id, knolder_id, score, rank)
+          |values (?,?,?,?)
 """.stripMargin
 
       val preparedStmt1: PreparedStatement = connection.prepareStatement(insertAllTimeReputationData1)
       preparedStmt1.setInt(1, 1)
       preparedStmt1.setInt(2, 1)
-      preparedStmt1.setString(3, "Mukesh Gupta")
-      preparedStmt1.setInt(4, 10)
-      preparedStmt1.setInt(5, 1)
+      preparedStmt1.setInt(3, 10)
+      preparedStmt1.setInt(4, 1)
       preparedStmt1.execute
       preparedStmt1.close()
 
       val insertAllTimeReputationData2: String =
         """
-          |insert into all_time_reputation(id, knolder_id, full_name, score, rank)
-          |values (?,?,?,?,?)
+          |insert into all_time_reputation(id, knolder_id, score, rank)
+          |values (?,?,?,?)
 """.stripMargin
 
       val preparedStmt2: PreparedStatement = connection.prepareStatement(insertAllTimeReputationData2)
       preparedStmt2.setInt(1, 2)
       preparedStmt2.setInt(2, 2)
-      preparedStmt2.setString(3, "Abhishek Baranwal")
-      preparedStmt2.setInt(4, 5)
-      preparedStmt2.setInt(5, 2)
+      preparedStmt2.setInt(3, 5)
+      preparedStmt2.setInt(4, 2)
       preparedStmt2.execute
       preparedStmt2.close()
 
       val insertAllTimeReputationData3: String =
         """
-          |insert into all_time_reputation(id, knolder_id, full_name, score, rank)
-          |values (?,?,?,?,?)
+          |insert into all_time_reputation(id, knolder_id, score, rank)
+          |values (?,?,?,?)
 """.stripMargin
 
       val preparedStmt3: PreparedStatement = connection.prepareStatement(insertAllTimeReputationData3)
       preparedStmt3.setInt(1, 3)
       preparedStmt3.setInt(2, 3)
-      preparedStmt3.setString(3, "Komal Rajpal")
-      preparedStmt3.setInt(4, 5)
-      preparedStmt3.setInt(5, 2)
+      preparedStmt3.setInt(3, 5)
+      preparedStmt3.setInt(4, 2)
       preparedStmt3.execute
       preparedStmt3.close()
 
@@ -97,46 +94,43 @@ class WriteAllTimeReputationImplSpec extends DBSpec with BeforeAndAfterEach {
     "return number of rows affected when updation in all time reputation table when one entry will not get updated" in {
       val insertAllTimeReputationData1: String =
         """
-          |insert into all_time_reputation(id, knolder_id, full_name, score, rank)
-          |values (?,?,?,?,?)
+          |insert into all_time_reputation(id, knolder_id, score, rank)
+          |values (?,?,?,?)
 """.stripMargin
 
       val preparedStmt1: PreparedStatement = connection.prepareStatement(insertAllTimeReputationData1)
       preparedStmt1.setInt(1, 1)
       preparedStmt1.setInt(2, 1)
-      preparedStmt1.setString(3, "Mukesh Gupta")
-      preparedStmt1.setInt(4, 10)
-      preparedStmt1.setInt(5, 1)
+      preparedStmt1.setInt(3, 10)
+      preparedStmt1.setInt(4, 1)
       preparedStmt1.execute
       preparedStmt1.close()
 
       val insertAllTimeReputationData2: String =
         """
-          |insert into all_time_reputation(id, knolder_id, full_name, score, rank)
-          |values (?,?,?,?,?)
+          |insert into all_time_reputation(id, knolder_id, score, rank)
+          |values (?,?,?,?)
 """.stripMargin
 
       val preparedStmt2: PreparedStatement = connection.prepareStatement(insertAllTimeReputationData2)
       preparedStmt2.setInt(1, 2)
       preparedStmt2.setInt(2, 2)
-      preparedStmt2.setString(3, "Abhishek Baranwal")
-      preparedStmt2.setInt(4, 5)
-      preparedStmt2.setInt(5, 2)
+      preparedStmt2.setInt(3, 5)
+      preparedStmt2.setInt(4, 2)
       preparedStmt2.execute
       preparedStmt2.close()
 
       val insertAllTimeReputationData3: String =
         """
-          |insert into all_time_reputation(id, knolder_id, full_name, score, rank)
-          |values (?,?,?,?,?)
+          |insert into all_time_reputation(id, knolder_id, score, rank)
+          |values (?,?,?,?)
 """.stripMargin
 
       val preparedStmt3: PreparedStatement = connection.prepareStatement(insertAllTimeReputationData3)
       preparedStmt3.setInt(1, 3)
       preparedStmt3.setInt(2, 3)
-      preparedStmt3.setString(3, "Komal Rajpal")
-      preparedStmt3.setInt(4, 5)
-      preparedStmt3.setInt(5, 2)
+      preparedStmt3.setInt(3, 5)
+      preparedStmt3.setInt(4, 2)
       preparedStmt3.execute
       preparedStmt3.close()
 
