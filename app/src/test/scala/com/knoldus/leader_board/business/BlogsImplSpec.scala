@@ -3,7 +3,7 @@ package com.knoldus.leader_board.business
 import java.sql.{Connection, Timestamp}
 import java.time.Instant
 
-import com.knoldus.leader_board.infrastructure.FetchBlogsImpl
+import com.knoldus.leader_board.infrastructure.{FetchBlogs, FetchBlogsImpl}
 import com.knoldus.leader_board.{Blog, DatabaseConnection}
 import com.typesafe.config.ConfigFactory
 import org.mockito.MockitoSugar
@@ -12,10 +12,9 @@ import org.scalatest.wordspec.AnyWordSpecLike
 
 class BlogsImplSpec extends AnyWordSpecLike with MockitoSugar with BeforeAndAfterEach {
   implicit val connection: Connection = DatabaseConnection.connection(ConfigFactory.load())
-  val mockFetchData: FetchBlogsImpl = mock[FetchBlogsImpl]
+  val mockFetchBlogs: FetchBlogs = mock[FetchBlogsImpl]
   val mockURLResponse: URLResponse = mock[URLResponse]
-  val blogs: Blogs = new BlogsImpl(mockFetchData, mockURLResponse, ConfigFactory.load())
-  val spyBlogs: Blogs = spy(blogs)
+  val blogs: Blogs = new BlogsImpl(mockFetchBlogs, mockURLResponse, ConfigFactory.load())
 
   "Blogs" should {
 
@@ -49,10 +48,11 @@ class BlogsImplSpec extends AnyWordSpecLike with MockitoSugar with BeforeAndAfte
         |}]""".stripMargin
 
     "return latest blogs from API" in {
-      when(mockFetchData.fetchMaxBlogPublicationDate)
+      when(mockFetchBlogs.fetchMaxBlogPublicationDate)
         .thenReturn(Option(Timestamp.from(Instant.parse("2020-04-13T14:56:40Z"))))
 
-      when(mockURLResponse.getResponse(ConfigFactory.load.getString("urlForLatestBlogs")))
+      when(mockURLResponse.getBlogResponse(ConfigFactory.load.getString("urlForLatestBlogs"),
+        "2020-05-30 02:20:11"))
         .thenReturn(blogData)
 
       val date = "2020-05-30 02:20:11"
