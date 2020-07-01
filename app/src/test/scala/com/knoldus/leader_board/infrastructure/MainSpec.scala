@@ -17,4 +17,3 @@ class MainSpec extends Suites(
   new FetchReputationImplSpec,
   new FetchKnolderDetailsImplSpec
 )
-

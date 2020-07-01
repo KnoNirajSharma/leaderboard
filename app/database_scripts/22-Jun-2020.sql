@@ -7,5 +7,3 @@ CREATE TABLE knolx(id VARCHAR(100) PRIMARY KEY NOT NULL, email_id VARCHAR(100) N
 -- !Downs
 
 DROP TABLE knolx;
-
-
