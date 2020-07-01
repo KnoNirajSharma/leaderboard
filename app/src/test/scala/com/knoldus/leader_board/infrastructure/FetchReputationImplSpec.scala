@@ -24,133 +24,124 @@ class FetchReputationImplSpec extends DBSpec with BeforeAndAfterEach {
     "return reputation of each knolder" in {
       val insertAllTimeReputationData1: String =
         """
-          |insert into all_time_reputation(id, knolder_id, full_name, score, rank)
-          |values (?,?,?,?,?)
+          |insert into all_time_reputation(id, knolder_id, score, rank)
+          |values (?,?,?,?)
 """.stripMargin
 
       val preparedStmt1: PreparedStatement = connection.prepareStatement(insertAllTimeReputationData1)
       preparedStmt1.setInt(1, 1)
       preparedStmt1.setInt(2, 1)
-      preparedStmt1.setString(3, "Mukesh Gupta")
-      preparedStmt1.setInt(4, 10)
-      preparedStmt1.setInt(5, 1)
+      preparedStmt1.setInt(3, 10)
+      preparedStmt1.setInt(4, 1)
       preparedStmt1.execute
       preparedStmt1.close()
 
       val insertAllTimeReputationData2: String =
         """
-          |insert into all_time_reputation(id, knolder_id, full_name, score, rank)
-          |values (?,?,?,?,?)
+          |insert into all_time_reputation(id, knolder_id, score, rank)
+          |values (?,?,?,?)
 """.stripMargin
 
       val preparedStmt2: PreparedStatement = connection.prepareStatement(insertAllTimeReputationData2)
       preparedStmt2.setInt(1, 2)
       preparedStmt2.setInt(2, 2)
-      preparedStmt2.setString(3, "Abhishek Baranwal")
-      preparedStmt2.setInt(4, 5)
-      preparedStmt2.setInt(5, 2)
+      preparedStmt2.setInt(3, 5)
+      preparedStmt2.setInt(4, 2)
       preparedStmt2.execute
       preparedStmt2.close()
 
       val insertAllTimeReputationData3: String =
         """
-          |insert into all_time_reputation(id, knolder_id, full_name, score, rank)
-          |values (?,?,?,?,?)
+          |insert into all_time_reputation(id, knolder_id, score, rank)
+          |values (?,?,?,?)
 """.stripMargin
 
       val preparedStmt3: PreparedStatement = connection.prepareStatement(insertAllTimeReputationData3)
       preparedStmt3.setInt(1, 3)
       preparedStmt3.setInt(2, 3)
-      preparedStmt3.setString(3, "Komal Rajpal")
-      preparedStmt3.setInt(4, 5)
-      preparedStmt3.setInt(5, 2)
+      preparedStmt3.setInt(3, 5)
+      preparedStmt3.setInt(4, 2)
       preparedStmt3.execute
       preparedStmt3.close()
 
       val insertMonthlyReputationData1: String =
         """
-          |insert into monthly_reputation(id, knolder_id, full_name, score, rank)
-          |values (?,?,?,?,?)
+          |insert into monthly_reputation(id, knolder_id, score, rank)
+          |values (?,?,?,?)
 """.stripMargin
 
       val preparedStmt4: PreparedStatement = connection.prepareStatement(insertMonthlyReputationData1)
       preparedStmt4.setInt(1, 1)
       preparedStmt4.setInt(2, 1)
-      preparedStmt4.setString(3, "Mukesh Gupta")
-      preparedStmt4.setInt(4, 10)
-      preparedStmt4.setInt(5, 1)
+      preparedStmt4.setInt(3, 10)
+      preparedStmt4.setInt(4, 1)
       preparedStmt4.execute
       preparedStmt4.close()
 
       val insertMonthlyReputationData2: String =
         """
-          |insert into monthly_reputation(id, knolder_id, full_name, score, rank)
-          |values (?,?,?,?,?)
+          |insert into monthly_reputation(id, knolder_id, score, rank)
+          |values (?,?,?,?)
 """.stripMargin
 
       val preparedStmt5: PreparedStatement = connection.prepareStatement(insertMonthlyReputationData2)
       preparedStmt5.setInt(1, 2)
       preparedStmt5.setInt(2, 2)
-      preparedStmt5.setString(3, "Abhishek Baranwal")
-      preparedStmt5.setInt(4, 5)
-      preparedStmt5.setInt(5, 2)
+      preparedStmt5.setInt(3, 5)
+      preparedStmt5.setInt(4, 2)
       preparedStmt5.execute
       preparedStmt5.close()
 
       val insertMonthlyReputationData3: String =
         """
-          |insert into monthly_reputation(id, knolder_id, full_name, score, rank)
-          |values (?,?,?,?,?)
+          |insert into monthly_reputation(id, knolder_id, score, rank)
+          |values (?,?,?,?)
 """.stripMargin
 
       val preparedStmt6: PreparedStatement = connection.prepareStatement(insertMonthlyReputationData3)
       preparedStmt6.setInt(1, 3)
       preparedStmt6.setInt(2, 3)
-      preparedStmt6.setString(3, "Komal Rajpal")
-      preparedStmt6.setInt(4, 5)
-      preparedStmt6.setInt(5, 2)
+      preparedStmt6.setInt(3, 5)
+      preparedStmt6.setInt(4, 2)
       preparedStmt6.execute
       preparedStmt6.close()
 
       val insertQuarterlyReputationData1: String =
         """
-          |insert into quarterly_reputation(id, knolder_id, full_name, streak)
-          |values (?,?,?,?)
+          |insert into quarterly_reputation(id, knolder_id, streak)
+          |values (?,?,?)
 """.stripMargin
 
       val preparedStmt7: PreparedStatement = connection.prepareStatement(insertQuarterlyReputationData1)
       preparedStmt7.setInt(1, 1)
       preparedStmt7.setInt(2, 1)
-      preparedStmt7.setString(3, "Mukesh Gupta")
-      preparedStmt7.setString(4, "15-20-20")
+      preparedStmt7.setString(3, "15-20-20")
       preparedStmt7.execute
       preparedStmt7.close()
 
       val insertQuarterlyReputationData2: String =
         """
-          |insert into quarterly_reputation(id, knolder_id, full_name, streak)
-          |values (?,?,?,?)
+          |insert into quarterly_reputation(id, knolder_id, streak)
+          |values (?,?,?)
 """.stripMargin
 
       val preparedStmt8: PreparedStatement = connection.prepareStatement(insertQuarterlyReputationData2)
       preparedStmt8.setInt(1, 2)
       preparedStmt8.setInt(2, 2)
-      preparedStmt8.setString(3, "Abhishek Baranwal")
-      preparedStmt8.setString(4, "10-10-15")
+      preparedStmt8.setString(3, "10-10-15")
       preparedStmt8.execute
       preparedStmt8.close()
 
       val insertQuarterlyReputationData3: String =
         """
-          |insert into quarterly_reputation(id, knolder_id, full_name, streak)
-          |values (?,?,?,?)
+          |insert into quarterly_reputation(id, knolder_id, streak)
+          |values (?,?,?)
 """.stripMargin
 
       val preparedStmt9: PreparedStatement = connection.prepareStatement(insertQuarterlyReputationData3)
       preparedStmt9.setInt(1, 3)
       preparedStmt9.setInt(2, 3)
-      preparedStmt9.setString(3, "Komal Rajpal")
-      preparedStmt9.setString(4, "5-10-5")
+      preparedStmt9.setString(3, "5-10-5")
       preparedStmt9.execute
       preparedStmt9.close()
 

@@ -4,7 +4,7 @@ import java.sql.Timestamp
 
 final case class Blog(blogId: Option[Int], wordpressId: Option[String], publishedOn: Timestamp, title: Option[String])
 
-final case class Knolx(knolxId: Option[Int], emailId: Option[String], deliveredOn: Timestamp, title: Option[String])
+final case class Knolx(knolxId: Option[String], emailId: Option[String], deliveredOn: Option[Timestamp], title: Option[String])
 
 final case class GetCount(knolderId: Int, knolderName: String, numberOfBlogs: Int, numberOfKnolx: Int)
 

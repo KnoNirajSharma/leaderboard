@@ -12,7 +12,6 @@ import {MainPageModule} from './pages/main/main.module';
 import {DetailsPageModule} from './pages/details/details.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-
 @NgModule({
     declarations: [AppComponent],
     entryComponents: [],

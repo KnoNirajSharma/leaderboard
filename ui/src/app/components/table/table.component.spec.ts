@@ -19,7 +19,6 @@ describe('TableComponent', () => {
     let fixture: ComponentFixture<ParentComponent>;
     let router: Router;
     let location: Location;
-    const id = '2';
     const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -27,7 +26,7 @@ describe('TableComponent', () => {
                 TableComponent,
                 ParentComponent,
                 EmployeeFilterPipe,
-                DetailsPage
+                DetailsPage,
             ],
             imports: [
                 HttpClientTestingModule,

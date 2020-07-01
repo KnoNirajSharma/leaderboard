@@ -24,9 +24,8 @@ class WriteQuarterlyReputationImpl(config: Config) extends LazyLogging with Writ
     reputationOfKnolders.filter { reputationOfKnolder =>
       reputationOfKnolder.knolderId.isEmpty
     }.map { reputationOfKnolder =>
-      SQL("INSERT INTO quarterly_reputation(knolder_id, full_name, streak) VALUES (?,?,?)")
-        .bind(reputationOfKnolder.streak.knolderId, reputationOfKnolder.streak.knolderName,
-          reputationOfKnolder.streak.streak).update().apply()
+      SQL("INSERT INTO quarterly_reputation(knolder_id, streak) VALUES (?,?)")
+        .bind(reputationOfKnolder.streak.knolderId, reputationOfKnolder.streak.streak).update().apply()
     }
   }
 
