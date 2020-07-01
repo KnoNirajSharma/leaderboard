@@ -4,6 +4,8 @@ import java.sql.Timestamp
 
 final case class Blog(blogId: Option[Int], wordpressId: Option[String], publishedOn: Timestamp, title: Option[String])
 
+final case class Knolx(knolxId: Option[String], emailId: Option[String], deliveredOn: Option[Timestamp], title: Option[String])
+
 final case class GetCount(knolderId: Int, knolderName: String, numberOfBlogs: Int, numberOfKnolx: Int)
 
 final case class GetScore(knolderId: Int, knolderName: String, score: Int)
@@ -27,6 +29,8 @@ final case class ContributionDetails(title: String, date: String)
 final case class KnolderDetails(knolderName: String, score: Int, scoreBreakDown: List[Option[Contribution]])
 
 case object ExecuteBlogsScript
+
+case object ExecuteKnolxScript
 
 case object CalculateReputation
 

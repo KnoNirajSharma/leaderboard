@@ -5,8 +5,8 @@ import com.knoldus.leader_board._
 import com.knoldus.leader_board.infrastructure.StoreBlogs
 import com.typesafe.scalalogging._
 
-class ScriptActor(allTimeReputationActorRef: ActorRef, monthlyReputationActorRef: ActorRef,
-                  quarterlyReputationActorRef: ActorRef, storeBlogs: StoreBlogs, blogs: Blogs) extends Actor
+class BlogScriptActor(allTimeReputationActorRef: ActorRef, monthlyReputationActorRef: ActorRef,
+                      quarterlyReputationActorRef: ActorRef, storeBlogs: StoreBlogs, blogs: Blogs) extends Actor
   with LazyLogging {
   override def receive: Receive = {
     case ExecuteBlogsScript => logger.info("Storing blogs.")
