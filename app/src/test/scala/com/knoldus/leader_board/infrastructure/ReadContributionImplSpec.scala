@@ -3,7 +3,7 @@ package com.knoldus.leader_board.infrastructure
 import java.sql.{Connection, PreparedStatement, Timestamp}
 import java.time.Instant
 
-import com.knoldus.leader_board.{Constant, DatabaseConnection, GetCount}
+import com.knoldus.leader_board.{DatabaseConnection, GetCount, IndianTime}
 import com.typesafe.config.ConfigFactory
 import org.scalatest.{BeforeAndAfterEach, DoNotDiscover}
 
@@ -21,13 +21,13 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
   }
 
   "read contribution" should {
-    val currentMonth = Timestamp.valueOf(Constant.CURRENT_TIME
+    val currentMonth = Timestamp.valueOf(IndianTime.currentTime
       .withDayOfMonth(1).toLocalDate.atStartOfDay())
-    val firstMonth = Timestamp.valueOf(Constant.CURRENT_TIME
+    val firstMonth = Timestamp.valueOf(IndianTime.currentTime
       .withDayOfMonth(1).toLocalDate.minusMonths(3).atStartOfDay())
-    val secondMonth = Timestamp.valueOf(Constant.CURRENT_TIME
+    val secondMonth = Timestamp.valueOf(IndianTime.currentTime
       .withDayOfMonth(1).toLocalDate.minusMonths(2).atStartOfDay())
-    val thirdMonth = Timestamp.valueOf(Constant.CURRENT_TIME
+    val thirdMonth = Timestamp.valueOf(IndianTime.currentTime
       .withDayOfMonth(1).toLocalDate.minusMonths(1).atStartOfDay())
 
     "return number of contributions of each knolder" in {
