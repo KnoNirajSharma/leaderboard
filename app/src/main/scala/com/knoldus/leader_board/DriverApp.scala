@@ -65,7 +65,7 @@ object DriverApp extends App {
   writeQuarterlyReputation.insertQuarterlyReputationData(quarterlyReputations)
   writeQuarterlyReputation.updateQuarterlyReputationData(quarterlyReputations)
   reputationOnAPI.displayReputationOnAPI
-  val indiaCurrentTime = Constant.CURRENT_TIME
+  val indiaCurrentTime = IndianTime.currentTime
   val totalSecondsOfDayTillCurrentTime = indiaCurrentTime.toLocalTime.toSecondOfDay
   val startTimeToScriptExecution = LocalTime.of(0, 0, 0, 0).toSecondOfDay
   val secondsInDay = 24 * 60 * 60
@@ -84,7 +84,7 @@ object DriverApp extends App {
    * Fetching latest knolx from Knolx API and storing in database.
    */
   QuartzSchedulerExtension.get(system).createSchedule("knolxScriptScheduler", None,
-    "0 0 0 ? * 6 *", None, Constant.INDIAN_TIMEZONE)
+    "0 0 0 ? * 6 *", None, IndianTime.indianTimezone)
   QuartzSchedulerExtension.get(system).schedule("knolxScriptScheduler", knolxScriptActorRef,
     ExecuteKnolxScript)
 }

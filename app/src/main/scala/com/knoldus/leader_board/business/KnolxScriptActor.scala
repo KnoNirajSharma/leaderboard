@@ -19,8 +19,8 @@ class KnolxScriptActor(allTimeReputationActorRef: ActorRef, monthlyReputationAct
     case CalculateReputation => logger.info("Calculating reputation")
       allTimeReputationActorRef ! WriteAllTimeReputation
       monthlyReputationActorRef ! WriteMonthlyReputation
-      val firstDayOfCurrentMonth = Constant.CURRENT_TIME.withDayOfMonth(1).toLocalDate
-      val currentDayOfCurrentMonth = Constant.CURRENT_TIME.toLocalDate
+      val firstDayOfCurrentMonth = IndianTime.currentTime.withDayOfMonth(1).toLocalDate
+      val currentDayOfCurrentMonth = IndianTime.currentTime.toLocalDate
       if (firstDayOfCurrentMonth == currentDayOfCurrentMonth) {
         quarterlyReputationActorRef ! WriteQuarterlyReputation
       }

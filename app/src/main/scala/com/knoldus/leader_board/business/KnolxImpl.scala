@@ -4,7 +4,7 @@ import java.sql.Timestamp
 import java.text.SimpleDateFormat
 
 import com.knoldus.leader_board.infrastructure.FetchKnolx
-import com.knoldus.leader_board.{Constant, Knolx}
+import com.knoldus.leader_board.{IndianTime, Knolx}
 import com.typesafe.config.Config
 import com.typesafe.scalalogging.LazyLogging
 import net.liftweb.json.{DefaultFormats, parse}
@@ -21,7 +21,7 @@ class KnolxImpl(fetchKnolx: FetchKnolx, URLResponse: URLResponse, config: Config
     logger.info("Latest knolx will be extracted from knolx API.")
     val maxDate = fetchKnolx.fetchMaxKnolxDeliveredDate.getOrElse(Timestamp.valueOf("0001-01-01 00:00:00"))
     val startDate = maxDate.getTime.toString
-    val endDate = Timestamp.valueOf(Constant.CURRENT_TIME.toLocalDateTime).getTime.toString
+    val endDate = Timestamp.valueOf(IndianTime.currentTime.toLocalDateTime).getTime.toString
     getListOfLatestKnolx(URLResponse.getKnolxResponse(config.getString("urlForLatestKnolx"), startDate, endDate))
   }
 

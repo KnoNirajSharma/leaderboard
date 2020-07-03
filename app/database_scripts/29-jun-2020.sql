@@ -53,4 +53,4 @@ update knolder set email_id='neelam@knoldus.com' where wordpress_id='neellakra21
 update knolder set email_id='jyoti.sachdeva@knoldus.com' where wordpress_id='jyotisachdeva57';
 update knolder set email_id='ayush.tiwari@knoldus.com' where wordpress_id='ecstatictechie';
 -- This is mock email id later replace it with actual email id when get the actual knolx api
-update knolder set email_id='rhaegar.targaryen@knoldus.com' where wordpress_id='knoldus;
+update knolder set email_id='rhaegar.targaryen@knoldus.com' where wordpress_id='knoldus';

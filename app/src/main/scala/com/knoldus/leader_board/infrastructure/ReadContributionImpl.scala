@@ -2,7 +2,7 @@ package com.knoldus.leader_board.infrastructure
 
 import java.sql.{Connection, Timestamp}
 
-import com.knoldus.leader_board.{Constant, DatabaseConnection, GetCount}
+import com.knoldus.leader_board.{DatabaseConnection, GetCount, IndianTime}
 import com.typesafe.config.Config
 import com.typesafe.scalalogging._
 import scalikejdbc.{DB, DBSession, SQL}
@@ -33,9 +33,9 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
    */
   override def fetchKnoldersWithMonthlyContributions: List[GetCount] = {
     logger.info("Fetching details of knolders with contributions of current month.")
-    val currentMonth = Timestamp.valueOf(Constant.CURRENT_TIME
+    val currentMonth = Timestamp.valueOf(IndianTime.currentTime
       .withDayOfMonth(1).toLocalDate.atStartOfDay())
-    val nextMonth = Timestamp.valueOf(Constant.CURRENT_TIME
+    val nextMonth = Timestamp.valueOf(IndianTime.currentTime
       .withDayOfMonth(1).toLocalDate.plusMonths(1).atStartOfDay())
     SQL("SELECT knolder.id, knolder.full_name, COUNT(DISTINCT blog.id) AS blog_count, COUNT(DISTINCT knolx.id) AS " +
       "knolx_count FROM knolder LEFT JOIN blog ON knolder.wordpress_id = blog.wordpress_id AND published_on >= ? AND " +
@@ -53,9 +53,9 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
    */
   override def fetchKnoldersWithQuarterFirstMonthContributions: List[GetCount] = {
     logger.info("Fetching details of knolders with contributions of first month of quarter.")
-    val firstMonth = Timestamp.valueOf(Constant.CURRENT_TIME
+    val firstMonth = Timestamp.valueOf(IndianTime.currentTime
       .withDayOfMonth(1).toLocalDate.minusMonths(3).atStartOfDay())
-    val nextMonth = Timestamp.valueOf(Constant.CURRENT_TIME
+    val nextMonth = Timestamp.valueOf(IndianTime.currentTime
       .withDayOfMonth(1).toLocalDate.minusMonths(2).atStartOfDay())
     SQL("SELECT knolder.id, knolder.full_name, COUNT(DISTINCT blog.id) AS blog_count, COUNT(DISTINCT knolx.id) AS " +
       "knolx_count FROM knolder LEFT JOIN blog ON knolder.wordpress_id = blog.wordpress_id AND published_on >= ? " +
@@ -74,9 +74,9 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
    */
   override def fetchKnoldersWithQuarterSecondMonthContributions: List[GetCount] = {
     logger.info("Fetching details of knolders with contributions of second month of quarter.")
-    val secondMonth = Timestamp.valueOf(Constant.CURRENT_TIME
+    val secondMonth = Timestamp.valueOf(IndianTime.currentTime
       .withDayOfMonth(1).toLocalDate.minusMonths(2).atStartOfDay())
-    val nextMonth = Timestamp.valueOf(Constant.CURRENT_TIME
+    val nextMonth = Timestamp.valueOf(IndianTime.currentTime
       .withDayOfMonth(1).toLocalDate.minusMonths(1).atStartOfDay())
     SQL("SELECT knolder.id, knolder.full_name, COUNT(DISTINCT blog.id) AS blog_count,COUNT(DISTINCT knolx.id) AS " +
       "knolx_count FROM blog RIGHT JOIN knolder ON knolder.wordpress_id = blog.wordpress_id AND published_on >= ? AND " +
@@ -94,9 +94,9 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
    */
   override def fetchKnoldersWithQuarterThirdMonthContributions: List[GetCount] = {
     logger.info("Fetching details of knolders with contributions of third month of quarter.")
-    val thirdMonth = Timestamp.valueOf(Constant.CURRENT_TIME
+    val thirdMonth = Timestamp.valueOf(IndianTime.currentTime
       .withDayOfMonth(1).toLocalDate.minusMonths(1).atStartOfDay())
-    val nextMonth = Timestamp.valueOf(Constant.CURRENT_TIME
+    val nextMonth = Timestamp.valueOf(IndianTime.currentTime
       .withDayOfMonth(1).toLocalDate.atStartOfDay())
     SQL("SELECT knolder.id, knolder.full_name, COUNT(DISTINCT blog.id) AS blog_count,COUNT(DISTINCT knolx.id) AS " +
       "knolx_count FROM blog RIGHT JOIN knolder ON knolder.wordpress_id = blog.wordpress_id AND published_on >= ? AND " +
