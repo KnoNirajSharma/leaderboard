@@ -102,7 +102,7 @@ describe('DetailsPage', () => {
         expect(loadingControllerService.present).toHaveBeenCalled();
     }));
 
-    it('should return the authorData as per api call', () => {
+    it('should return the trendsData as per api call', () => {
         spyOn(mockEmployeeService, 'getTrendsData').and.returnValue(of(dummyTrendsData));
         component.ngOnInit();
         expect(component.trendsData).toEqual(dummyTrendsData);
