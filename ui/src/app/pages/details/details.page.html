@@ -6,7 +6,7 @@
                 class="name-title col-12 col-md-6 mt-lg-0 pb-2">{{knolderDetails.knolderName}}</h1>
             <div class="row">
                 <div class="col-12 col-md-6">
-                    <div class="card tab-bar shadow-box mt-4 ">
+                    <div class="card tab-bar shadow-box mt-4 pr-2 ">
                         <div class="row justify-content-end justify-content-sm-center p-1">
                             <form [ngClass]="{'monthSelected' : !allTimeSelected}" class="mr-2  mt-1">
                                 <label>
@@ -36,7 +36,7 @@
                         </div>
                         <div class="block-content">
                             <div class="row total-score mt-2">
-                                <div class="col-4 col-sm-3 col-xl-2">Score:</div>
+                                <div class="col-4 col-sm-3 col-xl-2">Score</div>
                                 <div class="col-3 col-xl-2"><span
                                         class="badge badge-pill badge-warning">{{knolderDetails.score}}</span>
                                 </div>
@@ -82,7 +82,16 @@
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
-                    <div *ngIf="allTimeDetails" class="col-12 mt-4 card border-0 shadow-box col-xl-9 mx-auto pl-2">
+                    <div *ngIf="allTimeDetails" class="col-12 text-center card border-0 mt-4 shadow-box col-xl-9 mx-auto ">
+                        <div class="card-head shadow-box d-flex justify-content-between pt-3 pb-2 px-3 bg-white mt-n4 mx-3">
+                            <div class="align-self-center">
+                                <h4 class="font-weight-normal m-0">Trends</h4>
+                            </div>
+                        </div>
+                        <app-veritcal-bar-graph [inputResult]="trendsData"></app-veritcal-bar-graph>
+
+                    </div>
+                    <div *ngIf="allTimeDetails" class="col-12 mt-5 card border-0 shadow-box col-xl-9 mx-auto pl-2">
                         <div class="card-head shadow-box d-flex justify-content-between pt-3 pb-2 px-3 bg-white mt-n4 mx-3">
                             <div class="align-self-center">
                                 <h4 class="font-weight-normal m-0">All Time</h4>

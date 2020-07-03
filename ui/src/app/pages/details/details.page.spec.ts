@@ -1,6 +1,5 @@
 import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {IonicModule} from '@ionic/angular';
-
 import {DetailsPage} from './details.page';
 import {of} from 'rxjs';
 import {KnolderDetailsModel} from '../../models/knolder-details.model';
@@ -36,6 +35,15 @@ describe('DetailsPage', () => {
             }
         ]
     };
+
+    const dummyTrendsData = [
+        {month: 'JUNE',
+            year: 2020,
+            score: 4},
+        {month: 'JULY',
+            year: 2020,
+            score: 6}
+    ];
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -93,4 +101,10 @@ describe('DetailsPage', () => {
         fixture.detectChanges();
         expect(loadingControllerService.present).toHaveBeenCalled();
     }));
+
+    it('should return the authorData as per api call', () => {
+        spyOn(mockEmployeeService, 'getTrendsData').and.returnValue(of(dummyTrendsData));
+        component.ngOnInit();
+        expect(component.trendsData).toEqual(dummyTrendsData);
+    });
 });
