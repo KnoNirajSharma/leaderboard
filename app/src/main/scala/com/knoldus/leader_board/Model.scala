@@ -28,6 +28,11 @@ final case class ContributionDetails(title: String, date: String)
 
 final case class KnolderDetails(knolderName: String, score: Int, scoreBreakDown: List[Option[Contribution]])
 
+final case class TwelveMonthsScore(month: String, year: Int, score: Int)
+
+final case class ReputationCountAndReputation(monthlyBlogCount: Int, monthlyKnolxCount: Int, totalBlogCount: Int, totalKnolxCount: Int,
+                                              reputation: List[Reputation])
+
 case object ExecuteBlogsScript
 
 case object ExecuteKnolxScript

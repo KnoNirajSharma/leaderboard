@@ -2,14 +2,23 @@ package com.knoldus.leader_board.business
 
 import com.knoldus.leader_board.infrastructure.ReadContribution
 import com.knoldus.leader_board.{IndianTime, TwelveMonthsScore}
+import com.typesafe.scalalogging.LazyLogging
 
-class TwelveMonthsContributionImpl(readContribution: ReadContribution) extends TwelveMonthsContribution {
+import scala.collection.mutable.ListBuffer
+
+class TwelveMonthsContributionImpl(readContribution: ReadContribution) extends TwelveMonthsContribution with LazyLogging {
+  /**
+   * calculating last twelve months data of specific knolder.
+   *
+   * @return last twelve month score with the month and year of the specific knolder.
+   */
 
   override def lastTwelveMonthsScore(knolderId: Int, index: Int): Option[List[TwelveMonthsScore]] = {
+    logger.info("calculating last twelve months score")
 
-    def calculateMonthsScore(scoreList: List[TwelveMonthsScore], monthsIndex: Int, id: Int): Option[List[TwelveMonthsScore]] = {
+    def calculateMonthsScore(scoreList: ListBuffer[TwelveMonthsScore], monthsIndex: Int, id: Int): Option[List[TwelveMonthsScore]] = {
       if (monthsIndex > 12) {
-        Option(scoreList)
+        Option(scoreList.toList)
       } else {
         val monthValue = IndianTime.currentTime.minusMonths(monthsIndex).getMonthValue
         val monthName = IndianTime.currentTime.minusMonths(monthsIndex).getMonth.toString
@@ -20,7 +29,6 @@ class TwelveMonthsContributionImpl(readContribution: ReadContribution) extends T
       }
     }
 
-    calculateMonthsScore(List.empty, index, knolderId)
+    calculateMonthsScore(ListBuffer.empty, index, knolderId)
   }
 }
-

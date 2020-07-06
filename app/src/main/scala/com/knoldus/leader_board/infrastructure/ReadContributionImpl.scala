@@ -107,9 +107,14 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
         rs.int("blog_count"), rs.int("knolx_count"))).list.apply()
   }
 
-  override def fetchKnoldersWithTwelveMonthContributions(month: Int, year: Int, knolderId: Int): Option[Int] = {
-    logger.info("Fetching details of knolders with contributions of third month of quarter.")
+  /**
+   * fetching score of given month and year of specific knolder.
+   *
+   * @return score of the month of specific knolder.
+   */
 
+  override def fetchKnoldersWithTwelveMonthContributions(month: Int, year: Int, knolderId: Int): Option[Int] = {
+    logger.info("Fetching score of specific month of knolder.")
 
     SQL(s"SELECT knolder.full_name, COUNT(DISTINCT blog.title) * ${config.getInt("scorePerBlog")} + " +
       s"COUNT(DISTINCT knolx.title) * ${config.getInt("scorePerKnolx")} AS score FROM knolder LEFT JOIN blog ON " +
