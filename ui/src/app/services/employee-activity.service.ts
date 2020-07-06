@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {AuthorModel} from '../models/author.model';
 import {environment} from '../../environments/environment';
 import {KnolderDetailsModel} from '../models/knolder-details.model';
+import {ReputationModel} from '../models/reputation.model';
 
 @Injectable({
     providedIn: 'root'
@@ -14,8 +15,8 @@ export class EmployeeActivityService {
     constructor(private httpClient: HttpClient) {
     }
 
-    getData(): Observable<AuthorModel[]> {
-        return this.httpClient.get<AuthorModel[]>(this.url);
+    getData(): Observable<ReputationModel> {
+        return this.httpClient.get<ReputationModel>(this.url);
     }
 
     getAllTimeDetails(id: number): Observable<KnolderDetailsModel> {

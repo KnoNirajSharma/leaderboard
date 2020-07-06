@@ -50,6 +50,19 @@ ion-content {
   }
 }
 
+.contribution-count {
+  font-size: 11px;
+}
+
+.total-count-bar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  font-size: 12px;
+  box-shadow: 0px 0px 34px -15px rgba(0, 0, 0, 0.35);
+}
+
 @media only screen and (max-width: 768px)  {
   .main-container {
     .main-content {
@@ -57,5 +70,20 @@ ion-content {
         font-size: 1em;
       }
     }
+  }
+}
+
+
+@media only screen and (max-width: 576px)  {
+  .total-count-bar {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    font-size: 14px
+  }
+
+  .contribution-count {
+    font-size: 12px;
   }
 }

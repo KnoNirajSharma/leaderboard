@@ -3,9 +3,9 @@ export const environment = {
     appVersion: '1.0.0',
     api: {
         version: '1.0.0',
-        baseUrl: 'http://34.68.95.196:8000/',
+        baseUrl: '/',
         routes: {
-            author: {endpoint: 'reputation', method: 'GET'},
+            author: {endpoint: 'assets/data/authorProfile.json', method: 'GET'},
         }
     },
     pieChartColorScheme: {
