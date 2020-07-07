@@ -30,7 +30,7 @@ final case class KnolderDetails(knolderName: String, score: Int, scoreBreakDown:
 
 final case class TwelveMonthsScore(month: String, year: Int, score: Int)
 
-final case class ReputationCountAndReputation(monthlyBlogCount: Int, monthlyKnolxCount: Int, totalBlogCount: Int, totalKnolxCount: Int,
+final case class ReputationCountAndReputation(monthlyBlogCount: Int, monthlyKnolxCount: Int, allTimeBlogCount: Int, allTimeKnolxCount: Int,
                                               reputation: List[Reputation])
 
 case object ExecuteBlogsScript
