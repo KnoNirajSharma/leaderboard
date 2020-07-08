@@ -9,8 +9,8 @@ import {environment} from '../../../environments/environment';
 })
 export class VerticalBarGraphComponent implements OnInit {
     @Input() inputResult: TrendsModel[];
-    yAxisLabel = 'score';
-    barPadding = 16;
+    yAxisLabel = environment.ngxChartOptions.verticalBarChart.yAxisLabel;
+    barPadding = environment.ngxChartOptions.verticalBarChart.barPadding;
     colorScheme = {
         domain: [environment.ngxChartOptions.chartColorScheme.domain[1]]
     };
