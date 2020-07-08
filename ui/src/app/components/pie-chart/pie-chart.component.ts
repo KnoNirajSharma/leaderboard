@@ -9,7 +9,7 @@ import {environment} from '../../../environments/environment';
 })
 export class PieChartComponent implements OnInit {
   @Input() inputResult: ScoreBreakDownModel[];
-  colorScheme = environment.chartColorScheme;
+  colorScheme = environment.ngxChartOptions.chartColorScheme;
 
   result: {name: string, value: number}[] = [];
 

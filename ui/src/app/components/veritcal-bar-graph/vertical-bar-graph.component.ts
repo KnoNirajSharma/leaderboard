@@ -3,16 +3,16 @@ import {TrendsModel} from '../../models/trends.model';
 import {environment} from '../../../environments/environment';
 
 @Component({
-    selector: 'app-veritcal-bar-graph',
-    templateUrl: './veritcal-bar-graph.component.html',
-    styleUrls: ['./veritcal-bar-graph.component.scss'],
+    selector: 'app-vertical-bar-graph',
+    templateUrl: './vertical-bar-graph.component.html',
+    styleUrls: ['./vertical-bar-graph.component.scss'],
 })
-export class VeritcalBarGraphComponent implements OnInit {
+export class VerticalBarGraphComponent implements OnInit {
     @Input() inputResult: TrendsModel[];
     yAxisLabel = 'score';
-    barPAdding = 16;
+    barPadding = 16;
     colorScheme = {
-        domain: [environment.chartColorScheme.domain[1]]
+        domain: [environment.ngxChartOptions.chartColorScheme.domain[1]]
     };
 
     result: { name: string, value: number }[] = [];

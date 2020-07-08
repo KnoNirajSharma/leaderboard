@@ -47,12 +47,16 @@ describe('EmployeeActivityService', () => {
     };
 
     const dummyTrendsData = [
-        {month: 'JUNE',
-        year: 2020,
-        score: 3},
-        {month: 'JULY',
+        {
+            month: 'JUNE',
             year: 2020,
-            score: 3}
+            score: 3
+        },
+        {
+            month: 'JULY',
+            year: 2020,
+            score: 3
+        }
     ];
     const id = 1;
     const month = 'june';

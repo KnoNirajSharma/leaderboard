@@ -5,7 +5,7 @@ import {HeadersComponent} from './headers/headers.component';
 import {RouterModule} from '@angular/router';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {PieChartComponent} from './pie-chart/pie-chart.component';
-import {VeritcalBarGraphComponent} from './veritcal-bar-graph/veritcal-bar-graph.component';
+import {VerticalBarGraphComponent} from './veritcal-bar-graph/vertical-bar-graph.component';
 
 @NgModule({
     imports: [
@@ -17,12 +17,12 @@ import {VeritcalBarGraphComponent} from './veritcal-bar-graph/veritcal-bar-graph
     exports: [
         HeadersComponent,
         PieChartComponent,
-        VeritcalBarGraphComponent
+        VerticalBarGraphComponent
     ],
     declarations: [
         HeadersComponent,
         PieChartComponent,
-        VeritcalBarGraphComponent
+        VerticalBarGraphComponent
     ],
 })
 export class ComponentsModule {

@@ -37,12 +37,16 @@ describe('DetailsPage', () => {
     };
 
     const dummyTrendsData = [
-        {month: 'JUNE',
+        {
+            month: 'JUNE',
             year: 2020,
-            score: 4},
-        {month: 'JULY',
+            score: 4
+        },
+        {
+            month: 'JULY',
             year: 2020,
-            score: 6}
+            score: 6
+        }
     ];
 
     beforeEach(async(() => {

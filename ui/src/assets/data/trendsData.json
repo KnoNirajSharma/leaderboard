@@ -1,51 +1,62 @@
 [
   {
-  "month": "JUNE",
-  "year": 2020,
-  "score": 10
-}, {
-  "month": "MAY",
-  "year": 2020,
-  "score": 5
-}, {
-  "month": "APRIL",
-  "year": 2020,
-  "score": 20
-}, {
-  "month": "MARCH",
-  "year": 2020,
-  "score": 30
-}, {
-  "month": "FEBRUARY",
-  "year": 2020,
-  "score": 10
-}, {
-  "month": "JANUARY",
-  "year": 2020,
-  "score": 10
-}, {
-  "month": "DECEMBER",
-  "year": 2019,
-  "score": 15
-}, {
-  "month": "NOVEMBER",
-  "year": 2019,
-  "score": 51
-}, {
-  "month": "OCTOBER",
-  "year": 2019,
-  "score": 10
-}, {
-  "month": "SEPTEMBER",
-  "year": 2019,
-  "score": 20
-}, {
-  "month": "AUGUST",
-  "year": 2019,
-  "score": 30
-}, {
-  "month": "JULY",
-  "year": 2019,
-  "score": 50
-}
+    "month": "JUNE",
+    "year": 2020,
+    "score": 10
+  },
+  {
+    "month": "MAY",
+    "year": 2020,
+    "score": 5
+  },
+  {
+    "month": "APRIL",
+    "year": 2020,
+    "score": 20
+  },
+  {
+    "month": "MARCH",
+    "year": 2020,
+    "score": 30
+  },
+  {
+    "month": "FEBRUARY",
+    "year": 2020,
+    "score": 10
+  },
+  {
+    "month": "JANUARY",
+    "year": 2020,
+    "score": 10
+  },
+  {
+    "month": "DECEMBER",
+    "year": 2019,
+    "score": 15
+  },
+  {
+    "month": "NOVEMBER",
+    "year": 2019,
+    "score": 51
+  },
+  {
+    "month": "OCTOBER",
+    "year": 2019,
+    "score": 10
+  },
+  {
+    "month": "SEPTEMBER",
+    "year": 2019,
+    "score": 20
+  },
+  {
+    "month": "AUGUST",
+    "year": 2019,
+    "score": 30
+  },
+  {
+    "month": "JULY",
+    "year": 2019,
+    "score": 50
+  }
 ]
