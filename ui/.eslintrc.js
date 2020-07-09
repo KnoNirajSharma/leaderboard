@@ -11,8 +11,5 @@ module.exports = {
     },
   },
   plugins: ['@ionic'],
-  extends: ['plugin:@ionic/recommended'], // or use `plugin:@ionic/strict`
-  rules: {
-    // additional rule configuration
-  }
+  extends: ['plugin:@ionic/recommended']
 };
