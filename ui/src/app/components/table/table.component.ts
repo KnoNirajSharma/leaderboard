@@ -1,6 +1,7 @@
 import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {AuthorModel} from '../../models/author.model';
 import {Router} from '@angular/router';
+import {TableHeaderModel} from '../../models/tableHeader.model';
 
 @Component({
     selector: 'app-table',
@@ -11,6 +12,7 @@ import {Router} from '@angular/router';
 
 export class TableComponent implements OnInit {
     @Input() tableRows: AuthorModel[];
+    @Input() tableHeading: TableHeaderModel[];
     columns = [
         {
             name: 'Name',

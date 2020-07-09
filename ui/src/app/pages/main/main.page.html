@@ -18,7 +18,7 @@
                         {{ currentDate | date: 'MMM-yyyy'}}
                     </div>
                 </div>
-                <app-table [tableRows]="filteredEmpData"></app-table>
+                <app-table [tableHeading]="tableHeading" [tableRows]="filteredEmpData"></app-table>
             </ion-card>
         </div>
     </div>
