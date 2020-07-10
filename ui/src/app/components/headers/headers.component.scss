@@ -1,56 +1,49 @@
-ion-header {
-  box-shadow: 0 0 34px -5px rgba(0,0,0,0.35);
+.header {
+  box-shadow: 0 0 34px -5px rgba(0, 0, 0, 0.35);
   height: 50px;
   background-color: #2B35A8;
   display: flex;
   align-items: center;
-  justify-content: center;
-
-  ion-title {
-    padding: 0 !important;
-    color: white;
-    text-align: left;
-    margin-left: auto;
-    margin-right: auto;
-
-    button {
-      font-size: 1.1em;
-      color: white;
-      background: transparent;
-    }
-
-    .arrow-left {
-      border: solid white;
-      border-width: 0 3px 3px 0;
-      display: inline-block;
-      transform: rotate(135deg);
-      -webkit-transform: rotate(135deg);
-      padding: 6px;
-    }
-
-    span {
-      margin-right: 10px;
-      font-size: 1.5em;
-      font-weight: bold;
-    }
-
-    .knoldus-logo {
-      height: 30px;
-    }
-  }
-
-  ion-toolbar {
-    --background: translucent;
-  }
 }
-@media only screen and (max-width: 992px) {
-  ion-header {
 
-    ion-title {
+.pointer {
+  cursor: pointer;
+}
 
-      span {
-        font-size: 1.4em;
-      }
-    }
-  }
+.back-btn-container {
+  width: 20px;
+  display: inline-block
+}
+
+button {
+  font-size: 1.1em;
+  color: white;
+  background: transparent;
+}
+
+.arrow-left {
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+  padding: 6px;
+}
+
+.logo {
+  height: 27px;
+  background-color: transparent;
+  margin-bottom: 4px;
+}
+
+.title {
+  font-size: 1.5em;
+  font-weight: bold;
+  background-color: transparent;
+  color: white;
+}
+
+.knoldus-logo {
+  height: 27px;
+  background-color: transparent;
 }

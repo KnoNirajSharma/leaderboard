@@ -6,7 +6,7 @@ import {Component, Input, OnInit} from '@angular/core';
     styleUrls: ['./headers.component.scss'],
 })
 export class HeadersComponent implements OnInit {
-    @Input() title: string;
+    @Input() title = 'LEADERBOARD';
     @Input() backBtn: boolean;
     @Input() backBtnLink: string;
 
