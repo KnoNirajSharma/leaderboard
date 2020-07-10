@@ -1,25 +1,29 @@
 <div class="table-block">
     <div class="table-block-content">
         <div class="table-responsive">
-            <div>
-                <ngx-datatable [columnMode]="'force'" [columns]="columns" [headerHeight]="50" [rowHeight]="'auto'"
-                               [limit]="15" [footerHeight]="50" [rows]="tableRows" [scrollbarH]="true"
-                               (activate)="onActivate($event)" class="material d-none d-sm-block">
+            <div class="d-none d-sm-block">
+                <ngx-datatable (activate)="onActivate($event)" [columnMode]="'force'" [columns]="columns" [footerHeight]="50"
+                               [headerHeight]="50" [limit]="15" [rowHeight]="'auto'" [rows]="tableRows"
+                               [scrollbarH]="true" class="material">
                 </ngx-datatable>
             </div>
-            <ion-card class="d-block d-sm-none d-md-none d-lg-none" *ngFor="let row of tableRows">
-                <div class="grid-container">
-                    <div class="item1"> <ion-row *ngFor="let head of tableHeading">{{head.title}}</ion-row></div>
-                    <div class="item2">
-                        <ion-row>{{row.knolderName}}</ion-row>
-                        <ion-row>{{row.monthlyRank}}</ion-row>
-                        <ion-row>{{row.monthlyScore}}</ion-row>
-                        <ion-row>{{row.allTimeRank}}</ion-row>
-                        <ion-row>{{row.allTimeScore}}</ion-row>
-                        <ion-row>{{row.quarterlyStreak}}</ion-row>
+            <ion-list>
+                <ion-card *ngFor="let row of tableRows" class="d-block d-sm-none d-md-none d-lg-none">
+                    <div class="grid-container">
+                        <div class="item1">
+                            <ion-row *ngFor="let head of tableHeading">{{head.title}}</ion-row>
+                        </div>
+                        <div class="item2">
+                            <ion-row>{{row.knolderName}}</ion-row>
+                            <ion-row>{{row.monthlyRank}}</ion-row>
+                            <ion-row>{{row.monthlyScore}}</ion-row>
+                            <ion-row>{{row.allTimeRank}}</ion-row>
+                            <ion-row>{{row.allTimeScore}}</ion-row>
+                            <ion-row>{{row.quarterlyStreak}}</ion-row>
+                        </div>
                     </div>
-                </div>
-            </ion-card>
+                </ion-card>
+            </ion-list>
         </div>
     </div>
 </div>

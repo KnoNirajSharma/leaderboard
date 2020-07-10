@@ -110,22 +110,6 @@
   }
 }
 
-.table-header-style {
-  color: black;
-  font-weight: bold;
-  font-size: 1.1em;
-}
-
-.table-cell-style {
-  color: black;
-  font-size: 1em;
-  padding: 10px 0;
-}
-
-thead h6 p div, .vertical {
-  writing-mode: vertical-rl;
-}
-
 .grid-container {
   display: grid;
   grid-template-columns: auto auto auto auto;
@@ -138,8 +122,8 @@ thead h6 p div, .vertical {
 .grid-container > div {
   background-color: rgba(255, 255, 255, 0.8);
   text-align: center;
-  padding: 20px 0;
-  font-size: 0.95em;
+  padding: 1.25rem 0;
+  font-size: 0.75rem;
 }
 
 .item1 {
@@ -152,17 +136,17 @@ thead h6 p div, .vertical {
 
     .table-block-content {
       ngx-datatable-column {
-        padding: 10px;
-        font-size: 1em;
+        padding: 0.625rem;
+        font-size: 0.625rem;
       }
 
       ngx-datatable-row-detail {
-        padding: 10px;
-        font-size: 1em;
+        padding: 0.625rem;
+        font-size: 0.625rem;
       }
 
-      .grid-container{
-        font-size: 1em;
+      .grid-container {
+        font-size: 0.625rem;
       }
     }
   }
