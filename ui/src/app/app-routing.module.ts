@@ -1,11 +1,12 @@
-import {NgModule} from '@angular/core';
-import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
     {
         path: '',
         redirectTo: '/',
-        pathMatch: 'full'},
+        pathMatch: 'full'
+    },
     {
         path: '',
         loadChildren: './pages/main/main.module#MainPageModule'
@@ -17,9 +18,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [
-        RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules})
-    ],
+    imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
     exports: [RouterModule]
 })
 export class AppRoutingModule {
