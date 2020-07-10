@@ -1,10 +1,9 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {IonicModule} from '@ionic/angular';
-
-import {VerticalBarGraphComponent} from './vertical-bar-graph.component';
-import {Component} from '@angular/core';
-import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {Component} from '@angular/core';
+import {IonicModule} from '@ionic/angular';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
+import {VerticalBarGraphComponent} from './vertical-bar-graph.component';
 
 describe('VeritcalBarGraphComponent', () => {
     let component: VerticalBarGraphComponent;

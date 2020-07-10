@@ -1,16 +1,16 @@
 import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
-import {IonicModule} from '@ionic/angular';
-import {DetailsPage} from './details.page';
-import {of} from 'rxjs';
-import {KnolderDetailsModel} from '../../models/knolder-details.model';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {RouterTestingModule} from '@angular/router/testing';
-import {EmployeeActivityService} from '../../services/employee-activity.service';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {By} from '@angular/platform-browser';
 import {ComponentsModule} from '../../components/components.module';
+import {DetailsPage} from './details.page';
+import {EmployeeActivityService} from '../../services/employee-activity.service';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {IonicModule} from '@ionic/angular';
+import {KnolderDetailsModel} from '../../models/knolder-details.model';
 import {LoadingControllerService} from '../../services/loading-controller.service ';
+import {of} from 'rxjs';
+import {RouterTestingModule} from '@angular/router/testing';
 
 
 describe('DetailsPage', () => {
