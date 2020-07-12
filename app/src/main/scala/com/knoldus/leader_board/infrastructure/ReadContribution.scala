@@ -12,4 +12,6 @@ trait ReadContribution {
   def fetchKnoldersWithQuarterSecondMonthContributions: List[GetCount]
 
   def fetchKnoldersWithQuarterThirdMonthContributions: List[GetCount]
+
+  def fetchKnoldersWithTwelveMonthContributions(month: Int, year: Int, knolderId: Int): Option[Int]
 }
