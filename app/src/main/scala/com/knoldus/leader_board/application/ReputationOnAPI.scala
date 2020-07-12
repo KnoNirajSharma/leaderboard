@@ -14,4 +14,6 @@ trait ReputationOnAPI {
 
   def displayReputationOnAPI: Future[Http.ServerBinding]
 
+  def twelveMonthsRoute: Route
+
 }
