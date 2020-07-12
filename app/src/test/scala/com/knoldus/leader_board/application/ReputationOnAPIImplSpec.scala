@@ -76,7 +76,7 @@ class ReputationOnAPIImplSpec extends AnyWordSpecLike with MockitoSugar with Mat
     "display twelve months details details of knolder  with knolder id to routed path" in {
       when(mockTwelveMonthsDetails.lastTwelveMonthsScore(1, 1)).thenReturn(twelveMonthDetails)
 
-      Get("/twelvemonths/1") ~> Route.seal(reputationOnAPI.twelveMonthsRoute) ~> check {
+      Get("/reputation/twelvemonths/1") ~> Route.seal(reputationOnAPI.twelveMonthsRoute) ~> check {
         responseAs[String] shouldEqual compactRender(decompose(twelveMonthDetails))
       }
 
@@ -84,7 +84,7 @@ class ReputationOnAPIImplSpec extends AnyWordSpecLike with MockitoSugar with Mat
     "display twelve months details of knolder  of non existing knolder id id to routed path" in {
       when(mockTwelveMonthsDetails.lastTwelveMonthsScore(0, 1)).thenReturn(None)
 
-      Get("/twelvemonths/0") ~> Route.seal(reputationOnAPI.twelveMonthsRoute) ~> check {
+      Get("/reputation/twelvemonths/0") ~> Route.seal(reputationOnAPI.twelveMonthsRoute) ~> check {
         status shouldEqual StatusCodes.NotFound
       }
     }

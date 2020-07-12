@@ -112,7 +112,7 @@ class ReputationOnAPIImpl(readContribution: TwelveMonthsContribution, fetchKnold
   override def twelveMonthsRoute: Route = {
     logger.info("Displaying twelve months details of particular knolder on API.")
     cors(settings = CorsSettings.defaultSettings) {
-      path("twelvemonths" / IntNumber) { id =>
+      path("reputation" / "twelvemonths"/ IntNumber) { id =>
         get {
           readContribution.lastTwelveMonthsScore(id, 1) match {
             case Some(value) => complete(HttpEntity(ContentTypes.`application/json`,
