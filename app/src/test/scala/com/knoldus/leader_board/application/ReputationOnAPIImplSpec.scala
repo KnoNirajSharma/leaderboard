@@ -4,7 +4,7 @@ import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.server.Route
 import akka.http.scaladsl.testkit.ScalatestRouteTest
 import com.knoldus.leader_board.business.TwelveMonthsContribution
-import com.knoldus.leader_board.infrastructure.{FetchKnolderDetails, FetchReputation}
+import com.knoldus.leader_board.infrastructure.{FetchCountWithReputation, FetchKnolderDetails, FetchReputation}
 import com.knoldus.leader_board._
 import com.typesafe.config.ConfigFactory
 import net.liftweb.json.Extraction.decompose
@@ -15,7 +15,7 @@ import org.scalatest.wordspec.AnyWordSpecLike
 
 class ReputationOnAPIImplSpec extends AnyWordSpecLike with MockitoSugar with Matchers with ScalatestRouteTest {
   implicit val formats: DefaultFormats.type = net.liftweb.json.DefaultFormats
-  val mockFetchReputation: FetchReputation = mock[FetchReputation]
+  val mockFetchReputation: FetchCountWithReputation = mock[FetchCountWithReputation]
   val mockFetchKnolderDetails: FetchKnolderDetails = mock[FetchKnolderDetails]
   val mockTwelveMonthsDetails = mock[TwelveMonthsContribution]
   val reputationOnAPI: ReputationOnAPI = new ReputationOnAPIImpl(mockTwelveMonthsDetails, mockFetchKnolderDetails, mockFetchReputation,
@@ -30,7 +30,7 @@ class ReputationOnAPIImplSpec extends AnyWordSpecLike with MockitoSugar with Mat
   val contributions = List(blogDetails)
   val knolderDetails: Option[KnolderDetails] = Option(KnolderDetails("Mukesh Gupta", 10, contributions))
   val twelveMonthDetails = Option(List(TwelveMonthsScore("JUNE", 2020, 30)))
-  when(mockFetchReputation.fetchReputation).thenReturn(Option(ReputationCountAndReputation(1, 1, 1, 1, reputations)))
+  when(mockFetchReputation.allTimeAndMonthlyContributionCountWithReputation).thenReturn(Option(ReputationCountAndReputation(1, 1, 1, 1, reputations)))
   "The service" should {
     "display reputation of knolders to routed path" in {
       Get("/reputation") ~> reputationOnAPI.reputationRoute ~> check {

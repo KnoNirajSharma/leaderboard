@@ -1,7 +1,7 @@
 package com.knoldus.leader_board.infrastructure
 
-import com.knoldus.leader_board.ReputationCountAndReputation
+import com.knoldus.leader_board.Reputation
 
 trait FetchReputation {
-  def fetchReputation: Option[ReputationCountAndReputation]
+  def fetchReputation: List[Reputation]
 }

@@ -4,12 +4,16 @@ import java.sql.{Connection, PreparedStatement}
 
 import com.knoldus.leader_board.{DatabaseConnection, Reputation, ReputationCountAndReputation}
 import com.typesafe.config.ConfigFactory
+import org.mockito.MockitoSugar
+import org.scalatest.matchers.should.Matchers
 import org.scalatest.{BeforeAndAfterEach, DoNotDiscover}
 
 @DoNotDiscover
-class FetchReputationImplSpec extends DBSpec with BeforeAndAfterEach {
+class FetchCountWithReputationImplSpec extends DBSpec with BeforeAndAfterEach with MockitoSugar with Matchers {
   implicit val connection: Connection = DatabaseConnection.connection(ConfigFactory.load())
-  val fetchReputation: FetchReputation = new FetchReputationImpl(ConfigFactory.load())
+  val mockFetchReputation: FetchReputation = mock[FetchReputation]
+  val fetchReputationWithCount=new FetchCountWithReputationImpl(ConfigFactory.load(),mockFetchReputation)
+
 
   override def afterEach(): Unit = {
     cleanUpDatabase(connection)
@@ -19,9 +23,9 @@ class FetchReputationImplSpec extends DBSpec with BeforeAndAfterEach {
     createTable(connection)
   }
 
-  "fetch reputation" should {
+  "fetch reputation with count" should {
 
-    "return reputation of each knolder" in {
+    "return reputation of each knolder with all time and monthly count" in {
       val insertAllTimeReputationData1: String =
         """
           |insert into all_time_reputation(id, knolder_id, score, rank)
@@ -192,9 +196,11 @@ class FetchReputationImplSpec extends DBSpec with BeforeAndAfterEach {
 
       val reputations = List(Reputation(1, "Mukesh Gupta", 10, 1, "15-20-20", 10, 1),
         Reputation(2, "Abhishek Baranwal", 5, 2, "10-10-15", 5, 2))
+      when(mockFetchReputation.fetchReputation).thenReturn(reputations)
+
       val monthlyCountAndReputation = Option(ReputationCountAndReputation(0, 0, 0, 0, reputations))
 
-      assert(fetchReputation.fetchReputation == reputations)
+      assert(fetchReputationWithCount.allTimeAndMonthlyContributionCountWithReputation == monthlyCountAndReputation)
     }
   }
 }
