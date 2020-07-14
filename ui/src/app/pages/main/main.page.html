@@ -74,10 +74,10 @@
                         <input (keyup)="filterEmp()" [formControl]="searchBar"
                                class="search form-control" placeholder="Search..." type="text">
                     </label>
-                    <div class="col-4 col-md-2 col-sm-2 col-lg-2 ml-auto my-auto text-center current-month">
+                    <div class="col-4 col-md-2 col-sm-2 col-lg-2 ml-3 my-auto text-center current-month">
                         {{ currentDate | date: 'MMM-yyyy'}}
                     </div>
-                    <div class="col-8 col-sm-5 col-md-4 col-lg-3 text-center scoring">
+                    <div class="col-6 col-sm-5 col-md-4 col-lg-3 ml-2 ml-sm-auto my-auto text-center scoring">
                         <div class="popover-wrapper">
                             <a href="#">
                                 <h2 class="popover-title">Scoring</h2>
@@ -97,21 +97,31 @@
                                     <tr>
                                         <td>Knolx</td>
                                         <td>10</td>
-                                        <td>N</td>
+                                        <td>Y</td>
                                     </tr>
                                     <tr>
                                         <td>Webinars</td>
-                                        <td>10</td>
-                                        <td>N</td>
-                                    </tr>
-                                    <tr>
-                                        <td>OS Contributions</td>
-                                        <td>10</td>
+                                        <td>N/A</td>
                                         <td>N</td>
                                     </tr>
                                     <tr>
                                         <td>TechHub Templates</td>
-                                        <td>5</td>
+                                        <td>N/A</td>
+                                        <td>N</td>
+                                    </tr>
+                                    <tr>
+                                        <td>OS Contributions</td>
+                                        <td>N/A</td>
+                                        <td>N</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Books/Papers</td>
+                                        <td>N/A</td>
+                                        <td>N</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Conferences</td>
+                                        <td>N/A</td>
                                         <td>N</td>
                                     </tr>
                                 </table>
