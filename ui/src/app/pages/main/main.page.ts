@@ -3,6 +3,7 @@ import {AuthorModel} from '../../models/author.model';
 import {EmployeeActivityService} from '../../services/employee-activity.service';
 import {FormControl} from '@angular/forms';
 import {EmployeeFilterPipe} from '../../pipe/employee-filter.pipe';
+import {TableHeaderModel} from '../../models/tableHeader.model';
 import {ReputationModel} from '../../models/reputation.model';
 
 @Component({
@@ -18,8 +19,8 @@ export class MainPage implements OnInit {
     filteredEmpData: AuthorModel[];
     today: Date = new Date();
     currentDate: Date;
+    tableHeading: TableHeaderModel[];
     reputation: ReputationModel;
-
 
     constructor(private service: EmployeeActivityService) {
     }
@@ -32,6 +33,14 @@ export class MainPage implements OnInit {
                 this.filteredEmpData = this.employeeData;
             });
         this.currentDate = new Date();
+        this.tableHeading = [
+            {title: 'Name'},
+            {title: 'Monthly Rank'},
+            {title: 'Monthly Score'},
+            {title: 'Overall Rank'},
+            {title: 'Overall Score'},
+            {title: '3 Month Streak'}
+        ];
     }
 
     filterEmp() {
