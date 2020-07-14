@@ -3,6 +3,7 @@ import {AuthorModel} from '../../models/author.model';
 import {EmployeeActivityService} from '../../services/employee-activity.service';
 import {FormControl} from '@angular/forms';
 import {EmployeeFilterPipe} from '../../pipe/employee-filter.pipe';
+import {ReputationModel} from '../../models/reputation.model';
 
 @Component({
     selector: 'app-main',
@@ -17,6 +18,7 @@ export class MainPage implements OnInit {
     filteredEmpData: AuthorModel[];
     today: Date = new Date();
     currentDate: Date;
+    reputation: ReputationModel;
 
 
     constructor(private service: EmployeeActivityService) {
@@ -24,8 +26,9 @@ export class MainPage implements OnInit {
 
     ngOnInit() {
         this.service.getData()
-            .subscribe((data: AuthorModel[]) => {
-                this.employeeData = data;
+            .subscribe((data: ReputationModel) => {
+                this.reputation = data;
+                this.employeeData = this.reputation.reputationData;
                 this.filteredEmpData = this.employeeData;
             });
         this.currentDate = new Date();
