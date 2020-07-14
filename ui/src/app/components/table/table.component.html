@@ -14,7 +14,9 @@
                             <ion-row *ngFor="let head of tableHeading">{{head.title}}</ion-row>
                         </div>
                         <div class="item2">
-                            <ion-row>{{row.knolderName}}</ion-row>
+                            <ion-row>{{row.knolderName}}<img *ngIf="row.monthlyRank <= 3"
+                                                             alt="trophy-image" class="image-size"
+                                                             src="../../../assets/icon/icons-trophy.png"/></ion-row>
                             <ion-row>{{row.monthlyRank}}</ion-row>
                             <ion-row>{{row.monthlyScore}}</ion-row>
                             <ion-row>{{row.allTimeRank}}</ion-row>
