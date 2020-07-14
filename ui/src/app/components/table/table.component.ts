@@ -12,24 +12,13 @@ import {Router} from '@angular/router';
 export class TableComponent implements OnInit {
     @Input() tableRows: AuthorModel[];
     columns = [
-        {
-            name: 'Name',
-            prop: 'knolderName',
-            sortable: false,
-            headerClass: 'table-header-style',
-            cellClass: 'table-cell-style'
-        },
-        {name: 'Monthly Rank', prop: 'monthlyRank', headerClass: 'table-header-style', cellClass: 'table-cell-style'},
-        {name: 'Monthly Score', prop: 'monthlyScore', headerClass: 'table-header-style', cellClass: 'table-cell-style'},
-        {name: 'Overall Rank', prop: 'allTimeRank', headerClass: 'table-header-style', cellClass: 'table-cell-style'},
-        {name: 'Overall Score', prop: 'allTimeScore', headerClass: 'table-header-style', cellClass: 'table-cell-style'},
-        {
-            name: '3 Month Streak',
-            prop: 'quarterlyStreak',
-            sortable: false,
-            headerClass: 'table-header-style',
-            cellClass: 'table-cell-style'
-        }];
+        {name: 'Name', prop: 'knolderName'},
+        {name: 'Monthly Rank', prop: 'monthlyRank'},
+        {name: 'Monthly Score', prop: 'monthlyScore'},
+        {name: 'Overall Rank', prop: 'allTimeRank'},
+        {name: 'Overall Score', prop: 'allTimeScore'},
+        {name: '3 Month Streak', prop: 'quarterlyStreak',}
+        ];
 
     constructor(public router: Router) {
     }

@@ -14,7 +14,7 @@
                         [scrollbarH]="true"
                         class="material">
 
-                    <ngx-datatable-column [sortable]=false name="knolderName">
+                    <ngx-datatable-column headerClass="table-header-style" cellClass="table-cell-style" [sortable]=false name="knolderName">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             Name
                         </ng-template>
@@ -24,7 +24,7 @@
                         </ng-template>
                     </ngx-datatable-column>
 
-                    <ngx-datatable-column name="monthlyRank">
+                    <ngx-datatable-column name="monthlyRank"  headerClass="table-header-style" cellClass="table-cell-style">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             Monthly Rank
                         </ng-template>
@@ -33,7 +33,7 @@
                         </ng-template>
                     </ngx-datatable-column>
 
-                    <ngx-datatable-column name="monthlyScore">
+                    <ngx-datatable-column  name="monthlyScore" headerClass="table-header-style" cellClass="table-cell-style">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             Monthly Score
                         </ng-template>
@@ -42,7 +42,7 @@
                         </ng-template>
                     </ngx-datatable-column>
 
-                    <ngx-datatable-column name="allTimeRank">
+                    <ngx-datatable-column name="allTimeRank" headerClass="table-header-style" cellClass="table-cell-style">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             Overall Rank
                         </ng-template>
@@ -51,7 +51,7 @@
                         </ng-template>
                     </ngx-datatable-column>
 
-                    <ngx-datatable-column name="allTimeScore">
+                    <ngx-datatable-column name="allTimeScore" headerClass="table-header-style" cellClass="table-cell-style">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             Overall Score
                         </ng-template>
@@ -60,7 +60,7 @@
                         </ng-template>
                     </ngx-datatable-column>
 
-                    <ngx-datatable-column [sortable]=false name="quarterlyStreak">
+                    <ngx-datatable-column [sortable]=false name="quarterlyStreak" headerClass="table-header-style" cellClass="table-cell-style">
                         <ng-template let-column="column" ngx-datatable-header-template>
                             3-month-streak
                         </ng-template>
