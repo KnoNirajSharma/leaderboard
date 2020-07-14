@@ -14,21 +14,27 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {By} from '@angular/platform-browser';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import {ComponentsModule} from '../../components/components.module';
+import {ReputationModel} from '../../models/reputation.model';
 
 describe('MainPage', () => {
     let component: MainPage;
     let fixture: ComponentFixture<MainPage>;
     let mockEmployeeService: EmployeeActivityService;
-    const dummyAuthorData: AuthorModel[] = [
-        {
-            knolderId: 1,
-            knolderName: 'mark',
-            allTimeScore: 10,
-            allTimeRank: 2,
-            quarterlyStreak: '5-6-7',
-            monthlyScore: 7,
-            monthlyRank: 1
-        }, {
+    const dummyReputationData: ReputationModel = {
+            monthlyBlogCount: 2,
+            monthlyKnolxCount: 2,
+            allTimeBlogCount: 3,
+            allTimeKnolxCount: 2,
+            reputationData: [
+                {
+                    knolderId: 1,
+                    knolderName: 'mark',
+                    allTimeScore: 10,
+                    allTimeRank: 2,
+                    quarterlyStreak: '5-6-7',
+                    monthlyScore: 7,
+                    monthlyRank: 1
+                }, {
             knolderId: 2,
             knolderName: 'sam',
             allTimeScore: 15,
@@ -37,7 +43,8 @@ describe('MainPage', () => {
             monthlyScore: 5,
             monthlyRank: 2
         }
-    ];
+    ]
+};
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -62,9 +69,9 @@ describe('MainPage', () => {
     });
 
     it('should return the authorData as per api call', () => {
-        spyOn(mockEmployeeService, 'getData').and.returnValue(of(dummyAuthorData));
+        spyOn(mockEmployeeService, 'getData').and.returnValue(of(dummyReputationData));
         component.ngOnInit();
-        expect(component.employeeData).toEqual(dummyAuthorData);
+        expect(component.employeeData).toEqual(dummyReputationData.reputationData);
     });
 
     it('should call the filterEmp on keyup', () => {
@@ -78,9 +85,9 @@ describe('MainPage', () => {
 
     it('should filter Employee', () => {
         component.empFilterPipe = new EmployeeFilterPipe();
-        component.employeeData = dummyAuthorData;
+        component.employeeData = dummyReputationData.reputationData;
         component.searchBar.setValue('mark');
         component.filterEmp();
-        expect(component.filteredEmpData).toEqual([dummyAuthorData[0]]);
+        expect(component.filteredEmpData).toEqual([dummyReputationData.reputationData[0]]);
     });
 });

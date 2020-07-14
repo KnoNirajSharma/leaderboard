@@ -106,4 +106,24 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
       .map(rs => GetCount(rs.int("id"), rs.string("full_name"),
         rs.int("blog_count"), rs.int("knolx_count"))).list.apply()
   }
+
+  /**
+   * fetching score of given month and year of specific knolder.
+   *
+   * @return score of the month of specific knolder.
+   */
+
+  override def fetchKnoldersWithTwelveMonthContributions(month: Int, year: Int, knolderId: Int): Option[Int] = {
+    logger.info("Fetching score of specific month of knolder.")
+
+    SQL(s"SELECT knolder.full_name, COUNT(DISTINCT blog.title) * ${config.getInt("scorePerBlog")} + " +
+      s"COUNT(DISTINCT knolx.title) * ${config.getInt("scorePerKnolx")} AS score FROM knolder LEFT JOIN blog ON " +
+      "knolder.wordpress_id = blog.wordpress_id AND EXTRACT(month FROM blog.published_on) = ? AND EXTRACT(year FROM " +
+      "blog.published_on) = ? LEFT JOIN knolx ON knolder.email_id = knolx.email_id AND EXTRACT(month FROM " +
+      "knolx.delivered_on) = ? AND EXTRACT(year FROM knolx.delivered_on) = ? WHERE knolder.id = ? GROUP BY " +
+      "knolder.full_name")
+      .bind(month, year, month, year, knolderId)
+      .map(rs => rs.int("score"))
+      .single().apply()
+  }
 }
