@@ -1,17 +1,16 @@
 import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
-import {IonicModule} from '@ionic/angular';
-
-import {DetailsPage} from './details.page';
-import {of} from 'rxjs';
-import {KnolderDetailsModel} from '../../models/knolder-details.model';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {RouterTestingModule} from '@angular/router/testing';
-import {EmployeeActivityService} from '../../services/employee-activity.service';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {By} from '@angular/platform-browser';
 import {ComponentsModule} from '../../components/components.module';
+import {DetailsPage} from './details.page';
+import {EmployeeActivityService} from '../../services/employee-activity.service';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {IonicModule} from '@ionic/angular';
+import {KnolderDetailsModel} from '../../models/knolder-details.model';
 import {LoadingControllerService} from '../../services/loading-controller.service ';
+import {of} from 'rxjs';
+import {RouterTestingModule} from '@angular/router/testing';
 
 
 describe('DetailsPage', () => {
@@ -36,6 +35,19 @@ describe('DetailsPage', () => {
             }
         ]
     };
+
+    const dummyTrendsData = [
+        {
+            month: 'JUNE',
+            year: 2020,
+            score: 4
+        },
+        {
+            month: 'JULY',
+            year: 2020,
+            score: 6
+        }
+    ];
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -93,4 +105,10 @@ describe('DetailsPage', () => {
         fixture.detectChanges();
         expect(loadingControllerService.present).toHaveBeenCalled();
     }));
+
+    it('should return the trendsData as per api call', () => {
+        spyOn(mockEmployeeService, 'getTrendsData').and.returnValue(of(dummyTrendsData));
+        component.ngOnInit();
+        expect(component.trendsData).toEqual(dummyTrendsData);
+    });
 });
