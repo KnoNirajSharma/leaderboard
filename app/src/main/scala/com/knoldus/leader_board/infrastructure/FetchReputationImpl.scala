@@ -18,6 +18,7 @@ class FetchReputationImpl(config: Config) extends FetchReputation with LazyLoggi
    */
   override def fetchReputation: List[Reputation] = {
     logger.info("Fetching reputation of each knolder.")
+
     SQL("SELECT knolder.id, knolder.full_name, all_time_reputation.score AS allTimeScore, all_time_reputation.rank " +
       "AS allTimeRank, quarterly_reputation.streak AS quarterlyStreak, monthly_reputation.score AS monthlyScore, " +
       "monthly_reputation.rank AS monthlyRank from knolder INNER JOIN all_time_reputation ON knolder.id = " +

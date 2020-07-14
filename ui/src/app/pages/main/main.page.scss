@@ -45,17 +45,131 @@ ion-content {
   height: 100vh;
 
   ion-card {
-    box-shadow: 0px 0px 34px -15px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 0 34px -15px rgba(0, 0, 0, 0.35);
     background-color: white;
   }
 }
 
-@media only screen and (max-width: 768px)  {
+a {
+  text-decoration: none;
+}
+
+.popover-title {
+  margin-top: -1.25rem;
+  font-size: 1.25em;
+  text-decoration: none;
+  color: #0074D9;
+  text-align: center;
+  padding: 15px 0;
+}
+
+.popover-wrapper {
+  position: relative;
+  margin-top: 1.5rem;
+  display: inline-block;
+}
+
+.popover-content {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  left: -9.375rem;
+  transform: translate(0, 10px);
+  background-color: white;
+  color: black;
+  padding: 1.5rem;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  width: auto;
+}
+
+.popover-content:before {
+  position: absolute;
+  z-index: -1;
+  content: "";
+  right: calc(50% - 10px);
+  top: -0.2rem;
+  border-style: solid;
+  border-width: 0 10px 10px 10px;
+  border-color: transparent transparent #bfbfbf transparent;
+  transition-duration: 0.3s;
+  transition-property: transform;
+}
+
+.popover-wrapper:hover .popover-content {
+  z-index: 10;
+  opacity: 1;
+  visibility: visible;
+  transform: translate(0, -20px);
+  transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
+}
+
+.popover-message {
+  text-align: center;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table, td, th {
+  border: 1px solid black;
+  padding: 5px;
+}
+
+.total-count-bar {
+  font-size: .9em;
+  box-shadow: 0px 0px 34px -15px rgba(0, 0, 0, 0.35);
+}
+
+.bar-container {
+  position: relative;
+}
+
+.bar-tooltip {
+  visibility: hidden;
+  background-color: white;
+  position: absolute;
+  border: 1px solid blue;
+  z-index: 1;
+  top: 100%;
+  left: 70%;
+  margin-top: 10px;
+  margin-left: -60px;
+
+  .bar-tooltip-legend {
+    font-size: 11px;
+
+    div {
+      margin-right: 10px;
+      display: inline-block;
+      height: 10px;
+      width: 10px;
+    }
+
+  }
+}
+
+.bar-container:hover .bar-tooltip {
+  visibility: visible;
+}
+
+@media only screen and (max-width: 768px) {
   .main-container {
     .main-content {
-      .current-month {
+      .current-month .scoring {
         font-size: 1em;
       }
     }
+  }
+}
+
+
+@media only screen and (max-width: 576px) {
+  .total-count-bar {
+    font-size: .95em
+  }
+
+  .contribution-count {
+    font-size: 0.75em;
   }
 }

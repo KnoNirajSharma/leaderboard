@@ -6,6 +6,7 @@ import {FormControl} from '@angular/forms';
 import {BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
 import {ScoreBreakDownModel} from '../../models/ScoreBreakDown.model';
 import {LoadingControllerService} from '../../services/loading-controller.service ';
+import {TrendsModel} from '../../models/trends.model';
 
 @Component({
     selector: 'app-details',
@@ -24,6 +25,7 @@ export class DetailsPage implements OnInit {
         'August', 'September', 'October', 'November', 'December'];
     pieChartData: ScoreBreakDownModel[] = [];
     allTimeSelected: boolean;
+    trendsData: TrendsModel[];
 
     constructor(private route: ActivatedRoute,
                 private service: EmployeeActivityService,
@@ -49,6 +51,10 @@ export class DetailsPage implements OnInit {
         this.dpConfig.minMode = 'month';
         this.allTimeSelected = false;
         this.getMonthlyDetails(this.monthList[this.currentDate.getMonth()], this.currentDate.getFullYear());
+        this.service.getTrendsData()
+            .subscribe((data: TrendsModel[]) => {
+                this.trendsData = data;
+            });
         this.service.getAllTimeDetails(this.knolderId)
             .subscribe((data: KnolderDetailsModel) => {
                 this.allTimeDetails = data;
