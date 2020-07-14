@@ -9,6 +9,7 @@ describe('EmployeeActivityService', () => {
     let employeeActivityService: EmployeeActivityService;
     let httpTestingController: HttpTestingController;
     const url = `${environment.api.baseUrl}${environment.api.routes.author.endpoint}`;
+    const trendsUrl = environment.api.routes.trends.endpoint;
 
     const dummyReputationData: ReputationModel = {
         monthlyBlogCount: 2,
@@ -52,6 +53,19 @@ describe('EmployeeActivityService', () => {
             }
         ]
     };
+
+    const dummyTrendsData = [
+        {
+            month: 'JUNE',
+            year: 2020,
+            score: 3
+        },
+        {
+            month: 'JULY',
+            year: 2020,
+            score: 3
+        }
+    ];
     const id = 1;
     const month = 'june';
     const year = 2020;
@@ -97,6 +111,15 @@ describe('EmployeeActivityService', () => {
         const requestCheck = httpTestingController.expectOne(url + '/' + id);
         expect(requestCheck.request.method).toBe('GET');
         requestCheck.flush(dummyDetailData);
+    });
+
+    it('should retrieve knolder 12 month trends data from the API via GET', () => {
+        employeeActivityService.getTrendsData().subscribe(data => {
+            expect(data).toEqual(dummyTrendsData);
+        });
+        const requestCheck = httpTestingController.expectOne(trendsUrl);
+        expect(requestCheck.request.method).toBe('GET');
+        requestCheck.flush(dummyTrendsData);
     });
 
     afterEach(() => {
