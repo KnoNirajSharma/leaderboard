@@ -105,31 +105,51 @@
   }
 }
 
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-gap: 0;
+  background-color: white;
+  padding: 0.5rem;
+  color: black;
+}
+
+.grid-container > div {
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  padding: 0.5rem 0;
+  font-size: 0.75rem;
+}
+
+.item1 {
+  grid-row: 1 / 2;
+  font-weight: bold;
+}
+
+.image-size {
+  margin-top: 0.2rem;
+  height: 0.60rem;
+  width: 1rem;
+}
+
 @media only screen and (max-width: 720px) {
   .table-block {
 
     .table-block-content {
       ngx-datatable-column {
-        padding: 10px;
-        font-size: 1em;
+        padding: 0.625rem;
+        font-size: 0.625rem;
       }
 
       ngx-datatable-row-detail {
-        padding: 10px;
-        font-size: 1em;
+        padding: 0.625rem;
+        font-size: 0.625rem;
+      }
+
+      .grid-container {
+        font-size: 0.625rem;
       }
     }
   }
 }
 
-.table-header-style {
-  color: black;
-  font-weight: bold;
-  font-size: 1.1em;
-}
-
-.table-cell-style {
-  color: black;
-  font-size: 1em;
-  padding: 10px 0;
-}

@@ -1,7 +1,7 @@
 <div class="table-block">
     <div class="table-block-content">
         <div class="table-responsive">
-            <div>
+            <div class="d-none d-sm-block">
                 <ngx-datatable
                         (activate)="onActivate($event)"
                         [columnMode]="'force'"
@@ -70,7 +70,25 @@
                     </ngx-datatable-column>
                 </ngx-datatable>
             </div>
+            <ion-list>
+                <ion-card *ngFor="let row of tableRows" class="mt-0 d-block d-sm-none d-md-none d-lg-none">
+                    <div class="grid-container" [routerLink]="['/details', row.knolderId]">
+                        <div class="item1">
+                            <ion-row *ngFor="let head of tableHeading">{{head.title}}</ion-row>
+                        </div>
+                        <div class="item2">
+                            <ion-row>{{row.knolderName}}<img *ngIf="row.monthlyRank <= 3"
+                                                             alt="trophy-image" class="image-size"
+                                                             src="../../../assets/icon/icons-trophy.png"/></ion-row>
+                            <ion-row>{{row.monthlyRank}}</ion-row>
+                            <ion-row>{{row.monthlyScore}}</ion-row>
+                            <ion-row>{{row.allTimeRank}}</ion-row>
+                            <ion-row>{{row.allTimeScore}}</ion-row>
+                            <ion-row>{{row.quarterlyStreak}}</ion-row>
+                        </div>
+                    </div>
+                </ion-card>
+            </ion-list>
         </div>
     </div>
 </div>
-

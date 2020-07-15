@@ -23,15 +23,14 @@ describe('HeadersComponent', () => {
     });
 
     it('should have title TEST', () => {
-        expect(component.title).toEqual('test');
+        expect(component.title).toEqual('LEADERBOARD');
     });
 
 });
 
 @Component({
     selector: 'parent',
-    template: '<app-headers [title] = "title"></app-headers>'
+    template: '<app-headers></app-headers>'
 })
 class ParentComponent {
-    title = 'test';
 }
