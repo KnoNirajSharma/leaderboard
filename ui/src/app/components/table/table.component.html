@@ -8,8 +8,8 @@
                 </ngx-datatable>
             </div>
             <ion-list>
-                <ion-card *ngFor="let row of tableRows" class="d-block d-sm-none d-md-none d-lg-none">
-                    <div class="grid-container">
+                <ion-card *ngFor="let row of tableRows" class="mt-0 d-block d-sm-none d-md-none d-lg-none">
+                    <div class="grid-container" [routerLink]="['/details', row.knolderId]">
                         <div class="item1">
                             <ion-row *ngFor="let head of tableHeading">{{head.title}}</ion-row>
                         </div>
