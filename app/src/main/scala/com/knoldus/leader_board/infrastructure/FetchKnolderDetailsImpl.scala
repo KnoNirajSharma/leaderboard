@@ -51,13 +51,13 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
     val contributions = List(blogDetails, knolxDetails)
 
     SQL(s"SELECT knolder.full_name, COUNT(DISTINCT blog.title) * ${config.getInt("scorePerBlog")} + " +
-      s"COUNT(DISTINCT knolx.title) * ${config.getInt("scorePerKnolx")} AS score FROM knolder LEFT JOIN blog ON " +
+      s"COUNT(DISTINCT knolx.title) * ${config.getInt("scorePerKnolx")} AS monthly_score FROM knolder LEFT JOIN blog ON " +
       "knolder.wordpress_id = blog.wordpress_id AND EXTRACT(month FROM blog.published_on) = ? AND EXTRACT(year FROM " +
       "blog.published_on) = ? LEFT JOIN knolx ON knolder.email_id = knolx.email_id AND EXTRACT(month FROM " +
       "knolx.delivered_on) = ? AND EXTRACT(year FROM knolx.delivered_on) = ? WHERE knolder.id = ? GROUP BY " +
       "knolder.full_name")
       .bind(month, year, month, year, knolderId)
-      .map(rs => KnolderDetails(rs.string("full_name"), rs.int("score"), contributions))
+      .map(rs => KnolderDetails(rs.string("full_name"), rs.int("monthly_score"), contributions))
       .single().apply()
   }
 
