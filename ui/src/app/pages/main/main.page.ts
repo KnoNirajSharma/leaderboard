@@ -29,7 +29,7 @@ export class MainPage implements OnInit {
         this.service.getData()
             .subscribe((data: ReputationModel) => {
                 this.reputation = data;
-                this.employeeData = this.reputation.reputationData;
+                this.employeeData = this.reputation.reputation;
                 this.filteredEmpData = this.employeeData;
             });
         this.currentDate = new Date();

@@ -132,6 +132,15 @@
   width: 1rem;
 }
 
+.table-header-style {
+  color: black;
+  font-weight: bolder;
+}
+
+.table-cell-style {
+  color: black;
+}
+
 @media only screen and (max-width: 720px) {
   .table-block {
 

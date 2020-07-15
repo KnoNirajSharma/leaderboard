@@ -12,7 +12,7 @@ import {TrendsModel} from '../models/trends.model';
 })
 export class EmployeeActivityService {
     private url = `${environment.api.baseUrl}${environment.api.routes.author.endpoint}`;
-    mockTrendUrl = environment.api.routes.trends.endpoint;
+    private trendUrl = `${environment.api.baseUrl}${environment.api.routes.trends.endpoint}`;
 
     constructor(private httpClient: HttpClient) {
     }
@@ -30,6 +30,6 @@ export class EmployeeActivityService {
     }
 
     getTrendsData(id: number): Observable<TrendsModel[]> {
-        return this.httpClient.get<TrendsModel[]>(this.mockTrendUrl);
+        return this.httpClient.get<TrendsModel[]>(this.trendUrl + '/' + id);
     }
 }

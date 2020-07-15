@@ -6,7 +6,7 @@ export const environment = {
         baseUrl: 'http://34.68.95.196:8000/',
         routes: {
             author: {endpoint: 'reputation', method: 'GET'},
-            trends: {endpoint: 'assets/data/trendsData.json', method: 'GET'}
+            trends: {endpoint: 'reputation/twelvemonths', method: 'GET'}
         }
     },
 

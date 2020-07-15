@@ -51,7 +51,7 @@ export class DetailsPage implements OnInit {
         this.dpConfig.minMode = 'month';
         this.allTimeSelected = false;
         this.getMonthlyDetails(this.monthList[this.currentDate.getMonth()], this.currentDate.getFullYear());
-        this.service.getTrendsData()
+        this.service.getTrendsData(this.knolderId)
             .subscribe((data: TrendsModel[]) => {
                 this.trendsData = data;
             });
