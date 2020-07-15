@@ -29,7 +29,7 @@ export class EmployeeActivityService {
         return this.httpClient.get<KnolderDetailsModel>(this.url + '/' + id + '?month=' + month + '&year=' + year);
     }
 
-    getTrendsData(): Observable<TrendsModel[]> {
+    getTrendsData(id: number): Observable<TrendsModel[]> {
         return this.httpClient.get<TrendsModel[]>(this.mockTrendUrl);
     }
 }

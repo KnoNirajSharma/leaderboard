@@ -114,7 +114,7 @@ describe('EmployeeActivityService', () => {
     });
 
     it('should retrieve knolder 12 month trends data from the API via GET', () => {
-        employeeActivityService.getTrendsData().subscribe(data => {
+        employeeActivityService.getTrendsData(id).subscribe(data => {
             expect(data).toEqual(dummyTrendsData);
         });
         const requestCheck = httpTestingController.expectOne(trendsUrl);
