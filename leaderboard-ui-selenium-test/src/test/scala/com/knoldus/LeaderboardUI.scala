@@ -1,5 +1,4 @@
 package com.knoldus
-
 import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
 import java.time.YearMonth
@@ -11,25 +10,21 @@ import org.openqa.selenium.interactions.Actions
 import org.scalatestplus.testng.TestNGSuite
 import org.testng.{Assert, Reporter}
 import org.testng.annotations.Test
-
 class LeaderboardUI extends TestNGSuite {
-
-//  val config: Config = ConfigFactory.load("application.conf")
-//  val DriverPath = config.getString("webDriverPath")
- // val Driver = config.getString("webDriver")
-  //val name = config.getString("knolderName")
-  //val url = config.getString("url")
-  //System.setProperty(Driver, DriverPath)
-  System.setProperty("webdriver.chrome.driver", "/home/knoldus/Downloads/chromedriver_linux64/chromedriver")
+  val config: Config = ConfigFactory.load("application.conf")
+  val DriverPath = config.getString("webDriverPath")
+  val Driver = config.getString("webDriver")
+  val name = config.getString("knolderName")
+  val url = config.getString("url")
+  System.setProperty(Driver, DriverPath)
   val driver = new ChromeDriver()
-
   @Test(priority = 0)
   def totalCountHeader(): Unit = {
     /**
      * method for extracting the cards template of Blogs, Knolx, Webinars, TechHub templates, OS contibutions, Books/Papers and Conferences
      */
     driver.manage().window().maximize()
-    driver.get("http://localhost:9200/")
+    driver.get(url)
     driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS)
     val cardName = driver.findElementsByCssSelector("div[class='my-1  mx-1 d-flex justify-content-between']")
     for (iterator <- 0 until cardName.size()) { // for fetching all the cards name
@@ -151,7 +146,6 @@ class LeaderboardUI extends TestNGSuite {
     sortButton.get(1).click() //sorting functionality of Monthly rank tables by clicking the sorting button
     Reporter.log("Monthly Rank Column is sortable")
     driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS)
-
     val rank = driver.findElementsByCssSelector("div[class='datatable-body-cell-label']")
     for (iterator <- 0 until rank.size()) {
     }
@@ -185,15 +179,11 @@ class LeaderboardUI extends TestNGSuite {
     driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS)
     val sortedScoreText = rank.get(4).getText.trim
     Assert.assertEquals(sortedScoreText, "5")
-    Thread.sleep(3000)
     val threeMonthStreak = driver.findElementByXPath("//*[@class='datatable-header-cell-template-wrap' and contains(text(),'3-month-streak')]")
     val threeMonthStreakText = threeMonthStreak.getText.trim
     Assert.assertEquals(threeMonthStreakText, "3-month-streak")
     Reporter.log("3 month Streak column is present")
-    Reporter.log("trophy sign is present against the name of the knolder")
-    ///changes
   }
-
   @Test(priority = 3)
   def searchBar(): Unit = {
     /**
@@ -201,10 +191,8 @@ class LeaderboardUI extends TestNGSuite {
      */
     driver.findElementByCssSelector("input[placeholder='Search...']").click() //To locate the search Bar
     Reporter.log("Search Bar is present")
-    driver.findElementByCssSelector("input[placeholder='Search...']").sendKeys("Ankur Thakur") //to search for a knolder through search bar
-    ///changes in name ^
-    Reporter.log("Knolder we searched for is Ankur Thakur")
-    ///changes in name ^
+    driver.findElementByCssSelector("input[placeholder='Search...']").sendKeys(name) //to search for a knolder through search bar
+    Reporter.log("Knolder we searched for is "+name)
     driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS)
     val details = driver.findElementsByCssSelector("div[class='datatable-body-cell-label']")
     for (iterator <- 0 until details.size()) { //for fetching the details of knolder whom we searched
@@ -215,18 +203,15 @@ class LeaderboardUI extends TestNGSuite {
     Reporter.log("Overall Score is " + details.get(4).getText)
     Reporter.log("3 Month Streak is " + details.get(5).getText)
   }
-
   @Test(priority = 4)
   def knolderDetails(): Unit = {
     /**
      * method to check for the knolder details by clicking on the knolder's name and
      */
-    //    driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS)
+    driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS)
     driver.findElementByCssSelector("div[class='datatable-body-cell-label']").click() //  to check whether the details of knolder appears on clicking on it
-    ///changes in name ^
     Reporter.log("Knolder name is clickable")
     Reporter.log("Loading Gif is present")
-    Thread.sleep(3000)
     driver.manage().timeouts().implicitlyWait(3, TimeUnit.MINUTES)
     val currentMonth = driver.findElementByCssSelector("span[class='badge badge-pill badge-warning']")
     val currentMonthText = currentMonth.getText.trim // to fetch the current month score
@@ -269,31 +254,25 @@ class LeaderboardUI extends TestNGSuite {
       .build()
       .perform()
     driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS)
-    Thread.sleep(1000)
     val graphToolTip = driver.findElementByCssSelector("span[class='tooltip-label']")
-    Thread.sleep(1000)
     val graphToolTipText = graphToolTip.getText.trim // to get the tool tip trxt
     Reporter.log("last 12th month is " + graphToolTipText)
     Assert.assertEquals(graphToolTipText, last12thMonthInWords)
-    Thread.sleep(1000)
     driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS)
     actionBuilder
       .moveToElement(barGraph.get(11)) // to hover over the last month bar graph
       .build()
       .perform()
     driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS)
-    Thread.sleep(1000)
     val lastMonthToolTip = driver.findElementByCssSelector("span[class='tooltip-label']")
-    Thread.sleep(1000)
     val lastMonthToolTipText = lastMonthToolTip.getText.trim // to get the lastmonth's tool tip text
     Reporter.log("last month was " + lastMonthToolTipText)
     Assert.assertEquals(lastMonthToolTipText, lastMonthInWords)
     actionBuilder
-      .moveByOffset(7, 7) // to move th pointer from the bar garph
+      .moveByOffset(7, 7) // to move the pointer away from the bar garph
       .build()
       .perform()
     Reporter.log("12 month performance is displayed in the bar graph")
-    Thread.sleep(3000)
     driver.findElementByCssSelector("path[class='arc']") // pie chart
     Reporter.log("Pie chart representation is present")
     driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS)
@@ -304,14 +283,10 @@ class LeaderboardUI extends TestNGSuite {
       .build()
       .perform()
     driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS)
-    Thread.sleep(1000)
     val tooltipLabel = driver.findElementByCssSelector("span[class='tooltip-label']")
-    Thread.sleep(1000)
     val tooltipLabelText = tooltipLabel.getText.trim // to get pie chart's tool tip text
     Assert.assertEquals(tooltipLabelText, "Blogs")
-    Thread.sleep(1000)
     val tooltipValue = driver.findElementByCssSelector("span[class='tooltip-val']")
-    Thread.sleep(1000)
     val tooltipValueText = tooltipValue.getText.trim
     Assert.assertTrue(tooltipValueText.matches("^[0-9]+$")) // to assert on the pattern of tooltip's value
     Reporter.log("Tool tip text of pie chart is " + tooltipLabelText + " " + tooltipValueText)
@@ -323,4 +298,3 @@ class LeaderboardUI extends TestNGSuite {
     Reporter.log("Month can be selected from the dropDown table")
   }
 }
-
