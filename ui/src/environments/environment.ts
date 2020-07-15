@@ -3,10 +3,10 @@ export const environment = {
     appVersion: '1.0.0',
     api: {
         version: '1.0.0',
-        baseUrl: '/',
+        baseUrl: 'http://34.68.95.196:8000/',
         routes: {
-            author: {endpoint: 'assets/data/authorProfile.json', method: 'GET'},
-            trends: {endpoint: 'assets/data/trendsData.json', method: 'GET'}
+            author: {endpoint: 'reputation', method: 'GET'},
+            trends: {endpoint: 'reputation/twelvemonths', method: 'GET'}
         }
     },
 

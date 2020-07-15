@@ -5,5 +5,5 @@ export interface ReputationModel {
     monthlyKnolxCount: number;
     allTimeBlogCount: number;
     allTimeKnolxCount: number;
-    reputationData: AuthorModel[];
+    reputation: AuthorModel[];
 }
