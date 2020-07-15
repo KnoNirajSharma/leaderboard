@@ -14,44 +14,13 @@ export class TableComponent implements OnInit {
     @Input() tableRows: AuthorModel[];
     @Input() tableHeading: TableHeaderModel[];
     columns = [
-        {
-            name: 'Name',
-            prop: 'knolderName',
-            sortable: false,
-            headerClass: 'text-body font-weight-bold h6',
-            cellClass: 'text-body p py-2'
-        },
-        {
-            name: 'Monthly Rank',
-            prop: 'monthlyRank',
-            headerClass: 'text-body font-weight-bold h6',
-            cellClass: 'text-body p py-2'
-        },
-        {
-            name: 'Monthly Score',
-            prop: 'monthlyScore',
-            headerClass: 'text-body font-weight-bold h6',
-            cellClass: 'text-body p py-2'
-        },
-        {
-            name: 'Overall Rank',
-            prop: 'allTimeRank',
-            headerClass: 'text-body font-weight-bold h6',
-            cellClass: 'text-body p py-2'
-        },
-        {
-            name: 'Overall Score',
-            prop: 'allTimeScore',
-            headerClass: 'text-body font-weight-bold h6',
-            cellClass: 'text-body p py-2'
-        },
-        {
-            name: '3 Month Streak',
-            prop: 'quarterlyStreak',
-            sortable: false,
-            headerClass: 'text-body font-weight-bold h6',
-            cellClass: 'text-body p py-2'
-        }];
+        {name: 'Name', prop: 'knolderName'},
+        {name: 'Monthly Rank', prop: 'monthlyRank'},
+        {name: 'Monthly Score', prop: 'monthlyScore'},
+        {name: 'Overall Rank', prop: 'allTimeRank'},
+        {name: 'Overall Score', prop: 'allTimeScore'},
+        {name: '3 Month Streak', prop: 'quarterlyStreak',}
+        ];
 
     constructor(public router: Router) {
     }

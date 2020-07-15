@@ -57,17 +57,6 @@ describe('TableComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should open when clicked `onActivate` button', fakeAsync(() => {
-        spyOn(component, 'onActivate');
-        const button = fixture.debugElement.nativeElement.querySelector('ngx-datatable');
-        fixture.detectChanges();
-        button.click();
-        tick();
-        expect(component.onActivate).toBeTruthy('onActivate should not be true');
-        fixture.destroy();
-        flush();
-    }));
-
     it('should change route on click of row', () => {
         const event = {type: 'click', row: {knolderId: 2}};
         component.onActivate(event);
