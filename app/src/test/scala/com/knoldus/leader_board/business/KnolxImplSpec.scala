@@ -7,6 +7,7 @@ import com.knoldus.leader_board.infrastructure.{FetchKnolx, FetchKnolxImpl}
 import com.knoldus.leader_board.{DatabaseConnection, Knolx}
 import com.typesafe.config.ConfigFactory
 import org.mockito.MockitoSugar
+import org.mockito.ArgumentMatchersSugar.any
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.wordspec.AnyWordSpecLike
 
@@ -20,7 +21,7 @@ class KnolxImplSpec extends AnyWordSpecLike with MockitoSugar with BeforeAndAfte
 
     val knolxData: String =
       """[{
-        |	"emailId": "mukesh.kumar@knoldus.com",
+        |	"email": "mukesh.kumar@knoldus.com",
         |	"knolxCount": 4,
         |	"knolxDetails": [{
         |		"dateOfSession": "Mon Jan 19 11:49:09 IST 1970",
@@ -38,8 +39,7 @@ class KnolxImplSpec extends AnyWordSpecLike with MockitoSugar with BeforeAndAfte
       when(mockFetchKnolx.fetchMaxKnolxDeliveredDate)
         .thenReturn(Option(Timestamp.from(Instant.parse("2019-01-19T11:49:09Z"))))
 
-      when(mockURLResponse.getKnolxResponse(ConfigFactory.load.getString("urlForLatestKnolx"),
-        "1577836800", "1592897891"))
+      when(mockURLResponse.getKnolxResponse(any,any, any))
         .thenReturn(knolxData)
 
       val listOfKnolx = List(
@@ -55,7 +55,7 @@ class KnolxImplSpec extends AnyWordSpecLike with MockitoSugar with BeforeAndAfte
           Option("Delta Lake"))
       )
 
-      assert(knolx.getLatestKnolxFromAPI == List())
+      assert(knolx.getLatestKnolxFromAPI == listOfKnolx)
     }
 
     "return list of latest knolx" in {

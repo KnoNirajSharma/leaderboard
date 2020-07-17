@@ -24,12 +24,6 @@ class URLResponse extends LazyLogging {
     getResponse(request)
   }
 
-  def getResponse(request: HttpGet): String = {
-    val client = HttpClientBuilder.create().build()
-    val response = client.execute(request)
-    IOUtils.toString(response.getEntity.getContent)
-  }
-
   /**
    * Gets response from given URL and setting parameters.
    *
@@ -39,11 +33,16 @@ class URLResponse extends LazyLogging {
    * @return Response entity in form of string.
    */
   def getKnolxResponse(url: String, startDate: String, endDate: String): String = {
-    /*getting low priority warning because of not using start and end date parameter, will remove that warning after integrating actual api*/
-    logger.info(s"Gettting response from knolx API between $startDate and $endDate")
+    logger.info(s"Gettting response from knolx API ")
     val builder = new URIBuilder(url)
-    builder.setParameter("startDate", "1577836800").setParameter("endDate", "1592897891")
+    builder.setParameter("startDate", startDate).setParameter("endDate", endDate)
     val request = new HttpGet(builder.build())
     getResponse(request)
+  }
+
+  def getResponse(request: HttpGet): String = {
+    val client = HttpClientBuilder.create().build()
+    val response = client.execute(request)
+    IOUtils.toString(response.getEntity.getContent)
   }
 }
