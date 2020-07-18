@@ -18,5 +18,7 @@ export const environment = {
         chartColorScheme: {
             domain: ['#15509e', '#1862c6', '#1a81ff', '#3a84e6', '#5ca6ff', '#d2e3f9']
         }
-    }
+    },
+
+    googleClientId: '28973126201-99ktt1sbdio3mph7b5s0sj8sp0aoaso3.apps.googleusercontent.com'
 };

@@ -11,6 +11,22 @@ import {HttpIntercept} from './interceptors/http.intercept';
 import {MainPageModule} from './pages/main/main.module';
 import {DetailsPageModule} from './pages/details/details.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {AuthServiceConfig, GoogleLoginProvider, SocialLoginModule} from 'angular-6-social-login';
+import {LoginPageModule} from './pages/login/login.module';
+import {environment} from '../environments/environment';
+
+
+export function getAuthServiceConfigs() {
+    return new AuthServiceConfig(
+        [
+            {
+                id: GoogleLoginProvider.PROVIDER_ID,
+                provider: new GoogleLoginProvider(environment.googleClientId)
+            }
+        ]
+    );
+}
+
 
 @NgModule({
     declarations: [AppComponent],
@@ -21,12 +37,18 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
         HttpClientModule,
         MainPageModule,
         DetailsPageModule,
-        BrowserAnimationsModule],
+        BrowserAnimationsModule,
+        SocialLoginModule,
+    LoginPageModule],
     providers: [
         StatusBar,
         SplashScreen,
         {provide: HTTP_INTERCEPTORS, useClass: HttpIntercept, multi: true},
-        {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
+        {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
+        {
+            provide: AuthServiceConfig,
+            useFactory: getAuthServiceConfigs
+        }
     ],
     bootstrap: [AppComponent]
 })

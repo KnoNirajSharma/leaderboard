@@ -9,14 +9,14 @@ describe('EmployeeActivityService', () => {
     let employeeActivityService: EmployeeActivityService;
     let httpTestingController: HttpTestingController;
     const url = `${environment.api.baseUrl}${environment.api.routes.author.endpoint}`;
-    const trendsUrl = environment.api.routes.trends.endpoint;
+    const trendsUrl = `${environment.api.baseUrl}${environment.api.routes.trends.endpoint}`;
 
     const dummyReputationData: ReputationModel = {
         monthlyBlogCount: 2,
         monthlyKnolxCount: 2,
         allTimeBlogCount: 3,
         allTimeKnolxCount: 2,
-        reputationData: [
+        reputation: [
             {
                 knolderId: 1,
                 knolderName: 'mark',
@@ -117,7 +117,7 @@ describe('EmployeeActivityService', () => {
         employeeActivityService.getTrendsData(id).subscribe(data => {
             expect(data).toEqual(dummyTrendsData);
         });
-        const requestCheck = httpTestingController.expectOne(trendsUrl);
+        const requestCheck = httpTestingController.expectOne(trendsUrl + '/' + id);
         expect(requestCheck.request.method).toBe('GET');
         requestCheck.flush(dummyTrendsData);
     });

@@ -25,7 +25,7 @@ describe('MainPage', () => {
             monthlyKnolxCount: 2,
             allTimeBlogCount: 3,
             allTimeKnolxCount: 2,
-            reputationData: [
+            reputation: [
                 {
                     knolderId: 1,
                     knolderName: 'mark',
@@ -71,7 +71,7 @@ describe('MainPage', () => {
     it('should return the authorData as per api call', () => {
         spyOn(mockEmployeeService, 'getData').and.returnValue(of(dummyReputationData));
         component.ngOnInit();
-        expect(component.employeeData).toEqual(dummyReputationData.reputationData);
+        expect(component.employeeData).toEqual(dummyReputationData.reputation);
     });
 
     it('should call the filterEmp on keyup', () => {
@@ -85,9 +85,9 @@ describe('MainPage', () => {
 
     it('should filter Employee', () => {
         component.empFilterPipe = new EmployeeFilterPipe();
-        component.employeeData = dummyReputationData.reputationData;
+        component.employeeData = dummyReputationData.reputation;
         component.searchBar.setValue('mark');
         component.filterEmp();
-        expect(component.filteredEmpData).toEqual([dummyReputationData.reputationData[0]]);
+        expect(component.filteredEmpData).toEqual([dummyReputationData.reputation[0]]);
     });
 });
