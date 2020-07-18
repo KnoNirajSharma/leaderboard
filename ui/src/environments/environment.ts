@@ -20,5 +20,5 @@ export const environment = {
         }
     },
 
-    googleClientId: '28973126201-99ktt1sbdio3mph7b5s0sj8sp0aoaso3.apps.googleusercontent.com'
+    googleClientId: '6056193565-4s9g8pg84i8vanmivgpvpfr1m1s02nm0.apps.googleusercontent.com'
 };
