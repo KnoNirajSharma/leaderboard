@@ -1,0 +1,137 @@
+<app-headers [backBtn]="false"></app-headers>
+<ion-content [fullscreen]="true">
+    <div class="float-right set-style">Last updated: {{today | date:'dd MMMM yyyy 00:00:00'}}</div>
+    <div class="main-container col-12 col-xl-10">
+        <div class="main-content">
+            <div class="px-3 bar-container">
+                <div class="shadow-sm bar-tooltip p-2" style="font-size: 12px; width: 150px; border-radius: 5px">
+                    <u>Stats for Knoldus</u>
+                    <div class="bar-tooltip-legend">
+                        <div class="bg-secondary"></div>
+                        All Time
+                    </div>
+                    <div class="bar-tooltip-legend">
+                        <div class="bg-info"></div>
+                        Current Month
+                    </div>
+                </div>
+                <div *ngIf="reputation"
+                     class="total-count-bar d-flex flex-column flex-sm-row flex-wrap justify-content-start justify-content-sm-around col-12 card col-xl-12 mx-auto mt-5 mb-5 ml-0 py-2 row">
+                    <div class="my-1  mx-1 d-flex justify-content-between">
+                        Blogs
+                        <div class="ml-1">
+                            <span class="contribution-count badge-secondary mr-1 shadow-sm badge-pill">{{reputation.allTimeBlogCount}}</span>
+                            <span class="badge-info contribution-count shadow-sm badge-pill">{{reputation.monthlyBlogCount}}</span>
+                        </div>
+                    </div>
+                    <div class="my-1 mx-1 d-flex justify-content-between">
+                        knolx
+                        <div class="ml-1">
+                            <span class="contribution-count badge-secondary mr-1 shadow-sm badge-pill">{{reputation.allTimeKnolxCount}}</span>
+                            <span class="contribution-count badge-info shadow-sm badge-pill">{{reputation.monthlyKnolxCount}}</span>
+                        </div>
+                    </div>
+                    <div class="my-1 mx-1 d-flex justify-content-between">
+                        Webinar
+                        <div class="ml-1">
+                            <span class="contribution-count badge-secondary mr-1 shadow-sm badge-pill">n/a</span>
+                            <span class="contribution-count badge-info shadow-sm badge-pill">n/a</span>
+                        </div>
+                    </div>
+                    <div class="my-1 mx-1 d-flex justify-content-between ">
+                        TechHub Template
+                        <div class="ml-1">
+                            <span class="contribution-count badge-secondary mr-1 shadow-sm badge-pill">n/a</span>
+                            <span class="contribution-count badge-info shadow-sm badge-pill">n/a</span>
+                        </div>
+                    </div>
+                    <div class="my-1 mx-1 d-flex justify-content-between">
+                        OS Contribution
+                        <div class="ml-1">
+                            <span class="contribution-count badge-secondary mr-1 shadow-sm badge-pill">n/a</span>
+                            <span class="contribution-count badge-info shadow-sm badge-pill">n/a</span>
+                        </div>
+                    </div>
+                    <div class=" my-1 mx-1 d-flex justify-content-between">
+                        Books/Papers
+                        <div class="ml-1">
+                            <span class="contribution-count badge-secondary mr-1 shadow-sm badge-pill">n/a</span>
+                            <span class="contribution-count badge-info shadow-sm badge-pill">n/a</span>
+                        </div>
+                    </div>
+                    <div class="my-1 mx-1 d-flex justify-content-between">
+                        Conferences
+                        <div class="ml-1">
+                            <span class="contribution-count badge-secondary mr-1 shadow-sm badge-pill">n/a</span>
+                            <span class="contribution-count badge-info shadow-sm badge-pill">n/a</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ion-card>
+                <div class="row px-3">
+                    <label class="col-12 col-sm-4 col-md-5 col-lg-3">
+                        <input (keyup)="filterEmp()" [formControl]="searchBar"
+                               class="search form-control" placeholder="Search..." type="text">
+                    </label>
+                    <div class="col-4 col-md-2 col-sm-2 col-lg-2 ml-3 my-auto text-center current-month">
+                        {{ currentDate | date: 'MMM-yyyy'}}
+                    </div>
+                    <div class="col-6 col-sm-5 col-md-4 col-lg-3 ml-2 ml-sm-auto my-auto text-center scoring">
+                        <div class="popover-wrapper">
+                            <a href="#">
+                                <h2 class="popover-title">Scoring</h2>
+                            </a>
+                            <div class="popover-content">
+                                <table class="popover-message">
+                                    <tr>
+                                        <th>Event</th>
+                                        <th>Weightage</th>
+                                        <th>Integration</th>
+                                    </tr>
+                                    <tr>
+                                        <td>Blogs</td>
+                                        <td>5</td>
+                                        <td>Y</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Knolx</td>
+                                        <td>10</td>
+                                        <td>Y</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Webinars</td>
+                                        <td>N/A</td>
+                                        <td>N</td>
+                                    </tr>
+                                    <tr>
+                                        <td>TechHub Templates</td>
+                                        <td>N/A</td>
+                                        <td>N</td>
+                                    </tr>
+                                    <tr>
+                                        <td>OS Contributions</td>
+                                        <td>N/A</td>
+                                        <td>N</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Books/Papers</td>
+                                        <td>N/A</td>
+                                        <td>N</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Conferences</td>
+                                        <td>N/A</td>
+                                        <td>N</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <app-table [tableHeading]="tableHeading" [tableRows]="filteredEmpData"></app-table>
+            </ion-card>
+        </div>
+    </div>
+</ion-content>
+

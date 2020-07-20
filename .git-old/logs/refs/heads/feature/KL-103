@@ -1,0 +1,7 @@
+0000000000000000000000000000000000000000 0c494ceffb5645b688fac56cc19e101904f38cea umang-goyal <goel97umang@gmail.com> 1590965198 +0530	branch: Created from HEAD
+0c494ceffb5645b688fac56cc19e101904f38cea 0fb9523d7349aef1835894d02f08911840aaeebd umang-goyal <goel97umang@gmail.com> 1590984895 +0530	commit: added filter pipe and search bar to search employee name
+0fb9523d7349aef1835894d02f08911840aaeebd 2fab0d9618e37bf1f69f458a45b68b81c610bc24 umang-goyal <goel97umang@gmail.com> 1590985020 +0530	commit: scss formating style fixed
+2fab0d9618e37bf1f69f458a45b68b81c610bc24 ff00aaef47191fc456881f3493066d2b8321dd45 umang-goyal <goel97umang@gmail.com> 1591079340 +0530	commit: added search bar input tag in main.html
+ff00aaef47191fc456881f3493066d2b8321dd45 0a488c4a1dde242bc93cc17476f3c53fad5e9973 umang-goyal <goel97umang@gmail.com> 1591089542 +0530	commit: added search filter functionality in main page and removed form table comp test cases added
+0a488c4a1dde242bc93cc17476f3c53fad5e9973 949960ba1c8bc4b3c03cd043d279549ab8891a89 umang-goyal <goel97umang@gmail.com> 1591092594 +0530	commit: removed unwanted variable
+949960ba1c8bc4b3c03cd043d279549ab8891a89 a0eef96c155aa444b0448977d557b4f75f8a7db5 umang-goyal <goel97umang@gmail.com> 1591093844 +0530	commit (merge): Merge branch 'develop' of https://github.com/KnoldusLabs/leaderboard into feature/KL-103

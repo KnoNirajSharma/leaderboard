@@ -1,0 +1,8 @@
+0000000000000000000000000000000000000000 3d71ea9e53c4035a55983e706b818b3fb6ac4189 umang-goyal <goel97umang@gmail.com> 1588417066 +0530	branch: Created from feature/ui-service
+3d71ea9e53c4035a55983e706b818b3fb6ac4189 0f66f05ac3d0f683bcf7fc962658cdf387cf8b5b umang-goyal <goel97umang@gmail.com> 1588424316 +0530	commit: added generic card component, header component, main page for the application
+0f66f05ac3d0f683bcf7fc962658cdf387cf8b5b c82ded92eb3f43023dbb85a71c97fc238062b783 umang-goyal <goel97umang@gmail.com> 1588426177 +0530	commit: added test cases and formated the code.
+c82ded92eb3f43023dbb85a71c97fc238062b783 5b04ba3f39c2cc312c6a2cd8cdf034d88752bf87 umang-goyal <goel97umang@gmail.com> 1588481477 +0530	commit: converted CardModelData as interface
+5b04ba3f39c2cc312c6a2cd8cdf034d88752bf87 0a3467b6444ea60f52565375d0d44b73756175a5 umang-goyal <goel97umang@gmail.com> 1588500080 +0530	commit: changed getTotalCount Function in Main.page.ts, fixed styling bug in card component
+0a3467b6444ea60f52565375d0d44b73756175a5 fa1b7739efc1efb2881d86aa5adb721b82544cf0 umang-goyal <goel97umang@gmail.com> 1588586638 +0530	commit: made changes in main.page.ts according to the pr.
+fa1b7739efc1efb2881d86aa5adb721b82544cf0 a5ff35d0ee1d1f3bb647dfdd325542d7c413af8d umang-goyal <goel97umang@gmail.com> 1588587798 +0530	commit: imporoved test case for main.page.ts
+a5ff35d0ee1d1f3bb647dfdd325542d7c413af8d 67e7c5d9f06e3d5155a8b88baeacbadd637bc408 umang-goyal <goel97umang@gmail.com> 1588595271 +0530	commit: fixed a bug in getTotalCount() switch case.

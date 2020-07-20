@@ -1,0 +1,265 @@
+From 110730bd8e5d224ce24066a40c27d2d402e70e55 Mon Sep 17 00:00:00 2001
+From: umang-goyal <goel97umang@gmail.com>
+Date: Mon, 1 Jun 2020 13:37:58 +0530
+Subject: added background color, added icons for leaderboard and knoldus
+
+---
+ .../components/headers/headers.component.html |   4 +-
+ .../components/headers/headers.component.scss |  66 ++++++++++++++++--
+ ui/src/app/pages/main/main.page.html          |   4 +-
+ ui/src/app/pages/main/main.page.scss          |   9 ++-
+ ui/src/assets/icon/home-icon.png              | Bin 347 -> 0 bytes
+ ui/src/assets/icon/trophy -128.png            | Bin 0 -> 3723 bytes
+ 6 files changed, 72 insertions(+), 11 deletions(-)
+ delete mode 100644 ui/src/assets/icon/home-icon.png
+ create mode 100644 ui/src/assets/icon/trophy -128.png
+
+diff --git a/ui/src/app/components/headers/headers.component.html b/ui/src/app/components/headers/headers.component.html
+index b7d6cfb74b273830a3c715e062b42e2d9d13bd31..a2368f91112e7aedd24506817bf364704e3598e6 100644
+--- a/ui/src/app/components/headers/headers.component.html
++++ b/ui/src/app/components/headers/headers.component.html
+@@ -1,7 +1,9 @@
+ <ion-header [translucent]="true">
+     <ion-toolbar>
+         <ion-title>
+-            <span>{{title}}</span>
++            <img src="../../../assets/icon/trophy -128.png" alt="" class="logo-icon float-left">
++            <span class="title">{{title}}</span>
++            <img  src="../../../assets/icon/knoldus-logo-transparent.png" alt="" class="float-right knoldus-logo">
+         </ion-title>
+     </ion-toolbar>
+ </ion-header>
+diff --git a/ui/src/app/components/headers/headers.component.scss b/ui/src/app/components/headers/headers.component.scss
+index 50daaba5c8f23226ff73f38c97ca35fcf43d0a23..8ee450b0749c3838fbfc29632db1e92bfe39539c 100644
+--- a/ui/src/app/components/headers/headers.component.scss
++++ b/ui/src/app/components/headers/headers.component.scss
+@@ -1,16 +1,34 @@
+ ion-header {
+-  background-color: var(--ion-color-primary-contrast);
+-  box-shadow: 0 4 4 -5 rgba(133,133,133,1);
++  box-shadow: 0 4 4 -5 rgba(133, 133, 133, 1);
++  height: 10vh;
++  background: linear-gradient(90deg, rgba(46, 99, 196, 1) 45%, rgba(27, 47, 185, 1) 100%);
++  display: flex;
++  align-items: center;
++  justify-content: center;
+ 
+   ion-title {
+-    color: var(--ion-color-warning-contrast);
+-    background-color: var(--ion-color-primary-contrast);
+-    text-align: center;
++    padding: 0 !important;
++    color: white;
++    text-align: left;
++    width: 85%;
++    margin-left: auto;
++    margin-right: auto;
+ 
+     span {
+-      font-size: 1.9em;
++      margin-right: 20px;
++      font-size: 1.5em;
+       font-weight: bold;
+     }
++
++    .logo-icon {
++      height: 40px;
++      margin: 0 20px 0 15px;
++    }
++
++    .knoldus-logo {
++      height: 45px;
++      margin-right: 25px;
++    }
+   }
+ 
+   ion-toolbar {
+@@ -18,15 +36,49 @@ ion-header {
+   }
+ }
+ 
+-@media only screen and (max-width: 959px) {
++@media only screen and (max-width: 992px) {
+ 
+   ion-header {
++    height: 8vh;
+ 
+     ion-title {
++      width: 100%;
+ 
+       span {
+         font-size: 1.4em;
+       }
++
++      .logo-icon {
++        height: 40px;
++      }
++
++      .knoldus-logo {
++        height: 35px;
++      }
++    }
++  }
++}
++
++@media only screen and (max-width: 540px) {
++
++  ion-header {
++    height: 8vh;
++
++    ion-title {
++      text-align: right;
++
++      span {
++        font-size: 1.2em;
++      }
++
++      .logo-icon {
++        height: 35px;
++      }
++
++      .knoldus-logo {
++        display: none;
++      }
+     }
+   }
++
+ }
+diff --git a/ui/src/app/pages/main/main.page.html b/ui/src/app/pages/main/main.page.html
+index 507c5ba7c5a971fb54313e49cf26c0866349d8fe..39e392970e42a8ac134c8e872e19943f56a57305 100644
+--- a/ui/src/app/pages/main/main.page.html
++++ b/ui/src/app/pages/main/main.page.html
+@@ -1,6 +1,6 @@
+-<app-headers [title]="pageTitle"></app-headers>
+ <ion-content [fullscreen]="true">
+-<div class="main-container">
++    <app-headers [title]="pageTitle"></app-headers>
++    <div class="main-container">
+         <div class="main-content">
+             <ion-grid>
+                 <ion-row class="cards-row">
+diff --git a/ui/src/app/pages/main/main.page.scss b/ui/src/app/pages/main/main.page.scss
+index 52de26c7f43ec5d43444bc402668267de8a0f780..59235ae5d3fe01548e3a08bd968ec3bd62316837 100644
+--- a/ui/src/app/pages/main/main.page.scss
++++ b/ui/src/app/pages/main/main.page.scss
+@@ -1,7 +1,8 @@
+ .main-container {
+   padding: 0;
+-  width: 100%;
++  width: 85%;
+   background-color: #FAF8FB;
++  margin: auto;
+ 
+   .main-content {
+ 
+@@ -24,3 +25,9 @@ ion-card {
+   --ion-background-color: white;
+   padding-top: 1em;
+ }
++
++@media only screen and (max-width: 992px) {
++  .main-container {
++    width: 100%;
++  }
++}
+diff --git a/ui/src/assets/icon/home-icon.png b/ui/src/assets/icon/home-icon.png
+deleted file mode 100644
+index 7b4f5fec5c011d21d4b5eaae7bc38fb9096feede..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+HcmV?d00001
+
+literal 347
+zcmV-h0i^zkP)<h;3K|Lk000e1NJLTq000yK000yS1^@s6jfou%00006VoOIv0RI60
+z0RN!9r;`8x0T4+<K~y-6?UJERLqQNl&um{Bf<V<Gz+v$Og{cLHE_?#NfU5?H?ibY7
+zfFMm35>ov{WkYB7VhAa(ucc`#xydy%vnO{Z3v0+-ZFjZTnO!MK7NNUvMYwXzbT6r~
+zDXf)U{cvgC+0~cSa@TXX6rr2>cSSAiQ>QuT0Y?ixxKJ=`i0cfO0<BEuu1>h7)nqlE
+zx~n7UVA+a$;d)#HRP~dj{VMFxT`wEJ^nJ&nq+<ZnOy}9?0j-s{_*-QXR|zq}=xzxE
+zql=g%YuX4Xw+2FKO&g^hfPSg=AO1+ZVGJs@GmMkXfX1Lv*zJ5NTo14uxbv0&f!nJ9
+t$eE9nc&+J=7b?aW7H4zjeb?at_yUG<C*p&9gZTge002ovPDHLkV1i_#mPh~q
+
+diff --git a/ui/src/assets/icon/trophy -128.png b/ui/src/assets/icon/trophy -128.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..60c3f5eee526fc2c23545ebf04248d3f481bd341
+GIT binary patch
+literal 3723
+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
+YMGEVO$=HNnIWGc`+D2OC8um~A2P#R}HUIzs
+
+literal 0
+HcmV?d00001
+
+-- 
+2.17.1
+
+

@@ -1,0 +1,7 @@
+0000000000000000000000000000000000000000 17bee915658bd5758c681ca09292aa738957994a umang-goyal <goel97umang@gmail.com> 1593772831 +0530	branch: Created from HEAD
+17bee915658bd5758c681ca09292aa738957994a c7b43d8ade7f0f1ca62ef32de609e4995fdd5eee umang-goyal <goel97umang@gmail.com> 1593780675 +0530	commit: added service to get trends data form a mock api
+c7b43d8ade7f0f1ca62ef32de609e4995fdd5eee 2e7890bc16352853645ed830773b9947ce0052ff umang-goyal <goel97umang@gmail.com> 1593781011 +0530	commit: added a test in details page for getTrendsData.
+2e7890bc16352853645ed830773b9947ce0052ff aa3244d5a12f54c0cd73e450849816af67fa035f umang-goyal <goel97umang@gmail.com> 1594193391 +0530	commit: renamed vertical bar chart
+aa3244d5a12f54c0cd73e450849816af67fa035f 8c8d61787ee99591dbd7c1c13037196d5fbbe5f0 umang-goyal <goel97umang@gmail.com> 1594214229 +0530	commit: updated environtment.prod
+8c8d61787ee99591dbd7c1c13037196d5fbbe5f0 3f96e9f33942124b59841974eb556fd96194bde7 umang-goyal <goel97umang@gmail.com> 1594290206 +0530	commit: updated enviroment.prod
+3f96e9f33942124b59841974eb556fd96194bde7 56ab44c925d4a78cf929760cc81543d2c764fc07 umang-goyal <goel97umang@gmail.com> 1594364008 +0530	commit: ordered imports

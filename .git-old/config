@@ -1,0 +1,20 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "origin"]
+	url = https://github.com/KnoldusLabs/leaderboard.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "feature/ui-develop"]
+	remote = origin
+	merge = refs/heads/feature/ui-develop
+[branch "feature/ui-table-comp"]
+	remote = origin
+	merge = refs/heads/feature/ui-table-comp
+[branch "feature/ui-table-component"]
+	remote = origin
+	merge = refs/heads/feature/ui-table-component
+[branch "develop"]
+	remote = origin
+	merge = refs/heads/develop

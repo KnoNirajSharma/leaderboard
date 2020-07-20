@@ -1,0 +1,306 @@
+From 5470d3be49787b43181676d7904da567628c3922 Mon Sep 17 00:00:00 2001
+From: umang-goyal <goel97umang@gmail.com>
+Date: Mon, 1 Jun 2020 04:15:35 +0530
+Subject: changes in progress
+
+---
+ ui/angular.json                               |  3 +
+ ui/package-lock.json                          | 10 +++
+ ui/package.json                               |  2 +
+ .../app/components/card/card.component.html   | 76 ++++++++++++++++---
+ .../app/components/card/card.component.scss   | 63 +++++++++------
+ .../components/headers/headers.component.scss | 50 ++++++++++--
+ ui/src/app/pages/main/main.page.scss          |  2 +
+ 7 files changed, 165 insertions(+), 41 deletions(-)
+
+diff --git a/ui/angular.json b/ui/angular.json
+index fc6551a0ff15b45903bf53eba96feab3c38d39e6..ccc64767352d47672152b3e11da3a12cec65de79 100644
+--- a/ui/angular.json
++++ b/ui/angular.json
+@@ -37,6 +37,9 @@
+               {
+                 "input": "src/theme/variables.scss"
+               },
++              {
++                "input": "node_modules/font-awesome/css/font-awesome.min.css"
++              },
+               {
+                 "input": "src/global.scss"
+               }
+diff --git a/ui/package-lock.json b/ui/package-lock.json
+index 170199f71eb8df79cdb752df5514ec737c309b95..9c9062880b8f9135b504a0ae7f2516dd8bb4476e 100644
+--- a/ui/package-lock.json
++++ b/ui/package-lock.json
+@@ -5386,6 +5386,11 @@
+         }
+       }
+     },
++    "font-awesome": {
++      "version": "4.7.0",
++      "resolved": "https://registry.npmjs.org/font-awesome/-/font-awesome-4.7.0.tgz",
++      "integrity": "sha1-j6jPBBGhoxr9B7BtKQK7n8gVoTM="
++    },
+     "for-in": {
+       "version": "1.0.2",
+       "resolved": "https://registry.npmjs.org/for-in/-/for-in-1.0.2.tgz",
+@@ -10231,6 +10236,11 @@
+       "integrity": "sha1-tf3AjxKH6hF4Yo5BXiUTK3NkbG0=",
+       "dev": true
+     },
++    "simple-line-icons": {
++      "version": "2.4.1",
++      "resolved": "https://registry.npmjs.org/simple-line-icons/-/simple-line-icons-2.4.1.tgz",
++      "integrity": "sha1-t1vFoNh+UwkowszaVzUnS7JW8jQ="
++    },
+     "slash": {
+       "version": "1.0.0",
+       "resolved": "https://registry.npmjs.org/slash/-/slash-1.0.0.tgz",
+diff --git a/ui/package.json b/ui/package.json
+index 504c13f6796e5bd4ea636807c32fb9aae48e926c..5e36e618016ce67e35c73f84d1d69c84a05be06f 100644
+--- a/ui/package.json
++++ b/ui/package.json
+@@ -27,7 +27,9 @@
+     "@ionic/angular": "^5.0.0",
+     "bootstrap": "^4.5.0",
+     "core-js": "^2.5.4",
++    "font-awesome": "^4.7.0",
+     "rxjs": "~6.5.1",
++    "simple-line-icons": "^2.4.1",
+     "tslib": "^1.9.0",
+     "zone.js": "~0.9.1"
+   },
+diff --git a/ui/src/app/components/card/card.component.html b/ui/src/app/components/card/card.component.html
+index ab6e45f076a1bf002876b7d82a4d827299cfb725..232c6e5480f6fe31b913ba63684830a193006a3e 100644
+--- a/ui/src/app/components/card/card.component.html
++++ b/ui/src/app/components/card/card.component.html
+@@ -1,11 +1,65 @@
+-<ion-card [ngStyle]="{'background-color': cardData.bgColor}">
+-    <ion-card-header>
+-        <ion-card-title
+-                [ngStyle]="{'font-size': cardData.titleFontSize, 'color': cardData.fontColor}"><span
+-                class="title">{{cardData.cardTitle}}</span></ion-card-title>
+-        <ion-card-subtitle
+-                [ngStyle]="{'font-size': cardData.subtitleFontSize, 'color': cardData.fontColor}"><span
+-                class="subtitle">{{cardData.subtitle}}</span></ion-card-subtitle>
+-    </ion-card-header>
+-    <ion-card-content>{{cardData.cardContent}}</ion-card-content>
+-</ion-card>
++<!--<ion-card [ngStyle]="{'background-color': cardData.bgColor}">-->
++<!--    <ion-card-header>-->
++<!--        <ion-card-title-->
++<!--                [ngStyle]="{'font-size': cardData.titleFontSize, 'color': cardData.fontColor}"><span-->
++<!--                class="title">{{cardData.cardTitle}}</span></ion-card-title>-->
++<!--        <ion-card-subtitle-->
++<!--                [ngStyle]="{'font-size': cardData.subtitleFontSize, 'color': cardData.fontColor}"><span-->
++<!--                class="subtitle">{{cardData.subtitle}}</span></ion-card-subtitle>-->
++<!--    </ion-card-header>-->
++<!--    <ion-card-content>{{cardData.cardContent}}</ion-card-content>-->
++<!--</ion-card>-->
++<!--<div class="row base-card">-->
++    <div class="col-6 col-sm-6 col-md-6 col-lg-3 grid-b-space fade-in-up">
++        <div class="bg-primary shadow-box pl-2">
++            <div class="d-flex bg-white justify-content-between p-3">
++                <div>
++                    <h2 class="font-weight-normal">{{'Sales'}}</h2>
++                    <h3 class="font-weight-normal m-0">4,983</h3>
++                </div>
++                <div>
++                    <i class="fa fa-file-code-o fa-3x"></i>
++                </div>
++            </div>
++        </div>
++    </div>
++<!--    <div class="col-6 col-sm-6 col-md-6 col-lg-3 grid-b-space fade-in-up">-->
++<!--        <div class="bg-primary shadow-box pl-2">-->
++<!--            <div class="d-flex bg-white justify-content-between p-3">-->
++<!--                <div>-->
++<!--                    <h2 class="font-weight-normal">{{'Likes'}}</h2>-->
++<!--                    <h3 class="font-weight-normal m-0">47,513</h3>-->
++<!--                </div>-->
++<!--                <div>-->
++<!--                    <i class="fa fa-laptop fa-3x"></i>-->
++<!--                </div>-->
++<!--            </div>-->
++<!--        </div>-->
++<!--    </div>-->
++<!--    <div class="col-6 col-sm-6 col-md-6 col-lg-3 grid-b-space fade-in-up">-->
++<!--        <div class="bg-primary shadow-box pl-2">-->
++<!--            <div class="d-flex bg-white justify-content-between p-3">-->
++<!--                <div>-->
++<!--                    <h2 class="font-weight-normal">{{'Download'}}</h2>-->
++<!--                    <h3 class="font-weight-normal m-0">1,89,200</h3>-->
++<!--                </div>-->
++<!--                <div class="dash-icon">-->
++<!--                    <i class=""></i>-->
++<!--                </div>-->
++<!--            </div>-->
++<!--        </div>-->
++<!--    </div>-->
++<!--    <div class="col-6 col-sm-6 col-md-6 col-lg-3 grid-b-space fade-in-up">-->
++<!--        <div class="bg-primary shadow-box pl-2">-->
++<!--            <div class="d-flex bg-white justify-content-between p-3">-->
++<!--                <div>-->
++<!--                    <h2 class="font-weight-normal">{{'Profit'}}</h2>-->
++<!--                    <h3 class="font-weight-normal m-0">$98,575</h3>-->
++<!--                </div>-->
++<!--                <div class="dash-icon">-->
++<!--                    <i class="icon-graph icons font-xl"></i>-->
++<!--                </div>-->
++<!--            </div>-->
++<!--        </div>-->
++<!--    </div>-->
++<!--</div>-->
+diff --git a/ui/src/app/components/card/card.component.scss b/ui/src/app/components/card/card.component.scss
+index b3c55dea0f45587ecc6bcefd749a7427c98c6148..ef682d2ffce141cd54d25f226251c94224c4f50b 100644
+--- a/ui/src/app/components/card/card.component.scss
++++ b/ui/src/app/components/card/card.component.scss
+@@ -1,30 +1,43 @@
+-ion-card {
+-  border-radius: 5px;
+-
+-  ion-card-header {
+-    padding-top: 1rem;
+-    padding-bottom: 0;
+-
+-    ion-card-title {
+-      font-weight: normal;
+-    }
++//ion-card {
++//  border-radius: 5px;
++//
++//  ion-card-header {
++//    padding-top: 1rem;
++//    padding-bottom: 0;
++//
++//    ion-card-title {
++//      font-weight: normal;
++//    }
++//  }
++//}
++//
++//@media only screen and (max-width: 959px) {
++//  span {
++//    font-size: 0.72em;
++//  }
++//  ion-card {
++//    ion-card-header {
++//      padding-top: 0;
++//    }
++//  }
++//}
++//
++//@media only screen and (max-width: 380px) {
++//  .subtitle {
++//    padding-top: 0;
++//    font-size: 0.6em;
++//  }
++//}
++.dash-icon {
++  i {
++    //vertical-align: -26px;
++    height: 20px;
+   }
+-}
+-
+-@media only screen and (max-width: 959px) {
+-  span {
+-    font-size: 0.72em;
++  .icons {
++    font-size: 40px;
+   }
+-  ion-card {
+-    ion-card-header {
+-      padding-top: 0;
+-    }
++  .font-xl {
++    font-size: 70px;
+   }
+ }
+ 
+-@media only screen and (max-width: 380px) {
+-  .subtitle {
+-    padding-top: 0;
+-    font-size: 0.6em;
+-  }
+-}
+diff --git a/ui/src/app/components/headers/headers.component.scss b/ui/src/app/components/headers/headers.component.scss
+index 50daaba5c8f23226ff73f38c97ca35fcf43d0a23..68e875c9ad6acab510dee1629cb68b662e74aa55 100644
+--- a/ui/src/app/components/headers/headers.component.scss
++++ b/ui/src/app/components/headers/headers.component.scss
+@@ -1,14 +1,54 @@
++//ion-header {
++//  background-color: var(--ion-color-primary-contrast);
++//  box-shadow: 0 4 4 -5 rgba(133,133,133,1);
++//
++//  ion-title {
++//    color: var(--ion-color-warning-contrast);
++//    background-color: var(--ion-color-primary-contrast);
++//    text-align: center;
++//
++//    span {
++//      font-size: 1.9em;
++//      font-weight: bold;
++//    }
++//  }
++//
++//  ion-toolbar {
++//    --background: translucent;
++//  }
++//}
++//
++//@media only screen and (max-width: 959px) {
++//
++//  ion-header {
++//
++//    ion-title {
++//
++//      span {
++//        font-size: 1.4em;
++//      }
++//    }
++//  }
++//}
+ ion-header {
+-  background-color: var(--ion-color-primary-contrast);
++  height: 10vh;
++  //background-color: var(--ion-color-primary-contrast);
++  background: linear-gradient(90deg, rgba(29,115,154,1) 0%, rgba(29,91,147,1) 50%, rgba(25,79,129,1) 100%);
+   box-shadow: 0 4 4 -5 rgba(133,133,133,1);
++  display: flex;
++  align-items: center;
++  justify-content: center;
+ 
+   ion-title {
+-    color: var(--ion-color-warning-contrast);
+-    background-color: var(--ion-color-primary-contrast);
+-    text-align: center;
++    margin-left: auto;
++    margin-right: auto;
++    width: 80%;
++    color: white;
++    //background-color: var(--ion-color-primary-contrast);
++    //text-align: center;
+ 
+     span {
+-      font-size: 1.9em;
++      font-size: 1.7em;
+       font-weight: bold;
+     }
+   }
+diff --git a/ui/src/app/pages/main/main.page.scss b/ui/src/app/pages/main/main.page.scss
+index 52de26c7f43ec5d43444bc402668267de8a0f780..ac0a59858e7849b0ef031ee3dc0cfeb3f9bcc0dd 100644
+--- a/ui/src/app/pages/main/main.page.scss
++++ b/ui/src/app/pages/main/main.page.scss
+@@ -2,6 +2,8 @@
+   padding: 0;
+   width: 100%;
+   background-color: #FAF8FB;
++  margin-right: auto;
++  margin-left: auto;
+ 
+   .main-content {
+ 
+-- 
+2.17.1
+
+

@@ -1,0 +1,94 @@
+<div class="table-block">
+    <div class="table-block-content">
+        <div class="table-responsive">
+            <div class="d-none d-sm-block">
+                <ngx-datatable
+                        (activate)="onActivate($event)"
+                        [columnMode]="'force'"
+                        [columns]="columns"
+                        [footerHeight]="50"
+                        [headerHeight]="50"
+                        [limit]="13"
+                        [rowHeight]="35"
+                        [rows]="tableRows"
+                        [scrollbarH]="true"
+                        class="material">
+
+                    <ngx-datatable-column headerClass="table-header-style" cellClass="table-cell-style" [sortable]=false name="knolderName">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            Name
+                        </ng-template>
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            {{value}}
+                            <img *ngIf="row['monthlyRank'] < 4" src="./assets/icon/icons-trophy.png" style="width: 15px"/>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="monthlyRank"  headerClass="table-header-style" cellClass="table-cell-style">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            Monthly Rank
+                        </ng-template>
+                        <ng-template let-value="value" ngx-datatable-cell-template>
+                            {{value}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column  name="monthlyScore" headerClass="table-header-style" cellClass="table-cell-style">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            Monthly Score
+                        </ng-template>
+                        <ng-template let-value="value" ngx-datatable-cell-template>
+                            {{value}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="allTimeRank" headerClass="table-header-style" cellClass="table-cell-style">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            Overall Rank
+                        </ng-template>
+                        <ng-template let-value="value" ngx-datatable-cell-template>
+                            {{value}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="allTimeScore" headerClass="table-header-style" cellClass="table-cell-style">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            Overall Score
+                        </ng-template>
+                        <ng-template let-value="value" ngx-datatable-cell-template>
+                            {{value}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column [sortable]=false name="quarterlyStreak" headerClass="table-header-style" cellClass="table-cell-style">
+                        <ng-template let-column="column" ngx-datatable-header-template>
+                            3-month-streak
+                        </ng-template>
+                        <ng-template let-value="value" ngx-datatable-cell-template>
+                            {{value}}
+                        </ng-template>
+                    </ngx-datatable-column>
+                </ngx-datatable>
+            </div>
+            <ion-list>
+                <ion-card *ngFor="let row of tableRows" class="mt-0 d-block d-sm-none d-md-none d-lg-none">
+                    <div class="grid-container" [routerLink]="['/details', row.knolderId]">
+                        <div class="item1">
+                            <ion-row *ngFor="let head of tableHeading">{{head.title}}</ion-row>
+                        </div>
+                        <div class="item2">
+                            <ion-row>{{row.knolderName}}<img *ngIf="row.monthlyRank <= 3"
+                                                             alt="trophy-image" class="image-size"
+                                                             src="../../../assets/icon/icons-trophy.png"/></ion-row>
+                            <ion-row>{{row.monthlyRank}}</ion-row>
+                            <ion-row>{{row.monthlyScore}}</ion-row>
+                            <ion-row>{{row.allTimeRank}}</ion-row>
+                            <ion-row>{{row.allTimeScore}}</ion-row>
+                            <ion-row>{{row.quarterlyStreak}}</ion-row>
+                        </div>
+                    </div>
+                </ion-card>
+            </ion-list>
+        </div>
+    </div>
+</div>

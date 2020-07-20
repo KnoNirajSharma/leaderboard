@@ -1,0 +1,7 @@
+0000000000000000000000000000000000000000 4cf9c1b89c6a8ab356508ed9bc79a1ae1b95a28f umang-goyal <goel97umang@gmail.com> 1588753195 +0530	branch: Created from HEAD
+4cf9c1b89c6a8ab356508ed9bc79a1ae1b95a28f b65591dcd48961a7f4c33028c6b6ae9b1c8fa4b2 umang-goyal <goel97umang@gmail.com> 1588756229 +0530	commit: changes table component style using media queries for responsive design
+b65591dcd48961a7f4c33028c6b6ae9b1c8fa4b2 cf8150b110a8d39d4193c63a4c462c96344f36ad umang-goyal <goel97umang@gmail.com> 1588758360 +0530	commit: changes in the cards color codes
+cf8150b110a8d39d4193c63a4c462c96344f36ad 97012fc5dbecfb52671c92521a88ba4a785c8ddd umang-goyal <goel97umang@gmail.com> 1588830724 +0530	commit: removed commented code, changed header attribute from id to class, fomatting issue fixed
+97012fc5dbecfb52671c92521a88ba4a785c8ddd 0108c0c6b413ac35f2bf7c9ebcedf26dd3d69b3c umang-goyal <goel97umang@gmail.com> 1588830965 +0530	commit: formatting fixed
+0108c0c6b413ac35f2bf7c9ebcedf26dd3d69b3c 6ac861304a584ca06db2aabc42035d161868ab88 umang-goyal <goel97umang@gmail.com> 1588856909 +0530	commit: added responsiveness to table columns
+6ac861304a584ca06db2aabc42035d161868ab88 94a16f07c93e68b4c34357d070e7b6e63dfe0856 umang-goyal <goel97umang@gmail.com> 1588858793 +0530	commit: minor fix in table header

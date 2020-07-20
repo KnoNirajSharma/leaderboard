@@ -1,0 +1,4 @@
+0000000000000000000000000000000000000000 f0568c43670f6eeb20b61bacc405964002730548 umang-goyal <goel97umang@gmail.com> 1592497446 +0530	branch: Created from HEAD
+f0568c43670f6eeb20b61bacc405964002730548 c3d87b53444b7c14ad5019aa405a9bb9490ca947 umang-goyal <goel97umang@gmail.com> 1592549441 +0530	commit: added current month and year on right top corner table section
+c3d87b53444b7c14ad5019aa405a9bb9490ca947 ec5c2704d43ac96807a1743aa943640fdceed14c umang-goyal <goel97umang@gmail.com> 1592988809 +0530	commit: added font size and color to crrent month
+ec5c2704d43ac96807a1743aa943640fdceed14c 31905a89b120a4a1ff2dcc18ca6a740e21ae075e umang-goyal <goel97umang@gmail.com> 1593073238 +0530	commit: removed extra spaces

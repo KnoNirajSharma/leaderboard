@@ -1,0 +1,13 @@
+0000000000000000000000000000000000000000 7d02022bc0acb539bf45f878a5f4663766288c70 umang-goyal <goel97umang@gmail.com> 1590046127 +0530	branch: Created from refs/remotes/origin/develop
+7d02022bc0acb539bf45f878a5f4663766288c70 84d3266e538a6c22e3baa31eb033c8b9bd3f9591 umang-goyal <goel97umang@gmail.com> 1590860342 +0530	pull origin develop: Fast-forward
+84d3266e538a6c22e3baa31eb033c8b9bd3f9591 ff754beb3fcb72237a20ab7ff66cbdb1dc9dd0ad umang-goyal <goel97umang@gmail.com> 1590862148 +0530	commit: new table setup according
+ff754beb3fcb72237a20ab7ff66cbdb1dc9dd0ad b255b103c8fb308b48ef2fb3d28c7953c33c9a79 umang-goyal <goel97umang@gmail.com> 1590862270 +0530	revert: Revert "new table setup according"
+b255b103c8fb308b48ef2fb3d28c7953c33c9a79 4d5be17be02f2976e1986fd529ec761bdc534dce umang-goyal <goel97umang@gmail.com> 1591165496 +0530	pull origin develop: Fast-forward
+4d5be17be02f2976e1986fd529ec761bdc534dce d2a803ddff6818ccf434015c7e43316916f80525 umang-goyal <goel97umang@gmail.com> 1591181463 +0530	pull origin develop: Fast-forward
+d2a803ddff6818ccf434015c7e43316916f80525 bbb28145735a3ac292652c6740a6ba12dfa8d182 umang-goyal <goel97umang@gmail.com> 1591935518 +0530	pull origin develop: Fast-forward
+bbb28145735a3ac292652c6740a6ba12dfa8d182 f192d6240f6075cf4c58fe52be3472f1da520048 umang-goyal <goel97umang@gmail.com> 1592375959 +0530	commit: x
+f192d6240f6075cf4c58fe52be3472f1da520048 b63b3be7b6671f6133a734394e8d5145715f122e umang-goyal <goel97umang@gmail.com> 1592486364 +0530	commit (merge): Merge branch 'develop' of https://github.com/KnoldusLabs/leaderboard into develop
+b63b3be7b6671f6133a734394e8d5145715f122e f0568c43670f6eeb20b61bacc405964002730548 umang-goyal <goel97umang@gmail.com> 1592486427 +0530	pull origin develop: Merge made by the 'recursive' strategy.
+f0568c43670f6eeb20b61bacc405964002730548 17bee915658bd5758c681ca09292aa738957994a umang-goyal <goel97umang@gmail.com> 1593771995 +0530	pull: Fast-forward
+17bee915658bd5758c681ca09292aa738957994a 48b4cb99a251717be55eb92825b6d0554348aaa7 umang-goyal <goel97umang@gmail.com> 1594036046 +0530	commit: added bar to show total no. of contributions done from knoldus for all-time and monthly
+48b4cb99a251717be55eb92825b6d0554348aaa7 8680fb2795abe539a3969497630ab24e2a3c2104 umang-goyal <goel97umang@gmail.com> 1594889174 +0530	pull origin develop: Fast-forward

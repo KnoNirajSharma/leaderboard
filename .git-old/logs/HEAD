@@ -1,0 +1,289 @@
+0000000000000000000000000000000000000000 da36e3e932dcb5dbb3a197595da02215dd57d459 umang-goyal <goel97umang@gmail.com> 1588362227 +0530	initial pull
+da36e3e932dcb5dbb3a197595da02215dd57d459 da36e3e932dcb5dbb3a197595da02215dd57d459 umang-goyal <goel97umang@gmail.com> 1588362237 +0530	checkout: moving from master to feature/ui-develop
+da36e3e932dcb5dbb3a197595da02215dd57d459 da36e3e932dcb5dbb3a197595da02215dd57d459 umang-goyal <goel97umang@gmail.com> 1588362272 +0530	checkout: moving from feature/ui-develop to feature/ui-service
+da36e3e932dcb5dbb3a197595da02215dd57d459 4b5d21838bd246f984a18125e867fe5412a682bb umang-goyal <goel97umang@gmail.com> 1588362496 +0530	commit: added service component and http interceptor
+4b5d21838bd246f984a18125e867fe5412a682bb 3d71ea9e53c4035a55983e706b818b3fb6ac4189 umang-goyal <goel97umang@gmail.com> 1588402991 +0530	commit: fixed minor fomating issue
+3d71ea9e53c4035a55983e706b818b3fb6ac4189 3d71ea9e53c4035a55983e706b818b3fb6ac4189 umang-goyal <goel97umang@gmail.com> 1588417081 +0530	checkout: moving from feature/ui-service to feature/ui-card
+3d71ea9e53c4035a55983e706b818b3fb6ac4189 0f66f05ac3d0f683bcf7fc962658cdf387cf8b5b umang-goyal <goel97umang@gmail.com> 1588424316 +0530	commit: added generic card component, header component, main page for the application
+0f66f05ac3d0f683bcf7fc962658cdf387cf8b5b c82ded92eb3f43023dbb85a71c97fc238062b783 umang-goyal <goel97umang@gmail.com> 1588426177 +0530	commit: added test cases and formated the code.
+c82ded92eb3f43023dbb85a71c97fc238062b783 c82ded92eb3f43023dbb85a71c97fc238062b783 umang-goyal <goel97umang@gmail.com> 1588427130 +0530	checkout: moving from feature/ui-card to feature/ui-sidebar
+c82ded92eb3f43023dbb85a71c97fc238062b783 c82ded92eb3f43023dbb85a71c97fc238062b783 umang-goyal <goel97umang@gmail.com> 1588481328 +0530	checkout: moving from feature/ui-sidebar to feature/ui-card
+c82ded92eb3f43023dbb85a71c97fc238062b783 5b04ba3f39c2cc312c6a2cd8cdf034d88752bf87 umang-goyal <goel97umang@gmail.com> 1588481477 +0530	commit: converted CardModelData as interface
+5b04ba3f39c2cc312c6a2cd8cdf034d88752bf87 0a3467b6444ea60f52565375d0d44b73756175a5 umang-goyal <goel97umang@gmail.com> 1588500080 +0530	commit: changed getTotalCount Function in Main.page.ts, fixed styling bug in card component
+0a3467b6444ea60f52565375d0d44b73756175a5 0a3467b6444ea60f52565375d0d44b73756175a5 umang-goyal <goel97umang@gmail.com> 1588562540 +0530	checkout: moving from feature/ui-card to feature/ui-sidebar-component
+0a3467b6444ea60f52565375d0d44b73756175a5 0a3467b6444ea60f52565375d0d44b73756175a5 umang-goyal <goel97umang@gmail.com> 1588577467 +0530	checkout: moving from feature/ui-sidebar-component to feature/ui-card
+0a3467b6444ea60f52565375d0d44b73756175a5 fa1b7739efc1efb2881d86aa5adb721b82544cf0 umang-goyal <goel97umang@gmail.com> 1588586638 +0530	commit: made changes in main.page.ts according to the pr.
+fa1b7739efc1efb2881d86aa5adb721b82544cf0 a5ff35d0ee1d1f3bb647dfdd325542d7c413af8d umang-goyal <goel97umang@gmail.com> 1588587798 +0530	commit: imporoved test case for main.page.ts
+a5ff35d0ee1d1f3bb647dfdd325542d7c413af8d 67e7c5d9f06e3d5155a8b88baeacbadd637bc408 umang-goyal <goel97umang@gmail.com> 1588595271 +0530	commit: fixed a bug in getTotalCount() switch case.
+67e7c5d9f06e3d5155a8b88baeacbadd637bc408 da36e3e932dcb5dbb3a197595da02215dd57d459 umang-goyal <goel97umang@gmail.com> 1588596702 +0530	checkout: moving from feature/ui-card to feature/ui-develop
+da36e3e932dcb5dbb3a197595da02215dd57d459 d47826b62670f16c85d6905698089ec83d8b4f8c umang-goyal <goel97umang@gmail.com> 1588596739 +0530	pull origin feature/ui-develop: Fast-forward
+d47826b62670f16c85d6905698089ec83d8b4f8c c82ded92eb3f43023dbb85a71c97fc238062b783 umang-goyal <goel97umang@gmail.com> 1588597048 +0530	checkout: moving from feature/ui-develop to feature/ui-sidebar
+c82ded92eb3f43023dbb85a71c97fc238062b783 d47826b62670f16c85d6905698089ec83d8b4f8c umang-goyal <goel97umang@gmail.com> 1588597061 +0530	rebase: checkout feature/ui-develop
+d47826b62670f16c85d6905698089ec83d8b4f8c d47826b62670f16c85d6905698089ec83d8b4f8c umang-goyal <goel97umang@gmail.com> 1588597061 +0530	rebase finished: returning to refs/heads/feature/ui-sidebar
+d47826b62670f16c85d6905698089ec83d8b4f8c 491ad9fd28ac12283100ba3767be4139e9749070 umang-goyal <goel97umang@gmail.com> 1588600588 +0530	commit: added side bar component.
+491ad9fd28ac12283100ba3767be4139e9749070 efcc65cf67d0c11bbfa3111996288c609cee1f54 umang-goyal <goel97umang@gmail.com> 1588606660 +0530	commit: changes
+efcc65cf67d0c11bbfa3111996288c609cee1f54 c91825b06fa80893ffee82108b203722a0bbeae9 umang-goyal <goel97umang@gmail.com> 1588606669 +0530	checkout: moving from feature/ui-sidebar to feature/ui-table-comp
+c91825b06fa80893ffee82108b203722a0bbeae9 d47826b62670f16c85d6905698089ec83d8b4f8c umang-goyal <goel97umang@gmail.com> 1588608147 +0530	checkout: moving from feature/ui-table-comp to feature/ui-develop
+d47826b62670f16c85d6905698089ec83d8b4f8c c91825b06fa80893ffee82108b203722a0bbeae9 umang-goyal <goel97umang@gmail.com> 1588610658 +0530	checkout: moving from feature/ui-develop to feature/ui-table-comp
+c91825b06fa80893ffee82108b203722a0bbeae9 d47826b62670f16c85d6905698089ec83d8b4f8c umang-goyal <goel97umang@gmail.com> 1588611188 +0530	checkout: moving from feature/ui-table-comp to feature/ui-develop
+d47826b62670f16c85d6905698089ec83d8b4f8c d47826b62670f16c85d6905698089ec83d8b4f8c umang-goyal <goel97umang@gmail.com> 1588620005 +0530	checkout: moving from feature/ui-develop to d47826b62670f16c85d6905698089ec83d8b4f8c
+d47826b62670f16c85d6905698089ec83d8b4f8c efcc65cf67d0c11bbfa3111996288c609cee1f54 umang-goyal <goel97umang@gmail.com> 1588620188 +0530	checkout: moving from d47826b62670f16c85d6905698089ec83d8b4f8c to feature/ui-sidebar
+efcc65cf67d0c11bbfa3111996288c609cee1f54 5ad3976b8836f5999ae4c94dfb8ad94a3c27f066 umang-goyal <goel97umang@gmail.com> 1588652876 +0530	commit: added mobile resposiveness in side menu, used best practices as mentioned in PR. fixed styling issue in card component for mobile view
+5ad3976b8836f5999ae4c94dfb8ad94a3c27f066 d47826b62670f16c85d6905698089ec83d8b4f8c umang-goyal <goel97umang@gmail.com> 1588655540 +0530	checkout: moving from feature/ui-sidebar to feature/ui-develop
+d47826b62670f16c85d6905698089ec83d8b4f8c 9dae6f46a9a519915f8761c747e3c33aabde3b33 umang-goyal <goel97umang@gmail.com> 1588664900 +0530	checkout: moving from feature/ui-develop to feature/ui-table-component
+9dae6f46a9a519915f8761c747e3c33aabde3b33 dbeaa38afe22690accaaf70379439d0064c2ceaa umang-goyal <goel97umang@gmail.com> 1588669179 +0530	commit: pipe implementation in process
+dbeaa38afe22690accaaf70379439d0064c2ceaa 5ad3976b8836f5999ae4c94dfb8ad94a3c27f066 umang-goyal <goel97umang@gmail.com> 1588669201 +0530	checkout: moving from feature/ui-table-component to feature/ui-sidebar
+5ad3976b8836f5999ae4c94dfb8ad94a3c27f066 71eacb494d972943b89d0ae6094135dadfaa27aa umang-goyal <goel97umang@gmail.com> 1588675391 +0530	commit: improved styling for side bar and cards
+71eacb494d972943b89d0ae6094135dadfaa27aa 477da1b8f831733172f89b63125da1993387c9d9 umang-goyal <goel97umang@gmail.com> 1588676469 +0530	commit: header text alignment fixed
+477da1b8f831733172f89b63125da1993387c9d9 dbeaa38afe22690accaaf70379439d0064c2ceaa umang-goyal <goel97umang@gmail.com> 1588678806 +0530	checkout: moving from feature/ui-sidebar to feature/ui-table-component
+dbeaa38afe22690accaaf70379439d0064c2ceaa 477da1b8f831733172f89b63125da1993387c9d9 umang-goyal <goel97umang@gmail.com> 1588679318 +0530	checkout: moving from feature/ui-table-component to feature/ui-sidebar
+477da1b8f831733172f89b63125da1993387c9d9 046b6003e4bca26bf4a7d3055bac3470972c21e9 umang-goyal <goel97umang@gmail.com> 1588684393 +0530	commit: improved naming conventions and test cases for toggleSidebar() added
+046b6003e4bca26bf4a7d3055bac3470972c21e9 83e5b7d3e0bbe40f33ab1b30e87af48a504c3ac1 umang-goyal <goel97umang@gmail.com> 1588685721 +0530	commit (merge): Merge branch 'feature/ui-develop' of https://github.com/KnoldusLabs/leaderboard into feature/ui-sidebar
+83e5b7d3e0bbe40f33ab1b30e87af48a504c3ac1 d47826b62670f16c85d6905698089ec83d8b4f8c umang-goyal <goel97umang@gmail.com> 1588686112 +0530	checkout: moving from feature/ui-sidebar to feature/ui-develop
+d47826b62670f16c85d6905698089ec83d8b4f8c 8cfe27e6140bc2ff587f752b6bd4f38ba8a9af67 umang-goyal <goel97umang@gmail.com> 1588686152 +0530	pull origin feature/ui-develop: Fast-forward
+8cfe27e6140bc2ff587f752b6bd4f38ba8a9af67 ed0b8962e98615b106e2a6c16c0f69a97e4a9679 umang-goyal <goel97umang@gmail.com> 1588687094 +0530	commit: layout bug resolved
+ed0b8962e98615b106e2a6c16c0f69a97e4a9679 7fcad47f93e0cb3a4c954b40808199d35c3e01d8 umang-goyal <goel97umang@gmail.com> 1588689539 +0530	commit: changed mock url to live
+7fcad47f93e0cb3a4c954b40808199d35c3e01d8 4cf9c1b89c6a8ab356508ed9bc79a1ae1b95a28f umang-goyal <goel97umang@gmail.com> 1588739822 +0530	commit: fixed styling issues.
+4cf9c1b89c6a8ab356508ed9bc79a1ae1b95a28f 4cf9c1b89c6a8ab356508ed9bc79a1ae1b95a28f umang-goyal <goel97umang@gmail.com> 1588753195 +0530	checkout: moving from feature/ui-develop to feature/ui-responsive-design
+4cf9c1b89c6a8ab356508ed9bc79a1ae1b95a28f b65591dcd48961a7f4c33028c6b6ae9b1c8fa4b2 umang-goyal <goel97umang@gmail.com> 1588756229 +0530	commit: changes table component style using media queries for responsive design
+b65591dcd48961a7f4c33028c6b6ae9b1c8fa4b2 cf8150b110a8d39d4193c63a4c462c96344f36ad umang-goyal <goel97umang@gmail.com> 1588758360 +0530	commit: changes in the cards color codes
+cf8150b110a8d39d4193c63a4c462c96344f36ad cf8150b110a8d39d4193c63a4c462c96344f36ad umang-goyal <goel97umang@gmail.com> 1588759207 +0530	checkout: moving from feature/ui-responsive-design to feature/ui-modal
+cf8150b110a8d39d4193c63a4c462c96344f36ad 4cf9c1b89c6a8ab356508ed9bc79a1ae1b95a28f umang-goyal <goel97umang@gmail.com> 1588760321 +0530	checkout: moving from feature/ui-modal to feature/ui-develop
+4cf9c1b89c6a8ab356508ed9bc79a1ae1b95a28f 4cf9c1b89c6a8ab356508ed9bc79a1ae1b95a28f umang-goyal <goel97umang@gmail.com> 1588760331 +0530	checkout: moving from feature/ui-develop to feature/ui-r
+4cf9c1b89c6a8ab356508ed9bc79a1ae1b95a28f cf8150b110a8d39d4193c63a4c462c96344f36ad umang-goyal <goel97umang@gmail.com> 1588760345 +0530	checkout: moving from feature/ui-r to feature/ui-responsive-design
+cf8150b110a8d39d4193c63a4c462c96344f36ad cf8150b110a8d39d4193c63a4c462c96344f36ad umang-goyal <goel97umang@gmail.com> 1588760392 +0530	checkout: moving from feature/ui-responsive-design to feature/ui-modal
+cf8150b110a8d39d4193c63a4c462c96344f36ad f14f2f14fd17577913f266a2276ee668a0b60d69 umang-goyal <goel97umang@gmail.com> 1588764438 +0530	commit: added a modal compoenent but yet to be implemented
+f14f2f14fd17577913f266a2276ee668a0b60d69 cf8150b110a8d39d4193c63a4c462c96344f36ad umang-goyal <goel97umang@gmail.com> 1588764714 +0530	checkout: moving from feature/ui-modal to feature/ui-responsive-design
+cf8150b110a8d39d4193c63a4c462c96344f36ad cf8150b110a8d39d4193c63a4c462c96344f36ad umang-goyal <goel97umang@gmail.com> 1588777071 +0530	checkout: moving from feature/ui-responsive-design to feature/ui-tabs
+cf8150b110a8d39d4193c63a4c462c96344f36ad 77cd556352eed04b2c4bc92c5d8762d09b3a79ac umang-goyal <goel97umang@gmail.com> 1588830321 +0530	commit: added a tabs compoenent, implementation left
+77cd556352eed04b2c4bc92c5d8762d09b3a79ac cf8150b110a8d39d4193c63a4c462c96344f36ad umang-goyal <goel97umang@gmail.com> 1588830411 +0530	checkout: moving from feature/ui-tabs to feature/ui-responsive-design
+cf8150b110a8d39d4193c63a4c462c96344f36ad 97012fc5dbecfb52671c92521a88ba4a785c8ddd umang-goyal <goel97umang@gmail.com> 1588830724 +0530	commit: removed commented code, changed header attribute from id to class, fomatting issue fixed
+97012fc5dbecfb52671c92521a88ba4a785c8ddd 0108c0c6b413ac35f2bf7c9ebcedf26dd3d69b3c umang-goyal <goel97umang@gmail.com> 1588830965 +0530	commit: formatting fixed
+0108c0c6b413ac35f2bf7c9ebcedf26dd3d69b3c 6ac861304a584ca06db2aabc42035d161868ab88 umang-goyal <goel97umang@gmail.com> 1588856909 +0530	commit: added responsiveness to table columns
+6ac861304a584ca06db2aabc42035d161868ab88 94a16f07c93e68b4c34357d070e7b6e63dfe0856 umang-goyal <goel97umang@gmail.com> 1588858793 +0530	commit: minor fix in table header
+94a16f07c93e68b4c34357d070e7b6e63dfe0856 77cd556352eed04b2c4bc92c5d8762d09b3a79ac umang-goyal <goel97umang@gmail.com> 1588870226 +0530	checkout: moving from feature/ui-responsive-design to feature/ui-tabs
+77cd556352eed04b2c4bc92c5d8762d09b3a79ac 62c6cf05adb96b39d36405a0105990014ac843bd umang-goyal <goel97umang@gmail.com> 1589174081 +0530	commit: added a tab component, sperate table component for different table, made table Dcompoenents load dynamically on tab selection[1;5DD
+62c6cf05adb96b39d36405a0105990014ac843bd 4cf9c1b89c6a8ab356508ed9bc79a1ae1b95a28f umang-goyal <goel97umang@gmail.com> 1589177760 +0530	checkout: moving from feature/ui-tabs to feature/ui-develop
+4cf9c1b89c6a8ab356508ed9bc79a1ae1b95a28f 5738d5ea8493a8a5f15c1334b06ce7d327328149 umang-goyal <goel97umang@gmail.com> 1589177817 +0530	pull origin feature/ui-develop: Fast-forward
+5738d5ea8493a8a5f15c1334b06ce7d327328149 5738d5ea8493a8a5f15c1334b06ce7d327328149 umang-goyal <goel97umang@gmail.com> 1589177989 +0530	checkout: moving from feature/ui-develop to feature/ui-different-table-components
+5738d5ea8493a8a5f15c1334b06ce7d327328149 62c6cf05adb96b39d36405a0105990014ac843bd umang-goyal <goel97umang@gmail.com> 1589178080 +0530	checkout: moving from feature/ui-different-table-components to feature/ui-tabs
+62c6cf05adb96b39d36405a0105990014ac843bd 5738d5ea8493a8a5f15c1334b06ce7d327328149 umang-goyal <goel97umang@gmail.com> 1589178137 +0530	checkout: moving from feature/ui-tabs to feature/ui-different-table-components
+5738d5ea8493a8a5f15c1334b06ce7d327328149 352b5066582e8d4fea4fc71cbbf52da53fc4d250 umang-goyal <goel97umang@gmail.com> 1589178844 +0530	commit: added table components for monthly and streak
+352b5066582e8d4fea4fc71cbbf52da53fc4d250 62c6cf05adb96b39d36405a0105990014ac843bd umang-goyal <goel97umang@gmail.com> 1589178852 +0530	checkout: moving from feature/ui-different-table-components to feature/ui-tabs
+62c6cf05adb96b39d36405a0105990014ac843bd 352b5066582e8d4fea4fc71cbbf52da53fc4d250 umang-goyal <goel97umang@gmail.com> 1589178893 +0530	checkout: moving from feature/ui-tabs to feature/ui-different-table-components
+352b5066582e8d4fea4fc71cbbf52da53fc4d250 505d092e9f6f54d58e9a1710fef65d8b2c234feb umang-goyal <goel97umang@gmail.com> 1589180811 +0530	commit: added test cases
+505d092e9f6f54d58e9a1710fef65d8b2c234feb 505d092e9f6f54d58e9a1710fef65d8b2c234feb umang-goyal <goel97umang@gmail.com> 1589181111 +0530	checkout: moving from feature/ui-different-table-components to feature/KL-46
+505d092e9f6f54d58e9a1710fef65d8b2c234feb 8f05b326ea5ca850b5c5662a0c84de404d107114 umang-goyal <goel97umang@gmail.com> 1589183441 +0530	commit: added a component for tabs
+8f05b326ea5ca850b5c5662a0c84de404d107114 bd98107eadfd9f68954921c43af8bef1d120f0a4 umang-goyal <goel97umang@gmail.com> 1589370034 +0530	commit: made single table component for all table, added method to switch the table on click of the tab
+bd98107eadfd9f68954921c43af8bef1d120f0a4 8be320f66b01f0c3ee603b19a30da56b9a7b044d umang-goyal <goel97umang@gmail.com> 1589370406 +0530	commit: fixed formating issue
+8be320f66b01f0c3ee603b19a30da56b9a7b044d 8be320f66b01f0c3ee603b19a30da56b9a7b044d umang-goyal <goel97umang@gmail.com> 1589374795 +0530	checkout: moving from feature/KL-46 to feature/ui-template
+8be320f66b01f0c3ee603b19a30da56b9a7b044d ad431df1fe1c7d801be9823453e6995c2f700ce2 umang-goyal <goel97umang@gmail.com> 1589387240 +0530	commit (merge): cMerge branch 'develop' of https://github.com/KnoldusLabs/leaderboard into feature/ui-template
+ad431df1fe1c7d801be9823453e6995c2f700ce2 8be320f66b01f0c3ee603b19a30da56b9a7b044d umang-goyal <goel97umang@gmail.com> 1589387278 +0530	checkout: moving from feature/ui-template to feature/KL-46
+8be320f66b01f0c3ee603b19a30da56b9a7b044d e0c4487a3a810143cdfe1cd359839f833b238463 umang-goyal <goel97umang@gmail.com> 1589464244 +0530	commit: tabs made a part of main page, test cases improved and coverage 100%
+e0c4487a3a810143cdfe1cd359839f833b238463 f3c77ca272aca2e02b76e64aad88cc7d37db1192 umang-goyal <goel97umang@gmail.com> 1589464531 +0530	commit: removed commented code
+f3c77ca272aca2e02b76e64aad88cc7d37db1192 4a2d726f0c31624dc645efba9bc44f30e89739af umang-goyal <goel97umang@gmail.com> 1589464843 +0530	commit: minor bug fixes
+4a2d726f0c31624dc645efba9bc44f30e89739af 0b3574b48816d1e79a8058cbb6b16470603761d0 umang-goyal <goel97umang@gmail.com> 1589474271 +0530	commit: changes singleRun in karma.conf from false to true
+0b3574b48816d1e79a8058cbb6b16470603761d0 48cbd200101c62032f856cb6207daa6d8179c75f umang-goyal <goel97umang@gmail.com> 1589483965 +0530	commit: used querySelector method instead of getElementsBy, adding selected class to tab from ts file on load
+48cbd200101c62032f856cb6207daa6d8179c75f 4465f011ba67cb6c4fa751127d839c2f5ab1e7fe umang-goyal <goel97umang@gmail.com> 1589511434 +0530	commit: modifies [ngClass] even==i%==0 keeping the style same.
+4465f011ba67cb6c4fa751127d839c2f5ab1e7fe ec64c1664889cf1e2c42dd0ac0013aa3e84c3fc3 umang-goyal <goel97umang@gmail.com> 1589725780 +0530	commit: improved scssfor tabs and table and media queries immporoved
+ec64c1664889cf1e2c42dd0ac0013aa3e84c3fc3 06a3862dd704fe4504cf6e4f1b552764c307f41d umang-goyal <goel97umang@gmail.com> 1589783874 +0530	commit: fixed formating issues in scss.
+06a3862dd704fe4504cf6e4f1b552764c307f41d 8bbaba16b932e162d37292a2cc127bd35e6dffa8 umang-goyal <goel97umang@gmail.com> 1589784577 +0530	commit: scss spacing issue fixed
+8bbaba16b932e162d37292a2cc127bd35e6dffa8 5702164a61ceb47be8a311348db05d5785012987 umang-goyal <goel97umang@gmail.com> 1589793543 +0530	commit (merge): Merge branch 'develop' of https://github.com/KnoldusLabs/leaderboard into feature/KL-46
+5702164a61ceb47be8a311348db05d5785012987 44cedeee7aba82112557f9796b571d6938d24cdb umang-goyal <goel97umang@gmail.com> 1590046084 +0530	commit: minor changes
+44cedeee7aba82112557f9796b571d6938d24cdb 7d02022bc0acb539bf45f878a5f4663766288c70 umang-goyal <goel97umang@gmail.com> 1590046127 +0530	checkout: moving from feature/KL-46 to develop
+7d02022bc0acb539bf45f878a5f4663766288c70 7d02022bc0acb539bf45f878a5f4663766288c70 umang-goyal <goel97umang@gmail.com> 1590046144 +0530	checkout: moving from develop to develop
+7d02022bc0acb539bf45f878a5f4663766288c70 7d02022bc0acb539bf45f878a5f4663766288c70 umang-goyal <goel97umang@gmail.com> 1590050862 +0530	checkout: moving from develop to feature/KL-77
+7d02022bc0acb539bf45f878a5f4663766288c70 033b6d2806c33c5b8e365161bfa27a3026b60d61 umang-goyal <goel97umang@gmail.com> 1590068139 +0530	commit: removed sidebar and header bug fixed
+033b6d2806c33c5b8e365161bfa27a3026b60d61 033b6d2806c33c5b8e365161bfa27a3026b60d61 umang-goyal <goel97umang@gmail.com> 1590081808 +0530	checkout: moving from feature/KL-77 to header-design
+033b6d2806c33c5b8e365161bfa27a3026b60d61 033b6d2806c33c5b8e365161bfa27a3026b60d61 umang-goyal <goel97umang@gmail.com> 1590128277 +0530	checkout: moving from header-design to feature/KL-77
+033b6d2806c33c5b8e365161bfa27a3026b60d61 033b6d2806c33c5b8e365161bfa27a3026b60d61 umang-goyal <goel97umang@gmail.com> 1590128310 +0530	checkout: moving from feature/KL-77 to feature/KL-77
+033b6d2806c33c5b8e365161bfa27a3026b60d61 4fa6677aaee603a4f960d8fa5ef233ac02f4c59a umang-goyal <goel97umang@gmail.com> 1590128615 +0530	commit: modified test cases accordingly
+4fa6677aaee603a4f960d8fa5ef233ac02f4c59a 7d02022bc0acb539bf45f878a5f4663766288c70 umang-goyal <goel97umang@gmail.com> 1590858290 +0530	checkout: moving from feature/KL-77 to develop
+7d02022bc0acb539bf45f878a5f4663766288c70 7d02022bc0acb539bf45f878a5f4663766288c70 umang-goyal <goel97umang@gmail.com> 1590859511 +0530	checkout: moving from develop to feature/KL-100
+7d02022bc0acb539bf45f878a5f4663766288c70 e72746b86c69604d1a4dedd5d35e2a04eaae550d umang-goyal <goel97umang@gmail.com> 1590860123 +0530	commit: delete
+e72746b86c69604d1a4dedd5d35e2a04eaae550d da36e3e932dcb5dbb3a197595da02215dd57d459 umang-goyal <goel97umang@gmail.com> 1590860243 +0530	checkout: moving from feature/KL-100 to master
+da36e3e932dcb5dbb3a197595da02215dd57d459 7d02022bc0acb539bf45f878a5f4663766288c70 umang-goyal <goel97umang@gmail.com> 1590860275 +0530	checkout: moving from master to develop
+7d02022bc0acb539bf45f878a5f4663766288c70 84d3266e538a6c22e3baa31eb033c8b9bd3f9591 umang-goyal <goel97umang@gmail.com> 1590860342 +0530	pull origin develop: Fast-forward
+84d3266e538a6c22e3baa31eb033c8b9bd3f9591 ff754beb3fcb72237a20ab7ff66cbdb1dc9dd0ad umang-goyal <goel97umang@gmail.com> 1590862148 +0530	commit: new table setup according
+ff754beb3fcb72237a20ab7ff66cbdb1dc9dd0ad b255b103c8fb308b48ef2fb3d28c7953c33c9a79 umang-goyal <goel97umang@gmail.com> 1590862270 +0530	revert: Revert "new table setup according"
+b255b103c8fb308b48ef2fb3d28c7953c33c9a79 b255b103c8fb308b48ef2fb3d28c7953c33c9a79 umang-goyal <goel97umang@gmail.com> 1590862345 +0530	checkout: moving from develop to feature/KL-100
+b255b103c8fb308b48ef2fb3d28c7953c33c9a79 8555778fe48d8e09bed136c2ee7ff5e8fa1f08ea umang-goyal <goel97umang@gmail.com> 1590865792 +0530	commit: changed author model according to API change, other minor setup changes and test cases according to it
+8555778fe48d8e09bed136c2ee7ff5e8fa1f08ea 8555778fe48d8e09bed136c2ee7ff5e8fa1f08ea umang-goyal <goel97umang@gmail.com> 1590866230 +0530	checkout: moving from feature/KL-100 to feature/KL-101
+8555778fe48d8e09bed136c2ee7ff5e8fa1f08ea c948a08366e64a61b0395a1e0024b4a323004af7 umang-goyal <goel97umang@gmail.com> 1590908284 +0530	commit: failed attempt to add template
+c948a08366e64a61b0395a1e0024b4a323004af7 da36e3e932dcb5dbb3a197595da02215dd57d459 umang-goyal <goel97umang@gmail.com> 1590908296 +0530	checkout: moving from feature/KL-101 to master
+da36e3e932dcb5dbb3a197595da02215dd57d459 8555778fe48d8e09bed136c2ee7ff5e8fa1f08ea umang-goyal <goel97umang@gmail.com> 1590908365 +0530	checkout: moving from master to feature/KL-100
+8555778fe48d8e09bed136c2ee7ff5e8fa1f08ea 8555778fe48d8e09bed136c2ee7ff5e8fa1f08ea umang-goyal <goel97umang@gmail.com> 1590908380 +0530	checkout: moving from feature/KL-100 to feature/KL-101
+8555778fe48d8e09bed136c2ee7ff5e8fa1f08ea 0c494ceffb5645b688fac56cc19e101904f38cea umang-goyal <goel97umang@gmail.com> 1590951364 +0530	commit: redesigned table and made responsive using template
+0c494ceffb5645b688fac56cc19e101904f38cea 0c494ceffb5645b688fac56cc19e101904f38cea umang-goyal <goel97umang@gmail.com> 1590953429 +0530	checkout: moving from feature/KL-101 to feature/KL-102
+0c494ceffb5645b688fac56cc19e101904f38cea 5470d3be49787b43181676d7904da567628c3922 umang-goyal <goel97umang@gmail.com> 1590965135 +0530	commit: changes in progress
+5470d3be49787b43181676d7904da567628c3922 0c494ceffb5645b688fac56cc19e101904f38cea umang-goyal <goel97umang@gmail.com> 1590965178 +0530	checkout: moving from feature/KL-102 to feature/KL-101
+0c494ceffb5645b688fac56cc19e101904f38cea 0c494ceffb5645b688fac56cc19e101904f38cea umang-goyal <goel97umang@gmail.com> 1590965198 +0530	checkout: moving from feature/KL-101 to feature/KL-103
+0c494ceffb5645b688fac56cc19e101904f38cea 0fb9523d7349aef1835894d02f08911840aaeebd umang-goyal <goel97umang@gmail.com> 1590984895 +0530	commit: added filter pipe and search bar to search employee name
+0fb9523d7349aef1835894d02f08911840aaeebd 2fab0d9618e37bf1f69f458a45b68b81c610bc24 umang-goyal <goel97umang@gmail.com> 1590985020 +0530	commit: scss formating style fixed
+2fab0d9618e37bf1f69f458a45b68b81c610bc24 2fab0d9618e37bf1f69f458a45b68b81c610bc24 umang-goyal <goel97umang@gmail.com> 1590985415 +0530	checkout: moving from feature/KL-103 to feature/KL-104
+2fab0d9618e37bf1f69f458a45b68b81c610bc24 110730bd8e5d224ce24066a40c27d2d402e70e55 umang-goyal <goel97umang@gmail.com> 1590998878 +0530	commit: added background color, added icons for leaderboard and knoldus
+110730bd8e5d224ce24066a40c27d2d402e70e55 5470d3be49787b43181676d7904da567628c3922 umang-goyal <goel97umang@gmail.com> 1590999502 +0530	checkout: moving from feature/KL-104 to feature/KL-102
+5470d3be49787b43181676d7904da567628c3922 0032ee28123fa5641f6f6ab559c229d68ff38872 umang-goyal <goel97umang@gmail.com> 1591020415 +0530	commit (merge): card model changed and card component redesigned, added open sans font,
+0032ee28123fa5641f6f6ab559c229d68ff38872 2fab0d9618e37bf1f69f458a45b68b81c610bc24 umang-goyal <goel97umang@gmail.com> 1591060780 +0530	checkout: moving from feature/KL-102 to feature/KL-103
+2fab0d9618e37bf1f69f458a45b68b81c610bc24 ff00aaef47191fc456881f3493066d2b8321dd45 umang-goyal <goel97umang@gmail.com> 1591079340 +0530	commit: added search bar input tag in main.html
+ff00aaef47191fc456881f3493066d2b8321dd45 ff00aaef47191fc456881f3493066d2b8321dd45 umang-goyal <goel97umang@gmail.com> 1591079367 +0530	checkout: moving from feature/KL-103 to feature/KL-103
+ff00aaef47191fc456881f3493066d2b8321dd45 110730bd8e5d224ce24066a40c27d2d402e70e55 umang-goyal <goel97umang@gmail.com> 1591079440 +0530	checkout: moving from feature/KL-103 to feature/KL-104
+110730bd8e5d224ce24066a40c27d2d402e70e55 8afea5dc90187b7f71833c265037fefedf4327ae umang-goyal <goel97umang@gmail.com> 1591079835 +0530	commit: changed icon-size for leaderboard
+8afea5dc90187b7f71833c265037fefedf4327ae ff00aaef47191fc456881f3493066d2b8321dd45 umang-goyal <goel97umang@gmail.com> 1591079953 +0530	checkout: moving from feature/KL-104 to feature/KL-103
+ff00aaef47191fc456881f3493066d2b8321dd45 0a488c4a1dde242bc93cc17476f3c53fad5e9973 umang-goyal <goel97umang@gmail.com> 1591089542 +0530	commit: added search filter functionality in main page and removed form table comp test cases added
+0a488c4a1dde242bc93cc17476f3c53fad5e9973 0032ee28123fa5641f6f6ab559c229d68ff38872 umang-goyal <goel97umang@gmail.com> 1591089834 +0530	checkout: moving from feature/KL-103 to feature/KL-102
+0032ee28123fa5641f6f6ab559c229d68ff38872 a7df8cbe7dd5d9e72ae35aa56c14bba70d6d1372 umang-goyal <goel97umang@gmail.com> 1591090131 +0530	commit: changed header logo
+a7df8cbe7dd5d9e72ae35aa56c14bba70d6d1372 0a488c4a1dde242bc93cc17476f3c53fad5e9973 umang-goyal <goel97umang@gmail.com> 1591090175 +0530	rebase: checkout feature/KL-103
+0a488c4a1dde242bc93cc17476f3c53fad5e9973 3a55b235e6b4b2d9449cd7babf2e6691637e7d40 umang-goyal <goel97umang@gmail.com> 1591090176 +0530	rebase: changes in progress
+3a55b235e6b4b2d9449cd7babf2e6691637e7d40 a80e2a6a38f499300c0e4b132acd8176977764d1 umang-goyal <goel97umang@gmail.com> 1591091696 +0530	commit: temp
+a80e2a6a38f499300c0e4b132acd8176977764d1 da36e3e932dcb5dbb3a197595da02215dd57d459 umang-goyal <goel97umang@gmail.com> 1591091955 +0530	checkout: moving from a80e2a6a38f499300c0e4b132acd8176977764d1 to master
+da36e3e932dcb5dbb3a197595da02215dd57d459 b255b103c8fb308b48ef2fb3d28c7953c33c9a79 umang-goyal <goel97umang@gmail.com> 1591092011 +0530	checkout: moving from master to develop
+b255b103c8fb308b48ef2fb3d28c7953c33c9a79 b255b103c8fb308b48ef2fb3d28c7953c33c9a79 umang-goyal <goel97umang@gmail.com> 1591092029 +0530	checkout: moving from develop to feature/KL-102
+b255b103c8fb308b48ef2fb3d28c7953c33c9a79 0a488c4a1dde242bc93cc17476f3c53fad5e9973 umang-goyal <goel97umang@gmail.com> 1591092383 +0530	checkout: moving from feature/KL-102 to feature/KL-103
+0a488c4a1dde242bc93cc17476f3c53fad5e9973 949960ba1c8bc4b3c03cd043d279549ab8891a89 umang-goyal <goel97umang@gmail.com> 1591092594 +0530	commit: removed unwanted variable
+949960ba1c8bc4b3c03cd043d279549ab8891a89 a0eef96c155aa444b0448977d557b4f75f8a7db5 umang-goyal <goel97umang@gmail.com> 1591093844 +0530	commit (merge): Merge branch 'develop' of https://github.com/KnoldusLabs/leaderboard into feature/KL-103
+a0eef96c155aa444b0448977d557b4f75f8a7db5 8afea5dc90187b7f71833c265037fefedf4327ae umang-goyal <goel97umang@gmail.com> 1591093924 +0530	checkout: moving from feature/KL-103 to feature/KL-104
+8afea5dc90187b7f71833c265037fefedf4327ae a0eef96c155aa444b0448977d557b4f75f8a7db5 umang-goyal <goel97umang@gmail.com> 1591110343 +0530	checkout: moving from feature/KL-104 to feature/KL-103
+a0eef96c155aa444b0448977d557b4f75f8a7db5 b255b103c8fb308b48ef2fb3d28c7953c33c9a79 umang-goyal <goel97umang@gmail.com> 1591165403 +0530	checkout: moving from feature/KL-103 to develop
+b255b103c8fb308b48ef2fb3d28c7953c33c9a79 4d5be17be02f2976e1986fd529ec761bdc534dce umang-goyal <goel97umang@gmail.com> 1591165496 +0530	pull origin develop: Fast-forward
+4d5be17be02f2976e1986fd529ec761bdc534dce 4d5be17be02f2976e1986fd529ec761bdc534dce umang-goyal <goel97umang@gmail.com> 1591165817 +0530	checkout: moving from develop to feature/update-endpoints
+4d5be17be02f2976e1986fd529ec761bdc534dce 5d7710e2dce6bddd2eedb78e9ed2f640239bf15c umang-goyal <goel97umang@gmail.com> 1591174109 +0530	commit: added endpoints
+5d7710e2dce6bddd2eedb78e9ed2f640239bf15c 62dfb6629d0ceb1b460e01ed2353255e0c256a4e umang-goyal <goel97umang@gmail.com> 1591181429 +0530	commit (merge): Merge branch 'develop' of https://github.com/KnoldusLabs/leaderboard into feature/update-endpoints
+62dfb6629d0ceb1b460e01ed2353255e0c256a4e 4d5be17be02f2976e1986fd529ec761bdc534dce umang-goyal <goel97umang@gmail.com> 1591181436 +0530	checkout: moving from feature/update-endpoints to develop
+4d5be17be02f2976e1986fd529ec761bdc534dce d2a803ddff6818ccf434015c7e43316916f80525 umang-goyal <goel97umang@gmail.com> 1591181463 +0530	pull origin develop: Fast-forward
+d2a803ddff6818ccf434015c7e43316916f80525 d2a803ddff6818ccf434015c7e43316916f80525 umang-goyal <goel97umang@gmail.com> 1591181517 +0530	checkout: moving from develop to feature/table-column-rearrange
+d2a803ddff6818ccf434015c7e43316916f80525 04220eca5c96cae83287447636a4a4a93e06a5bf umang-goyal <goel97umang@gmail.com> 1591182789 +0530	commit: modified table datakeys to rearrange the columns according to wireframes
+04220eca5c96cae83287447636a4a4a93e06a5bf 5499424215862cabe5f71e09642ae6975d208769 umang-goyal <goel97umang@gmail.com> 1591547403 +0530	commit: last
+5499424215862cabe5f71e09642ae6975d208769 5499424215862cabe5f71e09642ae6975d208769 umang-goyal <goel97umang@gmail.com> 1591594031 +0530	checkout: moving from feature/table-column-rearrange to feature/KL-123
+5499424215862cabe5f71e09642ae6975d208769 da36e3e932dcb5dbb3a197595da02215dd57d459 umang-goyal <goel97umang@gmail.com> 1591596102 +0530	checkout: moving from feature/KL-123 to master
+da36e3e932dcb5dbb3a197595da02215dd57d459 d2a803ddff6818ccf434015c7e43316916f80525 umang-goyal <goel97umang@gmail.com> 1591596134 +0530	checkout: moving from master to develop
+d2a803ddff6818ccf434015c7e43316916f80525 d2a803ddff6818ccf434015c7e43316916f80525 umang-goyal <goel97umang@gmail.com> 1591596141 +0530	checkout: moving from develop to feature/KL-123
+d2a803ddff6818ccf434015c7e43316916f80525 9ae417b541947306eac3acac775784725461e199 umang-goyal <goel97umang@gmail.com> 1591618364 +0530	commit: changed detail model, added a mock service, created a deatils page and provided
+9ae417b541947306eac3acac775784725461e199 b66778f21f6ea61b845746dfa592c71ce2fa945b umang-goyal <goel97umang@gmail.com> 1591618451 +0530	commit: removed modal
+b66778f21f6ea61b845746dfa592c71ce2fa945b b66778f21f6ea61b845746dfa592c71ce2fa945b umang-goyal <goel97umang@gmail.com> 1591625630 +0530	checkout: moving from feature/KL-123 to feature/KL-132
+b66778f21f6ea61b845746dfa592c71ce2fa945b b66778f21f6ea61b845746dfa592c71ce2fa945b umang-goyal <goel97umang@gmail.com> 1591626000 +0530	checkout: moving from feature/KL-132 to feature/KL-123
+b66778f21f6ea61b845746dfa592c71ce2fa945b 3c1eb01e0d3bb9ce8c23bcd567c681fbe98dbe0d umang-goyal <goel97umang@gmail.com> 1591626236 +0530	commit: removed some implementations of modal
+3c1eb01e0d3bb9ce8c23bcd567c681fbe98dbe0d da36e3e932dcb5dbb3a197595da02215dd57d459 umang-goyal <goel97umang@gmail.com> 1591626329 +0530	checkout: moving from feature/KL-123 to master
+da36e3e932dcb5dbb3a197595da02215dd57d459 3c1eb01e0d3bb9ce8c23bcd567c681fbe98dbe0d umang-goyal <goel97umang@gmail.com> 1591626363 +0530	checkout: moving from master to feature/KL-123
+3c1eb01e0d3bb9ce8c23bcd567c681fbe98dbe0d 3c1eb01e0d3bb9ce8c23bcd567c681fbe98dbe0d umang-goyal <goel97umang@gmail.com> 1591626373 +0530	checkout: moving from feature/KL-123 to feature/KL-132
+3c1eb01e0d3bb9ce8c23bcd567c681fbe98dbe0d 3c1eb01e0d3bb9ce8c23bcd567c681fbe98dbe0d umang-goyal <goel97umang@gmail.com> 1591626730 +0530	checkout: moving from feature/KL-132 to feature/KL-123
+3c1eb01e0d3bb9ce8c23bcd567c681fbe98dbe0d 3c1eb01e0d3bb9ce8c23bcd567c681fbe98dbe0d umang-goyal <goel97umang@gmail.com> 1591626965 +0530	checkout: moving from feature/KL-123 to feature/KL-132
+3c1eb01e0d3bb9ce8c23bcd567c681fbe98dbe0d 8770e945586c9265ad275547c0cacfe7f2c42330 umang-goyal <goel97umang@gmail.com> 1591699008 +0530	commit: designed ui for details
+8770e945586c9265ad275547c0cacfe7f2c42330 3c1eb01e0d3bb9ce8c23bcd567c681fbe98dbe0d umang-goyal <goel97umang@gmail.com> 1591699033 +0530	checkout: moving from feature/KL-132 to feature/KL-123
+3c1eb01e0d3bb9ce8c23bcd567c681fbe98dbe0d 2090a06d889db50fa04ee272874696053e49c47a umang-goyal <goel97umang@gmail.com> 1591718658 +0530	commit: changed test case description according to test case
+2090a06d889db50fa04ee272874696053e49c47a 8770e945586c9265ad275547c0cacfe7f2c42330 umang-goyal <goel97umang@gmail.com> 1591718824 +0530	checkout: moving from feature/KL-123 to feature/KL-132
+8770e945586c9265ad275547c0cacfe7f2c42330 c671db8b736131e10c553bffc8649206671a6e8e umang-goyal <goel97umang@gmail.com> 1591877519 +0530	commit: added details pafe full feature and design
+c671db8b736131e10c553bffc8649206671a6e8e d2a803ddff6818ccf434015c7e43316916f80525 umang-goyal <goel97umang@gmail.com> 1591877542 +0530	checkout: moving from feature/KL-132 to develop
+d2a803ddff6818ccf434015c7e43316916f80525 d2a803ddff6818ccf434015c7e43316916f80525 umang-goyal <goel97umang@gmail.com> 1591877646 +0530	checkout: moving from develop to feature/header-card-redo
+d2a803ddff6818ccf434015c7e43316916f80525 fe509981adee54d15eded747c18fae69d228cc89 umang-goyal <goel97umang@gmail.com> 1591877783 +0530	pull origin develop: Fast-forward
+fe509981adee54d15eded747c18fae69d228cc89 949e4602bfd38f7f3dbc3e652d71596500221e72 umang-goyal <goel97umang@gmail.com> 1591935136 +0530	commit: added some data table package
+949e4602bfd38f7f3dbc3e652d71596500221e72 d2a803ddff6818ccf434015c7e43316916f80525 umang-goyal <goel97umang@gmail.com> 1591935173 +0530	checkout: moving from feature/header-card-redo to develop
+d2a803ddff6818ccf434015c7e43316916f80525 d2a803ddff6818ccf434015c7e43316916f80525 umang-goyal <goel97umang@gmail.com> 1591935283 +0530	checkout: moving from develop to feature/KL-119
+d2a803ddff6818ccf434015c7e43316916f80525 d2a803ddff6818ccf434015c7e43316916f80525 umang-goyal <goel97umang@gmail.com> 1591935393 +0530	checkout: moving from feature/KL-119 to develop
+d2a803ddff6818ccf434015c7e43316916f80525 c671db8b736131e10c553bffc8649206671a6e8e umang-goyal <goel97umang@gmail.com> 1591935463 +0530	checkout: moving from develop to feature/KL-132
+c671db8b736131e10c553bffc8649206671a6e8e d2a803ddff6818ccf434015c7e43316916f80525 umang-goyal <goel97umang@gmail.com> 1591935477 +0530	checkout: moving from feature/KL-132 to develop
+d2a803ddff6818ccf434015c7e43316916f80525 bbb28145735a3ac292652c6740a6ba12dfa8d182 umang-goyal <goel97umang@gmail.com> 1591935518 +0530	pull origin develop: Fast-forward
+bbb28145735a3ac292652c6740a6ba12dfa8d182 bbb28145735a3ac292652c6740a6ba12dfa8d182 umang-goyal <goel97umang@gmail.com> 1591935967 +0530	checkout: moving from develop to feature/table-redo
+bbb28145735a3ac292652c6740a6ba12dfa8d182 e8e883c217f95051c756b03ecb75cba42eeda14b umang-goyal <goel97umang@gmail.com> 1591944798 +0530	commit: added table with worting implementation
+e8e883c217f95051c756b03ecb75cba42eeda14b c671db8b736131e10c553bffc8649206671a6e8e umang-goyal <goel97umang@gmail.com> 1591944861 +0530	checkout: moving from feature/table-redo to feature/KL-132
+c671db8b736131e10c553bffc8649206671a6e8e 420d99e0876d779d506b7ed627699a91b0861368 umang-goyal <goel97umang@gmail.com> 1591946564 +0530	commit: install dependencyies
+420d99e0876d779d506b7ed627699a91b0861368 e8e883c217f95051c756b03ecb75cba42eeda14b umang-goyal <goel97umang@gmail.com> 1591946577 +0530	checkout: moving from feature/KL-132 to feature/table-redo
+e8e883c217f95051c756b03ecb75cba42eeda14b fd993910ff33b8b68250c0b10e5b1ad8b1f0a747 umang-goyal <goel97umang@gmail.com> 1591951390 +0530	commit: added test cases
+fd993910ff33b8b68250c0b10e5b1ad8b1f0a747 03b36ead73cc93b8cbe8bf9cd92d9e12b5beebb1 umang-goyal <goel97umang@gmail.com> 1591954041 +0530	commit: corrected header names
+03b36ead73cc93b8cbe8bf9cd92d9e12b5beebb1 bbb28145735a3ac292652c6740a6ba12dfa8d182 umang-goyal <goel97umang@gmail.com> 1592142216 +0530	checkout: moving from feature/table-redo to develop
+bbb28145735a3ac292652c6740a6ba12dfa8d182 bbb28145735a3ac292652c6740a6ba12dfa8d182 umang-goyal <goel97umang@gmail.com> 1592375890 +0530	checkout: moving from develop to develop
+bbb28145735a3ac292652c6740a6ba12dfa8d182 f192d6240f6075cf4c58fe52be3472f1da520048 umang-goyal <goel97umang@gmail.com> 1592375959 +0530	commit: x
+f192d6240f6075cf4c58fe52be3472f1da520048 b63b3be7b6671f6133a734394e8d5145715f122e umang-goyal <goel97umang@gmail.com> 1592486364 +0530	commit (merge): Merge branch 'develop' of https://github.com/KnoldusLabs/leaderboard into develop
+b63b3be7b6671f6133a734394e8d5145715f122e f0568c43670f6eeb20b61bacc405964002730548 umang-goyal <goel97umang@gmail.com> 1592486427 +0530	pull origin develop: Merge made by the 'recursive' strategy.
+f0568c43670f6eeb20b61bacc405964002730548 f0568c43670f6eeb20b61bacc405964002730548 umang-goyal <goel97umang@gmail.com> 1592497446 +0530	checkout: moving from develop to feature/KL-150
+f0568c43670f6eeb20b61bacc405964002730548 f0568c43670f6eeb20b61bacc405964002730548 umang-goyal <goel97umang@gmail.com> 1592500196 +0530	checkout: moving from feature/KL-150 to feature/KL-158
+f0568c43670f6eeb20b61bacc405964002730548 f0568c43670f6eeb20b61bacc405964002730548 umang-goyal <goel97umang@gmail.com> 1592500410 +0530	checkout: moving from feature/KL-158 to feature/KL-158
+f0568c43670f6eeb20b61bacc405964002730548 f0568c43670f6eeb20b61bacc405964002730548 umang-goyal <goel97umang@gmail.com> 1592500415 +0530	checkout: moving from feature/KL-158 to feature/KL-150
+f0568c43670f6eeb20b61bacc405964002730548 c3d87b53444b7c14ad5019aa405a9bb9490ca947 umang-goyal <goel97umang@gmail.com> 1592549441 +0530	commit: added current month and year on right top corner table section
+c3d87b53444b7c14ad5019aa405a9bb9490ca947 f0568c43670f6eeb20b61bacc405964002730548 umang-goyal <goel97umang@gmail.com> 1592549501 +0530	checkout: moving from feature/KL-150 to develop
+f0568c43670f6eeb20b61bacc405964002730548 f0568c43670f6eeb20b61bacc405964002730548 umang-goyal <goel97umang@gmail.com> 1592551853 +0530	checkout: moving from develop to feature/bar-chart
+f0568c43670f6eeb20b61bacc405964002730548 71aa58aa322405272f72c271ac97dff23343955f umang-goyal <goel97umang@gmail.com> 1592829611 +0530	commit: added bar graph
+71aa58aa322405272f72c271ac97dff23343955f 03b36ead73cc93b8cbe8bf9cd92d9e12b5beebb1 umang-goyal <goel97umang@gmail.com> 1592829660 +0530	checkout: moving from feature/bar-chart to feature/table-redo
+03b36ead73cc93b8cbe8bf9cd92d9e12b5beebb1 71aa58aa322405272f72c271ac97dff23343955f umang-goyal <goel97umang@gmail.com> 1592886933 +0530	checkout: moving from feature/table-redo to feature/bar-chart
+71aa58aa322405272f72c271ac97dff23343955f 71aa58aa322405272f72c271ac97dff23343955f umang-goyal <goel97umang@gmail.com> 1592909676 +0530	checkout: moving from feature/bar-chart to feature/KL-178
+71aa58aa322405272f72c271ac97dff23343955f f651576f5023726f50f040f87e2904f910a84916 umang-goyal <goel97umang@gmail.com> 1592909695 +0530	commit: added pie chart component
+f651576f5023726f50f040f87e2904f910a84916 000105007dbd5b04ea6c0c588e6a5fa52d0cac4a umang-goyal <goel97umang@gmail.com> 1592909934 +0530	commit: removed border around pie chart
+000105007dbd5b04ea6c0c588e6a5fa52d0cac4a 0134601bd81f5789e5b66eb0ce1e0b2693394e42 umang-goyal <goel97umang@gmail.com> 1592910267 +0530	commit: removed inline styles
+0134601bd81f5789e5b66eb0ce1e0b2693394e42 7e9f899de024b1cb977cccd7dbf5f74ea5391a7a umang-goyal <goel97umang@gmail.com> 1592968689 +0530	commit: added pie chart color scheme
+7e9f899de024b1cb977cccd7dbf5f74ea5391a7a 9db3af3dfa342d6d33dcf0e778b32558a72b4e4b umang-goyal <goel97umang@gmail.com> 1592969272 +0530	commit: removed spaces
+9db3af3dfa342d6d33dcf0e778b32558a72b4e4b f0568c43670f6eeb20b61bacc405964002730548 umang-goyal <goel97umang@gmail.com> 1592969284 +0530	checkout: moving from feature/KL-178 to feature/KL-158
+f0568c43670f6eeb20b61bacc405964002730548 a8bcb9a60f46db37b345fbeef49136dc4e293f42 umang-goyal <goel97umang@gmail.com> 1592969536 +0530	pull origin feature/KL-158: Merge made by the 'recursive' strategy.
+a8bcb9a60f46db37b345fbeef49136dc4e293f42 06260de0490719189d517543cd6ec15713089fcc umang-goyal <goel97umang@gmail.com> 1592969914 +0530	commit: removed first word pipe
+06260de0490719189d517543cd6ec15713089fcc 854d68be476d1aef035764076ba256407577e170 umang-goyal <goel97umang@gmail.com> 1592987009 +0530	commit (merge): Merge branch 'develop' of https://github.com/KnoldusLabs/leaderboard into feature/KL-158
+854d68be476d1aef035764076ba256407577e170 c3d87b53444b7c14ad5019aa405a9bb9490ca947 umang-goyal <goel97umang@gmail.com> 1592987161 +0530	checkout: moving from feature/KL-158 to feature/KL-150
+c3d87b53444b7c14ad5019aa405a9bb9490ca947 ec5c2704d43ac96807a1743aa943640fdceed14c umang-goyal <goel97umang@gmail.com> 1592988809 +0530	commit: added font size and color to crrent month
+ec5c2704d43ac96807a1743aa943640fdceed14c 31905a89b120a4a1ff2dcc18ca6a740e21ae075e umang-goyal <goel97umang@gmail.com> 1593073238 +0530	commit: removed extra spaces
+31905a89b120a4a1ff2dcc18ca6a740e21ae075e 9db3af3dfa342d6d33dcf0e778b32558a72b4e4b umang-goyal <goel97umang@gmail.com> 1593077330 +0530	checkout: moving from feature/KL-150 to feature/KL-178
+9db3af3dfa342d6d33dcf0e778b32558a72b4e4b 390dad131f2a66d871106ec757dd1c942811321e umang-goyal <goel97umang@gmail.com> 1593183484 +0530	commit: changed height to 300pc for pie chart, formated code properly
+390dad131f2a66d871106ec757dd1c942811321e 64079e9cf4f5ddd78a1e3771b7b51e138407e05f umang-goyal <goel97umang@gmail.com> 1593184620 +0530	commit (merge): Merge branch 'develop' of https://github.com/KnoldusLabs/leaderboard into feature/KL-178
+64079e9cf4f5ddd78a1e3771b7b51e138407e05f 24c2c14845a0bd7a80eff23c8554ed7cd72a3908 umang-goyal <goel97umang@gmail.com> 1593502962 +0530	commit (merge): Merge branch 'develop' of https://github.com/KnoldusLabs/leaderboard into feature/KL-178
+24c2c14845a0bd7a80eff23c8554ed7cd72a3908 15f2414f73a835e0535d27498ded37b418321837 umang-goyal <goel97umang@gmail.com> 1593771009 +0530	commit: added eslint reports
+15f2414f73a835e0535d27498ded37b418321837 15f2414f73a835e0535d27498ded37b418321837 umang-goyal <goel97umang@gmail.com> 1593771073 +0530	checkout: moving from feature/KL-178 to feature/eslint-report
+15f2414f73a835e0535d27498ded37b418321837 f0568c43670f6eeb20b61bacc405964002730548 umang-goyal <goel97umang@gmail.com> 1593771649 +0530	checkout: moving from feature/eslint-report to develop
+f0568c43670f6eeb20b61bacc405964002730548 17bee915658bd5758c681ca09292aa738957994a umang-goyal <goel97umang@gmail.com> 1593771995 +0530	pull: Fast-forward
+17bee915658bd5758c681ca09292aa738957994a 17bee915658bd5758c681ca09292aa738957994a umang-goyal <goel97umang@gmail.com> 1593772831 +0530	checkout: moving from develop to feature/KL-207
+17bee915658bd5758c681ca09292aa738957994a c7b43d8ade7f0f1ca62ef32de609e4995fdd5eee umang-goyal <goel97umang@gmail.com> 1593780675 +0530	commit: added service to get trends data form a mock api
+c7b43d8ade7f0f1ca62ef32de609e4995fdd5eee 2e7890bc16352853645ed830773b9947ce0052ff umang-goyal <goel97umang@gmail.com> 1593781011 +0530	commit: added a test in details page for getTrendsData.
+2e7890bc16352853645ed830773b9947ce0052ff 17bee915658bd5758c681ca09292aa738957994a umang-goyal <goel97umang@gmail.com> 1593863446 +0530	checkout: moving from feature/KL-207 to develop
+17bee915658bd5758c681ca09292aa738957994a 48b4cb99a251717be55eb92825b6d0554348aaa7 umang-goyal <goel97umang@gmail.com> 1594036046 +0530	commit: added bar to show total no. of contributions done from knoldus for all-time and monthly
+48b4cb99a251717be55eb92825b6d0554348aaa7 48b4cb99a251717be55eb92825b6d0554348aaa7 umang-goyal <goel97umang@gmail.com> 1594036163 +0530	checkout: moving from develop to feature/KL-226
+48b4cb99a251717be55eb92825b6d0554348aaa7 d73f59015e10580c35fd2107f7307271791fccd2 umang-goyal <goel97umang@gmail.com> 1594044176 +0530	commit: added a tooltip to show info about count bar
+d73f59015e10580c35fd2107f7307271791fccd2 2e7890bc16352853645ed830773b9947ce0052ff umang-goyal <goel97umang@gmail.com> 1594191546 +0530	checkout: moving from feature/KL-226 to feature/KL-207
+2e7890bc16352853645ed830773b9947ce0052ff aa3244d5a12f54c0cd73e450849816af67fa035f umang-goyal <goel97umang@gmail.com> 1594193391 +0530	commit: renamed vertical bar chart
+aa3244d5a12f54c0cd73e450849816af67fa035f 8c8d61787ee99591dbd7c1c13037196d5fbbe5f0 umang-goyal <goel97umang@gmail.com> 1594214229 +0530	commit: updated environtment.prod
+8c8d61787ee99591dbd7c1c13037196d5fbbe5f0 15f2414f73a835e0535d27498ded37b418321837 umang-goyal <goel97umang@gmail.com> 1594214290 +0530	checkout: moving from feature/KL-207 to feature/eslint-report
+15f2414f73a835e0535d27498ded37b418321837 b13890ccecdd0f8f8c4be3837f9614d1ea1e7462 umang-goyal <goel97umang@gmail.com> 1594268067 +0530	commit: moved elint dependecies to devDependencies
+b13890ccecdd0f8f8c4be3837f9614d1ea1e7462 71632032db75adb2082162a37c961aa082688049 umang-goyal <goel97umang@gmail.com> 1594268347 +0530	pull origin feature/eslint-report: Merge made by the 'recursive' strategy.
+71632032db75adb2082162a37c961aa082688049 8c8d61787ee99591dbd7c1c13037196d5fbbe5f0 umang-goyal <goel97umang@gmail.com> 1594286642 +0530	checkout: moving from feature/eslint-report to feature/KL-207
+8c8d61787ee99591dbd7c1c13037196d5fbbe5f0 3f96e9f33942124b59841974eb556fd96194bde7 umang-goyal <goel97umang@gmail.com> 1594290206 +0530	commit: updated enviroment.prod
+3f96e9f33942124b59841974eb556fd96194bde7 48b4cb99a251717be55eb92825b6d0554348aaa7 umang-goyal <goel97umang@gmail.com> 1594290229 +0530	checkout: moving from feature/KL-207 to develop
+48b4cb99a251717be55eb92825b6d0554348aaa7 48b4cb99a251717be55eb92825b6d0554348aaa7 umang-goyal <goel97umang@gmail.com> 1594290269 +0530	checkout: moving from develop to feature/ngx-table-demo
+48b4cb99a251717be55eb92825b6d0554348aaa7 4a201efdae833407520e0733855eaaf689361e39 umang-goyal <goel97umang@gmail.com> 1594290908 +0530	commit: did nothing
+4a201efdae833407520e0733855eaaf689361e39 48b4cb99a251717be55eb92825b6d0554348aaa7 umang-goyal <goel97umang@gmail.com> 1594290937 +0530	checkout: moving from feature/ngx-table-demo to develop
+48b4cb99a251717be55eb92825b6d0554348aaa7 48b4cb99a251717be55eb92825b6d0554348aaa7 umang-goyal <goel97umang@gmail.com> 1594290979 +0530	checkout: moving from develop to feature/KL-237
+48b4cb99a251717be55eb92825b6d0554348aaa7 d73f59015e10580c35fd2107f7307271791fccd2 umang-goyal <goel97umang@gmail.com> 1594291129 +0530	checkout: moving from feature/KL-237 to feature/KL-226
+d73f59015e10580c35fd2107f7307271791fccd2 8f7d5839298aaf6891c644ad4c537b63f42b8c1a umang-goyal <goel97umang@gmail.com> 1594300592 +0530	commit: fixed a minor bug
+8f7d5839298aaf6891c644ad4c537b63f42b8c1a 48b4cb99a251717be55eb92825b6d0554348aaa7 umang-goyal <goel97umang@gmail.com> 1594300617 +0530	checkout: moving from feature/KL-226 to feature/KL-237
+48b4cb99a251717be55eb92825b6d0554348aaa7 595816a842751d181e1d12e42ea1f7b969f3ef4f umang-goyal <goel97umang@gmail.com> 1594302017 +0530	commit: changed header component to show "leaderboard" and trophy icon.
+595816a842751d181e1d12e42ea1f7b969f3ef4f 48b4cb99a251717be55eb92825b6d0554348aaa7 umang-goyal <goel97umang@gmail.com> 1594351853 +0530	checkout: moving from feature/KL-237 to develop
+48b4cb99a251717be55eb92825b6d0554348aaa7 595816a842751d181e1d12e42ea1f7b969f3ef4f umang-goyal <goel97umang@gmail.com> 1594353471 +0530	checkout: moving from develop to feature/KL-237
+595816a842751d181e1d12e42ea1f7b969f3ef4f 907d7defc050a3f6af84044e0a36c3b206387117 umang-goyal <goel97umang@gmail.com> 1594356635 +0530	commit: chagned env ts filr
+907d7defc050a3f6af84044e0a36c3b206387117 3f96e9f33942124b59841974eb556fd96194bde7 umang-goyal <goel97umang@gmail.com> 1594356651 +0530	checkout: moving from feature/KL-237 to feature/KL-207
+3f96e9f33942124b59841974eb556fd96194bde7 56ab44c925d4a78cf929760cc81543d2c764fc07 umang-goyal <goel97umang@gmail.com> 1594364008 +0530	commit: ordered imports
+56ab44c925d4a78cf929760cc81543d2c764fc07 4a201efdae833407520e0733855eaaf689361e39 umang-goyal <goel97umang@gmail.com> 1594623808 +0530	checkout: moving from feature/KL-207 to feature/ngx-table-demo
+4a201efdae833407520e0733855eaaf689361e39 22c370edf5663847cfc56d2d6a7f35530709d93a umang-goyal <goel97umang@gmail.com> 1594700740 +0530	commit: added image in table cell, experiment sucess
+22c370edf5663847cfc56d2d6a7f35530709d93a 48b4cb99a251717be55eb92825b6d0554348aaa7 umang-goyal <goel97umang@gmail.com> 1594700766 +0530	checkout: moving from feature/ngx-table-demo to develop
+48b4cb99a251717be55eb92825b6d0554348aaa7 48b4cb99a251717be55eb92825b6d0554348aaa7 umang-goyal <goel97umang@gmail.com> 1594700796 +0530	checkout: moving from develop to feature/KL-222
+48b4cb99a251717be55eb92825b6d0554348aaa7 8f7d5839298aaf6891c644ad4c537b63f42b8c1a umang-goyal <goel97umang@gmail.com> 1594719568 +0530	checkout: moving from feature/KL-222 to feature/KL-226
+8f7d5839298aaf6891c644ad4c537b63f42b8c1a 48b4cb99a251717be55eb92825b6d0554348aaa7 umang-goyal <goel97umang@gmail.com> 1594719614 +0530	checkout: moving from feature/KL-226 to feature/KL-222
+48b4cb99a251717be55eb92825b6d0554348aaa7 3e6b97b3aad26d9586fd6e9e0fe11a5d1376f7bc umang-goyal <goel97umang@gmail.com> 1594719620 +0530	commit: v
+3e6b97b3aad26d9586fd6e9e0fe11a5d1376f7bc 8f7d5839298aaf6891c644ad4c537b63f42b8c1a umang-goyal <goel97umang@gmail.com> 1594719630 +0530	checkout: moving from feature/KL-222 to feature/KL-226
+8f7d5839298aaf6891c644ad4c537b63f42b8c1a b54a4f63721593d248d628889ea5579724d1860d umang-goyal <goel97umang@gmail.com> 1594738383 +0530	commit: x
+b54a4f63721593d248d628889ea5579724d1860d 907d7defc050a3f6af84044e0a36c3b206387117 umang-goyal <goel97umang@gmail.com> 1594738395 +0530	checkout: moving from feature/KL-226 to feature/KL-237
+907d7defc050a3f6af84044e0a36c3b206387117 00eb2a9d270314394f73ee06eb1f2e0a61a3194e umang-goyal <goel97umang@gmail.com> 1594738667 +0530	commit: removed input decorator from title
+00eb2a9d270314394f73ee06eb1f2e0a61a3194e b7cb3bdf2158efc51789510d4581554e95542564 umang-goyal <goel97umang@gmail.com> 1594889136 +0530	commit: formating issues fixed
+b7cb3bdf2158efc51789510d4581554e95542564 48b4cb99a251717be55eb92825b6d0554348aaa7 umang-goyal <goel97umang@gmail.com> 1594889157 +0530	checkout: moving from feature/KL-237 to develop
+48b4cb99a251717be55eb92825b6d0554348aaa7 8680fb2795abe539a3969497630ab24e2a3c2104 umang-goyal <goel97umang@gmail.com> 1594889174 +0530	pull origin develop: Fast-forward
+8680fb2795abe539a3969497630ab24e2a3c2104 8680fb2795abe539a3969497630ab24e2a3c2104 umang-goyal <goel97umang@gmail.com> 1594889411 +0530	checkout: moving from develop to feature/KL-250
+8680fb2795abe539a3969497630ab24e2a3c2104 0001e128b65fc99f827e524a83d2dc291533d792 umang-goyal <goel97umang@gmail.com> 1594902225 +0530	commit: added a login page
+0001e128b65fc99f827e524a83d2dc291533d792 2cc069df632aecd8462b18f80ec5095d8158d4b3 umang-goyal <goel97umang@gmail.com> 1594903095 +0530	commit: removed routing module for login page
+2cc069df632aecd8462b18f80ec5095d8158d4b3 5cdb14dc51134c4e6a2fe6a2e6388f67653ae29f umang-goyal <goel97umang@gmail.com> 1594905820 +0530	commit: updated test cases in main page
+5cdb14dc51134c4e6a2fe6a2e6388f67653ae29f 8680fb2795abe539a3969497630ab24e2a3c2104 umang-goyal <goel97umang@gmail.com> 1594962052 +0530	checkout: moving from feature/KL-250 to develop
+8680fb2795abe539a3969497630ab24e2a3c2104 8680fb2795abe539a3969497630ab24e2a3c2104 umang-goyal <goel97umang@gmail.com> 1594962235 +0530	checkout: moving from develop to feature/KL-251
+8680fb2795abe539a3969497630ab24e2a3c2104 cf3b5145dbb9ab18372946986343fb93e88ec996 umang-goyal <goel97umang@gmail.com> 1595056894 +0530	commit: intergated with google athentication api.
+cf3b5145dbb9ab18372946986343fb93e88ec996 cf3b5145dbb9ab18372946986343fb93e88ec996 umang-goyal <goel97umang@gmail.com> 1595058477 +0530	checkout: moving from feature/KL-251 to feature/KL-252
+cf3b5145dbb9ab18372946986343fb93e88ec996 8337db32c4149aac9aa0acc79af137b95b5d3ee1 umang-goyal <goel97umang@gmail.com> 1595075671 +0530	commit: added a route guard
+8337db32c4149aac9aa0acc79af137b95b5d3ee1 8680fb2795abe539a3969497630ab24e2a3c2104 umang-goyal <goel97umang@gmail.com> 1595075850 +0530	checkout: moving from feature/KL-252 to develop
+8680fb2795abe539a3969497630ab24e2a3c2104 8680fb2795abe539a3969497630ab24e2a3c2104 umang-goyal <goel97umang@gmail.com> 1595216688 +0530	checkout: moving from develop to feature/KL-275
+8680fb2795abe539a3969497630ab24e2a3c2104 8680fb2795abe539a3969497630ab24e2a3c2104 umang-goyal <goel97umang@gmail.com> 1595216867 +0530	checkout: moving from feature/KL-275 to develop
+8680fb2795abe539a3969497630ab24e2a3c2104 cf3b5145dbb9ab18372946986343fb93e88ec996 umang-goyal <goel97umang@gmail.com> 1595216910 +0530	checkout: moving from develop to feature/KL-251
+cf3b5145dbb9ab18372946986343fb93e88ec996 cf3b5145dbb9ab18372946986343fb93e88ec996 umang-goyal <goel97umang@gmail.com> 1595216966 +0530	checkout: moving from feature/KL-251 to feature/KL-275
+cf3b5145dbb9ab18372946986343fb93e88ec996 cf3b5145dbb9ab18372946986343fb93e88ec996 umang-goyal <goel97umang@gmail.com> 1595217934 +0530	checkout: moving from feature/KL-275 to feature/KL-251
+cf3b5145dbb9ab18372946986343fb93e88ec996 8337db32c4149aac9aa0acc79af137b95b5d3ee1 umang-goyal <goel97umang@gmail.com> 1595217990 +0530	checkout: moving from feature/KL-251 to feature/KL-252
+8337db32c4149aac9aa0acc79af137b95b5d3ee1 8337db32c4149aac9aa0acc79af137b95b5d3ee1 umang-goyal <goel97umang@gmail.com> 1595218019 +0530	checkout: moving from feature/KL-252 to feature/KL-275
+                                                                                                                                                                            

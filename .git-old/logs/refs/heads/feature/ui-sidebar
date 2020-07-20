@@ -1,0 +1,9 @@
+0000000000000000000000000000000000000000 c82ded92eb3f43023dbb85a71c97fc238062b783 umang-goyal <goel97umang@gmail.com> 1588427115 +0530	branch: Created from feature/ui-card
+c82ded92eb3f43023dbb85a71c97fc238062b783 d47826b62670f16c85d6905698089ec83d8b4f8c umang-goyal <goel97umang@gmail.com> 1588597061 +0530	rebase finished: refs/heads/feature/ui-sidebar onto d47826b62670f16c85d6905698089ec83d8b4f8c
+d47826b62670f16c85d6905698089ec83d8b4f8c 491ad9fd28ac12283100ba3767be4139e9749070 umang-goyal <goel97umang@gmail.com> 1588600588 +0530	commit: added side bar component.
+491ad9fd28ac12283100ba3767be4139e9749070 efcc65cf67d0c11bbfa3111996288c609cee1f54 umang-goyal <goel97umang@gmail.com> 1588606660 +0530	commit: changes
+efcc65cf67d0c11bbfa3111996288c609cee1f54 5ad3976b8836f5999ae4c94dfb8ad94a3c27f066 umang-goyal <goel97umang@gmail.com> 1588652876 +0530	commit: added mobile resposiveness in side menu, used best practices as mentioned in PR. fixed styling issue in card component for mobile view
+5ad3976b8836f5999ae4c94dfb8ad94a3c27f066 71eacb494d972943b89d0ae6094135dadfaa27aa umang-goyal <goel97umang@gmail.com> 1588675391 +0530	commit: improved styling for side bar and cards
+71eacb494d972943b89d0ae6094135dadfaa27aa 477da1b8f831733172f89b63125da1993387c9d9 umang-goyal <goel97umang@gmail.com> 1588676469 +0530	commit: header text alignment fixed
+477da1b8f831733172f89b63125da1993387c9d9 046b6003e4bca26bf4a7d3055bac3470972c21e9 umang-goyal <goel97umang@gmail.com> 1588684393 +0530	commit: improved naming conventions and test cases for toggleSidebar() added
+046b6003e4bca26bf4a7d3055bac3470972c21e9 83e5b7d3e0bbe40f33ab1b30e87af48a504c3ac1 umang-goyal <goel97umang@gmail.com> 1588685721 +0530	commit (merge): Merge branch 'feature/ui-develop' of https://github.com/KnoldusLabs/leaderboard into feature/ui-sidebar

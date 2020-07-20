@@ -1,0 +1,5 @@
+0000000000000000000000000000000000000000 d2a803ddff6818ccf434015c7e43316916f80525 umang-goyal <goel97umang@gmail.com> 1591596141 +0530	branch: Created from HEAD
+d2a803ddff6818ccf434015c7e43316916f80525 9ae417b541947306eac3acac775784725461e199 umang-goyal <goel97umang@gmail.com> 1591618364 +0530	commit: changed detail model, added a mock service, created a deatils page and provided
+9ae417b541947306eac3acac775784725461e199 b66778f21f6ea61b845746dfa592c71ce2fa945b umang-goyal <goel97umang@gmail.com> 1591618451 +0530	commit: removed modal
+b66778f21f6ea61b845746dfa592c71ce2fa945b 3c1eb01e0d3bb9ce8c23bcd567c681fbe98dbe0d umang-goyal <goel97umang@gmail.com> 1591626236 +0530	commit: removed some implementations of modal
+3c1eb01e0d3bb9ce8c23bcd567c681fbe98dbe0d 2090a06d889db50fa04ee272874696053e49c47a umang-goyal <goel97umang@gmail.com> 1591718658 +0530	commit: changed test case description according to test case

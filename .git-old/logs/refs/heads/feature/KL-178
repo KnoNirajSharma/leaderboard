@@ -1,0 +1,10 @@
+0000000000000000000000000000000000000000 71aa58aa322405272f72c271ac97dff23343955f umang-goyal <goel97umang@gmail.com> 1592909676 +0530	branch: Created from HEAD
+71aa58aa322405272f72c271ac97dff23343955f f651576f5023726f50f040f87e2904f910a84916 umang-goyal <goel97umang@gmail.com> 1592909695 +0530	commit: added pie chart component
+f651576f5023726f50f040f87e2904f910a84916 000105007dbd5b04ea6c0c588e6a5fa52d0cac4a umang-goyal <goel97umang@gmail.com> 1592909934 +0530	commit: removed border around pie chart
+000105007dbd5b04ea6c0c588e6a5fa52d0cac4a 0134601bd81f5789e5b66eb0ce1e0b2693394e42 umang-goyal <goel97umang@gmail.com> 1592910267 +0530	commit: removed inline styles
+0134601bd81f5789e5b66eb0ce1e0b2693394e42 7e9f899de024b1cb977cccd7dbf5f74ea5391a7a umang-goyal <goel97umang@gmail.com> 1592968689 +0530	commit: added pie chart color scheme
+7e9f899de024b1cb977cccd7dbf5f74ea5391a7a 9db3af3dfa342d6d33dcf0e778b32558a72b4e4b umang-goyal <goel97umang@gmail.com> 1592969272 +0530	commit: removed spaces
+9db3af3dfa342d6d33dcf0e778b32558a72b4e4b 390dad131f2a66d871106ec757dd1c942811321e umang-goyal <goel97umang@gmail.com> 1593183484 +0530	commit: changed height to 300pc for pie chart, formated code properly
+390dad131f2a66d871106ec757dd1c942811321e 64079e9cf4f5ddd78a1e3771b7b51e138407e05f umang-goyal <goel97umang@gmail.com> 1593184620 +0530	commit (merge): Merge branch 'develop' of https://github.com/KnoldusLabs/leaderboard into feature/KL-178
+64079e9cf4f5ddd78a1e3771b7b51e138407e05f 24c2c14845a0bd7a80eff23c8554ed7cd72a3908 umang-goyal <goel97umang@gmail.com> 1593502962 +0530	commit (merge): Merge branch 'develop' of https://github.com/KnoldusLabs/leaderboard into feature/KL-178
+24c2c14845a0bd7a80eff23c8554ed7cd72a3908 15f2414f73a835e0535d27498ded37b418321837 umang-goyal <goel97umang@gmail.com> 1593771009 +0530	commit: added eslint reports

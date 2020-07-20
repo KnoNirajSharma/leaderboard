@@ -1,0 +1,13 @@
+added an auto login feature. 
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch feature/KL-275
+# You are currently rebasing branch 'feature/KL-102' on '0a488c4'.
+#
+# Changes to be committed:
+#	modified:   ui/src/app/app.component.spec.ts
+#	modified:   ui/src/app/app.component.ts
+#	modified:   ui/src/app/services/login.service.spec.ts
+#	modified:   ui/src/app/services/login.service.ts
+#

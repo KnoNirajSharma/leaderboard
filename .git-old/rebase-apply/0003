@@ -1,0 +1,111 @@
+From a7df8cbe7dd5d9e72ae35aa56c14bba70d6d1372 Mon Sep 17 00:00:00 2001
+From: umang-goyal <goel97umang@gmail.com>
+Date: Tue, 2 Jun 2020 14:58:51 +0530
+Subject: changed header logo
+
+---
+ .../components/headers/headers.component.html    |   2 +-
+ .../components/headers/headers.component.scss    |  15 ++-------------
+ ui/src/assets/icon/cup.png                       | Bin 0 -> 1768 bytes
+ 3 files changed, 3 insertions(+), 14 deletions(-)
+ create mode 100644 ui/src/assets/icon/cup.png
+
+diff --git a/ui/src/app/components/headers/headers.component.html b/ui/src/app/components/headers/headers.component.html
+index a2368f91112e7aedd24506817bf364704e3598e6..3c410f5ed62f15a371109e332a1d8da616fa7d6a 100644
+--- a/ui/src/app/components/headers/headers.component.html
++++ b/ui/src/app/components/headers/headers.component.html
+@@ -1,7 +1,7 @@
+ <ion-header [translucent]="true">
+     <ion-toolbar>
+         <ion-title>
+-            <img src="../../../assets/icon/trophy -128.png" alt="" class="logo-icon float-left">
++            <img src="../../../assets/icon/cup.png" alt="" class="logo-icon float-left">
+             <span class="title">{{title}}</span>
+             <img  src="../../../assets/icon/knoldus-logo-transparent.png" alt="" class="float-right knoldus-logo">
+         </ion-title>
+diff --git a/ui/src/app/components/headers/headers.component.scss b/ui/src/app/components/headers/headers.component.scss
+index 40d5ea445583c7b0f97cedef7f55a1b064c1fdb9..4811b4e960fca3455de0c83f1b51401f07fb94e2 100644
+--- a/ui/src/app/components/headers/headers.component.scss
++++ b/ui/src/app/components/headers/headers.component.scss
+@@ -26,7 +26,8 @@ ion-header {
+     }
+ 
+     .knoldus-logo {
+-      height: 45px;
++      height: 30px;
++      margin-top: 1px;
+       margin-right: 25px;
+     }
+   }
+@@ -47,14 +48,6 @@ ion-header {
+       span {
+         font-size: 1.4em;
+       }
+-
+-      .logo-icon {
+-        height: 40px;
+-      }
+-
+-      .knoldus-logo {
+-        height: 35px;
+-      }
+     }
+   }
+ }
+@@ -71,10 +64,6 @@ ion-header {
+         font-size: 1.1em;
+       }
+ 
+-      .logo-icon {
+-        height: 35px;
+-      }
+-
+       .knoldus-logo {
+         display: none;
+       }
+diff --git a/ui/src/assets/icon/cup.png b/ui/src/assets/icon/cup.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..9263a058a9aa567e555d9b10c255db00017e1211
+GIT binary patch
+literal 1768
+zcmZ`(dpr|*8~<&&9dj2#hL@sdnrSXeE+=BjY{=`f(p=BXWi+M}nM)S6MVaH|dX6QR
+zB$8Jg455?Tu~bqVl#bL;ST5td^LhVz-_Pg$<9WWH@ArAW&-33mn}By!l-H3504U<z
+zoV_H-+$}jNNvBv>J4!$*!pXx4fQB0|F<Dx|4MN<!JOKFdpkyx-fK7?SoChEQ1;E02
+z0I-DsXwiyWiFT3!H29ROGXOPgBeaBlM|1PP0D#hy-GXotO1ctJmX7mqk$o=%mC-zW
+z_rvf#0Hm97&Q3l_6T;%NQ5r7$dq>QgdUM7npzcnTJX4EuXP0uHjOgHW2%G3Udo7z-
+zG5Umm?aS|sqxMW_@YOUEjG@jmm~r2-;ofU?DqX>W_K|0JL7AEp?l+YA?T?Qgd&pQa
+z-wv7=PbG>REdMIrZec7%nNQPf_A9Y^W+dR><ylyN@7iMDfMHtj#}m1{MiTVtoss$6
+zj7BlW(!B-nq}?i74#k)04CWO?Puqx2Dl-K&VcIJ{F<~HNORb!BnWFeBX_e*_kYSnv
+z-{fJQ%An4{%C+hYOXMy78St;Pihc6cg;&&4LF$Gq(Q~5zeB9KOwPsD4ig1fiGWy5I
+znf&@nbd)BBxgx;tvDFIKcjU&lO`a&Kr|9&Q)p+7ADZW4L2QitA=~UlVSY9TGtDSB1
+z0xYziy%H?WWcpeiNvk%Nb1>T++R9}4uCD9+WrE^L&9LTF|4g*TU(B(YrQTQ4t8$s3
+za%u|Jn{_pg19r!Ui)P<xSK%h82A$)Khdym>+sSK`KlGWbUePZ;COh23+Bp2So)@v=
+z_!j)J4&SMc?mtf-5?sDO;I(1pl9<?xTOE2M-d7X~QXxlQGoJUz2R)B_5w|Uycf8}Q
+zM$+d>n8E2$=-YSH*NP<N@^gq(+t8MSl+L_8NjPe?EN!hw6}GJGZkd=!Zf%W%v*E4D
+zBWD^{%Smj%)v2t9rUO4L^!i}vLIpz4_}nLAmR9siwd&_vqT;S|MJWK0B1&5tQ_0;S
+z(%W9n)#V;a%@^&*u@}Pw`!xH%TyGvHMd;?O+<Db)nKWLrrd`*;-C2?nyCJYqTPR*I
+ztLf9;h!go%k;m=F1}ftn5f7(iTl^;&Ic(pO+NRCRc%{Q{t2COwC=Kutyp+3sF+|&J
+zVZe6QwBWVa6EPX7-FkIWFpRr7Y1ULFcCXbB=T;|q^Oq6GjMzL8{$}%9bcYI|bBbio
+z)oS``K8$|(%KefF&K$GQR(3WZA$EGLY~iaDUkX`izPiq8x>U*|r~Txegf72~jH21;
+zLb2O@l&npRU}vLabf+Hjf^Ejs8=jkEa*)ZW2d(+rzlyf}b*iXJfzX;G7DbFe1=mM6
+zYN53b>Wb4Vjvlpp7Q>7;&S{Du%r^?ph2_mLPcGS-hNtF!qx^XIaSx##bL<<iNn>62
+zj+u@MT07|8@cM43mGwU5eu!q69^fCci!2t&GgjEE(Rr4(#=)tkDfW%&vGLaR`=~{J
+z@XurGDqX*it2dq;%aRdueCcGxQciA+mzbGg+GA$Nl&)&@wW`2tYto}ViF4!GCQ{cA
+z40-z9Z#{hs8Jk_bk|ZDGUVCH6YV5W!0umHa_Ee)(sy!K*CTE+`#w&UM1dsRpY!|Gj
+zd}=G(IYVfj{`Mb)<bpOc{i7S*8ZR&S&p-3cxd*H7C0yYqDZ##e)p(=2zx&&Iz$2HB
+zdo7q$i_=}-+i_fp**_N=L~W_zEA-eu@SV6lw-fM?&`cr+XL?dKD^B%ziyjMwTrAYY
+zHppoa)3Z(a1~N3Kxi`905`B+8C(F-Bc%(>fs+|n^%}9uRBWK@kC~_zeaZ>=i)8p-q
+z^<cjzJVZ*muk1j4g}vZ;vOT|B%4nP%xcM~DhVx0iq4UbSJMHh`-2qDdXoo?J06u$?
+zpdO;#o^fgxp~4D-!18CV(-2EHUzU>O5~4Vvo!O5Bw{LOy?;_y?&%_oT@!lyPTyw~j
+z>728-!&d^9kkHNtG7oHb6h>Rlcw)4eFuwFOlm=-5Bw!ByhZ;5fsqEIHT_GA#v-ENG
+zI>Fws<VzbM9d)#rO@KlI0w^yI;s(nNACy&D5$gI*zZmN)si@qHuKZh$-nMBuOt2`E
+zZrQixI+TcdvEW#|7_y^A+coq_uJCvB@;|X@ysjUE%=v9HFQ8Ns>Idj9e)Lc>Jq#NX
+zA0`2SMxjwilob+%_CZ-;(P->ZGy;XfqEH*S8QOmtqGLlT;TQkE;p$%hL5V?o_k(wA
+pIGsU`4+9Ja!<-UBy%0jCg_+03M-(mE=}49U&IRv$|NHal{{}q<4-o(W
+
+literal 0
+HcmV?d00001
+
+-- 
+2.17.1
+
