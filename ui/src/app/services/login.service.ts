@@ -7,8 +7,7 @@ import {BehaviorSubject} from 'rxjs';
   providedIn: 'root'
 })
 export class LoginService {
-    user: BehaviorSubject<SocialUser> = new BehaviorSubject<SocialUser>(null);
-    isAuthenticated: boolean;
+    isAuthenticated = false;
 
   constructor( private socialAuthService: AuthService, private router: Router) {
   }
@@ -16,14 +15,13 @@ export class LoginService {
   googleSignIn() {
       this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then(
         (userData) => {
-            this.user.next(userData);
             this.isAuthenticated = true;
             this.router.navigate(['/']);
         }
     );
   }
 
-  authenticationStatus(status: boolean): boolean {
-      return status;
+  authenticationStatus(): boolean {
+      return this.isAuthenticated;
   }
 }

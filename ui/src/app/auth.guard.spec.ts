@@ -6,26 +6,12 @@ import {Router} from '@angular/router';
 import {BehaviorSubject} from 'rxjs';
 import {LoginService} from './services/login.service';
 
-class MockLoginService {
-  promisedData: SocialUser = {
-    provider: 'google',
-    id: 'studId',
-    email: 'user@g.com',
-    name: 'userName',
-    image: 'userImageUrl'
-  };
-  user: BehaviorSubject<SocialUser> = new BehaviorSubject<SocialUser>(this.promisedData);
-}
-
-class MockRouter {
-  navigate(path) {}
-}
-
 describe('AuthGuard', () => {
   let guard: AuthGuard;
+  let loginService: LoginService;
   const routerMock = {navigate: jasmine.createSpy('navigate')};
-  let routeMock: any = { snapshot: {}};
-  let routeStateMock: any = { snapshot: {}, url: '/'};
+  const routeMock: any = { snapshot: {}};
+  const routeStateMock: any = { snapshot: {}, url: '/'};
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [SocialLoginModule],
@@ -34,10 +20,11 @@ describe('AuthGuard', () => {
         useValue: new AuthServiceConfig([
           {id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider('id')} ])
-      }, { provide: Router, useValue: routerMock }, {provide: LoginService, useValue: MockLoginService}]
+      }, { provide: Router, useValue: routerMock }]
     });
 
     guard = TestBed.get(AuthGuard);
+    loginService = TestBed.get(LoginService);
   });
 
   it('should be created', () => {
@@ -46,6 +33,11 @@ describe('AuthGuard', () => {
 
   it('should redirect an unauthenticated user to the login route', () => {
     expect(guard.canActivate(routeMock, routeStateMock)).toEqual(false);
-    expect(routerMock.navigate).toHaveBeenCalledWith(['/login']);
+    expect(routerMock.navigate).toHaveBeenCalledWith(['/', 'login']);
+  });
+
+  it('should return true for authenticated user', () => {
+    spyOn(loginService, 'authenticationStatus').and.returnValue(true);
+    expect(guard.canActivate(routeMock, routeStateMock)).toEqual(true);
   });
 });
