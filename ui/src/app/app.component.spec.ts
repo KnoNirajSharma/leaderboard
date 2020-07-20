@@ -7,6 +7,7 @@ import {StatusBar} from '@ionic-native/status-bar/ngx';
 import {AppComponent} from './app.component';
 import {AuthService, AuthServiceConfig, GoogleLoginProvider, SocialLoginModule} from 'angular-6-social-login';
 import {RouterTestingModule} from '@angular/router/testing';
+import {environment} from '../environments/environment';
 
 describe('AppComponent', () => {
     let statusBarSpy, splashScreenSpy, platformReadySpy, platformSpy;
@@ -31,7 +32,7 @@ describe('AppComponent', () => {
                     provide: AuthServiceConfig,
                     useValue: new AuthServiceConfig([
                         {id: GoogleLoginProvider.PROVIDER_ID,
-                            provider: new GoogleLoginProvider('id')} ])
+                            provider: new GoogleLoginProvider(environment.googleClientId)} ])
                 }
             ],
         }).compileComponents();

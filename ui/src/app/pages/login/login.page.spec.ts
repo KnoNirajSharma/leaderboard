@@ -3,6 +3,7 @@ import { IonicModule } from '@ionic/angular';
 import { LoginPage } from './login.page';
 import { AuthServiceConfig, GoogleLoginProvider, SocialLoginModule } from 'angular-6-social-login';
 import { RouterTestingModule } from '@angular/router/testing';
+import {environment} from '../../../environments/environment';
 
 describe('LoginPage', () => {
     let component: LoginPage;
@@ -19,7 +20,7 @@ describe('LoginPage', () => {
                 useValue: new AuthServiceConfig([
                     {
                         id: GoogleLoginProvider.PROVIDER_ID,
-                        provider: new GoogleLoginProvider('id')
+                        provider: new GoogleLoginProvider(environment.googleClientId)
                     }])
             }]
         }).compileComponents();
