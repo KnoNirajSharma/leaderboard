@@ -51,6 +51,13 @@ describe('LoginService', () => {
     spyOn(mockAuthService, 'signIn').and.returnValue(Promise.resolve(promisedData));
     loginService.googleSignIn();
     tick();
+    expect(loginService.isAuthenticated).toEqual(true);
     expect(routerSpy.navigate).toHaveBeenCalledWith(['/']);
   }));
+
+  it('should return the status of authentication', () => {
+    loginService.isAuthenticated = false;
+    const authStatus = loginService.authenticationStatus();
+    expect(authStatus).toEqual(false);
+  });
 });
