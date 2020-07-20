@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import {AuthService, GoogleLoginProvider, SocialUser} from 'angular-6-social-login';
-import {Router} from '@angular/router';
-import {BehaviorSubject} from 'rxjs';
+import { AuthService, GoogleLoginProvider } from 'angular-6-social-login';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
