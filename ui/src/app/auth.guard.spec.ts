@@ -3,6 +3,7 @@ import { AuthGuard } from './auth.guard';
 import { AuthServiceConfig, GoogleLoginProvider, SocialLoginModule } from 'angular-6-social-login';
 import { Router } from '@angular/router';
 import { LoginService } from './services/login.service';
+import {environment} from '../environments/environment';
 
 describe('AuthGuard', () => {
     let guard: AuthGuard;
@@ -18,7 +19,7 @@ describe('AuthGuard', () => {
                 useValue: new AuthServiceConfig([
                     {
                         id: GoogleLoginProvider.PROVIDER_ID,
-                        provider: new GoogleLoginProvider('id')
+                        provider: new GoogleLoginProvider(environment.googleClientId)
                     }])
             }, {provide: Router, useValue: routerMock}]
         });

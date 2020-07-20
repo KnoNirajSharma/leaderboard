@@ -19,7 +19,7 @@ describe('LoginPage', () => {
                 useValue: new AuthServiceConfig([
                     {
                         id: GoogleLoginProvider.PROVIDER_ID,
-                        provider: new GoogleLoginProvider('id')
+                        provider: new GoogleLoginProvider('6056193565-4s9g8pg84i8vanmivgpvpfr1m1s02nm0.apps.googleusercontent.com')
                     }])
             }]
         }).compileComponents();

@@ -5,6 +5,7 @@ import { AuthService, AuthServiceConfig, GoogleLoginProvider, SocialLoginModule,
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import {environment} from '../../environments/environment';
 
 describe('LoginService', () => {
     let loginService: LoginService;
@@ -30,7 +31,7 @@ describe('LoginService', () => {
                 useValue: new AuthServiceConfig([
                     {
                         id: GoogleLoginProvider.PROVIDER_ID,
-                        provider: new GoogleLoginProvider('id')
+                        provider: new GoogleLoginProvider(environment.googleClientId)
                     }])
             }, {provide: Router, useValue: routerSpy}]
         }).compileComponents();
