@@ -15,7 +15,6 @@ import { AuthServiceConfig, GoogleLoginProvider, SocialLoginModule } from 'angul
 import { LoginPageModule } from './pages/login/login.module';
 import { environment } from '../environments/environment';
 
-
 export function getAuthServiceConfigs() {
     return new AuthServiceConfig(
         [
@@ -26,7 +25,6 @@ export function getAuthServiceConfigs() {
         ]
     );
 }
-
 
 @NgModule({
     declarations: [AppComponent],
