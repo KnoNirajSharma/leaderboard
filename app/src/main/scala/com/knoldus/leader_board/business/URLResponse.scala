@@ -1,5 +1,7 @@
 package com.knoldus.leader_board.business
 
+import java.io.IOException
+
 import com.typesafe.scalalogging._
 import org.apache.commons.io.IOUtils
 import org.apache.http.client.methods.HttpGet
@@ -41,8 +43,13 @@ class URLResponse extends LazyLogging {
   }
 
   def getResponse(request: HttpGet): String = {
-    val client = HttpClientBuilder.create().build()
-    val response = client.execute(request)
-    IOUtils.toString(response.getEntity.getContent)
+    try {
+      val client = HttpClientBuilder.create().build()
+      val response = client.execute(request)
+      IOUtils.toString(response.getEntity.getContent)
+    }catch {
+      case _:IOException=>logger.info("getting invalid response from api")
+      """[]"""
+    }
   }
 }

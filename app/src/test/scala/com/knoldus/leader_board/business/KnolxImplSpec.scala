@@ -58,6 +58,17 @@ class KnolxImplSpec extends AnyWordSpecLike with MockitoSugar with BeforeAndAfte
       assert(knolx.getLatestKnolxFromAPI == listOfKnolx)
     }
 
+    "return empty list when an invalid response receive from api" in {
+      when(mockFetchKnolx.fetchMaxKnolxDeliveredDate)
+        .thenReturn(Option(Timestamp.from(Instant.parse("2019-01-19T11:49:09Z"))))
+
+      when(mockURLResponse.getKnolxResponse(any,any, any))
+        .thenReturn("""[]""")
+
+
+      assert(knolx.getLatestKnolxFromAPI == List())
+    }
+
     "return list of latest knolx" in {
       val listOfKnolx = List(
         Knolx(
