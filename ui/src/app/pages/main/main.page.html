@@ -1,6 +1,6 @@
 <app-headers [backBtn]="false"></app-headers>
 <ion-content [fullscreen]="true">
-    <div class="float-right set-style">Last updated: {{today | date:'dd MMMM yyyy 00:00:00'}}</div>
+    <div class="float-right set-style">Last updated: {{today | date:'dd MMMM yyyy'}}</div>
     <div class="main-container col-12 col-xl-10">
         <div class="main-content">
             <div class="px-3 bar-container">
@@ -80,7 +80,9 @@
                     <div class="col-6 col-sm-5 col-md-4 col-lg-3 ml-2 ml-sm-auto my-auto text-center scoring">
                         <div class="popover-wrapper">
                             <a href="#">
-                                <h2 class="popover-title">Scoring</h2>
+                                <h2 class="popover-title"><img alt=""
+                                                               src="../../../assets/icon/info6.jpg"
+                                                               style="height:20px; width: 21px; margin-top: -3px; margin-right: 0.25rem; color: #7f7f7f"/>Scoring</h2>
                             </a>
                             <div class="popover-content">
                                 <table class="popover-message">
