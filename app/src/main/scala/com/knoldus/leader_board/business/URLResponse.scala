@@ -46,10 +46,16 @@ class URLResponse extends LazyLogging {
     try {
       val client = HttpClientBuilder.create().build()
       val response = client.execute(request)
-      IOUtils.toString(response.getEntity.getContent)
-    }catch {
-      case _:IOException=>logger.info("getting invalid response from api")
-      """[]"""
+      if(response.getStatusLine.getStatusCode==200){
+        IOUtils.toString(response.getEntity.getContent)
+      }else{
+        logger.info("getting invalid response from api")
+        """[]"""
+      }
+    } catch {
+      case _: IOException => logger.info("getting any IO exception from api")
+        """[]"""
     }
   }
 }
+
