@@ -36,15 +36,16 @@ class WebinarSpreadSheetDataImplSpec  extends AnyWordSpecLike with MockitoSugar 
       assert(webinarObj.getWebinarData == webinarList)
 
     }
+
     "return empty list if response method throw IO exception details " in {
-     try{ when(mockWebinarResponse.getResponse)
+      when(mockWebinarResponse.getResponse)
         .thenThrow(new IOException)
-     }
 
 
       assert(webinarObj.getWebinarData == List())
 
     }
+
 
   }
 
