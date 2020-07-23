@@ -1,12 +1,12 @@
 package com.knoldus.leader_board.business
 
-import java.io.IOException
-
 import com.typesafe.scalalogging._
 import org.apache.commons.io.IOUtils
 import org.apache.http.client.methods.HttpGet
 import org.apache.http.client.utils.URIBuilder
 import org.apache.http.impl.client.HttpClientBuilder
+
+import scala.util.{Failure, Success, Try}
 
 class URLResponse extends LazyLogging {
 
@@ -35,7 +35,7 @@ class URLResponse extends LazyLogging {
    * @return Response entity in form of string.
    */
   def getKnolxResponse(url: String, startDate: String, endDate: String): String = {
-    logger.info(s"Gettting response from knolx API ")
+    logger.info("Gettting response from knolx API ")
     val builder = new URIBuilder(url)
     builder.setParameter("startDate", startDate).setParameter("endDate", endDate)
     val request = new HttpGet(builder.build())
@@ -43,19 +43,21 @@ class URLResponse extends LazyLogging {
   }
 
   def getResponse(request: HttpGet): String = {
-    try {
+    val result = Try {
       val client = HttpClientBuilder.create().build()
-      val response = client.execute(request)
-      if(response.getStatusLine.getStatusCode==200){
+      client.execute(request)
+    }
+    result match {
+      case Failure(exception) =>
+        logger.info(s" getting exception from api with message ${exception.getClass.getCanonicalName} ")
+        """[]"""
+      case Success(response) => if (response.getStatusLine.getStatusCode == 200) {
+        logger.info(s"getting valid response from api with status code ${response.getStatusLine.getStatusCode}")
         IOUtils.toString(response.getEntity.getContent)
-      }else{
-        logger.info("getting invalid response from api")
+      } else {
+        logger.info(s"getting invalid response from api with status code ${response.getStatusLine.getStatusCode}")
         """[]"""
       }
-    } catch {
-      case ex: Exception => logger.info(s"getting any exception from api ${ex.printStackTrace()}")
-        """[]"""
     }
   }
 }
-
