@@ -53,7 +53,7 @@ class URLResponse extends LazyLogging {
         """[]"""
       }
     } catch {
-      case _: IOException => logger.info("getting any IO exception from api")
+      case ex: Exception => logger.info(s"getting any exception from api ${ex.printStackTrace()}")
         """[]"""
     }
   }
