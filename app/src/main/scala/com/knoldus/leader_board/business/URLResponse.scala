@@ -55,7 +55,7 @@ class URLResponse extends LazyLogging {
         logger.info(s"getting valid response from api with status code ${response.getStatusLine.getStatusCode}")
         IOUtils.toString(response.getEntity.getContent)
       } else {
-        logger.info(s"getting invalid response from api with status code ${response.getStatusLine.getStatusCode}")
+        logger.error(s"getting invalid response from api with status code ${response.getStatusLine.getStatusCode}")
         """[]"""
       }
     }
