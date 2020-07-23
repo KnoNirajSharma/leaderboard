@@ -61,6 +61,7 @@ a {
   color: #0074D9;
   text-align: center;
   padding: 15px 0;
+  -moz-margin-start: -30px;
 }
 
 .popover-wrapper {
@@ -102,7 +103,7 @@ a {
   visibility: visible;
   transform: translate(0, -20px);
   transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
-  -moz-margin-start: -30px;
+  -moz-margin-start: -50px;
 }
 
 .popover-message {
