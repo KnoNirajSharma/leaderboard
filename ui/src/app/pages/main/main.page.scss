@@ -153,6 +153,14 @@ table, td, th {
   visibility: visible;
 }
 
+.image-style {
+  height: 20px;
+  width: 21px;
+  margin-top: -3px;
+  margin-right: 4px;
+  color: #7f7f7f;
+}
+
 @media only screen and (max-width: 768px) {
   .main-container {
     .main-content {
