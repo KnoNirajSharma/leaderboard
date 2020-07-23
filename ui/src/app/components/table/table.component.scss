@@ -102,6 +102,22 @@
       background: #e8ebe9;
       cursor: pointer;
     }
+
+    .datatable-row-even {
+      background: #FFFFFF 0% 0% no-repeat padding-box;
+      //border: 1px solid #7070701A;
+      //border-radius: 8px;
+      opacity: 1;
+      color: #6D6D6D;
+      text-align: center;
+    }
+
+    .datatable-row-odd {
+      background: #F6F6F6 0% 0% no-repeat padding-box;
+      opacity: 0.52;
+      color: #6D6D6D;
+      text-align: center;
+    }
   }
 }
 
@@ -133,13 +149,21 @@
 }
 
 .table-header-style {
-  color: black;
   font-weight: bolder;
+  text-align: left;
+  font: Medium 17px/26px Poppins;
+  letter-spacing: 0px;
+  color: #071348;
+  text-transform: uppercase;
+  opacity: 1;
 }
 
-.table-cell-style {
-  color: black;
-}
+//.table-cell-style {
+//  background: #FFFFFF 0% 0% no-repeat padding-box;
+//  border: 1px solid #7070701A;
+//  border-radius: 8px;
+//  opacity: 1;
+//}
 
 @media only screen and (max-width: 720px) {
   .table-block {
