@@ -194,11 +194,11 @@ class FetchCountWithReputationImplSpec extends DBSpec with BeforeAndAfterEach wi
       preparedStmt12.execute
       preparedStmt12.close()
 
-      val reputations = List(Reputation(1, "Mukesh Gupta", 10, 1, "15-20-20", 10, 1),
+      val reputations = List(Reputation(1, "Mukesh Gupta", 10,1, "15-20-20", 10, 1),
         Reputation(2, "Abhishek Baranwal", 5, 2, "10-10-15", 5, 2))
       when(mockFetchReputation.fetchReputation).thenReturn(reputations)
 
-      val monthlyCountAndReputation = Option(ReputationCountAndReputation(0, 0, 0, 0, reputations))
+      val monthlyCountAndReputation = Option(ReputationCountAndReputation(0, 0, 0, 0,0,0, reputations))
 
       assert(fetchReputationWithCount.allTimeAndMonthlyContributionCountWithReputation == monthlyCountAndReputation)
     }

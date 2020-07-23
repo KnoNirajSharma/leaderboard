@@ -14,7 +14,7 @@ class KnolderScoreImpl(config: Config) extends KnolderScore with LazyLogging {
     logger.info("Calculating score of each knolder.")
     counts.map(count => GetScore(count.knolderId, count.knolderName,
       count.numberOfBlogs * config.getInt("scorePerBlog") +
-        (count.numberOfKnolx * config.getInt("scorePerKnolx"))))
+        (count.numberOfKnolx * config.getInt("scorePerKnolx") ) + (count.numberOfWebinar * config.getInt("scorePerWebinar") )))
       .sortBy(knolder => knolder.score).reverse
   }
 }

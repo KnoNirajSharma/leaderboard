@@ -25,11 +25,14 @@ class FetchCountWithReputationImpl(config: Config, fetchReputation: FetchReputat
     val nextMonth = Timestamp.valueOf(IndianTime.currentTime
       .withDayOfMonth(1).toLocalDate.plusMonths(1).atStartOfDay())
     SQL("select (select count(*) from blog where published_on>= ? And published_on < ?) as monthly_blog_count," +
-      "(select count(*) from knolx  where delivered_on>= ? And delivered_on < ?) as monthly_knolx_count," +
-      "(select count(*) from blog) as total_blog_count,(select count(*) from knolx) as total_knolx_count;")
-      .bind(currentMonth, nextMonth, currentMonth, nextMonth)
+      "(select count(*) from knolx  where knolx.delivered_on>= ? And knolx.delivered_on < ?) as monthly_knolx_count," +
+      "(select count(*) from webinar  where webinar.delivered_on>= ? And webinar.delivered_on < ?) as monthly_webinar_count," +
+      "(select count(*) from blog) as total_blog_count,(select count(*) from webinar) as total_webinar_count," +
+      "(select count(*) from knolx) as total_knolx_count;")
+      .bind(currentMonth, nextMonth, currentMonth, nextMonth,currentMonth,nextMonth)
       .map(rs => ReputationCountAndReputation(rs.int("monthly_blog_count"), rs.int("monthly_knolx_count"),
-        rs.int("total_blog_count"), rs.int("total_knolx_count"), fetchReputation.fetchReputation)).single().apply()
+        rs.int("monthly_webinar_count"),rs.int("total_blog_count"), rs.int("total_knolx_count"),rs.int("total_webinar_count"),
+        fetchReputation.fetchReputation)).single().apply()
 
   }
 }
