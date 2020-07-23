@@ -50,6 +50,7 @@ class SpreadSheetApi(config: Config) extends LazyLogging{
    * getting response from spread sheet.
    * @return valuerange of data from spread sheet.
    */
+  @throws(classOf[IOException])
   def getResponse: ValueRange ={
     logger.info("getting response from spreadsheet api")
     val spreadsheetId = "1TIs_d4iUEeFlDG-UfkRVz2ksha5w7BcmtjLc_NrUeg8"

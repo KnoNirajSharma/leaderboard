@@ -1,5 +1,6 @@
 package com.knoldus.leader_board.business
 
+import java.io.IOException
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.util
@@ -33,6 +34,15 @@ class WebinarSpreadSheetDataImplSpec  extends AnyWordSpecLike with MockitoSugar 
       val webinarList=List(Webinar("1",dateOne, "amit","java lambdas","abc@knoldus.com"),
         Webinar("2",dateTwo, "akash","k","xyz@knoldus.com"))
       assert(webinarObj.getWebinarData == webinarList)
+
+    }
+    "return empty list if response method throw IO exception details " in {
+     try{ when(mockWebinarResponse.getResponse)
+        .thenThrow(new IOException)
+     }
+
+
+      assert(webinarObj.getWebinarData == List())
 
     }
 

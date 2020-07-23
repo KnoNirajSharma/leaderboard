@@ -1,5 +1,6 @@
 package com.knoldus.leader_board.business
 
+import java.io.IOException
 import java.sql.Timestamp
 import java.text.{ParseException, SimpleDateFormat}
 
@@ -18,11 +19,12 @@ class WebinarSpreadSheetDataImpl(response: SpreadSheetApi) extends WebinarSpread
    * @return list of Webinar  case class.
    */
   override def getWebinarData: List[Webinar] = {
-    logger.info("modelling data from list of value range to webinar case class")
-    val values = response.getResponse.getValues.asScala.toList
-    val webinarData = values.map(data => data.asScala.toList.map(_.toString))
-    webinarData.map{
-      case List(id, date, name, topic, emailId, _*) => val deliveredOn = try {
+    try {
+      logger.info("modelling data from list of value range to webinar case class")
+      val values = response.getResponse.getValues.asScala.toList
+      val webinarData = values.map(data => data.asScala.toList.map(_.toString))
+      webinarData.map{
+        case List(id, date, name, topic, emailId, _*) => val deliveredOn = try {
           val formatDate = formatOne.parse(date)
           new Timestamp(formatDate.getTime)
         }
@@ -38,5 +40,9 @@ class WebinarSpreadSheetDataImpl(response: SpreadSheetApi) extends WebinarSpread
         }
           Webinar(id, deliveredOn, name, topic, emailId)
       }
-    }
+    }catch {
+      case ex:IOException=>logger.info(ex.getClass.getCanonicalName)
+        List.empty
+  }
+}
 }
