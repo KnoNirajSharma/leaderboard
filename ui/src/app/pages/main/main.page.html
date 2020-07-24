@@ -70,17 +70,13 @@
             </div>
             <ion-card>
                 <div class="row px-3">
-                    <label class="col-12 col-sm-4 col-md-5 col-lg-3">
-                        <input (keyup)="filterEmp()" [formControl]="searchBar"
-                               class="search form-control" placeholder="Search..." type="text">
-                    </label>
-                    <div class="col-4 col-md-2 col-sm-2 col-lg-2 ml-3 my-auto text-center current-month">
-                        {{ currentDate | date: 'MMM-yyyy'}}
+                    <div class="month-style col-4 col-md-2 col-sm-2 col-lg-2 my-auto text-center current-month">
+                        Summary of {{ currentDate | date: 'MMMM yyyy'}}
                     </div>
-                    <div class="col-6 col-sm-5 col-md-4 col-lg-3 ml-2 ml-sm-auto my-auto text-center scoring">
+                    <div class="col-6 col-sm-5 col-md-4 col-lg-3 my-auto text-center scoring">
                         <div class="popover-wrapper">
                             <a href="#">
-                                <h2 class="popover-title">Scoring</h2>
+                                <div class="popover-title">Scoring</div>
                             </a>
                             <div class="popover-content">
                                 <table class="popover-message">
@@ -128,6 +124,11 @@
                             </div>
                         </div>
                     </div>
+                    <label class="input-container col-12 col-sm-4 col-md-5 col-lg-4 ml-3">
+                            <input (keyup)="filterEmp()" [formControl]="searchBar"
+                                   class="input search form-control" placeholder="Search..." type="text">
+                            <img src="./assets/icon/search.svg" class="input-img" />
+                    </label>
                 </div>
                 <app-table [tableHeading]="tableHeading" [tableRows]="filteredEmpData"></app-table>
             </ion-card>

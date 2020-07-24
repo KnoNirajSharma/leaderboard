@@ -10,6 +10,9 @@
     .datatable-body-cell {
       display: flex !important;
       align-items: center !important;
+      color: #6D6D6D !important;
+      text-align: center !important;
+      font: Medium 17px/26px Poppins !important;
     }
 
     .ngx-datatable {
@@ -104,19 +107,11 @@
     }
 
     .datatable-row-even {
-      background: #FFFFFF 0% 0% no-repeat padding-box;
-      //border: 1px solid #7070701A;
-      //border-radius: 8px;
-      opacity: 1;
-      color: #6D6D6D;
-      text-align: center;
+      background-color: #FFFFFF;
     }
 
     .datatable-row-odd {
-      background: #F6F6F6 0% 0% no-repeat padding-box;
-      opacity: 0.52;
-      color: #6D6D6D;
-      text-align: center;
+      background-color: #F6F6F6;
     }
   }
 }
@@ -159,10 +154,8 @@
 }
 
 //.table-cell-style {
-//  background: #FFFFFF 0% 0% no-repeat padding-box;
-//  border: 1px solid #7070701A;
-//  border-radius: 8px;
-//  opacity: 1;
+//  color: #6D6D6D;
+//  text-align: center;
 //}
 
 @media only screen and (max-width: 720px) {
