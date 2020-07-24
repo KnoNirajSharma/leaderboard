@@ -1,4 +1,4 @@
-package com.knoldus.leader_board.business
+package com.knoldus.leader_board.utils
 
 import java.io.{File, FileInputStream, IOException, InputStreamReader}
 import java.util.Collections
@@ -16,10 +16,25 @@ import com.google.api.services.sheets.v4.{Sheets, SheetsScopes}
 import com.typesafe.config.Config
 import com.typesafe.scalalogging.LazyLogging
 
-class SpreadSheetApi(config: Config) extends LazyLogging{
+class SpreadSheetApi(config: Config) extends LazyLogging {
   val APPLICATION_NAME = "Google Sheets API"
   val JSON_FACTORY = JacksonFactory.getDefaultInstance
 
+  /**
+   * getting response from spread sheet.
+   *
+   * @return valuerange of data from spread sheet.
+   */
+  @throws(classOf[IOException])
+  def getResponse: ValueRange = {
+    logger.info("getting response from spreadsheet api")
+    val spreadsheetId = config.getString("spreadSheetId")
+    val range = config.getString("spreadSheetRange")
+    val service = new Sheets.Builder(GoogleNetHttpTransport.newTrustedTransport,
+      JacksonFactory.getDefaultInstance, getCredentials(GoogleNetHttpTransport.newTrustedTransport))
+      .setApplicationName(APPLICATION_NAME).build
+    service.spreadsheets.values.get(spreadsheetId, range).execute
+  }
 
   /**
    * Creates an authorized Credential object.
@@ -33,7 +48,7 @@ class SpreadSheetApi(config: Config) extends LazyLogging{
     logger.info("loading credentials from google api")
     val TOKENS_DIRECTORY_PATH = "tokens"
     // Load client secrets.
-    val in =new FileInputStream(new File(config.getString("pathForCredentialFile")))
+    val in = new FileInputStream(new File(config.getString("pathForGoogleApiCredentialFile")))
     val clientSecrets = GoogleClientSecrets.load(JacksonFactory.getDefaultInstance, new InputStreamReader(in))
     // Build flow and trigger user authorization request.
 
@@ -41,23 +56,8 @@ class SpreadSheetApi(config: Config) extends LazyLogging{
       Collections.singletonList(SheetsScopes.SPREADSHEETS_READONLY))
       .setDataStoreFactory(new FileDataStoreFactory(new File(TOKENS_DIRECTORY_PATH)))
       .setAccessType("offline").build
-    val port=8888
+    val port = 8888
     val receiver = new LocalServerReceiver.Builder().setPort(port).build
     new AuthorizationCodeInstalledApp(flow, receiver).authorize("user")
-  }
-
-  /**
-   * getting response from spread sheet.
-   * @return valuerange of data from spread sheet.
-   */
-  @throws(classOf[IOException])
-  def getResponse: ValueRange ={
-    logger.info("getting response from spreadsheet api")
-    val spreadsheetId = "1TIs_d4iUEeFlDG-UfkRVz2ksha5w7BcmtjLc_NrUeg8"
-    val range = "Sheet1!A2:E1000"
-    val service = new Sheets.Builder(GoogleNetHttpTransport.newTrustedTransport,
-      JacksonFactory.getDefaultInstance, getCredentials(GoogleNetHttpTransport.newTrustedTransport))
-      .setApplicationName(APPLICATION_NAME).build
-    service.spreadsheets.values.get(spreadsheetId, range).execute
   }
 }

@@ -53,8 +53,8 @@ class StoreWebinarImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt2.close()
 
       val webinar = List(
-        Webinar("1",Timestamp.valueOf("1970-01-19 11:49:09.0"),"mukesh","Reactive Microservices","mukesh.kumar@knoldus.com"),
-        Webinar("2",Timestamp.valueOf("1970-01-19 15:11:46.0"),"Abhishek","Delta Lake","abhishek.baranwal@knoldus.com"))
+        Webinar("1",Option(Timestamp.valueOf("1970-01-19 11:49:09.0")),"mukesh","Reactive Microservices","mukesh.kumar@knoldus.com"),
+        Webinar("2",Option(Timestamp.valueOf("1970-01-19 15:11:46.0")),"Abhishek","Delta Lake","abhishek.baranwal@knoldus.com"))
 
       val result = storeData.insertWebinar(webinar)
       result.sum shouldBe 2

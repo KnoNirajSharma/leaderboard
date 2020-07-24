@@ -2,12 +2,14 @@ package com.knoldus.leader_board.business
 
 import java.io.IOException
 import java.sql.Timestamp
-import java.text.{ParseException, SimpleDateFormat}
+import java.text.SimpleDateFormat
 
 import com.knoldus.leader_board.Webinar
+import com.knoldus.leader_board.utils.SpreadSheetApi
 import com.typesafe.scalalogging.LazyLogging
 
 import scala.collection.JavaConverters._
+import scala.util.Try
 
 class WebinarSpreadSheetDataImpl(response: SpreadSheetApi) extends WebinarSpreadSheetData with LazyLogging {
   val formatOne = new SimpleDateFormat("dd/M/yyyy")
@@ -16,6 +18,7 @@ class WebinarSpreadSheetDataImpl(response: SpreadSheetApi) extends WebinarSpread
 
   /**
    * getting data in webinar case class from list of value range of  spread sheet data.
+   *
    * @return list of Webinar  case class.
    */
   override def getWebinarData: List[Webinar] = {
@@ -23,26 +26,27 @@ class WebinarSpreadSheetDataImpl(response: SpreadSheetApi) extends WebinarSpread
       logger.info("modelling data from list of value range to webinar case class")
       val values = response.getResponse.getValues.asScala.toList
       val webinarData = values.map(data => data.asScala.toList.map(_.toString))
-      webinarData.map{
-        case List(id, date, name, topic, emailId, _*) => val deliveredOn = try {
+      val webinarList = webinarData.map {
+        case List(id, date, name, topic, emailId, _*) => val deliveredOn = Try {
           val formatDate = formatOne.parse(date)
-          new Timestamp(formatDate.getTime)
-        }
-        catch {
-          case _: ParseException => try {
+          Option(new Timestamp(formatDate.getTime))
+        }.getOrElse {
+          Try {
             val formatDate = formatTwo.parse(date)
-            new Timestamp(formatDate.getTime)
-          } catch {
-            case _: ParseException =>
+            Option(new Timestamp(formatDate.getTime))
+          }.getOrElse {
+            Try {
               val formatDate = formatThree.parse(date)
-              new Timestamp(formatDate.getTime)
+              Option(new Timestamp(formatDate.getTime))
+            }.getOrElse(None)
           }
         }
           Webinar(id, deliveredOn, name, topic, emailId)
       }
-    }catch {
-      case ex:IOException=>logger.info(ex.getClass.getCanonicalName)
+      webinarList.filter(webinar => webinar.deliveredOn.isDefined)
+    } catch {
+      case ex: IOException => logger.info(ex.getClass.getCanonicalName)
         List.empty
+    }
   }
-}
 }
