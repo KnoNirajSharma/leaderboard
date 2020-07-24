@@ -2,27 +2,18 @@ package com.knoldus.leader_board.business
 
 import java.sql.{Connection, Timestamp}
 
-<<<<<<< HEAD:app/src/test/scala/com/knoldus/leader_board/business/BlogsImplSpec.scala
-import com.knoldus.leader_board.infrastructure.{FetchBlogs, FetchBlogsImpl}
-=======
->>>>>>> 214137affeb3d92feca09a0b7a2211dc3995ad4b:script-to-fetch-all-blogs/src/test/scala/com/knoldus/leader_board/business/BlogsImplSpec.scala
 import com.knoldus.leader_board.{Blog, DatabaseConnection}
 import com.typesafe.config.ConfigFactory
 import org.mockito.{Mockito, MockitoSugar}
 import org.scalatest.BeforeAndAfterEach
+import org.mockito.ArgumentMatchersSugar.any
 import org.scalatest.wordspec.AnyWordSpecLike
 
 class BlogsImplSpec extends AnyWordSpecLike with MockitoSugar with BeforeAndAfterEach {
   implicit val connection: Connection = DatabaseConnection.connection(ConfigFactory.load())
-<<<<<<< HEAD:app/src/test/scala/com/knoldus/leader_board/business/BlogsImplSpec.scala
-  val mockFetchBlogs: FetchBlogs = mock[FetchBlogsImpl]
-  val mockURLResponse: URLResponse = mock[URLResponse]
-  val blogs: Blogs = new BlogsImpl(mockFetchBlogs, mockURLResponse, ConfigFactory.load())
-=======
   val mockURLResponse: URLResponse = mock[URLResponse]
   val blogs: Blogs = new BlogsImpl(mockURLResponse, ConfigFactory.load())
   val spyBlogs: Blogs = spy(blogs)
->>>>>>> 214137affeb3d92feca09a0b7a2211dc3995ad4b:script-to-fetch-all-blogs/src/test/scala/com/knoldus/leader_board/business/BlogsImplSpec.scala
 
   "Blogs" should {
 
@@ -55,23 +46,10 @@ class BlogsImplSpec extends AnyWordSpecLike with MockitoSugar with BeforeAndAfte
         |  }
         |}]""".stripMargin
 
-<<<<<<< HEAD:app/src/test/scala/com/knoldus/leader_board/business/BlogsImplSpec.scala
-    "return latest blogs from API" in {
-      when(mockFetchBlogs.fetchMaxBlogPublicationDate)
-        .thenReturn(Option(Timestamp.from(Instant.parse("2020-04-13T14:56:40Z"))))
-
-      when(mockURLResponse.getBlogResponse(ConfigFactory.load.getString("urlForLatestBlogs"),
-        "2020-05-30 02:20:11"))
-        .thenReturn(blogData)
-
-      val date = "2020-05-30 02:20:11"
-=======
     "return all blogs from API" in {
-      MockitoSugar.doReturn(4).when(spyBlogs).getTotalNoOfPosts
+      MockitoSugar.doReturn(1).when(spyBlogs).getTotalNoOfPages
       val date = "2020-04-14 12:35:30"
->>>>>>> 214137affeb3d92feca09a0b7a2211dc3995ad4b:script-to-fetch-all-blogs/src/test/scala/com/knoldus/leader_board/business/BlogsImplSpec.scala
       val publishedOn = Timestamp.valueOf(date)
-
       val listOfBlogs = List(Blog(
         Option(70547),
         Option("pankajchaudhary5"),
@@ -89,35 +67,40 @@ class BlogsImplSpec extends AnyWordSpecLike with MockitoSugar with BeforeAndAfte
         Option(74399),
         Option("ramindukuri"),
         publishedOn,
-<<<<<<< HEAD:app/src/test/scala/com/knoldus/leader_board/business/BlogsImplSpec.scala
-        Option("Realtime Supply Chains")))
-
-      assert(blogs.getLatestBlogsFromAPI == List())
-=======
         Option("Realtime Supply Chains"))))
     }
 
     "return list of blogs if last page is the first page" in {
-      assert(blogs.getAllBlogs(1) == List())
->>>>>>> 214137affeb3d92feca09a0b7a2211dc3995ad4b:script-to-fetch-all-blogs/src/test/scala/com/knoldus/leader_board/business/BlogsImplSpec.scala
+      assert(blogs.getAllBlogs(0) == List())
     }
 
     "return list of blogs if last page is not first page" in {
-      when(mockURLResponse.getResponse(ConfigFactory.load.getString("urlForAllBlogs")))
+      when(mockURLResponse.getEntityResponse(any))
         .thenReturn(blogData)
       val date = "2020-05-30 02:20:11"
       val publishedOn = Timestamp.valueOf(date)
-<<<<<<< HEAD:app/src/test/scala/com/knoldus/leader_board/business/BlogsImplSpec.scala
-
-      assert(blogs.getListOfLatestBlogs(blogData) == List(Blog(
-=======
       val listOfBlogs = List(Blog(
->>>>>>> 214137affeb3d92feca09a0b7a2211dc3995ad4b:script-to-fetch-all-blogs/src/test/scala/com/knoldus/leader_board/business/BlogsImplSpec.scala
         Option(74399),
         Option("ramindukuri"),
         publishedOn,
         Option("Realtime Supply Chains")))
-      assert(blogs.getAllBlogs(2) == List())
+      MockitoSugar.doReturn(listOfBlogs).when(spyBlogs).getListOfBlogs(blogData)
+
+      assert(blogs.getAllBlogs(2) == List(Blog(
+        Option(74399),
+        Option("ramindukuri"),
+        publishedOn,
+        Option("Realtime Supply Chains")),Blog(
+        Option(74399),
+        Option("ramindukuri"),
+        publishedOn,
+        Option("Realtime Supply Chains"))))
+
+    }
+    "return total number of pages from apis" in {
+      when(mockURLResponse.getTotalNumberOfPagesResponse(any))
+        .thenReturn("4")
+      assert(blogs.getTotalNoOfPages== 4)
     }
   }
 }
