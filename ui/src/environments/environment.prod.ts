@@ -20,5 +20,16 @@ export const environment = {
         }
     },
 
-    googleClientId: '6056193565-0ieknv9tmjqdi6dsufmcvh4md3pikacm.apps.googleusercontent.com'
+    googleClientId: '6056193565-0ieknv9tmjqdi6dsufmcvh4md3pikacm.apps.googleusercontent.com',
+
+    firebaseConfig : {
+        apiKey: 'AIzaSyDd51yg1TGiUvxmz4ARmmQ7pP5KL0RD1Bc',
+        authDomain: 'leaderboard-283708.firebaseapp.com',
+        databaseURL: 'https://leaderboard-283708.firebaseio.com',
+        projectId: 'leaderboard-283708',
+        storageBucket: 'leaderboard-283708.appspot.com',
+        messagingSenderId: '6056193565',
+        appId: '1:6056193565:web:fa81ffed1d776b590720f4',
+        measurementId: 'G-1R9PBV6QB1'
+    }
 };

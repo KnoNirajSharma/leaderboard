@@ -14,6 +14,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthServiceConfig, GoogleLoginProvider, SocialLoginModule } from 'angular-6-social-login';
 import { LoginPageModule } from './pages/login/login.module';
 import { environment } from '../environments/environment';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+
 
 export function getAuthServiceConfigs() {
     return new AuthServiceConfig(
@@ -37,7 +41,10 @@ export function getAuthServiceConfigs() {
         DetailsPageModule,
         BrowserAnimationsModule,
         SocialLoginModule,
-        LoginPageModule],
+        LoginPageModule,
+        AngularFireModule.initializeApp(environment.firebaseConfig, 'angular-auth-firebase'),
+        AngularFireDatabaseModule,
+        AngularFireAuthModule],
     providers: [
         StatusBar,
         SplashScreen,
