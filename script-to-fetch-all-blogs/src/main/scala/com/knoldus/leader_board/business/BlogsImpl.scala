@@ -22,11 +22,12 @@ class BlogsImpl(URLResponse: URLResponse, config: Config) extends Blogs with Laz
    * @return List of blogs.
    */
   override def getAllBlogsFromAPI: List[Blog] = {
-    val totalNoOfPosts: Int = getTotalNoOfPosts
-    logger.info("Retrieving total number of blogs available on Wordpress API.")
-    val page = (totalNoOfPosts.toFloat / 100).ceil.toInt
-    logger.info(s"Extracting blogs from $page pages of Wordpress API.")
-    getAllBlogs(page)
+    logger.info("Retrieving total number of pages available on Wordpress API.")
+
+    val totalNoOfPages: Int = getTotalNoOfPages
+    logger.info("Retrieving total number of pages available on Wordpress API.")
+    logger.info(s"Extracting blogs from $totalNoOfPages pages of Wordpress API.")
+    getAllBlogs(totalNoOfPages)
   }
 
   /**
@@ -34,10 +35,8 @@ class BlogsImpl(URLResponse: URLResponse, config: Config) extends Blogs with Laz
    *
    * @return Total number of posts to be fetched from wordpress API.
    */
-  override def getTotalNoOfPosts: Int = {
-    val blogsData = URLResponse.getResponse(config.getString("urlForTotalBlogs") + "?page=1")
-    val parsedBlogsData = parse(blogsData)
-    (parsedBlogsData \ "found").extract[Int]
+  override def getTotalNoOfPages: Int = {
+    URLResponse.getTotalNumberOfPagesResponse(config.getString("urlForTotalNumberOfPages")).toInt
   }
 
   /**
@@ -54,7 +53,8 @@ class BlogsImpl(URLResponse: URLResponse, config: Config) extends Blogs with Laz
       if (currentPage > lastPage) {
         blogsList
       } else {
-        val unParsedBlogs = URLResponse.getResponse(config.getString("urlForAllBlogs") +
+        logger.info(s"getting response from page ${currentPage}")
+        val unParsedBlogs = URLResponse.getEntityResponse(config.getString("urlForAllBlogs") +
           s"?per_page=100&page=$currentPage&_embed=author")
         getBlogs(blogsList ::: getListOfBlogs(unParsedBlogs), currentPage + 1, lastPage)
       }
