@@ -3,7 +3,7 @@ export const environment = {
     appVersion: '1.0.0',
     api: {
         version: '1.0.0',
-        baseUrl: 'http://34.68.95.196:8000/',
+        baseUrl: 'http://35.232.185.162:8000/',
         routes: {
             author: {endpoint: 'reputation', method: 'GET'},
             trends: {endpoint: 'reputation/twelvemonths', method: 'GET'}
