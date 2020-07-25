@@ -20,8 +20,6 @@ export const environment = {
         }
     },
 
-    googleClientId: '6056193565-4s9g8pg84i8vanmivgpvpfr1m1s02nm0.apps.googleusercontent.com',
-
     firebaseConfig : {
         apiKey: 'AIzaSyDd51yg1TGiUvxmz4ARmmQ7pP5KL0RD1Bc',
         authDomain: 'leaderboard-283708.firebaseapp.com',

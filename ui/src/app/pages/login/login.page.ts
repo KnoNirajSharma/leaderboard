@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../services/login.service';
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,10 +15,10 @@ export class LoginPage implements OnInit {
   }
 
   onSignIn(): void {
-    this.loginService.googleSignIn().then((result) => {
+    this.loginService.signInWithGoogle().then((result) => {
       this.loginService.setAuthStatus(true);
+      localStorage.setItem('authenticated', String(true));
       this.router.navigate(['/']);
-    // this.loginService.googleSignIn();
     });
-}
+  }
 }

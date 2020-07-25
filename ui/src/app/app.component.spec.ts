@@ -4,9 +4,12 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
-import { AuthService, AuthServiceConfig, GoogleLoginProvider, SocialLoginModule } from 'angular-6-social-login';
+// import { AuthService, AuthServiceConfig, GoogleLoginProvider, SocialLoginModule } from 'angular-6-social-login';
 import { RouterTestingModule } from '@angular/router/testing';
 import { environment } from '../environments/environment';
+import {AngularFireModule} from '@angular/fire';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {AngularFireAuthModule} from '@angular/fire/auth';
 
 describe('AppComponent', () => {
     let statusBarSpy, splashScreenSpy, platformReadySpy, platformSpy;
@@ -19,21 +22,16 @@ describe('AppComponent', () => {
 
         TestBed.configureTestingModule({
             imports: [
-                SocialLoginModule,
-                RouterTestingModule],
+                RouterTestingModule,
+                AngularFireModule.initializeApp(environment.firebaseConfig, 'angular-auth-firebase'),
+                AngularFirestoreModule,
+                AngularFireAuthModule],
             declarations: [AppComponent],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
             providers: [
                 {provide: StatusBar, useValue: statusBarSpy},
                 {provide: SplashScreen, useValue: splashScreenSpy},
-                {provide: Platform, useValue: platformSpy},
-                AuthService, {
-                    provide: AuthServiceConfig,
-                    useValue: new AuthServiceConfig([
-                        {id: GoogleLoginProvider.PROVIDER_ID,
-                            provider: new GoogleLoginProvider(environment.googleClientId)} ])
-                }
-            ],
+                {provide: Platform, useValue: platformSpy}],
         }).compileComponents();
     }));
 
