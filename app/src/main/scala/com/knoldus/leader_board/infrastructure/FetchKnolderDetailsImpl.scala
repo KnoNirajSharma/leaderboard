@@ -108,7 +108,7 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
     WHERE
     knolder.id = ? """)
       .bind(month, year, knolderId)
-      .map(rs => Contribution("webinar", rs.int("webinarCount"), rs.int("webinarScore"), webinarTitles))
+      .map(rs => Contribution("Webinar", rs.int("webinarCount"), rs.int("webinarScore"), webinarTitles))
       .single().apply()
   }
 
@@ -303,7 +303,7 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
     WHERE
     knolder.id = ? """)
       .bind(knolderId)
-      .map(rs => Contribution("webinar", rs.int("webinarCount"), rs.int("webinarScore"), webinarTitles))
+      .map(rs => Contribution("Webinar", rs.int("webinarCount"), rs.int("webinarScore"), webinarTitles))
       .single().apply()
   }
 

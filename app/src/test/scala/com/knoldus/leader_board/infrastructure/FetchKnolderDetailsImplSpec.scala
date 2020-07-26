@@ -134,7 +134,7 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
       val webinarTitles = List(ContributionDetails("Reactive Microservices", date.toString),
         ContributionDetails("Delta Lake", date.toString))
 
-      val webinarDetails = Option(Contribution("webinar", 2, 20, webinarTitles))
+      val webinarDetails = Option(Contribution("Webinar", 2, 20, webinarTitles))
 
       val contributions = List(blogDetails, knolxDetails,webinarDetails)
       val knolderDetails = KnolderDetails("Mukesh Gupta", 50, contributions)
@@ -281,7 +281,7 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
       val webinarTitles = List(ContributionDetails("Reactive Microservices", date.toString),
         ContributionDetails("Delta Lake", date.toString))
 
-      val webinarDetails = Option(Contribution("webinar", 2, 20, webinarTitles))
+      val webinarDetails = Option(Contribution("Webinar", 2, 20, webinarTitles))
 
       val contributions = List(blogDetails, knolxDetails,webinarDetails)
       val knolderDetails = KnolderDetails("Mukesh Gupta", 50, contributions)
@@ -442,7 +442,7 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
 
       val webinarTitles = List(ContributionDetails("Reactive Microservices", date.toString),
         ContributionDetails("Delta Lake", date.toString))
-      val webinarDetails = Option(Contribution("webinar", 2, 20, webinarTitles))
+      val webinarDetails = Option(Contribution("Webinar", 2, 20, webinarTitles))
 
       assert(fetchKnolderDetails.fetchKnolderWebinarMonthlyDetails(4, 2020, 1) ==webinarDetails)
     }
@@ -494,7 +494,7 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
 
       val webinarTitles = List(ContributionDetails("Reactive Microservices", date.toString),
         ContributionDetails("Delta Lake", date.toString))
-      val webinarDetails = Option(Contribution("webinar", 2, 20, webinarTitles))
+      val webinarDetails = Option(Contribution("Webinar", 2, 20, webinarTitles))
 
       assert(fetchKnolderDetails.fetchAllTimeWebinarDetails(1) == webinarDetails)
 
