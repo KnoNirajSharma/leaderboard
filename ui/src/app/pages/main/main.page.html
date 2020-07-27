@@ -127,7 +127,7 @@
                     <label class="input-container col-2 col-sm-2 col-md-5 col-lg-4">
                             <input (keyup)="filterEmp()" [formControl]="searchBar"
                                    class="input search form-control" placeholder="Search..." type="text">
-                            <img src="./assets/icon/search.svg" class="input-img" />
+                            <img src="./assets/icon/search.svg" alt="search-logo" class="input-img" />
                     </label>
                 </div>
                 <app-table [tableHeading]="tableHeading" [tableRows]="filteredEmpData"></app-table>

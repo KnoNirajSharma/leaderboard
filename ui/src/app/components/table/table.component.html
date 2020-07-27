@@ -13,7 +13,7 @@
                         [scrollbarH]="true"
                         class="material">
 
-                    <ngx-datatable-column name="NAME" headerClass="table-header-style" cellClass="mr-4 table-cell-style" [sortable]=false prop="knolderName">
+                    <ngx-datatable-column name="NAME" headerClass="table-header-style" cellClass="table-cell-style" [sortable]=false prop="knolderName">
                         <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                             {{value}}
                             <img *ngIf="row['monthlyRank'] < 4" src="./assets/icon/icons-trophy.png" style="width: 15px" alt="trohy-icon"/>
@@ -26,25 +26,25 @@
                         </ng-template>
                     </ngx-datatable-column>
 
-                    <ngx-datatable-column  name="MONTHLY SCORE" prop="monthlyScore" headerClass="table-header-style" cellClass="ml-5 table-cell-style">
+                    <ngx-datatable-column  name="MONTHLY SCORE" prop="monthlyScore" headerClass="table-header-style" cellClass="ml-4 table-cell-style">
                         <ng-template let-value="value" ngx-datatable-cell-template>
                             {{value}}
                         </ng-template>
                     </ngx-datatable-column>
 
-                    <ngx-datatable-column name="OVERALL RANK" prop="allTimeRank" headerClass="table-header-style" cellClass="ml-5 table-cell-style">
+                    <ngx-datatable-column name="OVERALL RANK" prop="allTimeRank" headerClass="table-header-style" cellClass="ml-3 table-cell-style">
                         <ng-template let-value="value" ngx-datatable-cell-template>
                             {{value}}
                         </ng-template>
                     </ngx-datatable-column>
 
-                    <ngx-datatable-column name="OVERALL SCORE" prop="allTimeScore" headerClass="table-header-style" cellClass="ml-5 table-cell-style">
+                    <ngx-datatable-column name="OVERALL SCORE" prop="allTimeScore" headerClass="table-header-style" cellClass="ml-3 table-cell-style">
                         <ng-template let-value="value" ngx-datatable-cell-template>
                             {{value}}
                         </ng-template>
                     </ngx-datatable-column>
 
-                    <ngx-datatable-column name="3-MONTH-STREAK" [sortable]=false prop="quarterlyStreak" headerClass="table-header-style" cellClass="ml-4 table-cell-style">
+                    <ngx-datatable-column name="3-MONTH-STREAK" [sortable]=false prop="quarterlyStreak" headerClass="table-header-style" cellClass="table-cell-style">
                         <ng-template let-value="value" ngx-datatable-cell-template>
                             {{value}}
                         </ng-template>

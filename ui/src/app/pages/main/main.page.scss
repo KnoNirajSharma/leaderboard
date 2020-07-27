@@ -46,12 +46,10 @@
       letter-spacing: 0;
       color: #9E9E9F;
       margin-top: 10px;
-      //margin-left: 10px;
     }
 
     .scoring {
       text-align: left;
-      //margin-left: -70px;
       font: Medium 19px/29px Poppins;
       letter-spacing: 0;
       color: #2C42A5;
@@ -95,10 +93,11 @@ a {
   opacity: 0;
   visibility: hidden;
   position: absolute;
-  left: -9.375rem;
+  top: 3.7rem;
+  left: -7rem;
   transform: translate(0, 10px);
   background-color: white;
-  color: black;
+  color: #071348;
   padding: 1.5rem;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
   width: auto;
@@ -109,7 +108,7 @@ a {
   z-index: -1;
   content: "";
   right: calc(50% - 10px);
-  top: -0.2rem;
+  top: -0.7rem;
   border-style: solid;
   border-width: 0 10px 10px 10px;
   border-color: transparent transparent #bfbfbf transparent;
@@ -134,7 +133,7 @@ table {
 }
 
 table, td, th {
-  border: 1px solid black;
+  border: 1px solid #2C42A5;
   padding: 5px;
 }
 
@@ -176,21 +175,23 @@ table, td, th {
 }
 
 .input-container {
-  position:relative;
-  padding:0;
-  margin:0;
+  position: relative;
+  padding: 0;
+  margin: 0;
 }
+
 .input {
-  height:20px;
-  margin:0;
-  padding-left:30px;
+  height: 20px;
+  margin: 0;
+  padding-left: 30px;
 }
+
 .input-img {
-  position:absolute;
-  bottom:15px;
-  left:320px;
-  width:10px;
-  height:10px;
+  position: absolute;
+  bottom: 15px;
+  left: 320px;
+  width: 10px;
+  height: 10px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -206,7 +207,6 @@ table, td, th {
     }
   }
 }
-
 
 @media only screen and (max-width: 576px) {
   .total-count-bar {
