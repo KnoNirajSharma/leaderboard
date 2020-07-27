@@ -19,8 +19,8 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
   override def fetchKnolderMonthlyDetails(knolderId: Int, month: Int, year: Int): Option[KnolderDetails] = {
     logger.info("Fetching monthly details of specific knolder.")
 
-    val contributions = List(fetchKnolderBlogMonthlyDetails(month, year, knolderId), fetchKnolderKnolxMonthlyDetails(month, year, knolderId),
-      fetchKnolderWebinarMonthlyDetails(month, year, knolderId))
+    val contributions = List(fetchKnolderMonthlyBlogDetails(month, year, knolderId), fetchKnolderMonthlyKnolxDetails(month, year, knolderId),
+      fetchKnolderMonthlyWebinarDetails(month, year, knolderId))
 
     SQL(
       s"""SELECT
@@ -65,7 +65,7 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
       .single().apply()
   }
 
-  def fetchKnolderWebinarMonthlyDetails(month: Int, year: Int, knolderId: Int): Option[Contribution] = {
+  def fetchKnolderMonthlyWebinarDetails(month: Int, year: Int, knolderId: Int): Option[Contribution] = {
 
     val webinarTitles = SQL(
       """
@@ -112,7 +112,7 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
       .single().apply()
   }
 
-  def fetchKnolderBlogMonthlyDetails(month: Int, year: Int, knolderId: Int): Option[Contribution] = {
+  def fetchKnolderMonthlyBlogDetails(month: Int, year: Int, knolderId: Int): Option[Contribution] = {
 
     val blogTitles = SQL(
       """SELECT
@@ -158,7 +158,7 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
       .single().apply()
   }
 
-  def fetchKnolderKnolxMonthlyDetails(month: Int, year: Int, knolderId: Int): Option[Contribution] = {
+  def fetchKnolderMonthlyKnolxDetails(month: Int, year: Int, knolderId: Int): Option[Contribution] = {
 
     val knolxTitles = SQL(
       """SELECT
@@ -309,7 +309,7 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
 
   def fetchAllTimeBlogDetails(knolderId: Int): Option[Contribution] = {
     val blogTitles = SQL(
-    """
+      """
     SELECT
       blog.title,
     blog.published_on
@@ -324,7 +324,8 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
       .map(rs => ContributionDetails(rs.string("title"), rs.string("published_on")))
       .list().apply()
 
-    SQL(s"""
+    SQL(
+      s"""
       SELECT
       COUNT(blog.title) AS blogCount,
       COUNT(blog.title) * ${config.getInt("scorePerBlog")} AS blogScore

@@ -339,7 +339,7 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
         ContributionDetails("Java 9: Enhance your Jav…ptional API enhancement", date.toString))
       val blogDetails = Option(Contribution("Blogs", 2, 10, blogTitles))
 
-      assert(fetchKnolderDetails.fetchKnolderBlogMonthlyDetails(4, 2020, 1) == blogDetails)
+      assert(fetchKnolderDetails.fetchKnolderMonthlyBlogDetails(4, 2020, 1) == blogDetails)
 
     }
     "return monthly details of knolx of knolder" in {
@@ -392,7 +392,7 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
         ContributionDetails("Delta Lake", date.toString))
       val knolxDetails = Option(Contribution("Knolx", 2, 20, knolxTitles))
 
-      assert(fetchKnolderDetails.fetchKnolderKnolxMonthlyDetails(4, 2020, 1) == knolxDetails)
+      assert(fetchKnolderDetails.fetchKnolderMonthlyKnolxDetails(4, 2020, 1) == knolxDetails)
 
     }
     "return monthly details of webinar of knolder" in {
@@ -444,7 +444,7 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
         ContributionDetails("Delta Lake", date.toString))
       val webinarDetails = Option(Contribution("Webinar", 2, 20, webinarTitles))
 
-      assert(fetchKnolderDetails.fetchKnolderWebinarMonthlyDetails(4, 2020, 1) ==webinarDetails)
+      assert(fetchKnolderDetails.fetchKnolderMonthlyWebinarDetails(4, 2020, 1) ==webinarDetails)
     }
 
     "return all time details of webinar of knolder" in {
@@ -606,4 +606,3 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
     }
   }
 }
-

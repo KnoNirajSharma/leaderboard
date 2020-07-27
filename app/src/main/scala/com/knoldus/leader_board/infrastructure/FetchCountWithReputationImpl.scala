@@ -18,6 +18,7 @@ class FetchCountWithReputationImpl(config: Config, fetchReputation: FetchReputat
    * @return reputation count of each type with reputation of each knolder.
    */
 
+
   override def allTimeAndMonthlyContributionCountWithReputation: Option[ReputationWithCount] = {
     logger.info("Fetching reputation of each knolder with monthly and total count of each type.")
 
@@ -25,15 +26,25 @@ class FetchCountWithReputationImpl(config: Config, fetchReputation: FetchReputat
       .withDayOfMonth(1).toLocalDate.atStartOfDay())
     val nextMonth = Timestamp.valueOf(IndianTime.currentTime
       .withDayOfMonth(1).toLocalDate.plusMonths(1).atStartOfDay())
-    SQL("select (select count(*) from blog where published_on>= ? And published_on < ?) as monthly_blog_count," +
-      "(select count(*) from knolx  where knolx.delivered_on>= ? And knolx.delivered_on < ?) as monthly_knolx_count," +
-      "(select count(*) from webinar  where webinar.delivered_on>= ? And webinar.delivered_on < ?) as monthly_webinar_count," +
-      "(select count(*) from blog) as total_blog_count,(select count(*) from webinar) as total_webinar_count," +
-      "(select count(*) from knolx) as total_knolx_count;")
+    SQL("""select
+      (select count(*)
+      from blog
+      where published_on>= ? And published_on < ?) as monthly_blog_count,
+      (select count(*)
+      from knolx
+      where knolx.delivered_on>= ? And knolx.delivered_on < ?) as monthly_knolx_count,
+      (select count(*)
+      from webinar
+      where webinar.delivered_on>= ? And webinar.delivered_on < ?) as monthly_webinar_count,
+      (select count(*)
+      from blog) as total_blog_count,
+      (select count(*) from
+      webinar) as total_webinar_count,
+      (select count(*)
+      from knolx) as total_knolx_count;""")
       .bind(currentMonth, nextMonth, currentMonth, nextMonth, currentMonth, nextMonth)
       .map(rs => ReputationWithCount(rs.int("monthly_blog_count"), rs.int("monthly_knolx_count"),
         rs.int("monthly_webinar_count"), rs.int("total_blog_count"), rs.int("total_knolx_count"), rs.int("total_webinar_count"),
         fetchReputation.fetchReputation)).single().apply()
-
   }
 }
