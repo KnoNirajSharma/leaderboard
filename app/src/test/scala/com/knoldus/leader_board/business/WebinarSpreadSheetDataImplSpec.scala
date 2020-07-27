@@ -8,16 +8,19 @@ import java.util
 import com.google.api.services.sheets.v4.model.ValueRange
 import com.knoldus.leader_board.Webinar
 import com.knoldus.leader_board.utils.SpreadSheetApi
+import com.typesafe.config.ConfigFactory
 import org.mockito.MockitoSugar
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.wordspec.AnyWordSpecLike
+import org.mockito.ArgumentMatchersSugar.any
+
 
 class WebinarSpreadSheetDataImplSpec  extends AnyWordSpecLike with MockitoSugar with BeforeAndAfterEach {
   val mockWebinarResponse=mock[SpreadSheetApi]
-  val webinarObj:WebinarSpreadSheetData=new WebinarSpreadSheetDataImpl(mockWebinarResponse)
+  val webinarObj:WebinarSpreadSheetData=new WebinarSpreadSheetDataImpl(mockWebinarResponse,ConfigFactory.load())
   val formatOne = new SimpleDateFormat("dd/MM/yyyy")
 
-  "webinar" should{
+  "WebinarSpreadSheetDataImpl" should{
 
     val valueRange:ValueRange=new ValueRange
     val webinarValueRange=valueRange.setValues(
@@ -26,7 +29,7 @@ class WebinarSpreadSheetDataImplSpec  extends AnyWordSpecLike with MockitoSugar 
         util.Arrays.asList("2", "13/2/2020", "akash","k","xyz@knoldus.com"),
         util.Arrays.asList("3", "1222020", "amit","java lambdas","abc@knoldus.com")));
     "return webinar details " in {
-      when(mockWebinarResponse.getResponse)
+      when(mockWebinarResponse.getResponse(any,any))
         .thenReturn(webinarValueRange)
       val formatDateOne = formatOne.parse("12/2/2020")
       val dateOne=new Timestamp(formatDateOne.getTime)
@@ -39,7 +42,7 @@ class WebinarSpreadSheetDataImplSpec  extends AnyWordSpecLike with MockitoSugar 
     }
 
     "return empty list if response method throw IO exception details " in {
-      when(mockWebinarResponse.getResponse)
+      when(mockWebinarResponse.getResponse(any,any))
         .thenThrow(new IOException)
 
 

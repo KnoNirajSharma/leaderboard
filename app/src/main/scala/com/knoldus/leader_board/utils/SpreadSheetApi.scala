@@ -26,14 +26,12 @@ class SpreadSheetApi(config: Config) extends LazyLogging {
    * @return valuerange of data from spread sheet.
    */
   @throws(classOf[IOException])
-  def getResponse: ValueRange = {
+  def getResponse(spreadSheetId: String, spreadSheetRange: String): ValueRange = {
     logger.info("getting response from spreadsheet api")
-    val spreadsheetId = config.getString("spreadSheetId")
-    val range = config.getString("spreadSheetRange")
     val service = new Sheets.Builder(GoogleNetHttpTransport.newTrustedTransport,
       JacksonFactory.getDefaultInstance, getCredentials(GoogleNetHttpTransport.newTrustedTransport))
       .setApplicationName(APPLICATION_NAME).build
-    service.spreadsheets.values.get(spreadsheetId, range).execute
+    service.spreadsheets.values.get(spreadSheetId, spreadSheetRange).execute
   }
 
   /**
