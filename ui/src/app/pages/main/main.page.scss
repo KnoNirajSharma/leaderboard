@@ -25,6 +25,7 @@
     label {
       margin-top: 10px;
       background-color: white;
+      margin-left: 300px;
 
       .search {
         padding: 12px 266px 13px 17px;
@@ -32,7 +33,11 @@
         background: #FFFFFF 0 0 no-repeat padding-box;
         border: 1px solid #707070;
         border-radius: 5px;
-        opacity: 0.3;
+        text-align: left;
+        font: Regular 17px/26px Poppins;
+        letter-spacing: 0;
+        color: #6D6D6D !important;
+        opacity: 0.45;
       }
     }
 
@@ -40,10 +45,13 @@
       font: Medium 19px/29px Poppins;
       letter-spacing: 0;
       color: #9E9E9F;
+      margin-top: 10px;
+      //margin-left: 10px;
     }
 
     .scoring {
       text-align: left;
+      //margin-left: -70px;
       font: Medium 19px/29px Poppins;
       letter-spacing: 0;
       color: #2C42A5;
@@ -190,6 +198,10 @@ table, td, th {
     .main-content {
       .current-month .scoring {
         font-size: 1em;
+      }
+
+      .input-img {
+        left: 250px;
       }
     }
   }

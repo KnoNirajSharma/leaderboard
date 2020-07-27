@@ -9,9 +9,7 @@
 
     .datatable-body-cell {
       display: flex !important;
-      align-items: center !important;
       color: #6D6D6D !important;
-      text-align: center !important;
       font: Medium 17px/26px Poppins !important;
     }
 
@@ -35,8 +33,12 @@
       .datatable-footer {
         font-size: 1.1em;
 
+        .page-count {
+          display: none;
+        }
+
         .datatable-pager {
-          margin: 5px 10px;
+          margin: 0 10px;
 
           li {
             vertical-align: middle;
@@ -53,14 +55,13 @@
           }
 
           a {
-            padding: 10px 3px 0;
+            padding: 0 3px;
             border-radius: 3px;
             margin: 8px 0 0 1px;
             text-align: center;
             vertical-align: top;
             color: rgba(0, 0, 0, 0.54);
             text-decoration: none;
-            vertical-align: bottom;
 
             &:hover {
               color: rgba(0, 0, 0, 0.75);
@@ -75,7 +76,6 @@
             border-radius: 3px;
             margin: 8px 0 0 1px;
             text-align: center;
-            vertical-align: top;
             text-decoration: none;
             vertical-align: bottom;
             font-style: normal;
@@ -151,11 +151,19 @@
   color: #071348;
   text-transform: uppercase;
   opacity: 1;
+  border-bottom: 1px solid #2C42A5;
+  //padding: 0 25px 10px;
 }
 
-//.table-cell-style {
-//  color: #6D6D6D;
-//  text-align: center;
+.table-cell-style {
+  //padding: 10px 24px;
+  text-align: right;
+  //margin-left: 10px;
+}
+
+
+//.ngx-datatable .datatable-body .datatable-body-row > div {
+//  align-items: center;
 //}
 
 @media only screen and (max-width: 720px) {
