@@ -1,6 +1,5 @@
 package com.knoldus.leader_board.business
 
-import java.io.IOException
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 
@@ -10,9 +9,9 @@ import com.typesafe.config.Config
 import com.typesafe.scalalogging.LazyLogging
 
 import scala.collection.JavaConverters._
-import scala.util.Try
+import scala.util.{Failure, Success, Try}
 
-class WebinarSpreadSheetDataImpl(response: SpreadSheetApi,config: Config) extends WebinarSpreadSheetData with LazyLogging {
+class WebinarSpreadSheetDataImpl(response: SpreadSheetApi, config: Config) extends WebinarSpreadSheetData with LazyLogging {
   val formatOne = new SimpleDateFormat("dd/M/yyyy")
   val formatTwo = new SimpleDateFormat("dd-MMMM-yyyy")
   val formatThree = new SimpleDateFormat("""dd\MM\yyyy""")
@@ -23,9 +22,9 @@ class WebinarSpreadSheetDataImpl(response: SpreadSheetApi,config: Config) extend
    * @return list of Webinar  case class.
    */
   override def getWebinarData: List[Webinar] = {
-    try {
+    Try {
       logger.info("modelling data from list of value range to webinar case class")
-      val values = response.getResponse(config.getString("webinarSpreadSheetId"),config.getString("webinarSpreadSheetRange")).getValues.asScala.toList
+      val values = response.getResponse(config.getString("webinarSpreadSheetId"), config.getString("webinarSpreadSheetRange")).getValues.asScala.toList
       val webinarData = values.map(data => data.asScala.toList.map(_.toString))
       val webinarList = webinarData.map {
         case List(id, date, name, topic, emailId, _*) => val deliveredOn = Try {
@@ -45,8 +44,9 @@ class WebinarSpreadSheetDataImpl(response: SpreadSheetApi,config: Config) extend
           Webinar(id, deliveredOn, name, topic, emailId)
       }
       webinarList.filter(webinar => webinar.deliveredOn.isDefined)
-    } catch {
-      case ex: IOException => logger.info(ex.getClass.getCanonicalName)
+    } match {
+      case Success(value) => value
+      case Failure(exception) => logger.info(exception.getClass.getCanonicalName)
         List.empty
     }
   }
