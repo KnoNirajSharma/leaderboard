@@ -7,7 +7,7 @@ import {environment} from '../../environments/environment';
 import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import {mockResponseUserData } from '../../assets/data/mockFirebaseResponse';
+import { mockResponseUserData } from '../../assets/data/mockFirebaseResponse';
 
 describe('LoginService', () => {
     let loginService: LoginService;
