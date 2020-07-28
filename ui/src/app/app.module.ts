@@ -15,19 +15,6 @@ import { AuthServiceConfig, GoogleLoginProvider, SocialLoginModule } from 'angul
 import { LoginPageModule } from './pages/login/login.module';
 import { environment } from '../environments/environment';
 
-
-export function getAuthServiceConfigs() {
-    return new AuthServiceConfig(
-        [
-            {
-                id: GoogleLoginProvider.PROVIDER_ID,
-                provider: new GoogleLoginProvider(environment.googleClientId)
-            }
-        ]
-    );
-}
-
-
 @NgModule({
     declarations: [AppComponent],
     entryComponents: [],
@@ -45,11 +32,7 @@ export function getAuthServiceConfigs() {
         SplashScreen,
         {provide: HTTP_INTERCEPTORS, useClass: HttpIntercept, multi: true},
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
-        {
-            provide: AuthServiceConfig,
-            useFactory: getAuthServiceConfigs
-        }
-    ],
+        ],
     bootstrap: [AppComponent]
 })
 export class AppModule {
