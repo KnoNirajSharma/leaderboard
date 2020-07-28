@@ -1,14 +1,13 @@
-import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { LoginService } from './login.service';
-// import { AuthService, AuthServiceConfig, GoogleLoginProvider, SocialLoginModule, SocialUser } from 'angular-6-social-login';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import {environment} from '../../environments/environment';
-import {AngularFireAuth, AngularFireAuthModule} from '@angular/fire/auth';
-import {User} from 'firebase';
-import {AngularFireModule} from '@angular/fire';
-import {AngularFirestoreModule} from '@angular/fire/firestore';
+import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import {userData} from '../../assets/data/mockFirebaseResponse';
 
 describe('LoginService', () => {
     let loginService: LoginService;
@@ -16,16 +15,10 @@ describe('LoginService', () => {
     let router: Router;
     let location: Location;
     const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
-    const promisedData: any = {
-        provider: 'google',
-        id: 'studId',
-        email: 'user@g.com',
-        name: 'userName',
-        image: 'userImageUrl'
-    };
+    const responseData = userData;
+    const promisedData = responseData;
 
     beforeEach(() => {
-
         let store = {};
         const mockLocalStorage = {
             getItem: (key: string): string => {
@@ -66,13 +59,6 @@ describe('LoginService', () => {
         expect(loginService).toBeTruthy();
     });
 
-    // it('should navigate after getting data from google', fakeAsync(() => {
-    //     spyOn(mockAuthService, 'signInWithPopup').and.returnValue(Promise.resolve(promisedData));
-    //     loginService.signInWithGoogle();
-    //     tick();
-    //     expect(routerSpy.navigate).toHaveBeenCalledWith(['/']);
-    // }));
-
     it('should getFoo', (done) => {
         spyOn(mockAuthService, 'signInWithPopup').and.returnValue(Promise.resolve(promisedData));
         const result = loginService.signInWithGoogle();
@@ -80,13 +66,6 @@ describe('LoginService', () => {
             .then(rslt => expect(rslt).toBe(promisedData))
             .then(done);
     });
-
-    // it('should store status as true in localStorage after getting data from google', fakeAsync(() => {
-    //     spyOn(mockAuthService, 'signInWithPopup').and.returnValue(Promise.resolve(promisedData));
-    //     loginService.signInWithGoogle();
-    //     tick();
-    //     expect(localStorage.getItem('authenticated')).toEqual(String(true));
-    // }));
 
     it('should return the status of authentication', () => {
         loginService.setAuthStatus(false);

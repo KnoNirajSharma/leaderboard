@@ -4,12 +4,11 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
-// import { AuthService, AuthServiceConfig, GoogleLoginProvider, SocialLoginModule } from 'angular-6-social-login';
 import { RouterTestingModule } from '@angular/router/testing';
 import { environment } from '../environments/environment';
-import {AngularFireModule} from '@angular/fire';
-import {AngularFirestoreModule} from '@angular/fire/firestore';
-import {AngularFireAuthModule} from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 describe('AppComponent', () => {
     let statusBarSpy, splashScreenSpy, platformReadySpy, platformSpy;
@@ -31,7 +30,8 @@ describe('AppComponent', () => {
             providers: [
                 {provide: StatusBar, useValue: statusBarSpy},
                 {provide: SplashScreen, useValue: splashScreenSpy},
-                {provide: Platform, useValue: platformSpy}],
+                {provide: Platform, useValue: platformSpy}
+                ],
         }).compileComponents();
     }));
 
