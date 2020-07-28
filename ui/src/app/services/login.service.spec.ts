@@ -7,7 +7,7 @@ import {environment} from '../../environments/environment';
 import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import {userData} from '../../assets/data/mockFirebaseResponse';
+import {mockResponseUserData } from '../../assets/data/mockFirebaseResponse';
 
 describe('LoginService', () => {
     let loginService: LoginService;
@@ -15,8 +15,7 @@ describe('LoginService', () => {
     let router: Router;
     let location: Location;
     const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
-    const responseData = userData;
-    const promisedData = responseData;
+    const promisedData = mockResponseUserData;
 
     beforeEach(() => {
         let store = {};

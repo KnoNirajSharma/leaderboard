@@ -9,7 +9,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { userData } from '../../../assets/data/mockFirebaseResponse';
+import { mockResponseUserData } from '../../../assets/data/mockFirebaseResponse';
 
 describe('LoginPage', () => {
     let component: LoginPage;
@@ -18,8 +18,7 @@ describe('LoginPage', () => {
     let router: Router;
     let location: Location;
     const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
-    const responseData = userData;
-    const promisedData = responseData;
+    const promisedData = mockResponseUserData;
 
     beforeEach(async(() => {
 
