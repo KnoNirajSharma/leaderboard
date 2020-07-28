@@ -43,5 +43,8 @@ libraryDependencies ++= Seq(
   "org.mockito" %% "mockito-scala" % "1.11.4" % Test,
   "com.enragedginger" %% "akka-quartz-scheduler" % "1.8.3-akka-2.6.x",
   "org.apache.commons" % "commons-io" % "1.3.2",
-  "org.apache.httpcomponents" % "httpclient" % "4.5.11"
+  "org.apache.httpcomponents" % "httpclient" % "4.5.11",
+  "com.google.api-client" % "google-api-client" % "1.30.9",
+  "com.google.oauth-client" % "google-oauth-client-jetty" % "1.30.5",
+  "com.google.apis" % "google-api-services-sheets" % "v4-rev1-1.21.0"
 )
