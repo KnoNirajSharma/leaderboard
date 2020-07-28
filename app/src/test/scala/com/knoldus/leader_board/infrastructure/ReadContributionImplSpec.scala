@@ -1007,7 +1007,7 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
 
 
       val result = readContribution.fetchKnoldersWithTwelveMonthContributions(6, 2020, 1)
-      result shouldBe Option(40)
+      result shouldBe Option(65)
     }
   }
 }

@@ -129,15 +129,15 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
 
       val knolxTitles = List(ContributionDetails("Reactive Microservices", date.toString),
         ContributionDetails("Delta Lake", date.toString))
-      val knolxDetails = Option(Contribution("Knolx", 2, 20, knolxTitles))
+      val knolxDetails = Option(Contribution("Knolx", 2, 40, knolxTitles))
 
       val webinarTitles = List(ContributionDetails("Reactive Microservices", date.toString),
         ContributionDetails("Delta Lake", date.toString))
 
-      val webinarDetails = Option(Contribution("Webinar", 2, 20, webinarTitles))
+      val webinarDetails = Option(Contribution("Webinar", 2, 30, webinarTitles))
 
       val contributions = List(blogDetails, knolxDetails,webinarDetails)
-      val knolderDetails = KnolderDetails("Mukesh Gupta", 50, contributions)
+      val knolderDetails = KnolderDetails("Mukesh Gupta", 80, contributions)
 
       fetchKnolderDetails.fetchKnolderMonthlyDetails(1, 4, 2020).
         map(details => assert(details == knolderDetails))
@@ -276,15 +276,15 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
 
       val knolxTitles = List(ContributionDetails("Reactive Microservices", date.toString),
         ContributionDetails("Delta Lake", date.toString))
-      val knolxDetails = Option(Contribution("Knolx", 2, 20, knolxTitles))
+      val knolxDetails = Option(Contribution("Knolx", 2, 40, knolxTitles))
 
       val webinarTitles = List(ContributionDetails("Reactive Microservices", date.toString),
         ContributionDetails("Delta Lake", date.toString))
 
-      val webinarDetails = Option(Contribution("Webinar", 2, 20, webinarTitles))
+      val webinarDetails = Option(Contribution("Webinar", 2, 30, webinarTitles))
 
       val contributions = List(blogDetails, knolxDetails,webinarDetails)
-      val knolderDetails = KnolderDetails("Mukesh Gupta", 50, contributions)
+      val knolderDetails = KnolderDetails("Mukesh Gupta", 80, contributions)
 
       fetchKnolderDetails.fetchKnolderAllTimeDetails(1).
         map(details => assert(details == knolderDetails))
@@ -390,7 +390,7 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
 
       val knolxTitles = List(ContributionDetails("Reactive Microservices", date.toString),
         ContributionDetails("Delta Lake", date.toString))
-      val knolxDetails = Option(Contribution("Knolx", 2, 20, knolxTitles))
+      val knolxDetails = Option(Contribution("Knolx", 2, 40, knolxTitles))
 
       assert(fetchKnolderDetails.fetchKnolderMonthlyKnolxDetails(4, 2020, 1) == knolxDetails)
 
@@ -442,7 +442,7 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
 
       val webinarTitles = List(ContributionDetails("Reactive Microservices", date.toString),
         ContributionDetails("Delta Lake", date.toString))
-      val webinarDetails = Option(Contribution("Webinar", 2, 20, webinarTitles))
+      val webinarDetails = Option(Contribution("Webinar", 2, 30, webinarTitles))
 
       assert(fetchKnolderDetails.fetchKnolderMonthlyWebinarDetails(4, 2020, 1) ==webinarDetails)
     }
@@ -494,7 +494,7 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
 
       val webinarTitles = List(ContributionDetails("Reactive Microservices", date.toString),
         ContributionDetails("Delta Lake", date.toString))
-      val webinarDetails = Option(Contribution("Webinar", 2, 20, webinarTitles))
+      val webinarDetails = Option(Contribution("Webinar", 2, 30, webinarTitles))
 
       assert(fetchKnolderDetails.fetchAllTimeWebinarDetails(1) == webinarDetails)
 
@@ -547,7 +547,7 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
 
       val knolxTitles = List(ContributionDetails("Reactive Microservices", date.toString),
         ContributionDetails("Delta Lake", date.toString))
-      val knolxDetails = Option(Contribution("Knolx", 2, 20, knolxTitles))
+      val knolxDetails = Option(Contribution("Knolx", 2, 40, knolxTitles))
 
       assert(fetchKnolderDetails.fetchAllTimeknolxDetails(1) == knolxDetails)
     }
