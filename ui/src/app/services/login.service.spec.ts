@@ -42,7 +42,8 @@ describe('LoginService', () => {
             imports: [RouterTestingModule,
                 AngularFireModule.initializeApp(environment.firebaseConfig, 'angular-auth-firebase'),
                 AngularFirestoreModule,
-                AngularFireAuthModule],
+                AngularFireAuthModule
+            ],
             providers: [LoginService, AngularFireAuth,
                 {provide: Router, useValue: routerSpy}]
         }).compileComponents();
@@ -58,7 +59,7 @@ describe('LoginService', () => {
         expect(loginService).toBeTruthy();
     });
 
-    it('should getFoo', (done) => {
+    it('should get user credentials after sign in', (done) => {
         spyOn(mockAuthService, 'signInWithPopup').and.returnValue(Promise.resolve(promisedData));
         const result = loginService.signInWithGoogle();
         result
