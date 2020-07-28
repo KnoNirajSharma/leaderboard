@@ -4,7 +4,7 @@
 }
 
 .main-container {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Poppins', sans-serif;
   padding: 0;
   background-color: white;
   margin: auto;
@@ -193,6 +193,31 @@ table, td, th {
   height: 10px;
 }
 
+.contribution-style {
+  text-align: left;
+  font: Medium 19px/29px Poppins;
+  letter-spacing: 0;
+  opacity: 1;
+
+  .contribution-color {
+    color: #1F253A;
+  }
+
+  .contribution-left {
+    color: #0F7291;
+    background-color: #ECFBFF;
+    padding: 3px 5px;
+    border-radius: 15px;
+  }
+
+  .contribution-right {
+    color: #602CA5;
+    background-color: #F4ECFF;
+    padding: 3px 5px;
+    border-radius: 20px;
+  }
+
+}
 @media only screen and (max-width: 768px) {
   .main-container {
     .main-content {

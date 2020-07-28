@@ -16,55 +16,41 @@
                     </div>
                 </div>
                 <div *ngIf="reputation"
-                     class="total-count-bar d-flex flex-column flex-sm-row flex-wrap justify-content-start justify-content-sm-around col-12 card col-xl-12 mx-auto mt-5 mb-5 ml-0 py-2 row">
-                    <div class="my-1  mx-1 d-flex justify-content-between">
-                        Blogs
-                        <div class="ml-1">
-                            <span class="contribution-count badge-secondary mr-1 shadow-sm badge-pill">{{reputation.allTimeBlogCount}}</span>
-                            <span class="badge-info contribution-count shadow-sm badge-pill">{{reputation.monthlyBlogCount}}</span>
-                        </div>
+                     class="total-count-bar d-flex flex-column flex-sm-row flex-wrap justify-content-start justify-content-sm-around col-12 card col-xl-12 mx-auto mt-5 mb-5 ml-0 py-2 row contribution-style">
+                    <div class="my-1 mx-1 d-flex justify-content-between">
+                        <span class="mt-4 contribution-left shadow-sm">{{reputation.allTimeBlogCount}}</span>
+                        <span class="contribution-color">Blogs</span>
+                        <span class="mt-4 contribution-right shadow-sm">{{reputation.monthlyBlogCount}}</span>
                     </div>
                     <div class="my-1 mx-1 d-flex justify-content-between">
-                        knolx
-                        <div class="ml-1">
-                            <span class="contribution-count badge-secondary mr-1 shadow-sm badge-pill">{{reputation.allTimeKnolxCount}}</span>
-                            <span class="contribution-count badge-info shadow-sm badge-pill">{{reputation.monthlyKnolxCount}}</span>
-                        </div>
+                        <span class="mt-4 contribution-left shadow-sm">{{reputation.allTimeKnolxCount}}</span>
+                        <span class="contribution-color">knolx</span>
+                        <span class="mt-4 contribution-right shadow-sm">{{reputation.monthlyKnolxCount}}</span>
                     </div>
                     <div class="my-1 mx-1 d-flex justify-content-between">
-                        Webinar
-                        <div class="ml-1">
-                            <span class="contribution-count badge-secondary mr-1 shadow-sm badge-pill">n/a</span>
-                            <span class="contribution-count badge-info shadow-sm badge-pill">n/a</span>
-                        </div>
+                        <span class="mt-4 contribution-left shadow-sm">n/a</span>
+                        <span class="contribution-color">Webinar</span>
+                        <span class="mt-4 contribution-right shadow-sm">n/a</span>
                     </div>
                     <div class="my-1 mx-1 d-flex justify-content-between ">
-                        TechHub Template
-                        <div class="ml-1">
-                            <span class="contribution-count badge-secondary mr-1 shadow-sm badge-pill">n/a</span>
-                            <span class="contribution-count badge-info shadow-sm badge-pill">n/a</span>
-                        </div>
+                        <span class="ml-2 mt-4 contribution-left shadow-sm">n/a</span>
+                        <span class="contribution-color">TechHub Template</span>
+                        <span class="mt-4 contribution-right shadow-sm">n/a</span>
                     </div>
                     <div class="my-1 mx-1 d-flex justify-content-between">
-                        OS Contribution
-                        <div class="ml-1">
-                            <span class="contribution-count badge-secondary mr-1 shadow-sm badge-pill">n/a</span>
-                            <span class="contribution-count badge-info shadow-sm badge-pill">n/a</span>
-                        </div>
+                        <span class="mt-4 contribution-left shadow-sm">n/a</span>
+                        <span class="contribution-color">OS Contribution</span>
+                        <span class="mt-4 contribution-right shadow-sm">n/a</span>
                     </div>
                     <div class=" my-1 mx-1 d-flex justify-content-between">
-                        Books/Papers
-                        <div class="ml-1">
-                            <span class="contribution-count badge-secondary mr-1 shadow-sm badge-pill">n/a</span>
-                            <span class="contribution-count badge-info shadow-sm badge-pill">n/a</span>
-                        </div>
+                        <span class="mt-4 contribution-left shadow-sm">n/a</span>
+                        <span class="contribution-color">Books/Papers</span>
+                        <span class="mt-4 contribution-right shadow-sm">n/a</span>
                     </div>
                     <div class="my-1 mx-1 d-flex justify-content-between">
-                        Conferences
-                        <div class="ml-1">
-                            <span class="contribution-count badge-secondary mr-1 shadow-sm badge-pill">n/a</span>
-                            <span class="contribution-count badge-info shadow-sm badge-pill">n/a</span>
-                        </div>
+                        <span class="mt-4 contribution-left shadow-sm">n/a</span>
+                        <span class="contribution-color">Conferences</span>
+                        <span class="mt-4 contribution-right shadow-sm">n/a</span>
                     </div>
                 </div>
             </div>
@@ -125,9 +111,9 @@
                         </div>
                     </div>
                     <label class="input-container col-4 col-sm-2 col-md-1 col-lg-4">
-                            <input (keyup)="filterEmp()" [formControl]="searchBar"
-                                   class="input search form-control" placeholder="Search..." type="text">
-                            <img src="./assets/icon/search.svg" alt="search-logo" class="input-img" />
+                        <input (keyup)="filterEmp()" [formControl]="searchBar"
+                               class="input search form-control" placeholder="Search..." type="text">
+                        <img alt="search-logo" class="input-img" src="./assets/icon/search.svg"/>
                     </label>
                 </div>
                 <app-table [tableHeading]="tableHeading" [tableRows]="filteredEmpData"></app-table>
