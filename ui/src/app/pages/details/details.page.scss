@@ -1,12 +1,13 @@
 .container-fluid {
-
   .page-wrapper {
     margin-left: auto;
     margin-right: auto;
+    font-family: 'Poppins', sans-serif;
 
     .name-title {
       font-size: 2.3em;
-      border-bottom: 5px solid blue;
+      border-bottom: 5px solid #2B35A8;
+      color: #071348;
     }
 
     .tab-bar {
@@ -65,12 +66,12 @@
   border: 0 !important;
 
   .block-title {
-    border-bottom: 1.5px solid blue;
+    border-bottom: 1.5px solid #2B35A8;
     padding: 2px 2px;
     position: relative;
 
     h2 {
-      color: #1e1e1e;
+      color: #071348;
       font-weight: 500;
     }
   }
