@@ -16,7 +16,6 @@ export class LoginPage implements OnInit {
 
   onSignIn() {
     this.loginService.signInWithGoogle().then((result) => {
-      console.log(JSON.stringify(result));
       this.loginService.setAuthStatus(true);
       localStorage.setItem('authenticated', String(true));
       this.router.navigate(['/']);
