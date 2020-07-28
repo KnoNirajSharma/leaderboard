@@ -5,6 +5,7 @@ import {FormControl} from '@angular/forms';
 import {EmployeeFilterPipe} from '../../pipe/employee-filter.pipe';
 import {TableHeaderModel} from '../../models/tableHeader.model';
 import {ReputationModel} from '../../models/reputation.model';
+import {LoadingControllerService} from '../../services/loading-controller.service ';
 
 @Component({
     selector: 'app-main',
@@ -22,15 +23,21 @@ export class MainPage implements OnInit {
     tableHeading: TableHeaderModel[];
     reputation: ReputationModel;
 
-    constructor(private service: EmployeeActivityService) {
+    constructor(private service: EmployeeActivityService, private loadingControllerService: LoadingControllerService) {
     }
 
     ngOnInit() {
+        this.loadingControllerService.present({
+            message: 'Loading the Leaderboard...',
+            translucent: 'false',
+            spinner: 'bubbles'
+        });
         this.service.getData()
             .subscribe((data: ReputationModel) => {
                 this.reputation = data;
                 this.employeeData = this.reputation.reputation;
                 this.filteredEmpData = this.employeeData;
+                this.loadingControllerService.dismiss();
             });
         this.currentDate = new Date();
         this.tableHeading = [

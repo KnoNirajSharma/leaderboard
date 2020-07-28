@@ -3,18 +3,19 @@
   border-radius: 5px;
   margin-bottom: 30px;
   position: relative;
+  font-family: 'Poppins', sans-serif;
 
   .table-block-content {
     padding: 20px 20px;
 
     .datatable-body-cell {
       display: flex !important;
-      align-items: center !important;
+      color: #6D6D6D !important;
+      font: Medium 17px/26px Poppins !important;
     }
 
     .ngx-datatable {
       .sortable .sort-btn:before {
-        font-family: data-table;
         font-size: 20px;
         content: "\2193 \2191";
       }
@@ -32,8 +33,12 @@
       .datatable-footer {
         font-size: 1.1em;
 
+        .page-count {
+          display: none;
+        }
+
         .datatable-pager {
-          margin: 5px 10px;
+          margin: 0 10px;
 
           li {
             vertical-align: middle;
@@ -50,14 +55,13 @@
           }
 
           a {
-            padding: 10px 3px 0;
+            padding: 0 3px;
             border-radius: 3px;
             margin: 8px 0 0 1px;
             text-align: center;
             vertical-align: top;
             color: rgba(0, 0, 0, 0.54);
             text-decoration: none;
-            vertical-align: bottom;
 
             &:hover {
               color: rgba(0, 0, 0, 0.75);
@@ -72,7 +76,6 @@
             border-radius: 3px;
             margin: 8px 0 0 1px;
             text-align: center;
-            vertical-align: top;
             text-decoration: none;
             vertical-align: bottom;
             font-style: normal;
@@ -102,6 +105,14 @@
       background: #e8ebe9;
       cursor: pointer;
     }
+
+    .datatable-row-even {
+      background-color: #FFFFFF;
+    }
+
+    .datatable-row-odd {
+      background-color: #F6F6F6;
+    }
   }
 }
 
@@ -126,19 +137,29 @@
   font-weight: bold;
 }
 
-.image-size {
-  margin-top: 0.2rem;
-  height: 0.60rem;
-  width: 1rem;
+.image-table {
+  width: 15px;
+}
+
+.image-mobile {
+  margin-top: 3.2px;
+  height: 9.6px;
+  width: 16px;
 }
 
 .table-header-style {
-  color: black;
   font-weight: bolder;
+  text-align: left;
+  font: Medium 17px/26px Poppins;
+  letter-spacing: 0;
+  color: #071348;
+  text-transform: uppercase;
+  opacity: 1;
+  border-bottom: 1px solid #2C42A5;
 }
 
 .table-cell-style {
-  color: black;
+  text-align: right;
 }
 
 @media only screen and (max-width: 720px) {
