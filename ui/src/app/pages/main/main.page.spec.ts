@@ -1,6 +1,5 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {IonicModule} from '@ionic/angular';
-
 import {MainPage} from './main.page';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -15,6 +14,10 @@ import {By} from '@angular/platform-browser';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import {ComponentsModule} from '../../components/components.module';
 import {ReputationModel} from '../../models/reputation.model';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../../../environments/environment';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {AngularFireAuthModule} from '@angular/fire/auth';
 
 describe('MainPage', () => {
     let component: MainPage;
@@ -54,7 +57,11 @@ describe('MainPage', () => {
                 RouterTestingModule,
                 ReactiveFormsModule,
                 NgxDatatableModule,
-            ComponentsModule],
+                ComponentsModule,
+                AngularFireModule.initializeApp(environment.firebaseConfig, 'angular-auth-firebase'),
+                AngularFirestoreModule,
+                AngularFireAuthModule
+            ],
             providers: [EmployeeFilterPipe]
         }).compileComponents();
 
