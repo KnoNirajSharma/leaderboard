@@ -19,8 +19,8 @@
                             Name
                         </ng-template>
                         <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            <img *ngIf="tableRows.indexOf(row) < 5" src="./assets/icon/icons-trophy.png" alt="trophy-image" style="width: 15px"/>
                             {{value}}
-                            <img *ngIf="tableRows.indexOf(row) < 5" src="./assets/icon/icons-trophy.png" style="width: 15px"/>
                         </ng-template>
                     </ngx-datatable-column>
 
