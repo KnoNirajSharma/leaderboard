@@ -15,6 +15,10 @@ const routes: Routes = [
         path: 'details/:id',
         loadChildren: './pages/details/details.module#DetailsPageModule'
     },
+    {
+        path: 'login',
+        loadChildren: './pages/login/login.module#LoginPageModule'
+    },
 ];
 
 @NgModule({
