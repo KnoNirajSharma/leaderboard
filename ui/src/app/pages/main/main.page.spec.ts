@@ -4,8 +4,6 @@ import {MainPage} from './main.page';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {EmployeeActivityService} from '../../services/employee-activity.service';
-import {AuthorModel} from '../../models/author.model';
-import {HeadersComponent} from '../../components/headers/headers.component';
 import {of} from 'rxjs';
 import {TableComponent} from '../../components/table/table.component';
 import {EmployeeFilterPipe} from '../../pipe/employee-filter.pipe';

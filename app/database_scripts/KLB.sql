@@ -31,7 +31,7 @@ insert into knolder(full_name,wordpress_id)values('Ruchika Dubey','ruchika0524')
 insert into knolder(full_name,wordpress_id)values('Himanshu Gupta','himanshuknolder');
 insert into knolder(full_name,wordpress_id)values('Vikas Hazrati','knoldus');
 insert into knolder(full_name,wordpress_id)values('Deepak Mehra','deepak028');
-insert into knolder(full_name,wordpress_id)values('Sarfaraz Hussain','@sarfarazhussain211');
+insert into knolder(full_name,wordpress_id)values('Sarfaraz Hussain','sarfarazhussain211');
 insert into knolder(full_name,wordpress_id)values('Upanshu Chaudhary','upanshu21');
 insert into knolder(full_name,wordpress_id)values('Muskan Gupta','muskangupta3006');
 insert into knolder(full_name,wordpress_id)values('Sarvesh Tripathi','knoldersarvesh');
@@ -48,7 +48,7 @@ insert into knolder(full_name,wordpress_id)values('Mukesh Kumar','mukeshkumarqa'
 insert into knolder(full_name,wordpress_id)values('Komal Rajpal','komalrajpal24');
 insert into knolder(full_name,wordpress_id)values('Nishchal Vashisht','Nishchal26');
 insert into knolder(full_name,wordpress_id)values('Utkarsha Musmade','utkarsha11');
-insert into knolder(full_name,wordpress_id)values('Krishna Singh','@krishnasingh9926');
+insert into knolder(full_name,wordpress_id)values('Krishna Singh','krishnasingh9926');
 insert into knolder(full_name,wordpress_id)values('Pawan Bisht','bishtpawan');
 insert into knolder(full_name,wordpress_id)values('Neha Bhardwaj','nehabhardwaj01');
 insert into knolder(full_name,wordpress_id)values('Mukesh Yadav','mukesh8wpress');
@@ -65,8 +65,8 @@ insert into knolder(full_name,wordpress_id)values('Ankur Thakur','ankurthakur25'
 insert into knolder(full_name,wordpress_id)values('Prashant Sharma','prashantsharma12');
 insert into knolder(full_name,wordpress_id)values('Nitin Arora','nitinarora1519');
 insert into knolder(full_name,wordpress_id)values('Gautam Singal','gautamsingal');
-insert into knolder(full_name,wordpress_id)values('Manas Kashyap','@manaskashyap');
-insert into knolder(full_name,wordpress_id)values('Rudar','damanrudar@gmail.com');
+insert into knolder(full_name,wordpress_id)values('Manas Kashyap','manaskashyap');
+insert into knolder(full_name,wordpress_id)values('Rudar','damanrudar-gmail.com');
 insert into knolder(full_name,wordpress_id)values('Lokesh Aggarwal','lokeshaggarwal090297');
 insert into knolder(full_name,wordpress_id)values('Juoko Virtanen','joukovirtanen');
 insert into knolder(full_name,wordpress_id)values('Yatharth Sharma','Yatharthsharma4251');
