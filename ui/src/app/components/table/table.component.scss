@@ -9,9 +9,9 @@
     padding: 20px 20px;
 
     .datatable-body-cell {
-      display: flex !important;
-      color: #6D6D6D !important;
-      font: Medium 1.7em/2.6em Poppins !important;
+      display: flex;
+      color: #6D6D6D;
+      font-size: 1em;
     }
 
     .ngx-datatable {
@@ -146,7 +146,7 @@
 .table-header-style {
   font-weight:bolder;
   text-align: left;
-  font: Medium 1.7em/2.6em Poppins;
+  font-size: 1.1em;
   letter-spacing: 0;
   color: #071348;
   text-transform: uppercase;
