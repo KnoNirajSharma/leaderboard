@@ -32,17 +32,17 @@
                     </div>
                     <div *ngIf="knolderDetails" class="score-drilldown-wrapper block shadow-box px-2">
                         <div class="block-title col-12">
-                            <h2>SCORE DRILL-DOWN</h2>
+                            <h2>Score drill-down</h2>
                         </div>
-                        <div class="block-content">
+                        <div class="block-content container">
                             <div class="row total-score mt-2">
-                                <div class="col-4 col-sm-3 col-xl-2">Score</div>
+                                <div class="col-4 col-sm-3 col-xl-3">Score</div>
                                 <div class="col-3 col-xl-2"><span
                                         class="badge badge-pill badge-warning">{{knolderDetails.score}}</span>
                                 </div>
                             </div>
                             <div class="row mt-4">
-                                <div class="col-4 col-sm-3 col-xl-2"></div>
+                                <div class="col-4 col-sm-3 col-xl-3"></div>
                                 <div class="col-4 col-lg-4 col-xl-3">
                                     <span class="text-secondary font-italic">Total No.</span></div>
                                 <div class="col-4 col-lg-4 col-xl-2">
@@ -50,7 +50,7 @@
                             </div>
                             <div *ngFor="let knolderData of knolderDetails.scoreBreakDown"
                                  class="row score-table">
-                                <div class="col-4 col-sm-3 col-xl-2 contribution-type">{{knolderData.contributionType}}
+                                <div class="col-4 col-sm-4 col-xl-3 contribution-type">{{knolderData.contributionType}}
                                     :
                                 </div>
                                 <span class="col-4 col-md-4 col-xl-3">{{knolderData.contributionCount}}</span>
@@ -60,15 +60,15 @@
                     </div>
                     <div *ngIf="knolderDetails" class="block shadow-box px-2">
                         <div class="block-title col-12">
-                            <h2>DETAILS</h2>
+                            <h2>Details</h2>
                         </div>
                         <div *ngFor="let knolderData of knolderDetails.scoreBreakDown">
                             <h3 class="detail-type"><span
                                     class="contribution-type badge badge-secondary">{{knolderData.contributionType}}</span>
                             </h3>
                             <div *ngIf="knolderData.contributionDetails.length !== 0" class="row ml-xl-1">
-                                <div class="col-8 col-md-8"><h4>TITLE</h4></div>
-                                <div class="col-4 col-md-4 text-right text-xl-center"><h4>DATE</h4></div>
+                                <div class="col-8 col-md-8"><h4>Title</h4></div>
+                                <div class="col-4 col-md-4 text-right text-xl-center"><h4>Date</h4></div>
                             </div>
                             <div *ngIf="knolderData.contributionDetails.length === 0">
                                 <span class="text-secondary font-italic">No details to display</span>
@@ -85,7 +85,7 @@
                     <div *ngIf="trendsData" class="col-12 text-center card border-0 mt-4 shadow-box col-xl-9 mx-auto ">
                         <div class="card-head shadow-box d-flex justify-content-between pt-3 pb-2 px-3 bg-white mt-n4 mx-3">
                             <div class="align-self-center">
-                                <h4 class="font-weight-normal m-0">TRENDS</h4>
+                                <h4 class="font-weight-normal m-0">Trends</h4>
                             </div>
                         </div>
                         <app-vertical-bar-graph [inputResult]="trendsData"></app-vertical-bar-graph>
@@ -94,7 +94,7 @@
                     <div *ngIf="allTimeDetails" class="col-12 mt-5 card border-0 shadow-box col-xl-9 mx-auto pl-2">
                         <div class="card-head shadow-box d-flex justify-content-between pt-3 pb-2 px-3 bg-white mt-n4 mx-3">
                             <div class="align-self-center">
-                                <h4 class="font-weight-normal m-0">ALL TIME</h4>
+                                <h4 class="font-weight-normal m-0">All Time</h4>
                             </div>
                         </div>
                         <app-pie-chart [inputResult]="pieChartData"></app-pie-chart>
