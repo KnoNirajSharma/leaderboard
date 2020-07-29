@@ -11,12 +11,13 @@ const routes: Routes = [
     component: LoginPage
   }
 ];
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes),
+    RouterModule.forChild(routes)
   ],
   declarations: [LoginPage]
 })
