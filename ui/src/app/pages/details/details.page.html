@@ -34,15 +34,15 @@
                         <div class="block-title col-12">
                             <h2>Score drill-down</h2>
                         </div>
-                        <div class="block-content">
+                        <div class="block-content container">
                             <div class="row total-score mt-2">
-                                <div class="col-4 col-sm-3 col-xl-2">Score</div>
+                                <div class="col-4 col-sm-3 col-xl-3">Score</div>
                                 <div class="col-3 col-xl-2"><span
                                         class="badge badge-pill badge-warning">{{knolderDetails.score}}</span>
                                 </div>
                             </div>
                             <div class="row mt-4">
-                                <div class="col-4 col-sm-3 col-xl-2"></div>
+                                <div class="col-4 col-sm-3 col-xl-3"></div>
                                 <div class="col-4 col-lg-4 col-xl-3">
                                     <span class="text-secondary font-italic">Total No.</span></div>
                                 <div class="col-4 col-lg-4 col-xl-2">
@@ -50,7 +50,7 @@
                             </div>
                             <div *ngFor="let knolderData of knolderDetails.scoreBreakDown"
                                  class="row score-table">
-                                <div class="col-4 col-sm-3 col-xl-2 contribution-type">{{knolderData.contributionType}}
+                                <div class="col-4 col-sm-4 col-xl-3 contribution-type">{{knolderData.contributionType}}
                                     :
                                 </div>
                                 <span class="col-4 col-md-4 col-xl-3">{{knolderData.contributionCount}}</span>

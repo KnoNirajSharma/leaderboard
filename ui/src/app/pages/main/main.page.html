@@ -3,86 +3,55 @@
     <div class="float-right set-style">Last updated: {{today | date:'dd MMMM yyyy'}}</div>
     <div class="main-container col-12 col-xl-10">
         <div class="main-content">
-            <div class="px-3 bar-container">
-                <div class="shadow-sm bar-tooltip p-2" style="font-size: 12px; width: 150px; border-radius: 5px">
-                    <u>Stats for Knoldus</u>
-                    <div class="bar-tooltip-legend">
-                        <div class="bg-secondary"></div>
-                        All Time
-                    </div>
-                    <div class="bar-tooltip-legend">
-                        <div class="bg-info"></div>
-                        Current Month
-                    </div>
-                </div>
+            <div class="d-none d-sm-block px-3 bar-container">
                 <div *ngIf="reputation"
-                     class="total-count-bar d-flex flex-column flex-sm-row flex-wrap justify-content-start justify-content-sm-around col-12 card col-xl-12 mx-auto mt-5 mb-5 ml-0 py-2 row">
-                    <div class="my-1  mx-1 d-flex justify-content-between">
-                        Blogs
-                        <div class="ml-1">
-                            <span class="contribution-count badge-secondary mr-1 shadow-sm badge-pill">{{reputation.allTimeBlogCount}}</span>
-                            <span class="badge-info contribution-count shadow-sm badge-pill">{{reputation.monthlyBlogCount}}</span>
-                        </div>
+                     class="total-count-bar d-flex flex-column flex-sm-row flex-wrap justify-content-start justify-content-sm-around col-12 card col-xl-12 mx-auto mt-5 mb-5 ml-0 py-2 row contribution-style">
+                    <div class="my-1 mx-1 d-flex justify-content-between">
+                        <span class="mt-4 contribution-left shadow-sm">{{reputation.allTimeBlogCount}}</span>
+                        <span class="contribution-color">Blogs</span>
+                        <span class="mt-4 contribution-right shadow-sm">{{reputation.monthlyBlogCount}}</span>
                     </div>
                     <div class="my-1 mx-1 d-flex justify-content-between">
-                        knolx
-                        <div class="ml-1">
-                            <span class="contribution-count badge-secondary mr-1 shadow-sm badge-pill">{{reputation.allTimeKnolxCount}}</span>
-                            <span class="contribution-count badge-info shadow-sm badge-pill">{{reputation.monthlyKnolxCount}}</span>
-                        </div>
+                        <span class="mt-4 contribution-left shadow-sm">{{reputation.allTimeKnolxCount}}</span>
+                        <span class="contribution-color">knolx</span>
+                        <span class="mt-4 contribution-right shadow-sm">{{reputation.monthlyKnolxCount}}</span>
                     </div>
                     <div class="my-1 mx-1 d-flex justify-content-between">
-                        Webinar
-                        <div class="ml-1">
-                            <span class="contribution-count badge-secondary mr-1 shadow-sm badge-pill">n/a</span>
-                            <span class="contribution-count badge-info shadow-sm badge-pill">n/a</span>
-                        </div>
+                        <span class="mt-4 contribution-left shadow-sm">{{reputation.allTimeWebinarCount}}</span>
+                        <span class="contribution-color">Webinar</span>
+                        <span class="mt-4 contribution-right shadow-sm">{{reputation.monthlyWebinarCount}}</span>
                     </div>
                     <div class="my-1 mx-1 d-flex justify-content-between ">
-                        TechHub Template
-                        <div class="ml-1">
-                            <span class="contribution-count badge-secondary mr-1 shadow-sm badge-pill">n/a</span>
-                            <span class="contribution-count badge-info shadow-sm badge-pill">n/a</span>
-                        </div>
+                        <span class="ml-2 mt-4 contribution-left shadow-sm">n/a</span>
+                        <span class="contribution-color">TechHub Template</span>
+                        <span class="mt-4 contribution-right shadow-sm">n/a</span>
                     </div>
                     <div class="my-1 mx-1 d-flex justify-content-between">
-                        OS Contribution
-                        <div class="ml-1">
-                            <span class="contribution-count badge-secondary mr-1 shadow-sm badge-pill">n/a</span>
-                            <span class="contribution-count badge-info shadow-sm badge-pill">n/a</span>
-                        </div>
+                        <span class="mt-4 contribution-left shadow-sm">n/a</span>
+                        <span class="contribution-color">OS Contribution</span>
+                        <span class="mt-4 contribution-right shadow-sm">n/a</span>
                     </div>
                     <div class=" my-1 mx-1 d-flex justify-content-between">
-                        Books/Papers
-                        <div class="ml-1">
-                            <span class="contribution-count badge-secondary mr-1 shadow-sm badge-pill">n/a</span>
-                            <span class="contribution-count badge-info shadow-sm badge-pill">n/a</span>
-                        </div>
+                        <span class="mt-4 contribution-left shadow-sm">n/a</span>
+                        <span class="contribution-color">Books/Papers</span>
+                        <span class="mt-4 contribution-right shadow-sm">n/a</span>
                     </div>
                     <div class="my-1 mx-1 d-flex justify-content-between">
-                        Conferences
-                        <div class="ml-1">
-                            <span class="contribution-count badge-secondary mr-1 shadow-sm badge-pill">n/a</span>
-                            <span class="contribution-count badge-info shadow-sm badge-pill">n/a</span>
-                        </div>
+                        <span class="mt-4 contribution-left shadow-sm">n/a</span>
+                        <span class="contribution-color">Conferences</span>
+                        <span class="mt-4 contribution-right shadow-sm">n/a</span>
                     </div>
                 </div>
             </div>
             <ion-card>
                 <div class="row px-3">
-                    <label class="col-12 col-sm-4 col-md-5 col-lg-3">
-                        <input (keyup)="filterEmp()" [formControl]="searchBar"
-                               class="search form-control" placeholder="Search..." type="text">
-                    </label>
-                    <div class="col-4 col-md-2 col-sm-2 col-lg-2 ml-3 my-auto text-center current-month">
-                        {{ currentDate | date: 'MMM-yyyy'}}
+                    <div class="month-style col-6 col-md-2 col-sm-2 col-lg-2 my-auto text-center current-month">
+                        Summary of {{ currentDate | date: 'MMMM yyyy'}}
                     </div>
-                    <div class="col-6 col-sm-5 col-md-4 col-lg-3 ml-2 ml-sm-auto my-auto text-center scoring">
+                    <div class="col-6 col-sm-5 col-md-4 col-lg-2 my-auto text-center scoring">
                         <div class="popover-wrapper">
                             <a href="#">
-                                <h2 class="popover-title"><img alt=""
-                                                               src="../../../assets/icon/info6.jpg"
-                                                               class="image-style" />Scoring</h2>
+                                <div class="popover-title">Scoring</div>
                             </a>
                             <div class="popover-content">
                                 <table class="popover-message">
@@ -98,38 +67,43 @@
                                     </tr>
                                     <tr>
                                         <td>Knolx</td>
-                                        <td>10</td>
+                                        <td>20</td>
                                         <td>Y</td>
                                     </tr>
                                     <tr>
                                         <td>Webinars</td>
-                                        <td>N/A</td>
+                                        <td>15</td>
                                         <td>N</td>
                                     </tr>
                                     <tr>
                                         <td>TechHub Templates</td>
-                                        <td>N/A</td>
+                                        <td>15</td>
                                         <td>N</td>
                                     </tr>
                                     <tr>
                                         <td>OS Contributions</td>
-                                        <td>N/A</td>
+                                        <td>30</td>
                                         <td>N</td>
                                     </tr>
                                     <tr>
                                         <td>Books/Papers</td>
-                                        <td>N/A</td>
+                                        <td>100</td>
                                         <td>N</td>
                                     </tr>
                                     <tr>
                                         <td>Conferences</td>
-                                        <td>N/A</td>
+                                        <td>100</td>
                                         <td>N</td>
                                     </tr>
                                 </table>
                             </div>
                         </div>
                     </div>
+                    <label class="input-container col-10 col-sm-2 col-md-1 col-lg-4">
+                        <input (keyup)="filterEmp()" [formControl]="searchBar"
+                               class="input search form-control" placeholder="Search..." type="text">
+                        <img alt="search-logo" class="input-img" src="./assets/icon/search.svg"/>
+                    </label>
                 </div>
                 <app-table [tableHeading]="tableHeading" [tableRows]="filteredEmpData"></app-table>
             </ion-card>

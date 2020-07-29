@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {IonicModule} from '@ionic/angular';
 import {MainPage} from './main.page';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
@@ -12,6 +12,7 @@ import {By} from '@angular/platform-browser';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import {ComponentsModule} from '../../components/components.module';
 import {ReputationModel} from '../../models/reputation.model';
+import {LoadingControllerService} from '../../services/loading-controller.service ';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../../../environments/environment';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
@@ -21,31 +22,34 @@ describe('MainPage', () => {
     let component: MainPage;
     let fixture: ComponentFixture<MainPage>;
     let mockEmployeeService: EmployeeActivityService;
+    let loadingControllerService: LoadingControllerService;
     const dummyReputationData: ReputationModel = {
-            monthlyBlogCount: 2,
-            monthlyKnolxCount: 2,
-            allTimeBlogCount: 3,
-            allTimeKnolxCount: 2,
-            reputation: [
-                {
-                    knolderId: 1,
-                    knolderName: 'mark',
-                    allTimeScore: 10,
-                    allTimeRank: 2,
-                    quarterlyStreak: '5-6-7',
-                    monthlyScore: 7,
-                    monthlyRank: 1
-                }, {
-            knolderId: 2,
-            knolderName: 'sam',
-            allTimeScore: 15,
-            allTimeRank: 1,
-            quarterlyStreak: '5-6-8',
-            monthlyScore: 5,
-            monthlyRank: 2
-        }
-    ]
-};
+        monthlyBlogCount: 2,
+        monthlyKnolxCount: 2,
+        monthlyWebinarCount:2,
+        allTimeBlogCount: 3,
+        allTimeKnolxCount: 2,
+        allTimeWebinarCount:2,
+        reputation: [
+            {
+                knolderId: 1,
+                knolderName: 'mark',
+                allTimeScore: 10,
+                allTimeRank: 2,
+                quarterlyStreak: '5-6-7',
+                monthlyScore: 7,
+                monthlyRank: 1
+            }, {
+                knolderId: 2,
+                knolderName: 'sam',
+                allTimeScore: 15,
+                allTimeRank: 1,
+                quarterlyStreak: '5-6-8',
+                monthlyScore: 5,
+                monthlyRank: 2
+            }
+        ]
+    };
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -66,6 +70,7 @@ describe('MainPage', () => {
         fixture = TestBed.createComponent(MainPage);
         component = fixture.componentInstance;
         mockEmployeeService = TestBed.get(EmployeeActivityService);
+        loadingControllerService = TestBed.get(LoadingControllerService);
         fixture.detectChanges();
     }));
 
@@ -95,4 +100,12 @@ describe('MainPage', () => {
         component.filterEmp();
         expect(component.filteredEmpData).toEqual([dummyReputationData.reputation[0]]);
     });
+
+    it('should invoke loader', fakeAsync(() => {
+        spyOn(loadingControllerService, 'present').and.callThrough();
+        component.ngOnInit();
+        tick();
+        fixture.detectChanges();
+        expect(loadingControllerService.present).toHaveBeenCalled();
+    }));
 });
