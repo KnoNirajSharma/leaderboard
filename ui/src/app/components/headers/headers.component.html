@@ -10,8 +10,14 @@
             <div class="title" [innerHTML]="title">
             </div>
         </div>
-        <div class="ml-auto">
-            <img alt="knoldus logo" class="float-right mr-xl-5 knoldus-logo" src="./assets/icon/knoldus-logo-transparent.png">
+        <div class="ml-auto mr-xl-5 logout-btn-dropdown d-flex position-relative mr-1" (click)="onDropdown()">
+            <img alt="knoldus logo" class="float-left knoldus-logo d-none d-sm-block" src="./assets/icon/knoldus-logo-transparent.png" />
+            <img alt="knoldus logo" class="float-right knoldus-logo d-block d-sm-none" src="./assets/icon/knoldus-just-logo.png" />
+            <div class="arrow-down my-auto ml-1"></div>
+            <div class="logout-btn p-2 position-absolute bg-white text-primary"
+                 *ngIf="logoutBtnVisibility" (click)="onLogout()">
+                Logout
+            </div>
         </div>
     </div>
 </ion-header>
