@@ -5,7 +5,7 @@ import com.knoldus.leader_board.Blog
 trait Blogs {
   def getAllBlogsFromAPI: List[Blog]
 
-  def getTotalNoOfPosts: Int
+  def getTotalNoOfPages: Int
 
   def getAllBlogs(lastPage: Int): List[Blog]
 

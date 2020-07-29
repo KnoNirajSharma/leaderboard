@@ -6,6 +6,8 @@ import org.apache.http.client.methods.HttpGet
 import org.apache.http.client.utils.URIBuilder
 import org.apache.http.impl.client.HttpClientBuilder
 
+import scala.util.{Failure, Success, Try}
+
 class URLResponse extends LazyLogging {
 
   /**
@@ -24,12 +26,6 @@ class URLResponse extends LazyLogging {
     getResponse(request)
   }
 
-  def getResponse(request: HttpGet): String = {
-    val client = HttpClientBuilder.create().build()
-    val response = client.execute(request)
-    IOUtils.toString(response.getEntity.getContent)
-  }
-
   /**
    * Gets response from given URL and setting parameters.
    *
@@ -39,11 +35,29 @@ class URLResponse extends LazyLogging {
    * @return Response entity in form of string.
    */
   def getKnolxResponse(url: String, startDate: String, endDate: String): String = {
-    /*getting low priority warning because of not using start and end date parameter, will remove that warning after integrating actual api*/
-    logger.info(s"Gettting response from knolx API between $startDate and $endDate")
+    logger.info("Gettting response from knolx API ")
     val builder = new URIBuilder(url)
-    builder.setParameter("startDate", "1577836800").setParameter("endDate", "1592897891")
+    builder.setParameter("startDate", startDate).setParameter("endDate", endDate)
     val request = new HttpGet(builder.build())
     getResponse(request)
+  }
+
+  def getResponse(request: HttpGet): String = {
+    val result = Try {
+      val client = HttpClientBuilder.create().build()
+      client.execute(request)
+    }
+    result match {
+      case Failure(exception) =>
+        logger.info(s" getting exception from api with message ${exception.getClass.getCanonicalName} ")
+        """[]"""
+      case Success(response) => if (response.getStatusLine.getStatusCode == 200) {
+        logger.info(s"getting valid response from api with status code ${response.getStatusLine.getStatusCode}")
+        IOUtils.toString(response.getEntity.getContent)
+      } else {
+        logger.error(s"getting invalid response from api with status code ${response.getStatusLine.getStatusCode}")
+        """[]"""
+      }
+    }
   }
 }
