@@ -16,7 +16,7 @@ describe('EmployeeActivityService', () => {
         monthlyKnolxCount: 2,
         allTimeBlogCount: 3,
         allTimeKnolxCount: 2,
-        reputationData: [
+        reputation: [
             {
                 knolderId: 1,
                 knolderName: 'mark',
