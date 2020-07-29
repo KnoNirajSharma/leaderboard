@@ -259,4 +259,13 @@ table, td, th {
   .contribution-count {
     font-size: 0.75em;
   }
+
+  .popover-wrapper:hover .popover-content {
+    margin-left: -80px;
+    margin-top: -3px;
+  }
+
+  .popover-content:before {
+    right: 25%;
+  }
 }
