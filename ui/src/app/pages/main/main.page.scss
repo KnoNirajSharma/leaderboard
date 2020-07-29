@@ -28,7 +28,6 @@
       margin-left: 300px;
 
       .search {
-        padding: 12px 266px 13px 17px;
         height: 40px;
         background: #FFFFFF 0 0 no-repeat padding-box;
         border: 1px solid #707070;
@@ -238,7 +237,7 @@ table, td, th {
 
 @media only screen and (max-width: 576px) {
   .search {
-    margin-left: -290px !important;
+    margin-left: -280px !important;
   }
 
   .total-count-bar {
