@@ -162,9 +162,39 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt9.execute
       preparedStmt9.close()
 
-      val knoldersWithBlogs = List(GetCount(1, "Mukesh Kumar", 2, 2),
-        GetCount(3, "Komal Rajpal", 1, 0),
-        GetCount(2, "Abhishek Baranwal", 1, 0))
+          val insertWebinar1: String =
+                """
+                  |insert into webinar(id, email_id, delivered_on, title)
+                  |values (?,?,?,?)
+""".stripMargin
+
+          val preparedStmt10: PreparedStatement = connection.prepareStatement(insertWebinar1)
+          preparedStmt10.setString(1, "1")
+          preparedStmt10.setString(2, "mukesh.kumar@knoldus.com")
+          preparedStmt10.setTimestamp(3, Timestamp.from(Instant.parse("2020-04-13T12:40:20Z")))
+          preparedStmt10.setString(4, "Reactive Microservices")
+          preparedStmt10.execute
+          preparedStmt10.close()
+
+          val insertWebinar2: String =
+                """
+                  |insert into Webinar(id, email_id, delivered_on, title)
+                  |values (?,?,?,?)
+""".stripMargin
+
+          val preparedStmt11: PreparedStatement = connection.prepareStatement(insertWebinar2)
+          preparedStmt11.setString(1, "4")
+          preparedStmt11.setString(2, "mukesh.kumar@knoldus.com")
+          preparedStmt11.setTimestamp(3, Timestamp.from(Instant.parse("2020-04-13T12:40:20Z")))
+          preparedStmt11.setString(4, "Delta Lake")
+          preparedStmt11.execute
+          preparedStmt11.close()
+
+
+
+          val knoldersWithBlogs = List(GetCount(1, "Mukesh Kumar", 2,2,2),
+        GetCount(3, "Komal Rajpal", 1, 0,0),
+        GetCount(2, "Abhishek Baranwal", 1, 0,0))
 
       val result = readContribution.fetchKnoldersWithContributions
       result shouldBe knoldersWithBlogs
@@ -299,10 +329,37 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt9.setString(4, "Delta Lake")
       preparedStmt9.execute
       preparedStmt9.close()
+          val insertWebinar1: String =
+                """
+                  |insert into webinar(id, email_id, delivered_on, title)
+                  |values (?,?,?,?)
+""".stripMargin
 
-      val knoldersWithMonthlyBlogs = List(GetCount(1, "Mukesh Kumar", 2, 2),
-        GetCount(3, "Komal Rajpal", 1, 0),
-        GetCount(2, "Abhishek Baranwal", 1, 0))
+          val preparedStmt10: PreparedStatement = connection.prepareStatement(insertWebinar1)
+          preparedStmt10.setString(1, "1")
+          preparedStmt10.setString(2, "mukesh.kumar@knoldus.com")
+          preparedStmt10.setTimestamp(3, currentMonth)
+          preparedStmt10.setString(4, "Reactive Microservices")
+          preparedStmt10.execute
+          preparedStmt10.close()
+
+          val insertWebinar2: String =
+                """
+                  |insert into Webinar(id, email_id, delivered_on, title)
+                  |values (?,?,?,?)
+""".stripMargin
+
+          val preparedStmt11: PreparedStatement = connection.prepareStatement(insertWebinar2)
+          preparedStmt11.setString(1, "4")
+          preparedStmt11.setString(2, "mukesh.kumar@knoldus.com")
+          preparedStmt11.setTimestamp(3, currentMonth)
+          preparedStmt11.setString(4, "Delta Lake")
+          preparedStmt11.execute
+          preparedStmt11.close()
+
+      val knoldersWithMonthlyBlogs = List(GetCount(1, "Mukesh Kumar", 2, 2,2),
+        GetCount(3, "Komal Rajpal", 1, 0,0),
+        GetCount(2, "Abhishek Baranwal", 1, 0,0))
 
       val result = readContribution.fetchKnoldersWithMonthlyContributions
       result shouldBe knoldersWithMonthlyBlogs
@@ -438,9 +495,37 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt9.execute
       preparedStmt9.close()
 
-      val knoldersWithQuarterlyBlogs = List(GetCount(1, "Mukesh Kumar", 2, 2),
-        GetCount(3, "Komal Rajpal", 1, 0),
-        GetCount(2, "Abhishek Baranwal", 1, 0))
+          val insertWebinar1: String =
+                """
+                  |insert into webinar(id, email_id, delivered_on, title)
+                  |values (?,?,?,?)
+""".stripMargin
+
+          val preparedStmt10: PreparedStatement = connection.prepareStatement(insertWebinar1)
+          preparedStmt10.setString(1, "1")
+          preparedStmt10.setString(2, "mukesh.kumar@knoldus.com")
+          preparedStmt10.setTimestamp(3,firstMonth)
+          preparedStmt10.setString(4, "Reactive Microservices")
+          preparedStmt10.execute
+          preparedStmt10.close()
+
+          val insertWebinar2: String =
+                """
+                  |insert into Webinar(id, email_id, delivered_on, title)
+                  |values (?,?,?,?)
+""".stripMargin
+
+          val preparedStmt11: PreparedStatement = connection.prepareStatement(insertWebinar2)
+          preparedStmt11.setString(1, "4")
+          preparedStmt11.setString(2, "mukesh.kumar@knoldus.com")
+          preparedStmt11.setTimestamp(3, firstMonth)
+          preparedStmt11.setString(4, "Delta Lake")
+          preparedStmt11.execute
+          preparedStmt11.close()
+
+      val knoldersWithQuarterlyBlogs = List(GetCount(1, "Mukesh Kumar", 2, 2,2),
+        GetCount(3, "Komal Rajpal", 1, 0,0),
+        GetCount(2, "Abhishek Baranwal", 1, 0,0))
 
       val result = readContribution.fetchKnoldersWithQuarterFirstMonthContributions
       result shouldBe knoldersWithQuarterlyBlogs
@@ -575,10 +660,37 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt9.setString(4, "Delta Lake")
       preparedStmt9.execute
       preparedStmt9.close()
+          val insertWebinar1: String =
+                """
+                  |insert into webinar(id, email_id, delivered_on, title)
+                  |values (?,?,?,?)
+""".stripMargin
 
-      val knoldersWithQuarterlyBlogs = List(GetCount(1, "Mukesh Kumar", 2, 2),
-        GetCount(3, "Komal Rajpal", 1, 0),
-        GetCount(2, "Abhishek Baranwal", 1, 0))
+          val preparedStmt10: PreparedStatement = connection.prepareStatement(insertWebinar1)
+          preparedStmt10.setString(1, "1")
+          preparedStmt10.setString(2, "mukesh.kumar@knoldus.com")
+          preparedStmt10.setTimestamp(3, secondMonth)
+          preparedStmt10.setString(4, "Reactive Microservices")
+          preparedStmt10.execute
+          preparedStmt10.close()
+
+          val insertWebinar2: String =
+                """
+                  |insert into Webinar(id, email_id, delivered_on, title)
+                  |values (?,?,?,?)
+""".stripMargin
+
+          val preparedStmt11: PreparedStatement = connection.prepareStatement(insertWebinar2)
+          preparedStmt11.setString(1, "4")
+          preparedStmt11.setString(2, "mukesh.kumar@knoldus.com")
+          preparedStmt11.setTimestamp(3,secondMonth)
+          preparedStmt11.setString(4, "Delta Lake")
+          preparedStmt11.execute
+          preparedStmt11.close()
+
+      val knoldersWithQuarterlyBlogs = List(GetCount(1, "Mukesh Kumar", 2, 2,2),
+        GetCount(3, "Komal Rajpal", 1, 0,0),
+        GetCount(2, "Abhishek Baranwal", 1, 0,0))
 
       val result = readContribution.fetchKnoldersWithQuarterSecondMonthContributions
       result shouldBe knoldersWithQuarterlyBlogs
@@ -714,9 +826,36 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt9.execute
       preparedStmt9.close()
 
-      val knoldersWithQuarterlyBlogs = List(GetCount(1, "Mukesh Kumar", 2, 2),
-        GetCount(3, "Komal Rajpal", 1, 0),
-        GetCount(2, "Abhishek Baranwal", 1, 0))
+          val insertWebinar1: String =
+                """
+                  |insert into webinar(id, email_id, delivered_on, title)
+                  |values (?,?,?,?)
+""".stripMargin
+
+          val preparedStmt10: PreparedStatement = connection.prepareStatement(insertWebinar1)
+          preparedStmt10.setString(1, "1")
+          preparedStmt10.setString(2, "mukesh.kumar@knoldus.com")
+          preparedStmt10.setTimestamp(3, thirdMonth)
+          preparedStmt10.setString(4, "Reactive Microservices")
+          preparedStmt10.execute
+          preparedStmt10.close()
+
+          val insertWebinar2: String =
+                """
+                  |insert into Webinar(id, email_id, delivered_on, title)
+                  |values (?,?,?,?)
+""".stripMargin
+
+          val preparedStmt11: PreparedStatement = connection.prepareStatement(insertWebinar2)
+          preparedStmt11.setString(1, "4")
+          preparedStmt11.setString(2, "mukesh.kumar@knoldus.com")
+          preparedStmt11.setTimestamp(3,thirdMonth)
+          preparedStmt11.setString(4, "Delta Lake")
+          preparedStmt11.execute
+          preparedStmt11.close()
+      val knoldersWithQuarterlyBlogs = List(GetCount(1, "Mukesh Kumar", 2, 2,2),
+        GetCount(3, "Komal Rajpal", 1, 0,0),
+        GetCount(2, "Abhishek Baranwal", 1, 0,0))
 
       val result = readContribution.fetchKnoldersWithQuarterThirdMonthContributions
       result shouldBe knoldersWithQuarterlyBlogs
@@ -852,9 +991,23 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt9.execute
       preparedStmt9.close()
 
+          val insertWebinar: String =
+                """
+                  |insert into webinar(id, email_id, delivered_on, title)
+                  |values (?,?,?,?)
+""".stripMargin
+
+          val preparedStmt10: PreparedStatement = connection.prepareStatement(insertWebinar)
+          preparedStmt10.setInt(1, 4)
+          preparedStmt10.setString(2, "mukesh.kumar@knoldus.com")
+          preparedStmt10.setTimestamp(3, date)
+          preparedStmt10.setString(4, "Delta Lake")
+          preparedStmt10.execute
+          preparedStmt10.close()
+
 
       val result = readContribution.fetchKnoldersWithTwelveMonthContributions(6, 2020, 1)
-      result shouldBe Option(30)
+      result shouldBe Option(65)
     }
   }
 }

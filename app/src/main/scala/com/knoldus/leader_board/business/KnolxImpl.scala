@@ -35,7 +35,7 @@ class KnolxImpl(fetchKnolx: FetchKnolx, URLResponse: URLResponse, config: Config
     logger.info("Parsing JSON string of knolx information.")
     val parsedKnolx = parse(unparsedKnolx)
     val knolxs = parsedKnolx.children map { knolx =>
-      val emailId = (knolx \ "emailId").extract[Option[String]]
+      val emailId = (knolx \ "email").extract[Option[String]]
       (knolx \ "knolxDetails").children.map { knolxDetails =>
         val dateOfSession = (knolxDetails \ "dateOfSession").extract[Option[String]]
         val delivered_on = dateOfSession.map { date =>

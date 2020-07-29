@@ -59,7 +59,7 @@ describe('LoginService', () => {
         expect(loginService).toBeTruthy();
     });
 
-    it('should getFoo', (done) => {
+    it('should get user credentials after sign in', (done) => {
         spyOn(mockAuthService, 'signInWithPopup').and.returnValue(Promise.resolve(promisedData));
         const result = loginService.signInWithGoogle();
         result

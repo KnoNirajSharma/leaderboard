@@ -18,7 +18,7 @@ export const environment = {
             domain: ['#15509e', '#1862c6', '#1a81ff', '#3a84e6', '#5ca6ff', '#d2e3f9']
         }
     },
-    firebaseConfig : {
+    firebaseConfig: {
         apiKey: 'AIzaSyDd51yg1TGiUvxmz4ARmmQ7pP5KL0RD1Bc',
         authDomain: 'leaderboard-283708.firebaseapp.com',
         databaseURL: 'https://leaderboard-283708.firebaseio.com',
