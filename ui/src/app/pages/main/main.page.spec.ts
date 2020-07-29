@@ -13,6 +13,10 @@ import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import {ComponentsModule} from '../../components/components.module';
 import {ReputationModel} from '../../models/reputation.model';
 import {LoadingControllerService} from '../../services/loading-controller.service ';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../../../environments/environment';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {AngularFireAuthModule} from '@angular/fire/auth';
 
 describe('MainPage', () => {
     let component: MainPage;
@@ -55,7 +59,11 @@ describe('MainPage', () => {
                 RouterTestingModule,
                 ReactiveFormsModule,
                 NgxDatatableModule,
-                ComponentsModule],
+                ComponentsModule,
+                AngularFireModule.initializeApp(environment.firebaseConfig, 'angular-auth-firebase'),
+                AngularFirestoreModule,
+                AngularFireAuthModule
+            ],
             providers: [EmployeeFilterPipe]
         }).compileComponents();
 

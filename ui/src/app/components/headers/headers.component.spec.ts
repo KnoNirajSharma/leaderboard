@@ -1,16 +1,28 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {IonicModule} from '@ionic/angular';
-import {HeadersComponent} from './headers.component';
-import {Component} from '@angular/core';
-import {RouterTestingModule} from '@angular/router/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { IonicModule } from '@ionic/angular';
+import { HeadersComponent } from './headers.component';
+import { Component } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
+import { By } from '@angular/platform-browser';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../../../environments/environment';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 describe('HeadersComponent', () => {
     let component: HeadersComponent;
     let fixture: ComponentFixture<ParentComponent>;
+
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [HeadersComponent, ParentComponent],
-            imports: [IonicModule.forRoot(), RouterTestingModule]
+            declarations: [HeadersComponent,
+                ParentComponent],
+            imports: [IonicModule.forRoot(),
+                RouterTestingModule,
+                AngularFireModule.initializeApp(environment.firebaseConfig, 'angular-auth-firebase'),
+                AngularFirestoreModule,
+                AngularFireAuthModule
+            ],
         }).compileComponents();
 
         fixture = TestBed.createComponent(ParentComponent);
@@ -24,6 +36,28 @@ describe('HeadersComponent', () => {
 
     it('should have title TEST', () => {
         expect(component.title).toEqual('LEADERBOARD');
+    });
+
+    it('should call onDropdown method', () => {
+        spyOn(component, 'onDropdown');
+        const element = fixture.debugElement.query(By.css('.logout-btn-dropdown'));
+        element.triggerEventHandler('click', {});
+        expect(component.onDropdown).toHaveBeenCalled();
+    });
+
+    it('should change the visibility status for logout button', () => {
+        component.logoutBtnVisibility = false;
+        component.onDropdown();
+        expect(component.logoutBtnVisibility).toEqual(true);
+    });
+
+    it('should call onLogout method', () => {
+        component.logoutBtnVisibility = true;
+        fixture.detectChanges();
+        spyOn(component, 'onLogout');
+        const element = fixture.debugElement.query(By.css('.logout-btn'));
+        element.triggerEventHandler('click', {});
+        expect(component.onLogout).toHaveBeenCalled();
     });
 
 });
