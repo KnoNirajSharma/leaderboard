@@ -11,6 +11,10 @@ import {KnolderDetailsModel} from '../../models/knolder-details.model';
 import {LoadingControllerService} from '../../services/loading-controller.service ';
 import {of} from 'rxjs';
 import {RouterTestingModule} from '@angular/router/testing';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../../../environments/environment';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {AngularFireAuthModule} from '@angular/fire/auth';
 
 
 describe('DetailsPage', () => {
@@ -60,6 +64,9 @@ describe('DetailsPage', () => {
                 FormsModule,
                 ReactiveFormsModule,
                 ComponentsModule,
+                AngularFireModule.initializeApp(environment.firebaseConfig, 'angular-auth-firebase'),
+                AngularFirestoreModule,
+                AngularFireAuthModule
             ]
         }).compileComponents();
 

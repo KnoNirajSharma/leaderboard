@@ -13,14 +13,6 @@ import {TableHeaderModel} from '../../models/tableHeader.model';
 export class TableComponent implements OnInit {
     @Input() tableRows: AuthorModel[];
     @Input() tableHeading: TableHeaderModel[];
-    columns = [
-        {name: 'Name', prop: 'knolderName'},
-        {name: 'Monthly Rank', prop: 'monthlyRank'},
-        {name: 'Monthly Score', prop: 'monthlyScore'},
-        {name: 'Overall Rank', prop: 'allTimeRank'},
-        {name: 'Overall Score', prop: 'allTimeScore'},
-        {name: '3 Month Streak', prop: 'quarterlyStreak',}
-        ];
 
     constructor(public router: Router) {
     }

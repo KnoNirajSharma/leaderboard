@@ -6,6 +6,7 @@ import akka.actor.{ActorSystem, Props}
 import com.knoldus.leader_board.application.{ReputationOnAPI, ReputationOnAPIImpl}
 import com.knoldus.leader_board.business._
 import com.knoldus.leader_board.infrastructure._
+import com.knoldus.leader_board.utils.SpreadSheetApi
 import com.typesafe.akka.extension.quartz.QuartzSchedulerExtension
 import com.typesafe.config.{Config, ConfigFactory}
 
@@ -36,6 +37,9 @@ object DriverApp extends App {
   val twelveMonthsContribution:TwelveMonthsContribution=new TwelveMonthsContributionImpl(readBlog)
   val fetchReputationWithCount:FetchCountWithReputation=new FetchCountWithReputationImpl(config,fetchReputation)
   val reputationOnAPI: ReputationOnAPI = new ReputationOnAPIImpl(twelveMonthsContribution,fetchKnolderDetails, fetchReputationWithCount, config)
+  val spreadSheetApiObj=new SpreadSheetApi(config)
+  val webinarSpreadSheetData:WebinarSpreadSheetData=new WebinarSpreadSheetDataImpl(spreadSheetApiObj,config)
+  val storeWebinar=new StoreWebinarImpl(config)
   val fetchBlogs: FetchBlogs = new FetchBlogsImpl(config)
   val fetchKnolx: FetchKnolx = new FetchKnolxImpl(config)
   val storeBlogs: StoreBlogs = new StoreBlogsImpl(config)
@@ -53,10 +57,14 @@ object DriverApp extends App {
     monthlyReputationActorRef, quarterlyReputationActorRef, storeBlogs, blogs)), "BlogScriptActor")
   val knolxScriptActorRef = system.actorOf(Props(new KnolxScriptActor(allTimeReputationActorRef,
     monthlyReputationActorRef, quarterlyReputationActorRef, storeKnolx, knolx)), "KnolxScriptActor")
+  val webinarScriptActorRef = system.actorOf(Props(new WebinarScriptActor(allTimeReputationActorRef,
+    monthlyReputationActorRef, quarterlyReputationActorRef, storeWebinar, webinarSpreadSheetData)), "WebinarScriptActor")
   val latestBlogs = blogs.getLatestBlogsFromAPI
   storeBlogs.insertBlog(latestBlogs)
   val latestKnolx = knolx.getLatestKnolxFromAPI
   storeKnolx.insertKnolx(latestKnolx)
+  val webinarDetails=webinarSpreadSheetData.getWebinarData
+  storeWebinar.insertWebinar(webinarDetails)
   val allTimeReputations = allTimeReputation.getKnolderReputation
   writeAllTimeReputation.insertAllTimeReputationData(allTimeReputations)
   writeAllTimeReputation.updateAllTimeReputationData(allTimeReputations)
@@ -71,7 +79,7 @@ object DriverApp extends App {
   val totalSecondsOfDayTillCurrentTime = indiaCurrentTime.toLocalTime.toSecondOfDay
   val startTimeToScriptExecution = LocalTime.of(0, 0, 0, 0).toSecondOfDay
   val secondsInDay = 24 * 60 * 60
-  val timeForBlogScriptExecution =
+  val timeForScriptExecution =
     if (startTimeToScriptExecution - totalSecondsOfDayTillCurrentTime < 0) {
       secondsInDay + startTimeToScriptExecution - totalSecondsOfDayTillCurrentTime
     } else {
@@ -80,13 +88,18 @@ object DriverApp extends App {
   /**
    * Fetching latest blogs from Wordpress API and storing in database.
    */
-  system.scheduler.scheduleAtFixedRate(timeForBlogScriptExecution.seconds, 24.hours, blogScriptActorRef,
+  system.scheduler.scheduleAtFixedRate(timeForScriptExecution.seconds, 24.hours, blogScriptActorRef,
     ExecuteBlogsScript)
   /**
    * Fetching latest knolx from Knolx API and storing in database.
    */
   QuartzSchedulerExtension.get(system).createSchedule("knolxScriptScheduler", None,
-    "0 0 0 ? * 6 *", None, IndianTime.indianTimezone)
+    "0 0 0 ? * 7 *", None, IndianTime.indianTimezone)
   QuartzSchedulerExtension.get(system).schedule("knolxScriptScheduler", knolxScriptActorRef,
     ExecuteKnolxScript)
+
+  QuartzSchedulerExtension.get(system).createSchedule("WebinarScriptScheduler", None,
+    "0 0 0 ? * 7 *", None, IndianTime.indianTimezone)
+  QuartzSchedulerExtension.get(system).schedule("WebinarScriptScheduler", webinarScriptActorRef,
+    ExecuteWebinarScript)
 }

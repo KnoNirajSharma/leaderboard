@@ -18,12 +18,27 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
    */
   override def fetchKnoldersWithContributions: List[GetCount] = {
     logger.info("Fetching details of knolders with contributions.")
-    SQL("SELECT knolder.id, knolder.full_name, COUNT(DISTINCT blog.id) AS blog_count, COUNT(DISTINCT knolx.id) AS " +
-      "knolx_count FROM knolder LEFT JOIN blog ON knolder.wordpress_id = blog.wordpress_id LEFT JOIN knolx ON " +
-      "knolder.email_id = knolx.email_id WHERE knolder.active_status = true GROUP BY knolder.id, knolder.wordpress_id, " +
-      "knolder.email_id, knolder.full_name")
+    SQL(
+      """
+      SELECT
+      knolder.id, knolder.full_name, COUNT(DISTINCT blog.id) AS blog_count, COUNT(DISTINCT knolx.id) AS knolx_count, COUNT(DISTINCT webinar.id) AS webinar_count
+      FROM
+    knolder
+    LEFT JOIN
+      blog
+    ON knolder.wordpress_id = blog.wordpress_id
+    LEFT JOIN
+      knolx
+    ON knolder.email_id = knolx.email_id
+    LEFT JOIN
+      webinar
+    ON knolder.email_id = webinar.email_id
+    WHERE
+    knolder.active_status = true
+    GROUP BY
+      knolder.id, knolder.wordpress_id, knolder.email_id, knolder.full_name""")
       .map(rs => GetCount(rs.int("id"), rs.string("full_name"),
-        rs.int("blog_count"), rs.int("knolx_count"))).list().apply()
+        rs.int("blog_count"), rs.int("knolx_count"), rs.int("webinar_count"))).list().apply()
   }
 
   /**
@@ -37,13 +52,41 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
       .withDayOfMonth(1).toLocalDate.atStartOfDay())
     val nextMonth = Timestamp.valueOf(IndianTime.currentTime
       .withDayOfMonth(1).toLocalDate.plusMonths(1).atStartOfDay())
-    SQL("SELECT knolder.id, knolder.full_name, COUNT(DISTINCT blog.id) AS blog_count, COUNT(DISTINCT knolx.id) AS " +
-      "knolx_count FROM knolder LEFT JOIN blog ON knolder.wordpress_id = blog.wordpress_id AND published_on >= ? AND " +
-      "published_on < ? LEFT JOIN knolx ON knolder.email_id = knolx.email_id AND delivered_on >= ? AND delivered_on < ? " +
-      "WHERE knolder.active_status = true GROUP BY knolder.id, knolder.wordpress_id, knolder.email_id, knolder.full_name")
-      .bind(currentMonth, nextMonth, currentMonth, nextMonth)
+    SQL(
+      """
+      SELECT
+      knolder.id,
+      knolder.full_name,
+      COUNT(DISTINCT blog.id) AS blog_count,
+    COUNT(DISTINCT knolx.id) AS knolx_count,
+    COUNT(DISTINCT webinar.id) AS webinar_count
+    FROM
+    knolder
+    LEFT JOIN
+      blog
+    ON knolder.wordpress_id = blog.wordpress_id
+    AND published_on >= ?
+      AND published_on < ?
+      LEFT JOIN
+      knolx
+    ON knolder.email_id = knolx.email_id
+    AND knolx.delivered_on >= ?
+    AND knolx.delivered_on < ?
+    LEFT JOIN
+      webinar
+    ON knolder.email_id = webinar.email_id
+    AND webinar.delivered_on >= ?
+    AND webinar.delivered_on < ?
+    WHERE
+    knolder.active_status = true
+    GROUP BY
+      knolder.id,
+    knolder.wordpress_id,
+    knolder.email_id,
+    knolder.full_name""")
+      .bind(currentMonth, nextMonth, currentMonth, nextMonth, currentMonth, nextMonth)
       .map(rs => GetCount(rs.int("id"), rs.string("full_name"),
-        rs.int("blog_count"), rs.int("knolx_count"))).list.apply()
+        rs.int("blog_count"), rs.int("knolx_count"), rs.int("webinar_count"))).list.apply()
   }
 
   /**
@@ -57,14 +100,41 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
       .withDayOfMonth(1).toLocalDate.minusMonths(3).atStartOfDay())
     val nextMonth = Timestamp.valueOf(IndianTime.currentTime
       .withDayOfMonth(1).toLocalDate.minusMonths(2).atStartOfDay())
-    SQL("SELECT knolder.id, knolder.full_name, COUNT(DISTINCT blog.id) AS blog_count, COUNT(DISTINCT knolx.id) AS " +
-      "knolx_count FROM knolder LEFT JOIN blog ON knolder.wordpress_id = blog.wordpress_id AND published_on >= ? " +
-      "AND published_on < ? LEFT JOIN knolx ON knolder.email_id = knolx.email_id AND delivered_on >= ? AND delivered_on " +
-      "< ? WHERE knolder.active_status = true GROUP BY knolder.id, knolder.wordpress_id, knolder.email_id, " +
-      "knolder.full_name")
-      .bind(firstMonth, nextMonth, firstMonth, nextMonth)
+    SQL(
+      """
+      SELECT
+      knolder.id,
+      knolder.full_name,
+      COUNT(DISTINCT blog.id) AS blog_count,
+    COUNT(DISTINCT knolx.id) AS knolx_count,
+    COUNT(DISTINCT webinar.id) AS webinar_count
+    FROM
+    knolder
+    LEFT JOIN
+      blog
+    ON knolder.wordpress_id = blog.wordpress_id
+    AND published_on >= ?
+    AND published_on < ?
+      LEFT JOIN
+      knolx
+    ON knolder.email_id = knolx.email_id
+    AND knolx.delivered_on >= ?
+    AND knolx.delivered_on  < ?
+    LEFT JOIN
+      webinar
+    ON knolder.email_id = webinar.email_id
+    AND webinar.delivered_on >= ?
+    AND webinar.delivered_on < ?
+    WHERE
+    knolder.active_status = true
+    GROUP BY
+      knolder.id,
+    knolder.wordpress_id,
+    knolder.email_id,
+    knolder.full_name""")
+      .bind(firstMonth, nextMonth, firstMonth, nextMonth, firstMonth, nextMonth)
       .map(rs => GetCount(rs.int("id"), rs.string("full_name"),
-        rs.int("blog_count"), rs.int("knolx_count"))).list.apply()
+        rs.int("blog_count"), rs.int("knolx_count"), rs.int("webinar_count"))).list.apply()
   }
 
   /**
@@ -78,13 +148,41 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
       .withDayOfMonth(1).toLocalDate.minusMonths(2).atStartOfDay())
     val nextMonth = Timestamp.valueOf(IndianTime.currentTime
       .withDayOfMonth(1).toLocalDate.minusMonths(1).atStartOfDay())
-    SQL("SELECT knolder.id, knolder.full_name, COUNT(DISTINCT blog.id) AS blog_count,COUNT(DISTINCT knolx.id) AS " +
-      "knolx_count FROM blog RIGHT JOIN knolder ON knolder.wordpress_id = blog.wordpress_id AND published_on >= ? AND " +
-      "published_on < ? LEFT JOIN knolx ON knolder.email_id = knolx.email_id AND delivered_on >= ? AND delivered_on < ? " +
-      "WHERE knolder.active_status = true GROUP BY knolder.id, knolder.wordpress_id, knolder.email_id, knolder.full_name")
-      .bind(secondMonth, nextMonth, secondMonth, nextMonth)
+    SQL(
+      """
+      SELECT
+      knolder.id,
+      knolder.full_name,
+      COUNT(DISTINCT blog.id) AS blog_count,
+    COUNT(DISTINCT knolx.id) AS knolx_count,
+    COUNT(DISTINCT webinar.id) AS webinar_count
+    FROM
+    knolder
+    LEFT JOIN
+      blog
+    ON knolder.wordpress_id = blog.wordpress_id
+    AND published_on >= ?
+      AND published_on < ?
+      LEFT JOIN
+      knolx
+    ON knolder.email_id = knolx.email_id
+    AND knolx.delivered_on >= ?
+    AND knolx.delivered_on < ?
+    LEFT JOIN
+      webinar
+    ON knolder.email_id = webinar.email_id
+    AND webinar.delivered_on >= ?
+    AND webinar.delivered_on < ?
+    WHERE
+    knolder.active_status = true
+    GROUP BY
+      knolder.id,
+    knolder.wordpress_id,
+    knolder.email_id,
+    knolder.full_name""")
+      .bind(secondMonth, nextMonth, secondMonth, nextMonth, secondMonth, nextMonth)
       .map(rs => GetCount(rs.int("id"), rs.string("full_name"),
-        rs.int("blog_count"), rs.int("knolx_count"))).list.apply()
+        rs.int("blog_count"), rs.int("knolx_count"), rs.int("webinar_count"))).list.apply()
   }
 
   /**
@@ -98,13 +196,41 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
       .withDayOfMonth(1).toLocalDate.minusMonths(1).atStartOfDay())
     val nextMonth = Timestamp.valueOf(IndianTime.currentTime
       .withDayOfMonth(1).toLocalDate.atStartOfDay())
-    SQL("SELECT knolder.id, knolder.full_name, COUNT(DISTINCT blog.id) AS blog_count,COUNT(DISTINCT knolx.id) AS " +
-      "knolx_count FROM blog RIGHT JOIN knolder ON knolder.wordpress_id = blog.wordpress_id AND published_on >= ? AND " +
-      "published_on < ? LEFT JOIN knolx ON knolder.email_id = knolx.email_id AND delivered_on >= ? AND delivered_on < ? " +
-      "WHERE knolder.active_status = true GROUP BY knolder.id, knolder.wordpress_id, knolder.email_id, knolder.full_name")
-      .bind(thirdMonth, nextMonth, thirdMonth, nextMonth)
+    SQL(
+      """
+        SELECT
+        knolder.id,
+      knolder.full_name,
+      COUNT(DISTINCT knolx.id) AS knolx_count,
+    COUNT(DISTINCT blog.id) AS blog_count,
+    COUNT(DISTINCT webinar.id) AS webinar_count
+    FROM
+    knolder
+    LEFT JOIN
+      blog
+    ON knolder.wordpress_id = blog.wordpress_id
+    AND published_on >= ?
+      AND published_on < ?
+      LEFT JOIN
+      knolx
+    ON knolder.email_id = knolx.email_id
+    AND knolx.delivered_on >= ?
+    AND knolx.delivered_on < ?
+    LEFT JOIN
+      webinar
+    ON knolder.email_id = webinar.email_id
+    AND webinar.delivered_on >= ?
+    AND webinar.delivered_on < ?
+    WHERE
+    knolder.active_status = true
+    GROUP BY
+      knolder.id,
+    knolder.wordpress_id,
+    knolder.email_id,
+    knolder.full_name"""
+    ).bind(thirdMonth, nextMonth, thirdMonth, nextMonth, thirdMonth, nextMonth)
       .map(rs => GetCount(rs.int("id"), rs.string("full_name"),
-        rs.int("blog_count"), rs.int("knolx_count"))).list.apply()
+        rs.int("blog_count"), rs.int("knolx_count"), rs.int("webinar_count"))).list.apply()
   }
 
   /**
@@ -116,13 +242,43 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
   override def fetchKnoldersWithTwelveMonthContributions(month: Int, year: Int, knolderId: Int): Option[Int] = {
     logger.info("Fetching score of specific month of knolder.")
 
-    SQL(s"SELECT knolder.full_name, COUNT(DISTINCT blog.title) * ${config.getInt("scorePerBlog")} + " +
-      s"COUNT(DISTINCT knolx.title) * ${config.getInt("scorePerKnolx")} AS score FROM knolder LEFT JOIN blog ON " +
-      "knolder.wordpress_id = blog.wordpress_id AND EXTRACT(month FROM blog.published_on) = ? AND EXTRACT(year FROM " +
-      "blog.published_on) = ? LEFT JOIN knolx ON knolder.email_id = knolx.email_id AND EXTRACT(month FROM " +
-      "knolx.delivered_on) = ? AND EXTRACT(year FROM knolx.delivered_on) = ? WHERE knolder.id = ? GROUP BY " +
-      "knolder.full_name")
-      .bind(month, year, month, year, knolderId)
+    SQL(
+      s"""
+      SELECT
+      COUNT(DISTINCT blog.title) * ${config.getInt("scorePerBlog")} + COUNT(DISTINCT knolx.title) * ${config.getInt("scorePerKnolx")}
+      + COUNT(DISTINCT webinar.title) * ${config.getInt("scorePerWebinar")} AS score
+    FROM
+    knolder
+    LEFT JOIN
+      blog
+    ON knolder.wordpress_id = blog.wordpress_id
+    AND EXTRACT(month
+      FROM
+      blog.published_on) = ?
+    AND EXTRACT(year
+      FROM
+      blog.published_on) = ?
+    LEFT JOIN
+      knolx
+    ON knolder.email_id = knolx.email_id
+    AND EXTRACT(month
+      FROM
+      knolx.delivered_on) = ?
+    AND EXTRACT(year
+      FROM
+      knolx.delivered_on) = ?
+    LEFT JOIN
+      webinar
+    ON knolder.email_id = webinar.email_id
+    AND EXTRACT(month
+      FROM
+      webinar.delivered_on) = ?
+    AND EXTRACT(year
+      FROM
+      knolx.delivered_on) = ?
+    WHERE
+    knolder.id = ? """)
+      .bind(month, year, month, year, month, year, knolderId)
       .map(rs => rs.int("score"))
       .single().apply()
   }

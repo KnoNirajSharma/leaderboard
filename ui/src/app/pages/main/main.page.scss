@@ -4,7 +4,7 @@
 }
 
 .main-container {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Poppins', sans-serif;
   padding: 0;
   background-color: white;
   margin: auto;
@@ -25,18 +25,33 @@
     label {
       margin-top: 10px;
       background-color: white;
+      margin-left: 300px;
 
       .search {
-        border: 3px solid #28a8e8;
-        padding: 5px;
         height: 40px;
+        background: #FFFFFF 0 0 no-repeat padding-box;
+        border: 1px solid #707070;
         border-radius: 5px;
+        text-align: left;
+        font-size: 1em;
+        letter-spacing: 0;
+        color: #6D6D6D;
+        opacity: 0.45;
       }
     }
 
     .current-month {
-      font-size: 1.25em;
-      color: #0074D9;
+      font-size: 1em;
+      letter-spacing: 0;
+      color: #9E9E9F;
+      margin-top: 10px;
+    }
+
+    .scoring {
+      text-align: left;
+      font-size: 1.1em;
+      letter-spacing: 0;
+      color: #2C42A5;
     }
   }
 }
@@ -56,11 +71,16 @@ a {
 
 .popover-title {
   margin-top: -1.25rem;
-  font-size: 1.25em;
   text-decoration: none;
-  color: #0074D9;
   text-align: center;
-  padding: 15px 0;
+  padding: 9px 22px;
+  font-size: 1.1em;
+  letter-spacing: 0;
+  color: #2C42A5;
+  border: 1px solid #2C42A5;
+  border-radius: 6px;
+  opacity: 1;
+  -moz-margin-start: -30px;
 }
 
 .popover-wrapper {
@@ -73,10 +93,11 @@ a {
   opacity: 0;
   visibility: hidden;
   position: absolute;
-  left: -9.375rem;
+  top: 3.7rem;
+  left: -7rem;
   transform: translate(0, 10px);
   background-color: white;
-  color: black;
+  color: #071348;
   padding: 1.5rem;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
   width: auto;
@@ -87,9 +108,10 @@ a {
   z-index: -1;
   content: "";
   right: calc(50% - 10px);
-  top: -0.2rem;
+  top: -0.7rem;
   border-style: solid;
   border-width: 0 10px 10px 10px;
+  -moz-column-width: 50px;
   border-color: transparent transparent #bfbfbf transparent;
   transition-duration: 0.3s;
   transition-property: transform;
@@ -101,6 +123,7 @@ a {
   visibility: visible;
   transform: translate(0, -20px);
   transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
+  -moz-margin-start: -50px;
 }
 
 .popover-message {
@@ -112,7 +135,7 @@ table {
 }
 
 table, td, th {
-  border: 1px solid black;
+  border: 1px solid #2C42A5;
   padding: 5px;
 }
 
@@ -137,7 +160,7 @@ table, td, th {
   margin-left: -60px;
 
   .bar-tooltip-legend {
-    font-size: 11px;
+    font-size: 1.1em;
 
     div {
       margin-right: 10px;
@@ -145,12 +168,65 @@ table, td, th {
       height: 10px;
       width: 10px;
     }
-
   }
 }
 
 .bar-container:hover .bar-tooltip {
   visibility: visible;
+}
+
+.input-container {
+  position: relative;
+  padding: 0;
+  margin: 0;
+}
+
+.input {
+  height: 20px;
+  margin: 0;
+  padding-left: 30px;
+}
+
+.input-img {
+  position: absolute;
+  bottom: 15px;
+  left: 320px;
+  width: 10px;
+  height: 10px;
+}
+
+.contribution-style {
+  text-align: left;
+  font-size: 0.75em;
+  letter-spacing: 0;
+  opacity: 1;
+
+  .contribution-color {
+    color: #1F253A;
+  }
+
+  .contribution-left {
+    color: #0F7291;
+    background-color: #ECFBFF;
+    padding: 3px 5px;
+    border-radius: 15px;
+  }
+
+  .contribution-right {
+    color: #602CA5;
+    background-color: #F4ECFF;
+    padding: 3px 5px;
+    border-radius: 20px;
+  }
+
+}
+
+.image-style {
+  height: 20px;
+  width: 21px;
+  margin-top: -3px;
+  margin-right: 4px;
+  color: #7f7f7f;
 }
 
 @media only screen and (max-width: 768px) {
@@ -159,12 +235,23 @@ table, td, th {
       .current-month .scoring {
         font-size: 1em;
       }
+
+      .search {
+        margin-left: -250px;
+      }
+
+      .input-img {
+        left: 250px;
+      }
     }
   }
 }
 
-
 @media only screen and (max-width: 576px) {
+  .search {
+    margin-left: -280px !important;
+  }
+
   .total-count-bar {
     font-size: .95em
   }
