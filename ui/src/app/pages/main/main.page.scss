@@ -158,6 +158,10 @@ table, td, th {
   left: 70%;
   margin-top: 10px;
   margin-left: -60px;
+  font-size: 0.75em;
+  width: 150px;
+  border-radius: 5px;
+
 
   .bar-tooltip-legend {
     font-size: 1.1em;
@@ -190,7 +194,7 @@ table, td, th {
 .input-img {
   position: absolute;
   bottom: 15px;
-  left: 320px;
+  right: 10px;
   width: 10px;
   height: 10px;
 }
@@ -213,8 +217,8 @@ table, td, th {
   }
 
   .contribution-right {
-    color: #602CA5;
-    background-color: #F4ECFF;
+    color: #6c757d;
+    background-color: #F5F5F5;
     padding: 3px 5px;
     border-radius: 20px;
   }

@@ -4,7 +4,7 @@
     <div class="main-container col-12 col-xl-10">
         <div class="main-content">
             <div class="px-3 bar-container">
-                <div class="shadow-sm bar-tooltip p-2" style="font-size: 12px; width: 150px; border-radius: 5px">
+                <div class="shadow-sm bar-tooltip p-2">
                     <u>Stats for Knoldus</u>
                     <div class="bar-tooltip-legend">
                         <div class="bg-info"></div>
@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <div *ngIf="reputation"
-                     class="total-count-bar d-flex flex-column flex-sm-row flex-wrap justify-content-start justify-content-sm-around col-12 card col-xl-12 mx-auto mt-5 mb-5 ml-0 py-2 row contribution-style">
+                     class="overflow-auto total-count-bar d-flex flex-column flex-sm-row flex-wrap justify-content-start justify-content-sm-around col-12 card col-xl-12 mx-auto mt-5 mb-5 ml-0 py-2 row contribution-style">
                     <div class="my-1 mx-1 d-flex justify-content-between">
                         <span class="mt-4 contribution-left shadow-sm">{{reputation.allTimeBlogCount}}</span>
                         <span class="contribution-color">Blogs</span>
@@ -32,7 +32,7 @@
                         <span class="contribution-color">Webinar</span>
                         <span class="mt-4 contribution-right shadow-sm">{{reputation.monthlyWebinarCount}}</span>
                     </div>
-                    <div class="my-1 mx-1 d-flex justify-content-between ">
+                    <div class="my-1 mx-1 d-flex justify-content-between">
                         <span class="ml-2 mt-4 contribution-left shadow-sm">n/a</span>
                         <span class="contribution-color">TechHub Template</span>
                         <span class="mt-4 contribution-right shadow-sm">n/a</span>
