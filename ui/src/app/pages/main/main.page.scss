@@ -166,6 +166,10 @@ table, td, th {
   .bar-tooltip-legend {
     font-size: 1.1em;
 
+    .bg-color {
+      background-color: #602CA5;
+    }
+
     div {
       margin-right: 10px;
       display: inline-block;
@@ -217,8 +221,8 @@ table, td, th {
   }
 
   .contribution-right {
-    color: #6c757d;
-    background-color: #F5F5F5;
+    color: #602CA5;
+    background-color: #F4ECFF;
     padding: 3px 5px;
     border-radius: 20px;
   }
