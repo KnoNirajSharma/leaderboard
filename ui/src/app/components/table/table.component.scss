@@ -122,25 +122,36 @@
   grid-gap: 0;
   background-color: white;
   padding: 0.5rem;
-  color: black;
+  font-family: 'Poppins', sans-serif;
 }
 
 .grid-container > div {
   background-color: rgba(255, 255, 255, 0.8);
   text-align: center;
   padding: 0.5rem 0;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
 }
 
 .item1 {
   grid-row: 1 / 2;
-  font-weight: bold;
+  color: #071348;
 }
 
-.image-size {
-  margin-top: 0.2rem;
-  height: 0.60rem;
-  width: 1rem;
+.item2 {
+  color: #6D6D6D;
+}
+
+ion-row {
+  padding: 5px 2px 15px 0;
+}
+
+.image-table {
+  width: 15px;
+}
+
+.image-mobile {
+  margin-top: 3.2px;
+  width: 16px;
 }
 
 .table-header-style {

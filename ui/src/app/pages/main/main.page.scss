@@ -158,9 +158,17 @@ table, td, th {
   left: 70%;
   margin-top: 10px;
   margin-left: -60px;
+  font-size: 0.75em;
+  width: 150px;
+  border-radius: 5px;
+
 
   .bar-tooltip-legend {
     font-size: 1.1em;
+
+    .bg-color {
+      background-color: #602CA5;
+    }
 
     div {
       margin-right: 10px;
@@ -190,9 +198,8 @@ table, td, th {
 .input-img {
   position: absolute;
   bottom: 15px;
-  left: 320px;
+  right: 10px;
   width: 10px;
-  height: 10px;
 }
 
 .contribution-style {
@@ -258,5 +265,14 @@ table, td, th {
 
   .contribution-count {
     font-size: 0.75em;
+  }
+
+  .popover-wrapper:hover .popover-content {
+    margin-left: -80px;
+    margin-top: -3px;
+  }
+
+  .popover-content:before {
+    right: 25%;
   }
 }
