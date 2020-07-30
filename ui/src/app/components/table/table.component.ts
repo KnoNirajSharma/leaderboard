@@ -13,6 +13,7 @@ import {TableHeaderModel} from '../../models/tableHeader.model';
 export class TableComponent implements OnInit {
     @Input() tableRows: AuthorModel[];
     @Input() tableHeading: TableHeaderModel[];
+    @Input() employeeRows: AuthorModel[];
 
     constructor(public router: Router) {
     }
