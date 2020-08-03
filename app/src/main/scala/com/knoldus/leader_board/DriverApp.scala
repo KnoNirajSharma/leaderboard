@@ -42,9 +42,12 @@ object DriverApp extends App {
   val storeWebinar=new StoreWebinarImpl(config)
   val fetchBlogs: FetchBlogs = new FetchBlogsImpl(config)
   val fetchKnolx: FetchKnolx = new FetchKnolxImpl(config)
+  val fetchTechHub: FetchTechHub = new FetchTechHubImpl(config)
   val storeBlogs: StoreBlogs = new StoreBlogsImpl(config)
   val storeKnolx: StoreKnolx = new StoreKnolxImpl(config)
+  val storeTechHub: StoreTechHub = new StoreTechHubImpl(config)
   val URLResponse: URLResponse = new URLResponse
+  val techHubData:TechHubData=new TechHubDataImpl(fetchTechHub,URLResponse,config)
   val blogs: Blogs = new BlogsImpl(fetchBlogs, URLResponse, config)
   val knolx: Knolxs = new KnolxImpl(fetchKnolx, URLResponse, config)
   val allTimeReputationActorRef = system.actorOf(Props(new AllTimeReputationActor(allTimeReputation,
@@ -65,6 +68,8 @@ object DriverApp extends App {
   storeKnolx.insertKnolx(latestKnolx)
   val webinarDetails=webinarSpreadSheetData.getWebinarData
   storeWebinar.insertWebinar(webinarDetails)
+  val techHubDataList=techHubData.getLatestTechHubFromAPI
+  storeTechHub.insertTechHub(techHubDataList)
   val allTimeReputations = allTimeReputation.getKnolderReputation
   writeAllTimeReputation.insertAllTimeReputationData(allTimeReputations)
   writeAllTimeReputation.updateAllTimeReputationData(allTimeReputations)
