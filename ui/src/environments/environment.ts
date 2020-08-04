@@ -19,13 +19,13 @@ export const environment = {
     }
   },
   firebaseConfig: {
-    apiKey: 'AIzaSyDd51yg1TGiUvxmz4ARmmQ7pP5KL0RD1Bc',
-    authDomain: 'leaderboard-283708.firebaseapp.com',
-    databaseURL: 'https://leaderboard-283708.firebaseio.com',
-    projectId: 'leaderboard-283708',
-    storageBucket: 'leaderboard-283708.appspot.com',
-    messagingSenderId: '6056193565',
-    appId: '1:6056193565:web:fa81ffed1d776b590720f4',
-    measurementId: 'G-1R9PBV6QB1'
+    apiKey: 'AIzaSyDhPeGTkkQGw28-cptvC305P7rH7M2X9bc',
+    authDomain: 'knoldus-leaderboard.firebaseapp.com',
+    databaseURL: 'https://knoldus-leaderboard.firebaseio.com',
+    projectId: 'knoldus-leaderboard',
+    storageBucket: 'knoldus-leaderboard.appspot.com',
+    messagingSenderId: '394282533183',
+    appId: '1:394282533183:web:6a016df4558e387bfd938a',
+    measurementId: 'G-ETLJGR5H9B'
   }
 };
