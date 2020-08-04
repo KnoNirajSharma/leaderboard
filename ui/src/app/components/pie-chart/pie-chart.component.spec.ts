@@ -1,11 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-
 import { PieChartComponent } from './pie-chart.component';
-import {Component} from '@angular/core';
-import {KnolderDetailsModel} from '../../models/knolder-details.model';
-import {NgxChartsModule} from '@swimlane/ngx-charts';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { Component } from '@angular/core';
+import { KnolderDetailsModel } from '../../models/knolder-details.model';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('PieChartComponent', () => {
   let component: PieChartComponent;
@@ -13,10 +12,12 @@ describe('PieChartComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PieChartComponent, ParentComponent ],
-      imports: [IonicModule.forRoot(),
+      declarations: [PieChartComponent, ParentComponent],
+      imports: [
+        IonicModule.forRoot(),
         NgxChartsModule,
-      BrowserAnimationsModule]
+        BrowserAnimationsModule
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ParentComponent);
@@ -29,7 +30,7 @@ describe('PieChartComponent', () => {
   });
 
   it('result array values should be equal to inputResult values', () => {
-    expect(component.result).toEqual([{name: 'Blog', value: 20}]);
+    expect(component.result).toEqual([{ name: 'Blog', value: 20 }]);
   });
 });
 

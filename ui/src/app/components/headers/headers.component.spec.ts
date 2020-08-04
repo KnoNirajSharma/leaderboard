@@ -10,61 +10,64 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
 describe('HeadersComponent', () => {
-    let component: HeadersComponent;
-    let fixture: ComponentFixture<ParentComponent>;
+  let component: HeadersComponent;
+  let fixture: ComponentFixture<ParentComponent>;
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            declarations: [HeadersComponent,
-                ParentComponent],
-            imports: [IonicModule.forRoot(),
-                RouterTestingModule,
-                AngularFireModule.initializeApp(environment.firebaseConfig, 'angular-auth-firebase'),
-                AngularFirestoreModule,
-                AngularFireAuthModule
-            ],
-        }).compileComponents();
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        HeadersComponent,
+        ParentComponent
+      ],
+      imports: [
+        IonicModule.forRoot(),
+        RouterTestingModule,
+        AngularFireModule.initializeApp(environment.firebaseConfig, 'angular-auth-firebase'),
+        AngularFirestoreModule,
+        AngularFireAuthModule
+      ],
+    }).compileComponents();
 
-        fixture = TestBed.createComponent(ParentComponent);
-        component = fixture.debugElement.children[0].componentInstance;
-        fixture.detectChanges();
-    }));
+    fixture = TestBed.createComponent(ParentComponent);
+    component = fixture.debugElement.children[0].componentInstance;
+    fixture.detectChanges();
+  }));
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
-    });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 
-    it('should have title TEST', () => {
-        expect(component.title).toEqual('LEADERBOARD');
-    });
+  it('should have title TEST', () => {
+    expect(component.title).toEqual('LEADERBOARD');
+  });
 
-    it('should call onDropdown method', () => {
-        spyOn(component, 'onDropdown');
-        const element = fixture.debugElement.query(By.css('.logout-btn-dropdown'));
-        element.triggerEventHandler('click', {});
-        expect(component.onDropdown).toHaveBeenCalled();
-    });
+  it('should call onDropdown method', () => {
+    spyOn(component, 'onDropdown');
+    const element = fixture.debugElement.query(By.css('.logout-btn-dropdown'));
+    element.triggerEventHandler('click', {});
+    expect(component.onDropdown).toHaveBeenCalled();
+  });
 
-    it('should change the visibility status for logout button', () => {
-        component.logoutBtnVisibility = false;
-        component.onDropdown();
-        expect(component.logoutBtnVisibility).toEqual(true);
-    });
+  it('should change the visibility status for logout button', () => {
+    component.logoutBtnVisibility = false;
+    component.onDropdown();
+    expect(component.logoutBtnVisibility).toEqual(true);
+  });
 
-    it('should call onLogout method', () => {
-        component.logoutBtnVisibility = true;
-        fixture.detectChanges();
-        spyOn(component, 'onLogout');
-        const element = fixture.debugElement.query(By.css('.logout-btn'));
-        element.triggerEventHandler('click', {});
-        expect(component.onLogout).toHaveBeenCalled();
-    });
+  it('should call onLogout method', () => {
+    component.logoutBtnVisibility = true;
+    fixture.detectChanges();
+    spyOn(component, 'onLogout');
+    const element = fixture.debugElement.query(By.css('.logout-btn'));
+    element.triggerEventHandler('click', {});
+    expect(component.onLogout).toHaveBeenCalled();
+  });
 
 });
 
 @Component({
-    selector: 'parent',
-    template: '<app-headers></app-headers>'
+  selector: 'parent',
+  template: '<app-headers></app-headers>'
 })
 class ParentComponent {
 }

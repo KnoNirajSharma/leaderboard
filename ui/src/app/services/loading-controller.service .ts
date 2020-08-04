@@ -1,30 +1,30 @@
-import {Injectable} from '@angular/core';
-import {LoadingController} from '@ionic/angular';
+import { Injectable } from '@angular/core';
+import { LoadingController } from '@ionic/angular';
 
 @Injectable({
-    providedIn: 'root',
+  providedIn: 'root',
 })
 export class LoadingControllerService {
-    isLoading = false;
+  isLoading = false;
 
-    constructor(private loadingController: LoadingController) {
-    }
+  constructor(private loadingController: LoadingController) {
+  }
 
-    async present(options: object) {
-        this.isLoading = true;
-        return await this.loadingController
-            .create(options)
-            .then(loader => {
-                loader.present().then(() => {
-                    if (!this.isLoading) {
-                        loader.dismiss();
-                    }
-                });
-            });
-    }
+  async present(options: object) {
+    this.isLoading = true;
+    return await this.loadingController
+      .create(options)
+      .then(loader => {
+        loader.present().then(() => {
+          if (!this.isLoading) {
+            loader.dismiss();
+          }
+        });
+      });
+  }
 
-    async dismiss() {
-        this.isLoading = false;
-        return await this.loadingController.dismiss();
-    }
+  async dismiss() {
+    this.isLoading = false;
+    return await this.loadingController.dismiss();
+  }
 }
