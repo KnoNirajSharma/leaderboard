@@ -1,3 +1,3 @@
 export interface TableHeaderModel {
-    title: string;
+  title: string;
 }

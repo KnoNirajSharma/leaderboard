@@ -1,10 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {LoginService} from '../../services/login.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { LoginService } from '../../services/login.service';
 
 @Component({
-    selector: 'app-headers',
-    templateUrl: './headers.component.html',
-    styleUrls: ['./headers.component.scss'],
+  selector: 'app-headers',
+  templateUrl: './headers.component.html',
+  styleUrls: ['./headers.component.scss'],
 })
 export class HeadersComponent implements OnInit {
     @Input() backBtn: boolean;
@@ -16,14 +16,14 @@ export class HeadersComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.logoutBtnVisibility = false;
+      this.logoutBtnVisibility = false;
     }
 
     onDropdown() {
-        this.logoutBtnVisibility = !this.logoutBtnVisibility;
+      this.logoutBtnVisibility = !this.logoutBtnVisibility;
     }
 
     onLogout() {
-        this.loginService.logout();
+      this.loginService.logout();
     }
 }

@@ -1,8 +1,8 @@
-import {ScoreBreakDownModel} from './ScoreBreakDown.model';
+import { ScoreBreakDownModel } from './ScoreBreakDown.model';
 
 export interface KnolderDetailsModel {
-    knolderName: string;
-    score: number;
-    scoreBreakDown: ScoreBreakDownModel[];
-    pastTrend?: {month: string, score: number}[];
+  knolderName: string;
+  score: number;
+  scoreBreakDown: ScoreBreakDownModel[];
+  pastTrend?: {month: string, score: number}[];
 }

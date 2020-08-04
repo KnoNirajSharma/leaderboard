@@ -12,64 +12,65 @@ import { Location } from '@angular/common';
 import { mockResponseUserData } from '../../../assets/data/mockFirebaseResponse';
 
 describe('LoginPage', () => {
-    let component: LoginPage;
-    let fixture: ComponentFixture<LoginPage>;
-    let loginService: LoginService;
-    let router: Router;
-    let location: Location;
-    const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
-    const promisedData = mockResponseUserData;
+  let component: LoginPage;
+  let fixture: ComponentFixture<LoginPage>;
+  let loginService: LoginService;
+  let router: Router;
+  let location: Location;
+  const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+  const promisedData = mockResponseUserData;
 
-    beforeEach(async(() => {
+  beforeEach(async(() => {
 
-        const store = {};
-        const mockLocalStorage = {
-            getItem: (key: string): string => {
-                return key in store ? store[key] : null;
-            },
-            setItem: (key: string, value: string) => {
-                store[key] = `${value}`;
-            },
-            removeItem: (key: string) => {
-                delete store[key];
-            }
-        };
+    const store = {};
+    const mockLocalStorage = {
+      getItem: (key: string): string => {
+        return key in store ? store[key] : null;
+      },
+      setItem: (key: string, value: string) => {
+        store[key] = `${value}`;
+      },
+      removeItem: (key: string) => {
+        delete store[key];
+      }
+    };
 
-        spyOn(localStorage, 'getItem')
-            .and.callFake(mockLocalStorage.getItem);
-        spyOn(localStorage, 'setItem')
-            .and.callFake(mockLocalStorage.setItem);
-        spyOn(localStorage, 'removeItem')
-            .and.callFake(mockLocalStorage.removeItem);
+    spyOn(localStorage, 'getItem')
+      .and.callFake(mockLocalStorage.getItem);
+    spyOn(localStorage, 'setItem')
+      .and.callFake(mockLocalStorage.setItem);
+    spyOn(localStorage, 'removeItem')
+      .and.callFake(mockLocalStorage.removeItem);
 
-        TestBed.configureTestingModule({
-            declarations: [LoginPage],
-            imports: [IonicModule.forRoot(),
-                RouterTestingModule,
-                AngularFireModule.initializeApp(environment.firebaseConfig, 'angular-auth-firebase'),
-                AngularFirestoreModule,
-                AngularFireAuthModule
-            ],
-            providers: [{provide: Router, useValue: routerSpy}]
-        }).compileComponents();
+    TestBed.configureTestingModule({
+      declarations: [LoginPage],
+      imports: [
+        IonicModule.forRoot(),
+        RouterTestingModule,
+        AngularFireModule.initializeApp(environment.firebaseConfig, 'angular-auth-firebase'),
+        AngularFirestoreModule,
+        AngularFireAuthModule
+      ],
+      providers: [{ provide: Router, useValue: routerSpy }]
+    }).compileComponents();
 
-        fixture = TestBed.createComponent(LoginPage);
-        component = fixture.componentInstance;
-        loginService = TestBed.get(LoginService);
-        router = TestBed.get(Router);
-        location = TestBed.get(Location);
-        fixture.detectChanges();
-    }));
+    fixture = TestBed.createComponent(LoginPage);
+    component = fixture.componentInstance;
+    loginService = TestBed.get(LoginService);
+    router = TestBed.get(Router);
+    location = TestBed.get(Location);
+    fixture.detectChanges();
+  }));
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
-    });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 
-    it('should store auth Status in local storage, navigate to main page of getting data of user', fakeAsync(() => {
-        spyOn(loginService, 'signInWithGoogle').and.returnValue(Promise.resolve(promisedData));
-        component.onSignIn();
-        tick();
-        expect(localStorage.getItem('authenticated')).toEqual(String(true));
-        expect(routerSpy.navigate).toHaveBeenCalledWith(['/']);
-    }));
+  it('should store auth Status in local storage, navigate to main page of getting data of user', fakeAsync(() => {
+    spyOn(loginService, 'signInWithGoogle').and.returnValue(Promise.resolve(promisedData));
+    component.onSignIn();
+    tick();
+    expect(localStorage.getItem('authenticated')).toEqual(String(true));
+    expect(routerSpy.navigate).toHaveBeenCalledWith(['/']);
+  }));
 });
