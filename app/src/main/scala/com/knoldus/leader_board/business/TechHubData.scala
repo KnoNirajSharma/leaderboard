@@ -1,9 +1,9 @@
 package com.knoldus.leader_board.business
 
-import com.knoldus.leader_board.TechHub
+import com.knoldus.leader_board.TechHubTemplate
 
 trait TechHubData {
-  def getLatestTechHubFromAPI: List[TechHub]
+  def getLatestTechHubTemplatesFromAPI: List[TechHubTemplate]
 
-  def getListOfLatestTechHub(unparsedTechHub: String): List[TechHub]
+  def getListOfLatestTechHubTemplates(unparsedTechHub: String): List[TechHubTemplate]
 }

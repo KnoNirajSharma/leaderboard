@@ -53,12 +53,12 @@ class StoreTechHubImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt2.close()
 
       val techHub = List(
-        TechHub(
+        TechHubTemplate(
           Option("ab3c6981-9964-46e2-adcd-64154120c1dc"),
           Option("mukesh.kumar@knoldus.com"),
           Option(Timestamp.valueOf("1970-01-19 11:49:09.0")),
           Option("Reactive Microservices")),
-        TechHub(
+        TechHubTemplate(
           Option("4cb67c8f-941b-4860-ba4e-a7e7f497768d"),
           Option("abhishek.baranwal@knoldus.com"),
           Option(Timestamp.valueOf("1970-01-19 15:11:46.0")),

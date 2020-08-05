@@ -68,7 +68,7 @@ object DriverApp extends App {
   storeKnolx.insertKnolx(latestKnolx)
   val webinarDetails=webinarSpreadSheetData.getWebinarData
   storeWebinar.insertWebinar(webinarDetails)
-  val techHubDataList=techHubData.getLatestTechHubFromAPI
+  val techHubDataList=techHubData.getLatestTechHubTemplatesFromAPI
   storeTechHub.insertTechHub(techHubDataList)
   val allTimeReputations = allTimeReputation.getKnolderReputation
   writeAllTimeReputation.insertAllTimeReputationData(allTimeReputations)

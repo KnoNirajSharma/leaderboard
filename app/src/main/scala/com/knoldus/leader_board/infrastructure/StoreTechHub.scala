@@ -1,7 +1,7 @@
 package com.knoldus.leader_board.infrastructure
 
-import com.knoldus.leader_board.TechHub
+import com.knoldus.leader_board.TechHubTemplate
 
 trait StoreTechHub {
-  def insertTechHub(listOfTechHub: List[TechHub]): List[Int]
+  def insertTechHub(listOfTechHub: List[TechHubTemplate]): List[Int]
 }

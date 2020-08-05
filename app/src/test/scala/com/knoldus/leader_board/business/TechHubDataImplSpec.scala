@@ -4,7 +4,7 @@ import java.sql.{Connection, Timestamp}
 import java.time.Instant
 
 import com.knoldus.leader_board.infrastructure.{FetchTechHub, FetchTechHubImpl}
-import com.knoldus.leader_board.{DatabaseConnection, TechHub}
+import com.knoldus.leader_board.{DatabaseConnection, TechHubTemplate}
 import com.typesafe.config.ConfigFactory
 import org.mockito.ArgumentMatchersSugar.any
 import org.mockito.MockitoSugar
@@ -15,9 +15,9 @@ class TechHubDataImplSpec extends AnyWordSpecLike with MockitoSugar with BeforeA
   implicit val connection: Connection = DatabaseConnection.connection(ConfigFactory.load())
   val mockFetchTechhub: FetchTechHub = mock[FetchTechHubImpl]
   val mockURLResponse: URLResponse = mock[URLResponse]
-  val techHub: TechHubData= new TechHubDataImpl(mockFetchTechhub, mockURLResponse, ConfigFactory.load())
+  val techHub: TechHubData = new TechHubDataImpl(mockFetchTechhub, mockURLResponse, ConfigFactory.load())
 
-  "techHub" should {
+  "TechHub data" should {
 
     val techHubData: String =
       """{
@@ -49,51 +49,51 @@ class TechHubDataImplSpec extends AnyWordSpecLike with MockitoSugar with BeforeA
       when(mockFetchTechhub.fetchMaxTechHubUploadedDate)
         .thenReturn(Option(Timestamp.from(Instant.parse("2019-01-19T11:49:09Z"))))
 
-      when(mockURLResponse.getTechHubResponse(any,any, any))
+      when(mockURLResponse.getTechHubResponse(any, any, any))
         .thenReturn(techHubData)
 
       val listOfTechHub = List(
-        TechHub(
+        TechHubTemplate(
           Option("ab3c6981-9964-46e2-adcd-64154120c1dc"),
           Option("mukesh.kumar@knoldus.com"),
           Option(Timestamp.valueOf("1970-01-19 11:49:09.0")),
           Option("Reactive Microservices")),
-        TechHub(
+        TechHubTemplate(
           Option("4cb67c8f-941b-4860-ba4e-a7e7f497768d"),
           Option("mukesh.kumar@knoldus.com"),
           Option(Timestamp.valueOf("1970-01-19 15:11:46.0")),
           Option("Delta Lake"))
       )
 
-      assert(techHub.getLatestTechHubFromAPI== listOfTechHub)
+      assert(techHub.getLatestTechHubTemplatesFromAPI == listOfTechHub)
     }
 
     "return empty list when an invalid response receive from api" in {
       when(mockFetchTechhub.fetchMaxTechHubUploadedDate)
         .thenReturn(Option(Timestamp.from(Instant.parse("2019-01-19T11:49:09Z"))))
 
-      when(mockURLResponse.getTechHubResponse(any,any, any))
+      when(mockURLResponse.getTechHubResponse(any, any, any))
         .thenReturn("""[]""")
 
 
-      assert(techHub.getLatestTechHubFromAPI == List())
+      assert(techHub.getLatestTechHubTemplatesFromAPI == List())
     }
 
     "return list of latest knolx" in {
-      val listOfTechHub= List(
-        TechHub(
+      val listOfTechHub = List(
+        TechHubTemplate(
           Option("ab3c6981-9964-46e2-adcd-64154120c1dc"),
           Option("mukesh.kumar@knoldus.com"),
           Option(Timestamp.valueOf("1970-01-19 11:49:09.0")),
           Option("Reactive Microservices")),
-        TechHub(
+        TechHubTemplate(
           Option("4cb67c8f-941b-4860-ba4e-a7e7f497768d"),
           Option("mukesh.kumar@knoldus.com"),
           Option(Timestamp.valueOf("1970-01-19 15:11:46.0")),
           Option("Delta Lake"))
       )
 
-      assert(techHub.getListOfLatestTechHub(techHubData) ==listOfTechHub)
+      assert(techHub.getListOfLatestTechHubTemplates(techHubData) == listOfTechHub)
     }
   }
 }

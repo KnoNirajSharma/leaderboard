@@ -2,7 +2,7 @@ package com.knoldus.leader_board.infrastructure
 
 import java.sql.Connection
 
-import com.knoldus.leader_board.{DatabaseConnection, TechHub}
+import com.knoldus.leader_board.{DatabaseConnection, TechHubTemplate}
 import com.typesafe.config.Config
 import com.typesafe.scalalogging.LazyLogging
 import scalikejdbc.{DB, DBSession, SQL}
@@ -18,7 +18,7 @@ class StoreTechHubImpl(config: Config) extends StoreTechHub with LazyLogging {
    * @param listOfTechHub List of techhub.
    * @return List of Integer which displays the status of query execution.
    */
-  override def insertTechHub(listOfTechHub: List[TechHub]): List[Int] = {
+  override def insertTechHub(listOfTechHub: List[TechHubTemplate]): List[Int] = {
     logger.info("Querying techhub table to insert techhub details.")
     listOfTechHub.map { techHub =>
       SQL(

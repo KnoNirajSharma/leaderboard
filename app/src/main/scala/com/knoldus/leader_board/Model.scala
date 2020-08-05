@@ -6,7 +6,7 @@ final case class Blog(blogId: Option[Int], wordpressId: Option[String], publishe
 
 final case class Knolx(knolxId: Option[String], emailId: Option[String], deliveredOn: Option[Timestamp], title: Option[String])
 
-final case class TechHub(techHubId: Option[String], emailId: Option[String], uploadedOn: Option[Timestamp], title: Option[String])
+final case class TechHubTemplate(techHubId: Option[String], emailId: Option[String], uploadedOn: Option[Timestamp], title: Option[String])
 
 final case class GetCount(knolderId: Int, knolderName: String, numberOfBlogs: Int, numberOfKnolx: Int, numberOfWebinar: Int)
 
