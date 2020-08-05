@@ -15,42 +15,69 @@
                         Current Month
                     </div>
                 </div>
-                <div *ngIf="reputation"
-                     class="total-count-bar d-flex flex-column flex-sm-row flex-wrap justify-content-start justify-content-sm-around col-12 card col-xl-12 mx-auto mt-5 mb-5 ml-0 py-2 row contribution-style">
-                    <div class="my-1 mx-1 d-flex justify-content-between">
-                        <span class="mt-4 contribution-left shadow-sm">{{reputation.allTimeBlogCount}}</span>
-                        <span class="contribution-color">Blogs</span>
-                        <span class="mt-4 contribution-right shadow-sm">{{reputation.monthlyBlogCount}}</span>
+                <div *ngIf="reputation" class="scrolling-wrapper my-5 contribution-color">
+                    <div class="card mx-1 mx-sm-0 py-2 d-inline-block border-0">
+                        <div class="contribution-title text-center mb-1">
+                            Blogs
+                        </div>
+                        <div class="d-flex justify-content-between my-1 w-75 mx-auto">
+                            <span class="contribution-count contribution-left d-flex justify-content-center align-items-center">{{reputation.allTimeBlogCount}}</span>
+                            <span class="contribution-count contribution-right d-flex justify-content-center align-items-center">{{reputation.monthlyBlogCount}}</span>
+                        </div>
                     </div>
-                    <div class="my-1 mx-1 d-flex justify-content-between">
-                        <span class="mt-4 contribution-left shadow-sm">{{reputation.allTimeKnolxCount}}</span>
-                        <span class="contribution-color">knolx</span>
-                        <span class="mt-4 contribution-right shadow-sm">{{reputation.monthlyKnolxCount}}</span>
+                    <div class="card mx-1  mx-sm-0 py-2 d-inline-block border-0">
+                        <div class="contribution-title text-center mb-1">
+                            Knolx
+                        </div>
+                        <div class="d-flex justify-content-between my-1 w-75 mx-auto">
+                            <span class="contribution-count contribution-left d-flex justify-content-center align-items-center">{{reputation.allTimeKnolxCount}}</span>
+                            <span class="contribution-count contribution-right d-flex justify-content-center align-items-center">{{reputation.monthlyKnolxCount}}</span>
+                        </div>
                     </div>
-                    <div class="my-1 mx-1 d-flex justify-content-between">
-                        <span class="mt-4 contribution-left shadow-sm">{{reputation.allTimeWebinarCount}}</span>
-                        <span class="contribution-color">Webinar</span>
-                        <span class="mt-4 contribution-right shadow-sm">{{reputation.monthlyWebinarCount}}</span>
+                    <div class="card mx-1 mx-sm-0 py-2 d-inline-block border-0">
+                        <div class="contribution-title text-center mb-1">
+                            Webinars
+                        </div>
+                        <div class="d-flex justify-content-between my-1 w-75 mx-auto">
+                            <span class="contribution-count contribution-left d-flex justify-content-center align-items-center">{{reputation.allTimeWebinarCount}}</span>
+                            <span class="contribution-count contribution-right d-flex justify-content-center align-items-center">{{reputation.monthlyWebinarCount}}</span>
+                        </div>
                     </div>
-                    <div class="my-1 mx-1 d-flex justify-content-between">
-                        <span class="ml-2 mt-4 contribution-left shadow-sm">n/a</span>
-                        <span class="contribution-color">TechHub Template</span>
-                        <span class="mt-4 contribution-right shadow-sm">n/a</span>
+                    <div class="card mx-1 mx-sm-0 py-2 d-inline-block border-0">
+                        <div class="contribution-title text-center mb-1">
+                            TechHub Templates
+                        </div>
+                        <div class="d-flex justify-content-between my-1 w-75 mx-auto">
+                            <span class="contribution-count contribution-left d-flex justify-content-center align-items-center">n/a</span>
+                            <span class="contribution-count contribution-right d-flex justify-content-center align-items-center">n/a</span>
+                        </div>
                     </div>
-                    <div class="my-1 mx-1 d-flex justify-content-between">
-                        <span class="mt-4 contribution-left shadow-sm">n/a</span>
-                        <span class="contribution-color">OS Contribution</span>
-                        <span class="mt-4 contribution-right shadow-sm">n/a</span>
+                    <div class="card mx-1 mx-sm-0 py-2 d-inline-block border-0">
+                        <div class="contribution-title text-center mb-1">
+                            OS Contribution
+                        </div>
+                        <div class="d-flex justify-content-between my-1 w-75 mx-auto">
+                            <span class="contribution-count contribution-left d-flex justify-content-center align-items-center">n/a</span>
+                            <span class="contribution-count contribution-right d-flex justify-content-center align-items-center">n/a</span>
+                        </div>
                     </div>
-                    <div class=" my-1 mx-1 d-flex justify-content-between">
-                        <span class="mt-4 contribution-left shadow-sm">n/a</span>
-                        <span class="contribution-color">Books/Papers</span>
-                        <span class="mt-4 contribution-right shadow-sm">n/a</span>
+                    <div class="card mx-1  mx-sm-0 py-2 d-inline-block border-0">
+                        <div class="contribution-title text-center mb-1">
+                            Confrences
+                        </div>
+                        <div class="d-flex justify-content-between my-1 w-75 mx-auto">
+                            <span class="contribution-count contribution-left d-flex justify-content-center align-items-center">n/a</span>
+                            <span class="contribution-count contribution-right d-flex justify-content-center align-items-center">n/a</span>
+                        </div>
                     </div>
-                    <div class="my-1 mx-1 d-flex justify-content-between">
-                        <span class="mt-4 contribution-left shadow-sm">n/a</span>
-                        <span class="contribution-color">Conferences</span>
-                        <span class="mt-4 contribution-right shadow-sm">n/a</span>
+                    <div class="card mx-1 mx-sm-0 py-2 d-inline-block border-0">
+                        <div class="contribution-title text-center mb-1">
+                            Books/Papers
+                        </div>
+                        <div class="d-flex justify-content-between my-1 w-75 mx-auto">
+                            <span class="contribution-count contribution-left d-flex justify-content-center align-items-center">n/a</span>
+                            <span class="contribution-count contribution-right d-flex justify-content-center align-items-center">n/a</span>
+                        </div>
                     </div>
                 </div>
             </div>
