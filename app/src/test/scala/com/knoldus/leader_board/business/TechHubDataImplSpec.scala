@@ -45,8 +45,8 @@ class TechHubDataImplSpec extends AnyWordSpecLike with MockitoSugar with BeforeA
         |	"token": ""
         |}""".stripMargin
 
-    "return latest knolx from API" in {
-      when(mockFetchTechhub.fetchMaxTechHubUploadedDate)
+    "return latest techhub from API" in {
+      when(mockFetchTechhub.getLastUpdatedDateForTechHub)
         .thenReturn(Option(Timestamp.from(Instant.parse("2019-01-19T11:49:09Z"))))
 
       when(mockURLResponse.getTechHubResponse(any, any, any))
@@ -65,21 +65,21 @@ class TechHubDataImplSpec extends AnyWordSpecLike with MockitoSugar with BeforeA
           Option("Delta Lake"))
       )
 
-      assert(techHub.getLatestTechHubTemplatesFromAPI == listOfTechHub)
+      assert(techHub.getLatestTechHubTemplates == listOfTechHub)
     }
 
     "return empty list when an invalid response receive from api" in {
-      when(mockFetchTechhub.fetchMaxTechHubUploadedDate)
+      when(mockFetchTechhub.getLastUpdatedDateForTechHub)
         .thenReturn(Option(Timestamp.from(Instant.parse("2019-01-19T11:49:09Z"))))
 
       when(mockURLResponse.getTechHubResponse(any, any, any))
         .thenReturn("""[]""")
 
 
-      assert(techHub.getLatestTechHubTemplatesFromAPI == List())
+      assert(techHub.getLatestTechHubTemplates == List())
     }
 
-    "return list of latest knolx" in {
+    "return list of techhub after parsing json techhub strig" in {
       val listOfTechHub = List(
         TechHubTemplate(
           Option("ab3c6981-9964-46e2-adcd-64154120c1dc"),
@@ -93,7 +93,7 @@ class TechHubDataImplSpec extends AnyWordSpecLike with MockitoSugar with BeforeA
           Option("Delta Lake"))
       )
 
-      assert(techHub.getListOfLatestTechHubTemplates(techHubData) == listOfTechHub)
+      assert(techHub.parseTechHubJson(techHubData) == listOfTechHub)
     }
   }
 }

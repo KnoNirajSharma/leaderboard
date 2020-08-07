@@ -48,3 +48,4 @@ libraryDependencies ++= Seq(
   "com.google.oauth-client" % "google-oauth-client-jetty" % "1.30.5",
   "com.google.apis" % "google-api-services-sheets" % "v4-rev1-1.21.0"
 )
+git

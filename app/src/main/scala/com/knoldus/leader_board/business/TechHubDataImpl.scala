@@ -19,21 +19,21 @@ class TechHubDataImpl(fetchTechHub: FetchTechHub, URLResponse: URLResponse, conf
    *
    * @return List of techhub.
    */
-  override def getLatestTechHubTemplatesFromAPI: List[TechHubTemplate] = {
-    logger.info("Latest techhub will be extracted from knolx API.")
-    val maxDate = fetchTechHub.fetchMaxTechHubUploadedDate.getOrElse(Timestamp.valueOf("0001-01-01 00:00:00"))
+  override def getLatestTechHubTemplates: List[TechHubTemplate] = {
+    logger.info("Latest techhub will be extracted from techhub API.")
+    val maxDate = fetchTechHub.getLastUpdatedDateForTechHub.getOrElse(Timestamp.valueOf("0001-01-01 00:00:00"))
     val startDate = maxDate.toLocalDateTime.toLocalDate.toString
     val endDate = IndianTime.currentTime.toLocalDateTime.toLocalDate.toString
-    getListOfLatestTechHubTemplates(URLResponse.getTechHubResponse(config.getString("urlForLatestTechHub"), startDate, endDate))
+    parseTechHubJson(URLResponse.getTechHubResponse(config.getString("urlForLatestTechHub"), startDate, endDate))
   }
 
   /**
-   * Parse ktechhub data from techhub API.
+   * Parse techhub data from techhub API.
    *
    * @param unparsedTechHub JSON string of techhub data fetched from techhub API.
    * @return List of techhub.
    */
-  override def getListOfLatestTechHubTemplates(unparsedTechHub: String): List[TechHubTemplate] = {
+  override def parseTechHubJson(unparsedTechHub: String): List[TechHubTemplate] = {
     logger.info("Parsing JSON string of techhub information.")
     val parsedTecHub = parse(unparsedTechHub)
     val techHubs = (parsedTecHub \ "data" \ "leaderShipBoardTemplates").children map { techHub =>
@@ -52,6 +52,6 @@ class TechHubDataImpl(fetchTechHub: FetchTechHub, URLResponse: URLResponse, conf
       TechHubTemplate(techHubId, emailId, uploaded_on, title)
 
     }
-    techHubs.filter(techHub => techHub.techHubId.isDefined && techHub.title.isDefined && techHub.uploadedOn.isDefined)
+    techHubs.filter(techHub => techHub.techHubId.isDefined && techHub.title.isDefined && techHub.uploadedOn.isDefined && techHub.emailId.isDefined)
   }
 }

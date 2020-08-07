@@ -51,7 +51,7 @@ class FetchTechHubImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt9.execute
       preparedStmt9.close()
 
-      val result = fetchData.fetchMaxTechHubUploadedDate
+      val result = fetchData.getLastUpdatedDateForTechHub
       result.map { date =>
         date shouldBe Timestamp.from(Instant.parse("2020-04-13T14:56:40Z"))
       }

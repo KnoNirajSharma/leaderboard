@@ -16,9 +16,10 @@ class FetchTechHubImpl(config: Config) extends FetchTechHub with LazyLogging {
    *
    * @return Maximum delivered date of techhub wrapped in option.
    */
-  override def fetchMaxTechHubUploadedDate: Option[Timestamp] = {
+  override def getLastUpdatedDateForTechHub: Option[Timestamp] = {
     logger.info("Querying techhub table to fetch maximum delivered date of techhub.")
-    SQL("""SELECT
+    SQL(
+      """SELECT
       MAX(uploaded_on)
       FROM techhub""").map(rs => rs.timestamp(1)).single().apply()
   }
