@@ -85,3 +85,13 @@ ion-content{
   border-radius: .25rem;
   z-index: 9;
 }
+
+@media only screen and (max-width: 720px) {
+  .container-fluid {
+    .page-wrapper {
+      .score-table {
+        height: 50px;
+      }
+    }
+  }
+}
