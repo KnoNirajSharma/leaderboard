@@ -17,6 +17,7 @@ jobs:
     - name: Compile
       run: sbt compile
     - name: Run Test
+      working-directory: ./app
       run: sbt test
 
   
