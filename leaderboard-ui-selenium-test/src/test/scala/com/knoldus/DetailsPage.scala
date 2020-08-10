@@ -1,11 +1,7 @@
 package com.knoldus
 import java.util
 import org.openqa.selenium.{By, WebDriver, WebElement}
-
-
 trait DetailsPage {
-  System.setProperty("webdriver.chrome.driver", "/home/knoldus/Downloads/chromedriver_linux64/chromedriver")
-
   def currentMonthDetail(driver: WebDriver): WebElement = {
     val element = driver.findElement(By.cssSelector("span[class='badge badge-pill badge-warning']"))
     element

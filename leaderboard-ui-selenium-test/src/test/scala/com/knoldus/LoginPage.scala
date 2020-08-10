@@ -1,10 +1,7 @@
 package com.knoldus
-
 import java.util
 import org.openqa.selenium.{By, WebDriver, WebElement}
-
 trait LoginPage{
-
   def signInButton(driver: WebDriver): WebElement = {
     val element = driver.findElement(By.cssSelector("div[class='sign-in-btn card p-3 col-10 col-sm-12 mx-auto']"))
     element
@@ -25,14 +22,4 @@ trait LoginPage{
     val element = driver.findElement(By.cssSelector("input[class='whsOnd zHQkBf']"))
     element
   }
-
-
-  def loginEmail(): Unit = {
-  }
-  def loginPassword(): Unit = {
-  }
-  def loginButton():Unit ={
-  }
-
-
 }

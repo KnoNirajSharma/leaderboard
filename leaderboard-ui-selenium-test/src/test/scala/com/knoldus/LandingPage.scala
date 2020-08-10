@@ -1,13 +1,7 @@
 package com.knoldus
-
 import java.util
 import org.openqa.selenium.{By, WebDriver, WebElement}
-
-
-
-
 trait LandingPage{
-
   def countHeaderName(driver: WebDriver): util.List[WebElement] = {
    val element = driver.findElements(By.cssSelector("div[class='my-1  mx-1 d-flex justify-content-between']"))
 element
