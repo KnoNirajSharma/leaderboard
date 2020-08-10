@@ -14,11 +14,14 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - name: Compile
+    
+    - name: Compile App
+      working-directory: app
       run: sbt compile
-    - name: Run Test
-      working-directory: ./app
-      run: sbt test
+    - name: Compile script-to-fetch-all-blogs
+      working-directory: script-to-fetch-all-blogs
+      run: sbt compile 
+    
     - name: Cache .ivy
       uses: actions/cache@v2
       env:
