@@ -19,5 +19,10 @@ jobs:
     - name: Run Test
       working-directory: ./app
       run: sbt test
-
+    - name: Cache .ivy
+      uses: actions/cache@v2
+      env:
+        cache-name: sbt-library-dependencies
+      with:
+        path: ~/.ivy2
   
