@@ -46,6 +46,11 @@ object Build : BuildType({
             type = "SBT"
             param("sbt.args", "clean test")
         }
+        step{
+            name = "coverage test"
+            type = "SBT"
+            param("sbt.args", "clean coverage test")
+        }
     }
 
     triggers {
