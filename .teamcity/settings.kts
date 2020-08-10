@@ -44,7 +44,17 @@ object Build : BuildType({
         step {
             name = "testing"
             type = "SBT"
+            param("sbt.args", "clean compile")
+        }
+        step {
+            name = "testing"
+            type = "SBT"
             param("sbt.args", "clean test")
+        }
+        step {
+            name = "testing"
+            type = "SBT"
+            param("sbt.args", "package")
         }
         step{
             name = "coverage test"
