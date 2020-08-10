@@ -2,9 +2,8 @@ name: Leaderboard
 
 on:
   push:
-    branches: [ develop ]
-  pull_request:
-    branches: [ feature/** ]
+    branches:
+      - feature/**
 
 jobs:
   build:
