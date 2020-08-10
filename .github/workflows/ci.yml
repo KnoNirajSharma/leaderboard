@@ -28,4 +28,5 @@ jobs:
         cache-name: sbt-library-dependencies
       with:
         path: ~/.ivy2
+        key: ${{ runner.os }}-build-${{ env.cache-name }}
   
