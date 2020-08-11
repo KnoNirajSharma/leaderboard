@@ -17,5 +17,7 @@ class MainSpec extends Suites(
   new FetchReputationImplSpec,
   new FetchCountWithReputationImplSpec,
   new StoreWebinarImplSpec,
-  new FetchKnolderDetailsImplSpec
+  new FetchKnolderDetailsImplSpec,
+  new FetchTechHubImplSpec,
+  new StoreTechHubImplSpec
 )

@@ -22,9 +22,9 @@ coverageMinimum := 80
 
 coverageFailOnMinimum := true
 
-val akkaHttpVersion="10.1.11"
-val akkaVersion="2.6.5"
-val jdbcAndLiftJsonVersion="3.4.1"
+val akkaHttpVersion = "10.1.11"
+val akkaVersion = "2.6.5"
+val jdbcAndLiftJsonVersion = "3.4.1"
 
 libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-http" % akkaHttpVersion,

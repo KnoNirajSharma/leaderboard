@@ -41,6 +41,22 @@ class URLResponse extends LazyLogging {
     val request = new HttpGet(builder.build())
     getResponse(request)
   }
+  /**
+   * Gets response from given URL and setting parameters.
+   *
+   * @param url       Takes URL on which request is sent.
+   * @param startDate Takes date for fetching techhub delivered after that date.
+   * @param endDate   Takes date for fetching techhub delivered before that date.
+   * @return Response entity in form of string.
+   */
+
+  def getTechHubResponse(url: String, startDate: String, endDate: String): String = {
+    logger.info(s"Gettting response from techhub API ")
+    val builder = new URIBuilder(url)
+    builder.setParameter("start_date", startDate).setParameter("end_date", endDate)
+    val request = new HttpGet(builder.build())
+    getResponse(request)
+  }
 
   def getResponse(request: HttpGet): String = {
     val result = Try {
