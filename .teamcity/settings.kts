@@ -1,4 +1,5 @@
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
+import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.commitStatusPublisher
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.dockerCommand
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
 
@@ -66,6 +67,18 @@ object Build : BuildType({
 
     triggers {
         vcs {
+        }
+    }
+
+    features {
+        commitStatusPublisher {
+            vcsRootExtId = "${DslContext.settingsRoot.id}"
+            publisher = github {
+                githubUrl = "https://api.github.com"
+                authType = personalToken {
+                    token = "credentialsJSON:425701aa-5ad1-4fe6-bdc0-a3a00d1c4881"
+                }
+            }
         }
     }
 })
