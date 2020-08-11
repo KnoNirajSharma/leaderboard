@@ -123,6 +123,34 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt7.execute
       preparedStmt7.close()
 
+      val insertTechhub1: String =
+        """
+          |insert into techhub(id, email_id, uploaded_on, title)
+          |values (?,?,?,?)
+""".stripMargin
+
+      val preparedStmt12: PreparedStatement = connection.prepareStatement(insertTechhub1)
+      preparedStmt12.setInt(1, 1)
+      preparedStmt12.setString(2, "mukesh.kumar@knoldus.com")
+      preparedStmt12.setTimestamp(3, date)
+      preparedStmt12.setString(4, "Reactive Microservices")
+      preparedStmt12.execute
+      preparedStmt12.close()
+
+      val insertTechhub2: String =
+        """
+          |insert into techhub(id, email_id, uploaded_on, title)
+          |values (?,?,?,?)
+""".stripMargin
+
+      val preparedStmt13: PreparedStatement = connection.prepareStatement(insertTechhub2)
+      preparedStmt13.setInt(1, 4)
+      preparedStmt13.setString(2, "mukesh.kumar@knoldus.com")
+      preparedStmt13.setTimestamp(3, date)
+      preparedStmt13.setString(4, "Delta Lake")
+      preparedStmt13.execute
+      preparedStmt13.close()
+
       val blogTitles = List(ContributionDetails("windows handling using selenium webdriver", date.toString),
         ContributionDetails("Java 9: Enhance your Jav…ptional API enhancement", date.toString))
       val blogDetails = Option(Contribution("Blogs", 2, 10, blogTitles))
@@ -135,9 +163,12 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
         ContributionDetails("Delta Lake", date.toString))
 
       val webinarDetails = Option(Contribution("Webinar", 2, 30, webinarTitles))
+      val techhubTitles = List(ContributionDetails("Reactive Microservices", date.toString),
+        ContributionDetails("Delta Lake", date.toString))
 
-      val contributions = List(blogDetails, knolxDetails,webinarDetails)
-      val knolderDetails = KnolderDetails("Mukesh Gupta", 80, contributions)
+      val techhubDetails = Option(Contribution("TechHub", 2, 30, techhubTitles))
+      val contributions = List(blogDetails, knolxDetails, webinarDetails, techhubDetails)
+      val knolderDetails = KnolderDetails("Mukesh Gupta", 110, contributions)
 
       fetchKnolderDetails.fetchKnolderMonthlyDetails(1, 4, 2020).
         map(details => assert(details == knolderDetails))
@@ -270,6 +301,40 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt11.setString(4, "Delta Lake")
       preparedStmt11.execute
       preparedStmt11.close()
+
+      val insertTechhub1: String =
+        """
+          |insert into techhub(id, email_id, uploaded_on, title)
+          |values (?,?,?,?)
+""".stripMargin
+
+      val preparedStmt12: PreparedStatement = connection.prepareStatement(insertTechhub1)
+      preparedStmt12.setInt(1, 1)
+      preparedStmt12.setString(2, "mukesh.kumar@knoldus.com")
+      preparedStmt12.setTimestamp(3, date)
+      preparedStmt12.setString(4, "Reactive Microservices")
+      preparedStmt12.execute
+      preparedStmt12.close()
+
+      val insertTechhub2: String =
+        """
+          |insert into techhub(id, email_id, uploaded_on, title)
+          |values (?,?,?,?)
+""".stripMargin
+
+      val preparedStmt13: PreparedStatement = connection.prepareStatement(insertTechhub2)
+      preparedStmt13.setInt(1, 4)
+      preparedStmt13.setString(2, "mukesh.kumar@knoldus.com")
+      preparedStmt13.setTimestamp(3, date)
+      preparedStmt13.setString(4, "Delta Lake")
+      preparedStmt13.execute
+      preparedStmt13.close()
+      val techhubTitles = List(ContributionDetails("Reactive Microservices", date.toString),
+        ContributionDetails("Delta Lake", date.toString))
+
+      val techhubDetails = Option(Contribution("TechHub", 2, 30, techhubTitles))
+
+
       val blogTitles = List(ContributionDetails("windows handling using selenium webdriver", date.toString),
         ContributionDetails("Java 9: Enhance your Jav…ptional API enhancement", date.toString))
       val blogDetails = Option(Contribution("Blogs", 2, 10, blogTitles))
@@ -283,8 +348,8 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
 
       val webinarDetails = Option(Contribution("Webinar", 2, 30, webinarTitles))
 
-      val contributions = List(blogDetails, knolxDetails,webinarDetails)
-      val knolderDetails = KnolderDetails("Mukesh Gupta", 80, contributions)
+      val contributions = List(blogDetails, knolxDetails, webinarDetails, techhubDetails)
+      val knolderDetails = KnolderDetails("Mukesh Gupta", 110, contributions)
 
       fetchKnolderDetails.fetchKnolderAllTimeDetails(1).
         map(details => assert(details == knolderDetails))
@@ -395,6 +460,59 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
       assert(fetchKnolderDetails.fetchKnolderMonthlyKnolxDetails(4, 2020, 1) == knolxDetails)
 
     }
+
+    "return monthly details of techhub of knolder" in {
+      val insertTechhub1: String =
+        """
+          |insert into techhub(id, email_id, uploaded_on, title)
+          |values (?,?,?,?)
+""".stripMargin
+
+      val preparedStmt12: PreparedStatement = connection.prepareStatement(insertTechhub1)
+      preparedStmt12.setInt(1, 1)
+      preparedStmt12.setString(2, "mukesh.kumar@knoldus.com")
+      preparedStmt12.setTimestamp(3, date)
+      preparedStmt12.setString(4, "Reactive Microservices")
+      preparedStmt12.execute
+      preparedStmt12.close()
+
+      val insertTechhub2: String =
+        """
+          |insert into techhub(id, email_id, uploaded_on, title)
+          |values (?,?,?,?)
+""".stripMargin
+
+      val preparedStmt13: PreparedStatement = connection.prepareStatement(insertTechhub2)
+      preparedStmt13.setInt(1, 4)
+      preparedStmt13.setString(2, "mukesh.kumar@knoldus.com")
+      preparedStmt13.setTimestamp(3, date)
+      preparedStmt13.setString(4, "Delta Lake")
+      preparedStmt13.execute
+      preparedStmt13.close()
+
+      val insertKnolder: String =
+        """
+          |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
+          |values (?,?,?,?,?)
+""".stripMargin
+
+      val preparedStmt7: PreparedStatement = connection.prepareStatement(insertKnolder)
+      preparedStmt7.setInt(1, 1)
+      preparedStmt7.setString(2, "Mukesh Gupta")
+      preparedStmt7.setString(3, "mukesh01")
+      preparedStmt7.setString(4, "mukesh.kumar@knoldus.com")
+      preparedStmt7.setBoolean(5, true)
+      preparedStmt7.execute
+      preparedStmt7.close()
+
+
+      val techhubTitles = List(ContributionDetails("Reactive Microservices", date.toString),
+        ContributionDetails("Delta Lake", date.toString))
+      val techhubDetails = Option(Contribution("TechHub", 2, 30, techhubTitles))
+
+      assert(fetchKnolderDetails.fetchKnolderMonthlyTechHubDetails(4, 2020, 1) == techhubDetails)
+    }
+
     "return monthly details of webinar of knolder" in {
       val insertWebinar1: String =
         """
@@ -444,7 +562,7 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
         ContributionDetails("Delta Lake", date.toString))
       val webinarDetails = Option(Contribution("Webinar", 2, 30, webinarTitles))
 
-      assert(fetchKnolderDetails.fetchKnolderMonthlyWebinarDetails(4, 2020, 1) ==webinarDetails)
+      assert(fetchKnolderDetails.fetchKnolderMonthlyWebinarDetails(4, 2020, 1) == webinarDetails)
     }
 
     "return all time details of webinar of knolder" in {
@@ -603,6 +721,59 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
 
       assert(fetchKnolderDetails.fetchAllTimeBlogDetails(1) == blogDetails)
 
+    }
+    "return all time details of techhub of knolder" in {
+
+      val insertTechhub1: String =
+        """
+          |insert into techhub(id, email_id, uploaded_on, title)
+          |values (?,?,?,?)
+""".stripMargin
+
+      val preparedStmt12: PreparedStatement = connection.prepareStatement(insertTechhub1)
+      preparedStmt12.setString(1, "1")
+      preparedStmt12.setString(2, "mukesh.kumar@knoldus.com")
+      preparedStmt12.setTimestamp(3, date)
+      preparedStmt12.setString(4, "Reactive Microservices")
+      preparedStmt12.execute
+      preparedStmt12.close()
+
+      val insertTechhub2: String =
+        """
+          |insert into techhub(id, email_id, uploaded_on, title)
+          |values (?,?,?,?)
+""".stripMargin
+
+      val preparedStmt13: PreparedStatement = connection.prepareStatement(insertTechhub2)
+      preparedStmt13.setString(1, "4")
+      preparedStmt13.setString(2, "mukesh.kumar@knoldus.com")
+      preparedStmt13.setTimestamp(3, date)
+      preparedStmt13.setString(4, "Delta Lake")
+      preparedStmt13.execute
+      preparedStmt13.close()
+
+      val insertKnolder: String =
+        """
+          |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
+          |values (?,?,?,?,?)
+""".stripMargin
+
+      val preparedStmt7: PreparedStatement = connection.prepareStatement(insertKnolder)
+      preparedStmt7.setInt(1, 1)
+      preparedStmt7.setString(2, "Mukesh Gupta")
+      preparedStmt7.setString(3, "mukesh01")
+      preparedStmt7.setString(4, "mukesh.kumar@knoldus.com")
+      preparedStmt7.setBoolean(5, true)
+      preparedStmt7.execute
+      preparedStmt7.close()
+
+
+      val techhubTitles = List(ContributionDetails("Reactive Microservices", date.toString),
+        ContributionDetails("Delta Lake", date.toString))
+
+      val techhubDetails = Option(Contribution("TechHub", 2, 30, techhubTitles))
+
+      assert(fetchKnolderDetails.fetchAllTimeTechHubDetails(1) == techhubDetails)
     }
   }
 }

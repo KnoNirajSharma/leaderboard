@@ -101,6 +101,18 @@ object DriverApp extends App {
     ),
     "WebinarScriptActor"
   )
+  val techHubScriptActorRef = system.actorOf(
+    Props(
+      new TechHubScriptActor(
+        allTimeReputationActorRef,
+        monthlyReputationActorRef,
+        quarterlyReputationActorRef,
+        storeTechHub,
+        techHubData
+      )
+    ),
+    "TechHubScriptActor"
+  )
   val latestBlogs = blogs.getLatestBlogsFromAPI
   storeBlogs.insertBlog(latestBlogs)
   val latestKnolx = knolx.getLatestKnolxFromAPI
@@ -150,10 +162,25 @@ object DriverApp extends App {
     .get(system)
     .schedule("knolxScriptScheduler", knolxScriptActorRef, ExecuteKnolxScript)
 
+  /**
+   * Fetching latest webinar from webinar API and storing in database.
+   */
+
   QuartzSchedulerExtension
     .get(system)
     .createSchedule("WebinarScriptScheduler", None, "0 0 0 ? * 7 *", None, IndianTime.indianTimezone)
   QuartzSchedulerExtension
     .get(system)
     .schedule("WebinarScriptScheduler", webinarScriptActorRef, ExecuteWebinarScript)
+
+  /**
+   * Fetching latest techhub from techhub API and storing in database.
+   */
+
+  QuartzSchedulerExtension
+    .get(system)
+    .createSchedule("TechHubScriptScheduler", None, "0 0 0 ? * 7 *", None, IndianTime.indianTimezone)
+  QuartzSchedulerExtension
+    .get(system)
+    .schedule("TechHubScriptScheduler", techHubScriptActorRef, ExecuteTechHubScript)
 }
