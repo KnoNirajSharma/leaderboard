@@ -41,6 +41,9 @@ object Build : BuildType({
     params {
         add {
             param("env.URL", "jdbc:h2:mem:test;MODE=Oracle;")
+            param("env.DRIVER", "org.h2.Driver")
+            param("env.USERNAME", )
+            param("env.PASSWORD", )
         }
     }
 

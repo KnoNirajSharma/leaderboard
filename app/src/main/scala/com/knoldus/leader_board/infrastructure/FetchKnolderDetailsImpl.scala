@@ -84,7 +84,7 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
     AND EXTRACT(year
       FROM
       delivered_on) = ?
-    AND knolder.id = ? """)
+    AND knolder.id = ? ORDER BY delivered_on desc """)
       .bind(month, year, knolderId)
       .map(rs => ContributionDetails(rs.string("title"), rs.string("delivered_on")))
       .list().apply()
@@ -130,7 +130,7 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
     AND EXTRACT(year
       FROM
       published_on) = ?
-    AND knolder.id = ? """)
+    AND knolder.id = ? ORDER BY published_on desc """)
       .bind(month, year, knolderId)
       .map(rs => ContributionDetails(rs.string("title"), rs.string("published_on")))
       .list().apply()
@@ -176,7 +176,7 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
     AND EXTRACT(year
       FROM
       delivered_on) = ?
-    AND knolder.id = ? """)
+    AND knolder.id = ? ORDER BY delivered_on desc """)
       .bind(month, year, knolderId)
       .map(rs => ContributionDetails(rs.string("title"), rs.string("delivered_on")))
       .list().apply()
@@ -251,7 +251,7 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
         knolx
         ON knolder.email_id = knolx.email_id
     WHERE
-    knolder.id = ? """)
+    knolder.id = ? ORDER BY delivered_on desc""")
       .bind(knolderId)
       .map(rs => ContributionDetails(rs.string("title"), rs.string("delivered_on")))
       .list().apply()
@@ -285,7 +285,7 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
         webinar
         ON knolder.email_id = webinar.email_id
     WHERE
-    knolder.id = ? """)
+    knolder.id = ? ORDER BY delivered_on desc """)
       .bind(knolderId)
       .map(rs => ContributionDetails(rs.string("title"), rs.string("delivered_on")))
       .list().apply()
@@ -319,7 +319,7 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
       blog
     ON knolder.wordpress_id = blog.wordpress_id
     WHERE
-    knolder.id = ? """)
+    knolder.id = ? ORDER BY published_on desc""")
       .bind(knolderId)
       .map(rs => ContributionDetails(rs.string("title"), rs.string("published_on")))
       .list().apply()

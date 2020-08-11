@@ -11,3 +11,5 @@ addSbtPlugin("com.github.sbt" % "sbt-cpd" % "2.0.0")
 addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.7.0")
 
 addSbtPlugin("nl.codestar" % "sbt-findsecbugs" % "0.16")
+
+addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.0")

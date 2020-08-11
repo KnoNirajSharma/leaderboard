@@ -8,7 +8,7 @@ services:
       - "8111:8111"
     volumes:
       - teamcity-server-data:/data/teamcity_server/datadir
-      - teamcity-server-logs:/opt/teamcity/logs
+      - teamcity-server-data:/opt/teamcity/logs
     healthcheck:
       test: ["CMD", "curl", "http://teamcity-server:8111/login.html" ]
       interval: 1m30s
@@ -18,7 +18,7 @@ services:
     image: jetbrains/teamcity-agent
     depends_on:
       - teamcity-server
-    container_name: teamcity-agent1
+    container_name: teamcity-agent
     restart: always
     environment:
       SERVER_URL: "http://teamcity-server:8111/"
@@ -32,7 +32,6 @@ services:
 volumes:
   teamcity-agent-conf:
   teamcity-server-data:
-  teamcity-server-logs:
 networks:
   default:
     external:
