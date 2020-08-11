@@ -34,19 +34,15 @@ project {
 
 object Build : BuildType({
     name = "Build"
-
+    params {
+        param("env.URL", "jdbc:h2:mem:test;MODE=Oracle;")
+        param("env.DRIVER", "org.h2.Driver")
+        param("env.USERNAME", "")
+        param("env.PASSWORD", "")
+    }
     vcs {
         root(DslContext.settingsRoot)
     }
-    params {
-        add {
-            param("env.URL", "jdbc:h2:mem:test;MODE=Oracle;")
-            param("env.DRIVER", "org.h2.Driver")
-            param("env.USERNAME", )
-            param("env.PASSWORD", )
-        }
-    }
-
     steps {
         step {
             type = "SBT"
