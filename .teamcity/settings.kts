@@ -47,21 +47,25 @@ object Build : BuildType({
             name = "testing"
             type = "SBT"
             param("sbt.args", "clean compile")
+            param("teamcity.build.workingDir", "app")
         }
         step {
             name = "testing"
             type = "SBT"
             param("sbt.args", "clean test")
+            param("teamcity.build.workingDir", "app")
         }
         step {
             name = "testing"
             type = "SBT"
             param("sbt.args", "package")
+            param("teamcity.build.workingDir", "app")
         }
         step{
             name = "coverage test"
             type = "SBT"
             param("sbt.args", "clean coverage test")
+            param("teamcity.build.workingDir", "app")
         }
     }
 
