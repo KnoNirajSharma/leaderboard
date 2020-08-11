@@ -11,7 +11,7 @@ accordingly, and delete the patch script.
 changeBuildType(RelativeId("Build")) {
     params {
         add {
-            param("URL", "jdbc:h2:mem:test;MODE=Oracle;")
+            param("env.URL", "jdbc:h2:mem:test;MODE=Oracle;")
         }
         add {
             param("env.DRIVER", "org.h2.Driver")
