@@ -16,19 +16,21 @@ jobs:
       with:
         java-version: 1.8
     
-    - name: Compile App
-      working-directory: app
-      run: sbt compile
-
-    - name: Compile script-to-fetch-all-blogs
-      working-directory: script-to-fetch-all-blogs
-      run: sbt compile 
-    
-    - name: Cache .ivy
+    - name: Cache SBT
       uses: actions/cache@v2
-      env:
-        cache-name: sbt-library-dependencies
       with:
-        path: ~/.ivy2
-        key: ${{ runner.os }}-build-${{ env.cache-name }}
-  
+        path: |
+          ~/.ivy2/cache
+          ~/.sbt
+        key: ${{ runner.os }}-sbt-${{ hashFiles('**/build.sbt') }}
+    
+    - name: Run test cases
+      working-directory: app
+      env:
+        URL: "jdbc:h2:mem:test;MODE=Oracle;"
+        DRIVER: "org.h2.Driver"
+        USERNAME: 
+        PASSWORD:
+      run: |
+        sudo timedatectl set-timezone Asia/Kolkata
+        sbt test
