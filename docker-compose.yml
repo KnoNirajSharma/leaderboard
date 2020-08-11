@@ -10,7 +10,7 @@ services:
       - teamcity-server-data:/data/teamcity_server/datadir
       - teamcity-server-logs:/opt/teamcity/logs
     healthcheck:
-      test: ["CMD", "curl", "-f", "localhost:8111/mnt" ]
+      test: ["CMD", "curl", "http://teamcity-server:8111/login.html" ]
       interval: 1m30s
       timeout: 30s
       retries: 3
@@ -25,7 +25,7 @@ services:
     volumes:
       - teamcity-agent-conf:/data/teamcity_agent/conf
     healthcheck:
-      test: ["CMD", "curl","-f", "localhost:9090" ]
+      test: ["CMD", "curl","-f", "teamcity-agent:9090" ]
       interval: 1m30s
       timeout: 30s
       retries: 3

@@ -17,7 +17,7 @@ changeBuildType(RelativeId("Build")) {
                 publisher = github {
                     githubUrl = "https://api.github.com"
                     authType = personalToken {
-                        token = "credentialsJSON:4cf3ca77-6931-43f9-bd9b-b0962eeacb29"
+                        token = "credentialsJSON:b2a92a6d-a296-477c-ae41-7ecd343d5527"
                     }
                 }
             }
