@@ -56,6 +56,16 @@ object Build : BuildType({
             type = "SBT"
             param("sbt.args", "package")
         }
+        dockerCommand {
+            name = "build image"
+            commandType = build {
+                source = file {
+                    path = "Dockerfile"
+                }
+                namesAndTags = "sakshigawande12/teamcity1:%build.number%"
+                commandArgs = "-t"
+            }
+        }
         step{
             name = "coverage test"
             type = "SBT"
