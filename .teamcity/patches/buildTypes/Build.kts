@@ -13,5 +13,8 @@ changeBuildType(RelativeId("Build")) {
         add {
             param("URL", "jdbc:h2:mem:test;MODE=Oracle;")
         }
+        add {
+            param("env.DRIVER", "org.h2.Driver")
+        }
     }
 }
