@@ -42,12 +42,25 @@ object Build : BuildType({
         step {
             type = "SBT"
         }
-        dockerCommand {
-            commandType = build {
-                source = file {
-                    path = "Dockerfile"
-                }
-            }
+        step {
+            name = "testing"
+            type = "SBT"
+            param("sbt.args", "clean compile")
+        }
+        step {
+            name = "testing"
+            type = "SBT"
+            param("sbt.args", "clean test")
+        }
+        step {
+            name = "testing"
+            type = "SBT"
+            param("sbt.args", "package")
+        }
+        step{
+            name = "coverage test"
+            type = "SBT"
+            param("sbt.args", "clean coverage test")
         }
     }
 
