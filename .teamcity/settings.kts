@@ -38,6 +38,11 @@ object Build : BuildType({
     vcs {
         root(DslContext.settingsRoot)
     }
+    params {
+        add {
+            param("env.URL", "jdbc:h2:mem:test;MODE=Oracle;")
+        }
+    }
 
     steps {
         step {
@@ -65,6 +70,12 @@ object Build : BuildType({
             name = "coverage test"
             type = "SBT"
             param("sbt.args", "clean coverage test")
+            param("teamcity.build.workingDir", "app")
+        }
+        step{
+            name = "cpd-report"
+            type = "SBT"
+            param("sbt.args", "cpd")
             param("teamcity.build.workingDir", "app")
         }
     }
