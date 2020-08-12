@@ -44,11 +44,9 @@ object Build : BuildType({
         root(DslContext.settingsRoot)
     }
     steps {
+        
         step {
-            type = "SBT"
-        }
-        step {
-            name = "testing"
+            name = "compilation"
             type = "SBT"
             param("sbt.args", "clean compile")
             param("teamcity.build.workingDir", "app")
@@ -60,7 +58,7 @@ object Build : BuildType({
             param("teamcity.build.workingDir", "app")
         }
         step {
-            name = "testing"
+            name = "packagining"
             type = "SBT"
             param("sbt.args", "package")
             param("teamcity.build.workingDir", "app")
@@ -78,6 +76,18 @@ object Build : BuildType({
             param("teamcity.build.workingDir", "app")
         }
         step{
+            name = "scalastyle-report"
+            type = "SBT"
+            param("sbt.args", "scalastyle")
+            param("teamcity.build.workingDir", "app")
+        }
+        step{
+            name = "scapegoat-report"
+            type = "SBT"
+            param("sbt.args", "scapegoat")
+            param("teamcity.build.workingDir", "app")
+        }
+        step{
             name = "build docker image"
             type = "SBT"
             param("sbt.args", "docker:publishLocal")
@@ -87,6 +97,14 @@ object Build : BuildType({
 
     triggers {
         vcs {
+        }
+    }
+
+    features {
+        add {
+            dockerSupport {
+                cleanupPushedImages = true
+            }
         }
     }
 
