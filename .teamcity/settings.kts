@@ -111,11 +111,4 @@ object Build : BuildType({
             }
         }
     }
-    features {
-        add {
-            dockerSupport {
-                cleanupPushedImages = true
-            }
-        }
-    }
 })
