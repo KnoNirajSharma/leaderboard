@@ -44,7 +44,7 @@ object Build : BuildType({
         root(DslContext.settingsRoot)
     }
     steps {
-        
+
         step {
             name = "compilation"
             type = "SBT"
@@ -101,14 +101,6 @@ object Build : BuildType({
     }
 
     features {
-        add {
-            dockerSupport {
-                cleanupPushedImages = true
-            }
-        }
-    }
-
-    features {
         commitStatusPublisher {
             vcsRootExtId = "${DslContext.settingsRoot.id}"
             publisher = github {
@@ -116,6 +108,13 @@ object Build : BuildType({
                 authType = personalToken {
                     token = "credentialsJSON:425701aa-5ad1-4fe6-bdc0-a3a00d1c4881"
                 }
+            }
+        }
+    }
+    features {
+        add {
+            dockerSupport {
+                cleanupPushedImages = true
             }
         }
     }
