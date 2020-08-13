@@ -109,6 +109,12 @@ object Build : BuildType({
             param("teamcity.build.workingDir", "app")
             param("use.custom.script", "true")
         }
+        script {
+            name = "set-timezone"
+            executionMode = BuildStep.ExecutionMode.RUN_ON_FAILURE
+            workingDir = "app"
+            scriptContent = "sudo timedatectl set-timezone Asia/Kolkata"
+        }
     }
 
     triggers {
