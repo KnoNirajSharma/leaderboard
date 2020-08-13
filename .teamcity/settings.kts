@@ -59,7 +59,7 @@ object Build : BuildType({
             name = "set-timezone"
             executionMode = BuildStep.ExecutionMode.RUN_ON_FAILURE
             workingDir = "app"
-            scriptContent = "sudo timedatectl set-timezone Asia/Kolkata"
+            scriptContent = "timedatectl set-timezone Asia/Kolkata"
         }
         step {
             name = "testing"
