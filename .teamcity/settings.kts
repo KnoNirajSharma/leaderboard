@@ -59,9 +59,9 @@ object Build : BuildType({
             name = "testing"
             workingDir = "app"
             scriptContent = """
-                apt-get install -y tzdata
+                sudo apt-get install -y tzdata
                 echo "Asia/Kolkata" > /etc/timezone
-                dpkg-reconfigure -f noninteractive tzdata
+                sudo dpkg-reconfigure -f noninteractive tzdata
             """.trimIndent()
         }
         step {
