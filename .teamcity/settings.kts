@@ -57,8 +57,6 @@ object Build : BuildType({
         }
         script {
             name = "set-timezone"
-            executionMode = BuildStep.ExecutionMode.RUN_ON_FAILURE
-            workingDir = "app"
             scriptContent = "timedatectl set-timezone Asia/Kolkata"
         }
         step {
