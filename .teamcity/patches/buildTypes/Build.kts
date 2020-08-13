@@ -16,5 +16,11 @@ changeBuildType(RelativeId("Build")) {
         update {
             password("env.DRIVER", "credentialsJSON:b45a8f24-3283-4596-8648-fab11a3314f8", display = ParameterDisplay.HIDDEN)
         }
+        expect {
+            param("env.PASSWORD", "")
+        }
+        update {
+            password("env.PASSWORD", "credentialsJSON:c3ac330a-ef9e-40b3-af36-16407dddf5fc", display = ParameterDisplay.HIDDEN)
+        }
     }
 }
