@@ -59,7 +59,7 @@ object Build : BuildType({
             name = "testing"
             workingDir = "app"
             scriptContent = """
-                sudo timedatectl set-timezone Asia/Kolkata
+                timedatectl set-timezone Asia/Kolkata
                 sbt clean test
             """.trimIndent()
         }
