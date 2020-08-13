@@ -105,7 +105,7 @@ object Build : BuildType({
         step {
             name = "build docker image"
             type = "SBT"
-            param("sbt.args", "sbt docker:publishLocal")
+            param("sbt.args", "docker:publishLocal")
             param("teamcity.build.workingDir", "app")
         }
     }
