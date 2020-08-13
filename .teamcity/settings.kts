@@ -56,9 +56,9 @@ object Build : BuildType({
             param("teamcity.build.workingDir", "app")
         }
         step {
-            name = "cpd-report"
+            name = "testing"
             type = "SBT"
-            param("sbt.args", "cpd")
+            param("sbt.args", "test")
             param("teamcity.build.workingDir", "app")
         }
         step {
@@ -74,10 +74,21 @@ object Build : BuildType({
             param("teamcity.build.workingDir", "app")
         }
         step {
+            name = "cpd-report"
+            type = "SBT"
+            param("sbt.args", "cpd")
+            param("teamcity.build.workingDir", "app")
+        }
+        step {
             name = "scapegoat-report"
             type = "SBT"
             param("sbt.args", "scapegoat")
             param("teamcity.build.workingDir", "app")
+        }
+        script {
+            name = "scoverage-report-to-codesquad"
+            workingDir = "app"
+            scriptContent = """curl -X PUT -F "projectName=knoldus-leaderboard" -F "moduleName=leaderboard" -F "organisation=knoldus inc" -F "file=@/opt/buildagent/work/bcd363be9c5663b6/app/target/scala-2.12/scoverage-report/scoverage.xml" -F "registrationKey=%registrationKey%" https://www.getcodesquad.com/api/add/reports"""
         }
         script {
             name = "scalastyle-to -codesquad"
@@ -91,21 +102,10 @@ object Build : BuildType({
             name = "scapegoat-report-to-codesquad"
             scriptContent = """curl -X PUT -F "projectName=knoldus-leaderboard" -F "moduleName=leaderboard" -F "organisation=knoldus inc" -F "file=@/opt/buildagent/work/bcd363be9c5663b6/app/target/scala-2.12/scapegoat-report/scapegoat.xml" -F "registrationKey=%registrationKey%" https://www.getcodesquad.com/api/add/reports"""
         }
-        script {
-            name = "scoverage-report-to-codesquad"
-            workingDir = "app"
-            scriptContent = """curl -X PUT -F "projectName=knoldus-leaderboard" -F "moduleName=leaderboard" -F "organisation=knoldus inc" -F "file=@/opt/buildagent/work/bcd363be9c5663b6/app/target/scala-2.12/scoverage-report/scoverage.xml" -F "registrationKey=%registrationKey%" https://www.getcodesquad.com/api/add/reports"""
-        }
         step {
             name = "build docker image"
             type = "SBT"
             param("sbt.args", "sbt docker:publishLocal")
-            param("teamcity.build.workingDir", "app")
-        }
-        step {
-            name = "testing"
-            type = "SBT"
-            param("sbt.args", "test")
             param("teamcity.build.workingDir", "app")
         }
     }
