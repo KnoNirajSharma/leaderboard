@@ -15,9 +15,11 @@ describe('EmployeeActivityService', () => {
     monthlyBlogCount: 2,
     monthlyKnolxCount: 2,
     monthlyWebinarCount: 2,
+    monthlyTechHubCount: 2,
     allTimeBlogCount: 3,
     allTimeKnolxCount: 2,
     allTimeWebinarCount: 2,
+    allTimeTechHubCount: 3,
     reputation: [
       {
         knolderId: 1,

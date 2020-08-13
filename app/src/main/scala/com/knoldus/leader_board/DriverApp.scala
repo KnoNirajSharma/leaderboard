@@ -22,49 +22,93 @@ object DriverApp extends App {
   val readBlog = new ReadContributionImpl(config)
   val readAllTimeReputation: ReadAllTimeReputation = new ReadAllTimeReputationImpl(config)
   val writeAllTimeReputation: WriteAllTimeReputation = new WriteAllTimeReputationImpl(config)
-  val allTimeReputation: AllTimeReputation = new AllTimeReputationImpl(readBlog, knolderRank, knolderScore,
-    readAllTimeReputation)
+  val allTimeReputation: AllTimeReputation =
+    new AllTimeReputationImpl(readBlog, knolderRank, knolderScore, readAllTimeReputation)
   val readMonthlyReputation: ReadMonthlyReputation = new ReadMonthlyReputationImpl(config)
   val writeMonthlyReputation: WriteMonthlyReputation = new WriteMonthlyReputationImpl(config)
-  val monthlyReputation: MonthlyReputation = new MonthlyReputationImpl(readBlog, knolderRank, knolderScore,
-    readMonthlyReputation)
+  val monthlyReputation: MonthlyReputation =
+    new MonthlyReputationImpl(readBlog, knolderRank, knolderScore, readMonthlyReputation)
   val readQuarterlyReputation: ReadQuarterlyReputation = new ReadQuarterlyReputationImpl(config)
   val writeQuarterlyReputation: WriteQuarterlyReputation = new WriteQuarterlyReputationImpl(config)
-  val quarterlyReputation: QuarterlyReputation = new QuarterlyReputationImpl(readBlog, knolderScore,
-    readQuarterlyReputation)
+  val quarterlyReputation: QuarterlyReputation =
+    new QuarterlyReputationImpl(readBlog, knolderScore, readQuarterlyReputation)
   val fetchReputation: FetchReputation = new FetchReputationImpl(config)
   val fetchKnolderDetails: FetchKnolderDetails = new FetchKnolderDetailsImpl(config)
-  val twelveMonthsContribution:TwelveMonthsContribution=new TwelveMonthsContributionImpl(readBlog)
-  val fetchReputationWithCount:FetchCountWithReputation=new FetchCountWithReputationImpl(config,fetchReputation)
-  val reputationOnAPI: ReputationOnAPI = new ReputationOnAPIImpl(twelveMonthsContribution,fetchKnolderDetails, fetchReputationWithCount, config)
-  val spreadSheetApiObj=new SpreadSheetApi(config)
-  val webinarSpreadSheetData:WebinarSpreadSheetData=new WebinarSpreadSheetDataImpl(spreadSheetApiObj,config)
-  val storeWebinar=new StoreWebinarImpl(config)
+  val twelveMonthsContribution: TwelveMonthsContribution = new TwelveMonthsContributionImpl(readBlog)
+  val fetchReputationWithCount: FetchCountWithReputation =
+    new FetchCountWithReputationImpl(config, fetchReputation)
+  val reputationOnAPI: ReputationOnAPI =
+    new ReputationOnAPIImpl(twelveMonthsContribution, fetchKnolderDetails, fetchReputationWithCount, config)
+  val spreadSheetApiObj = new SpreadSheetApi(config)
+  val webinarSpreadSheetData: WebinarSpreadSheetData =
+    new WebinarSpreadSheetDataImpl(spreadSheetApiObj, config)
+  val storeWebinar = new StoreWebinarImpl(config)
   val fetchBlogs: FetchBlogs = new FetchBlogsImpl(config)
   val fetchKnolx: FetchKnolx = new FetchKnolxImpl(config)
+  val fetchTechHub: FetchTechHub = new FetchTechHubImpl(config)
   val storeBlogs: StoreBlogs = new StoreBlogsImpl(config)
   val storeKnolx: StoreKnolx = new StoreKnolxImpl(config)
+  val storeTechHub: StoreTechHub = new StoreTechHubImpl(config)
   val URLResponse: URLResponse = new URLResponse
+  val techHubData: TechHubData = new TechHubDataImpl(fetchTechHub, URLResponse, config)
   val blogs: Blogs = new BlogsImpl(fetchBlogs, URLResponse, config)
   val knolx: Knolxs = new KnolxImpl(fetchKnolx, URLResponse, config)
-  val allTimeReputationActorRef = system.actorOf(Props(new AllTimeReputationActor(allTimeReputation,
-    writeAllTimeReputation)), "allTimeReputationActor")
-  val monthlyReputationActorRef = system.actorOf(Props(new MonthlyReputationActor(monthlyReputation,
-    writeMonthlyReputation)), "monthlyReputationActor")
-  val quarterlyReputationActorRef = system.actorOf(Props(new QuarterlyReputationActor(quarterlyReputation,
-    writeQuarterlyReputation)), "quarterlyReputationActor")
-  val blogScriptActorRef = system.actorOf(Props(new BlogScriptActor(allTimeReputationActorRef,
-    monthlyReputationActorRef, quarterlyReputationActorRef, storeBlogs, blogs)), "BlogScriptActor")
-  val knolxScriptActorRef = system.actorOf(Props(new KnolxScriptActor(allTimeReputationActorRef,
-    monthlyReputationActorRef, quarterlyReputationActorRef, storeKnolx, knolx)), "KnolxScriptActor")
-  val webinarScriptActorRef = system.actorOf(Props(new WebinarScriptActor(allTimeReputationActorRef,
-    monthlyReputationActorRef, quarterlyReputationActorRef, storeWebinar, webinarSpreadSheetData)), "WebinarScriptActor")
+  val allTimeReputationActorRef = system.actorOf(
+    Props(new AllTimeReputationActor(allTimeReputation, writeAllTimeReputation)),
+    "allTimeReputationActor"
+  )
+  val monthlyReputationActorRef = system.actorOf(
+    Props(new MonthlyReputationActor(monthlyReputation, writeMonthlyReputation)),
+    "monthlyReputationActor"
+  )
+  val quarterlyReputationActorRef = system.actorOf(
+    Props(new QuarterlyReputationActor(quarterlyReputation, writeQuarterlyReputation)),
+    "quarterlyReputationActor"
+  )
+  val blogScriptActorRef = system.actorOf(
+    Props(
+      new BlogScriptActor(
+        allTimeReputationActorRef,
+        monthlyReputationActorRef,
+        quarterlyReputationActorRef,
+        storeBlogs,
+        blogs
+      )
+    ),
+    "BlogScriptActor"
+  )
+  val knolxScriptActorRef = system.actorOf(
+    Props(
+      new KnolxScriptActor(
+        allTimeReputationActorRef,
+        monthlyReputationActorRef,
+        quarterlyReputationActorRef,
+        storeKnolx,
+        knolx
+      )
+    ),
+    "KnolxScriptActor"
+  )
+  val webinarScriptActorRef = system.actorOf(
+    Props(
+      new WebinarScriptActor(
+        allTimeReputationActorRef,
+        monthlyReputationActorRef,
+        quarterlyReputationActorRef,
+        storeWebinar,
+        webinarSpreadSheetData
+      )
+    ),
+    "WebinarScriptActor"
+  )
   val latestBlogs = blogs.getLatestBlogsFromAPI
   storeBlogs.insertBlog(latestBlogs)
   val latestKnolx = knolx.getLatestKnolxFromAPI
   storeKnolx.insertKnolx(latestKnolx)
-  val webinarDetails=webinarSpreadSheetData.getWebinarData
+  val webinarDetails = webinarSpreadSheetData.getWebinarData
   storeWebinar.insertWebinar(webinarDetails)
+  val techHubDataList = techHubData.getLatestTechHubTemplates
+  storeTechHub.insertTechHub(techHubDataList)
   val allTimeReputations = allTimeReputation.getKnolderReputation
   writeAllTimeReputation.insertAllTimeReputationData(allTimeReputations)
   writeAllTimeReputation.updateAllTimeReputationData(allTimeReputations)
@@ -85,21 +129,31 @@ object DriverApp extends App {
     } else {
       startTimeToScriptExecution - totalSecondsOfDayTillCurrentTime
     }
+
   /**
    * Fetching latest blogs from Wordpress API and storing in database.
    */
-  system.scheduler.scheduleAtFixedRate(timeForScriptExecution.seconds, 24.hours, blogScriptActorRef,
-    ExecuteBlogsScript)
+  system.scheduler.scheduleAtFixedRate(
+    timeForScriptExecution.seconds,
+    24.hours,
+    blogScriptActorRef,
+    ExecuteBlogsScript
+  )
+
   /**
    * Fetching latest knolx from Knolx API and storing in database.
    */
-  QuartzSchedulerExtension.get(system).createSchedule("knolxScriptScheduler", None,
-    "0 0 0 ? * 7 *", None, IndianTime.indianTimezone)
-  QuartzSchedulerExtension.get(system).schedule("knolxScriptScheduler", knolxScriptActorRef,
-    ExecuteKnolxScript)
+  QuartzSchedulerExtension
+    .get(system)
+    .createSchedule("knolxScriptScheduler", None, "0 0 0 ? * 7 *", None, IndianTime.indianTimezone)
+  QuartzSchedulerExtension
+    .get(system)
+    .schedule("knolxScriptScheduler", knolxScriptActorRef, ExecuteKnolxScript)
 
-  QuartzSchedulerExtension.get(system).createSchedule("WebinarScriptScheduler", None,
-    "0 0 0 ? * 7 *", None, IndianTime.indianTimezone)
-  QuartzSchedulerExtension.get(system).schedule("WebinarScriptScheduler", webinarScriptActorRef,
-    ExecuteWebinarScript)
+  QuartzSchedulerExtension
+    .get(system)
+    .createSchedule("WebinarScriptScheduler", None, "0 0 0 ? * 7 *", None, IndianTime.indianTimezone)
+  QuartzSchedulerExtension
+    .get(system)
+    .schedule("WebinarScriptScheduler", webinarScriptActorRef, ExecuteWebinarScript)
 }

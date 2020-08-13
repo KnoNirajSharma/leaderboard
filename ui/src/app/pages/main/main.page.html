@@ -48,8 +48,8 @@
                             TechHub Templates
                         </div>
                         <div class="d-flex justify-content-between my-1 w-75 mx-auto">
-                            <span class="contribution-count contribution-left d-flex justify-content-center align-items-center">n/a</span>
-                            <span class="contribution-count contribution-right d-flex justify-content-center align-items-center">n/a</span>
+                            <span class="contribution-count contribution-left d-flex justify-content-center align-items-center">{{reputation.allTimeTechHubCount}}</span>
+                            <span class="contribution-count contribution-right d-flex justify-content-center align-items-center">{{reputation.monthlyTechHubCount}}</span>
                         </div>
                     </div>
                     <div class="card mx-1 mx-sm-0 py-2 d-inline-block border-0">
@@ -90,7 +90,9 @@
                     <div class="col-6 col-sm-5 col-md-4 col-lg-2 my-auto text-center scoring">
                         <div class="popover-wrapper">
                             <a href="#">
-                                <div class="popover-title">Scoring</div>
+                                <div class="popover-title"><img alt=""
+                                                                src="../../../assets/icon/info7.png"
+                                                                class="image-style" />Scoring</div>
                             </a>
                             <div class="popover-content">
                                 <table class="popover-message">
@@ -112,7 +114,7 @@
                                     <tr>
                                         <td>Webinars</td>
                                         <td>15</td>
-                                        <td>N</td>
+                                        <td>Y</td>
                                     </tr>
                                     <tr>
                                         <td>TechHub Templates</td>
@@ -144,7 +146,7 @@
                         <img alt="search-logo" class="input-img" src="./assets/icon/search.svg"/>
                     </label>
                 </div>
-                <app-table [tableHeading]="tableHeading" [tableRows]="filteredEmpData"></app-table>
+                <app-table [employeeRows]="employeeData" [tableHeading]="tableHeading" [tableRows]="filteredEmpData"></app-table>
             </ion-card>
         </div>
     </div>
