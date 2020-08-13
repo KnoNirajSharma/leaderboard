@@ -52,7 +52,6 @@ object Build : BuildType({
         step {
             name = "compilation"
             type = "SBT"
-            param("sbt.args", "clean compile")
             param("teamcity.build.workingDir", "app")
         }
         script {
