@@ -41,7 +41,6 @@ export class MainPage implements OnInit {
       });
     this.currentDate = new Date();
     this.tableHeading = [
-      { title: 'NAME' },
       { title: 'MONTHLY RANK' },
       { title: 'MONTHLY SCORE' },
       { title: 'OVERALL RANK' },

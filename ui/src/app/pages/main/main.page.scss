@@ -234,11 +234,12 @@ table, td, th {
 }
 
 .image-style {
-  height: 16px;
-  width: 18px;
+  height: 15px;
+  width: 15px;
   margin-top: -2px;
   margin-right: 4px;
   color: #7f7f7f;
+  opacity: 0.5;
 }
 
 @media only screen and (max-width: 768px) {
