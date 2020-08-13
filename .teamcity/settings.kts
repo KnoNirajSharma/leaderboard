@@ -65,8 +65,7 @@ object Build : BuildType({
         step {
             name = "coverage-report"
             type = "SBT"
-            executionMode = BuildStep.ExecutionMode.RUN_ON_FAILURE
-            param("sbt.args", "coverageReport")
+            param("sbt.args", "coverage test coverageReport")
             param("teamcity.build.workingDir", "app")
         }
         step {
