@@ -56,15 +56,12 @@ object Build : BuildType({
             param("teamcity.build.workingDir", "app")
         }
         script {
-            name = "set-timezone"
-            scriptContent = "timedatectl set-timezone Asia/Kolkata"
-        }
-        step {
             name = "testing"
-            type = "SBT"
-            executionMode = BuildStep.ExecutionMode.RUN_ON_FAILURE
-            param("sbt.args", "clean test")
-            param("teamcity.build.workingDir", "app")
+            workingDir = "app"
+            scriptContent = """
+                sudo timedatectl set-timezone Asia/Kolkata
+                sbt clean test
+            """.trimIndent()
         }
         step {
             name = "cpd-report"
