@@ -59,8 +59,9 @@ object Build : BuildType({
             name = "testing"
             workingDir = "app"
             scriptContent = """
-                timedatectl set-timezone Asia/Kolkata
-                sbt clean test
+                apt-get install -y tzdata
+                echo "Asia/Kolkata" > /etc/timezone
+                dpkg-reconfigure -f noninteractive tzdata
             """.trimIndent()
         }
         step {
