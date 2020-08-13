@@ -106,10 +106,6 @@ object Build : BuildType({
             scriptContent = """curl -X PUT -F "projectName=knoldus-leaderboard" -F "moduleName=cpd-report" -F "organisation=knoldus inc" -F "file=@/opt/buildagent/work/bcd363be9c5663b6/app/target/scala-2.12/scapegoat-report/scapegoat.xml" -F "registrationKey=2159f15a-6e52-438a-a1a3-4b0e77b30a43" https://www.getcodesquad.com/api/add/reports"""
         }
         script {
-            name = "coverage-report-to-codesquad"
-            scriptContent = """curl -X PUT -F "projectName=knoldus-leaderboard" -F "moduleName=cpd-report" -F "organisation=knoldus inc" -F "file=@/opt/buildagent/work/bcd363be9c5663b6/app/target/scala-2.12/scoverage-data/scoverage.coverage.xml" -F "registrationKey=2159f15a-6e52-438a-a1a3-4b0e77b30a43" https://www.getcodesquad.com/api/add/reports"""
-        }
-        script {
             name = "build-docker-image"
             scriptContent = """sbt docker:publishLocal"""
         }
