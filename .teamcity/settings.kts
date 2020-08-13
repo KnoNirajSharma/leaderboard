@@ -49,15 +49,6 @@ object Build : BuildType({
     }
 
     steps {
-        script {
-            name = "testing"
-            workingDir = "app"
-            scriptContent = """
-                sudo apt-get install -y tzdata
-                echo "Asia/Kolkata" > /etc/timezone
-                sudo dpkg-reconfigure -f noninteractive tzdata
-            """.trimIndent()
-        }
         step {
             name = "compilation"
             type = "SBT"
