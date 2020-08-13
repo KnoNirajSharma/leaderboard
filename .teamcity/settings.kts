@@ -95,13 +95,10 @@ object Build : BuildType({
             name = "scoverage-report-to-codesquad"
             scriptContent = """curl -X PUT -F "projectName=knoldus-leaderboard" -F "moduleName=leaderboard" -F "organisation=knoldus inc" -F "file=@/opt/buildagent/work/bcd363be9c5663b6/app/target/scala-2.12/scoverage-report/scoverage.xml" -F "registrationKey=%registrationKey%" https://www.getcodesquad.com/api/add/reports"""
         }
-        step {
+        script {
             name = "build docker image"
-            type = "SBT"
-            executionMode = BuildStep.ExecutionMode.RUN_ON_FAILURE
-            param("script.content", "sbt docker:publishLocal")
-            param("teamcity.build.workingDir", "app")
-            param("use.custom.script", "true")
+            workingDir = "app"
+            scriptContent = "sbt docker:publishLocal"
         }
         step {
             name = "testing"
