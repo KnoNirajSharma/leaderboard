@@ -23,7 +23,7 @@ class ReputationOnAPIImplSpec extends AnyWordSpecLike with MockitoSugar with Mat
   val reputations = List(Reputation(1, "Mukesh Gupta", 10, 1, "15-20-20", 10, 1),
     Reputation(2, "Abhishek Baranwal", 5, 2, "10-10-15", 5, 2),
     Reputation(3, "Komal Rajpal", 5, 2, "5-10-5", 5, 2))
-  val reputationCountAndReputation = Option(ReputationWithCount(1, 1, 1, 1, 1, 1, 1, 1, reputations))
+  val reputationWithCount = Option(ReputationWithCount(1, 1, 1, 1, 1, 1, 1, 1, reputations))
   val blogTitles = List(ContributionDetails("windows handling using selenium webdriver", "2020-04-13 13:10:40"),
     ContributionDetails("Java 9: Enhance your Jav…ptional API enhancement", "2020-04-13 13:10:40"))
   val blogDetails: Option[Contribution] = Option(Contribution("Blog", 2, 10, blogTitles))
@@ -34,7 +34,7 @@ class ReputationOnAPIImplSpec extends AnyWordSpecLike with MockitoSugar with Mat
   "The service" should {
     "display reputation of knolders to routed path" in {
       Get("/reputation") ~> reputationOnAPI.reputationRoute ~> check {
-        responseAs[String] shouldEqual compactRender(decompose(reputationCountAndReputation))
+        responseAs[String] shouldEqual compactRender(decompose(reputationWithCount))
       }
     }
     "display monthly details of knolders to routed path" in {

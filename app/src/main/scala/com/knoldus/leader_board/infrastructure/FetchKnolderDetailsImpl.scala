@@ -72,27 +72,10 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
       .map(rs => ContributionDetails(rs.string("title"), rs.string("delivered_on")))
       .list().apply()
 
-    SQL(
-      s"""
-      SELECT
-      COUNT(webinar.title) AS webinarCount,
-      COUNT(webinar.title) * ${config.getInt("scorePerWebinar")} AS WebinarScore
-        FROM
-        webinar
-        RIGHT JOIN
-        knolder
-        ON knolder.email_id = webinar.email_id
-    AND EXTRACT(month
-      FROM
-      delivered_on) = ?
-    AND EXTRACT(year
-      FROM
-      delivered_on) = ?
-    WHERE
-    knolder.id = ? """)
-      .bind(month, year, knolderId)
-      .map(rs => Contribution("Webinar", rs.int("webinarCount"), rs.int("webinarScore"), webinarTitles))
-      .single().apply()
+    val webinarCount = webinarTitles.length
+    val webinarScore = webinarTitles.length * config.getInt("scorePerWebinar")
+
+    Option(Contribution("Webinar", webinarCount, webinarScore, webinarTitles))
   }
 
   def fetchKnolderMonthlyBlogDetails(month: Int, year: Int, knolderId: Int): Option[Contribution] = {
@@ -118,27 +101,10 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
       .map(rs => ContributionDetails(rs.string("title"), rs.string("published_on")))
       .list().apply()
 
-    SQL(
-      s"""
-      SELECT
-      COUNT(blog.title) AS blogCount,
-      COUNT(blog.title) * ${config.getInt("scorePerBlog")} AS blogScore
-        FROM
-        blog
-        RIGHT JOIN
-        knolder
-        ON knolder.wordpress_id = blog.wordpress_id
-    AND EXTRACT(month
-      FROM
-      published_on) = ?
-    AND EXTRACT(year
-      FROM
-      published_on) = ?
-    WHERE
-    knolder.id = ? """)
-      .bind(month, year, knolderId)
-      .map(rs => Contribution("Blogs", rs.int("blogCount"), rs.int("blogScore"), blogTitles))
-      .single().apply()
+    val blogCount = blogTitles.length
+    val blogScore = blogTitles.length * config.getInt("scorePerBlog")
+
+    Option(Contribution("Blogs", blogCount, blogScore, blogTitles))
   }
 
   def fetchKnolderMonthlyKnolxDetails(month: Int, year: Int, knolderId: Int): Option[Contribution] = {
@@ -164,33 +130,16 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
       .map(rs => ContributionDetails(rs.string("title"), rs.string("delivered_on")))
       .list().apply()
 
+    val knolxCount = knolxTitles.length
+    val knolxScore = knolxTitles.length * config.getInt("scorePerKnolx")
 
-    SQL(
-      s"""SELECT
-      COUNT(knolx.title) AS knolxCount,
-      COUNT(knolx.title) *  ${config.getInt("scorePerKnolx")} AS knolxScore
-        FROM
-        knolx
-        RIGHT JOIN
-        knolder
-        ON knolder.email_id =knolx.email_id
-    AND EXTRACT(month
-      FROM
-      delivered_on) = ?
-    AND EXTRACT(year
-      FROM
-      delivered_on) = ?
-    WHERE
-    knolder.id = ? """)
-      .bind(month, year, knolderId)
-      .map(rs => Contribution("Knolx", rs.int("knolxCount"), rs.int("knolxScore"), knolxTitles))
-      .single().apply()
+    Option(Contribution("Knolx", knolxCount, knolxScore, knolxTitles))
   }
 
 
   def fetchKnolderMonthlyTechHubDetails(month: Int, year: Int, knolderId: Int): Option[Contribution] = {
 
-    val techhubTitles = SQL(
+    val techHubTitles = SQL(
       """ SELECT
       techhub.title,
       techhub.uploaded_on
@@ -211,27 +160,10 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
       .map(rs => ContributionDetails(rs.string("title"), rs.string("uploaded_on")))
       .list().apply()
 
-    SQL(
-      s"""
-      SELECT
-      COUNT(techhub.title) AS techHubCount,
-      COUNT(techhub.title) * ${config.getInt("scorePerTechHub")} AS techHubScore
-        FROM
-        techhub
-        RIGHT JOIN
-        knolder
-        ON knolder.email_id = techhub.email_id
-    AND EXTRACT(month
-      FROM
-      uploaded_on) = ?
-    AND EXTRACT(year
-      FROM
-      uploaded_on) = ?
-    WHERE
-    knolder.id = ? """)
-      .bind(month, year, knolderId)
-      .map(rs => Contribution("TechHub", rs.int("techHubCount"), rs.int("techHubScore"), techhubTitles))
-      .single().apply()
+    val techHubCount = techHubTitles.length
+    val techHubScore = techHubTitles.length * config.getInt("scorePerTechHub")
+
+    Option(Contribution("TechHub", techHubCount, techHubScore, techHubTitles))
   }
 
   /**
@@ -290,21 +222,10 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
       .map(rs => ContributionDetails(rs.string("title"), rs.string("delivered_on")))
       .list().apply()
 
-    SQL(
-      s"""
-      SELECT
-      COUNT(knolx.title) AS knolxCount,
-      COUNT(knolx.title) * ${config.getInt("scorePerKnolx")} AS KnolxScore
-        FROM
-        knolx
-        LEFT JOIN
-        knolder
-        ON knolder.email_id = knolx.email_id
-    WHERE
-    knolder.id = ? """)
-      .bind(knolderId)
-      .map(rs => Contribution("Knolx", rs.int("knolxCount"), rs.int("knolxScore"), knolxTitles))
-      .single().apply()
+    val knolxCount = knolxTitles.length
+    val knolxScore = knolxTitles.length * config.getInt("scorePerKnolx")
+
+    Option(Contribution("Knolx", knolxCount, knolxScore, knolxTitles))
   }
 
   def fetchAllTimeWebinarDetails(knolderId: Int): Option[Contribution] = {
@@ -324,21 +245,11 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
       .map(rs => ContributionDetails(rs.string("title"), rs.string("delivered_on")))
       .list().apply()
 
-    SQL(
-      s"""
-      SELECT
-      COUNT(webinar.title) AS webinarCount,
-      COUNT(webinar.title) *  ${config.getInt("scorePerWebinar")} AS webinarScore
-        FROM
-        webinar
-        LEFT JOIN
-        knolder
-        ON knolder.email_id = webinar.email_id
-    WHERE
-    knolder.id = ? """)
-      .bind(knolderId)
-      .map(rs => Contribution("Webinar", rs.int("webinarCount"), rs.int("webinarScore"), webinarTitles))
-      .single().apply()
+    val webinarCount = webinarTitles.length
+    val webinarScore = webinarTitles.length * config.getInt("scorePerWebinar")
+
+    Option(Contribution("Webinar", webinarCount, webinarScore, webinarTitles))
+
   }
 
   def fetchAllTimeBlogDetails(knolderId: Int): Option[Contribution] = {
@@ -358,25 +269,14 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
       .map(rs => ContributionDetails(rs.string("title"), rs.string("published_on")))
       .list().apply()
 
-    SQL(
-      s"""
-      SELECT
-      COUNT(blog.title) AS blogCount,
-      COUNT(blog.title) * ${config.getInt("scorePerBlog")} AS blogScore
-        FROM
-        blog
-        RIGHT JOIN
-        knolder
-        ON knolder.wordpress_id =blog.wordpress_id
-    WHERE
-    knolder.id = ? """)
-      .bind(knolderId)
-      .map(rs => Contribution("Blogs", rs.int("blogCount"), rs.int("blogScore"), blogTitles))
-      .single().apply()
+    val blogCount = blogTitles.length
+    val blogScore = blogTitles.length * config.getInt("scorePerBlog")
+
+    Option(Contribution("Blogs", blogCount, blogScore, blogTitles))
   }
 
   def fetchAllTimeTechHubDetails(knolderId: Int): Option[Contribution] = {
-    val knolxTitles = SQL(
+    val techHubTitles = SQL(
       """SELECT
       techhub.title,
       techhub.uploaded_on
@@ -391,20 +291,10 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
       .map(rs => ContributionDetails(rs.string("title"), rs.string("uploaded_on")))
       .list().apply()
 
-    SQL(
-      s"""
-      SELECT
-      COUNT(techhub.title) AS techHubCount,
-      COUNT(techhub.title) * ${config.getInt("scorePerTechHub")} AS techHubScore
-        FROM
-        knolder
-        LEFT JOIN
-        techhub
-        ON knolder.email_id = techhub.email_id
-    WHERE
-    knolder.id = ? """)
-      .bind(knolderId)
-      .map(rs => Contribution("TechHub", rs.int("techHubCount"), rs.int("techHubScore"), knolxTitles))
-      .single().apply()
+    val techHubCount = techHubTitles.length
+    val techHubScore = techHubTitles.length * config.getInt("scorePerTechHub")
+
+    Option(Contribution("TechHub", techHubCount, techHubScore, techHubTitles))
+
   }
 }
