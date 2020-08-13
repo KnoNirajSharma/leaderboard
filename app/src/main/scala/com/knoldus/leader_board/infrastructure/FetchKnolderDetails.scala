@@ -18,4 +18,8 @@ trait FetchKnolderDetails {
   def fetchAllTimeWebinarDetails(knolderId: Int): Option[Contribution]
 
   def fetchAllTimeBlogDetails(knolderId: Int): Option[Contribution]
+
+  def fetchKnolderMonthlyTechHubDetails(month: Int, year: Int, knolderId: Int): Option[Contribution]
+
+  def fetchAllTimeTechHubDetails(knolderId: Int): Option[Contribution]
 }

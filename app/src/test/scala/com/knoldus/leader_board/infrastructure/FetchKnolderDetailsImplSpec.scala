@@ -22,106 +22,150 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
   "fetch knolder details" should {
     val date = Timestamp.valueOf("2020-04-13 13:10:40")
 
-    "return monthly details of specific knolder" in {
-
-
-      val insertBlog1: String =
+    def insertBlog: Unit = {
+      val insertBlogOne: String =
         """
           |insert into blog(id, wordpress_id, published_on, title)
           |values (?,?,?,?)
 """.stripMargin
 
-      val preparedStmt3: PreparedStatement = connection.prepareStatement(insertBlog1)
-      preparedStmt3.setInt(1, 1001)
-      preparedStmt3.setString(2, "mukesh01")
-      preparedStmt3.setTimestamp(3, date)
-      preparedStmt3.setString(4, "windows handling using selenium webdriver")
-      preparedStmt3.execute
-      preparedStmt3.close()
+      val preparedStmtOne: PreparedStatement = connection.prepareStatement(insertBlogOne)
+      preparedStmtOne.setInt(1, 1001)
+      preparedStmtOne.setString(2, "mukesh01")
+      preparedStmtOne.setTimestamp(3, date)
+      preparedStmtOne.setString(4, "windows handling using selenium webdriver")
+      preparedStmtOne.execute
+      preparedStmtOne.close()
 
-      val insertBlog2: String =
+      val insertBlogTwo: String =
         """
           |insert into blog(id, wordpress_id, published_on, title)
           |values (?,?,?,?)
 """.stripMargin
 
-      val preparedStmt4: PreparedStatement = connection.prepareStatement(insertBlog2)
-      preparedStmt4.setInt(1, 1004)
-      preparedStmt4.setString(2, "mukesh01")
-      preparedStmt4.setTimestamp(3, date)
-      preparedStmt4.setString(4, "Java 9: Enhance your Jav…ptional API enhancement")
-      preparedStmt4.execute
-      preparedStmt4.close()
+      val preparedStmtTwo: PreparedStatement = connection.prepareStatement(insertBlogTwo)
+      preparedStmtTwo.setInt(1, 1004)
+      preparedStmtTwo.setString(2, "mukesh01")
+      preparedStmtTwo.setTimestamp(3, date)
+      preparedStmtTwo.setString(4, "Java 9: Enhance your Jav…ptional API enhancement")
+      preparedStmtTwo.execute
+      preparedStmtTwo.close()
+    }
 
-      val insertKnolx1: String =
+    def insertKnolx {
+      val insertKnolxOne: String =
         """
           |insert into knolx(id, email_id, delivered_on, title)
           |values (?,?,?,?)
 """.stripMargin
 
-      val preparedStmt8: PreparedStatement = connection.prepareStatement(insertKnolx1)
-      preparedStmt8.setInt(1, 1)
-      preparedStmt8.setString(2, "mukesh.kumar@knoldus.com")
-      preparedStmt8.setTimestamp(3, date)
-      preparedStmt8.setString(4, "Reactive Microservices")
-      preparedStmt8.execute
-      preparedStmt8.close()
+      val preparedStmtThree: PreparedStatement = connection.prepareStatement(insertKnolxOne)
+      preparedStmtThree.setInt(1, 1)
+      preparedStmtThree.setString(2, "mukesh.kumar@knoldus.com")
+      preparedStmtThree.setTimestamp(3, date)
+      preparedStmtThree.setString(4, "Reactive Microservices")
+      preparedStmtThree.execute
+      preparedStmtThree.close()
 
-      val insertKnolx2: String =
+      val insertKnolxTwo: String =
         """
           |insert into knolx(id, email_id, delivered_on, title)
           |values (?,?,?,?)
 """.stripMargin
 
-      val preparedStmt9: PreparedStatement = connection.prepareStatement(insertKnolx2)
-      preparedStmt9.setInt(1, 4)
-      preparedStmt9.setString(2, "mukesh.kumar@knoldus.com")
-      preparedStmt9.setTimestamp(3, date)
-      preparedStmt9.setString(4, "Delta Lake")
-      preparedStmt9.execute
-      preparedStmt9.close()
-      val insertWebinar1: String =
+      val preparedStmtFour: PreparedStatement = connection.prepareStatement(insertKnolxTwo)
+      preparedStmtFour.setInt(1, 4)
+      preparedStmtFour.setString(2, "mukesh.kumar@knoldus.com")
+      preparedStmtFour.setTimestamp(3, date)
+      preparedStmtFour.setString(4, "Delta Lake")
+      preparedStmtFour.execute
+      preparedStmtFour.close()
+    }
+
+    def insertWebinar {
+      val insertWebinarOne: String =
         """
           |insert into webinar(id, email_id, delivered_on, title)
           |values (?,?,?,?)
 """.stripMargin
 
-      val preparedStmt10: PreparedStatement = connection.prepareStatement(insertWebinar1)
-      preparedStmt10.setInt(1, 1)
-      preparedStmt10.setString(2, "mukesh.kumar@knoldus.com")
-      preparedStmt10.setTimestamp(3, date)
-      preparedStmt10.setString(4, "Reactive Microservices")
-      preparedStmt10.execute
-      preparedStmt10.close()
 
-      val insertWebinar2: String =
+      val preparedStmtFive: PreparedStatement = connection.prepareStatement(insertWebinarOne)
+      preparedStmtFive.setInt(1, 1)
+      preparedStmtFive.setString(2, "mukesh.kumar@knoldus.com")
+      preparedStmtFive.setTimestamp(3, date)
+      preparedStmtFive.setString(4, "Reactive Microservices")
+      preparedStmtFive.execute
+      preparedStmtFive.close()
+
+      val insertWebinarTwo: String =
         """
           |insert into webinar(id, email_id, delivered_on, title)
           |values (?,?,?,?)
 """.stripMargin
 
-      val preparedStmt11: PreparedStatement = connection.prepareStatement(insertWebinar2)
-      preparedStmt11.setInt(1, 4)
-      preparedStmt11.setString(2, "mukesh.kumar@knoldus.com")
-      preparedStmt11.setTimestamp(3, date)
-      preparedStmt11.setString(4, "Delta Lake")
-      preparedStmt11.execute
-      preparedStmt11.close()
+      val preparedStmtSix: PreparedStatement = connection.prepareStatement(insertWebinarTwo)
+      preparedStmtSix.setInt(1, 4)
+      preparedStmtSix.setString(2, "mukesh.kumar@knoldus.com")
+      preparedStmtSix.setTimestamp(3, date)
+      preparedStmtSix.setString(4, "Delta Lake")
+      preparedStmtSix.execute
+      preparedStmtSix.close()
+    }
 
+    def insertKnolder {
       val insertKnolder: String =
         """
           |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
           |values (?,?,?,?,?)
 """.stripMargin
 
-      val preparedStmt7: PreparedStatement = connection.prepareStatement(insertKnolder)
-      preparedStmt7.setInt(1, 1)
-      preparedStmt7.setString(2, "Mukesh Gupta")
-      preparedStmt7.setString(3, "mukesh01")
-      preparedStmt7.setString(4, "mukesh.kumar@knoldus.com")
-      preparedStmt7.setBoolean(5, true)
-      preparedStmt7.execute
-      preparedStmt7.close()
+      val preparedStmtSeven: PreparedStatement = connection.prepareStatement(insertKnolder)
+      preparedStmtSeven.setInt(1, 1)
+      preparedStmtSeven.setString(2, "Mukesh Gupta")
+      preparedStmtSeven.setString(3, "mukesh01")
+      preparedStmtSeven.setString(4, "mukesh.kumar@knoldus.com")
+      preparedStmtSeven.setBoolean(5, true)
+      preparedStmtSeven.execute
+      preparedStmtSeven.close()
+    }
+
+    def insertTechHub {
+      val insertTechhubOne: String =
+        """
+          |insert into techhub(id, email_id, uploaded_on, title)
+          |values (?,?,?,?)
+""".stripMargin
+
+      val preparedStmtEight: PreparedStatement = connection.prepareStatement(insertTechhubOne)
+      preparedStmtEight.setInt(1, 1)
+      preparedStmtEight.setString(2, "mukesh.kumar@knoldus.com")
+      preparedStmtEight.setTimestamp(3, date)
+      preparedStmtEight.setString(4, "Reactive Microservices")
+      preparedStmtEight.execute
+      preparedStmtEight.close()
+
+      val insertTechhubTwo: String =
+        """
+          |insert into techhub(id, email_id, uploaded_on, title)
+          |values (?,?,?,?)
+""".stripMargin
+
+      val preparedStmtNine: PreparedStatement = connection.prepareStatement(insertTechhubTwo)
+      preparedStmtNine.setInt(1, 4)
+      preparedStmtNine.setString(2, "mukesh.kumar@knoldus.com")
+      preparedStmtNine.setTimestamp(3, date)
+      preparedStmtNine.setString(4, "Delta Lake")
+      preparedStmtNine.execute
+      preparedStmtNine.close()
+    }
+
+    "return monthly details of specific knolder" in {
+      insertBlog
+      insertKnolx
+      insertWebinar
+      insertTechHub
+      insertKnolder
 
       val blogTitles = List(ContributionDetails("windows handling using selenium webdriver", date.toString),
         ContributionDetails("Java 9: Enhance your Jav…ptional API enhancement", date.toString))
@@ -135,141 +179,31 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
         ContributionDetails("Delta Lake", date.toString))
 
       val webinarDetails = Option(Contribution("Webinar", 2, 30, webinarTitles))
+      val techhubTitles = List(ContributionDetails("Reactive Microservices", date.toString),
+        ContributionDetails("Delta Lake", date.toString))
 
-      val contributions = List(blogDetails, knolxDetails,webinarDetails)
-      val knolderDetails = KnolderDetails("Mukesh Gupta", 80, contributions)
+      val techhubDetails = Option(Contribution("TechHub", 2, 30, techhubTitles))
+      val contributions = List(blogDetails, knolxDetails, webinarDetails, techhubDetails)
+      val knolderDetails = KnolderDetails("Mukesh Gupta", 110, contributions)
 
       fetchKnolderDetails.fetchKnolderMonthlyDetails(1, 4, 2020).
         map(details => assert(details == knolderDetails))
     }
 
     "return all time details of specific knolder" in {
-      val insertAllTimeReputationData: String =
-        """
-          |insert into all_time_reputation(id, knolder_id, score, rank)
-          |values (?,?,?,?)
-""".stripMargin
 
-      val preparedStmt1: PreparedStatement = connection.prepareStatement(insertAllTimeReputationData)
-      preparedStmt1.setInt(1, 1)
-      preparedStmt1.setInt(2, 1)
-      preparedStmt1.setInt(3, 10)
-      preparedStmt1.setInt(4, 1)
-      preparedStmt1.execute
-      preparedStmt1.close()
+      insertBlog
+      insertKnolx
+      insertWebinar
+      insertTechHub
+      insertKnolder
 
-      val insertMonthlyReputationData: String =
-        """
-          |insert into monthly_reputation(id, knolder_id, score, rank)
-          |values (?,?,?,?)
-""".stripMargin
+      val techhubTitles = List(ContributionDetails("Reactive Microservices", date.toString),
+        ContributionDetails("Delta Lake", date.toString))
 
-      val preparedStmt2: PreparedStatement = connection.prepareStatement(insertMonthlyReputationData)
-      preparedStmt2.setInt(1, 1)
-      preparedStmt2.setInt(2, 1)
-      preparedStmt2.setInt(3, 10)
-      preparedStmt2.setInt(4, 1)
-      preparedStmt2.execute
-      preparedStmt2.close()
+      val techhubDetails = Option(Contribution("TechHub", 2, 30, techhubTitles))
 
-      val insertBlog1: String =
-        """
-          |insert into blog(id, wordpress_id, published_on, title)
-          |values (?,?,?,?)
-""".stripMargin
 
-      val preparedStmt3: PreparedStatement = connection.prepareStatement(insertBlog1)
-      preparedStmt3.setInt(1, 1001)
-      preparedStmt3.setString(2, "mukesh01")
-      preparedStmt3.setTimestamp(3, date)
-      preparedStmt3.setString(4, "windows handling using selenium webdriver")
-      preparedStmt3.execute
-      preparedStmt3.close()
-
-      val insertBlog2: String =
-        """
-          |insert into blog(id, wordpress_id, published_on, title)
-          |values (?,?,?,?)
-""".stripMargin
-
-      val preparedStmt4: PreparedStatement = connection.prepareStatement(insertBlog2)
-      preparedStmt4.setInt(1, 1004)
-      preparedStmt4.setString(2, "mukesh01")
-      preparedStmt4.setTimestamp(3, date)
-      preparedStmt4.setString(4, "Java 9: Enhance your Jav…ptional API enhancement")
-      preparedStmt4.execute
-      preparedStmt4.close()
-
-      val insertKnolx1: String =
-        """
-          |insert into knolx(id, email_id, delivered_on, title)
-          |values (?,?,?,?)
-""".stripMargin
-
-      val preparedStmt8: PreparedStatement = connection.prepareStatement(insertKnolx1)
-      preparedStmt8.setInt(1, 1)
-      preparedStmt8.setString(2, "mukesh.kumar@knoldus.com")
-      preparedStmt8.setTimestamp(3, date)
-      preparedStmt8.setString(4, "Reactive Microservices")
-      preparedStmt8.execute
-      preparedStmt8.close()
-
-      val insertKnolx2: String =
-        """
-          |insert into knolx(id, email_id, delivered_on, title)
-          |values (?,?,?,?)
-""".stripMargin
-
-      val preparedStmt9: PreparedStatement = connection.prepareStatement(insertKnolx2)
-      preparedStmt9.setInt(1, 4)
-      preparedStmt9.setString(2, "mukesh.kumar@knoldus.com")
-      preparedStmt9.setTimestamp(3, date)
-      preparedStmt9.setString(4, "Delta Lake")
-      preparedStmt9.execute
-      preparedStmt9.close()
-
-      val insertKnolder: String =
-        """
-          |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
-          |values (?,?,?,?,?)
-""".stripMargin
-
-      val preparedStmt7: PreparedStatement = connection.prepareStatement(insertKnolder)
-      preparedStmt7.setInt(1, 1)
-      preparedStmt7.setString(2, "Mukesh Gupta")
-      preparedStmt7.setString(3, "mukesh01")
-      preparedStmt7.setString(4, "mukesh.kumar@knoldus.com")
-      preparedStmt7.setBoolean(5, true)
-      preparedStmt7.execute
-      preparedStmt7.close()
-
-      val insertWebinar1: String =
-        """
-          |insert into webinar(id, email_id, delivered_on, title)
-          |values (?,?,?,?)
-""".stripMargin
-
-      val preparedStmt10: PreparedStatement = connection.prepareStatement(insertWebinar1)
-      preparedStmt10.setInt(1, 1)
-      preparedStmt10.setString(2, "mukesh.kumar@knoldus.com")
-      preparedStmt10.setTimestamp(3, date)
-      preparedStmt10.setString(4, "Reactive Microservices")
-      preparedStmt10.execute
-      preparedStmt10.close()
-
-      val insertWebinar2: String =
-        """
-          |insert into webinar(id, email_id, delivered_on, title)
-          |values (?,?,?,?)
-""".stripMargin
-
-      val preparedStmt11: PreparedStatement = connection.prepareStatement(insertWebinar2)
-      preparedStmt11.setInt(1, 4)
-      preparedStmt11.setString(2, "mukesh.kumar@knoldus.com")
-      preparedStmt11.setTimestamp(3, date)
-      preparedStmt11.setString(4, "Delta Lake")
-      preparedStmt11.execute
-      preparedStmt11.close()
       val blogTitles = List(ContributionDetails("windows handling using selenium webdriver", date.toString),
         ContributionDetails("Java 9: Enhance your Jav…ptional API enhancement", date.toString))
       val blogDetails = Option(Contribution("Blogs", 2, 10, blogTitles))
@@ -283,57 +217,16 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
 
       val webinarDetails = Option(Contribution("Webinar", 2, 30, webinarTitles))
 
-      val contributions = List(blogDetails, knolxDetails,webinarDetails)
-      val knolderDetails = KnolderDetails("Mukesh Gupta", 80, contributions)
+      val contributions = List(blogDetails, knolxDetails, webinarDetails, techhubDetails)
+      val knolderDetails = KnolderDetails("Mukesh Gupta", 110, contributions)
 
       fetchKnolderDetails.fetchKnolderAllTimeDetails(1).
         map(details => assert(details == knolderDetails))
     }
     "return monthly details of blogs of knolder" in {
 
-      val insertBlog1: String =
-        """
-          |insert into blog(id, wordpress_id, published_on, title)
-          |values (?,?,?,?)
-""".stripMargin
-
-      val preparedStmt3: PreparedStatement = connection.prepareStatement(insertBlog1)
-      preparedStmt3.setInt(1, 1001)
-      preparedStmt3.setString(2, "mukesh01")
-      preparedStmt3.setTimestamp(3, date)
-      preparedStmt3.setString(4, "windows handling using selenium webdriver")
-      preparedStmt3.execute
-      preparedStmt3.close()
-
-      val insertBlog2: String =
-        """
-          |insert into blog(id, wordpress_id, published_on, title)
-          |values (?,?,?,?)
-""".stripMargin
-
-      val preparedStmt4: PreparedStatement = connection.prepareStatement(insertBlog2)
-      preparedStmt4.setInt(1, 1004)
-      preparedStmt4.setString(2, "mukesh01")
-      preparedStmt4.setTimestamp(3, date)
-      preparedStmt4.setString(4, "Java 9: Enhance your Jav…ptional API enhancement")
-      preparedStmt4.execute
-      preparedStmt4.close()
-
-      val insertKnolder: String =
-        """
-          |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
-          |values (?,?,?,?,?)
-""".stripMargin
-
-      val preparedStmt7: PreparedStatement = connection.prepareStatement(insertKnolder)
-      preparedStmt7.setInt(1, 1)
-      preparedStmt7.setString(2, "Mukesh Gupta")
-      preparedStmt7.setString(3, "mukesh01")
-      preparedStmt7.setString(4, "mukesh.kumar@knoldus.com")
-      preparedStmt7.setBoolean(5, true)
-      preparedStmt7.execute
-      preparedStmt7.close()
-
+      insertBlog
+      insertKnolder
 
       val blogTitles = List(ContributionDetails("windows handling using selenium webdriver", date.toString),
         ContributionDetails("Java 9: Enhance your Jav…ptional API enhancement", date.toString))
@@ -344,48 +237,9 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
     }
     "return monthly details of knolx of knolder" in {
 
-      val insertKnolx1: String =
-        """
-          |insert into knolx(id, email_id, delivered_on, title)
-          |values (?,?,?,?)
-""".stripMargin
 
-      val preparedStmt8: PreparedStatement = connection.prepareStatement(insertKnolx1)
-      preparedStmt8.setInt(1, 1)
-      preparedStmt8.setString(2, "mukesh.kumar@knoldus.com")
-      preparedStmt8.setTimestamp(3, date)
-      preparedStmt8.setString(4, "Reactive Microservices")
-      preparedStmt8.execute
-      preparedStmt8.close()
-
-      val insertKnolx2: String =
-        """
-          |insert into knolx(id, email_id, delivered_on, title)
-          |values (?,?,?,?)
-""".stripMargin
-
-      val preparedStmt9: PreparedStatement = connection.prepareStatement(insertKnolx2)
-      preparedStmt9.setInt(1, 4)
-      preparedStmt9.setString(2, "mukesh.kumar@knoldus.com")
-      preparedStmt9.setTimestamp(3, date)
-      preparedStmt9.setString(4, "Delta Lake")
-      preparedStmt9.execute
-      preparedStmt9.close()
-
-      val insertKnolder: String =
-        """
-          |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
-          |values (?,?,?,?,?)
-""".stripMargin
-
-      val preparedStmt7: PreparedStatement = connection.prepareStatement(insertKnolder)
-      preparedStmt7.setInt(1, 1)
-      preparedStmt7.setString(2, "Mukesh Gupta")
-      preparedStmt7.setString(3, "mukesh01")
-      preparedStmt7.setString(4, "mukesh.kumar@knoldus.com")
-      preparedStmt7.setBoolean(5, true)
-      preparedStmt7.execute
-      preparedStmt7.close()
+      insertKnolx
+      insertKnolder
 
 
       val knolxTitles = List(ContributionDetails("Reactive Microservices", date.toString),
@@ -395,102 +249,35 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
       assert(fetchKnolderDetails.fetchKnolderMonthlyKnolxDetails(4, 2020, 1) == knolxDetails)
 
     }
+
+    "return monthly details of techhub of knolder" in {
+
+      insertTechHub
+      insertKnolder
+
+      val techhubTitles = List(ContributionDetails("Reactive Microservices", date.toString),
+        ContributionDetails("Delta Lake", date.toString))
+      val techhubDetails = Option(Contribution("TechHub", 2, 30, techhubTitles))
+
+      assert(fetchKnolderDetails.fetchKnolderMonthlyTechHubDetails(4, 2020, 1) == techhubDetails)
+    }
+
     "return monthly details of webinar of knolder" in {
-      val insertWebinar1: String =
-        """
-          |insert into webinar(id, email_id, delivered_on, title)
-          |values (?,?,?,?)
-""".stripMargin
 
-      val preparedStmt10: PreparedStatement = connection.prepareStatement(insertWebinar1)
-      preparedStmt10.setInt(1, 1)
-      preparedStmt10.setString(2, "mukesh.kumar@knoldus.com")
-      preparedStmt10.setTimestamp(3, date)
-      preparedStmt10.setString(4, "Reactive Microservices")
-      preparedStmt10.execute
-      preparedStmt10.close()
-
-      val insertWebinar2: String =
-        """
-          |insert into webinar(id, email_id, delivered_on, title)
-          |values (?,?,?,?)
-""".stripMargin
-
-      val preparedStmt11: PreparedStatement = connection.prepareStatement(insertWebinar2)
-      preparedStmt11.setInt(1, 4)
-      preparedStmt11.setString(2, "mukesh.kumar@knoldus.com")
-      preparedStmt11.setTimestamp(3, date)
-      preparedStmt11.setString(4, "Delta Lake")
-      preparedStmt11.execute
-      preparedStmt11.close()
-
-      val insertKnolder: String =
-        """
-          |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
-          |values (?,?,?,?,?)
-""".stripMargin
-
-      val preparedStmt7: PreparedStatement = connection.prepareStatement(insertKnolder)
-      preparedStmt7.setInt(1, 1)
-      preparedStmt7.setString(2, "Mukesh Gupta")
-      preparedStmt7.setString(3, "mukesh01")
-      preparedStmt7.setString(4, "mukesh.kumar@knoldus.com")
-      preparedStmt7.setBoolean(5, true)
-      preparedStmt7.execute
-      preparedStmt7.close()
+      insertWebinar
+      insertKnolder
 
 
       val webinarTitles = List(ContributionDetails("Reactive Microservices", date.toString),
         ContributionDetails("Delta Lake", date.toString))
       val webinarDetails = Option(Contribution("Webinar", 2, 30, webinarTitles))
 
-      assert(fetchKnolderDetails.fetchKnolderMonthlyWebinarDetails(4, 2020, 1) ==webinarDetails)
+      assert(fetchKnolderDetails.fetchKnolderMonthlyWebinarDetails(4, 2020, 1) == webinarDetails)
     }
 
     "return all time details of webinar of knolder" in {
-      val insertWebinar1: String =
-        """
-          |insert into webinar(id, email_id, delivered_on, title)
-          |values (?,?,?,?)
-""".stripMargin
-
-      val preparedStmt10: PreparedStatement = connection.prepareStatement(insertWebinar1)
-      preparedStmt10.setInt(1, 1)
-      preparedStmt10.setString(2, "mukesh.kumar@knoldus.com")
-      preparedStmt10.setTimestamp(3, date)
-      preparedStmt10.setString(4, "Reactive Microservices")
-      preparedStmt10.execute
-      preparedStmt10.close()
-
-      val insertWebinar2: String =
-        """
-          |insert into webinar(id, email_id, delivered_on, title)
-          |values (?,?,?,?)
-""".stripMargin
-
-      val preparedStmt11: PreparedStatement = connection.prepareStatement(insertWebinar2)
-      preparedStmt11.setInt(1, 4)
-      preparedStmt11.setString(2, "mukesh.kumar@knoldus.com")
-      preparedStmt11.setTimestamp(3, date)
-      preparedStmt11.setString(4, "Delta Lake")
-      preparedStmt11.execute
-      preparedStmt11.close()
-
-      val insertKnolder: String =
-        """
-          |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
-          |values (?,?,?,?,?)
-""".stripMargin
-
-      val preparedStmt7: PreparedStatement = connection.prepareStatement(insertKnolder)
-      preparedStmt7.setInt(1, 1)
-      preparedStmt7.setString(2, "Mukesh Gupta")
-      preparedStmt7.setString(3, "mukesh01")
-      preparedStmt7.setString(4, "mukesh.kumar@knoldus.com")
-      preparedStmt7.setBoolean(5, true)
-      preparedStmt7.execute
-      preparedStmt7.close()
-
+      insertWebinar
+      insertKnolder
 
       val webinarTitles = List(ContributionDetails("Reactive Microservices", date.toString),
         ContributionDetails("Delta Lake", date.toString))
@@ -501,49 +288,8 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
     }
     "return all time details of knolx of knolder" in {
 
-      val insertKnolx1: String =
-        """
-          |insert into knolx(id, email_id, delivered_on, title)
-          |values (?,?,?,?)
-""".stripMargin
-
-      val preparedStmt8: PreparedStatement = connection.prepareStatement(insertKnolx1)
-      preparedStmt8.setInt(1, 1)
-      preparedStmt8.setString(2, "mukesh.kumar@knoldus.com")
-      preparedStmt8.setTimestamp(3, date)
-      preparedStmt8.setString(4, "Reactive Microservices")
-      preparedStmt8.execute
-      preparedStmt8.close()
-
-      val insertKnolx2: String =
-        """
-          |insert into knolx(id, email_id, delivered_on, title)
-          |values (?,?,?,?)
-""".stripMargin
-
-      val preparedStmt9: PreparedStatement = connection.prepareStatement(insertKnolx2)
-      preparedStmt9.setInt(1, 4)
-      preparedStmt9.setString(2, "mukesh.kumar@knoldus.com")
-      preparedStmt9.setTimestamp(3, date)
-      preparedStmt9.setString(4, "Delta Lake")
-      preparedStmt9.execute
-      preparedStmt9.close()
-
-      val insertKnolder: String =
-        """
-          |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
-          |values (?,?,?,?,?)
-""".stripMargin
-
-      val preparedStmt7: PreparedStatement = connection.prepareStatement(insertKnolder)
-      preparedStmt7.setInt(1, 1)
-      preparedStmt7.setString(2, "Mukesh Gupta")
-      preparedStmt7.setString(3, "mukesh01")
-      preparedStmt7.setString(4, "mukesh.kumar@knoldus.com")
-      preparedStmt7.setBoolean(5, true)
-      preparedStmt7.execute
-      preparedStmt7.close()
-
+      insertKnolx
+      insertKnolder
 
       val knolxTitles = List(ContributionDetails("Reactive Microservices", date.toString),
         ContributionDetails("Delta Lake", date.toString))
@@ -552,50 +298,8 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
       assert(fetchKnolderDetails.fetchAllTimeknolxDetails(1) == knolxDetails)
     }
     "return all time details of blogs of knolder" in {
-
-      val insertBlog1: String =
-        """
-          |insert into blog(id, wordpress_id, published_on, title)
-          |values (?,?,?,?)
-""".stripMargin
-
-      val preparedStmt3: PreparedStatement = connection.prepareStatement(insertBlog1)
-      preparedStmt3.setInt(1, 1001)
-      preparedStmt3.setString(2, "mukesh01")
-      preparedStmt3.setTimestamp(3, date)
-      preparedStmt3.setString(4, "windows handling using selenium webdriver")
-      preparedStmt3.execute
-      preparedStmt3.close()
-
-      val insertBlog2: String =
-        """
-          |insert into blog(id, wordpress_id, published_on, title)
-          |values (?,?,?,?)
-""".stripMargin
-
-      val preparedStmt4: PreparedStatement = connection.prepareStatement(insertBlog2)
-      preparedStmt4.setInt(1, 1004)
-      preparedStmt4.setString(2, "mukesh01")
-      preparedStmt4.setTimestamp(3, date)
-      preparedStmt4.setString(4, "Java 9: Enhance your Jav…ptional API enhancement")
-      preparedStmt4.execute
-      preparedStmt4.close()
-
-      val insertKnolder: String =
-        """
-          |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
-          |values (?,?,?,?,?)
-""".stripMargin
-
-      val preparedStmt7: PreparedStatement = connection.prepareStatement(insertKnolder)
-      preparedStmt7.setInt(1, 1)
-      preparedStmt7.setString(2, "Mukesh Gupta")
-      preparedStmt7.setString(3, "mukesh01")
-      preparedStmt7.setString(4, "mukesh.kumar@knoldus.com")
-      preparedStmt7.setBoolean(5, true)
-      preparedStmt7.execute
-      preparedStmt7.close()
-
+      insertBlog
+      insertKnolder
 
       val blogTitles = List(ContributionDetails("windows handling using selenium webdriver", date.toString),
         ContributionDetails("Java 9: Enhance your Jav…ptional API enhancement", date.toString))
@@ -603,6 +307,19 @@ class FetchKnolderDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
 
       assert(fetchKnolderDetails.fetchAllTimeBlogDetails(1) == blogDetails)
 
+    }
+    "return all time details of techhub of knolder" in {
+
+      insertTechHub
+      insertKnolder
+
+
+      val techhubTitles = List(ContributionDetails("Reactive Microservices", date.toString),
+        ContributionDetails("Delta Lake", date.toString))
+
+      val techhubDetails = Option(Contribution("TechHub", 2, 30, techhubTitles))
+
+      assert(fetchKnolderDetails.fetchAllTimeTechHubDetails(1) == techhubDetails)
     }
   }
 }

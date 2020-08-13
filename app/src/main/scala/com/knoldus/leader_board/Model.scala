@@ -8,7 +8,7 @@ final case class Knolx(knolxId: Option[String], emailId: Option[String], deliver
 
 final case class TechHubTemplate(techHubId: Option[String], emailId: Option[String], uploadedOn: Option[Timestamp], title: Option[String])
 
-final case class GetCount(knolderId: Int, knolderName: String, numberOfBlogs: Int, numberOfKnolx: Int, numberOfWebinar: Int)
+final case class GetCount(knolderId: Int, knolderName: String, numberOfBlogs: Int, numberOfKnolx: Int, numberOfWebinar: Int, numberOfTechHub: Int)
 
 final case class GetScore(knolderId: Int, knolderName: String, score: Int)
 
@@ -33,8 +33,8 @@ final case class KnolderDetails(knolderName: String, score: Int, scoreBreakDown:
 final case class TwelveMonthsScore(month: String, year: Int, score: Int)
 
 final case class ReputationWithCount(monthlyBlogCount: Int, monthlyKnolxCount: Int, monthlyWebinarCount: Int,
-                                     allTimeBlogCount: Int, allTimeKnolxCount: Int, allTimeWebinarCount: Int,
-                                     reputation: List[Reputation])
+                                     monthlyTechHubCount: Int, allTimeBlogCount: Int, allTimeKnolxCount: Int, allTimeWebinarCount: Int,
+                                     allTimeTechHubCount: Int, reputation: List[Reputation])
 
 final case class Webinar(id: String, deliveredOn: Option[Timestamp], name: String, title: String, emailId: String)
 
@@ -43,6 +43,8 @@ case object ExecuteBlogsScript
 case object ExecuteWebinarScript
 
 case object ExecuteKnolxScript
+
+case object ExecuteTechHubScript
 
 case object CalculateReputation
 
