@@ -37,10 +37,10 @@ object Build : BuildType({
     name = "Build"
 
     params {
-        param("env.URL", "jdbc:h2:mem:test;MODE=Oracle;")
-        param("env.DRIVER", "org.h2.Driver")
-        param("env.PASSWORD", "")
-        param("env.USERNAME", "")
+        password("env.URL", "credentialsJSON:70a3dfeb-6cff-48f6-857e-843bf160b113", display = ParameterDisplay.HIDDEN)
+        password("env.DRIVER", "credentialsJSON:b45a8f24-3283-4596-8648-fab11a3314f8", display = ParameterDisplay.HIDDEN)
+        password("env.PASSWORD", "credentialsJSON:c3ac330a-ef9e-40b3-af36-16407dddf5fc", display = ParameterDisplay.HIDDEN)
+        password("env.USERNAME", "credentialsJSON:c3ac330a-ef9e-40b3-af36-16407dddf5fc", display = ParameterDisplay.HIDDEN)
     }
 
     vcs {
@@ -100,12 +100,13 @@ object Build : BuildType({
             name = "scapegoat-report-to-codesquad"
             scriptContent = """curl -X PUT -F "projectName=knoldus-leaderboard" -F "moduleName=leaderboard" -F "organisation=knoldus inc" -F "file=@/opt/buildagent/work/bcd363be9c5663b6/app/target/scala-2.12/scapegoat-report/scapegoat.xml" -F "registrationKey=2159f15a-6e52-438a-a1a3-4b0e77b30a43" https://www.getcodesquad.com/api/add/reports"""
         }
-        script {
+        step {
             name = "build docker image"
             type = "SBT"
             executionMode = BuildStep.ExecutionMode.RUN_ON_FAILURE
-            workingDir = "app"
-            scriptContent = "sbt docker:publishLocal"
+            param("script.content", "sbt docker:publishLocal")
+            param("teamcity.build.workingDir", "app")
+            param("use.custom.script", "true")
         }
     }
 
