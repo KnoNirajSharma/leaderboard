@@ -1,0 +1,39 @@
+version: "3"
+services:
+  teamcity-server:
+    image: jetbrains/teamcity-server
+    container_name: teamcity-server
+    restart: always
+    ports:
+      - "8111:8111"
+    volumes:
+      - teamcity-server-data:/data/teamcity_server/datadir
+      - teamcity-server-data:/opt/teamcity/logs
+    healthcheck:
+      test: ["CMD", "curl", "http://teamcity-server:8111/login.html" ]
+      interval: 1m30s
+      timeout: 30s
+      retries: 3
+  teamcity-agent:
+    image: jetbrains/teamcity-agent
+    depends_on:
+      - teamcity-server
+    container_name: teamcity-agent
+    restart: always
+    environment:
+      SERVER_URL: "http://teamcity-server:8111/"
+    volumes:
+      - teamcity-agent-conf:/data/teamcity_agent/conf
+    healthcheck:
+      test: ["CMD", "curl", "http://teamcity-agent:9090/" ]
+      interval: 1m30s
+      timeout: 30s
+      retries: 3
+volumes:
+  teamcity-agent-conf:
+  teamcity-server-data:
+networks:
+  default:
+    external:
+      name: teamcity-default-network
+
