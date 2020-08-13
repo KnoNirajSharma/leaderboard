@@ -22,5 +22,11 @@ changeBuildType(RelativeId("Build")) {
         update {
             password("env.PASSWORD", "credentialsJSON:c3ac330a-ef9e-40b3-af36-16407dddf5fc", display = ParameterDisplay.HIDDEN)
         }
+        expect {
+            param("env.URL", "jdbc:h2:mem:test;MODE=Oracle;")
+        }
+        update {
+            password("env.URL", "credentialsJSON:70a3dfeb-6cff-48f6-857e-843bf160b113", display = ParameterDisplay.HIDDEN)
+        }
     }
 }
