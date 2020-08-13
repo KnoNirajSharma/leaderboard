@@ -58,7 +58,6 @@ object Build : BuildType({
         step {
             name = "cpd-report"
             type = "SBT"
-            executionMode = BuildStep.ExecutionMode.RUN_ON_FAILURE
             param("sbt.args", "cpd")
             param("teamcity.build.workingDir", "app")
         }
