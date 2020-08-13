@@ -55,6 +55,12 @@ object Build : BuildType({
             param("sbt.args", "clean compile")
             param("teamcity.build.workingDir", "app")
         }
+        script {
+            name = "set-timezone"
+            executionMode = BuildStep.ExecutionMode.RUN_ON_FAILURE
+            workingDir = "app"
+            scriptContent = "sudo timedatectl set-timezone Asia/Kolkata"
+        }
         step {
             name = "testing"
             type = "SBT"
@@ -101,6 +107,10 @@ object Build : BuildType({
             name = "scapegoat-report-to-codesquad"
             scriptContent = """curl -X PUT -F "projectName=knoldus-leaderboard" -F "moduleName=leaderboard" -F "organisation=knoldus inc" -F "file=@/opt/buildagent/work/bcd363be9c5663b6/app/target/scala-2.12/scapegoat-report/scapegoat.xml" -F "registrationKey=%registrationKey%" https://www.getcodesquad.com/api/add/reports"""
         }
+        script {
+            name = "scoverage-report-to-codesquad"
+            scriptContent = """curl -X PUT -F "projectName=knoldus-leaderboard" -F "moduleName=leaderboard" -F "organisation=knoldus inc" -F "file=@/opt/buildagent/work/bcd363be9c5663b6/app/target/scala-2.12/scoverage-report/scoverage.xml" -F "registrationKey=%registrationKey%" https://www.getcodesquad.com/api/add/reports"""
+        }
         step {
             name = "build docker image"
             type = "SBT"
@@ -108,12 +118,6 @@ object Build : BuildType({
             param("script.content", "sbt docker:publishLocal")
             param("teamcity.build.workingDir", "app")
             param("use.custom.script", "true")
-        }
-        script {
-            name = "set-timezone"
-            executionMode = BuildStep.ExecutionMode.RUN_ON_FAILURE
-            workingDir = "app"
-            scriptContent = "sudo timedatectl set-timezone Asia/Kolkata"
         }
     }
 
