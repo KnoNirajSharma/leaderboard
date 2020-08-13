@@ -106,6 +106,12 @@ object Build : BuildType({
             param("teamcity.build.workingDir", "app")
             param("use.custom.script", "true")
         }
+        step {
+            name = "testing"
+            type = "SBT"
+            param("sbt.args", "test")
+            param("teamcity.build.workingDir", "app")
+        }
     }
 
     triggers {
