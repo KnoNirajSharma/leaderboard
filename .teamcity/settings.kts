@@ -70,7 +70,6 @@ object Build : BuildType({
         step {
             name = "scalastyle"
             type = "SBT"
-            executionMode = BuildStep.ExecutionMode.RUN_ON_FAILURE
             param("sbt.args", "scalastyle")
             param("teamcity.build.workingDir", "app")
         }
