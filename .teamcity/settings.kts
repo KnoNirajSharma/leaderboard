@@ -49,11 +49,6 @@ object Build : BuildType({
     }
 
     steps {
-        step {
-            name = "compilation"
-            type = "SBT"
-            param("teamcity.build.workingDir", "app")
-        }
         script {
             name = "testing"
             workingDir = "app"
@@ -62,6 +57,11 @@ object Build : BuildType({
                 echo "Asia/Kolkata" > /etc/timezone
                 sudo dpkg-reconfigure -f noninteractive tzdata
             """.trimIndent()
+        }
+        step {
+            name = "compilation"
+            type = "SBT"
+            param("teamcity.build.workingDir", "app")
         }
         step {
             name = "cpd-report"
