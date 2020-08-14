@@ -12,13 +12,13 @@ export class VerticalBarGraphComponent implements OnInit {
     yAxisLabel = environment.ngxChartOptions.verticalBarChart.yAxisLabel;
     barPadding = environment.ngxChartOptions.verticalBarChart.barPadding;
     colorScheme = {
-      domain: [environment.ngxChartOptions.chartColorScheme.domain[1]]
+      domain: [environment.ngxChartOptions.chartColorScheme.domain[0]]
     };
-
     result: { name: string; value: number; }[] = [];
 
     constructor() {
     }
+
 
     ngOnInit() {
       this.inputResult.map(obj => this.result.push({ name: obj.month.substring(0, 3) + ',' + obj.year, value: obj.score }));
