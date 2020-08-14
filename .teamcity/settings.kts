@@ -107,6 +107,11 @@ object Build : BuildType({
             param("sbt.args", "docker:publishLocal")
             param("teamcity.build.workingDir", "app")
         }
+        script {
+            name = "build image"
+            workingDir = "app"
+            scriptContent = "sbt docker:publishLocal"
+        }
     }
 
     triggers {
