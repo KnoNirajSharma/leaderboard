@@ -1,0 +1,2 @@
+DROP TABLE knolder IF EXISTS;
+DROP TABLE knolx IF EXISTS;
