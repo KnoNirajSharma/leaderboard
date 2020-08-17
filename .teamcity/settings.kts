@@ -69,12 +69,6 @@ object Build : BuildType({
             param("teamcity.build.workingDir", "app")
         }
         step {
-            name = "scalastyle"
-            type = "SBT"
-            param("sbt.args", "scalastyle")
-            param("teamcity.build.workingDir", "app")
-        }
-        step {
             name = "cpd-report"
             type = "SBT"
             param("sbt.args", "cpd")
@@ -84,6 +78,12 @@ object Build : BuildType({
             name = "scapegoat-report"
             type = "SBT"
             param("sbt.args", "scapegoat")
+            param("teamcity.build.workingDir", "app")
+        }
+        step {
+            name = "scalastyle"
+            type = "SBT"
+            param("sbt.args", "scalastyle")
             param("teamcity.build.workingDir", "app")
         }
         script {
