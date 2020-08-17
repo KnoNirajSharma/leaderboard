@@ -107,6 +107,21 @@ object Build : BuildType({
             param("sbt.args", "docker:publishLocal")
             param("teamcity.build.workingDir", "app")
         }
+        script {
+            name = "login to github package"
+            workingDir = "app"
+            scriptContent = "docker login docker.pkg.github.com --username sakshigawande12 --password 1f12b95338c889d828e144f5de69e500a151e49f"
+        }
+        script {
+            name = "tag image"
+            workingDir = "app"
+            scriptContent = "docker knoldus_leaderboard:0.1 docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard:0.1"
+        }
+        script {
+            name = "push docker image"
+            workingDir = "app"
+            scriptContent = "docker push docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard:0.1"
+        }
     }
 
     triggers {
