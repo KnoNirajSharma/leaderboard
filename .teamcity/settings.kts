@@ -115,7 +115,7 @@ object Build : BuildType({
         script {
             name = "tag image"
             workingDir = "app"
-            scriptContent = "docker knoldus_leaderboard:0.1 docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard:0.1"
+            scriptContent = "docker tag knoldus_leaderboard:0.1 docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard:0.1"
         }
         script {
             name = "push docker image"
