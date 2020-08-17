@@ -103,11 +103,6 @@ object Build : BuildType({
             scriptContent = """curl -X PUT -F "projectName=knoldus-leaderboard" -F "moduleName=leaderboard" -F "organisation=knoldus inc" -F "file=@/opt/buildagent/work/bcd363be9c5663b6/app/target/scala-2.12/scapegoat-report/scapegoat.xml" -F "registrationKey=%registrationKey%" https://www.getcodesquad.com/api/add/reports"""
         }
         step {
-            type = "SBT"
-            param("sbt.args", "docker:publishLocal")
-            param("teamcity.build.workingDir", "app")
-        }
-        step {
             name = "build docker image"
             type = "SBT"
             param("sbt.args", "docker:publishLocal")
