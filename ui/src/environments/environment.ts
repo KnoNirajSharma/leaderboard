@@ -16,7 +16,6 @@ export const environment = {
     },
     chartColorScheme: {
       domain: ['#2C42A5', '#4CA52C', '#C7AD05', '#224A4B', '#0B8D84', '#2CA1A5', '#2F3640']
-      // domain: ['#15509e', '#1862c6', '#1a81ff', '#3a84e6', '#5ca6ff', '#d2e3f9']
     }
   },
   firebaseConfig: {

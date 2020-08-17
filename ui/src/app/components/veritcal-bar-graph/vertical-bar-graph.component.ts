@@ -19,7 +19,6 @@ export class VerticalBarGraphComponent implements OnInit {
     constructor() {
     }
 
-
     ngOnInit() {
       this.inputResult.map(obj => this.result.push({ name: obj.month.substring(0, 3) + ',' + obj.year, value: obj.score }));
       this.result.reverse();
