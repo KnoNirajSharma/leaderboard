@@ -49,11 +49,6 @@ object Build : BuildType({
     }
 
     steps {
-        script {
-            name = "build image"
-            workingDir = "app"
-            scriptContent = "sbt docker:publishLocal"
-        }
         step {
             name = "compilation"
             type = "SBT"
