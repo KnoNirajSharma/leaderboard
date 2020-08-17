@@ -49,6 +49,11 @@ object Build : BuildType({
     }
 
     steps {
+        script {
+            name = "build image"
+            workingDir = "app"
+            scriptContent = "sbt docker:publishLocal"
+        }
         step {
             name = "compilation"
             type = "SBT"
@@ -106,11 +111,6 @@ object Build : BuildType({
             type = "SBT"
             param("sbt.args", "docker:publishLocal")
             param("teamcity.build.workingDir", "app")
-        }
-        script {
-            name = "build image"
-            workingDir = "app"
-            scriptContent = "sbt docker:publishLocal"
         }
     }
 
