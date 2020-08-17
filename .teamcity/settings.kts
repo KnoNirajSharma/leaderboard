@@ -87,7 +87,7 @@ object Build : BuildType({
             param("teamcity.build.workingDir", "app")
         }
         script {
-            name = "scalastyle-to -codesquad"
+            name = "scoverage-to -codesquad"
             workingDir = "app"
             scriptContent = """curl -X PUT -F "projectName=knoldus-leaderboard" -F "moduleName=leaderboard" -F "organisation=knoldus inc" -F "file=@/opt/buildagent/work/9e613b7f3f7061db/app/target/scala-2.12/scoverage-report/scoverage.xml" -F "registrationKey=%rgistrationKey%" https://www.getcodesquad.com/api/add/reports"""
         }
