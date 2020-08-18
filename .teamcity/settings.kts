@@ -39,10 +39,11 @@ object Build : BuildType({
     params {
         password("env.URL", "credentialsJSON:9e325e6e-70b6-4f36-89ca-c769e8a23101", display = ParameterDisplay.HIDDEN)
         password("rgistrationKey", "credentialsJSON:3069da1f-4bbe-456d-94c3-506f9fd99b13", display = ParameterDisplay.HIDDEN)
+        password("githubToken", "credentialsJSON:91d45ec7-80d0-455a-8a54-d885df206673", display = ParameterDisplay.HIDDEN)
         password("env.DRIVER", "credentialsJSON:7a10bff5-a735-41ee-99b9-05ca15fec0e5", display = ParameterDisplay.HIDDEN)
+        password("env.USERNAME", "credentialsJSON:e60519bb-34f8-41f5-a0c6-a15c8923290f", display = ParameterDisplay.HIDDEN)
         password("env.PASSWORD", "credentialsJSON:e60519bb-34f8-41f5-a0c6-a15c8923290f", display = ParameterDisplay.HIDDEN)
         password("registrationKey", "credentialsJSON:3069da1f-4bbe-456d-94c3-506f9fd99b13", display = ParameterDisplay.HIDDEN)
-        password("env.USERNAME", "credentialsJSON:e60519bb-34f8-41f5-a0c6-a15c8923290f", display = ParameterDisplay.HIDDEN)
     }
 
     vcs {
@@ -110,7 +111,7 @@ object Build : BuildType({
         script {
             name = "login to github package"
             workingDir = "app"
-            scriptContent = "docker login docker.pkg.github.com --username sakshigawande12 --password 1f12b95338c889d828e144f5de69e500a151e49f"
+            scriptContent = "docker login docker.pkg.github.com --username sakshigawande12 --password %githubToken%"
         }
         script {
             name = "tag image"
