@@ -11,7 +11,8 @@ import { TrendsModel } from '../models/trends.model';
 })
 export class EmployeeActivityService {
   private url = `${environment.api.baseUrl}${environment.api.routes.author.endpoint}`;
-  private trendUrl = `${environment.api.baseUrl}${environment.api.routes.trends.endpoint}`;
+  // private trendUrl = `${environment.api.baseUrl}${environment.api.routes.trends.endpoint}`;
+  private trendUrl = '/assets/data/trendsData.json';
 
   constructor(private httpClient: HttpClient) {
   }
@@ -29,6 +30,7 @@ export class EmployeeActivityService {
   }
 
   getTrendsData(id: number): Observable<TrendsModel[]> {
-    return this.httpClient.get<TrendsModel[]>(this.trendUrl + '/' + id);
+    // return this.httpClient.get<TrendsModel[]>(this.trendUrl + '/' + id);
+    return this.httpClient.get<TrendsModel[]>(this.trendUrl);
   }
 }

@@ -1,62 +1,98 @@
 [
   {
-    "month": "JUNE",
     "year": 2020,
-    "score": 10
-  },
-  {
-    "month": "MAY",
-    "year": 2020,
-    "score": 5
-  },
-  {
-    "month": "APRIL",
-    "year": 2020,
-    "score": 20
-  },
-  {
-    "month": "MARCH",
-    "year": 2020,
-    "score": 30
-  },
-  {
-    "month": "FEBRUARY",
-    "year": 2020,
-    "score": 10
-  },
-  {
-    "month": "JANUARY",
-    "year": 2020,
-    "score": 10
-  },
-  {
-    "month": "DECEMBER",
-    "year": 2019,
-    "score": 15
-  },
-  {
-    "month": "NOVEMBER",
-    "year": 2019,
-    "score": 51
-  },
-  {
-    "month": "OCTOBER",
-    "year": 2019,
-    "score": 10
-  },
-  {
-    "month": "SEPTEMBER",
-    "year": 2019,
-    "score": 20
-  },
-  {
     "month": "AUGUST",
-    "year": 2019,
-    "score": 30
+    "blogScore": 20,
+    "knolxScore": 0,
+    "webinarScore": 15,
+    "techHubScore": 0
   },
   {
+    "year": 2020,
     "month": "JULY",
+    "blogScore": 20,
+    "knolxScore": 20,
+    "webinarScore": 0,
+    "techHubScore": 0
+  },
+  {
+    "year": 2020,
+    "month": "JUNE",
+    "blogScore": 20,
+    "knolxScore": 0,
+    "webinarScore": 0,
+    "techHubScore": 40
+  },
+  {
+    "year": 2020,
+    "month": "MAY",
+    "blogScore": 0,
+    "knolxScore": 20,
+    "webinarScore": 0,
+    "techHubScore": 50
+  },
+  {
+    "year": 2020,
+    "month": "APRIL",
+    "blogScore": 0,
+    "knolxScore": 20,
+    "webinarScore": 0,
+    "techHubScore": 0
+  },
+  {
+    "year": 2020,
+    "month": "MARCH",
+    "blogScore": 5,
+    "knolxScore": 40,
+    "webinarScore": 0,
+    "techHubScore": 0
+  },
+  {
+    "year": 2020,
+    "month": "AUGUST",
+    "blogScore": 20,
+    "knolxScore": 0,
+    "webinarScore": 30,
+    "techHubScore": 0
+  },
+  {
+    "year": 2020,
+    "month": "FEBUARY",
+    "blogScore": 0,
+    "knolxScore": 0,
+    "webinarScore": 40,
+    "techHubScore": 0
+  },
+  {
+    "year": 2020,
+    "month": "JANUARY",
+    "blogScore": 0,
+    "knolxScore": 20,
+    "webinarScore": 0,
+    "techHubScore": 0
+  },
+  {
     "year": 2019,
-    "score": 50
+    "month": "DECEMBER",
+    "blogScore": 0,
+    "knolxScore": 0,
+    "webinarScore": 10,
+    "techHubScore": 0
+  },
+  {
+    "year": 2019,
+    "month": "NOVEMBER",
+    "blogScore": 0,
+    "knolxScore": 0,
+    "webinarScore": 40,
+    "techHubScore": 0
+  },
+  {
+    "year": 2019,
+    "month": "OCTOBER",
+    "blogScore": 0,
+    "knolxScore": 20,
+    "webinarScore": 0,
+    "techHubScore": 50
   }
 ]
