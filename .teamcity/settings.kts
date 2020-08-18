@@ -102,6 +102,11 @@ object Build : BuildType({
             workingDir = "app"
             scriptContent = """curl -X PUT -F "projectName=knoldus-leaderboard" -F "moduleName=leaderboard" -F "organisation=knoldus inc" -F "file=@/opt/buildagent/work/9e613b7f3f7061db/app/target/scala-2.12/scapegoat-report/scapegoat.xml" -F "registrationKey=%registrationKey%" https://www.getcodesquad.com/api/add/reports"""
         }
+        script {
+            name = "scalastyle-report-to-codesquad"
+            workingDir = "app"
+            scriptContent = """curl -X PUT -F "projectName=knoldus-leaderboard" -F "moduleName=leaderboard" -F "organisation=knoldus inc" -F "file=@/opt/buildagent/work/9e613b7f3f7061db/app/target/scalastyle-result.xml" -F "registrationKey=%registrationKey%" https://www.getcodesquad.com/api/add/reports"""
+        }
         step {
             name = "build docker image"
             type = "SBT"
