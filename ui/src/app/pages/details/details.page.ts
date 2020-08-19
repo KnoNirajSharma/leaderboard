@@ -7,6 +7,7 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { ScoreBreakDownModel } from '../../models/ScoreBreakDown.model';
 import { LoadingControllerService } from '../../services/loading-controller.service ';
 import { TrendsModel } from '../../models/trends.model';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-details',
@@ -38,6 +39,7 @@ export class DetailsPage implements OnInit {
   pieChartData: ScoreBreakDownModel[] = [];
   allTimeSelected: boolean;
   trendsData: TrendsModel[];
+  contributionsTypeColorList = environment.ngxChartOptions.chartColorScheme.domain;
 
   constructor(
     private route: ActivatedRoute,
