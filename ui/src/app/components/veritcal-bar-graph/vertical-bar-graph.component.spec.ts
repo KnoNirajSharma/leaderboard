@@ -41,12 +41,18 @@ class ParentComponent {
     {
       month: 'JUNE',
       year: 2020,
-      score: 4
+      blogScore: 30,
+      knolxScore: 20,
+      webinarScore: 34,
+      techHubScore: 20,
     },
     {
       month: 'JULY',
       year: 2020,
-      score: 6
+      blogScore: 30,
+      knolxScore: 20,
+      webinarScore: 34,
+      techHubScore: 20,
     }
   ];
 }
