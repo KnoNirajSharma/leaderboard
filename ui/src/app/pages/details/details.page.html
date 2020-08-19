@@ -61,9 +61,9 @@
                         <div class="block-title col-12">
                             <h2>Details</h2>
                         </div>
-                        <div *ngFor="let knolderData of knolderDetails.scoreBreakDown">
+                        <div *ngFor="let knolderData of knolderDetails.scoreBreakDown; let i = index">
                             <h3 class="detail-type"><span
-                                    class="contribution-type badge badge-secondary">{{knolderData.contributionType}}</span>
+                                    class="contribution-type badge text-light" [ngStyle]="{'background-color': contributionsTypeColorList[i]}">{{knolderData.contributionType}}</span>
                             </h3>
                             <div *ngIf="knolderData.contributionDetails.length !== 0" class="row ml-xl-1">
                                 <div class="col-8 col-md-8"><h4>Title</h4></div>
