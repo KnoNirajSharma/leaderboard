@@ -11,9 +11,6 @@ import scala.collection.JavaConverters._
 import scala.util.{Failure, Success, Try}
 
 class OSContributionDataImpl(dateTimeFormats: ParseDateTimeFormats, response: SpreadSheetApi, config: Config) extends OSContributionData with LazyLogging {
-  val formatOne = new SimpleDateFormat("M/dd/yyyy")
-  val formatTwo = new SimpleDateFormat("dd-MMMM-yyyy")
-  val formatThree = new SimpleDateFormat("""dd\MM\yyyy""")
 
   /**
    * getting data in os contribution case class from list of value range of  spread sheet data.
