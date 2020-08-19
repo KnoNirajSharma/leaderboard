@@ -24,7 +24,6 @@
     label {
       margin-top: 10px;
       background-color: white;
-      margin-left: 300px;
 
       .search {
         height: 40px;
@@ -185,12 +184,6 @@ table, td, th {
   margin: 0;
 }
 
-.input {
-  height: 20px;
-  margin: 0;
-  padding-left: 30px;
-}
-
 .input-img {
   position: absolute;
   bottom: 15px;
@@ -248,14 +241,6 @@ table, td, th {
       .current-month .scoring {
         font-size: 1em;
       }
-
-      .search {
-        margin-left: -250px;
-      }
-
-      .input-img {
-        left: 250px;
-      }
     }
   }
 
@@ -267,11 +252,6 @@ table, td, th {
 }
 
 @media only screen and (max-width: 576px) {
-  .search {
-    margin-left: -280px !important;
-  }
-
-
   .popover-wrapper:hover .popover-content {
     margin-left: -80px;
     margin-top: -3px;
