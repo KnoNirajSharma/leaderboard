@@ -12,9 +12,8 @@ export class VerticalBarGraphComponent implements OnInit {
     yAxisLabel = environment.ngxChartOptions.verticalBarChart.yAxisLabel;
     barPadding = environment.ngxChartOptions.verticalBarChart.barPadding;
     colorScheme = {
-      domain: [environment.ngxChartOptions.chartColorScheme.domain[1]]
+      domain: [environment.ngxChartOptions.chartColorScheme.domain[0]]
     };
-
     result: { name: string; value: number; }[] = [];
 
     constructor() {
