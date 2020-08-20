@@ -22,4 +22,8 @@ trait FetchKnolderDetails {
   def fetchKnolderMonthlyTechHubDetails(month: Int, year: Int, knolderId: Int): Option[Contribution]
 
   def fetchAllTimeTechHubDetails(knolderId: Int): Option[Contribution]
+
+  def fetchKnolderMonthlyOsContributionDetails(month: Int, year: Int, knolderId: Int): Option[Contribution]
+
+  def fetchAllTimeOsContributionDetails(knolderId: Int): Option[Contribution]
 }

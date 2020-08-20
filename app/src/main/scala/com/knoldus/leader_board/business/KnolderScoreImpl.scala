@@ -16,10 +16,12 @@ class KnolderScoreImpl(config: Config) extends KnolderScore with LazyLogging {
     val scorePerWebinar = config.getInt("scorePerWebinar")
     val scorePerKnolx = config.getInt("scorePerKnolx")
     val scorePerTechHub = config.getInt("scorePerTechHub")
+    val scorePerOsContribution = config.getInt("scorePerOsContribution")
 
     counts.map(count => GetScore(count.knolderId, count.knolderName,
       count.numberOfBlogs * scorePerBlog +
-        (count.numberOfKnolx * scorePerKnolx) + (count.numberOfWebinar * scorePerWebinar) + (count.numberOfTechHub * scorePerTechHub)))
+        (count.numberOfKnolx * scorePerKnolx) + (count.numberOfWebinar * scorePerWebinar) + (count.numberOfTechHub * scorePerTechHub)
+        + (count.numberOfOSContribution * scorePerOsContribution)))
       .sortBy(knolder => knolder.score).reverse
   }
 }

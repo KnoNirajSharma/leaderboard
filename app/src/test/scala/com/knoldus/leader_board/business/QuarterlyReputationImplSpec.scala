@@ -13,27 +13,27 @@ class QuarterlyReputationImplSpec extends AnyFlatSpec with MockitoSugar {
     new QuarterlyReputationImpl(mockReadContribution, mockKnolderScore, mockReadQuarterlyReputation)
 
   "get quarterly reputation" should "return knolder reputation of each knolder along with their knolder id" in {
-    val scoresForFirstMonth = List(GetScore(1, "Mukesh Gupta", 85), GetScore(2, "anjali", 50))
-    val firstMonthBlogCount = List(GetCount(1, "Mukesh Gupta", 3, 2, 1, 1), GetCount(2, "anjali", 2, 1, 1, 1))
+    val scoresForFirstMonth = List(GetScore(1, "Mukesh Gupta", 115), GetScore(2, "anjali", 80))
+    val firstMonthBlogCount = List(GetCount(1, "Mukesh Gupta", 3, 2,1,1,1), GetCount(2, "anjali", 2, 1,1,1,1))
 
     when(mockReadContribution.fetchKnoldersWithQuarterFirstMonthContributions)
-      .thenReturn(List(GetCount(1, "Mukesh Gupta", 3, 2, 1, 1), GetCount(2, "anjali", 2, 1, 1, 1)))
+      .thenReturn(List(GetCount(1, "Mukesh Gupta", 3, 2,1,1,1), GetCount(2, "anjali", 2, 1,1,1,1)))
     when(mockKnolderScore.calculateScore(firstMonthBlogCount))
       .thenReturn(scoresForFirstMonth)
 
-    val scoresForSecondMonth = List(GetScore(1, "Mukesh Gupta", 60), GetScore(2, "anjali", 50))
-    val secondMonthBlogCount = List(GetCount(1, "Mukesh Gupta", 4, 1, 1, 1), GetCount(2, "anjali", 2, 1, 1, 1))
+    val scoresForSecondMonth = List(GetScore(1, "Mukesh Gupta", 90), GetScore(2, "anjali", 80))
+    val secondMonthBlogCount = List(GetCount(1, "Mukesh Gupta", 4, 1,1,1,1), GetCount(2, "anjali", 2, 1,1,1,1))
 
     when(mockReadContribution.fetchKnoldersWithQuarterSecondMonthContributions)
-      .thenReturn(List(GetCount(1, "Mukesh Gupta", 4, 1, 1, 1), GetCount(2, "anjali", 2, 1, 1, 1)))
+      .thenReturn(List(GetCount(1, "Mukesh Gupta", 4, 1,1,1,1), GetCount(2, "anjali", 2, 1,1,1,1)))
     when(mockKnolderScore.calculateScore(secondMonthBlogCount))
       .thenReturn(scoresForSecondMonth)
 
-    val scoresForThirdMonth = List(GetScore(1, "Mukesh Gupta", 60), GetScore(2, "anjali", 55))
-    val thirdMonthBlogCount = List(GetCount(1, "Mukesh Gupta", 4, 1, 1, 1), GetCount(2, "anjali", 3, 1, 1, 1))
+    val scoresForThirdMonth = List(GetScore(1, "Mukesh Gupta", 90), GetScore(2, "anjali", 85))
+    val thirdMonthBlogCount = List(GetCount(1, "Mukesh Gupta", 4, 1,1,1,1), GetCount(2, "anjali", 3, 1,1,1,1))
 
     when(mockReadContribution.fetchKnoldersWithQuarterThirdMonthContributions)
-      .thenReturn(List(GetCount(1, "Mukesh Gupta", 4, 1, 1, 1), GetCount(2, "anjali", 3, 1, 1, 1)))
+      .thenReturn(List(GetCount(1, "Mukesh Gupta", 4, 1,1,1,1), GetCount(2, "anjali", 3, 1,1,1,1)))
     when(mockKnolderScore.calculateScore(thirdMonthBlogCount))
       .thenReturn(scoresForThirdMonth)
 
@@ -42,8 +42,8 @@ class QuarterlyReputationImplSpec extends AnyFlatSpec with MockitoSugar {
     when(mockReadQuarterlyReputation.fetchKnolderIdFromQuarterlyReputation(2))
       .thenReturn(Option(2))
 
-    val reputationOfKnolders = List(KnolderStreak(Some(1), GetStreak(1, "Mukesh Gupta", "85-60-60")),
-      KnolderStreak(Some(2), GetStreak(2, "anjali", "50-50-55")))
+    val reputationOfKnolders = List(KnolderStreak(Some(1), GetStreak(1, "Mukesh Gupta", "115-90-90")),
+      KnolderStreak(Some(2), GetStreak(2, "anjali", "80-80-85")))
 
     assert(quarterlyReputation.getKnolderQuarterlyReputation == reputationOfKnolders)
   }

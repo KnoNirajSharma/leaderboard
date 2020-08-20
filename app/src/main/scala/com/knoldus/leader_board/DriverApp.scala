@@ -118,6 +118,18 @@ object DriverApp extends App {
     ),
     "TechHubScriptActor"
   )
+  val osContributionScriptActorRef = system.actorOf(
+    Props(
+      new OSContributionActor(
+        allTimeReputationActorRef,
+        monthlyReputationActorRef,
+        quarterlyReputationActorRef,
+        storeOSContributionDetails,
+        osContributionDataObj
+      )
+    ),
+    "OSCOntributionScriptActor"
+  )
   val latestBlogs = blogs.getLatestBlogsFromAPI
   storeBlogs.insertBlog(latestBlogs)
   val latestKnolx = knolx.getLatestKnolxFromAPI
@@ -157,6 +169,16 @@ object DriverApp extends App {
     24.hours,
     blogScriptActorRef,
     ExecuteBlogsScript
+  )
+
+  /**
+   * Fetching latest os contribution from os contribution sheet and storing in database.
+   */
+  system.scheduler.scheduleAtFixedRate(
+    timeForScriptExecution.seconds,
+    24.hours,
+    osContributionScriptActorRef,
+    ExecuteOSContributionScript
   )
 
   /**
