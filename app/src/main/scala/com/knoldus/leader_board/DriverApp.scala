@@ -17,6 +17,7 @@ object DriverApp extends App {
   implicit val system: ActorSystem = ActorSystem()
   implicit val executionContext: ExecutionContextExecutor = system.dispatcher
   val config: Config = ConfigFactory.load()
+  val dateTimeFormat = new ParseDateTimeFormats
   val knolderScore: KnolderScore = new KnolderScoreImpl(config)
   val knolderRank: KnolderRank = new KnolderRankImpl
   val readBlog = new ReadContributionImpl(config)
@@ -41,7 +42,7 @@ object DriverApp extends App {
     new ReputationOnAPIImpl(twelveMonthsContribution, fetchKnolderDetails, fetchReputationWithCount, config)
   val spreadSheetApiObj = new SpreadSheetApi(config)
   val webinarSpreadSheetData: WebinarSpreadSheetData =
-    new WebinarSpreadSheetDataImpl(spreadSheetApiObj, config)
+    new WebinarSpreadSheetDataImpl(dateTimeFormat, spreadSheetApiObj, config)
   val storeWebinar = new StoreWebinarImpl(config)
   val fetchBlogs: FetchBlogs = new FetchBlogsImpl(config)
   val fetchKnolx: FetchKnolx = new FetchKnolxImpl(config)
@@ -49,8 +50,12 @@ object DriverApp extends App {
   val storeBlogs: StoreBlogs = new StoreBlogsImpl(config)
   val storeKnolx: StoreKnolx = new StoreKnolxImpl(config)
   val storeTechHub: StoreTechHub = new StoreTechHubImpl(config)
+  val storeOSContributionDetails: StoreOSContributionDetails = new StoreOSContributionDetailsImpl(config)
   val URLResponse: URLResponse = new URLResponse
   val techHubData: TechHubData = new TechHubDataImpl(fetchTechHub, URLResponse, config)
+  val osContributionDataObj: OSContributionData =
+    new OSContributionDataImpl(dateTimeFormat, spreadSheetApiObj, config)
+
   val blogs: Blogs = new BlogsImpl(fetchBlogs, URLResponse, config)
   val knolx: Knolxs = new KnolxImpl(fetchKnolx, URLResponse, config)
   val allTimeReputationActorRef = system.actorOf(
@@ -119,6 +124,8 @@ object DriverApp extends App {
   storeKnolx.insertKnolx(latestKnolx)
   val webinarDetails = webinarSpreadSheetData.getWebinarData
   storeWebinar.insertWebinar(webinarDetails)
+  val osContributionDetails = osContributionDataObj.getOSContributionData
+  storeOSContributionDetails.insertOSContribution(osContributionDetails)
   val techHubDataList = techHubData.getLatestTechHubTemplates
   storeTechHub.insertTechHub(techHubDataList)
   val allTimeReputations = allTimeReputation.getKnolderReputation
@@ -165,7 +172,6 @@ object DriverApp extends App {
   /**
    * Fetching latest webinar from webinar API and storing in database.
    */
-
   QuartzSchedulerExtension
     .get(system)
     .createSchedule("WebinarScriptScheduler", None, "0 0 0 ? * 7 *", None, IndianTime.indianTimezone)
@@ -176,7 +182,6 @@ object DriverApp extends App {
   /**
    * Fetching latest techhub from techhub API and storing in database.
    */
-
   QuartzSchedulerExtension
     .get(system)
     .createSchedule("TechHubScriptScheduler", None, "0 0 0 ? * 7 *", None, IndianTime.indianTimezone)

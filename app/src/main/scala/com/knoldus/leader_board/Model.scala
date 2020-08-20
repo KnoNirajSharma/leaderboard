@@ -8,6 +8,8 @@ final case class Knolx(knolxId: Option[String], emailId: Option[String], deliver
 
 final case class TechHubTemplate(techHubId: Option[String], emailId: Option[String], uploadedOn: Option[Timestamp], title: Option[String])
 
+final case class OSContributionTemplate(OSContributionId: String, emailId: String, name: String, contributedOn: Option[Timestamp], title: String)
+
 final case class GetCount(knolderId: Int, knolderName: String, numberOfBlogs: Int, numberOfKnolx: Int, numberOfWebinar: Int, numberOfTechHub: Int)
 
 final case class GetScore(knolderId: Int, knolderName: String, score: Int)
