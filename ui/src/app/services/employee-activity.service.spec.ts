@@ -66,6 +66,7 @@ describe('EmployeeActivityService', () => {
       knolxScore: 20,
       webinarScore: 34,
       techHubScore: 20,
+      osContributionScore: 30,
     },
     {
       month: 'JULY',
@@ -74,6 +75,7 @@ describe('EmployeeActivityService', () => {
       knolxScore: 20,
       webinarScore: 34,
       techHubScore: 20,
+      osContributionScore: 20,
     }
   ];
   const id = 1;

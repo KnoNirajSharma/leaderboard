@@ -5,4 +5,5 @@ export interface TrendsModel {
   knolxScore: number;
   webinarScore: number;
   techHubScore: number;
+  osContributionScore: number;
 }

@@ -45,6 +45,7 @@ class ParentComponent {
       knolxScore: 20,
       webinarScore: 34,
       techHubScore: 20,
+      osContributionScore: 30,
     },
     {
       month: 'JULY',
@@ -53,6 +54,7 @@ class ParentComponent {
       knolxScore: 20,
       webinarScore: 34,
       techHubScore: 20,
+      osContributionScore: 20,
     }
   ];
 }

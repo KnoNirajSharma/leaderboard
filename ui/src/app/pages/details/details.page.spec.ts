@@ -48,6 +48,7 @@ describe('DetailsPage', () => {
       knolxScore: 20,
       webinarScore: 34,
       techHubScore: 20,
+      osContributionScore: 30,
     },
     {
       month: 'JULY',
@@ -56,6 +57,7 @@ describe('DetailsPage', () => {
       knolxScore: 20,
       webinarScore: 34,
       techHubScore: 20,
+      osContributionScore: 20,
     }
   ];
 
