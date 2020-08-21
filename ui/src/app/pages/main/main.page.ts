@@ -36,7 +36,7 @@ export class MainPage implements OnInit {
       .subscribe((data: ReputationModel) => {
         this.reputation = data;
         this.employeeData = this.reputation.reputation;
-        this.filteredEmpData = this.employeeData;
+        this.filteredEmpData = [...this.employeeData];
         this.loadingControllerService.dismiss();
       });
     this.currentDate = new Date();
@@ -51,5 +51,55 @@ export class MainPage implements OnInit {
 
   filterEmp() {
     this.filteredEmpData = this.empFilterPipe.transform(this.employeeData, this.searchBar.value);
+  }
+
+  sortFn(x, y, property) {
+    // if (x[property] < y[property]) {
+    //   console.log('a < b');
+    //   console.log(x[property], y[property]);
+    //   console.log(x.name, y.name);
+    //   return true;
+    // } else {
+    //   console.log('a > b');
+    //   console.log(x[property], y[property]);
+    //   console.log(x.name, y.name);
+    //   return true;
+    // }
+
+
+    if (x[property] === y[property]) {
+      console.log('equal');
+      console.log(x.mathsMarks < y.mathsMarks);
+      return x.mathsMarks > y.mathsMarks;
+    } else {
+      return x[property] < y[property];
+    }
+
+
+    // console.log(x[property], y[property]);
+    // console.log(x.name, y.name);
+    // console.log(x[property] > y[property]);
+    // return x[property] > y[property];
+
+    // return x.mathsMarks < y.mathsMarks;
+  }
+
+  sortTable(event) {
+    // if (event.ascending === true) {
+    //   console.log('in ascend');
+    //   this.filteredEmpData = this.filteredEmpData.sort((a, b) => a[event.property] > b[event.property] ? 1 : -1);
+    // } else {
+    //   console.log('in descend');
+    //   // this.data.sort((a, b) => (a.mathsMarks < b.mathsMarks) ? 1 : -1);
+    //   // this.sortFn(a, b, event.property)
+    //   this.filteredEmpData = this.filteredEmpData.sort((a, b) => this.sortFn(a, b, event.property) ? 1 : -1);
+    // }
+    console.log(event);
+  //   if (event.newValue === 'asc') {
+  //     console.log('in asc');
+  //     this.filteredEmpData = this.filteredEmpData.sort((a, b) => a[event.property] > b[event.property] ? 1 : -1);
+  //   } else {
+  //     console.log('in desc');
+  //   }
   }
 }
