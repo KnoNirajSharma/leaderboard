@@ -34,7 +34,7 @@ object DriverApp extends App {
   val quarterlyReputation: QuarterlyReputation =
     new QuarterlyReputationImpl(readBlog, knolderScore, readQuarterlyReputation)
   val fetchReputation: FetchReputation = new FetchReputationImpl(config)
-  val fetchKnolderDetails: FetchKnolderDetails = new FetchKnolderDetailsImpl(config)
+  val fetchKnolderDetails: FetchKnolderContributionDetails = new FetchKnolderContributionDetailsImpl(config)
   val twelveMonthsContribution: TwelveMonthsContribution = new TwelveMonthsContributionImpl(readBlog)
   val fetchReputationWithCount: FetchCountWithReputation =
     new FetchCountWithReputationImpl(config, fetchReputation)
@@ -118,6 +118,18 @@ object DriverApp extends App {
     ),
     "TechHubScriptActor"
   )
+  val osContributionScriptActorRef = system.actorOf(
+    Props(
+      new OSContributionActor(
+        allTimeReputationActorRef,
+        monthlyReputationActorRef,
+        quarterlyReputationActorRef,
+        storeOSContributionDetails,
+        osContributionDataObj
+      )
+    ),
+    "OSCOntributionScriptActor"
+  )
   val latestBlogs = blogs.getLatestBlogsFromAPI
   storeBlogs.insertBlog(latestBlogs)
   val latestKnolx = knolx.getLatestKnolxFromAPI
@@ -150,7 +162,7 @@ object DriverApp extends App {
     }
 
   /**
-   * Fetching latest blogs from Wordpress API and storing in database.
+   * Fetching latest blogs from Wordpress API and stored in blog table.
    */
   system.scheduler.scheduleAtFixedRate(
     timeForScriptExecution.seconds,
@@ -160,7 +172,17 @@ object DriverApp extends App {
   )
 
   /**
-   * Fetching latest knolx from Knolx API and storing in database.
+   * Fetching latest os contribution from os contribution sheet and stored in os contribution table.
+   */
+  system.scheduler.scheduleAtFixedRate(
+    timeForScriptExecution.seconds,
+    24.hours,
+    osContributionScriptActorRef,
+    ExecuteOSContributionScript
+  )
+
+  /**
+   * Fetching latest knolx from Knolx API and stored in knolx table.
    */
   QuartzSchedulerExtension
     .get(system)
@@ -170,7 +192,7 @@ object DriverApp extends App {
     .schedule("knolxScriptScheduler", knolxScriptActorRef, ExecuteKnolxScript)
 
   /**
-   * Fetching latest webinar from webinar API and storing in database.
+   * Fetching latest webinar from webinar API and stored in webinar table.
    */
   QuartzSchedulerExtension
     .get(system)
@@ -180,7 +202,7 @@ object DriverApp extends App {
     .schedule("WebinarScriptScheduler", webinarScriptActorRef, ExecuteWebinarScript)
 
   /**
-   * Fetching latest techhub from techhub API and storing in database.
+   * Fetching latest techhub from techhub API and stored in techhub table.
    */
   QuartzSchedulerExtension
     .get(system)

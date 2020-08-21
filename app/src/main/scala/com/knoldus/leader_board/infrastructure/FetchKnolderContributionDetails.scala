@@ -2,7 +2,7 @@ package com.knoldus.leader_board.infrastructure
 
 import com.knoldus.leader_board.{Contribution, KnolderDetails}
 
-trait FetchKnolderDetails {
+trait FetchKnolderContributionDetails {
   def fetchKnolderMonthlyDetails(knolderId: Int, month: Int, year: Int): Option[KnolderDetails]
 
   def fetchKnolderAllTimeDetails(knolderId: Int): Option[KnolderDetails]
@@ -22,4 +22,8 @@ trait FetchKnolderDetails {
   def fetchKnolderMonthlyTechHubDetails(month: Int, year: Int, knolderId: Int): Option[Contribution]
 
   def fetchAllTimeTechHubDetails(knolderId: Int): Option[Contribution]
+
+  def fetchKnolderMonthlyOsContributionDetails(month: Int, year: Int, knolderId: Int): Option[Contribution]
+
+  def fetchAllTimeOsContributionDetails(knolderId: Int): Option[Contribution]
 }

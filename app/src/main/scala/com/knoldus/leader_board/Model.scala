@@ -10,7 +10,8 @@ final case class TechHubTemplate(techHubId: Option[String], emailId: Option[Stri
 
 final case class OSContributionTemplate(OSContributionId: String, emailId: String, name: String, contributedOn: Option[Timestamp], title: String)
 
-final case class GetCount(knolderId: Int, knolderName: String, numberOfBlogs: Int, numberOfKnolx: Int, numberOfWebinar: Int, numberOfTechHub: Int)
+final case class GetContributionCount(knolderId: Int, knolderName: String, numberOfBlogs: Int, numberOfKnolx: Int, numberOfWebinar: Int, numberOfTechHub: Int
+                                      , numberOfOSContribution: Int)
 
 final case class GetScore(knolderId: Int, knolderName: String, score: Int)
 
@@ -32,11 +33,11 @@ final case class ContributionDetails(title: String, date: String)
 
 final case class KnolderDetails(knolderName: String, score: Int, scoreBreakDown: List[Option[Contribution]])
 
-final case class TwelveMonthsScore(month: String, year: Int, score: Int)
+final case class TwelveMonthsScore(month: String, year: Int, blogScore: Int, knolxScore: Int, webinarScore: Int, techHubScore: Int, osContributionScore: Int)
 
 final case class ReputationWithCount(monthlyBlogCount: Int, monthlyKnolxCount: Int, monthlyWebinarCount: Int,
-                                     monthlyTechHubCount: Int, allTimeBlogCount: Int, allTimeKnolxCount: Int, allTimeWebinarCount: Int,
-                                     allTimeTechHubCount: Int, reputation: List[Reputation])
+                                     monthlyTechHubCount: Int, monthlyOsContributionCount: Int, allTimeBlogCount: Int, allTimeKnolxCount: Int,
+                                     allTimeWebinarCount: Int, allTimeTechHubCount: Int, allTimeOsContributionCount: Int, reputation: List[Reputation])
 
 final case class Webinar(id: String, deliveredOn: Option[Timestamp], name: String, title: String, emailId: String)
 
@@ -47,6 +48,8 @@ case object ExecuteWebinarScript
 case object ExecuteKnolxScript
 
 case object ExecuteTechHubScript
+
+case object ExecuteOSContributionScript
 
 case object CalculateReputation
 

@@ -7,7 +7,7 @@ import com.typesafe.config.Config
 import com.typesafe.scalalogging.LazyLogging
 import scalikejdbc.{DB, DBSession, SQL}
 
-class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with LazyLogging {
+class FetchKnolderContributionDetailsImpl(config: Config) extends FetchKnolderContributionDetails with LazyLogging {
   implicit val connection: Connection = DatabaseConnection.connection(config)
   implicit val session: DBSession = DB.readOnlySession()
 
@@ -19,15 +19,16 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
   override def fetchKnolderMonthlyDetails(knolderId: Int, month: Int, year: Int): Option[KnolderDetails] = {
     logger.info("Fetching monthly details of specific knolder.")
 
-    val contributions = List(fetchKnolderMonthlyBlogDetails(month, year, knolderId), fetchKnolderMonthlyKnolxDetails(month, year, knolderId),
-      fetchKnolderMonthlyWebinarDetails(month, year, knolderId), fetchKnolderMonthlyTechHubDetails(month, year, knolderId))
+    val contributions = List(fetchKnolderMonthlyBlogDetails(month, year, knolderId),
+      fetchKnolderMonthlyKnolxDetails(month, year, knolderId), fetchKnolderMonthlyWebinarDetails(month, year, knolderId),
+      fetchKnolderMonthlyTechHubDetails(month, year, knolderId), fetchKnolderMonthlyOsContributionDetails(month, year, knolderId))
 
     SQL(
       s"""SELECT
       knolder.full_name,
-      COUNT(DISTINCT blog.title) * ${config.getInt("scorePerBlog")} + COUNT(DISTINCT knolx.title) * ${config.getInt("scorePerKnolx")}
-      + COUNT(DISTINCT webinar.title) * ${config.getInt("scorePerWebinar")}
-       + COUNT(DISTINCT techhub.title) * ${config.getInt("scorePerTechHub")}AS monthly_score
+      COUNT(DISTINCT blog.id) * ${config.getInt("scorePerBlog")} + COUNT(DISTINCT knolx.id) * ${config.getInt("scorePerKnolx")}
+      + COUNT(DISTINCT webinar.id) * ${config.getInt("scorePerWebinar")} + COUNT(DISTINCT techhub.id)
+       * ${config.getInt("scorePerTechHub")} + COUNT(DISTINCT oscontribution.id) * ${config.getInt("scorePerOsContribution")} AS monthly_score
     FROM knolder
     LEFT JOIN blog ON knolder.wordpress_id = blog.wordpress_id
     AND EXTRACT(month FROM blog.published_on) = ?
@@ -41,9 +42,12 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
     LEFT JOIN techhub ON knolder.email_id = techhub.email_id
     AND EXTRACT(month FROM techhub.uploaded_on) = ?
     AND EXTRACT(year FROM techhub.uploaded_on) = ?
+    LEFT JOIN oscontribution ON knolder.email_id = oscontribution.email_id
+    AND EXTRACT(month FROM oscontribution.contributed_on) = ?
+    AND EXTRACT(year FROM oscontribution.contributed_on) = ?
     WHERE knolder.id = ?
     GROUP BY knolder.full_name""")
-      .bind(month, year, month, year, month, year, month, year, knolderId)
+      .bind(month, year, month, year, month, year, month, year, month, year, knolderId)
       .map(rs => KnolderDetails(rs.string("full_name"), rs.int("monthly_score"), contributions))
       .single().apply()
   }
@@ -166,6 +170,36 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
     Option(Contribution("TechHub", techHubCount, techHubScore, techHubTitles))
   }
 
+  def fetchKnolderMonthlyOsContributionDetails(month: Int, year: Int, knolderId: Int): Option[Contribution] = {
+
+    val osContributionTitles = SQL(
+      """ SELECT
+      oscontribution.title,
+      oscontribution.contributed_on
+        FROM
+        knolder
+        RIGHT JOIN
+        oscontribution
+        ON knolder.email_id = oscontribution.email_id
+    WHERE
+    EXTRACT(month
+      FROM
+      contributed_on) = ?
+    AND EXTRACT(year
+      FROM
+      contributed_on) = ?
+    AND knolder.id = ? ORDER BY contributed_on desc """)
+      .bind(month, year, knolderId)
+      .map(rs => ContributionDetails(rs.string("title"), rs.string("contributed_on")))
+      .list().apply()
+
+    val osContributionCount = osContributionTitles.length
+    val osContributionScore = osContributionTitles.length * config.getInt("scorePerOsContribution")
+
+    Option(Contribution("OSContribution", osContributionCount, osContributionScore, osContributionTitles))
+  }
+
+
   /**
    * Fetching all time details of specific knolder.
    *
@@ -175,14 +209,15 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
     logger.info("Fetching all time details of specific knolder.")
 
     val contributions = List(fetchAllTimeBlogDetails(knolderId), fetchAllTimeknolxDetails(knolderId), fetchAllTimeWebinarDetails(knolderId)
-      , fetchAllTimeTechHubDetails(knolderId))
+      , fetchAllTimeTechHubDetails(knolderId), fetchAllTimeOsContributionDetails(knolderId))
 
     SQL(
       s"""
       SELECT
       knolder.full_name,
-      COUNT(DISTINCT blog.title) * ${config.getInt("scorePerBlog")} + COUNT(DISTINCT knolx.title) * ${config.getInt("scorePerKnolx")}
-      + COUNT(DISTINCT webinar.title) * ${config.getInt("scorePerWebinar")} + COUNT(DISTINCT techhub.title) * ${config.getInt("scorePerTechHub")} AS score
+     COUNT(DISTINCT blog.id) * ${config.getInt("scorePerBlog")} + COUNT(DISTINCT knolx.id) * ${config.getInt("scorePerKnolx")}
+      + COUNT(DISTINCT webinar.id) * ${config.getInt("scorePerWebinar")} + COUNT(DISTINCT techhub.id)
+       * ${config.getInt("scorePerTechHub")} + COUNT(DISTINCT oscontribution.id) * ${config.getInt("scorePerOsContribution")} AS score
     FROM
     knolder
     LEFT JOIN
@@ -197,6 +232,9 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
     LEFT JOIN
       webinar
     ON knolder.email_id = webinar.email_id
+     LEFT JOIN
+      oscontribution
+    ON knolder.email_id = oscontribution.email_id
     WHERE
     knolder.id = ?
     GROUP BY
@@ -296,5 +334,26 @@ class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with L
 
     Option(Contribution("TechHub", techHubCount, techHubScore, techHubTitles))
 
+  }
+
+  def fetchAllTimeOsContributionDetails(knolderId: Int): Option[Contribution] = {
+    val osContributionTitles = SQL(
+      """SELECT
+      oscontribution.title,
+      oscontribution.contributed_on
+        FROM
+        knolder
+        RIGHT JOIN
+        oscontribution
+        ON knolder.email_id = oscontribution.email_id
+    WHERE
+    knolder.id = ? ORDER BY contributed_on DESC """)
+      .bind(knolderId)
+      .map(rs => ContributionDetails(rs.string("title"), rs.string("contributed_on")))
+      .list().apply()
+    val osContributionCount = osContributionTitles.length
+    val osContributionScore = osContributionTitles.length * config.getInt("scorePerOsContribution")
+
+    Option(Contribution("OSContribution", osContributionCount, osContributionScore, osContributionTitles))
   }
 }
