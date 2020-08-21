@@ -3,7 +3,7 @@ package com.knoldus.leader_board.infrastructure
 import java.sql.{Connection, PreparedStatement, Timestamp}
 import java.time.Instant
 
-import com.knoldus.leader_board.{DatabaseConnection, GetCount, IndianTime}
+import com.knoldus.leader_board.{DatabaseConnection, GetContributionCount, IndianTime}
 import com.typesafe.config.ConfigFactory
 import org.scalatest.{BeforeAndAfterEach, DoNotDiscover}
 
@@ -229,9 +229,9 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       insertTechHub(date)
 
 
-      val knoldersWithBlogs = List(GetCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0),
-        GetCount(3, "Komal Rajpal", 1, 0, 0, 0, 0),
-        GetCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0))
+      val knoldersWithBlogs = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0),
+        GetContributionCount(3, "Komal Rajpal", 1, 0, 0, 0, 0),
+        GetContributionCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0))
 
       val result = readContribution.fetchKnoldersWithContributions
       result shouldBe knoldersWithBlogs
@@ -244,9 +244,9 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       insertWebinar(currentMonth)
       insertTechHub(currentMonth)
 
-      val knoldersWithMonthlyBlogs = List(GetCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0),
-        GetCount(3, "Komal Rajpal", 1, 0, 0, 0, 0),
-        GetCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0))
+      val knoldersWithMonthlyBlogs = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0),
+        GetContributionCount(3, "Komal Rajpal", 1, 0, 0, 0, 0),
+        GetContributionCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0))
 
       val result = readContribution.fetchKnoldersWithMonthlyContributions
       result shouldBe knoldersWithMonthlyBlogs
@@ -259,9 +259,9 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       insertWebinar(firstMonth)
       insertTechHub(firstMonth)
 
-      val knoldersWithQuarterlyBlogs = List(GetCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0),
-        GetCount(3, "Komal Rajpal", 1, 0, 0, 0, 0),
-        GetCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0))
+      val knoldersWithQuarterlyBlogs = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0),
+        GetContributionCount(3, "Komal Rajpal", 1, 0, 0, 0, 0),
+        GetContributionCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0))
 
       val result = readContribution.fetchKnoldersWithQuarterFirstMonthContributions
       result shouldBe knoldersWithQuarterlyBlogs
@@ -274,9 +274,9 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       insertWebinar(secondMonth)
       insertTechHub(secondMonth)
 
-      val knoldersWithQuarterlyBlogs = List(GetCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0),
-        GetCount(3, "Komal Rajpal", 1, 0, 0, 0, 0),
-        GetCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0))
+      val knoldersWithQuarterlyBlogs = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0),
+        GetContributionCount(3, "Komal Rajpal", 1, 0, 0, 0, 0),
+        GetContributionCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0))
 
       val result = readContribution.fetchKnoldersWithQuarterSecondMonthContributions
       result shouldBe knoldersWithQuarterlyBlogs
@@ -290,9 +290,9 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       insertWebinar(thirdMonth)
       insertTechHub(thirdMonth)
 
-      val knoldersWithQuarterlyBlogs = List(GetCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0),
-        GetCount(3, "Komal Rajpal", 1, 0, 0, 0, 0),
-        GetCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0))
+      val knoldersWithQuarterlyBlogs = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0),
+        GetContributionCount(3, "Komal Rajpal", 1, 0, 0, 0, 0),
+        GetContributionCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0))
 
       val result = readContribution.fetchKnoldersWithQuarterThirdMonthContributions
       result shouldBe knoldersWithQuarterlyBlogs
@@ -308,7 +308,7 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       insertTechHub(date)
 
       val result = readContribution.fetchKnoldersWithTwelveMonthContributions(6, 2020, 1)
-      result shouldBe Option(110)
+      result shouldBe Option(10, 40, 30, 30, 0)
     }
   }
 }

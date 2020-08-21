@@ -1,6 +1,6 @@
 package com.knoldus.leader_board.business
 
-import com.knoldus.leader_board.{GetCount, GetScore}
+import com.knoldus.leader_board.{GetContributionCount, GetScore}
 import com.typesafe.config.Config
 import com.typesafe.scalalogging.LazyLogging
 
@@ -10,7 +10,7 @@ class KnolderScoreImpl(config: Config) extends KnolderScore with LazyLogging {
    *
    * @return List of scores of knolders.
    */
-  override def calculateScore(counts: List[GetCount]): List[GetScore] = {
+  override def calculateScore(counts: List[GetContributionCount]): List[GetScore] = {
     logger.info("Calculating score of each knolder.")
     val scorePerBlog = config.getInt("scorePerBlog")
     val scorePerWebinar = config.getInt("scorePerWebinar")

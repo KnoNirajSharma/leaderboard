@@ -2,7 +2,7 @@ package com.knoldus.leader_board.infrastructure
 
 import java.sql.{Connection, Timestamp}
 
-import com.knoldus.leader_board.{DatabaseConnection, GetCount, IndianTime}
+import com.knoldus.leader_board.{DatabaseConnection, GetContributionCount, IndianTime}
 import com.typesafe.config.Config
 import com.typesafe.scalalogging._
 import scalikejdbc.{DB, DBSession, SQL}
@@ -16,7 +16,7 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
    *
    * @return List of all time data of each knolder.
    */
-  override def fetchKnoldersWithContributions: List[GetCount] = {
+  override def fetchKnoldersWithContributions: List[GetContributionCount] = {
     logger.info("Fetching details of knolders with contributions.")
     SQL(
       """
@@ -44,7 +44,7 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
     knolder.active_status = true
     GROUP BY
       knolder.id, knolder.wordpress_id, knolder.email_id, knolder.full_name""")
-      .map(rs => GetCount(rs.int("id"), rs.string("full_name"), rs.int("blog_count"),
+      .map(rs => GetContributionCount(rs.int("id"), rs.string("full_name"), rs.int("blog_count"),
         rs.int("knolx_count"), rs.int("webinar_count"), rs.int("techhub_count"), rs.int("OS_contribution_count"))).list().apply()
   }
 
@@ -53,7 +53,7 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
    *
    * @return List of monthly data of each knolder.
    */
-  override def fetchKnoldersWithMonthlyContributions: List[GetCount] = {
+  override def fetchKnoldersWithMonthlyContributions: List[GetContributionCount] = {
     logger.info("Fetching details of knolders with contributions of current month.")
     val currentMonth = Timestamp.valueOf(IndianTime.currentTime
       .withDayOfMonth(1).toLocalDate.atStartOfDay())
@@ -101,7 +101,7 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
     knolder.email_id,
     knolder.full_name""")
       .bind(currentMonth, nextMonth, currentMonth, nextMonth, currentMonth, nextMonth, currentMonth, nextMonth, currentMonth, nextMonth)
-      .map(rs => GetCount(rs.int("id"), rs.string("full_name"), rs.int("blog_count"),
+      .map(rs => GetContributionCount(rs.int("id"), rs.string("full_name"), rs.int("blog_count"),
         rs.int("knolx_count"), rs.int("webinar_count"), rs.int("techhub_count"), rs.int("OS_contribution_count"))).list.apply()
   }
 
@@ -110,7 +110,7 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
    *
    * @return List of quarterly data of each knolder.
    */
-  override def fetchKnoldersWithQuarterFirstMonthContributions: List[GetCount] = {
+  override def fetchKnoldersWithQuarterFirstMonthContributions: List[GetContributionCount] = {
     logger.info("Fetching details of knolders with contributions of first month of quarter.")
     val firstMonth = Timestamp.valueOf(IndianTime.currentTime
       .withDayOfMonth(1).toLocalDate.minusMonths(3).atStartOfDay())
@@ -158,7 +158,7 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
     knolder.email_id,
     knolder.full_name""")
       .bind(firstMonth, nextMonth, firstMonth, nextMonth, firstMonth, nextMonth, firstMonth, nextMonth, firstMonth, nextMonth)
-      .map(rs => GetCount(rs.int("id"), rs.string("full_name"),
+      .map(rs => GetContributionCount(rs.int("id"), rs.string("full_name"),
         rs.int("blog_count"), rs.int("knolx_count"), rs.int("webinar_count"), rs.int("techhub_count"), rs.int("OS_contribution_count"))).list.apply()
   }
 
@@ -167,7 +167,7 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
    *
    * @return List of quarterly data of each knolder.
    */
-  override def fetchKnoldersWithQuarterSecondMonthContributions: List[GetCount] = {
+  override def fetchKnoldersWithQuarterSecondMonthContributions: List[GetContributionCount] = {
     logger.info("Fetching details of knolders with contributions of second month of quarter.")
     val secondMonth = Timestamp.valueOf(IndianTime.currentTime
       .withDayOfMonth(1).toLocalDate.minusMonths(2).atStartOfDay())
@@ -215,7 +215,7 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
     knolder.email_id,
     knolder.full_name""")
       .bind(secondMonth, nextMonth, secondMonth, nextMonth, secondMonth, nextMonth, secondMonth, nextMonth, secondMonth, nextMonth)
-      .map(rs => GetCount(rs.int("id"), rs.string("full_name"),
+      .map(rs => GetContributionCount(rs.int("id"), rs.string("full_name"),
         rs.int("blog_count"), rs.int("knolx_count"), rs.int("webinar_count"), rs.int("techhub_count"), rs.int("OS_contribution_count"))).list.apply()
   }
 
@@ -224,7 +224,7 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
    *
    * @return List of monthly data of each knolder.
    */
-  override def fetchKnoldersWithQuarterThirdMonthContributions: List[GetCount] = {
+  override def fetchKnoldersWithQuarterThirdMonthContributions: List[GetContributionCount] = {
     logger.info("Fetching details of knolders with contributions of third month of quarter.")
     val thirdMonth = Timestamp.valueOf(IndianTime.currentTime
       .withDayOfMonth(1).toLocalDate.minusMonths(1).atStartOfDay())
@@ -272,7 +272,7 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
     knolder.email_id,
     knolder.full_name"""
     ).bind(thirdMonth, nextMonth, thirdMonth, nextMonth, thirdMonth, nextMonth, thirdMonth, nextMonth, thirdMonth, nextMonth)
-      .map(rs => GetCount(rs.int("id"), rs.string("full_name"),
+      .map(rs => GetContributionCount(rs.int("id"), rs.string("full_name"),
         rs.int("blog_count"), rs.int("knolx_count"), rs.int("webinar_count"), rs.int("techhub_count"), rs.int("OS_contribution_count"))).list.apply()
   }
 
@@ -282,15 +282,16 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
    * @return score of the month of specific knolder.
    */
 
-  override def fetchKnoldersWithTwelveMonthContributions(month: Int, year: Int, knolderId: Int): Option[Int] = {
+  override def fetchKnoldersWithTwelveMonthContributions(month: Int, year: Int, knolderId: Int): Option[(Int, Int, Int, Int, Int)] = {
     logger.info("Fetching score of specific month of knolder.")
 
     SQL(
       s"""
       SELECT
-      (COUNT(DISTINCT blog.id) * ${config.getInt("scorePerBlog")}) + (COUNT(DISTINCT knolx.id) * ${config.getInt("scorePerKnolx")})
-      + (COUNT(DISTINCT webinar.id) * ${config.getInt("scorePerWebinar")}) + (COUNT(DISTINCT techhub.id) * ${config.getInt("scorePerTechHub")})
-      + (COUNT(DISTINCT oscontribution.id) * ${config.getInt("scorePerOsContribution")}) AS score
+      (COUNT(DISTINCT blog.id) * ${config.getInt("scorePerBlog")}) as blogScore, (COUNT(DISTINCT knolx.id) * ${config.getInt("scorePerKnolx")})
+      as knolxScore, (COUNT(DISTINCT webinar.id) * ${config.getInt("scorePerWebinar")}) as webinarScore ,
+      (COUNT(DISTINCT techhub.id) * ${config.getInt("scorePerTechHub")}) as techHubScore,
+       (COUNT(DISTINCT oscontribution.id) * ${config.getInt("scorePerOsContribution")}) as osContributionScore
     FROM knolder
     LEFT JOIN blog
     ON knolder.wordpress_id = blog.wordpress_id AND EXTRACT(month FROM blog.published_on) = ?
@@ -309,7 +310,7 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
     AND EXTRACT(year FROM oscontribution.contributed_on) = ?
     WHERE knolder.id = ? """)
       .bind(month, year, month, year, month, year, month, year, month, year, knolderId)
-      .map(rs => rs.int("score"))
+      .map(rs => (rs.int("blogScore"), rs.int("knolxScore"), rs.int("webinarScore"), rs.int("techHubScore"), rs.int("osContributionScore")))
       .single().apply()
   }
 }

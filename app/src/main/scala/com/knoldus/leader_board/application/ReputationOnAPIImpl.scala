@@ -9,7 +9,7 @@ import akka.http.scaladsl.server.{Directives, ExceptionHandler, Route}
 import ch.megard.akka.http.cors.scaladsl.CorsDirectives
 import ch.megard.akka.http.cors.scaladsl.settings.CorsSettings
 import com.knoldus.leader_board.business.TwelveMonthsContribution
-import com.knoldus.leader_board.infrastructure.{FetchCountWithReputation, FetchKnolderDetails}
+import com.knoldus.leader_board.infrastructure.{FetchCountWithReputation, FetchKnolderContributionDetails}
 import com.typesafe.config.Config
 import com.typesafe.scalalogging._
 import net.liftweb.json.Extraction.decompose
@@ -17,7 +17,7 @@ import net.liftweb.json.{DefaultFormats, compactRender}
 
 import scala.concurrent.{ExecutionContextExecutor, Future}
 
-class ReputationOnAPIImpl(readContribution: TwelveMonthsContribution, fetchKnolderDetails: FetchKnolderDetails,
+class ReputationOnAPIImpl(readContribution: TwelveMonthsContribution, fetchKnolderDetails: FetchKnolderContributionDetails,
                           fetchReputationWithCount: FetchCountWithReputation, config: Config)
                          (implicit system: ActorSystem, executionContext: ExecutionContextExecutor)
   extends ReputationOnAPI with Directives with CorsDirectives with LazyLogging {

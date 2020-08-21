@@ -7,7 +7,7 @@ import com.typesafe.config.Config
 import com.typesafe.scalalogging.LazyLogging
 import scalikejdbc.{DB, DBSession, SQL}
 
-class FetchKnolderDetailsImpl(config: Config) extends FetchKnolderDetails with LazyLogging {
+class FetchKnolderContributionDetailsImpl(config: Config) extends FetchKnolderContributionDetails with LazyLogging {
   implicit val connection: Connection = DatabaseConnection.connection(config)
   implicit val session: DBSession = DB.readOnlySession()
 

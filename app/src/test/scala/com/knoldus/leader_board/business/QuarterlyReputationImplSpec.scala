@@ -14,26 +14,26 @@ class QuarterlyReputationImplSpec extends AnyFlatSpec with MockitoSugar {
 
   "get quarterly reputation" should "return knolder reputation of each knolder along with their knolder id" in {
     val scoresForFirstMonth = List(GetScore(1, "Mukesh Gupta", 115), GetScore(2, "anjali", 80))
-    val firstMonthBlogCount = List(GetCount(1, "Mukesh Gupta", 3, 2,1,1,1), GetCount(2, "anjali", 2, 1,1,1,1))
+    val firstMonthBlogCount = List(GetContributionCount(1, "Mukesh Gupta", 3, 2,1,1,1), GetContributionCount(2, "anjali", 2, 1,1,1,1))
 
     when(mockReadContribution.fetchKnoldersWithQuarterFirstMonthContributions)
-      .thenReturn(List(GetCount(1, "Mukesh Gupta", 3, 2,1,1,1), GetCount(2, "anjali", 2, 1,1,1,1)))
+      .thenReturn(List(GetContributionCount(1, "Mukesh Gupta", 3, 2,1,1,1), GetContributionCount(2, "anjali", 2, 1,1,1,1)))
     when(mockKnolderScore.calculateScore(firstMonthBlogCount))
       .thenReturn(scoresForFirstMonth)
 
     val scoresForSecondMonth = List(GetScore(1, "Mukesh Gupta", 90), GetScore(2, "anjali", 80))
-    val secondMonthBlogCount = List(GetCount(1, "Mukesh Gupta", 4, 1,1,1,1), GetCount(2, "anjali", 2, 1,1,1,1))
+    val secondMonthBlogCount = List(GetContributionCount(1, "Mukesh Gupta", 4, 1,1,1,1), GetContributionCount(2, "anjali", 2, 1,1,1,1))
 
     when(mockReadContribution.fetchKnoldersWithQuarterSecondMonthContributions)
-      .thenReturn(List(GetCount(1, "Mukesh Gupta", 4, 1,1,1,1), GetCount(2, "anjali", 2, 1,1,1,1)))
+      .thenReturn(List(GetContributionCount(1, "Mukesh Gupta", 4, 1,1,1,1), GetContributionCount(2, "anjali", 2, 1,1,1,1)))
     when(mockKnolderScore.calculateScore(secondMonthBlogCount))
       .thenReturn(scoresForSecondMonth)
 
     val scoresForThirdMonth = List(GetScore(1, "Mukesh Gupta", 90), GetScore(2, "anjali", 85))
-    val thirdMonthBlogCount = List(GetCount(1, "Mukesh Gupta", 4, 1,1,1,1), GetCount(2, "anjali", 3, 1,1,1,1))
+    val thirdMonthBlogCount = List(GetContributionCount(1, "Mukesh Gupta", 4, 1,1,1,1), GetContributionCount(2, "anjali", 3, 1,1,1,1))
 
     when(mockReadContribution.fetchKnoldersWithQuarterThirdMonthContributions)
-      .thenReturn(List(GetCount(1, "Mukesh Gupta", 4, 1,1,1,1), GetCount(2, "anjali", 3, 1,1,1,1)))
+      .thenReturn(List(GetContributionCount(1, "Mukesh Gupta", 4, 1,1,1,1), GetContributionCount(2, "anjali", 3, 1,1,1,1)))
     when(mockKnolderScore.calculateScore(thirdMonthBlogCount))
       .thenReturn(scoresForThirdMonth)
 

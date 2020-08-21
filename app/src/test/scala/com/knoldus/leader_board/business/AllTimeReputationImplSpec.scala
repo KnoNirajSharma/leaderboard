@@ -15,7 +15,7 @@ class AllTimeReputationImplSpec extends AnyFlatSpec with MockitoSugar {
 
   "get all time reputation" should "return knolder reputation of each knolder along with their knolder id" in {
     val scorePerKnolder = List(GetScore(1, "Mukesh Gupta", 110))
-    val contributionCount = List(GetCount(1, "Mukesh Gupta", 2, 2, 1, 1,1))
+    val contributionCount = List(GetContributionCount(1, "Mukesh Gupta", 2, 2, 1, 1,1))
 
     when(mockReadContribution.fetchKnoldersWithContributions)
       .thenReturn(contributionCount)
