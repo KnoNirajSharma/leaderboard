@@ -53,8 +53,6 @@ describe('DetailsPage', () => {
     }
   ];
 
-  let originalTimeout;
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [DetailsPage],
@@ -72,7 +70,6 @@ describe('DetailsPage', () => {
       ]
     }).compileComponents();
 
-    originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000000;
 
     fixture = TestBed.createComponent(DetailsPage);

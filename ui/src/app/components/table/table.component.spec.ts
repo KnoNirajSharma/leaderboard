@@ -73,7 +73,7 @@ describe('TableComponent', () => {
     expect(routerSpy.navigate).toHaveBeenCalledWith(['/']);
   });
 
-  it('should emit on click', () => {
+  it('should emit sorting criteria', () => {
     const eventObj = {newValue: 'asc', column: {prop: 'monthlyRank'}};
     spyOn(component.sortCriteria, 'emit');
     component.onSort(eventObj);

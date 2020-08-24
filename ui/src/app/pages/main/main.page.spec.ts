@@ -148,7 +148,7 @@ describe('MainPage', () => {
     expect(loadingControllerService.present).toHaveBeenCalled();
   }));
 
-  it('should log', () => {
+  it('should sort the list in descending order on the basis of prop given', () => {
     component.filteredEmpData = [...dummyReputationData.reputation];
     const sortedAscOnAllTimeRank = copyDummyReputation.sort((a, b) => a.allTimeRank < b.allTimeRank ? 1 : -1);
     const eventMock = {newValue: 'desc', column: {prop: 'allTimeRank'}};
@@ -156,7 +156,7 @@ describe('MainPage', () => {
     expect(component.filteredEmpData).toEqual(sortedAscOnAllTimeRank);
   });
 
-  it('should log 2', () => {
+  it('should sort the list in ascending order on the basis 2 criteria 1st of given prop 2nd allTimeScore', () => {
     component.filteredEmpData = [...dummyReputationData.reputation];
     const sortedAscOnAllTimeMonthly = copyDummyReputation.sort((a, b) => (a.monthlyRank === b.monthlyRank ? a.allTimeScore < b.allTimeScore : a.monthlyRank > b.monthlyRank) ? 1 : -1);
     const eventMock = {newValue: 'asc', column: {prop: 'monthlyRank'}};
