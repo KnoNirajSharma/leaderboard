@@ -57,5 +57,6 @@ jobs:
     - name: General cleanup
       run: |
         echo "==========docker logout=========="
+        cat ~/.docker/config.json
         sbt docker:clean
         docker logout
