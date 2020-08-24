@@ -56,6 +56,6 @@ jobs:
 
     - name: General cleanup
       run: |
-        echo "==========docker logout=========="
+        echo "==========Docker logout=========="
         sbt docker:clean
         docker logout docker.pkg.github.com
