@@ -52,12 +52,20 @@ export class MainPage implements OnInit {
     this.filteredEmpData = this.empFilterPipe.transform(this.employeeData, this.searchBar.value);
   }
 
+  comparisonBasedOnAllTimeScore(firstEmp: AuthorModel, secEmp: AuthorModel, propertyName: string) {
+    if (firstEmp[propertyName] === secEmp[propertyName]) {
+      return firstEmp.allTimeScore < secEmp.allTimeScore;
+    } else {
+      return firstEmp[propertyName] > secEmp[propertyName];
+    }
+  }
+
   sortTable(event) {
     if (event.newValue === 'asc') {
       this.filteredEmpData
-        .sort((a, b) => (a[event.column.prop] === b[event.column.prop] ? a.allTimeScore < b.allTimeScore : a[event.column.prop] > b[event.column.prop]) ? 1 : -1);
+        .sort((secEmp, firstEmp) => this.comparisonBasedOnAllTimeScore(secEmp, firstEmp, event.column.prop) ? 1 : -1);
     } else {
-      this.filteredEmpData.sort((a, b) => a[event.column.prop] < b[event.column.prop] ? 1 : -1);
+      this.filteredEmpData.sort((secEmp, firstEmp) => secEmp[event.column.prop] < firstEmp[event.column.prop] ? 1 : -1);
     }
   }
 }

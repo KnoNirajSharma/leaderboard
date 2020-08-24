@@ -49,44 +49,9 @@ describe('MainPage', () => {
         quarterlyStreak: '5-6-8',
         monthlyScore: 10,
         monthlyRank: 1
-      },
-      {
-        knolderId: 3,
-        knolderName: 'mathew',
-        allTimeScore: 70,
-        allTimeRank: 1,
-        quarterlyStreak: '5-6-7',
-        monthlyScore: 7,
-        monthlyRank: 2
-      }, {
-        knolderId: 4,
-        knolderName: 'tom',
-        allTimeScore: 50,
-        allTimeRank: 3,
-        quarterlyStreak: '5-6-8',
-        monthlyScore: 5,
-        monthlyRank: 3
-      },
-      {
-        knolderId: 5,
-        knolderName: 'jack',
-        allTimeScore: 30,
-        allTimeRank: 5,
-        quarterlyStreak: '5-6-7',
-        monthlyScore: 7,
-        monthlyRank: 2
-      }, {
-        knolderId: 6,
-        knolderName: 'jim',
-        allTimeScore: 60,
-        allTimeRank: 2,
-        quarterlyStreak: '5-6-8',
-        monthlyScore: 5,
-        monthlyRank: 3
       }
     ]
   };
-  const copyDummyReputation = [...dummyReputationData.reputation];
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -150,17 +115,45 @@ describe('MainPage', () => {
 
   it('should sort the list in descending order on the basis of prop given', () => {
     component.filteredEmpData = [...dummyReputationData.reputation];
-    const sortedAscOnAllTimeRank = copyDummyReputation.sort((a, b) => a.allTimeRank < b.allTimeRank ? 1 : -1);
     const eventMock = {newValue: 'desc', column: {prop: 'allTimeRank'}};
     component.sortTable(eventMock);
-    expect(component.filteredEmpData).toEqual(sortedAscOnAllTimeRank);
+    expect(component.filteredEmpData[0].knolderId).toEqual(1);
   });
 
-  it('should sort the list in ascending order on the basis 2 criteria 1st of given prop 2nd allTimeScore', () => {
+  it('should sort the list in descending order on the basis of prop given', () => {
     component.filteredEmpData = [...dummyReputationData.reputation];
-    const sortedAscOnAllTimeMonthly = copyDummyReputation.sort((a, b) => (a.monthlyRank === b.monthlyRank ? a.allTimeScore < b.allTimeScore : a.monthlyRank > b.monthlyRank) ? 1 : -1);
-    const eventMock = {newValue: 'asc', column: {prop: 'monthlyRank'}};
+    const eventMock = {newValue: 'desc', column: {prop: 'allTimeScore'}};
     component.sortTable(eventMock);
-    expect(component.filteredEmpData).toEqual(sortedAscOnAllTimeMonthly);
+    expect(component.filteredEmpData[0].knolderId).toEqual(2);
+  });
+
+  it('should sort the list in ascending order on the basis of prop given', () => {
+    component.filteredEmpData = [...dummyReputationData.reputation];
+    const eventMock = {newValue: 'asc', column: {prop: 'monthlyScore'}};
+    spyOn(component, 'comparisonBasedOnAllTimeScore').and.returnValue(false);
+    component.sortTable(eventMock);
+    expect(component.filteredEmpData[0].knolderId).toEqual(2);
+  });
+
+  it('should sort the list in ascending 2 order on the basis of prop given', () => {
+    component.filteredEmpData = [...dummyReputationData.reputation];
+    const eventMock = {newValue: 'asc', column: {prop: 'allTimeScore'}};
+    spyOn(component, 'comparisonBasedOnAllTimeScore').and.returnValue(true);
+    component.sortTable(eventMock);
+    expect(component.filteredEmpData[0].knolderId).toEqual(1);
+  });
+
+  it('should compare on the given property if values are not equal', () => {
+    const firstEmp = dummyReputationData.reputation[1];
+    const secEmp = dummyReputationData.reputation[0];
+    const result = component.comparisonBasedOnAllTimeScore(firstEmp, secEmp, 'allTimeScore');
+    expect(result).toEqual(true);
+  });
+
+  it('should compare on allTime score if values are equal', () => {
+    const firstEmp = dummyReputationData.reputation[1];
+    const secEmp = dummyReputationData.reputation[0];
+    const result = component.comparisonBasedOnAllTimeScore(firstEmp, secEmp, 'monthlyScore');
+    expect(result).toEqual(false);
   });
 });
