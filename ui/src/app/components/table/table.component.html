@@ -11,12 +11,11 @@
                         [rowHeight]="35"
                         [rows]="tableRows"
                         [scrollbarH]="true"
-                        [sortType]=multi
-                        [sorts]=sorts
+                        [externalSorting]="true"
                         (sort)="onSort($event)"
                         class="material">
 
-                    <ngx-datatable-column class="hello" [sortable]=false cellClass="table-cell-style" [headerClass]=tableHeaderStyle
+                    <ngx-datatable-column class="hello" [sortable]=false cellClass="table-cell-style" headerClass="table-header-style"
                                           name="NAME" prop="knolderName">
                         <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                      <img *ngIf="employeeRows.indexOf(row) < 5" src="./assets/icon/icons-trophy.png" alt="trophy-image" class="image-table"/>
@@ -24,7 +23,7 @@
                         </ng-template>
                     </ngx-datatable-column>
 
-                    <ngx-datatable-column  cellClass="pl-4 table-cell-style" [headerClass]=tableHeaderStyle name="MONTHLY RANK"
+                    <ngx-datatable-column  cellClass="pl-4 table-cell-style" headerClass="table-header-style" name="MONTHLY RANK"
                                           prop="monthlyRank">
                         <ng-template let-value="value" ngx-datatable-cell-template>
                             {{value}}

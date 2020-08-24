@@ -37,21 +37,56 @@ describe('MainPage', () => {
         knolderId: 1,
         knolderName: 'mark',
         allTimeScore: 10,
-        allTimeRank: 2,
+        allTimeRank: 7,
         quarterlyStreak: '5-6-7',
-        monthlyScore: 7,
+        monthlyScore: 10,
         monthlyRank: 1
       }, {
         knolderId: 2,
         knolderName: 'sam',
-        allTimeScore: 15,
+        allTimeScore: 20,
+        allTimeRank: 6,
+        quarterlyStreak: '5-6-8',
+        monthlyScore: 10,
+        monthlyRank: 1
+      },
+      {
+        knolderId: 3,
+        knolderName: 'mathew',
+        allTimeScore: 70,
         allTimeRank: 1,
+        quarterlyStreak: '5-6-7',
+        monthlyScore: 7,
+        monthlyRank: 2
+      }, {
+        knolderId: 4,
+        knolderName: 'tom',
+        allTimeScore: 50,
+        allTimeRank: 3,
         quarterlyStreak: '5-6-8',
         monthlyScore: 5,
+        monthlyRank: 3
+      },
+      {
+        knolderId: 5,
+        knolderName: 'jack',
+        allTimeScore: 30,
+        allTimeRank: 5,
+        quarterlyStreak: '5-6-7',
+        monthlyScore: 7,
         monthlyRank: 2
+      }, {
+        knolderId: 6,
+        knolderName: 'jim',
+        allTimeScore: 60,
+        allTimeRank: 2,
+        quarterlyStreak: '5-6-8',
+        monthlyScore: 5,
+        monthlyRank: 3
       }
     ]
   };
+  const copyDummyReputation = [...dummyReputationData.reputation];
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -70,6 +105,7 @@ describe('MainPage', () => {
       providers: [EmployeeFilterPipe]
     }).compileComponents();
 
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000000;
     fixture = TestBed.createComponent(MainPage);
     component = fixture.componentInstance;
     mockEmployeeService = TestBed.get(EmployeeActivityService);
@@ -111,4 +147,20 @@ describe('MainPage', () => {
     fixture.detectChanges();
     expect(loadingControllerService.present).toHaveBeenCalled();
   }));
+
+  it('should log', () => {
+    component.filteredEmpData = [...dummyReputationData.reputation];
+    const sortedAscOnAllTimeRank = copyDummyReputation.sort((a, b) => a.allTimeRank < b.allTimeRank ? 1 : -1);
+    const eventMock = {newValue: 'desc', column: {prop: 'allTimeRank'}};
+    component.sortTable(eventMock);
+    expect(component.filteredEmpData).toEqual(sortedAscOnAllTimeRank);
+  });
+
+  it('should log 2', () => {
+    component.filteredEmpData = [...dummyReputationData.reputation];
+    const sortedAscOnAllTimeMonthly = copyDummyReputation.sort((a, b) => (a.monthlyRank === b.monthlyRank ? a.allTimeScore < b.allTimeScore : a.monthlyRank > b.monthlyRank) ? 1 : -1);
+    const eventMock = {newValue: 'asc', column: {prop: 'monthlyRank'}};
+    component.sortTable(eventMock);
+    expect(component.filteredEmpData).toEqual(sortedAscOnAllTimeMonthly);
+  });
 });
