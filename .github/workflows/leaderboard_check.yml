@@ -49,7 +49,7 @@ jobs:
     - name: Publish reports to CodeSquad
       working-directory: app/target/scala-2.12
       run: |
-        declare -A codesquad=( ["cpd"]="cpd/cpd.xml" ["scapegoat"]="scapegoat-report/scapegoat.xml" ["scoverage"]="scoverage-report/scoverage.xml" ["scalastyle"="../scalastyle-result.xml"] )
+        declare -A codesquad=( ["cpd"]="cpd/cpd.xml" ["scapegoat"]="scapegoat-report/scapegoat.xml" ["scoverage"]="scoverage-report/scoverage.xml" ["scalastyle"]="../scalastyle-result.xml" )
         for i in "${!codesquad[@]}";
         do
           echo "Publishing $i report"
