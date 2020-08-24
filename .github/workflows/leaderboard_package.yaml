@@ -53,6 +53,9 @@ jobs:
         echo "==========Tagging and publishing latest=========="
         docker tag docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard:${COMMIT_ID} docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard:latest
         docker push docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard:latest
-        
+
+    - name: General cleanup
+      run: |
         echo "==========docker logout=========="
+        sbt docker:clean
         docker logout
