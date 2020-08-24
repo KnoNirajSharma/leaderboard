@@ -35,8 +35,24 @@ jobs:
       run: |
         sbt docker:publishLocal
 
+    - uses: actions/delete-package-versions@v1
+      with:
+        package-name: 'knoldus_leaderboard'
+        num-old-versions-to-delete: 1
+
     - name: Publish to Github Packages
       run: |
+        echo "==========Docker Login=========="
         echo ${{ secrets.TOKEN }} | docker login docker.pkg.github.com -u girdharshubham --password-stdin
-        docker tag knoldus_leaderboard:0.1 docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard:0.1
-        docker push docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard:0.1
+
+        echo "==========Tagging and pushing with commit=========="
+        COMMIT_ID=$(git rev-parse HEAD | cut -b 1-7)
+        docker tag knoldus_leaderboard:0.1 docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard:${COMMIT_ID}
+        docker push docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard:${COMMIT_ID}
+
+        echo "==========Tagging and publishing latest=========="
+        docker tag docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard:${COMMIT_ID} docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard:latest
+        docker push docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard:latest
+        
+        echo "==========docker logout=========="
+        docker logout
