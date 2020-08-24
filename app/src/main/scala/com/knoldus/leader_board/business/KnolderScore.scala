@@ -1,7 +1,7 @@
 package com.knoldus.leader_board.business
 
-import com.knoldus.leader_board.{GetCount, GetScore}
+import com.knoldus.leader_board.{GetContributionCount, GetScore}
 
 trait KnolderScore {
-  def calculateScore(listOfCount: List[GetCount]): List[GetScore]
+  def calculateScore(listOfCount: List[GetContributionCount]): List[GetScore]
 }

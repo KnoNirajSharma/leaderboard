@@ -17,6 +17,7 @@ object DriverApp extends App {
   implicit val system: ActorSystem = ActorSystem()
   implicit val executionContext: ExecutionContextExecutor = system.dispatcher
   val config: Config = ConfigFactory.load()
+  val dateTimeFormat = new ParseDateTimeFormats
   val knolderScore: KnolderScore = new KnolderScoreImpl(config)
   val knolderRank: KnolderRank = new KnolderRankImpl
   val readBlog = new ReadContributionImpl(config)
@@ -33,7 +34,7 @@ object DriverApp extends App {
   val quarterlyReputation: QuarterlyReputation =
     new QuarterlyReputationImpl(readBlog, knolderScore, readQuarterlyReputation)
   val fetchReputation: FetchReputation = new FetchReputationImpl(config)
-  val fetchKnolderDetails: FetchKnolderDetails = new FetchKnolderDetailsImpl(config)
+  val fetchKnolderDetails: FetchKnolderContributionDetails = new FetchKnolderContributionDetailsImpl(config)
   val twelveMonthsContribution: TwelveMonthsContribution = new TwelveMonthsContributionImpl(readBlog)
   val fetchReputationWithCount: FetchCountWithReputation =
     new FetchCountWithReputationImpl(config, fetchReputation)
@@ -41,7 +42,7 @@ object DriverApp extends App {
     new ReputationOnAPIImpl(twelveMonthsContribution, fetchKnolderDetails, fetchReputationWithCount, config)
   val spreadSheetApiObj = new SpreadSheetApi(config)
   val webinarSpreadSheetData: WebinarSpreadSheetData =
-    new WebinarSpreadSheetDataImpl(spreadSheetApiObj, config)
+    new WebinarSpreadSheetDataImpl(dateTimeFormat, spreadSheetApiObj, config)
   val storeWebinar = new StoreWebinarImpl(config)
   val fetchBlogs: FetchBlogs = new FetchBlogsImpl(config)
   val fetchKnolx: FetchKnolx = new FetchKnolxImpl(config)
@@ -49,8 +50,12 @@ object DriverApp extends App {
   val storeBlogs: StoreBlogs = new StoreBlogsImpl(config)
   val storeKnolx: StoreKnolx = new StoreKnolxImpl(config)
   val storeTechHub: StoreTechHub = new StoreTechHubImpl(config)
+  val storeOSContributionDetails: StoreOSContributionDetails = new StoreOSContributionDetailsImpl(config)
   val URLResponse: URLResponse = new URLResponse
   val techHubData: TechHubData = new TechHubDataImpl(fetchTechHub, URLResponse, config)
+  val osContributionDataObj: OSContributionData =
+    new OSContributionDataImpl(dateTimeFormat, spreadSheetApiObj, config)
+
   val blogs: Blogs = new BlogsImpl(fetchBlogs, URLResponse, config)
   val knolx: Knolxs = new KnolxImpl(fetchKnolx, URLResponse, config)
   val allTimeReputationActorRef = system.actorOf(
@@ -113,12 +118,26 @@ object DriverApp extends App {
     ),
     "TechHubScriptActor"
   )
+  val osContributionScriptActorRef = system.actorOf(
+    Props(
+      new OSContributionActor(
+        allTimeReputationActorRef,
+        monthlyReputationActorRef,
+        quarterlyReputationActorRef,
+        storeOSContributionDetails,
+        osContributionDataObj
+      )
+    ),
+    "OSCOntributionScriptActor"
+  )
   val latestBlogs = blogs.getLatestBlogsFromAPI
   storeBlogs.insertBlog(latestBlogs)
   val latestKnolx = knolx.getLatestKnolxFromAPI
   storeKnolx.insertKnolx(latestKnolx)
   val webinarDetails = webinarSpreadSheetData.getWebinarData
   storeWebinar.insertWebinar(webinarDetails)
+  val osContributionDetails = osContributionDataObj.getOSContributionData
+  storeOSContributionDetails.insertOSContribution(osContributionDetails)
   val techHubDataList = techHubData.getLatestTechHubTemplates
   storeTechHub.insertTechHub(techHubDataList)
   val allTimeReputations = allTimeReputation.getKnolderReputation
@@ -143,7 +162,7 @@ object DriverApp extends App {
     }
 
   /**
-   * Fetching latest blogs from Wordpress API and storing in database.
+   * Fetching latest blogs from Wordpress API and stored in blog table.
    */
   system.scheduler.scheduleAtFixedRate(
     timeForScriptExecution.seconds,
@@ -153,7 +172,17 @@ object DriverApp extends App {
   )
 
   /**
-   * Fetching latest knolx from Knolx API and storing in database.
+   * Fetching latest os contribution from os contribution sheet and stored in os contribution table.
+   */
+  system.scheduler.scheduleAtFixedRate(
+    timeForScriptExecution.seconds,
+    24.hours,
+    osContributionScriptActorRef,
+    ExecuteOSContributionScript
+  )
+
+  /**
+   * Fetching latest knolx from Knolx API and stored in knolx table.
    */
   QuartzSchedulerExtension
     .get(system)
@@ -163,9 +192,8 @@ object DriverApp extends App {
     .schedule("knolxScriptScheduler", knolxScriptActorRef, ExecuteKnolxScript)
 
   /**
-   * Fetching latest webinar from webinar API and storing in database.
+   * Fetching latest webinar from webinar API and stored in webinar table.
    */
-
   QuartzSchedulerExtension
     .get(system)
     .createSchedule("WebinarScriptScheduler", None, "0 0 0 ? * 7 *", None, IndianTime.indianTimezone)
@@ -174,9 +202,8 @@ object DriverApp extends App {
     .schedule("WebinarScriptScheduler", webinarScriptActorRef, ExecuteWebinarScript)
 
   /**
-   * Fetching latest techhub from techhub API and storing in database.
+   * Fetching latest techhub from techhub API and stored in techhub table.
    */
-
   QuartzSchedulerExtension
     .get(system)
     .createSchedule("TechHubScriptScheduler", None, "0 0 0 ? * 7 *", None, IndianTime.indianTimezone)

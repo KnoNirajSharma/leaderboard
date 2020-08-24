@@ -1,5 +1,9 @@
 export interface TrendsModel {
   month: string;
   year: number;
-  score: number;
+  blogScore: number;
+  knolxScore: number;
+  webinarScore: number;
+  techHubScore: number;
+  osContributionScore: number;
 }

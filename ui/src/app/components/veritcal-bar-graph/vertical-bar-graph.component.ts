@@ -11,16 +11,19 @@ export class VerticalBarGraphComponent implements OnInit {
     @Input() inputResult: TrendsModel[];
     yAxisLabel = environment.ngxChartOptions.verticalBarChart.yAxisLabel;
     barPadding = environment.ngxChartOptions.verticalBarChart.barPadding;
-    colorScheme = {
-      domain: [environment.ngxChartOptions.chartColorScheme.domain[0]]
-    };
-    result: { name: string; value: number; }[] = [];
+    colorScheme = environment.ngxChartOptions.chartColorScheme;
 
-    constructor() {
-    }
+    result: { name: string; series: { name: string; value: number; }[]; }[] = [];
 
     ngOnInit() {
-      this.inputResult.map(obj => this.result.push({ name: obj.month.substring(0, 3) + ',' + obj.year, value: obj.score }));
+      this.inputResult.map(obj => this.result.push({ name: obj.month.substring(0, 3) + ',' + obj.year,
+        series: [
+          { name: 'Blogs', value: obj.blogScore },
+          { name: 'Knolx', value: obj.knolxScore },
+          { name: 'Webinar', value: obj.webinarScore },
+          { name: 'TechHub Templates', value: obj.techHubScore },
+          { name: 'OS Contribution', value: obj.osContributionScore }
+        ] }));
       this.result.reverse();
     }
 
