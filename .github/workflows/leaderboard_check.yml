@@ -10,6 +10,7 @@ env:
   PROJECT_NAME: knoldus-leaderboard
   CODESQAUD_URL: https://www.getcodesquad.com/api/add/reports
   AUTHOR: Shubham Girdhar (girdharshubham)
+
 jobs:
   leaderboard_check:
     env:
@@ -42,12 +43,13 @@ jobs:
         sudo timedatectl set-timezone Asia/Kolkata
         sbt cpd
         sbt scapegoat
+        sbt scalastyle
         sbt coverage test coverageReport
 
     - name: Publish reports to CodeSquad
       working-directory: app/target/scala-2.12
       run: |
-        declare -A codesquad=( ["cpd"]="cpd/cpd.xml" ["scapegoat"]="scapegoat-report/scapegoat.xml" ["scoverage"]="scoverage-report/scoverage.xml" )
+        declare -A codesquad=( ["cpd"]="cpd/cpd.xml" ["scapegoat"]="scapegoat-report/scapegoat.xml" ["scoverage"]="scoverage-report/scoverage.xml" ["scalastyle"]="../scalastyle-result.xml" )
         for i in "${!codesquad[@]}";
         do
           echo "Publishing $i report"
