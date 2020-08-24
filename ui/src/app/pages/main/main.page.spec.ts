@@ -70,7 +70,6 @@ describe('MainPage', () => {
       providers: [EmployeeFilterPipe]
     }).compileComponents();
 
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000000;
     fixture = TestBed.createComponent(MainPage);
     component = fixture.componentInstance;
     mockEmployeeService = TestBed.get(EmployeeActivityService);

@@ -70,8 +70,6 @@ describe('DetailsPage', () => {
       ]
     }).compileComponents();
 
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000000;
-
     fixture = TestBed.createComponent(DetailsPage);
     component = fixture.componentInstance;
     mockEmployeeService = TestBed.get(EmployeeActivityService);
