@@ -28,10 +28,12 @@ describe('MainPage', () => {
     monthlyKnolxCount: 2,
     monthlyWebinarCount: 2,
     monthlyTechHubCount: 2,
+    monthlyOsContributionCount: 4,
     allTimeBlogCount: 3,
     allTimeKnolxCount: 2,
     allTimeWebinarCount: 2,
     allTimeTechHubCount: 3,
+    allTimeOsContributionCount: 7,
     reputation: [
       {
         knolderId: 1,
