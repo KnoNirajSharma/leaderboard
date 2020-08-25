@@ -26,4 +26,8 @@ export class HeadersComponent implements OnInit {
     onLogout() {
       this.loginService.logout();
     }
+
+    openForm() {
+      window.open('https://docs.google.com/forms/d/e/1FAIpQLSfjOGd2TI-zYb2b3_lpLnn-Kk_K57SAKQtjPsb7to9XzY6-tw/viewform', '_blank');
+    }
 }
