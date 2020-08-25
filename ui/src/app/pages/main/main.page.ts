@@ -66,7 +66,7 @@ export class MainPage implements OnInit {
       .reduce((firstMonth, secondMonth) => firstMonth + secondMonth);
   }
 
-  compareQuarterlyScore(firstEmpScoreStreak, secEmpScoreStreak, sortType) {
+  compareQuarterlyScore(firstEmpScoreStreak: string, secEmpScoreStreak: string, sortType: string) {
     if (sortType === 'asc') {
       return this.totalOfQuarterlyScore(firstEmpScoreStreak) < this.totalOfQuarterlyScore(secEmpScoreStreak);
     } else {
