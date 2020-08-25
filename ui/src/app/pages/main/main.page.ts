@@ -61,22 +61,21 @@ export class MainPage implements OnInit {
   }
 
   total(quarterlyScore: string) {
-    return quarterlyScore.split('-').map(monthScore:string => +monthScore)
+    return quarterlyScore.split('-').map(x => Number(x)).reduce((a, b) => a + b);
   }
 
-  compareQuaterlyScore(firstEmp, secEmp, sortType) {
+  compareQuarterlyScore(firstEmp, secEmp, sortType) {
     if (sortType === 'asc') {
-
+      return this.total(firstEmp) < this.total(secEmp);
     } else {
-      return
+      return this.total(firstEmp) > this.total(secEmp);
     }
   }
 
   sortTable(event) {
-    if (event.comlumn.prop === 'quarterlyStreak') {
-      this.filteredEmpData.sort((secEmp, firstEmp) => this.compareQuaterlyScore(secEmp, firstEmp, event.newValue) ? 1 : -1);
-    }
-    if (event.newValue === 'asc') {
+    if (event.column.prop === 'quarterlyStreak') {
+      this.filteredEmpData.sort((secEmp, firstEmp) => this.compareQuarterlyScore(secEmp.quarterlyStreak, firstEmp.quarterlyStreak, event.newValue) ? 1 : -1);
+    } else if (event.newValue === 'asc') {
       this.filteredEmpData
         .sort((secEmp, firstEmp) => this.comparisonBasedOnAllTimeScore(secEmp, firstEmp, event.column.prop) ? 1 : -1);
     } else {
