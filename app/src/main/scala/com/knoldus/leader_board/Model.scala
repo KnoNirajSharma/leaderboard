@@ -8,7 +8,8 @@ final case class Knolx(knolxId: Option[String], emailId: Option[String], deliver
 
 final case class TechHubTemplate(techHubId: Option[String], emailId: Option[String], uploadedOn: Option[Timestamp], title: Option[String])
 
-final case class OSContributionTemplate(OSContributionId: String, emailId: String, name: String, contributedOn: Option[Timestamp], title: String)
+final case class OtherContributionDetails(contributionId: String, emailId: String, name: String, contributedOn: Option[Timestamp]
+                                          , title: String, typeOfContributon: String)
 
 final case class GetContributionCount(knolderId: Int, knolderName: String, numberOfBlogs: Int, numberOfKnolx: Int, numberOfWebinar: Int, numberOfTechHub: Int
                                       , numberOfOSContribution: Int)
@@ -49,7 +50,7 @@ case object ExecuteKnolxScript
 
 case object ExecuteTechHubScript
 
-case object ExecuteOSContributionScript
+case object ExecuteOtherContributionScript
 
 case object CalculateReputation
 

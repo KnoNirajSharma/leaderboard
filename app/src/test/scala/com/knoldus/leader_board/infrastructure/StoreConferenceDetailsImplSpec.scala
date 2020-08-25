@@ -7,9 +7,9 @@ import com.typesafe.config.ConfigFactory
 import org.scalatest.{BeforeAndAfterEach, DoNotDiscover}
 
 @DoNotDiscover
-class StoreOSContributionDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
+class StoreConferenceDetailsImplSpec extends DBSpec with BeforeAndAfterEach {
   implicit val connection: Connection = DatabaseConnection.connection(ConfigFactory.load())
-  val storeData: StoreOSContributionDetails = new StoreOSContributionDetailsImpl(ConfigFactory.load())
+  val storeData: StoreConferenceDetails = new StoreConferenceDetailsImpl(ConfigFactory.load())
 
   override def afterEach(): Unit = {
     cleanUpDatabase(connection)
@@ -19,9 +19,9 @@ class StoreOSContributionDetailsImplSpec extends DBSpec with BeforeAndAfterEach 
     createTable(connection)
   }
 
-  "StoreOSContributionDetailsImpl" should {
+  "StoreConferenceDetailsImpl" should {
 
-    "return number of rows affected when insertion in os contribution table" in {
+    "return number of rows affected when insertion in conference contribution table" in {
       val insertKnolderOne: String =
         """
           |insert into knolder(id, full_name, wordpress_id, email_id, active_status)
@@ -56,7 +56,7 @@ class StoreOSContributionDetailsImplSpec extends DBSpec with BeforeAndAfterEach 
         OtherContributionDetails("1", "mukesh.kumar@knoldus.com", "mukesh", Option(Timestamp.valueOf("1970-01-19 11:49:09.0")), "Reactive Microservices", "Open Source"),
         OtherContributionDetails("2", "abhishek.baranwal@knoldus.com", "Abhishek", Option(Timestamp.valueOf("1970-01-19 15:11:46.0")), "Delta Lake", "Conference"))
 
-      val result = storeData.insertOSContribution(otherContribution)
+      val result = storeData.insertConferenceDetails(otherContribution)
       result.sum shouldBe 1
     }
   }
