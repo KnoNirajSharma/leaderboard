@@ -157,4 +157,40 @@ describe('MainPage', () => {
     const result = component.comparisonBasedOnAllTimeScore(firstEmp, secEmp, 'monthlyScore');
     expect(result).toEqual(false);
   });
+
+  it('should sort list in asc on the basis of quarterly score', () => {
+    component.filteredEmpData = [...dummyReputationData.reputation];
+    const eventMock = {newValue: 'asc', column: {prop: 'quarterlyStreak'}};
+    spyOn(component, 'compareQuarterlyScore').and.returnValue(true);
+    component.sortTable(eventMock);
+    expect(component.filteredEmpData[0].knolderId).toEqual(1);
+  });
+
+  it('should sort list in desc on the basis of quarterly score', () => {
+    component.filteredEmpData = [...dummyReputationData.reputation];
+    const eventMock = {newValue: 'asc', column: {prop: 'quarterlyStreak'}};
+    spyOn(component, 'compareQuarterlyScore').and.returnValue(false);
+    component.sortTable(eventMock);
+    expect(component.filteredEmpData[0].knolderId).toEqual(2);
+  });
+
+  it('should return true or false depending on if the quarterly total score are in ascending order', () => {
+    const firstEmpStreak = dummyReputationData.reputation[0].quarterlyStreak;
+    const secEmpStreak = dummyReputationData.reputation[1].quarterlyStreak;
+    const result = component.compareQuarterlyScore(firstEmpStreak, secEmpStreak, 'asc');
+    expect(result).toEqual(true);
+  });
+
+  it('should return true or false depending on if the quarterly total score are in descending order', () => {
+    const firstEmpStreak = dummyReputationData.reputation[0].quarterlyStreak;
+    const secEmpStreak = dummyReputationData.reputation[1].quarterlyStreak;
+    const result = component.compareQuarterlyScore(firstEmpStreak, secEmpStreak, 'desc');
+    expect(result).toEqual(false);
+  });
+
+  it('should return the total sum of all month in 3 month streak', () => {
+    const streakScore = '1-1-1';
+    const sum = component.totalOfQuarterlyScore(streakScore);
+    expect(sum).toEqual(3);
+  });
 });

@@ -60,26 +60,30 @@ export class MainPage implements OnInit {
     }
   }
 
-  total(quarterlyScore: string) {
-    return quarterlyScore.split('-').map(x => Number(x)).reduce((a, b) => a + b);
+  totalOfQuarterlyScore(quarterlyScore: string) {
+    return quarterlyScore.split('-')
+      .map(singleMonthScore => Number(singleMonthScore))
+      .reduce((firstMonth, secondMonth) => firstMonth + secondMonth);
   }
 
-  compareQuarterlyScore(firstEmp, secEmp, sortType) {
+  compareQuarterlyScore(firstEmpScoreStreak, secEmpScoreStreak, sortType) {
     if (sortType === 'asc') {
-      return this.total(firstEmp) < this.total(secEmp);
+      return this.totalOfQuarterlyScore(firstEmpScoreStreak) < this.totalOfQuarterlyScore(secEmpScoreStreak);
     } else {
-      return this.total(firstEmp) > this.total(secEmp);
+      return this.totalOfQuarterlyScore(firstEmpScoreStreak) > this.totalOfQuarterlyScore(secEmpScoreStreak);
     }
   }
 
   sortTable(event) {
     if (event.column.prop === 'quarterlyStreak') {
-      this.filteredEmpData.sort((secEmp, firstEmp) => this.compareQuarterlyScore(secEmp.quarterlyStreak, firstEmp.quarterlyStreak, event.newValue) ? 1 : -1);
+      this.filteredEmpData
+        .sort((secEmp, firstEmp) => this.compareQuarterlyScore(firstEmp.quarterlyStreak, secEmp.quarterlyStreak,  event.newValue) ? 1 : -1);
     } else if (event.newValue === 'asc') {
       this.filteredEmpData
         .sort((secEmp, firstEmp) => this.comparisonBasedOnAllTimeScore(secEmp, firstEmp, event.column.prop) ? 1 : -1);
     } else {
-      this.filteredEmpData.sort((secEmp, firstEmp) => secEmp[event.column.prop] < firstEmp[event.column.prop] ? 1 : -1);
+      this.filteredEmpData
+        .sort((secEmp, firstEmp) => secEmp[event.column.prop] < firstEmp[event.column.prop] ? 1 : -1);
     }
   }
 }
