@@ -9,7 +9,7 @@ import { LoginService } from '../../services/login.service';
 export class HeadersComponent implements OnInit {
     @Input() backBtn: boolean;
     @Input() backBtnLink: string;
-    logoutBtnVisibility: boolean;
+    dropdownMenuVisibility: boolean;
     title = 'LEADERBOARD';
     formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSfjOGd2TI-zYb2b3_lpLnn-Kk_K57SAKQtjPsb7to9XzY6-tw/viewform';
 
@@ -17,11 +17,11 @@ export class HeadersComponent implements OnInit {
     }
 
     ngOnInit() {
-      this.logoutBtnVisibility = false;
+      this.dropdownMenuVisibility = false;
     }
 
     onDropdown() {
-      this.logoutBtnVisibility = !this.logoutBtnVisibility;
+      this.dropdownMenuVisibility = !this.dropdownMenuVisibility;
     }
 
     onLogout() {
