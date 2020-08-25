@@ -150,7 +150,7 @@
                         </div>
                     </div>
                 </div>
-                <app-table [employeeRows]="employeeData" [tableHeading]="tableHeading" [tableRows]="filteredEmpData"></app-table>
+                <app-table (sortCriteria)="sortTable($event)" [employeeRows]="employeeData" [tableHeading]="tableHeading" [tableRows]="filteredEmpData"></app-table>
             </ion-card>
         </div>
     </div>

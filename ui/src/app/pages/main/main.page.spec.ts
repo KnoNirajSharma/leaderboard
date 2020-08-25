@@ -39,18 +39,18 @@ describe('MainPage', () => {
         knolderId: 1,
         knolderName: 'mark',
         allTimeScore: 10,
-        allTimeRank: 2,
+        allTimeRank: 7,
         quarterlyStreak: '5-6-7',
-        monthlyScore: 7,
+        monthlyScore: 10,
         monthlyRank: 1
       }, {
         knolderId: 2,
         knolderName: 'sam',
-        allTimeScore: 15,
-        allTimeRank: 1,
+        allTimeScore: 20,
+        allTimeRank: 6,
         quarterlyStreak: '5-6-8',
-        monthlyScore: 5,
-        monthlyRank: 2
+        monthlyScore: 10,
+        monthlyRank: 1
       }
     ]
   };
@@ -113,4 +113,48 @@ describe('MainPage', () => {
     fixture.detectChanges();
     expect(loadingControllerService.present).toHaveBeenCalled();
   }));
+
+  it('should sort the list in descending order on the basis of prop given', () => {
+    component.filteredEmpData = [...dummyReputationData.reputation];
+    const eventMock = {newValue: 'desc', column: {prop: 'allTimeRank'}};
+    component.sortTable(eventMock);
+    expect(component.filteredEmpData[0].knolderId).toEqual(1);
+  });
+
+  it('should sort the list in descending order on the basis of prop given', () => {
+    component.filteredEmpData = [...dummyReputationData.reputation];
+    const eventMock = {newValue: 'desc', column: {prop: 'allTimeScore'}};
+    component.sortTable(eventMock);
+    expect(component.filteredEmpData[0].knolderId).toEqual(2);
+  });
+
+  it('should sort the list in ascending order on the basis of prop given', () => {
+    component.filteredEmpData = [...dummyReputationData.reputation];
+    const eventMock = {newValue: 'asc', column: {prop: 'monthlyScore'}};
+    spyOn(component, 'comparisonBasedOnAllTimeScore').and.returnValue(false);
+    component.sortTable(eventMock);
+    expect(component.filteredEmpData[0].knolderId).toEqual(2);
+  });
+
+  it('should sort the list in ascending 2 order on the basis of prop given', () => {
+    component.filteredEmpData = [...dummyReputationData.reputation];
+    const eventMock = {newValue: 'asc', column: {prop: 'allTimeScore'}};
+    spyOn(component, 'comparisonBasedOnAllTimeScore').and.returnValue(true);
+    component.sortTable(eventMock);
+    expect(component.filteredEmpData[0].knolderId).toEqual(1);
+  });
+
+  it('should compare on the given property if values are not equal', () => {
+    const firstEmp = dummyReputationData.reputation[1];
+    const secEmp = dummyReputationData.reputation[0];
+    const result = component.comparisonBasedOnAllTimeScore(firstEmp, secEmp, 'allTimeScore');
+    expect(result).toEqual(true);
+  });
+
+  it('should compare on allTime score if values are equal', () => {
+    const firstEmp = dummyReputationData.reputation[1];
+    const secEmp = dummyReputationData.reputation[0];
+    const result = component.comparisonBasedOnAllTimeScore(firstEmp, secEmp, 'monthlyScore');
+    expect(result).toEqual(false);
+  });
 });

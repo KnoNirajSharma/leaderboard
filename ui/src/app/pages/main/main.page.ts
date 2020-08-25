@@ -14,7 +14,6 @@ import { LoadingControllerService } from '../../services/loading-controller.serv
 })
 export class MainPage implements OnInit {
   employeeData: AuthorModel[];
-  pageTitle = 'Leaderboard';
   searchBar = new FormControl('');
   empFilterPipe = new EmployeeFilterPipe();
   filteredEmpData: AuthorModel[];
@@ -36,7 +35,7 @@ export class MainPage implements OnInit {
       .subscribe((data: ReputationModel) => {
         this.reputation = data;
         this.employeeData = this.reputation.reputation;
-        this.filteredEmpData = this.employeeData;
+        this.filteredEmpData = [...this.employeeData];
         this.loadingControllerService.dismiss();
       });
     this.currentDate = new Date();
@@ -51,5 +50,22 @@ export class MainPage implements OnInit {
 
   filterEmp() {
     this.filteredEmpData = this.empFilterPipe.transform(this.employeeData, this.searchBar.value);
+  }
+
+  comparisonBasedOnAllTimeScore(firstEmp: AuthorModel, secEmp: AuthorModel, propertyName: string) {
+    if (firstEmp[propertyName] === secEmp[propertyName]) {
+      return firstEmp.allTimeScore < secEmp.allTimeScore;
+    } else {
+      return firstEmp[propertyName] > secEmp[propertyName];
+    }
+  }
+
+  sortTable(event) {
+    if (event.newValue === 'asc') {
+      this.filteredEmpData
+        .sort((secEmp, firstEmp) => this.comparisonBasedOnAllTimeScore(secEmp, firstEmp, event.column.prop) ? 1 : -1);
+    } else {
+      this.filteredEmpData.sort((secEmp, firstEmp) => secEmp[event.column.prop] < firstEmp[event.column.prop] ? 1 : -1);
+    }
   }
 }

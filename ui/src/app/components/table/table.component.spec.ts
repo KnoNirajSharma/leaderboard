@@ -72,6 +72,13 @@ describe('TableComponent', () => {
     component.onActivate(nonClickEvent);
     expect(routerSpy.navigate).toHaveBeenCalledWith(['/']);
   });
+
+  it('should emit sorting criteria', () => {
+    const eventObj = {newValue: 'asc', column: {prop: 'monthlyRank'}};
+    spyOn(component.sortCriteria, 'emit');
+    component.onSort(eventObj);
+    expect(component.sortCriteria.emit).toHaveBeenCalledWith({newValue: 'asc', column: {prop: 'monthlyRank'}});
+  });
 });
 
 @Component({
