@@ -11,6 +11,7 @@ export class HeadersComponent implements OnInit {
     @Input() backBtnLink: string;
     logoutBtnVisibility: boolean;
     title = 'LEADERBOARD';
+    formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSfjOGd2TI-zYb2b3_lpLnn-Kk_K57SAKQtjPsb7to9XzY6-tw/viewform';
 
     constructor(private loginService: LoginService) {
     }
@@ -28,6 +29,6 @@ export class HeadersComponent implements OnInit {
     }
 
     openForm() {
-      window.open('https://docs.google.com/forms/d/e/1FAIpQLSfjOGd2TI-zYb2b3_lpLnn-Kk_K57SAKQtjPsb7to9XzY6-tw/viewform', '_blank');
+      window.open(this.formUrl, '_blank');
     }
 }

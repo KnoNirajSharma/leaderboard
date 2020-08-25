@@ -43,7 +43,7 @@ describe('HeadersComponent', () => {
 
   it('should call onDropdown method', () => {
     spyOn(component, 'onDropdown');
-    const element = fixture.debugElement.query(By.css('.logout-btn-dropdown'));
+    const element = fixture.debugElement.query(By.css('.dropdown-menu-btn'));
     element.triggerEventHandler('click', {});
     expect(component.onDropdown).toHaveBeenCalled();
   });
@@ -58,11 +58,19 @@ describe('HeadersComponent', () => {
     component.logoutBtnVisibility = true;
     fixture.detectChanges();
     spyOn(component, 'onLogout');
-    const element = fixture.debugElement.query(By.css('.logout-btn'));
+    const element = fixture.debugElement.queryAll(By.css('.dropdown-menu-item'))[1];
     element.triggerEventHandler('click', {});
     expect(component.onLogout).toHaveBeenCalled();
   });
 
+  it('should call openForm method', () => {
+    component.logoutBtnVisibility = true;
+    fixture.detectChanges();
+    spyOn(component, 'openForm');
+    const element = fixture.debugElement.queryAll(By.css('.dropdown-menu-item'))[0];
+    element.triggerEventHandler('click', {});
+    expect(component.openForm).toHaveBeenCalled();
+  });
 });
 
 @Component({
