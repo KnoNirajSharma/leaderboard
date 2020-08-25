@@ -3,7 +3,6 @@ import { IonicModule } from '@ionic/angular';
 import { HeadersComponent } from './headers.component';
 import { Component } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
-import { By } from '@angular/platform-browser';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../../../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -44,8 +43,6 @@ describe('HeadersComponent', () => {
     component.dropdownMenuVisibility = false;
     component.onDropdown();
     expect(component.dropdownMenuVisibility).toEqual(true);
-    component.onDropdown();
-    expect(component.dropdownMenuVisibility).toEqual(false);
   });
 
   it('should call window.open with form url', () => {
