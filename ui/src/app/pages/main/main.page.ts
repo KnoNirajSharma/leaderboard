@@ -60,7 +60,22 @@ export class MainPage implements OnInit {
     }
   }
 
+  total(quarterlyScore: string) {
+    return quarterlyScore.split('-').map(monthScore:string => +monthScore)
+  }
+
+  compareQuaterlyScore(firstEmp, secEmp, sortType) {
+    if (sortType === 'asc') {
+
+    } else {
+      return
+    }
+  }
+
   sortTable(event) {
+    if (event.comlumn.prop === 'quarterlyStreak') {
+      this.filteredEmpData.sort((secEmp, firstEmp) => this.compareQuaterlyScore(secEmp, firstEmp, event.newValue) ? 1 : -1);
+    }
     if (event.newValue === 'asc') {
       this.filteredEmpData
         .sort((secEmp, firstEmp) => this.comparisonBasedOnAllTimeScore(secEmp, firstEmp, event.column.prop) ? 1 : -1);
