@@ -3,14 +3,15 @@ import { IonicModule } from '@ionic/angular';
 import { HeadersComponent } from './headers.component';
 import { Component } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
-import { By } from '@angular/platform-browser';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../../../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import {LoginService} from '../../services/login.service';
 
 describe('HeadersComponent', () => {
   let component: HeadersComponent;
+  let loginService: LoginService;
   let fixture: ComponentFixture<ParentComponent>;
 
   beforeEach(async(() => {
@@ -30,6 +31,7 @@ describe('HeadersComponent', () => {
 
     fixture = TestBed.createComponent(ParentComponent);
     component = fixture.debugElement.children[0].componentInstance;
+    loginService = TestBed.get(LoginService);
     fixture.detectChanges();
   }));
 
@@ -37,32 +39,23 @@ describe('HeadersComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have title TEST', () => {
-    expect(component.title).toEqual('LEADERBOARD');
-  });
-
-  it('should call onDropdown method', () => {
-    spyOn(component, 'onDropdown');
-    const element = fixture.debugElement.query(By.css('.logout-btn-dropdown'));
-    element.triggerEventHandler('click', {});
-    expect(component.onDropdown).toHaveBeenCalled();
-  });
-
-  it('should change the visibility status for logout button', () => {
-    component.logoutBtnVisibility = false;
+  it('should change the visibility status for dropdown menu button', () => {
+    component.dropdownMenuVisibility = false;
     component.onDropdown();
-    expect(component.logoutBtnVisibility).toEqual(true);
+    expect(component.dropdownMenuVisibility).toEqual(true);
   });
 
-  it('should call onLogout method', () => {
-    component.logoutBtnVisibility = true;
-    fixture.detectChanges();
-    spyOn(component, 'onLogout');
-    const element = fixture.debugElement.query(By.css('.logout-btn'));
-    element.triggerEventHandler('click', {});
-    expect(component.onLogout).toHaveBeenCalled();
+  it('should call window.open with form url', () => {
+    spyOn(window, 'open');
+    component.openForm();
+    expect(window.open).toHaveBeenCalledWith(component.formUrl, '_blank');
   });
 
+  it('should call window.open with form url', () => {
+    spyOn(loginService, 'logout');
+    component.onLogout();
+    expect(loginService.logout).toHaveBeenCalled();
+  });
 });
 
 @Component({
