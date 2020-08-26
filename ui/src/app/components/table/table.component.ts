@@ -33,7 +33,6 @@ export class TableComponent implements OnInit {
     }
 
     onSort(event) {
-      console.log('in oSort');
       this.sortCriteria.emit(event);
     }
 }

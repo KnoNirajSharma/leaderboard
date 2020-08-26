@@ -18,7 +18,7 @@ import { environment } from '../../../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
-describe('MainPage', () => {
+fdescribe('MainPage', () => {
   let component: MainPage;
   let fixture: ComponentFixture<MainPage>;
   let mockEmployeeService: EmployeeActivityService;
@@ -114,47 +114,29 @@ describe('MainPage', () => {
     expect(loadingControllerService.present).toHaveBeenCalled();
   }));
 
-  it('should sort the list in descending order on the basis of prop given', () => {
-    component.filteredEmpData = [...dummyReputationData.reputation];
-    const eventMock = {newValue: 'desc', column: {prop: 'allTimeRank'}};
-    component.sortTable(eventMock);
-    expect(component.filteredEmpData[0].knolderId).toEqual(1);
-  });
-
-  it('should sort the list in descending order on the basis of prop given', () => {
-    component.filteredEmpData = [...dummyReputationData.reputation];
-    const eventMock = {newValue: 'desc', column: {prop: 'allTimeScore'}};
-    component.sortTable(eventMock);
-    expect(component.filteredEmpData[0].knolderId).toEqual(2);
-  });
-
-  it('should sort the list in ascending order on the basis of prop given', () => {
-    component.filteredEmpData = [...dummyReputationData.reputation];
-    const eventMock = {newValue: 'asc', column: {prop: 'monthlyScore'}};
-    spyOn(component, 'comparisonBasedOnAllTimeScore').and.returnValue(false);
-    component.sortTable(eventMock);
-    expect(component.filteredEmpData[0].knolderId).toEqual(2);
-  });
-
-  it('should sort the list in ascending 2 order on the basis of prop given', () => {
-    component.filteredEmpData = [...dummyReputationData.reputation];
-    const eventMock = {newValue: 'asc', column: {prop: 'allTimeScore'}};
-    spyOn(component, 'comparisonBasedOnAllTimeScore').and.returnValue(true);
-    component.sortTable(eventMock);
-    expect(component.filteredEmpData[0].knolderId).toEqual(1);
-  });
-
-  it('should compare on the given property if values are not equal', () => {
+  it('should compare on the allTimeRank property if values are not equal', () => {
     const firstEmp = dummyReputationData.reputation[1];
     const secEmp = dummyReputationData.reputation[0];
-    const result = component.comparisonBasedOnAllTimeScore(firstEmp, secEmp, 'allTimeScore');
+    const result = component.comparisonBasedOnAllTimeScore(firstEmp, secEmp, 'allTimeRank');
+    expect(result).toEqual(false);
+  });
+
+  it('should return the total sum of all month in 3 month streak', () => {
+    const streakScore = '1-1-1';
+    expect(component.totalOfQuarterlyScore(streakScore)).toEqual(3);
+  });
+
+  it('should return true or false depending on if the quarterly total score are in ascending order', () => {
+    const firstEmpStreak = dummyReputationData.reputation[0].quarterlyStreak;
+    const secEmpStreak = dummyReputationData.reputation[1].quarterlyStreak;
+    const result = component.compareQuarterlyScore(firstEmpStreak, secEmpStreak, 'asc');
     expect(result).toEqual(true);
   });
 
-  it('should compare on allTime score if values are equal', () => {
-    const firstEmp = dummyReputationData.reputation[1];
-    const secEmp = dummyReputationData.reputation[0];
-    const result = component.comparisonBasedOnAllTimeScore(firstEmp, secEmp, 'monthlyScore');
+  it('should return true or false depending on if the quarterly total score are in descending order', () => {
+    const firstEmpStreak = dummyReputationData.reputation[0].quarterlyStreak;
+    const secEmpStreak = dummyReputationData.reputation[1].quarterlyStreak;
+    const result = component.compareQuarterlyScore(firstEmpStreak, secEmpStreak, 'desc');
     expect(result).toEqual(false);
   });
 
@@ -174,23 +156,40 @@ describe('MainPage', () => {
     expect(component.filteredEmpData[0].knolderId).toEqual(2);
   });
 
-  it('should return true or false depending on if the quarterly total score are in ascending order', () => {
-    const firstEmpStreak = dummyReputationData.reputation[0].quarterlyStreak;
-    const secEmpStreak = dummyReputationData.reputation[1].quarterlyStreak;
-    const result = component.compareQuarterlyScore(firstEmpStreak, secEmpStreak, 'asc');
-    expect(result).toEqual(true);
-  });
-
-  it('should return true or false depending on if the quarterly total score are in descending order', () => {
-    const firstEmpStreak = dummyReputationData.reputation[0].quarterlyStreak;
-    const secEmpStreak = dummyReputationData.reputation[1].quarterlyStreak;
-    const result = component.compareQuarterlyScore(firstEmpStreak, secEmpStreak, 'desc');
+  it('should compare on allTimeScore if values are equal', () => {
+    const firstEmp = dummyReputationData.reputation[1];
+    const secEmp = dummyReputationData.reputation[0];
+    const result = component.comparisonBasedOnAllTimeScore(firstEmp, secEmp, 'monthlyScore');
     expect(result).toEqual(false);
   });
 
-  it('should return the total sum of all month in 3 month streak', () => {
-    const streakScore = '1-1-1';
-    const sum = component.totalOfQuarterlyScore(streakScore);
-    expect(sum).toEqual(3);
+  it('should sort the list in descending order on the basis of allTimeRank', () => {
+    component.filteredEmpData = [...dummyReputationData.reputation];
+    const eventMock = {newValue: 'desc', column: {prop: 'allTimeRank'}};
+    component.sortTable(eventMock);
+    expect(component.filteredEmpData[0].knolderId).toEqual(1);
+  });
+
+  it('should sort the list in descending order on the basis of allTimeScore', () => {
+    component.filteredEmpData = [...dummyReputationData.reputation];
+    const eventMock = {newValue: 'desc', column: {prop: 'allTimeScore'}};
+    component.sortTable(eventMock);
+    expect(component.filteredEmpData[0].knolderId).toEqual(2);
+  });
+
+  it('should sort the list in ascending order on the basis of monthlyScore', () => {
+    component.filteredEmpData = [...dummyReputationData.reputation];
+    const eventMock = {newValue: 'asc', column: {prop: 'monthlyScore'}};
+    spyOn(component, 'comparisonBasedOnAllTimeScore').and.returnValue(false);
+    component.sortTable(eventMock);
+    expect(component.filteredEmpData[0].knolderId).toEqual(2);
+  });
+
+  it('should sort the list in ascending order on the basis of allTimeScore', () => {
+    component.filteredEmpData = [...dummyReputationData.reputation];
+    const eventMock = {newValue: 'asc', column: {prop: 'allTimeScore'}};
+    spyOn(component, 'comparisonBasedOnAllTimeScore').and.returnValue(true);
+    component.sortTable(eventMock);
+    expect(component.filteredEmpData[0].knolderId).toEqual(1);
   });
 });

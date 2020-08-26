@@ -53,25 +53,21 @@ export class MainPage implements OnInit {
   }
 
   comparisonBasedOnAllTimeScore(firstEmp: AuthorModel, secEmp: AuthorModel, propertyName: string) {
-    if (firstEmp[propertyName] === secEmp[propertyName]) {
-      return firstEmp.allTimeScore < secEmp.allTimeScore;
-    } else {
-      return firstEmp[propertyName] > secEmp[propertyName];
-    }
+    return firstEmp[propertyName] === secEmp[propertyName]
+      ? firstEmp.allTimeScore < secEmp.allTimeScore
+      : firstEmp[propertyName] > secEmp[propertyName];
   }
 
   totalOfQuarterlyScore(quarterlyScore: string) {
     return quarterlyScore.split('-')
-      .map(singleMonthScore => Number(singleMonthScore))
+      .map(Number)
       .reduce((firstMonth, secondMonth) => firstMonth + secondMonth);
   }
 
-  compareQuarterlyScore(firstEmpScoreStreak: string, secEmpScoreStreak: string, sortType: string) {
-    if (sortType === 'asc') {
-      return this.totalOfQuarterlyScore(firstEmpScoreStreak) < this.totalOfQuarterlyScore(secEmpScoreStreak);
-    } else {
-      return this.totalOfQuarterlyScore(firstEmpScoreStreak) > this.totalOfQuarterlyScore(secEmpScoreStreak);
-    }
+  compareQuarterlyScore(firstEmpScoreStreak, secEmpScoreStreak, sortType) {
+    return sortType === 'asc'
+      ? this.totalOfQuarterlyScore(firstEmpScoreStreak) < this.totalOfQuarterlyScore(secEmpScoreStreak)
+      : this.totalOfQuarterlyScore(firstEmpScoreStreak) > this.totalOfQuarterlyScore(secEmpScoreStreak);
   }
 
   sortTable(event) {
