@@ -18,7 +18,7 @@ import { environment } from '../../../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
-fdescribe('MainPage', () => {
+describe('MainPage', () => {
   let component: MainPage;
   let fixture: ComponentFixture<MainPage>;
   let mockEmployeeService: EmployeeActivityService;
@@ -79,23 +79,10 @@ fdescribe('MainPage', () => {
     fixture.detectChanges();
   }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
   it('should return the authorData as per api call', () => {
     spyOn(mockEmployeeService, 'getData').and.returnValue(of(dummyReputationData));
     component.ngOnInit();
     expect(component.employeeData).toEqual(dummyReputationData.reputation);
-  });
-
-  it('should call the filterEmp on keyup', () => {
-    spyOn(component, 'filterEmp');
-    fixture.detectChanges();
-    const input = fixture.debugElement.query(By.css('input'));
-    const inputElement = input.nativeElement;
-    inputElement.dispatchEvent(new Event('keyup'));
-    expect(component.filterEmp).toHaveBeenCalled();
   });
 
   it('should filter Employee', () => {
@@ -117,8 +104,13 @@ fdescribe('MainPage', () => {
   it('should compare on the allTimeRank property if values are not equal', () => {
     const firstEmp = dummyReputationData.reputation[1];
     const secEmp = dummyReputationData.reputation[0];
-    const result = component.comparisonBasedOnAllTimeScore(firstEmp, secEmp, 'allTimeRank');
-    expect(result).toEqual(false);
+    expect(component.comparisonBasedOnAllTimeScore(firstEmp, secEmp, 'allTimeRank')).toEqual(false);
+  });
+
+  it('should compare on allTimeScore if values are equal', () => {
+    const firstEmp = dummyReputationData.reputation[1];
+    const secEmp = dummyReputationData.reputation[0];
+    expect(component.comparisonBasedOnAllTimeScore(firstEmp, secEmp, 'monthlyScore')).toEqual(false);
   });
 
   it('should return the total sum of all month in 3 month streak', () => {
@@ -129,15 +121,13 @@ fdescribe('MainPage', () => {
   it('should return true or false depending on if the quarterly total score are in ascending order', () => {
     const firstEmpStreak = dummyReputationData.reputation[0].quarterlyStreak;
     const secEmpStreak = dummyReputationData.reputation[1].quarterlyStreak;
-    const result = component.compareQuarterlyScore(firstEmpStreak, secEmpStreak, 'asc');
-    expect(result).toEqual(true);
+    expect(component.compareQuarterlyScore(firstEmpStreak, secEmpStreak, 'asc')).toEqual(true);
   });
 
   it('should return true or false depending on if the quarterly total score are in descending order', () => {
     const firstEmpStreak = dummyReputationData.reputation[0].quarterlyStreak;
     const secEmpStreak = dummyReputationData.reputation[1].quarterlyStreak;
-    const result = component.compareQuarterlyScore(firstEmpStreak, secEmpStreak, 'desc');
-    expect(result).toEqual(false);
+    expect(component.compareQuarterlyScore(firstEmpStreak, secEmpStreak, 'desc')).toEqual(false);
   });
 
   it('should sort list in asc on the basis of quarterly score', () => {
@@ -154,13 +144,6 @@ fdescribe('MainPage', () => {
     spyOn(component, 'compareQuarterlyScore').and.returnValue(false);
     component.sortTable(eventMock);
     expect(component.filteredEmpData[0].knolderId).toEqual(2);
-  });
-
-  it('should compare on allTimeScore if values are equal', () => {
-    const firstEmp = dummyReputationData.reputation[1];
-    const secEmp = dummyReputationData.reputation[0];
-    const result = component.comparisonBasedOnAllTimeScore(firstEmp, secEmp, 'monthlyScore');
-    expect(result).toEqual(false);
   });
 
   it('should sort the list in descending order on the basis of allTimeRank', () => {
