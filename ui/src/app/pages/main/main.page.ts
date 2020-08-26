@@ -53,19 +53,33 @@ export class MainPage implements OnInit {
   }
 
   comparisonBasedOnAllTimeScore(firstEmp: AuthorModel, secEmp: AuthorModel, propertyName: string) {
-    if (firstEmp[propertyName] === secEmp[propertyName]) {
-      return firstEmp.allTimeScore < secEmp.allTimeScore;
-    } else {
-      return firstEmp[propertyName] > secEmp[propertyName];
-    }
+    return firstEmp[propertyName] === secEmp[propertyName]
+      ? firstEmp.allTimeScore < secEmp.allTimeScore
+      : firstEmp[propertyName] > secEmp[propertyName];
+  }
+
+  totalOfQuarterlyScore(quarterlyScore: string) {
+    return quarterlyScore.split('-')
+      .map(Number)
+      .reduce((firstMonth, secondMonth) => firstMonth + secondMonth);
+  }
+
+  compareQuarterlyScore(firstEmpScoreStreak, secEmpScoreStreak, sortType) {
+    return sortType === 'asc'
+      ? this.totalOfQuarterlyScore(firstEmpScoreStreak) < this.totalOfQuarterlyScore(secEmpScoreStreak)
+      : this.totalOfQuarterlyScore(firstEmpScoreStreak) > this.totalOfQuarterlyScore(secEmpScoreStreak);
   }
 
   sortTable(event) {
-    if (event.newValue === 'asc') {
+    if (event.column.prop === 'quarterlyStreak') {
+      this.filteredEmpData
+        .sort((secEmp, firstEmp) => this.compareQuarterlyScore(firstEmp.quarterlyStreak, secEmp.quarterlyStreak,  event.newValue) ? 1 : -1);
+    } else if (event.newValue === 'asc') {
       this.filteredEmpData
         .sort((secEmp, firstEmp) => this.comparisonBasedOnAllTimeScore(secEmp, firstEmp, event.column.prop) ? 1 : -1);
     } else {
-      this.filteredEmpData.sort((secEmp, firstEmp) => secEmp[event.column.prop] < firstEmp[event.column.prop] ? 1 : -1);
+      this.filteredEmpData
+        .sort((secEmp, firstEmp) => secEmp[event.column.prop] < firstEmp[event.column.prop] ? 1 : -1);
     }
   }
 }
