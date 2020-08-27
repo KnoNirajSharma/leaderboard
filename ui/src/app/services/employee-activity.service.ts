@@ -21,14 +21,14 @@ export class EmployeeActivityService {
   }
 
   getAllTimeDetails(id: number): Observable<KnolderDetailsModel> {
-    return this.httpClient.get<KnolderDetailsModel>(this.url + '/' + id);
+    return this.httpClient.get<KnolderDetailsModel>(this.url + '/' + String(id));
   }
 
   getMonthlyDetails(id: number, month: string, year: number): Observable<KnolderDetailsModel> {
-    return this.httpClient.get<KnolderDetailsModel>(this.url + '/' + id + '?month=' + month + '&year=' + year);
+    return this.httpClient.get<KnolderDetailsModel>(this.url + '/' + String(id) + '?month=' + String(month) + '&year=' + String(year));
   }
 
   getTrendsData(id: number): Observable<TrendsModel[]> {
-    return this.httpClient.get<TrendsModel[]>(this.trendUrl + '/' + id);
+    return this.httpClient.get<TrendsModel[]>(this.trendUrl + '/' + String(id));
   }
 }

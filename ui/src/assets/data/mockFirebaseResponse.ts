@@ -1,4 +1,4 @@
-export let mockResponseUserData = JSON.parse('{\n' +
+export const mockResponseUserData = JSON.parse('{\n' +
     '  "user": {\n' +
     '    "uid": "ubn2MduYUwUBrdWwoMr97",\n' +
     '    "displayName": "name",\n' +
