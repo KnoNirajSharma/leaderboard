@@ -16,7 +16,6 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from '../../../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import {AuthorModel} from '../../models/author.model';
 
 describe('MainPage', () => {
   let component: MainPage;
@@ -55,28 +54,6 @@ describe('MainPage', () => {
     ]
   };
 
-  const mockReputationList: AuthorModel[] = [
-    {
-      knolderId: 1,
-      knolderName: 'mark',
-      allTimeScore: 10,
-      allTimeRank: 7,
-      quarterlyStreak: '5-6-7',
-      monthlyScore: 10,
-      monthlyRank: 1,
-      topRanker: true
-    }, {
-      knolderId: 2,
-      knolderName: 'sam',
-      allTimeScore: 20,
-      allTimeRank: 6,
-      quarterlyStreak: '5-6-8',
-      monthlyScore: 10,
-      monthlyRank: 1,
-      topRanker: true
-    }
-  ];
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [MainPage, TableComponent, EmployeeFilterPipe],
@@ -102,32 +79,33 @@ describe('MainPage', () => {
 
   it('should return the authorData as per api call', () => {
     spyOn(mockEmployeeService, 'getData').and.returnValue(of(dummyReputationData));
+    const mockReputationList = [
+      {...dummyReputationData.reputation[0], topRanker : true},
+      {...dummyReputationData.reputation[1], topRanker : true},
+    ];
     component.ngOnInit();
     expect(component.employeeData).toEqual(mockReputationList);
   });
 
-  it('should return the authorData as per api call2', () => {
+  it('should add topRanker equal to true if the index is less than 5', () => {
     spyOn(mockEmployeeService, 'getData').and.returnValue(of(dummyReputationData));
     component.ngOnInit();
     expect(component.employeeData[1].topRanker).toEqual(true);
   });
 
-  fit('should return the authorData as per api call3', () => {
-    const list = {
+  it('should not add topRanker parameter to knolder is index is 5 or greater', () => {
+    spyOn(mockEmployeeService, 'getData').and.returnValue(of({
       ...dummyReputationData,
       reputation: [
-        dummyReputationData.reputation[0],
-        dummyReputationData.reputation[0],
-        dummyReputationData.reputation[0],
-        dummyReputationData.reputation[0],
-        dummyReputationData.reputation[0],
-        dummyReputationData.reputation[0],
+        {...dummyReputationData.reputation[0]},
+        {...dummyReputationData.reputation[0]},
+        {...dummyReputationData.reputation[0]},
+        {...dummyReputationData.reputation[0]},
+        {...dummyReputationData.reputation[0]},
+        {...dummyReputationData.reputation[0]},
       ]
-    };
-    spyOn(mockEmployeeService, 'getData').and.returnValue(of(list));
-    // spyOn(mockEmployeeService, 'getData').and.returnValue(of(dummyReputationData));
+    }));
     component.ngOnInit();
-    // console.log(component.employeeData);
     expect(component.employeeData[5].topRanker).toBeUndefined();
   });
 
