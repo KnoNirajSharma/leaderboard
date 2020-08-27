@@ -79,12 +79,12 @@ describe('MainPage', () => {
 
   it('should return the authorData as per api call', () => {
     spyOn(mockEmployeeService, 'getData').and.returnValue(of(dummyReputationData));
-    const mockReputationList = [
+    const mockReputationListAfterFetch = [
       {...dummyReputationData.reputation[0], topRanker : true},
       {...dummyReputationData.reputation[1], topRanker : true},
     ];
     component.ngOnInit();
-    expect(component.employeeData).toEqual(mockReputationList);
+    expect(component.employeeData).toEqual(mockReputationListAfterFetch);
   });
 
   it('should add topRanker equal to true if the index is less than 5', () => {
