@@ -34,7 +34,10 @@ export class MainPage implements OnInit {
     this.service.getData()
       .subscribe((data: ReputationModel) => {
         this.reputation = data;
-        this.employeeData = this.reputation.reputation;
+        // console.log(this.reputation.reputation);
+        this.employeeData = this.reputation.reputation
+          .map(x => this.reputation.reputation.indexOf(x) < 5 ? { ...x, topRanker: true } : x);
+        console.log(this.employeeData);
         this.filteredEmpData = [...this.employeeData];
         this.loadingControllerService.dismiss();
       });

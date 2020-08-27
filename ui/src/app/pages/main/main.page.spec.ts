@@ -16,6 +16,7 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from '../../../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import {AuthorModel} from '../../models/author.model';
 
 describe('MainPage', () => {
   let component: MainPage;
@@ -41,7 +42,7 @@ describe('MainPage', () => {
         allTimeRank: 7,
         quarterlyStreak: '5-6-7',
         monthlyScore: 10,
-        monthlyRank: 1
+        monthlyRank: 1,
       }, {
         knolderId: 2,
         knolderName: 'sam',
@@ -49,10 +50,32 @@ describe('MainPage', () => {
         allTimeRank: 6,
         quarterlyStreak: '5-6-8',
         monthlyScore: 10,
-        monthlyRank: 1
+        monthlyRank: 1,
       }
     ]
   };
+
+  const mockReputationList: AuthorModel[] = [
+    {
+      knolderId: 1,
+      knolderName: 'mark',
+      allTimeScore: 10,
+      allTimeRank: 7,
+      quarterlyStreak: '5-6-7',
+      monthlyScore: 10,
+      monthlyRank: 1,
+      topRanker: true
+    }, {
+      knolderId: 2,
+      knolderName: 'sam',
+      allTimeScore: 20,
+      allTimeRank: 6,
+      quarterlyStreak: '5-6-8',
+      monthlyScore: 10,
+      monthlyRank: 1,
+      topRanker: true
+    }
+  ];
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -75,13 +98,37 @@ describe('MainPage', () => {
     component = fixture.componentInstance;
     mockEmployeeService = TestBed.get(EmployeeActivityService);
     loadingControllerService = TestBed.get(LoadingControllerService);
-    fixture.detectChanges();
   }));
 
   it('should return the authorData as per api call', () => {
     spyOn(mockEmployeeService, 'getData').and.returnValue(of(dummyReputationData));
     component.ngOnInit();
-    expect(component.employeeData).toEqual(dummyReputationData.reputation);
+    expect(component.employeeData).toEqual(mockReputationList);
+  });
+
+  it('should return the authorData as per api call2', () => {
+    spyOn(mockEmployeeService, 'getData').and.returnValue(of(dummyReputationData));
+    component.ngOnInit();
+    expect(component.employeeData[1].topRanker).toEqual(true);
+  });
+
+  fit('should return the authorData as per api call3', () => {
+    const list = {
+      ...dummyReputationData,
+      reputation: [
+        dummyReputationData.reputation[0],
+        dummyReputationData.reputation[0],
+        dummyReputationData.reputation[0],
+        dummyReputationData.reputation[0],
+        dummyReputationData.reputation[0],
+        dummyReputationData.reputation[0],
+      ]
+    };
+    spyOn(mockEmployeeService, 'getData').and.returnValue(of(list));
+    // spyOn(mockEmployeeService, 'getData').and.returnValue(of(dummyReputationData));
+    component.ngOnInit();
+    // console.log(component.employeeData);
+    expect(component.employeeData[5].topRanker).toBeUndefined();
   });
 
   it('should filter Employee', () => {
@@ -91,14 +138,6 @@ describe('MainPage', () => {
     component.filterEmp();
     expect(component.filteredEmpData).toEqual([dummyReputationData.reputation[0]]);
   });
-
-  it('should invoke loader', fakeAsync(() => {
-    spyOn(loadingControllerService, 'present').and.callThrough();
-    component.ngOnInit();
-    tick();
-    fixture.detectChanges();
-    expect(loadingControllerService.present).toHaveBeenCalled();
-  }));
 
   it('should compare on the allTimeRank property if values are not equal', () => {
     const firstEmp = dummyReputationData.reputation[1];

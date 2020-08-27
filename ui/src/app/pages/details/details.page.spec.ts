@@ -1,6 +1,5 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { By } from '@angular/platform-browser';
 import { ComponentsModule } from '../../components/components.module';
 import { DetailsPage } from './details.page';
 import { EmployeeActivityService } from '../../services/employee-activity.service';
@@ -82,21 +81,11 @@ describe('DetailsPage', () => {
     component = fixture.componentInstance;
     mockEmployeeService = TestBed.get(EmployeeActivityService);
     loadingControllerService = TestBed.get(LoadingControllerService);
-    fixture.detectChanges();
   }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('should call method to get all time details', async(() => {
-    spyOn(component, 'getAllTimeDetails');
-    component.ngOnInit();
-    const button = fixture.debugElement.query(By.css('.all-time-btn'));
-    const buttonElem = button.nativeElement;
-    buttonElem.dispatchEvent(new Event('click'));
-    expect(component.getAllTimeDetails).toHaveBeenCalled();
-  }));
 
   it('should return the knolder monthly details Data as per api call', () => {
     const testMonth = 'june';
@@ -112,14 +101,6 @@ describe('DetailsPage', () => {
     component.getAllTimeDetails();
     expect(component.knolderDetails).toEqual(dummyKnolderDetails);
   });
-
-  it('should invoke loader', fakeAsync(() => {
-    spyOn(loadingControllerService, 'present').and.callThrough();
-    component.ngOnInit();
-    tick();
-    fixture.detectChanges();
-    expect(loadingControllerService.present).toHaveBeenCalled();
-  }));
 
   it('should return the trendsData as per api call', () => {
     spyOn(mockEmployeeService, 'getTrendsData').and.returnValue(of(dummyTrendsData));

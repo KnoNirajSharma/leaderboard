@@ -18,7 +18,7 @@
                     <ngx-datatable-column [sortable]=false cellClass="table-cell-style" headerClass="table-header-style"
                                           name="NAME" prop="knolderName">
                         <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                     <img *ngIf="employeeRows.indexOf(row) < 5" src="./assets/icon/icons-trophy.png" alt="trophy-image" class="image-table"/>
+                     <img *ngIf="row.topRanker" src="./assets/icon/icons-trophy.png" alt="trophy-image" class="image-table"/>
                             {{value}}
                         </ng-template>
                     </ngx-datatable-column>
@@ -65,7 +65,7 @@
                 <ion-card *ngFor="let row of tableRows">
                     <ion-card-header>
                         <ion-card-title class="font-weight-light">
-                            <img *ngIf="employeeRows.indexOf(row) < 5"
+                            <img *ngIf="row.topRanker"
                                  alt="trophy-image" class="image-mobile"
                                  src="./assets/icon/icons-trophy.png"/>
                             {{row.knolderName}}
