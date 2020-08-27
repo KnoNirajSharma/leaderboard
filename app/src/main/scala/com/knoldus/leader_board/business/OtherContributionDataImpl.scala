@@ -25,7 +25,7 @@ class OtherContributionDataImpl(dateTimeFormats: ParseDateTimeFormats, response:
       ).getValues.asScala.toList
       val otherContributionData = values.map(data => data.asScala.toList.map(_.toString))
       val otherContributionList = otherContributionData.map {
-        case List(emailId, name, _, typeOfContribution, title, date, _, urlLink, _*) =>
+        case List(_, name, emailId, typeOfContribution, title, date, _, urlLink, _*) =>
           val dateOfContribution = dateTimeFormats.parseDateTimeFormat(date)
           OtherContributionDetails(urlLink, emailId, name, dateOfContribution, title, typeOfContribution)
       }

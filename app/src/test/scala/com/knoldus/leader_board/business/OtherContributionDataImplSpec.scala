@@ -36,8 +36,8 @@ class OtherContributionDataImplSpec extends AnyWordSpecLike with MockitoSugar wi
         .thenReturn(osContributionValueRange)
       when(mockDateTimeFormat.parseDateTimeFormat(any))
         .thenReturn(Option(dateOne))
-      val webinarList = List(OtherContributionDetails("abc@github.com", "abc@knoldus.com", "amit", Option(dateOne), "java lambdas", "Open Source"),
-        OtherContributionDetails("xyz@github.com", "xyz@knoldus.com", "akash", Option(dateOne), "rust", "Conference"))
+      val webinarList = List(OtherContributionDetails("abc@github.com", "a@gmail.com", "amit", Option(dateOne), "java lambdas", "Open Source"),
+        OtherContributionDetails("xyz@github.com", "b@gmail.com", "akash", Option(dateOne), "rust", "Conference"))
       assert(otherContributionObj.getOtherContributionData == webinarList)
     }
 
