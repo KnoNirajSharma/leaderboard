@@ -21,6 +21,16 @@ export class MainPage implements OnInit {
   currentDate: Date;
   tableHeading: TableHeaderModel[];
   reputation: ReputationModel;
+  scoringInfoData = [
+    { type: 'Blog', weight: '5', integrated: '' },
+    { type: 'Knolx', weight: '20', integrated: '' },
+    { type: 'Webinar', weight: '15', integrated: '' },
+    { type: 'TechHub Templates', weight: '30', integrated: '' },
+    { type: 'OS Contribution', weight: '', integrated: '' },
+    { type: 'Conferences', weight: '', integrated: '' },
+    { type: 'Books', weight: '', integrated: '' },
+    { type: 'Research Paper', weight: '', integrated: '' },
+  ];
 
   constructor(private service: EmployeeActivityService, private loadingControllerService: LoadingControllerService) {
   }
