@@ -22,14 +22,14 @@ export class MainPage implements OnInit {
   tableHeading: TableHeaderModel[];
   reputation: ReputationModel;
   scoringInfoData = [
-    { type: 'Blog', weight: '5', integrated: '' },
-    { type: 'Knolx', weight: '20', integrated: '' },
-    { type: 'Webinar', weight: '15', integrated: '' },
-    { type: 'TechHub Templates', weight: '30', integrated: '' },
-    { type: 'OS Contribution', weight: '', integrated: '' },
-    { type: 'Conferences', weight: '', integrated: '' },
-    { type: 'Books', weight: '', integrated: '' },
-    { type: 'Research Paper', weight: '', integrated: '' },
+    { type: 'Blog', weight: '5', integrated: true, symbol: '&#10004;' },
+    { type: 'Knolx', weight: '20', integrated: true, symbol: '&#10004;' },
+    { type: 'Webinar', weight: '15', integrated: true, symbol: '&#10004;' },
+    { type: 'TechHub Templates', weight: '15', integrated: true, symbol: '&#10004;' },
+    { type: 'OS Contribution', weight: '30', integrated: true, symbol: '&#10004;' },
+    { type: 'Research Paper', weight: '50', integrated: false, symbol: '&#10008;' },
+    { type: 'Conference', weight: '100', integrated: false, symbol: '&#10008;' },
+    { type: 'Book', weight: '100', integrated: false, symbol: '&#10008;' },
   ];
 
   constructor(private service: EmployeeActivityService, private loadingControllerService: LoadingControllerService) {

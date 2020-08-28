@@ -1,7 +1,7 @@
 <app-headers [backBtnLink]="mainPageLink" [backBtn]="true"></app-headers>
 <ion-content>
     <div class="container-fluid">
-        <div class="page-wrapper mt-5 col-12 col-xl-10 ion-no-padding">
+        <div class="page-wrapper mt-5 col-12 col-xl-11   ion-no-padding">
             <h1 *ngIf="knolderDetails"
                 class="name-title col-12 col-md-6 mt-lg-0 pb-2">{{knolderDetails.knolderName}}</h1>
             <div class="row">
@@ -81,7 +81,7 @@
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
-                    <div *ngIf="trendsData" class="col-12 text-center card border-0 mt-4 col-xl-9 mx-auto ">
+                    <div *ngIf="trendsData" class="col-12 text-center card border-0 mt-4 col-xl-10 mx-auto ">
                         <div class="card-head shadow-box d-flex justify-content-between pt-3 pb-2 px-3 bg-white mt-n4 mx-3">
                             <div class="align-self-center">
                                 <h4 class="font-weight-normal m-0">Trends</h4>
@@ -90,7 +90,7 @@
                         <app-vertical-bar-graph [inputResult]="trendsData"></app-vertical-bar-graph>
 
                     </div>
-                    <div *ngIf="allTimeDetails" class="col-12 mt-5 card border-0 col-xl-9 mx-auto pl-2">
+                    <div *ngIf="allTimeDetails" class="col-12 mt-5 card border-0 col-xl-10 mx-auto pl-2">
                         <div class="card-head shadow-box d-flex justify-content-between pt-3 pb-2 px-3 bg-white mt-n4 mx-3">
                             <div class="align-self-center">
                                 <h4 class="font-weight-normal m-0">All Time</h4>
