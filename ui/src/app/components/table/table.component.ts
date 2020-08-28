@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { AuthorModel } from '../../models/author.model';
 import { Router } from '@angular/router';
 import { TableHeaderModel } from '../../models/tableHeader.model';
@@ -10,16 +10,13 @@ import { TableHeaderModel } from '../../models/tableHeader.model';
   encapsulation: ViewEncapsulation.None,
 })
 
-export class TableComponent implements OnInit {
+export class TableComponent {
     @Input() tableRows: AuthorModel[];
     @Input() tableHeading: TableHeaderModel[];
     @Input() employeeRows: AuthorModel[];
     @Output() sortCriteria = new EventEmitter();
 
     constructor(public router: Router) {
-    }
-
-    ngOnInit() {
     }
 
     onActivate(event) {

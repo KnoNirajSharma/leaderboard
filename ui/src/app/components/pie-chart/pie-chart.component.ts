@@ -13,9 +13,6 @@ export class PieChartComponent implements OnInit {
 
   result: { name: string; value: number; }[] = [];
 
-  constructor() {
-  }
-
   ngOnInit() {
     this.inputResult.map(obj => this.result.push({ name: obj.contributionType, value: obj.contributionScore }));
   }

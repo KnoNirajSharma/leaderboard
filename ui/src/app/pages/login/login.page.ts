@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
 
@@ -8,12 +8,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.page.scss'],
 })
 
-export class LoginPage implements OnInit {
+export class LoginPage {
 
   constructor(private loginService: LoginService, private router: Router) { }
-
-  ngOnInit() {
-  }
 
   onSignIn() {
     this.loginService.signInWithGoogle().then((result) => {

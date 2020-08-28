@@ -4,5 +4,5 @@ export interface KnolderDetailsModel {
   knolderName: string;
   score: number;
   scoreBreakDown: ScoreBreakDownModel[];
-  pastTrend?: {month: string, score: number}[];
+  pastTrend?: { month: string; score: number; }[];
 }
