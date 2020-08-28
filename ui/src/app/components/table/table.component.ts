@@ -13,7 +13,6 @@ import { TableHeaderModel } from '../../models/tableHeader.model';
 export class TableComponent {
     @Input() tableRows: AuthorModel[];
     @Input() tableHeading: TableHeaderModel[];
-    @Input() employeeRows: AuthorModel[];
     @Output() sortCriteria = new EventEmitter();
 
     constructor(public router: Router) {

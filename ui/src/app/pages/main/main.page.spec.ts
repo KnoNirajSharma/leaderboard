@@ -41,7 +41,7 @@ describe('MainPage', () => {
         allTimeRank: 7,
         quarterlyStreak: '5-6-7',
         monthlyScore: 10,
-        monthlyRank: 1
+        monthlyRank: 1,
       }, {
         knolderId: 2,
         knolderName: 'sam',
@@ -49,7 +49,7 @@ describe('MainPage', () => {
         allTimeRank: 6,
         quarterlyStreak: '5-6-8',
         monthlyScore: 10,
-        monthlyRank: 1
+        monthlyRank: 1,
       }
     ]
   };
@@ -75,13 +75,38 @@ describe('MainPage', () => {
     component = fixture.componentInstance;
     mockEmployeeService = TestBed.get(EmployeeActivityService);
     loadingControllerService = TestBed.get(LoadingControllerService);
-    fixture.detectChanges();
   }));
 
   it('should return the authorData as per api call', () => {
     spyOn(mockEmployeeService, 'getData').and.returnValue(of(dummyReputationData));
+    const mockReputationListAfterFetch = [
+      {...dummyReputationData.reputation[0], topRanker : true},
+      {...dummyReputationData.reputation[1], topRanker : true},
+    ];
     component.ngOnInit();
-    expect(component.employeeData).toEqual(dummyReputationData.reputation);
+    expect(component.employeeData).toEqual(mockReputationListAfterFetch);
+  });
+
+  it('should add topRanker equal to true if the index is less than 5', () => {
+    spyOn(mockEmployeeService, 'getData').and.returnValue(of(dummyReputationData));
+    component.ngOnInit();
+    expect(component.employeeData[1].topRanker).toEqual(true);
+  });
+
+  it('should not add topRanker parameter to knolder is index is 5 or greater', () => {
+    spyOn(mockEmployeeService, 'getData').and.returnValue(of({
+      ...dummyReputationData,
+      reputation: [
+        {...dummyReputationData.reputation[0]},
+        {...dummyReputationData.reputation[0]},
+        {...dummyReputationData.reputation[0]},
+        {...dummyReputationData.reputation[0]},
+        {...dummyReputationData.reputation[0]},
+        {...dummyReputationData.reputation[0]},
+      ]
+    }));
+    component.ngOnInit();
+    expect(component.employeeData[5].topRanker).toBeUndefined();
   });
 
   it('should filter Employee', () => {
@@ -91,14 +116,6 @@ describe('MainPage', () => {
     component.filterEmp();
     expect(component.filteredEmpData).toEqual([dummyReputationData.reputation[0]]);
   });
-
-  it('should invoke loader', fakeAsync(() => {
-    spyOn(loadingControllerService, 'present').and.callThrough();
-    component.ngOnInit();
-    tick();
-    fixture.detectChanges();
-    expect(loadingControllerService.present).toHaveBeenCalled();
-  }));
 
   it('should compare on the allTimeRank property if values are not equal', () => {
     const firstEmp = dummyReputationData.reputation[1];
