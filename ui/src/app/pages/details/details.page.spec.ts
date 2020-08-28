@@ -83,10 +83,6 @@ describe('DetailsPage', () => {
     loadingControllerService = TestBed.get(LoadingControllerService);
   }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
   it('should return the knolder monthly details Data as per api call', () => {
     const testMonth = 'june';
     const testYear = 2020;
