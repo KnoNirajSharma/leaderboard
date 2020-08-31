@@ -23,8 +23,8 @@ class TwelveMonthsContributionImplSpec extends AnyWordSpecLike with MockitoSugar
 
       val year = IndianTime.currentTime.minusMonths(12).getYear
       when(mockReadContribution.fetchKnoldersWithTwelveMonthContributions(month, year, 1))
-        .thenReturn(Option(30, 20, 40, 50, 60))
-      assert(twelveMonthsContribution.lastTwelveMonthsScore(1, 12) == Option(List(TwelveMonthsScore(monthName, 2019, 30, 20, 40, 50, 60))))
+        .thenReturn(Option(30, 20, 40, 50, 60,100))
+      assert(twelveMonthsContribution.lastTwelveMonthsScore(1, 12) == Option(List(TwelveMonthsScore(monthName, 2019, 30, 20, 40, 50, 60,100))))
     }
   }
 }

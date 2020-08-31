@@ -13,5 +13,5 @@ trait ReadContribution {
 
   def fetchKnoldersWithQuarterThirdMonthContributions: List[GetContributionCount]
 
-  def fetchKnoldersWithTwelveMonthContributions(month: Int, year: Int, knolderId: Int): Option[(Int, Int, Int, Int, Int)]
+  def fetchKnoldersWithTwelveMonthContributions(month: Int, year: Int, knolderId: Int): Option[(Int, Int, Int, Int, Int, Int)]
 }

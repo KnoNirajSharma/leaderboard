@@ -21,14 +21,16 @@ class FetchKnolderContributionDetailsImpl(config: Config) extends FetchKnolderCo
 
     val contributions = List(fetchKnolderMonthlyBlogDetails(month, year, knolderId),
       fetchKnolderMonthlyKnolxDetails(month, year, knolderId), fetchKnolderMonthlyWebinarDetails(month, year, knolderId),
-      fetchKnolderMonthlyTechHubDetails(month, year, knolderId), fetchKnolderMonthlyOsContributionDetails(month, year, knolderId))
+      fetchKnolderMonthlyTechHubDetails(month, year, knolderId), fetchKnolderMonthlyOsContributionDetails(month, year, knolderId),
+      fetchKnolderMonthlyConferenceDetails(month, year, knolderId))
 
     SQL(
       s"""SELECT
       knolder.full_name,
       COUNT(DISTINCT blog.id) * ${config.getInt("scorePerBlog")} + COUNT(DISTINCT knolx.id) * ${config.getInt("scorePerKnolx")}
       + COUNT(DISTINCT webinar.id) * ${config.getInt("scorePerWebinar")} + COUNT(DISTINCT techhub.id)
-       * ${config.getInt("scorePerTechHub")} + COUNT(DISTINCT oscontribution.id) * ${config.getInt("scorePerOsContribution")} AS monthly_score
+       * ${config.getInt("scorePerTechHub")} + COUNT(DISTINCT oscontribution.id) * ${config.getInt("scorePerOsContribution")} +
+       COUNT(DISTINCT conference.id) * ${config.getInt("scorePerConference")} AS monthly_score
     FROM knolder
     LEFT JOIN blog ON knolder.wordpress_id = blog.wordpress_id
     AND EXTRACT(month FROM blog.published_on) = ?
@@ -45,9 +47,12 @@ class FetchKnolderContributionDetailsImpl(config: Config) extends FetchKnolderCo
     LEFT JOIN oscontribution ON knolder.email_id = oscontribution.email_id
     AND EXTRACT(month FROM oscontribution.contributed_on) = ?
     AND EXTRACT(year FROM oscontribution.contributed_on) = ?
+    LEFT JOIN conference ON knolder.email_id = conference.email_id
+    AND EXTRACT(month FROM conference.delivered_on) = ?
+    AND EXTRACT(year FROM conference.delivered_on) = ?
     WHERE knolder.id = ?
     GROUP BY knolder.full_name""")
-      .bind(month, year, month, year, month, year, month, year, month, year, knolderId)
+      .bind(month, year, month, year, month, year, month, year, month, year, month, year, knolderId)
       .map(rs => KnolderDetails(rs.string("full_name"), rs.int("monthly_score"), contributions))
       .single().apply()
   }
@@ -196,9 +201,37 @@ class FetchKnolderContributionDetailsImpl(config: Config) extends FetchKnolderCo
     val osContributionCount = osContributionTitles.length
     val osContributionScore = osContributionTitles.length * config.getInt("scorePerOsContribution")
 
-    Option(Contribution("OSContribution", osContributionCount, osContributionScore, osContributionTitles))
+    Option(Contribution("OS Contribution", osContributionCount, osContributionScore, osContributionTitles))
   }
 
+  def fetchKnolderMonthlyConferenceDetails(month: Int, year: Int, knolderId: Int): Option[Contribution] = {
+
+    val conferenceTitles = SQL(
+      """ SELECT
+      conference.title,
+      conference.delivered_on
+        FROM
+        knolder
+        RIGHT JOIN
+        conference
+        ON knolder.email_id = conference.email_id
+    WHERE
+    EXTRACT(month
+      FROM
+      delivered_on) = ?
+    AND EXTRACT(year
+      FROM
+      delivered_on) = ?
+    AND knolder.id = ? ORDER BY delivered_on desc """)
+      .bind(month, year, knolderId)
+      .map(rs => ContributionDetails(rs.string("title"), rs.string("delivered_on")))
+      .list().apply()
+
+    val conferenceCount = conferenceTitles.length
+    val conferenceScore = conferenceTitles.length * config.getInt("scorePerConference")
+
+    Option(Contribution("Conferences", conferenceCount, conferenceScore, conferenceTitles))
+  }
 
   /**
    * Fetching all time details of specific knolder.
@@ -209,7 +242,7 @@ class FetchKnolderContributionDetailsImpl(config: Config) extends FetchKnolderCo
     logger.info("Fetching all time details of specific knolder.")
 
     val contributions = List(fetchAllTimeBlogDetails(knolderId), fetchAllTimeknolxDetails(knolderId), fetchAllTimeWebinarDetails(knolderId)
-      , fetchAllTimeTechHubDetails(knolderId), fetchAllTimeOsContributionDetails(knolderId))
+      , fetchAllTimeTechHubDetails(knolderId), fetchAllTimeOsContributionDetails(knolderId), fetchAllTimeConferenceDetails(knolderId))
 
     SQL(
       s"""
@@ -217,7 +250,8 @@ class FetchKnolderContributionDetailsImpl(config: Config) extends FetchKnolderCo
       knolder.full_name,
      COUNT(DISTINCT blog.id) * ${config.getInt("scorePerBlog")} + COUNT(DISTINCT knolx.id) * ${config.getInt("scorePerKnolx")}
       + COUNT(DISTINCT webinar.id) * ${config.getInt("scorePerWebinar")} + COUNT(DISTINCT techhub.id)
-       * ${config.getInt("scorePerTechHub")} + COUNT(DISTINCT oscontribution.id) * ${config.getInt("scorePerOsContribution")} AS score
+       * ${config.getInt("scorePerTechHub")} + COUNT(DISTINCT oscontribution.id) * ${config.getInt("scorePerOsContribution")} + COUNT(DISTINCT conference.id) *
+        ${config.getInt("scorePerConference")} AS score
     FROM
     knolder
     LEFT JOIN
@@ -235,6 +269,9 @@ class FetchKnolderContributionDetailsImpl(config: Config) extends FetchKnolderCo
      LEFT JOIN
       oscontribution
     ON knolder.email_id = oscontribution.email_id
+    LEFT JOIN
+      conference
+    ON knolder.email_id = conference.email_id
     WHERE
     knolder.id = ?
     GROUP BY
@@ -354,6 +391,27 @@ class FetchKnolderContributionDetailsImpl(config: Config) extends FetchKnolderCo
     val osContributionCount = osContributionTitles.length
     val osContributionScore = osContributionTitles.length * config.getInt("scorePerOsContribution")
 
-    Option(Contribution("OSContribution", osContributionCount, osContributionScore, osContributionTitles))
+    Option(Contribution("OS Contribution", osContributionCount, osContributionScore, osContributionTitles))
+  }
+
+  def fetchAllTimeConferenceDetails(knolderId: Int): Option[Contribution] = {
+    val conferenceTitles = SQL(
+      """SELECT
+      conference.title,
+      conference.delivered_on
+        FROM
+        knolder
+        RIGHT JOIN
+        conference
+        ON knolder.email_id = conference.email_id
+    WHERE
+    knolder.id = ? ORDER BY delivered_on DESC """)
+      .bind(knolderId)
+      .map(rs => ContributionDetails(rs.string("title"), rs.string("delivered_on")))
+      .list().apply()
+    val conferenceCount = conferenceTitles.length
+    val conferenceScore = conferenceTitles.length * config.getInt("scorePerConference")
+
+    Option(Contribution("Conferences", conferenceCount, conferenceScore, conferenceTitles))
   }
 }

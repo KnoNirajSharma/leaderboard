@@ -12,7 +12,7 @@ final case class OtherContributionDetails(contributionId: String, emailId: Strin
                                           , title: String, typeOfContributon: String)
 
 final case class GetContributionCount(knolderId: Int, knolderName: String, numberOfBlogs: Int, numberOfKnolx: Int, numberOfWebinar: Int, numberOfTechHub: Int
-                                      , numberOfOSContribution: Int)
+                                      , numberOfOSContribution: Int, numberOfConferences: Int)
 
 final case class GetScore(knolderId: Int, knolderName: String, score: Int)
 
@@ -34,11 +34,13 @@ final case class ContributionDetails(title: String, date: String)
 
 final case class KnolderDetails(knolderName: String, score: Int, scoreBreakDown: List[Option[Contribution]])
 
-final case class TwelveMonthsScore(month: String, year: Int, blogScore: Int, knolxScore: Int, webinarScore: Int, techHubScore: Int, osContributionScore: Int)
+final case class TwelveMonthsScore(month: String, year: Int, blogScore: Int, knolxScore: Int, webinarScore: Int, techHubScore: Int,
+                                   osContributionScore: Int, conferenceScore: Int)
 
 final case class ReputationWithCount(monthlyBlogCount: Int, monthlyKnolxCount: Int, monthlyWebinarCount: Int,
-                                     monthlyTechHubCount: Int, monthlyOsContributionCount: Int, allTimeBlogCount: Int, allTimeKnolxCount: Int,
-                                     allTimeWebinarCount: Int, allTimeTechHubCount: Int, allTimeOsContributionCount: Int, reputation: List[Reputation])
+                                     monthlyTechHubCount: Int, monthlyOsContributionCount: Int, monthlyConferenceCount: Int, allTimeBlogCount: Int,
+                                     allTimeKnolxCount: Int, allTimeWebinarCount: Int, allTimeTechHubCount: Int,
+                                     allTimeOsContributionCount: Int, allTimeConferenceCount: Int, reputation: List[Reputation])
 
 final case class Webinar(id: String, deliveredOn: Option[Timestamp], name: String, title: String, emailId: String)
 

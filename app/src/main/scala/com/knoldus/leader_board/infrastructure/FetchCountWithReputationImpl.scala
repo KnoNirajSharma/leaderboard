@@ -43,6 +43,9 @@ class FetchCountWithReputationImpl(config: Config, fetchReputation: FetchReputat
       from oscontribution
       where contributed_on>= ? And contributed_on < ?) as monthly_oscontribution_count,
       (select count(*)
+      from conference
+      where conference.delivered_on>= ? And conference.delivered_on < ?) as monthly_conference_count,
+      (select count(*)
       from blog) as total_blog_count,
       (select count(*) from
       webinar) as total_webinar_count,
@@ -51,11 +54,15 @@ class FetchCountWithReputationImpl(config: Config, fetchReputation: FetchReputat
       (select count(*)
       from techhub) as total_techhub_count,
       (select count(*)
-      from oscontribution) as total_oscontribution_count;""")
-      .bind(currentMonth, nextMonth, currentMonth, nextMonth, currentMonth, nextMonth, currentMonth, nextMonth, currentMonth, nextMonth)
+      from oscontribution) as total_oscontribution_count,
+      (select count(*)
+      from conference) as total_conference_count;""")
+      .bind(currentMonth, nextMonth, currentMonth, nextMonth, currentMonth, nextMonth,
+        currentMonth, nextMonth, currentMonth, nextMonth, currentMonth, nextMonth)
       .map(rs => ReputationWithCount(rs.int("monthly_blog_count"), rs.int("monthly_knolx_count"),
         rs.int("monthly_webinar_count"), rs.int("monthly_techhub_count"), rs.int("monthly_oscontribution_count"),
-        rs.int("total_blog_count"), rs.int("total_knolx_count"), rs.int("total_webinar_count"),
-        rs.int("total_techhub_count"), rs.int("total_oscontribution_count"), fetchReputation.fetchReputation)).single().apply()
+        rs.int("monthly_conference_count"), rs.int("total_blog_count"), rs.int("total_knolx_count"), rs.int("total_webinar_count"),
+        rs.int("total_techhub_count"), rs.int("total_oscontribution_count"), rs.int("total_conference_count"), fetchReputation.fetchReputation))
+      .single().apply()
   }
 }
