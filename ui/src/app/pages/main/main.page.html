@@ -1,7 +1,7 @@
 <app-headers [backBtn]="false"></app-headers>
 <ion-content [fullscreen]="true">
     <div class="float-right set-style">Last updated: {{today | date:'dd MMMM yyyy'}}</div>
-    <div class="main-container col-12 col-xl-10">
+    <div class="main-container col-12 col-xl-11">
         <div class="main-content">
             <div class="px-3 bar-container">
                 <div class="shadow-sm bar-tooltip p-2">
@@ -72,7 +72,16 @@
                     </div>
                     <div class="card mx-1 mx-sm-0 py-2 d-inline-block border-0">
                         <div class="contribution-title text-center mb-1">
-                            Books/Papers
+                            Books
+                        </div>
+                        <div class="d-flex justify-content-between my-1 w-75 mx-auto">
+                            <span class="contribution-count contribution-left d-flex justify-content-center align-items-center">n/a</span>
+                            <span class="contribution-count contribution-right d-flex justify-content-center align-items-center">n/a</span>
+                        </div>
+                    </div>
+                    <div class="card mx-1 mx-sm-0 py-2 d-inline-block border-0">
+                        <div class="contribution-title text-center mb-1">
+                            Research Papers
                         </div>
                         <div class="d-flex justify-content-between my-1 w-75 mx-auto">
                             <span class="contribution-count contribution-left d-flex justify-content-center align-items-center">n/a</span>
@@ -102,40 +111,10 @@
                                             <th>Weightage</th>
                                             <th>Integration</th>
                                         </tr>
-                                        <tr>
-                                            <td>Blogs</td>
-                                            <td>5</td>
-                                            <td>Y</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Knolx</td>
-                                            <td>20</td>
-                                            <td>Y</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Webinars</td>
-                                            <td>15</td>
-                                            <td>Y</td>
-                                        </tr>
-                                        <tr>
-                                            <td>TechHub Templates</td>
-                                            <td>15</td>
-                                            <td>Y</td>
-                                        </tr>
-                                        <tr>
-                                            <td>OS Contributions</td>
-                                            <td>30</td>
-                                            <td>Y</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Books/Papers</td>
-                                            <td>100</td>
-                                            <td>N</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Conferences</td>
-                                            <td>100</td>
-                                            <td>N</td>
+                                        <tr *ngFor="let contribution of scoringInfoData">
+                                            <td>{{contribution.type}}</td>
+                                            <td>{{contribution.weight}}</td>
+                                            <td [ngClass]="contribution.integrated ? 'text-success' : 'text-danger'" [innerHTML]="contribution.symbol"></td>
                                         </tr>
                                     </table>
                                 </div>
