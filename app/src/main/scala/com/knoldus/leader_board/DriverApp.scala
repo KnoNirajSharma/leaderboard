@@ -130,7 +130,7 @@ object DriverApp extends App {
         otherContributionDataObj
       )
     ),
-    "OtherCOntributionScriptActor"
+    "OtherContributionScriptActor"
   )
   val latestBlogs = blogs.getLatestBlogsFromAPI
   storeBlogs.insertBlog(latestBlogs)

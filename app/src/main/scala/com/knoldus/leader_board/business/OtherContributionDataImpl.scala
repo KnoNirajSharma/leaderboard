@@ -32,7 +32,7 @@ class OtherContributionDataImpl(dateTimeFormats: ParseDateTimeFormats, response:
       otherContributionList.filter(otherContribution => otherContribution.contributedOn.isDefined)
     } match {
       case Success(value) => value
-      case Failure(exception) => logger.info(exception.getClass.getCanonicalName)
+      case Failure(exception) => logger.info(s"The cause of the exception is $exception")
         List.empty
     }
   }
