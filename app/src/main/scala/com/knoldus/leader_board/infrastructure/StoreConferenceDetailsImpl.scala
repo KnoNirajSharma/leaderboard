@@ -7,24 +7,24 @@ import com.typesafe.config.Config
 import com.typesafe.scalalogging.LazyLogging
 import scalikejdbc.{DB, DBSession, SQL}
 
-class StoreOSContributionDetailsImpl(config: Config) extends StoreOSContributionDetails with LazyLogging {
+class StoreConferenceDetailsImpl(config: Config) extends StoreConferenceDetails with LazyLogging {
 
   implicit val connection: Connection = DatabaseConnection.connection(config)
   implicit val session: DBSession = DB.autoCommitSession()
 
   /**
-   * Stores list of oscontribution in oscontribution table.
+   * Stores list of conference details in conference table.
    *
    * @param listOfContribution List of other contribution.
    * @return List of Integer which displays the status of query execution.
    */
-  override def insertOSContribution(listOfContribution: List[OtherContributionDetails]): List[Int] = {
-    logger.info("Querying oscontribution table to insert oscontribution details.")
-    val listOfOSContribution = listOfContribution.filter(contribution => contribution.typeOfContributon == "Open Source")
-    listOfOSContribution.map { oSContributionData =>
+  override def insertConferenceDetails(listOfContribution: List[OtherContributionDetails]): List[Int] = {
+    logger.info("Querying conference table to insert conference details.")
+    val listOfConferenceContribution = listOfContribution.filter(contribution => contribution.typeOfContributon == "Conference")
+    listOfConferenceContribution.map { conferenceContributionData =>
       SQL(
         """INSERT INTO
-          oscontribution(id , email_id, contributed_on, title)
+          conference(id , email_id, delivered_on, title)
           SELECT
           ?,
           ?,
@@ -45,12 +45,12 @@ class StoreOSContributionDetailsImpl(config: Config) extends StoreOSContribution
         SELECT
           id
           FROM
-          oscontribution
+          conference
           WHERE
           id = ?
         )""").stripMargin
-        .bind(oSContributionData.contributionId, oSContributionData.emailId, oSContributionData.contributedOn, oSContributionData.title,
-          oSContributionData.emailId, oSContributionData.contributionId)
+        .bind(conferenceContributionData.contributionId, conferenceContributionData.emailId, conferenceContributionData.contributedOn
+          , conferenceContributionData.title, conferenceContributionData.emailId, conferenceContributionData.contributionId)
         .update().apply()
     }
   }

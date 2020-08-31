@@ -20,5 +20,6 @@ class MainSpec extends Suites(
   new FetchKnolderContributionDetailsImplSpec,
   new FetchTechHubImplSpec,
   new StoreTechHubImplSpec,
-  new StoreOSContributionDetailsImplSpec
+  new StoreOSContributionDetailsImplSpec,
+  new StoreConferenceDetailsImplSpec
 )

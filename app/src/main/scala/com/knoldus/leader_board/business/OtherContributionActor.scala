@@ -2,20 +2,22 @@ package com.knoldus.leader_board.business
 
 import akka.actor.{Actor, ActorRef}
 import com.knoldus.leader_board._
-import com.knoldus.leader_board.infrastructure.StoreOSContributionDetails
+import com.knoldus.leader_board.infrastructure.{StoreConferenceDetails, StoreOSContributionDetails}
 import com.typesafe.scalalogging._
 
-class OSContributionActor(allTimeReputationActorRef: ActorRef, monthlyReputationActorRef: ActorRef,
+class OtherContributionActor(allTimeReputationActorRef: ActorRef, monthlyReputationActorRef: ActorRef,
                           quarterlyReputationActorRef: ActorRef, storeOSContribution: StoreOSContributionDetails,
-                          osContributionData: OSContributionData) extends Actor
+                          storeConferenceDetails: StoreConferenceDetails,otherContributionData: OtherContributionData) extends Actor
   with LazyLogging {
   override def receive: Receive = {
-    case ExecuteOSContributionScript => logger.info("Storing os contribution data.")
-      val osContributionDataList = osContributionData.getOSContributionData
-      storeOSContribution.insertOSContribution(osContributionDataList)
+    case ExecuteOtherContributionScript => logger.info("Storing other contribution data.")
+      val otherContributionDataList = otherContributionData.getOtherContributionData
+      storeOSContribution.insertOSContribution(otherContributionDataList)
       logger.info("os contribution data stored successfully.")
+      storeConferenceDetails.insertConferenceDetails(otherContributionDataList)
+      logger.info("conference contribution data stored successfully.")
       self ! CalculateReputation
-      sender() ! "stored os contribution data"
+      sender() ! "stored other contribution data"
 
     case CalculateReputation => logger.info("Calculating reputation")
       allTimeReputationActorRef ! WriteAllTimeReputation
