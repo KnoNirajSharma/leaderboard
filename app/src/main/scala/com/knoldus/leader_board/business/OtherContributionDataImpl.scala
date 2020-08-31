@@ -33,7 +33,7 @@ class OtherContributionDataImpl(dateTimeFormats: ParseDateTimeFormats, response:
     } match {
       case Success(value) => value
       case Failure(exception) => logger.info(s"The cause of the exception is $exception")
-        List.empty
+        List.empty // if there is an any exception then we will pass the empty list because in that we will not store any data
     }
   }
 }
