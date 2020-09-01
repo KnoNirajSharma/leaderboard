@@ -44,6 +44,8 @@ final case class ReputationWithCount(monthlyBlogCount: Int, monthlyKnolxCount: I
 
 final case class Webinar(id: String, deliveredOn: Option[Timestamp], name: String, title: String, emailId: String)
 
+final case class ContributionScore(blogScore: Int, knolxScore: Int, webinarScore: Int, techHubScore: Int, osContributionScore: Int, conferenceScore: Int)
+
 case object ExecuteBlogsScript
 
 case object ExecuteWebinarScript

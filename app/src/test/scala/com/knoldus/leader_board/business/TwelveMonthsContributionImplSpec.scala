@@ -1,7 +1,7 @@
 package com.knoldus.leader_board.business
 
 import com.knoldus.leader_board.infrastructure.{ReadContribution, ReadContributionImpl}
-import com.knoldus.leader_board.{IndianTime, TwelveMonthsScore}
+import com.knoldus.leader_board.{ContributionScore, IndianTime, TwelveMonthsScore}
 import org.mockito.MockitoSugar
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.wordspec.AnyWordSpecLike
@@ -23,7 +23,7 @@ class TwelveMonthsContributionImplSpec extends AnyWordSpecLike with MockitoSugar
 
       val year = IndianTime.currentTime.minusMonths(12).getYear
       when(mockReadContribution.fetchKnoldersWithTwelveMonthContributions(month, year, 1))
-        .thenReturn(Option(30, 20, 40, 50, 60,100))
+        .thenReturn(Option(ContributionScore(30, 20, 40, 50, 60,100)))
       assert(twelveMonthsContribution.lastTwelveMonthsScore(1, 12) == Option(List(TwelveMonthsScore(monthName, 2019, 30, 20, 40, 50, 60,100))))
     }
   }

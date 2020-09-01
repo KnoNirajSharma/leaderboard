@@ -2,7 +2,7 @@ package com.knoldus.leader_board.infrastructure
 
 import java.sql.{Connection, Timestamp}
 
-import com.knoldus.leader_board.{DatabaseConnection, GetContributionCount, IndianTime}
+import com.knoldus.leader_board.{ContributionScore, DatabaseConnection, GetContributionCount, IndianTime}
 import com.typesafe.config.Config
 import com.typesafe.scalalogging._
 import scalikejdbc.{DB, DBSession, SQL}
@@ -178,7 +178,7 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
    * @return score of the month of specific knolder.
    */
 
-  override def fetchKnoldersWithTwelveMonthContributions(month: Int, year: Int, knolderId: Int): Option[(Int, Int, Int, Int, Int, Int)] = {
+  override def fetchKnoldersWithTwelveMonthContributions(month: Int, year: Int, knolderId: Int): Option[ContributionScore] = {
     logger.info("Fetching score of specific month of knolder.")
 
     SQL(
@@ -190,27 +190,27 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
        (COUNT(DISTINCT oscontribution.id) * ${config.getInt("scorePerOsContribution")}) as osContributionScore,
        (COUNT(DISTINCT conference.id) * ${config.getInt("scorePerConference")}) as conferenceScore
     FROM knolder
-    LEFT JOIN blog
-    ON knolder.wordpress_id = blog.wordpress_id AND EXTRACT(month FROM blog.published_on) = ?
-    AND EXTRACT(year FROM blog.published_on) = ?
     LEFT JOIN knolx
     ON knolder.email_id = knolx.email_id AND EXTRACT(month FROM knolx.delivered_on) = ?
     AND EXTRACT(year FROM knolx.delivered_on) = ?
+    LEFT JOIN blog
+    ON knolder.wordpress_id = blog.wordpress_id AND EXTRACT(month FROM blog.published_on) = ?
+    AND EXTRACT(year FROM blog.published_on) = ?
     LEFT JOIN webinar
     ON knolder.email_id = webinar.email_id AND EXTRACT(month FROM webinar.delivered_on) = ?
-    AND EXTRACT(year FROM knolx.delivered_on) = ?
-     LEFT JOIN techhub
+    AND EXTRACT(year FROM webinar.delivered_on) = ?
+    LEFT JOIN techhub
     ON knolder.email_id = techhub.email_id AND EXTRACT(month FROM techhub.uploaded_on) = ?
     AND EXTRACT(year FROM techhub.uploaded_on) = ?
+    LEFT JOIN conference
+    ON knolder.email_id = conference.email_id AND EXTRACT(month FROM conference.delivered_on) = ?
+    AND EXTRACT(year FROM conference.delivered_on) = ?
     LEFT JOIN oscontribution
     ON knolder.email_id = oscontribution.email_id AND EXTRACT(month FROM oscontribution.contributed_on) = ?
     AND EXTRACT(year FROM oscontribution.contributed_on) = ?
-     LEFT JOIN conference
-    ON knolder.email_id = conference.email_id AND EXTRACT(month FROM conference.delivered_on) = ?
-    AND EXTRACT(year FROM conference.delivered_on) = ?
     WHERE knolder.id = ? """)
       .bind(month, year, month, year, month, year, month, year, month, year, month, year, knolderId)
-      .map(rs => (rs.int("blogScore"), rs.int("knolxScore"),
+      .map(rs => ContributionScore(rs.int("blogScore"), rs.int("knolxScore"),
         rs.int("webinarScore"), rs.int("techHubScore"), rs.int("osContributionScore"), rs.int("conferenceScore")))
       .single().apply()
   }

@@ -3,7 +3,7 @@ package com.knoldus.leader_board.infrastructure
 import java.sql.{Connection, PreparedStatement, Timestamp}
 import java.time.Instant
 
-import com.knoldus.leader_board.{DatabaseConnection, GetContributionCount, IndianTime}
+import com.knoldus.leader_board.{ContributionScore, DatabaseConnection, GetContributionCount, IndianTime}
 import com.typesafe.config.ConfigFactory
 import org.scalatest.{BeforeAndAfterEach, DoNotDiscover}
 
@@ -344,7 +344,7 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       insertConference(date)
 
       val result = readContribution.fetchKnoldersWithTwelveMonthContributions(6, 2020, 1)
-      result shouldBe Option(10, 40, 30, 30, 0, 200)
+      result shouldBe Option(ContributionScore(10, 40, 30, 30, 0, 200))
     }
   }
 }
