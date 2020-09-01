@@ -2,6 +2,7 @@
 
 ##################### MAIN #####################
 PACKAGES=$(bash deploy/list_packages.sh)
+
 for VERSION in ${PACKAGES[@]}
 do
     echo "Deleting: "$VERSION
