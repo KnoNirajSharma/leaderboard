@@ -5,7 +5,7 @@
 ##################### GLOBAL VARIABLES #####################
 OWNER=${OWNER:-"knoldus"} 
 REPO=${REPO:-"leaderboard"}
-INPUT_TOKEN=${${{ secrets.TOKEN }}:-$INPUT_TOKEN}
+INPUT_TOKEN=${INPUT_TOKEN:-${{ secrets.TOKEN }}}
 
 ##################### METHODS #####################
 graphqlQuery() {
