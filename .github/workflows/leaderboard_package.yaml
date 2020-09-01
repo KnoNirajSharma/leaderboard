@@ -39,8 +39,8 @@ jobs:
       id: remove-package-versions
       uses: epitomeglobal/remove-package-versions@master
       with:
-        keep-versions: 3
-        keep-prerelease-versions: 3
+        keep-versions: 1
+        keep-prerelease-versions: 1
       env:
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
