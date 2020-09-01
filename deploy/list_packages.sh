@@ -1,6 +1,6 @@
 #!/bin/bash
 # AUTHOR: Shubham Girdhar
-# Email: shubham.girdhar@knoldus.com
+# email: shubham.girdhar@knoldus.com
 
 ##################### GLOBAL VARIABLES #####################
 OWNER=${OWNER:-"knoldus"} 
