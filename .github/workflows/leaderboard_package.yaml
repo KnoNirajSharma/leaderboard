@@ -34,11 +34,13 @@ jobs:
       working-directory: app
       run: |
         sbt docker:publishLocal
-
-    - uses: actions/delete-package-versions@v1
-      with:
-        package-name: 'knoldus_leaderboard'
-        num-old-versions-to-delete: 1
+    
+    - name: Remove package versions
+      id: remove-package-versions
+      uses: epitomeglobal/remove-package-versions@master
+      keep-versions: 3
+      env:
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
     - name: Publish to Github Packages
       run: |
