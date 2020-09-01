@@ -30,7 +30,7 @@ jobs:
           ~/.sbt
         key: ${{ runner.os }}-sbt-${{ hashFiles('**/build.sbt') }}
     
-    - name: Preparing Docker
+    - name: Prepare Docker
       run: |
         echo "==========Docker Login=========="
         echo ${{ secrets.TOKEN }} | docker login docker.pkg.github.com -u girdharshubham --password-stdin
