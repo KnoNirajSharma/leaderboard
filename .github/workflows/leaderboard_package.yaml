@@ -33,6 +33,7 @@ jobs:
     
     - name: Gather packages to delete
       run: |
+        export INPUT_TOKEN=${{ secrets.TOKEN }}
         PACKAGES=$(deploy/list_packages.sh)
         echo '::set-env name=PACKAGE_LIST::$PACKAGES'
 
