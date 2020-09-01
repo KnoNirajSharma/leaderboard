@@ -23,6 +23,12 @@ query{
           edges {
             node {
               id
+              package {
+                name
+                repository {
+                  name
+                }
+              }
             }
           }
         }
@@ -37,4 +43,4 @@ EOF
 }
 
 ##################### MAIN #####################
-listPackageVersions | jq '.data.repository.packages.nodes[].versions.edges[].node.id' | awk 'NR > 1 { printf(",") } {printf "%s",$0}'
+listPackageVersions | jq '.data.repository.packages.nodes[].versions.edges[].node.id' | sed "s/\"//g"
