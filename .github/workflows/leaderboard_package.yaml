@@ -8,7 +8,6 @@ on:
 env:
   ORG: knoldus Inc
   AUTHOR: Shubham Girdhar (girdharshubham)
-  PACKAGE_LIST: ""
 
 jobs:
   leaderboard_package:
@@ -30,17 +29,6 @@ jobs:
           ~/.ivy2/cache
           ~/.sbt
         key: ${{ runner.os }}-sbt-${{ hashFiles('**/build.sbt') }}
-    
-#     - name: Gather packages to delete
-#       run: |
-#         export INPUT_TOKEN=${{ secrets.TOKEN }}
-#         PACKAGES=$(deploy/list_packages.sh)
-#         echo $PACKAGES
-#         echo '::set-env name=PACKAGE_LIST::${PACKAGES}'
-
-#     - name: Echo Packages to be deleted
-#       run: |
-#         echo ${{env.PACKAGE_LIST}}
 
     - name: Package
       working-directory: app
