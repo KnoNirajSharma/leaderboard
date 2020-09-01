@@ -36,7 +36,7 @@ jobs:
         export INPUT_TOKEN=${{ secrets.TOKEN }}
         PACKAGES=$(deploy/list_packages.sh)
         echo $PACKAGES
-        echo '::set-env name=PACKAGE_LIST::$PACKAGES'
+        echo '::set-env name=PACKAGE_LIST::${PACKAGES}'
 
     - name: Echo Packages to be deleted
       run: |
@@ -50,7 +50,7 @@ jobs:
     - uses: actions/delete-package-versions@v1
       with:
         package-name: 'knoldus_leaderboard'
-        num-old-versions-to-delete: 1
+        num-old-versions-to-delete: 10
 
     - name: Publish to Github Packages
       run: |
