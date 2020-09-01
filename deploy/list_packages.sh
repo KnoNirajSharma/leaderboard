@@ -10,7 +10,7 @@ REPO=${REPO:-"leaderboard"}
 graphqlQuery() {
   local query="$1"; shift
 
-  curl -s -H "Authorization: bearer ${{ secrets.TOKEN }}" -X POST -d '{"query":"'"$query"'"}' 'https://api.github.com/graphql'
+  curl -s -H "Authorization: bearer $INPUT_TOKEN" -X POST -d '{"query":"'"$query"'"}' 'https://api.github.com/graphql'
 }
 listPackageVersions() {
   local query="$(cat <<EOF | sed 's/"/\\"/g' | tr '\n\r' ' '
