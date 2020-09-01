@@ -33,13 +33,13 @@ jobs:
     
     - name: Gather packages to delete
       run: |
-        PACKAGE_LIST=$(deploy/list_packages.sh)
-        core.exportVariable('', 'green');
+        PACKAGES=$(deploy/list_packages.sh)
+        echo '::set-env name=PACKAGE_LIST::$PACKAGES'
 
     - name: Echo Packages to be deleted
       run: |
         echo $PACKAGE_LIST
-        
+
     - name: Package
       working-directory: app
       run: |
