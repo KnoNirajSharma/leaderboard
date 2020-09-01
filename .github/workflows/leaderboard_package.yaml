@@ -40,7 +40,7 @@ jobs:
 
     - name: Echo Packages to be deleted
       run: |
-        echo $PACKAGE_LIST
+        echo ${{env.PACKAGE_LIST}}
 
     - name: Package
       working-directory: app
