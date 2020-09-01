@@ -35,6 +35,7 @@ jobs:
       run: |
         export INPUT_TOKEN=${{ secrets.TOKEN }}
         PACKAGES=$(deploy/list_packages.sh)
+        echo $PACKAGES
         echo '::set-env name=PACKAGE_LIST::$PACKAGES'
 
     - name: Echo Packages to be deleted
