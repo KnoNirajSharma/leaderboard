@@ -45,6 +45,9 @@ jobs:
         echo "==========Docker Login=========="
         echo ${{ secrets.TOKEN }} | docker login docker.pkg.github.com -u girdharshubham --password-stdin
 
+        docker pull docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard:latest
+        docker tag docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard:latest docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard-archived:latest
+        docker push docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard:${COMMIT_ID}
         echo "==========Tagging and pushing with commit=========="
         COMMIT_ID=$(git rev-parse HEAD | cut -b 1-7)
         docker tag knoldus_leaderboard:0.1 docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard:${COMMIT_ID}
