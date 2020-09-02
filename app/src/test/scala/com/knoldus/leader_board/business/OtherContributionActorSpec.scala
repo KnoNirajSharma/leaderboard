@@ -17,7 +17,9 @@ class OtherContributionActorSpec extends TestKit(ActorSystem("OtherContributionA
   implicit val connection: Connection = DatabaseConnection.connection(ConfigFactory.load())
   val mockOtherContribution: OtherContributionData = mock[OtherContributionDataImpl]
   val mockStoreOSContribution: StoreOSContributionDetails = mock[StoreOSContributionDetailsImpl]
+  val mockStoreBooksContribution: StoreBooksContribution= mock[StoreBooksContributionImpl]
   val mockStoreConferenceDetails: StoreConferenceDetails = mock[StoreConferenceDetailsImpl]
+  val mockStoreResearchPaperContribution: StoreResearchPapersContribution = mock[StoreResearchPapersContributionImpl]
   val mockAllTimeReputation: AllTimeReputation = mock[AllTimeReputationImpl]
   val mockWriteAllTimeReputation: WriteAllTimeReputation = mock[WriteAllTimeReputationImpl]
   val mockMonthlyReputation: MonthlyReputation = mock[MonthlyReputationImpl]
@@ -39,7 +41,7 @@ class OtherContributionActorSpec extends TestKit(ActorSystem("OtherContributionA
     "not do anything with incorrect message" in {
       val probe = TestProbe()
       val scriptActor = system.actorOf(Props(new OtherContributionActor(allTimeReputationActorRef, monthlyReputationActorRef,
-        quarterlyReputationActorRef, mockStoreOSContribution, mockStoreConferenceDetails, mockOtherContribution)))
+        quarterlyReputationActorRef, mockStoreOSContribution, mockStoreConferenceDetails,mockStoreBooksContribution,mockStoreResearchPaperContribution, mockOtherContribution)))
       probe watch scriptActor
       probe.send(scriptActor, "display reputation")
       probe.expectMsg("invalid message")
@@ -48,7 +50,7 @@ class OtherContributionActorSpec extends TestKit(ActorSystem("OtherContributionA
       val probe = TestProbe.apply()
       val mockActorRef = probe.ref
       val scriptActor = system.actorOf(Props(new OtherContributionActor(mockActorRef, mockActorRef, mockActorRef,
-        mockStoreOSContribution, mockStoreConferenceDetails, mockOtherContribution)))
+        mockStoreOSContribution, mockStoreConferenceDetails,mockStoreBooksContribution,mockStoreResearchPaperContribution, mockOtherContribution)))
       probe watch scriptActor
       probe.send(scriptActor, ExecuteOtherContributionScript)
       probe.expectMsg("stored other contribution data")
