@@ -29,7 +29,7 @@ export class MainPage implements OnInit {
     { type: 'TechHub Templates', weight: '15', integrated: true, symbol: '&#10004;' },
     { type: 'OS Contribution', weight: '30', integrated: true, symbol: '&#10004;' },
     { type: 'Research Paper', weight: '50', integrated: false, symbol: '&#10008;' },
-    { type: 'Conference', weight: '100', integrated: false, symbol: '&#10008;' },
+    { type: 'Conference', weight: '100', integrated: true, symbol: '&#10004;' },
     { type: 'Book', weight: '100', integrated: false, symbol: '&#10008;' },
   ];
 
