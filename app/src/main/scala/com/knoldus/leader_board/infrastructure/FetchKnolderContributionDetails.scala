@@ -30,4 +30,13 @@ trait FetchKnolderContributionDetails {
   def fetchKnolderMonthlyConferenceDetails(month: Int, year: Int, knolderId: Int): Option[Contribution]
 
   def fetchAllTimeConferenceDetails(knolderId: Int): Option[Contribution]
+
+  def fetchKnolderMonthlyBookDetails(month: Int, year: Int, knolderId: Int): Option[Contribution]
+
+  def fetchAllTimeBookDetails(knolderId: Int): Option[Contribution]
+
+  def fetchKnolderMonthlyResearchPaperDetails(month: Int, year: Int, knolderId: Int): Option[Contribution]
+
+  def fetchAllTimeResearchPaperDetails(knolderId: Int): Option[Contribution]
+
 }

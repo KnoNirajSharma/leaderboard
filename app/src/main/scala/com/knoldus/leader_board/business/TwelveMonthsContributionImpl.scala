@@ -26,7 +26,8 @@ class TwelveMonthsContributionImpl(readContribution: ReadContribution) extends T
         val monthScore = readContribution.fetchKnoldersWithTwelveMonthContributions(monthValue, year, id)
         monthScore.flatMap(contributionScore =>
           calculateMonthsScore(scoreList :+ TwelveMonthsScore(monthName, year, contributionScore.blogScore, contributionScore.knolxScore,
-            contributionScore.webinarScore, contributionScore.techHubScore, contributionScore.osContributionScore, contributionScore.conferenceScore),
+            contributionScore.webinarScore, contributionScore.techHubScore, contributionScore.osContributionScore, contributionScore.conferenceScore
+            , contributionScore.bookScore, contributionScore.researchPaperScore),
             monthsIndex + 1, id))
       }
     }
