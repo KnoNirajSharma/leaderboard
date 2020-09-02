@@ -1,6 +1,6 @@
 package com.knoldus.leader_board.infrastructure
 
-import com.knoldus.leader_board.GetContributionCount
+import com.knoldus.leader_board.{ContributionScore, GetContributionCount}
 
 trait ReadContribution {
   def fetchKnoldersWithContributions: List[GetContributionCount]
@@ -13,5 +13,5 @@ trait ReadContribution {
 
   def fetchKnoldersWithQuarterThirdMonthContributions: List[GetContributionCount]
 
-  def fetchKnoldersWithTwelveMonthContributions(month: Int, year: Int, knolderId: Int): Option[(Int, Int, Int, Int, Int)]
+  def fetchKnoldersWithTwelveMonthContributions(month: Int, year: Int, knolderId: Int): Option[ContributionScore]
 }

@@ -3,7 +3,7 @@ package com.knoldus.leader_board.infrastructure
 import java.sql.{Connection, PreparedStatement, Timestamp}
 import java.time.Instant
 
-import com.knoldus.leader_board.{DatabaseConnection, GetContributionCount, IndianTime}
+import com.knoldus.leader_board.{ContributionScore, DatabaseConnection, GetContributionCount, IndianTime}
 import com.typesafe.config.ConfigFactory
 import org.scalatest.{BeforeAndAfterEach, DoNotDiscover}
 
@@ -220,6 +220,36 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmtTwo.close()
     }
 
+    def insertConference(dateColumnValue: Timestamp): Unit = {
+      val insertConferenceOne: String =
+        """
+          |insert into conference(id, email_id, delivered_on, title)
+          |values (?,?,?,?)
+""".stripMargin
+
+      val preparedStmtOne: PreparedStatement = connection.prepareStatement(insertConferenceOne)
+      preparedStmtOne.setString(1, "1")
+      preparedStmtOne.setString(2, "mukesh.kumar@knoldus.com")
+      preparedStmtOne.setTimestamp(3, dateColumnValue)
+      preparedStmtOne.setString(4, "Reactive Microservices")
+      preparedStmtOne.execute
+      preparedStmtOne.close()
+
+      val insertConferenceTwo: String =
+        """
+          |insert into conference(id, email_id, delivered_on, title)
+          |values (?,?,?,?)
+""".stripMargin
+
+      val preparedStmtTwo: PreparedStatement = connection.prepareStatement(insertConferenceTwo)
+      preparedStmtTwo.setString(1, "4")
+      preparedStmtTwo.setString(2, "mukesh.kumar@knoldus.com")
+      preparedStmtTwo.setTimestamp(3, dateColumnValue)
+      preparedStmtTwo.setString(4, "Delta Lake")
+      preparedStmtTwo.execute
+      preparedStmtTwo.close()
+    }
+
     "return number of contributions of each knolder" in {
       val date = Timestamp.from(Instant.parse("2020-04-13T12:57:27Z"))
       insertKnolder
@@ -227,11 +257,12 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       insertKnolx(date)
       insertWebinar(date)
       insertTechHub(date)
+      insertConference(date)
 
 
-      val knoldersWithBlogs = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0),
-        GetContributionCount(3, "Komal Rajpal", 1, 0, 0, 0, 0),
-        GetContributionCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0))
+      val knoldersWithBlogs = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0, 2),
+        GetContributionCount(3, "Komal Rajpal", 1, 0, 0, 0, 0, 0),
+        GetContributionCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0, 0))
 
       val result = readContribution.fetchKnoldersWithContributions
       result shouldBe knoldersWithBlogs
@@ -243,10 +274,11 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       insertKnolx(currentMonth)
       insertWebinar(currentMonth)
       insertTechHub(currentMonth)
+      insertConference(currentMonth)
 
-      val knoldersWithMonthlyBlogs = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0),
-        GetContributionCount(3, "Komal Rajpal", 1, 0, 0, 0, 0),
-        GetContributionCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0))
+      val knoldersWithMonthlyBlogs = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0, 2),
+        GetContributionCount(3, "Komal Rajpal", 1, 0, 0, 0, 0, 0),
+        GetContributionCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0, 0))
 
       val result = readContribution.fetchKnoldersWithMonthlyContributions
       result shouldBe knoldersWithMonthlyBlogs
@@ -258,10 +290,11 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       insertKnolx(firstMonth)
       insertWebinar(firstMonth)
       insertTechHub(firstMonth)
+      insertConference(firstMonth)
 
-      val knoldersWithQuarterlyBlogs = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0),
-        GetContributionCount(3, "Komal Rajpal", 1, 0, 0, 0, 0),
-        GetContributionCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0))
+      val knoldersWithQuarterlyBlogs = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0, 2),
+        GetContributionCount(3, "Komal Rajpal", 1, 0, 0, 0, 0, 0),
+        GetContributionCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0, 0))
 
       val result = readContribution.fetchKnoldersWithQuarterFirstMonthContributions
       result shouldBe knoldersWithQuarterlyBlogs
@@ -273,10 +306,11 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       insertKnolx(secondMonth)
       insertWebinar(secondMonth)
       insertTechHub(secondMonth)
+      insertConference(secondMonth)
 
-      val knoldersWithQuarterlyBlogs = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0),
-        GetContributionCount(3, "Komal Rajpal", 1, 0, 0, 0, 0),
-        GetContributionCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0))
+      val knoldersWithQuarterlyBlogs = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0, 2),
+        GetContributionCount(3, "Komal Rajpal", 1, 0, 0, 0, 0, 0),
+        GetContributionCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0, 0))
 
       val result = readContribution.fetchKnoldersWithQuarterSecondMonthContributions
       result shouldBe knoldersWithQuarterlyBlogs
@@ -289,10 +323,11 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       insertKnolx(thirdMonth)
       insertWebinar(thirdMonth)
       insertTechHub(thirdMonth)
+      insertConference(thirdMonth)
 
-      val knoldersWithQuarterlyBlogs = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0),
-        GetContributionCount(3, "Komal Rajpal", 1, 0, 0, 0, 0),
-        GetContributionCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0))
+      val knoldersWithQuarterlyBlogs = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0, 2),
+        GetContributionCount(3, "Komal Rajpal", 1, 0, 0, 0, 0, 0),
+        GetContributionCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0, 0))
 
       val result = readContribution.fetchKnoldersWithQuarterThirdMonthContributions
       result shouldBe knoldersWithQuarterlyBlogs
@@ -306,9 +341,10 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       insertKnolx(date)
       insertWebinar(date)
       insertTechHub(date)
+      insertConference(date)
 
       val result = readContribution.fetchKnoldersWithTwelveMonthContributions(6, 2020, 1)
-      result shouldBe Option(10, 40, 30, 30, 0)
+      result shouldBe Option(ContributionScore(10, 40, 30, 30, 0, 200))
     }
   }
 }
