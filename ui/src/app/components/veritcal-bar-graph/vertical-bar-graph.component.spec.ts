@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { VerticalBarGraphComponent } from './vertical-bar-graph.component';
+import {TrendsModel} from '../../models/trends.model';
 
 describe('VeritcalBarGraphComponent', () => {
   let component: VerticalBarGraphComponent;
@@ -37,7 +38,7 @@ describe('VeritcalBarGraphComponent', () => {
   template: '<app-vertical-bar-graph [inputResult]="dummyTrendsData"></app-vertical-bar-graph>'
 })
 class ParentComponent {
-  dummyTrendsData = [
+  dummyTrendsData: TrendsModel[] = [
     {
       month: 'JUNE',
       year: 2020,
@@ -46,6 +47,7 @@ class ParentComponent {
       webinarScore: 34,
       techHubScore: 20,
       osContributionScore: 30,
+      conferenceScore: 30
     },
     {
       month: 'JULY',
@@ -55,6 +57,7 @@ class ParentComponent {
       webinarScore: 34,
       techHubScore: 20,
       osContributionScore: 20,
+      conferenceScore: 20
     }
   ];
 }

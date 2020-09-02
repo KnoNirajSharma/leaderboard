@@ -22,7 +22,8 @@ export class VerticalBarGraphComponent implements OnInit {
           { name: 'Knolx', value: obj.knolxScore },
           { name: 'Webinar', value: obj.webinarScore },
           { name: 'TechHub Templates', value: obj.techHubScore },
-          { name: 'OS Contribution', value: obj.osContributionScore }
+          { name: 'OS Contribution', value: obj.osContributionScore },
+          { name: 'Conference', value: obj.conferenceScore }
         ] }));
       this.result.reverse();
     }

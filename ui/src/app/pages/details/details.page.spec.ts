@@ -14,6 +14,7 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from '../../../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { TrendsModel } from '../../models/trends.model';
 
 
 describe('DetailsPage', () => {
@@ -39,7 +40,7 @@ describe('DetailsPage', () => {
     ]
   };
 
-  const dummyTrendsData = [
+  const dummyTrendsData: TrendsModel[] = [
     {
       month: 'JUNE',
       year: 2020,
@@ -48,6 +49,7 @@ describe('DetailsPage', () => {
       webinarScore: 34,
       techHubScore: 20,
       osContributionScore: 30,
+      conferenceScore: 30,
     },
     {
       month: 'JULY',
@@ -57,6 +59,7 @@ describe('DetailsPage', () => {
       webinarScore: 34,
       techHubScore: 20,
       osContributionScore: 20,
+      conferenceScore: 20
     }
   ];
 
