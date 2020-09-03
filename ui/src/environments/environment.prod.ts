@@ -11,11 +11,11 @@ export const environment = {
   },
   ngxChartOptions: {
     verticalBarChart: {
-      barPadding: 16,
+      barPadding: 14,
       yAxisLabel: 'score',
     },
     chartColorScheme: {
-      domain: ['#2C42A5', '#4CA52C', '#C7AD05', '#224A4B', '#0B8D84', '#2CA1A5', '#2F3640']
+      domain: ['#2C42A5', '#4CA52C', '#C7AD05', '#224A4B', '#0B8D84', '#2CA1A5', '#2F3640', '#4B0082']
     }
   },
   firebaseConfig: {

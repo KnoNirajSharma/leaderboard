@@ -28,6 +28,7 @@ describe('MainPage', () => {
     monthlyWebinarCount: 2,
     monthlyTechHubCount: 2,
     monthlyOsContributionCount: 3,
+    monthlyConferenceCount: 3,
     monthlyBookCount: 1,
     monthlyResearchPaperCount: 1,
     allTimeBlogCount: 3,
@@ -35,6 +36,7 @@ describe('MainPage', () => {
     allTimeWebinarCount: 2,
     allTimeTechHubCount: 3,
     allTimeOsContributionCount: 3,
+    allTimeConferenceCount: 3,
     allTimeBookCount: 3,
     allTimeResearchPaperCount: 3,
     reputation: [

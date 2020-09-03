@@ -16,15 +16,16 @@ export class VerticalBarGraphComponent implements OnInit {
     result: { name: string; series: { name: string; value: number; }[]; }[] = [];
 
     ngOnInit() {
-      this.inputResult.map(obj => this.result.push({ name: obj.month.substring(0, 3) + ',' + obj.year,
+      this.inputResult.map(obj => this.result.push({ name: obj.month.substring(0, 3) + ',' + String(obj.year),
         series: [
           { name: 'Blogs', value: obj.blogScore },
           { name: 'Knolx', value: obj.knolxScore },
           { name: 'Webinar', value: obj.webinarScore },
           { name: 'TechHub Template', value: obj.techHubScore },
           { name: 'OS Contribution', value: obj.osContributionScore },
+          { name: 'Conference', value: obj.conferenceScore },
           { name: 'Book', value: obj.bookScore },
-          { name: 'Research Paper', value: obj.researchPaperScore },
+          { name: 'Research Paper', value: obj.researchPaperScore }
         ] }));
       this.result.reverse();
     }

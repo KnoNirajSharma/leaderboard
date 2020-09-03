@@ -6,6 +6,7 @@ export interface ReputationModel {
   monthlyWebinarCount: number;
   monthlyTechHubCount: number;
   monthlyOsContributionCount: number;
+  monthlyConferenceCount: number;
   monthlyResearchPaperCount: number;
   monthlyBookCount: number;
   allTimeBlogCount: number;
@@ -13,6 +14,7 @@ export interface ReputationModel {
   allTimeWebinarCount: number;
   allTimeTechHubCount: number;
   allTimeOsContributionCount: number;
+  allTimeConferenceCount: number;
   allTimeBookCount: number;
   allTimeResearchPaperCount: number;
   reputation: AuthorModel[];
