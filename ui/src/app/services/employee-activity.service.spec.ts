@@ -4,6 +4,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { environment } from '../../environments/environment';
 import { KnolderDetailsModel } from '../models/knolder-details.model';
 import { ReputationModel } from '../models/reputation.model';
+import {TrendsModel} from '../models/trends.model';
 
 describe('EmployeeActivityService', () => {
   let employeeActivityService: EmployeeActivityService;
@@ -17,11 +18,15 @@ describe('EmployeeActivityService', () => {
     monthlyWebinarCount: 2,
     monthlyTechHubCount: 2,
     monthlyOsContributionCount: 3,
+    monthlyBookCount: 1,
+    monthlyResearchPaperCount: 1,
     allTimeBlogCount: 3,
     allTimeKnolxCount: 2,
     allTimeWebinarCount: 2,
     allTimeTechHubCount: 3,
     allTimeOsContributionCount: 3,
+    allTimeBookCount: 3,
+    allTimeResearchPaperCount: 3,
     reputation: [
       {
         knolderId: 1,
@@ -60,7 +65,7 @@ describe('EmployeeActivityService', () => {
     ]
   };
 
-  const dummyTrendsData = [
+  const dummyTrendsData: TrendsModel[] = [
     {
       month: 'JUNE',
       year: 2020,
@@ -69,6 +74,8 @@ describe('EmployeeActivityService', () => {
       webinarScore: 34,
       techHubScore: 20,
       osContributionScore: 30,
+      bookScore: 100,
+      researchPaperScore: 0,
     },
     {
       month: 'JULY',
@@ -78,6 +85,8 @@ describe('EmployeeActivityService', () => {
       webinarScore: 34,
       techHubScore: 20,
       osContributionScore: 20,
+      bookScore: 0,
+      researchPaperScore: 100,
     }
   ];
   const id = 1;

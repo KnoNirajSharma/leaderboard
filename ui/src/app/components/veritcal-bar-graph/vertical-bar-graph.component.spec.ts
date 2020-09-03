@@ -46,6 +46,8 @@ class ParentComponent {
       webinarScore: 34,
       techHubScore: 20,
       osContributionScore: 30,
+      bookScore: 100,
+      researchPaperScore: 0,
     },
     {
       month: 'JULY',
@@ -55,6 +57,8 @@ class ParentComponent {
       webinarScore: 34,
       techHubScore: 20,
       osContributionScore: 20,
+      bookScore: 0,
+      researchPaperScore: 100,
     }
   ];
 }
