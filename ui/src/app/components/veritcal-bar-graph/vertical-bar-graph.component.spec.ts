@@ -35,7 +35,7 @@ describe('VeritcalBarGraphComponent', () => {
 
 @Component({
   selector: 'parent',
-  template: '<app-vertical-bar-graph [inputResult]="dummyTrendsData"></app-vertical-bar-graph>'
+  template: '<app-vertical-bar-graph [trendsData]="dummyTrendsData"></app-vertical-bar-graph>'
 })
 class ParentComponent {
   dummyTrendsData: TrendsModel[] = [
