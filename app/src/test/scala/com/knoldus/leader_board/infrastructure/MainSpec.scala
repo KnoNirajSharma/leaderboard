@@ -21,5 +21,7 @@ class MainSpec extends Suites(
   new FetchTechHubImplSpec,
   new StoreTechHubImplSpec,
   new StoreOSContributionDetailsImplSpec,
-  new StoreConferenceDetailsImplSpec
+  new StoreConferenceDetailsImplSpec,
+  new StoreBooksContributionImplSpec,
+  new StoreResearchPapersContributionImplSpec
 )
