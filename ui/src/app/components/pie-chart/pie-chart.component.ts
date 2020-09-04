@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ScoreBreakDownModel } from '../../models/ScoreBreakDown.model';
-import { environment } from '../../../environments/environment';
-import {NgxChartConfigService} from '../../services/ngxChartConfig.service';
+import { NgxChartConfigService } from '../../services/ngxChartConfig.service';
 
 @Component({
   selector: 'app-pie-chart',
@@ -10,7 +9,6 @@ import {NgxChartConfigService} from '../../services/ngxChartConfig.service';
 })
 export class PieChartComponent implements OnInit {
   @Input() inputResult: ScoreBreakDownModel[];
-  // colorScheme = environment.ngxChartOptions.chartColorScheme;
 
   colorScheme: { domain: string[]; };
   result: { name: string; value: number; }[] = [];

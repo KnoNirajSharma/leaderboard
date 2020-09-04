@@ -9,15 +9,6 @@ export const environment = {
       trends: { endpoint: 'reputation/twelvemonths', method: 'GET' }
     }
   },
-  ngxChartOptions: {
-    verticalBarChart: {
-      barPadding: 16,
-      yAxisLabel: 'score',
-    },
-    chartColorScheme: {
-      domain: ['#2C42A5', '#4CA52C', '#C7AD05', '#224A4B', '#0B8D84', '#2CA1A5', '#2F3640']
-    }
-  },
   firebaseConfig: {
     apiKey: 'AIzaSyDhPeGTkkQGw28-cptvC305P7rH7M2X9bc',
     authDomain: 'knoldus-leaderboard.firebaseapp.com',
