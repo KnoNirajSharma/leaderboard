@@ -141,7 +141,7 @@
       ]
     },
     {
-      "contributionType": "Books",
+      "contributionType": "Book",
       "contributionCount": 4,
       "contributionScore": 20,
       "contributionDetails": [
@@ -164,7 +164,7 @@
       ]
     },
     {
-      "contributionType": "Research Papers",
+      "contributionType": "Research Paper",
       "contributionCount": 4,
       "contributionScore": 20,
       "contributionDetails": [

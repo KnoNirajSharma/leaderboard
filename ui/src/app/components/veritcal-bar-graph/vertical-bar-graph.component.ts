@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./vertical-bar-graph.component.scss'],
 })
 export class VerticalBarGraphComponent implements OnInit {
-    @Input() inputResult: TrendsModel[];
+    @Input() trendsData: TrendsModel[];
     yAxisLabel = environment.ngxChartOptions.verticalBarChart.yAxisLabel;
     barPadding = environment.ngxChartOptions.verticalBarChart.barPadding;
     colorScheme = environment.ngxChartOptions.chartColorScheme;
@@ -16,16 +16,17 @@ export class VerticalBarGraphComponent implements OnInit {
     result: { name: string; series: { name: string; value: number; }[]; }[] = [];
 
     ngOnInit() {
-      this.inputResult.map(obj => this.result.push({ name: obj.month.substring(0, 3) + ',' + obj.year,
+      this.trendsData.map(monthData => this.result.push({ name: monthData.month.substring(0, 3) + ',' + String(monthData.year),
         series: [
-          { name: 'Blogs', value: obj.blogScore },
-          { name: 'Knolx', value: obj.knolxScore },
-          { name: 'Webinar', value: obj.webinarScore },
-          { name: 'TechHub Templates', value: obj.techHubScore },
-          { name: 'OS Contribution', value: obj.osContributionScore },
-          { name: 'Conference', value: obj.conferenceScore }
+          { name: 'Blogs', value: monthData.blogScore },
+          { name: 'Knolx', value: monthData.knolxScore },
+          { name: 'Webinar', value: monthData.webinarScore },
+          { name: 'TechHub Template', value: monthData.techHubScore },
+          { name: 'OS Contribution', value: monthData.osContributionScore },
+          { name: 'Conference', value: monthData.conferenceScore },
+          { name: 'Book', value: monthData.bookScore },
+          { name: 'Research Paper', value: monthData.researchPaperScore }
         ] }));
       this.result.reverse();
     }
-
 }

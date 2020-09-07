@@ -75,8 +75,8 @@
                             Books
                         </div>
                         <div class="d-flex justify-content-between my-1 w-75 mx-auto">
-                            <span class="contribution-count contribution-left d-flex justify-content-center align-items-center">n/a</span>
-                            <span class="contribution-count contribution-right d-flex justify-content-center align-items-center">n/a</span>
+                            <span class="contribution-count contribution-left d-flex justify-content-center align-items-center">{{reputation.allTimeBookCount}}</span>
+                            <span class="contribution-count contribution-right d-flex justify-content-center align-items-center">{{reputation.monthlyBookCount}}</span>
                         </div>
                     </div>
                     <div class="card mx-1 mx-sm-0 py-2 d-inline-block border-0">
@@ -84,14 +84,14 @@
                             Research Papers
                         </div>
                         <div class="d-flex justify-content-between my-1 w-75 mx-auto">
-                            <span class="contribution-count contribution-left d-flex justify-content-center align-items-center">n/a</span>
-                            <span class="contribution-count contribution-right d-flex justify-content-center align-items-center">n/a</span>
+                            <span class="contribution-count contribution-left d-flex justify-content-center align-items-center">{{reputation.allTimeResearchPaperCount}}</span>
+                            <span class="contribution-count contribution-right d-flex justify-content-center align-items-center">{{reputation.monthlyResearchPaperCount}}</span>
                         </div>
                     </div>
                 </div>
             </div>
             <div></div>
-            <ion-card>
+            <ion-card class="w-100">
                 <div class="container-fluid mb-1">
                     <div class="row">
                         <div class="col-5 col-sm-2 text-center my-auto text-secondary current-month">

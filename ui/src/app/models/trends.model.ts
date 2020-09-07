@@ -7,4 +7,6 @@ export interface TrendsModel {
   techHubScore: number;
   osContributionScore: number;
   conferenceScore: number;
+  bookScore: number;
+  researchPaperScore: number;
 }
