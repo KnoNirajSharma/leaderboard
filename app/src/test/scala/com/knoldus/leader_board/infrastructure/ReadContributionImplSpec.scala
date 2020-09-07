@@ -260,9 +260,9 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       insertConference(date)
 
 
-      val knoldersWithBlogs = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0, 2),
-        GetContributionCount(3, "Komal Rajpal", 1, 0, 0, 0, 0, 0),
-        GetContributionCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0, 0))
+      val knoldersWithBlogs = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0, 2, 0, 0),
+        GetContributionCount(3, "Komal Rajpal", 1, 0, 0, 0, 0, 0, 0, 0),
+        GetContributionCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0, 0, 0, 0))
 
       val result = readContribution.fetchKnoldersWithContributions
       result shouldBe knoldersWithBlogs
@@ -276,9 +276,9 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       insertTechHub(currentMonth)
       insertConference(currentMonth)
 
-      val knoldersWithMonthlyBlogs = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0, 2),
-        GetContributionCount(3, "Komal Rajpal", 1, 0, 0, 0, 0, 0),
-        GetContributionCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0, 0))
+      val knoldersWithMonthlyBlogs = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0, 2, 0, 0),
+        GetContributionCount(3, "Komal Rajpal", 1, 0, 0, 0, 0, 0, 0, 0),
+        GetContributionCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0, 0, 0, 0))
 
       val result = readContribution.fetchKnoldersWithMonthlyContributions
       result shouldBe knoldersWithMonthlyBlogs
@@ -292,9 +292,9 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       insertTechHub(firstMonth)
       insertConference(firstMonth)
 
-      val knoldersWithQuarterlyBlogs = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0, 2),
-        GetContributionCount(3, "Komal Rajpal", 1, 0, 0, 0, 0, 0),
-        GetContributionCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0, 0))
+      val knoldersWithQuarterlyBlogs = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0, 2, 0, 0),
+        GetContributionCount(3, "Komal Rajpal", 1, 0, 0, 0, 0, 0, 0, 0),
+        GetContributionCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0, 0, 0, 0))
 
       val result = readContribution.fetchKnoldersWithQuarterFirstMonthContributions
       result shouldBe knoldersWithQuarterlyBlogs
@@ -308,9 +308,9 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       insertTechHub(secondMonth)
       insertConference(secondMonth)
 
-      val knoldersWithQuarterlyBlogs = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0, 2),
-        GetContributionCount(3, "Komal Rajpal", 1, 0, 0, 0, 0, 0),
-        GetContributionCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0, 0))
+      val knoldersWithQuarterlyBlogs = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0, 2, 0, 0),
+        GetContributionCount(3, "Komal Rajpal", 1, 0, 0, 0, 0, 0, 0, 0),
+        GetContributionCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0, 0, 0, 0))
 
       val result = readContribution.fetchKnoldersWithQuarterSecondMonthContributions
       result shouldBe knoldersWithQuarterlyBlogs
@@ -325,9 +325,9 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       insertTechHub(thirdMonth)
       insertConference(thirdMonth)
 
-      val knoldersWithQuarterlyBlogs = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0, 2),
-        GetContributionCount(3, "Komal Rajpal", 1, 0, 0, 0, 0, 0),
-        GetContributionCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0, 0))
+      val knoldersWithQuarterlyBlogs = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0, 2, 0, 0),
+        GetContributionCount(3, "Komal Rajpal", 1, 0, 0, 0, 0, 0, 0, 0),
+        GetContributionCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0, 0, 0, 0))
 
       val result = readContribution.fetchKnoldersWithQuarterThirdMonthContributions
       result shouldBe knoldersWithQuarterlyBlogs
@@ -344,7 +344,7 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       insertConference(date)
 
       val result = readContribution.fetchKnoldersWithTwelveMonthContributions(6, 2020, 1)
-      result shouldBe Option(ContributionScore(10, 40, 30, 30, 0, 200))
+      result shouldBe Option(ContributionScore(10, 40, 30, 30, 0, 200, 0, 0))
     }
   }
 }

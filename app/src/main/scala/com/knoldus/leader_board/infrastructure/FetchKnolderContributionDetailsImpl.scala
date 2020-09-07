@@ -22,7 +22,8 @@ class FetchKnolderContributionDetailsImpl(config: Config) extends FetchKnolderCo
     val contributions = List(fetchKnolderMonthlyBlogDetails(month, year, knolderId),
       fetchKnolderMonthlyKnolxDetails(month, year, knolderId), fetchKnolderMonthlyWebinarDetails(month, year, knolderId),
       fetchKnolderMonthlyTechHubDetails(month, year, knolderId), fetchKnolderMonthlyOsContributionDetails(month, year, knolderId),
-      fetchKnolderMonthlyConferenceDetails(month, year, knolderId))
+      fetchKnolderMonthlyConferenceDetails(month, year, knolderId), fetchKnolderMonthlyBookDetails(month, year, knolderId)
+      , fetchKnolderMonthlyResearchPaperDetails(month, year, knolderId))
 
     SQL(
       s"""SELECT
@@ -30,7 +31,8 @@ class FetchKnolderContributionDetailsImpl(config: Config) extends FetchKnolderCo
       COUNT(DISTINCT blog.id) * ${config.getInt("scorePerBlog")} + COUNT(DISTINCT knolx.id) * ${config.getInt("scorePerKnolx")}
       + COUNT(DISTINCT webinar.id) * ${config.getInt("scorePerWebinar")} + COUNT(DISTINCT techhub.id)
        * ${config.getInt("scorePerTechHub")} + COUNT(DISTINCT oscontribution.id) * ${config.getInt("scorePerOsContribution")} +
-       COUNT(DISTINCT conference.id) * ${config.getInt("scorePerConference")} AS monthly_score
+       COUNT(DISTINCT conference.id) * ${config.getInt("scorePerConference")} + COUNT(DISTINCT book.id) * ${config.getInt("scorePerBook")}
+       + COUNT(DISTINCT researchpaper.id) * ${config.getInt("scorePerResearchPaper")} AS monthly_score
     FROM knolder
     LEFT JOIN blog ON knolder.wordpress_id = blog.wordpress_id
     AND EXTRACT(month FROM blog.published_on) = ?
@@ -50,9 +52,16 @@ class FetchKnolderContributionDetailsImpl(config: Config) extends FetchKnolderCo
     LEFT JOIN conference ON knolder.email_id = conference.email_id
     AND EXTRACT(month FROM conference.delivered_on) = ?
     AND EXTRACT(year FROM conference.delivered_on) = ?
+    LEFT JOIN researchpaper ON knolder.email_id = researchpaper.email_id
+    AND EXTRACT(month FROM researchpaper.published_on) = ?
+    AND EXTRACT(year FROM researchpaper.published_on) = ?
+    LEFT JOIN book ON knolder.email_id = book.email_id
+    AND EXTRACT(month FROM book.published_on) = ?
+    AND EXTRACT(year FROM book.published_on) = ?
     WHERE knolder.id = ?
     GROUP BY knolder.full_name""")
-      .bind(month, year, month, year, month, year, month, year, month, year, month, year, knolderId)
+      .bind(month, year, month, year, month, year, month, year, month, year, month, year, month, year,
+        month, year, knolderId)
       .map(rs => KnolderDetails(rs.string("full_name"), rs.int("monthly_score"), contributions))
       .single().apply()
   }
@@ -233,6 +242,64 @@ class FetchKnolderContributionDetailsImpl(config: Config) extends FetchKnolderCo
     Option(Contribution("Conferences", conferenceCount, conferenceScore, conferenceTitles))
   }
 
+  def fetchKnolderMonthlyBookDetails(month: Int, year: Int, knolderId: Int): Option[Contribution] = {
+
+    val bookTitles = SQL(
+      """ SELECT
+      book.title,
+      book.published_on
+        FROM
+        knolder
+        RIGHT JOIN
+        book
+        ON knolder.email_id = book.email_id
+    WHERE
+    EXTRACT(month
+      FROM
+      published_on) = ?
+    AND EXTRACT(year
+      FROM
+      published_on) = ?
+    AND knolder.id = ? ORDER BY published_on desc """)
+      .bind(month, year, knolderId)
+      .map(rs => ContributionDetails(rs.string("title"), rs.string("published_on")))
+      .list().apply()
+
+    val bookCount = bookTitles.length
+    val bookScore = bookTitles.length * config.getInt("scorePerBook")
+
+    Option(Contribution("Books", bookCount, bookScore, bookTitles))
+  }
+
+  def fetchKnolderMonthlyResearchPaperDetails(month: Int, year: Int, knolderId: Int): Option[Contribution] = {
+
+    val researchPaperTitles = SQL(
+      """ SELECT
+      researchpaper.title,
+      researchpaper.published_on
+        FROM
+        knolder
+        RIGHT JOIN
+        researchpaper
+        ON knolder.email_id = researchpaper.email_id
+    WHERE
+    EXTRACT(month
+      FROM
+      published_on) = ?
+    AND EXTRACT(year
+      FROM
+      published_on) = ?
+    AND knolder.id = ? ORDER BY published_on desc """)
+      .bind(month, year, knolderId)
+      .map(rs => ContributionDetails(rs.string("title"), rs.string("published_on")))
+      .list().apply()
+
+    val researchPaperCount = researchPaperTitles.length
+    val researchPaperScore = researchPaperTitles.length * config.getInt("scorePerResearchPaper")
+
+    Option(Contribution("Research Paper", researchPaperCount, researchPaperScore, researchPaperTitles))
+  }
+
   /**
    * Fetching all time details of specific knolder.
    *
@@ -242,7 +309,8 @@ class FetchKnolderContributionDetailsImpl(config: Config) extends FetchKnolderCo
     logger.info("Fetching all time details of specific knolder.")
 
     val contributions = List(fetchAllTimeBlogDetails(knolderId), fetchAllTimeknolxDetails(knolderId), fetchAllTimeWebinarDetails(knolderId)
-      , fetchAllTimeTechHubDetails(knolderId), fetchAllTimeOsContributionDetails(knolderId), fetchAllTimeConferenceDetails(knolderId))
+      , fetchAllTimeTechHubDetails(knolderId), fetchAllTimeOsContributionDetails(knolderId), fetchAllTimeConferenceDetails(knolderId)
+      , fetchAllTimeBookDetails(knolderId), fetchAllTimeResearchPaperDetails(knolderId))
 
     SQL(
       s"""
@@ -251,7 +319,9 @@ class FetchKnolderContributionDetailsImpl(config: Config) extends FetchKnolderCo
      COUNT(DISTINCT blog.id) * ${config.getInt("scorePerBlog")} + COUNT(DISTINCT knolx.id) * ${config.getInt("scorePerKnolx")}
       + COUNT(DISTINCT webinar.id) * ${config.getInt("scorePerWebinar")} + COUNT(DISTINCT techhub.id)
        * ${config.getInt("scorePerTechHub")} + COUNT(DISTINCT oscontribution.id) * ${config.getInt("scorePerOsContribution")} + COUNT(DISTINCT conference.id) *
-        ${config.getInt("scorePerConference")} AS score
+        ${config.getInt("scorePerConference")}  + COUNT(DISTINCT researchpaper.id) * ${config.getInt("scorePerResearchPaper")}
+        + COUNT(DISTINCT book.id) * ${config.getInt("scorePerBook")}
+        AS score
     FROM
     knolder
     LEFT JOIN
@@ -272,6 +342,12 @@ class FetchKnolderContributionDetailsImpl(config: Config) extends FetchKnolderCo
     LEFT JOIN
       conference
     ON knolder.email_id = conference.email_id
+     LEFT JOIN
+      book
+    ON knolder.email_id = book.email_id
+     LEFT JOIN
+      researchpaper
+    ON knolder.email_id = researchpaper.email_id
     WHERE
     knolder.id = ?
     GROUP BY
@@ -413,5 +489,47 @@ class FetchKnolderContributionDetailsImpl(config: Config) extends FetchKnolderCo
     val conferenceScore = conferenceTitles.length * config.getInt("scorePerConference")
 
     Option(Contribution("Conferences", conferenceCount, conferenceScore, conferenceTitles))
+  }
+
+  def fetchAllTimeBookDetails(knolderId: Int): Option[Contribution] = {
+    val bookTitles = SQL(
+      """SELECT
+      book.title,
+      book.published_on
+        FROM
+        knolder
+        RIGHT JOIN
+        book
+        ON knolder.email_id = book.email_id
+    WHERE
+    knolder.id = ? ORDER BY published_on DESC """)
+      .bind(knolderId)
+      .map(rs => ContributionDetails(rs.string("title"), rs.string("published_on")))
+      .list().apply()
+    val bookCount = bookTitles.length
+    val bookScore = bookTitles.length * config.getInt("scorePerBook")
+
+    Option(Contribution("Books", bookCount, bookScore, bookTitles))
+  }
+
+  def fetchAllTimeResearchPaperDetails(knolderId: Int): Option[Contribution] = {
+    val researchPaperTitles = SQL(
+      """SELECT
+      researchpaper.title,
+      researchpaper.published_on
+        FROM
+        knolder
+        RIGHT JOIN
+        researchpaper
+        ON knolder.email_id = researchpaper.email_id
+    WHERE
+    knolder.id = ? ORDER BY published_on DESC """)
+      .bind(knolderId)
+      .map(rs => ContributionDetails(rs.string("title"), rs.string("published_on")))
+      .list().apply()
+    val researchPaperCount = researchPaperTitles.length
+    val researchPaperScore = researchPaperTitles.length * config.getInt("scorePerResearchPaper")
+
+    Option(Contribution("Research Paper", researchPaperCount, researchPaperScore, researchPaperTitles))
   }
 }
