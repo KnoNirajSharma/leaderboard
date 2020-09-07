@@ -46,13 +46,12 @@ jobs:
         sbt scalastyle
         sbt coverage test coverageReport
 
-    # TODO: Toggle this check on after Codesquad comes back up.
-    # - name: Publish reports to CodeSquad
-    #   working-directory: app/target/scala-2.12
-    #   run: |
-    #     declare -A codesquad=( ["cpd"]="cpd/cpd.xml" ["scapegoat"]="scapegoat-report/scapegoat.xml" ["scoverage"]="scoverage-report/scoverage.xml" ["scalastyle"]="../scalastyle-result.xml" )
-    #     for i in "${!codesquad[@]}";
-    #     do
-    #       echo "Publishing $i report"
-    #       curl -X PUT -F "projectName=$PROJECT_NAME" -F "moduleName=$MODULE_NAME" -F "organisation=$ORG" -F "file=@${codesquad[$i]}" -F "registrationKey=${{ secrets.CODESQUAD_KEY }}" $CODESQAUD_URL
-    #     done
+    - name: Publish reports to CodeSquad
+      working-directory: app/target/scala-2.12
+      run: |
+        declare -A codesquad=( ["cpd"]="cpd/cpd.xml" ["scapegoat"]="scapegoat-report/scapegoat.xml" ["scoverage"]="scoverage-report/scoverage.xml" ["scalastyle"]="../scalastyle-result.xml" )
+        for i in "${!codesquad[@]}";
+        do
+          echo "Publishing $i report"
+          curl -X PUT -F "projectName=$PROJECT_NAME" -F "moduleName=$MODULE_NAME" -F "organisation=$ORG" -F "file=@${codesquad[$i]}" -F "registrationKey=${{ secrets.CODESQUAD_KEY }}" $CODESQAUD_URL
+        done
