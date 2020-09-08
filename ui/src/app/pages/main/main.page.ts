@@ -28,9 +28,9 @@ export class MainPage implements OnInit {
     { type: 'Webinar', weight: '15', integrated: true, symbol: '&#10004;' },
     { type: 'TechHub Templates', weight: '15', integrated: true, symbol: '&#10004;' },
     { type: 'OS Contribution', weight: '30', integrated: true, symbol: '&#10004;' },
-    { type: 'Research Paper', weight: '50', integrated: false, symbol: '&#10008;' },
+    { type: 'Research Paper', weight: '50', integrated: true, symbol: '&#10004;' },
     { type: 'Conference', weight: '100', integrated: true, symbol: '&#10004;' },
-    { type: 'Book', weight: '100', integrated: false, symbol: '&#10008;' },
+    { type: 'Book', weight: '100', integrated: true, symbol: '&#10004;' },
   ];
 
   constructor(private service: EmployeeActivityService, private loadingControllerService: LoadingControllerService) {

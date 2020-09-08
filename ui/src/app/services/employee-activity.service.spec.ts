@@ -18,13 +18,17 @@ describe('EmployeeActivityService', () => {
     monthlyWebinarCount: 2,
     monthlyTechHubCount: 2,
     monthlyOsContributionCount: 3,
-    monthlyConferenceCount: 3,
+    monthlyConferenceCount: 1,
+    monthlyBookCount: 1,
+    monthlyResearchPaperCount: 1,
     allTimeBlogCount: 3,
     allTimeKnolxCount: 2,
     allTimeWebinarCount: 2,
     allTimeTechHubCount: 3,
     allTimeOsContributionCount: 3,
-    allTimeConferenceCount: 3,
+    allTimeConferenceCount: 5,
+    allTimeBookCount: 3,
+    allTimeResearchPaperCount: 3,
     reputation: [
       {
         knolderId: 1,
@@ -72,7 +76,9 @@ describe('EmployeeActivityService', () => {
       webinarScore: 34,
       techHubScore: 20,
       osContributionScore: 30,
-      conferenceScore: 30
+      conferenceScore: 100,
+      bookScore: 100,
+      researchPaperScore: 0,
     },
     {
       month: 'JULY',
@@ -82,7 +88,9 @@ describe('EmployeeActivityService', () => {
       webinarScore: 34,
       techHubScore: 20,
       osContributionScore: 20,
-      conferenceScore: 30
+      conferenceScore: 0,
+      bookScore: 0,
+      researchPaperScore: 100,
     }
   ];
   const id = 1;

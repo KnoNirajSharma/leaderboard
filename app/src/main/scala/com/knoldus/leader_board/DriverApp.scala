@@ -52,6 +52,8 @@ object DriverApp extends App {
   val storeTechHub: StoreTechHub = new StoreTechHubImpl(config)
   val storeOSContributionDetails: StoreOSContributionDetails = new StoreOSContributionDetailsImpl(config)
   val storeConferenceDetails: StoreConferenceDetails = new StoreConferenceDetailsImpl(config)
+  val storeBooksContribution: StoreBooksContribution = new StoreBooksContributionImpl(config)
+  val storeResearchPapersContribution: StoreResearchPapersContribution = new StoreResearchPapersContributionImpl(config)
   val URLResponse: URLResponse = new URLResponse
   val techHubData: TechHubData = new TechHubDataImpl(fetchTechHub, URLResponse, config)
   val otherContributionDataObj: OtherContributionData =
@@ -127,11 +129,14 @@ object DriverApp extends App {
         quarterlyReputationActorRef,
         storeOSContributionDetails,
         storeConferenceDetails,
+        storeBooksContribution,
+        storeResearchPapersContribution,
         otherContributionDataObj
       )
     ),
     "OtherContributionScriptActor"
   )
+
   val latestBlogs = blogs.getLatestBlogsFromAPI
   storeBlogs.insertBlog(latestBlogs)
   val latestKnolx = knolx.getLatestKnolxFromAPI
@@ -141,6 +146,8 @@ object DriverApp extends App {
   val otherContributionDetails = otherContributionDataObj.getOtherContributionData
   storeOSContributionDetails.insertOSContribution(otherContributionDetails)
   storeConferenceDetails.insertConferenceDetails(otherContributionDetails)
+  storeBooksContribution.insertBooksContributionDetails(otherContributionDetails)
+  storeResearchPapersContribution.insertResearchPaperContributionDetails(otherContributionDetails)
   val techHubDataList = techHubData.getLatestTechHubTemplates
   storeTechHub.insertTechHub(techHubDataList)
   val allTimeReputations = allTimeReputation.getKnolderReputation

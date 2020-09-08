@@ -35,7 +35,7 @@ describe('VeritcalBarGraphComponent', () => {
 
 @Component({
   selector: 'parent',
-  template: '<app-vertical-bar-graph [inputResult]="dummyTrendsData"></app-vertical-bar-graph>'
+  template: '<app-vertical-bar-graph [trendsData]="dummyTrendsData"></app-vertical-bar-graph>'
 })
 class ParentComponent {
   dummyTrendsData: TrendsModel[] = [
@@ -47,7 +47,9 @@ class ParentComponent {
       webinarScore: 34,
       techHubScore: 20,
       osContributionScore: 30,
-      conferenceScore: 30
+      conferenceScore: 30,
+      bookScore: 100,
+      researchPaperScore: 0,
     },
     {
       month: 'JULY',
@@ -57,7 +59,9 @@ class ParentComponent {
       webinarScore: 34,
       techHubScore: 20,
       osContributionScore: 20,
-      conferenceScore: 20
+      conferenceScore: 30,
+      bookScore: 0,
+      researchPaperScore: 50,
     }
   ];
 }
