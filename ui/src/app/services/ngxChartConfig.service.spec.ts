@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { NgxChartConfigService } from './ngxChartConfig.service';
 
-fdescribe('ngxChartConfiguration', () => {
+describe('ngxChartConfiguration', () => {
     let ngxChartConfigService: NgxChartConfigService;
     const mockVerticalBarConfig = {
         barPadding: 1,
