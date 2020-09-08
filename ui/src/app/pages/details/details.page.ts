@@ -47,10 +47,10 @@ export class DetailsPage implements OnInit {
     private loadingControllerService: LoadingControllerService,
     private ngxChartConfigs: NgxChartConfigService
   ) {
-    this.contributionsTypeColorList = this.ngxChartConfigs.colorScheme.domain;
   }
 
   ngOnInit() {
+    this.contributionsTypeColorList = this.ngxChartConfigs.colorScheme.domain;
     this.route.params
       .subscribe((params: Params) => {
         this.knolderId = params.id;

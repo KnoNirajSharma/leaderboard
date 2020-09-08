@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TrendsModel } from '../../models/trends.model';
 import { NgxChartConfigService } from '../../services/ngxChartConfig.service';
+import {NgxStackVerticalBarGraphResultModel} from '../../models/ngxStackVerticalBarGraphResultModel';
 
 @Component({
   selector: 'app-vertical-bar-graph',
@@ -12,7 +13,7 @@ export class VerticalBarGraphComponent implements OnInit {
     yAxisLabel: string;
     barPadding: number;
     colorScheme: { domain: string[]; };
-    result: { name: string; series: { name: string; value: number; }[]; }[] = [];
+    result: NgxStackVerticalBarGraphResultModel[] = [];
 
     constructor(private chartConfigs: NgxChartConfigService) {
     }
