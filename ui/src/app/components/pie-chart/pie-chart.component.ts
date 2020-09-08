@@ -14,10 +14,10 @@ export class PieChartComponent implements OnInit {
   result: { name: string; value: number; }[] = [];
 
   constructor(private chartConfigs: NgxChartConfigService) {
-    this.colorScheme = this.chartConfigs.colorScheme;
   }
 
   ngOnInit() {
+    this.colorScheme = this.chartConfigs.colorScheme;
     this.inputResult.map(obj => this.result.push({ name: obj.contributionType, value: obj.contributionScore }));
   }
 }

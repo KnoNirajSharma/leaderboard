@@ -15,11 +15,12 @@ export class VerticalBarGraphComponent implements OnInit {
     result: { name: string; series: { name: string; value: number; }[]; }[] = [];
 
     constructor(private chartConfigs: NgxChartConfigService) {
+    }
+
+    ngOnInit() {
       this.yAxisLabel = this.chartConfigs.verticalBarChartYLabel;
       this.barPadding = this.chartConfigs.verticalBarChartPadding;
       this.colorScheme = this.chartConfigs.colorScheme;
-    }
-    ngOnInit() {
       this.trendsData.map(monthData => this.result.push({ name: monthData.month.substring(0, 3) + ',' + String(monthData.year),
         series: [
           { name: 'Blogs', value: monthData.blogScore },
