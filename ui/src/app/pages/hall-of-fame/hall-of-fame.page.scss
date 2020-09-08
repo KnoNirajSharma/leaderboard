@@ -1,0 +1,49 @@
+ion-content {
+  height: 100vh;
+  --background: #f5f5fa;
+}
+
+.container-fluid {
+  font-family: 'Poppins', sans-serif;
+  color: #071348;
+}
+
+.scrolling-wrapper{
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  display: flex;
+  justify-content: space-evenly;
+
+  .card {
+    width: 210px;
+    height: 180px;
+  }
+}
+
+.rank-badge {
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+}
+
+.first {
+  background: #f6fbd7;
+  span {
+    color: #af9019;
+  }
+}
+
+.second {
+  background: #eafbff;
+  span {
+    color: #017295;
+  }
+}
+
+.third {
+  background: #fef6eb;
+  span {
+    color: #9f5f18;
+  }
+}

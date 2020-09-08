@@ -22,6 +22,10 @@ const routes: Routes = [
     path: 'login',
     loadChildren: './pages/login/login.module#LoginPageModule'
   },
+  {
+    path: 'hall-of-fame',
+    loadChildren: './pages/hall-of-fame/hall-of-fame.module#HallOfFamePageModule'
+  },
 ];
 
 @NgModule({
