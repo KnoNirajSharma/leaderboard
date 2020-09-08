@@ -1,7 +1,7 @@
 package com.knoldus.leader_board.business
 
 import com.knoldus.leader_board.Webinar
-import com.knoldus.leader_board.utils.SpreadSheetApi
+import com.knoldus.leader_board.utils.{SpreadSheetApi, SpreadSheetApiImpl}
 import com.typesafe.config.Config
 import com.typesafe.scalalogging.LazyLogging
 
