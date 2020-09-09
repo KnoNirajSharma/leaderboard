@@ -15,8 +15,9 @@
                             {{data.month}}, {{data.year}}
                         </div>
                     </div>
-                    <div class="scrolling-wrapper w-100 p-3">
-                           <div class="card pt-2 border-0 shadow-box p-1 ml-2" *ngFor="let subData of data.leaders; let i = index">
+                    <div class="scrolling-wrapper w-100 d-flex ju p-3">
+                        <div *ngFor="let subData of data.leaders; let i = index">
+                           <div class=" card pt-2 border- shadow mx-2 mx-xl-0">
                                <div class="">
                                    <div class="mx-auto rank-badge text-center
                                    d-flex justify-content-center
@@ -27,8 +28,7 @@
                                    </div>
                                </div>
                                <div class="text-center">
-                                   <div class="mt-1 font-weight-bolder border-secondary mx-auto "
-                                        style="font-size: 0.9em; color: #3d3c53; width: 150px; text-overflow: ellipsis; ">
+                                   <div class="mt-1 font-weight-bolder" style="font-size: 0.9em; color: #3d3c53">
                                        {{subData.knolderName}}
                                    </div>
                                    <div class="mt-1 p-0 mb-0 d-flex align-items-end justify-content-center align-content-end" style="font-size: 1.3em; color: #6435b8">
@@ -47,7 +47,7 @@
                            </div>
                         </div>
                     </div>
-
+                </div>
             </div>
         </div>
     </div>
