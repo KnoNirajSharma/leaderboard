@@ -39,7 +39,7 @@ export class HallOfFamePage implements OnInit {
       leaders: [
         { knolderId: 1, knolderName: 'Umang Goyal', monthlyRank: 1, monthlyScore: 100, overallRank: 4, overallScore: 200 },
         { knolderId: 2, knolderName: 'Abhinav Sharma', monthlyRank: 2, monthlyScore: 100, overallRank: 4, overallScore: 200 },
-        { knolderId: 3, knolderName: 'Rudar Daman Singla', monthlyRank: 3, monthlyScore: 100, overallRank: 4, overallScore: 200 },
+        { knolderId: 3, knolderName: 'Rudar Daman Singla Singla', monthlyRank: 3, monthlyScore: 100, overallRank: 4, overallScore: 200 },
         { knolderId: 4, knolderName: 'Ayush Kumar Mishra', monthlyRank: 4, monthlyScore: 100, overallRank: 4, overallScore: 200 },
         { knolderId: 5, knolderName: 'Himanshu Gupta', monthlyRank: 5, monthlyScore: 100, overallRank: 4, overallScore: 200 },
       ] },

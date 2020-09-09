@@ -10,15 +10,23 @@ ion-content {
 
 .scrolling-wrapper{
   overflow-x: auto;
-  overflow-y: hidden;
+  //overflow-y: hidden;
   white-space: nowrap;
+  //display: grid;
+  //grid-template-columns: repeat(5, 1fr);
+  //grid-gap: 10px;
   display: flex;
-  justify-content: space-evenly;
+  //justify-content: space-evenly;
+  //height: 100%;
 
   .card {
-    width: 210px;
-    height: 180px;
+    //width: 210px;
+    height: 100%;
   }
+}
+
+.scrolling-wrapper::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
 }
 
 .rank-badge {
@@ -46,4 +54,8 @@ ion-content {
   span {
     color: #9f5f18;
   }
+}
+
+.shadow-box {
+  box-shadow: 0 0 13px 0 rgba(0, 0, 0, 0.1);
 }
