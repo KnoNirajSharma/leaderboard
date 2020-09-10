@@ -25,7 +25,7 @@ class SpreadSheetApiImpl(config: Config) extends LazyLogging with SpreadSheetApi
    *
    * @return valuerange of data from spread sheet.
    */
-  @throws(classOf[IOException])
+  @throws(classOf[Exception])
   def getResponse(spreadSheetId: String, spreadSheetRange: String): ValueRange = {
     logger.info("getting response from spreadsheet api")
     val service = new Sheets.Builder(GoogleNetHttpTransport.newTrustedTransport,
@@ -41,7 +41,7 @@ class SpreadSheetApiImpl(config: Config) extends LazyLogging with SpreadSheetApi
    * @return An authorized Credential object.
    * @throws IOException If the credentials.json file cannot be found.
    */
-  @throws(classOf[IOException])
+  @throws(classOf[Exception])
   private def getCredentials(HTTP_TRANSPORT: NetHttpTransport): Credential = {
     logger.info("loading credentials from google api")
     val TOKENS_DIRECTORY_PATH = "tokens"
