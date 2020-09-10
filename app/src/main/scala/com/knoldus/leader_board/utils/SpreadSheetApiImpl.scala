@@ -25,13 +25,17 @@ class SpreadSheetApiImpl(config: Config) extends LazyLogging with SpreadSheetApi
    *
    * @return valuerange of data from spread sheet.
    */
-  @throws(classOf[Exception])
+
   def getResponse(spreadSheetId: String, spreadSheetRange: String): ValueRange = {
     logger.info("getting response from spreadsheet api")
-    val service = new Sheets.Builder(GoogleNetHttpTransport.newTrustedTransport,
-      JacksonFactory.getDefaultInstance, getCredentials(GoogleNetHttpTransport.newTrustedTransport))
-      .setApplicationName(APPLICATION_NAME).build
-    service.spreadsheets.values.get(spreadSheetId, spreadSheetRange).execute
+    try {
+      val service = new Sheets.Builder(GoogleNetHttpTransport.newTrustedTransport,
+        JacksonFactory.getDefaultInstance, getCredentials(GoogleNetHttpTransport.newTrustedTransport))
+        .setApplicationName(APPLICATION_NAME).build
+      service.spreadsheets.values.get(spreadSheetId, spreadSheetRange).execute
+    } catch {
+      case exception: IOException => throw new Exception(s"the cause of exception is $exception")
+    }
   }
 
   /**
@@ -41,21 +45,26 @@ class SpreadSheetApiImpl(config: Config) extends LazyLogging with SpreadSheetApi
    * @return An authorized Credential object.
    * @throws IOException If the credentials.json file cannot be found.
    */
-  @throws(classOf[Exception])
+
   private def getCredentials(HTTP_TRANSPORT: NetHttpTransport): Credential = {
     logger.info("loading credentials from google api")
-    val TOKENS_DIRECTORY_PATH = "tokens"
-    // Load client secrets.
-    val in = new FileInputStream(new File(config.getString("pathForGoogleApiCredentialFile")))
-    val clientSecrets = GoogleClientSecrets.load(JacksonFactory.getDefaultInstance, new InputStreamReader(in))
-    // Build flow and trigger user authorization request.
+    try {
+      val TOKENS_DIRECTORY_PATH = "tokens"
+      // Load client secrets.
+      val in = new FileInputStream(new File(config.getString("pathForGoogleApiCredentialFile")))
+      val clientSecrets = GoogleClientSecrets.load(JacksonFactory.getDefaultInstance, new InputStreamReader(in))
+      // Build flow and trigger user authorization request.
 
-    val flow = new GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY, clientSecrets,
-      Collections.singletonList(SheetsScopes.SPREADSHEETS_READONLY))
-      .setDataStoreFactory(new FileDataStoreFactory(new File(TOKENS_DIRECTORY_PATH)))
-      .setAccessType("offline").build
-    val port = 8888
-    val receiver = new LocalServerReceiver.Builder().setPort(port).build
-    new AuthorizationCodeInstalledApp(flow, receiver).authorize("user")
+      val flow = new GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY, clientSecrets,
+        Collections.singletonList(SheetsScopes.SPREADSHEETS_READONLY))
+        .setDataStoreFactory(new FileDataStoreFactory(new File(TOKENS_DIRECTORY_PATH)))
+        .setAccessType("offline").build
+      val port = 8888
+      val receiver = new LocalServerReceiver.Builder().setPort(port).build
+      new AuthorizationCodeInstalledApp(flow, receiver).authorize("user")
+    }
+    catch {
+      case exception: IOException => throw new Exception(s"the cause of exception is $exception")
+    }
   }
 }
