@@ -6,7 +6,7 @@ import akka.actor.{ActorSystem, Props}
 import com.knoldus.leader_board.application.{ReputationOnAPI, ReputationOnAPIImpl}
 import com.knoldus.leader_board.business._
 import com.knoldus.leader_board.infrastructure._
-import com.knoldus.leader_board.utils.SpreadSheetApi
+import com.knoldus.leader_board.utils.{SpreadSheetApi, SpreadSheetApiImpl}
 import com.typesafe.akka.extension.quartz.QuartzSchedulerExtension
 import com.typesafe.config.{Config, ConfigFactory}
 
@@ -40,7 +40,7 @@ object DriverApp extends App {
     new FetchCountWithReputationImpl(config, fetchReputation)
   val reputationOnAPI: ReputationOnAPI =
     new ReputationOnAPIImpl(twelveMonthsContribution, fetchKnolderDetails, fetchReputationWithCount, config)
-  val spreadSheetApiObj = new SpreadSheetApi(config)
+  val spreadSheetApiObj:SpreadSheetApi = new SpreadSheetApiImpl(config)
   val webinarSpreadSheetData: WebinarSpreadSheetData =
     new WebinarSpreadSheetDataImpl(dateTimeFormat, spreadSheetApiObj, config)
   val storeWebinar = new StoreWebinarImpl(config)
