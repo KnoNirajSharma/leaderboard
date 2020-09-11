@@ -1,3 +1,5 @@
+import sbtsonar.SonarPlugin.autoImport.sonarProperties
+
 name := "knoldus_leaderboard"
 
 version := "0.1"
@@ -47,4 +49,16 @@ libraryDependencies ++= Seq(
   "com.google.api-client" % "google-api-client" % "1.30.9",
   "com.google.oauth-client" % "google-oauth-client-jetty" % "1.30.5",
   "com.google.apis" % "google-api-services-sheets" % "v4-rev1-1.21.0"
+)
+
+
+sonarProperties := Map(
+  "sonar.host.url" -> "http://localhost:9001",
+  "sonar.projectName" -> "Knoldus Leaderboard",
+  "sonar.projectKey" -> "knoldus-leader-board",
+  "sonar.sources" -> "src/main/scala",
+  "sonar.tests" -> "src/test/scala",
+  "sonar.scala.scalastyle.reportPaths" -> "target/scalastyle-result.xml",
+  "sonar.scala.coverage.reportPaths" -> "target/scala-2.12/scoverage-report/scoverage.xml",
+  "sonar.scala.scapegoat.reportPaths" -> "target/scala-2.12/scapegoat-report/scapegoat-scalastyle.xml"
 )
