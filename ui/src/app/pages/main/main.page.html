@@ -3,7 +3,7 @@
     <div class="float-right set-style">Last updated: {{today | date:'dd MMMM yyyy'}}</div>
     <div class="main-container col-12 col-xl-11">
         <div class="main-content">
-            <div class=" bar-container">
+            <div class="bar-container">
                 <div class="shadow-sm bar-tooltip p-2">
                     <u>Stats for Knoldus</u>
                     <div class="bar-tooltip-legend">
@@ -15,9 +15,9 @@
                         Current Month
                     </div>
                 </div>
-                <div *ngIf="reputation" class="scrolling-wrapper mx-auto my-5 contribution-color">
+                <div *ngIf="reputation" class="scrolling-wrapper mx-auto mt-5 mb-3 contribution-color">
                     <div class="card mx-1 mx-sm-0 py-2 d-inline-block border-0">
-                        <div class="contribution-title text-center mb-1">
+                        <div class="contribution-title text-center mb-2">
                             Blogs
                         </div>
                         <div class="d-flex justify-content-between my-1 w-75 mx-auto">
@@ -26,7 +26,7 @@
                         </div>
                     </div>
                     <div class="card mx-1  mx-sm-0 py-2 d-inline-block border-0">
-                        <div class="contribution-title text-center mb-1">
+                        <div class="contribution-title text-center mb-2">
                             Knolx
                         </div>
                         <div class="d-flex justify-content-between my-1 w-75 mx-auto">
@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <div class="card mx-1 mx-sm-0 py-2 d-inline-block border-0">
-                        <div class="contribution-title text-center mb-1">
+                        <div class="contribution-title text-center mb-2">
                             Webinars
                         </div>
                         <div class="d-flex justify-content-between my-1 w-75 mx-auto">
@@ -44,7 +44,7 @@
                         </div>
                     </div>
                     <div class="card mx-1 mx-sm-0 py-2 d-inline-block border-0">
-                        <div class="contribution-title text-center mb-1">
+                        <div class="contribution-title text-center mb-2">
                             TechHub Templates
                         </div>
                         <div class="d-flex justify-content-between my-1 w-75 mx-auto">
@@ -53,7 +53,7 @@
                         </div>
                     </div>
                     <div class="card mx-1 mx-sm-0 py-2 d-inline-block border-0">
-                        <div class="contribution-title text-center mb-1">
+                        <div class="contribution-title text-center mb-2">
                             OS Contribution
                         </div>
                         <div class="d-flex justify-content-between my-1 w-75 mx-auto">
@@ -62,7 +62,7 @@
                         </div>
                     </div>
                     <div class="card mx-1  mx-sm-0 py-2 d-inline-block border-0">
-                        <div class="contribution-title text-center mb-1">
+                        <div class="contribution-title text-center mb-2">
                             Confrences
                         </div>
                         <div class="d-flex justify-content-between my-1 w-75 mx-auto">
@@ -71,7 +71,7 @@
                         </div>
                     </div>
                     <div class="card mx-1 mx-sm-0 py-2 d-inline-block border-0">
-                        <div class="contribution-title text-center mb-1">
+                        <div class="contribution-title text-center mb-2">
                             Books
                         </div>
                         <div class="d-flex justify-content-between my-1 w-75 mx-auto">
@@ -80,7 +80,7 @@
                         </div>
                     </div>
                     <div class="card mx-1 mx-sm-0 py-2 d-inline-block border-0">
-                        <div class="contribution-title text-center mb-1">
+                        <div class="contribution-title text-center mb-2">
                             Research Papers
                         </div>
                         <div class="d-flex justify-content-between my-1 w-75 mx-auto">
@@ -91,40 +91,43 @@
                 </div>
             </div>
             <div></div>
-            <ion-card class="w-100">
-                <div class="container-fluid mb-1">
-                    <div class="row">
-                        <div class="col-5 col-sm-2 text-center my-auto text-secondary current-month">
+            <ion-card class="leaderboard-table w-100 ion-no-padding ion-no-margin">
+                <div class="container-fluid">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-7 col-sm-6 col-md-3 col-lg-3 py-1 current-month-signifier">
                             Summary of {{ currentDate | date: 'MMMM yyyy'}}
                         </div>
-                        <div class="col-6 col-sm-4 my-auto d-flex justify-content-end justify-content-sm-start">
-                            <div class="popover-wrapper">
-                                <a href="javascript:void(0)">
-                                    <div class="popover-title"><img alt="info-icon"
-                                                                    src="./assets/icon/info7.png"
-                                                                    class="image-style" />Scoring</div>
-                                </a>
-                                <div class="popover-content">
-                                    <table class="popover-message">
-                                        <tr>
-                                            <th>Event</th>
-                                            <th>Weightage</th>
-                                            <th>Integration</th>
-                                        </tr>
-                                        <tr *ngFor="let contribution of scoringInfoData">
-                                            <td>{{contribution.type}}</td>
-                                            <td>{{contribution.weight}}</td>
-                                            <td [ngClass]="contribution.integrated ? 'text-success' : 'text-danger'" [innerHTML]="contribution.symbol"></td>
-                                        </tr>
-                                    </table>
+                        <div class="col-5 col-sm-2 col-md-2 col-lg-1 py-1 scoring-info">
+                            <div class=" btn btn-outline-primary scoring-info-btn float-right float-sm-left py-1 popover-wrapper ">
+                                 Scoring
+                                <div class="scoring-info-table">
+                                    <div class="popover-content">
+                                        <table class="popover-message">
+                                            <tr>
+                                                <th>Event</th>
+                                                <th>Weightage</th>
+                                                <th>Integration</th>
+                                            </tr>
+                                            <tr *ngFor="let contribution of scoringInfoData">
+                                                <td>{{contribution.type}}</td>
+                                                <td>{{contribution.weight}}</td>
+                                                <td [ngClass]="contribution.integrated ? 'text-success' : 'text-danger'" [innerHTML]="contribution.symbol"></td>
+                                            </tr>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-sm-6 d-flex justify-content-center">
-                            <label class="input-container col-11 col-sm-6">
+                        <div class="col-12 col-sm-4 col-md-3 col-lg-2 py-1 hall-of-fame">
+                            <div [routerLink]="['/hall-of-fame']" class="w-100 btn btn-outline-primary p-1 hall-of-fame-btn">
+                                 Hall of Fame
+                            </div>
+                        </div>
+                        <div class="search-bar-container col-12 col-md-4 py-1 col-lg-6">
+                            <label class="p-0 m-0 col-12 col-md-8 float-right">
                                 <input (keyup)="filterEmp()" [formControl]="searchBar"
-                                       class="search form-control w-100" placeholder="Search" type="text">
-                                <img alt="search-logo" class="input-img" src="./assets/icon/search.svg"/>
+                                       class="form-control w-100" placeholder="Search" type="text">
+                                <img alt="search-logo" class="search-img" src="./assets/icon/search.svg"/>
                             </label>
                         </div>
                     </div>
