@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import { KnolderDetailsModel } from '../models/knolder-details.model';
 import { ReputationModel } from '../models/reputation.model';
 import { TrendsModel } from '../models/trends.model';
+import {HallOfFameModel} from '../models/hallOfFame.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ import { TrendsModel } from '../models/trends.model';
 export class EmployeeActivityService {
   private url = `${environment.api.baseUrl}${environment.api.routes.author.endpoint}`;
   private trendUrl = `${environment.api.baseUrl}${environment.api.routes.trends.endpoint}`;
+  private hofUrl = '/assets/data/hofData.json';
 
   constructor(private httpClient: HttpClient) {
   }
@@ -30,5 +32,9 @@ export class EmployeeActivityService {
 
   getTrendsData(id: number): Observable<TrendsModel[]> {
     return this.httpClient.get<TrendsModel[]>(this.trendUrl + '/' + String(id));
+  }
+
+  getHallOfFameData(): Observable<HallOfFameModel[]> {
+    return this.httpClient.get<HallOfFameModel[]>(this.hofUrl);
   }
 }
