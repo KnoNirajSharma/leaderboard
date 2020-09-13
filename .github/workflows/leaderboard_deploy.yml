@@ -1,0 +1,26 @@
+name: Leaderboard Deploy
+
+on:
+  push:
+    branches:
+      - master 
+
+env:
+  ORG: knoldus Inc
+  AUTHOR: Shubham Girdhar (girdharshubham)
+
+jobs:
+  leaderboard_package:
+    env:
+      MODULE_NAME: leaderboard
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: SSH Test
+      run: |
+        echo ${{ secrets.NODE_PRIVATE_KEY }} > id_rsa
+        chmod 400 id_rsa
+        ssh -i id_rsa ${{ secrets.NODE_ADDRESS}} "touch github-actions"
+        rm -rf id_rsa
+    
