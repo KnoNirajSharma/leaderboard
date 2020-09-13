@@ -18,9 +18,11 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: SSH Test
-      run: |
-        echo ${{ secrets.NODE_PRIVATE_KEY }} > id_rsa
-        chmod 400 id_rsa
-        ssh -i id_rsa ${{ secrets.NODE_ADDRESS}} "touch github-actions"
-        rm -rf id_rsa
-    
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        script:
+            whoami
+            ls -al
