@@ -24,5 +24,6 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         script: |
-            whoami
-            ls -al
+          sudo docker ps
+          sudo docker images
+          sudo docker volume ls
