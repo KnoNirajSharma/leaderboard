@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeActivityService } from '../../services/employee-activity.service';
 import { HallOfFameModel } from '../../models/hallOfFame.model';
-import {LoadingControllerService} from '../../services/loading-controller.service ';
+import { LoadingControllerService } from '../../services/loading-controller.service ';
 
 @Component({
   selector: 'app-hall-of-fame',
@@ -9,7 +9,7 @@ import {LoadingControllerService} from '../../services/loading-controller.servic
   styleUrls: ['./hall-of-fame.page.scss'],
 })
 export class HallOfFamePage implements OnInit {
-  list: HallOfFameModel[];
+  hallOfFameLeaders: HallOfFameModel[];
 
   constructor(private service: EmployeeActivityService, private loadingControllerService: LoadingControllerService) {
   }
@@ -22,9 +22,8 @@ export class HallOfFamePage implements OnInit {
     });
     this.service.getHallOfFameData()
         .subscribe((data: HallOfFameModel[]) => {
-          this.list = data;
+          this.hallOfFameLeaders = data;
           this.loadingControllerService.dismiss();
         });
   }
-
 }

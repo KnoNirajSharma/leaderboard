@@ -6,9 +6,9 @@
                 <h1 class="page-title">
                     Hall of Fame
                 </h1>
-                <div class="col-12 card p-3 border-0 my-4" *ngFor="let monthData of list">
+                <div class="col-12 card p-3 border-0 my-4" *ngFor="let monthData of hallOfFameLeaders">
                     <div class="col-12">
-                        {{monthData.month}}, {{monthData.year}}
+                        {{monthData.month | titlecase}}, {{monthData.year}}
                     </div>
                     <div class="col-12 scrolling-wrapper d-flex w-100 h-100 py-3">
                         <div class="score-card d-flex flex-column align-items-center p-2"
@@ -33,11 +33,11 @@
                             <div class="text-center overall-status my-1">
                                 <div class="col-12">
                                     <span class="text-secondary"> Overall Score: </span>
-                                    <span class="overall-score">{{leaderData.overallScore}}</span>
+                                    <span class="overall-score">{{leaderData.allTimeScore}}</span>
                                 </div>
                                 <div class="col-12">
                                     <span class="text-secondary"> Overall Rank: </span>
-                                    <span class="overall-rank">{{leaderData.overallRank}}</span>
+                                    <span class="overall-rank">{{leaderData.allTimeRank}}</span>
                                 </div>
                             </div>
                         </div>

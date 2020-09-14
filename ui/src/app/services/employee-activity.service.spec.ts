@@ -12,7 +12,7 @@ describe('EmployeeActivityService', () => {
   let httpTestingController: HttpTestingController;
   const url = `${environment.api.baseUrl}${environment.api.routes.author.endpoint}`;
   const trendsUrl = `${environment.api.baseUrl}${environment.api.routes.trends.endpoint}`;
-  const hofUrl = 'assets/data/hofData.json';
+  const hofUrl = '/assets/data/hofData.json';
 
   const dummyReputationData: ReputationModel = {
     monthlyBlogCount: 2,
@@ -100,7 +100,8 @@ describe('EmployeeActivityService', () => {
       year: 2020,
       leaders: [
         { month: 'August',
-          year: 2020, knolderId: 1,
+          year: 2020,
+          knolderId: 1,
           knolderName: 'Girish Chandra Bharti',
           monthlyRank: 1,
           monthlyScore: 100,
@@ -108,7 +109,8 @@ describe('EmployeeActivityService', () => {
           allTimeScore: 2000,
         },
         { month: 'August',
-          year: 2020, knolderId: 15,
+          year: 2020,
+          knolderId: 15,
           knolderName: 'Gaurav Kumar Shukla',
           monthlyRank: 5, monthlyScore: 100,
           allTimeRank: 4,
@@ -173,11 +175,11 @@ describe('EmployeeActivityService', () => {
 
   it('should retrieve hall of fame data from the API via GET', () => {
     employeeActivityService.getHallOfFameData().subscribe(data => {
-      expect(data).toEqual(dummyTrendsData);
+      expect(data).toEqual(mockHallOfFameData);
     });
-    const requestCheck = httpTestingController.expectOne(trendsUrl + '/' + id);
+    const requestCheck = httpTestingController.expectOne(hofUrl);
     expect(requestCheck.request.method).toBe('GET');
-    requestCheck.flush(dummyTrendsData);
+    requestCheck.flush(mockHallOfFameData);
   });
 
   afterEach(() => {
