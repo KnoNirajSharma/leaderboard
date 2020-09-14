@@ -9,24 +9,25 @@ import { LoadingControllerService } from '../../services/loading-controller.serv
     styleUrls: ['./hall-of-fame.page.scss'],
 })
 export class HallOfFamePage implements OnInit {
-    hallOfFameLeaders: HallOfFameModel[];
+  mainPageLink = '/';
+  hallOfFameLeaders: HallOfFameModel[];
 
-    constructor(private service: EmployeeActivityService, private loadingControllerService: LoadingControllerService) {
-    }
+  constructor(private service: EmployeeActivityService, private loadingControllerService: LoadingControllerService) {
+  }
 
-    ngOnInit() {
-        this.loadingControllerService.present({
-            message: 'Loading the Leaderboard...',
-            translucent: 'false',
-            spinner: 'bubbles'
-        });
-        this.service.getHallOfFameData()
-            .subscribe((data: HallOfFameModel[]) => {
-                this.hallOfFameLeaders = data;
-                this.loadingControllerService.dismiss();
-            }, (error => {
-                this.loadingControllerService.dismiss();
-                console.log(error);
-            }));
+  ngOnInit() {
+      this.loadingControllerService.present({
+        message: 'Loading the Leaderboard...',
+          translucent: 'false',
+          spinner: 'bubbles'
+      });
+      this.service.getHallOfFameData()
+          .subscribe((data: HallOfFameModel[]) => {
+              this.hallOfFameLeaders = data;
+              this.loadingControllerService.dismiss();
+          }, (error => {
+              this.loadingControllerService.dismiss();
+              console.log(error);
+          }));
     }
 }
