@@ -1,20 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-
 import { HallOfFamePage } from './hall-of-fame.page';
-import {EmployeeActivityService} from '../../services/employee-activity.service';
-import {LoadingControllerService} from '../../services/loading-controller.service ';
-import {HallOfFameModel} from '../../models/hallOfFame.model';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {RouterTestingModule} from '@angular/router/testing';
-import {ReactiveFormsModule} from '@angular/forms';
-import {NgxDatatableModule} from '@swimlane/ngx-datatable';
-import {ComponentsModule} from '../../components/components.module';
-import {AngularFireModule} from '@angular/fire';
-import {environment} from '../../../environments/environment';
-import {AngularFirestoreModule} from '@angular/fire/firestore';
-import {AngularFireAuthModule} from '@angular/fire/auth';
-import {of} from 'rxjs';
+import { EmployeeActivityService } from '../../services/employee-activity.service';
+import { LoadingControllerService } from '../../services/loading-controller.service ';
+import { HallOfFameModel } from '../../models/hallOfFame.model';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../../../environments/environment';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { of } from 'rxjs';
 
 describe('HallOfFamePage', () => {
   let component: HallOfFamePage;
@@ -51,10 +46,6 @@ describe('HallOfFamePage', () => {
       imports: [
         HttpClientTestingModule,
         IonicModule.forRoot(),
-        RouterTestingModule,
-        ReactiveFormsModule,
-        NgxDatatableModule,
-        ComponentsModule,
         AngularFireModule.initializeApp(environment.firebaseConfig, 'angular-auth-firebase'),
         AngularFirestoreModule,
         AngularFireAuthModule
@@ -63,7 +54,6 @@ describe('HallOfFamePage', () => {
 
     fixture = TestBed.createComponent(HallOfFamePage);
     component = fixture.componentInstance;
-    // fixture.detectChanges();
     mockEmployeeService = TestBed.get(EmployeeActivityService);
     loadingControllerService = TestBed.get(LoadingControllerService);
   }));
