@@ -21,11 +21,88 @@
       }
     }
 
+    .bar-container {
+      position: relative;
+
+      .bar-tooltip {
+        visibility: hidden;
+        background-color: white;
+        position: absolute;
+        border: 1px solid blue;
+        z-index: 1;
+        top: 100%;
+        left: 70%;
+        margin-top: 10px;
+        margin-left: -60px;
+        font-size: 0.75em;
+        width: 150px;
+        border-radius: 5px;
+
+        .bar-tooltip-legend {
+          font-size: 1.1em;
+
+          .bg-color {
+            background-color: #602CA5;
+          }
+
+          div {
+            margin-right: 10px;
+            display: inline-block;
+            height: 10px;
+            width: 10px;
+          }
+        }
+      }
+
+      .scrolling-wrapper {
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
+
+        &::-webkit-scrollbar {
+          display: none; /* Safari and Chrome */
+        }
+
+        .card {
+          width: 12.5%;
+          font-size: 0.75em;
+
+          .contribution-title {
+            font-size: 1em;
+            font-weight: bolder;
+          }
+
+          .contribution-count {
+            border-radius: 50%;
+            height: 40px;
+            width: 40px;
+          }
+
+          .contribution-color {
+            color: #1F253A;
+          }
+
+          .contribution-left {
+            color: #0F7291;
+            background-color: #ECFBFF;
+          }
+
+          .contribution-right {
+            color: #602CA5;
+            background-color: #F4ECFF;
+          }
+        }
+      }
+    }
+
+    .bar-container:hover .bar-tooltip {
+      visibility: visible;
+    }
+
     .leaderboard-table {
 
       .current-month-signifier {
         font-size: 0.9rem;
-        //border: 1px solid black;
       }
 
       .scoring-info {
@@ -127,85 +204,16 @@ ion-content {
   }
 }
 
-.bar-container {
-  position: relative;
-}
-
-.bar-tooltip {
-  visibility: hidden;
-  background-color: white;
-  position: absolute;
-  border: 1px solid blue;
-  z-index: 1;
-  top: 100%;
-  left: 70%;
-  margin-top: 10px;
-  margin-left: -60px;
-  font-size: 0.75em;
-  width: 150px;
-  border-radius: 5px;
-
-
-  .bar-tooltip-legend {
-    font-size: 1.1em;
-
-    .bg-color {
-      background-color: #602CA5;
-    }
-
-    div {
-      margin-right: 10px;
-      display: inline-block;
-      height: 10px;
-      width: 10px;
-    }
-  }
-}
-
-.bar-container:hover .bar-tooltip {
-  visibility: visible;
-}
-
-.scrolling-wrapper {
-  overflow-x: auto;
-  overflow-y: hidden;
-  white-space: nowrap;
-
-  .card {
-    width: 12.5%;
-    font-size: 0.75em;
-
-    .contribution-title {
-      font-size: 1em;
-      font-weight: bolder;
-    }
-
-    .contribution-count {
-      border-radius: 50%;
-      height: 40px;
-      width: 40px;
-    }
-
-    .contribution-left {
-      color: #0F7291;
-      background-color: #ECFBFF;
-    }
-
-    .contribution-right {
-      color: #602CA5;
-      background-color: #F4ECFF;
-    }
-  }
-}
-
-.contribution-color {
-  color: #1F253A;
-}
-
 @media only screen and (max-width: 768px) {
-  .scrolling-wrapper {
-    .card {
-      width: 150px;
+  .main-container {
+    .main-content {
+      .bar-container {
+        .scrolling-wrapper {
+          .card {
+            width: 150px;
+          }
+        }
+      }
     }
   }
 }
