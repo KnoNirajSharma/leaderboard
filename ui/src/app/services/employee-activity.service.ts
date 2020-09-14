@@ -13,7 +13,7 @@ import {HallOfFameModel} from '../models/hallOfFame.model';
 export class EmployeeActivityService {
   private url = `${environment.api.baseUrl}${environment.api.routes.author.endpoint}`;
   private trendUrl = `${environment.api.baseUrl}${environment.api.routes.trends.endpoint}`;
-  private hofUrl = '/assets/data/hofData.json';
+  private hallOfFameUrl = '/assets/data/hofData.json';
 
   constructor(private httpClient: HttpClient) {
   }
@@ -35,6 +35,6 @@ export class EmployeeActivityService {
   }
 
   getHallOfFameData(): Observable<HallOfFameModel[]> {
-    return this.httpClient.get<HallOfFameModel[]>(this.hofUrl);
+    return this.httpClient.get<HallOfFameModel[]>(this.hallOfFameUrl);
   }
 }

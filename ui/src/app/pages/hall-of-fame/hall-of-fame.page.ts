@@ -24,6 +24,9 @@ export class HallOfFamePage implements OnInit {
         .subscribe((data: HallOfFameModel[]) => {
           this.hallOfFameLeaders = data;
           this.loadingControllerService.dismiss();
-        });
+        }, (error => {
+          this.loadingControllerService.dismiss();
+          console.log(error);
+        }));
   }
 }

@@ -12,7 +12,7 @@ describe('EmployeeActivityService', () => {
   let httpTestingController: HttpTestingController;
   const url = `${environment.api.baseUrl}${environment.api.routes.author.endpoint}`;
   const trendsUrl = `${environment.api.baseUrl}${environment.api.routes.trends.endpoint}`;
-  const hofUrl = '/assets/data/hofData.json';
+  const hallOfFameUrl = '/assets/data/hofData.json';
 
   const dummyReputationData: ReputationModel = {
     monthlyBlogCount: 2,
@@ -177,7 +177,7 @@ describe('EmployeeActivityService', () => {
     employeeActivityService.getHallOfFameData().subscribe(data => {
       expect(data).toEqual(mockHallOfFameData);
     });
-    const requestCheck = httpTestingController.expectOne(hofUrl);
+    const requestCheck = httpTestingController.expectOne(hallOfFameUrl);
     expect(requestCheck.request.method).toBe('GET');
     requestCheck.flush(mockHallOfFameData);
   });
