@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./hall-of-fame.page.scss'],
 })
 export class HallOfFamePage implements OnInit {
+  mainPageLink = '/';
   list = [
     { month: 'August',
       year: 2020,
