@@ -5,12 +5,14 @@ import { environment } from '../../environments/environment';
 import { KnolderDetailsModel } from '../models/knolder-details.model';
 import { ReputationModel } from '../models/reputation.model';
 import {TrendsModel} from '../models/trends.model';
+import {HallOfFameModel} from '../models/hallOfFame.model';
 
 describe('EmployeeActivityService', () => {
   let employeeActivityService: EmployeeActivityService;
   let httpTestingController: HttpTestingController;
   const url = `${environment.api.baseUrl}${environment.api.routes.author.endpoint}`;
   const trendsUrl = `${environment.api.baseUrl}${environment.api.routes.trends.endpoint}`;
+  const hallOfFameUrl = '/assets/data/hofData.json';
 
   const dummyReputationData: ReputationModel = {
     monthlyBlogCount: 2,
@@ -18,6 +20,7 @@ describe('EmployeeActivityService', () => {
     monthlyWebinarCount: 2,
     monthlyTechHubCount: 2,
     monthlyOsContributionCount: 3,
+    monthlyConferenceCount: 1,
     monthlyBookCount: 1,
     monthlyResearchPaperCount: 1,
     allTimeBlogCount: 3,
@@ -25,6 +28,7 @@ describe('EmployeeActivityService', () => {
     allTimeWebinarCount: 2,
     allTimeTechHubCount: 3,
     allTimeOsContributionCount: 3,
+    allTimeConferenceCount: 5,
     allTimeBookCount: 3,
     allTimeResearchPaperCount: 3,
     reputation: [
@@ -74,6 +78,7 @@ describe('EmployeeActivityService', () => {
       webinarScore: 34,
       techHubScore: 20,
       osContributionScore: 30,
+      conferenceScore: 100,
       bookScore: 100,
       researchPaperScore: 0,
     },
@@ -85,9 +90,33 @@ describe('EmployeeActivityService', () => {
       webinarScore: 34,
       techHubScore: 20,
       osContributionScore: 20,
+      conferenceScore: 0,
       bookScore: 0,
       researchPaperScore: 100,
     }
+  ];
+  const mockHallOfFameData: HallOfFameModel[] = [
+    { month: 'August',
+      year: 2020,
+      leaders: [
+        { month: 'August',
+          year: 2020,
+          knolderId: 1,
+          knolderName: 'Girish Chandra Bharti',
+          monthlyRank: 1,
+          monthlyScore: 100,
+          allTimeRank: 4,
+          allTimeScore: 2000,
+        },
+        { month: 'August',
+          year: 2020,
+          knolderId: 15,
+          knolderName: 'Gaurav Kumar Shukla',
+          monthlyRank: 5, monthlyScore: 100,
+          allTimeRank: 4,
+          allTimeScore: 2000,
+        },
+      ] }
   ];
   const id = 1;
   const month = 'june';
@@ -142,6 +171,15 @@ describe('EmployeeActivityService', () => {
     const requestCheck = httpTestingController.expectOne(trendsUrl + '/' + id);
     expect(requestCheck.request.method).toBe('GET');
     requestCheck.flush(dummyTrendsData);
+  });
+
+  it('should retrieve hall of fame data from the API via GET', () => {
+    employeeActivityService.getHallOfFameData().subscribe(data => {
+      expect(data).toEqual(mockHallOfFameData);
+    });
+    const requestCheck = httpTestingController.expectOne(hallOfFameUrl);
+    expect(requestCheck.request.method).toBe('GET');
+    requestCheck.flush(mockHallOfFameData);
   });
 
   afterEach(() => {
