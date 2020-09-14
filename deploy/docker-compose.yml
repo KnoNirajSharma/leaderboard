@@ -1,0 +1,46 @@
+version: "3.8"
+services:
+  leaderboard:
+    image: docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard:latest
+    container_name: leaderboard
+    user: root # Need to change
+    privileged: true
+    depends_on:
+      - postgres
+    environment:
+      URL: "jdbc:postgresql://postgres/leaderboard"
+      DRIVER: "org.postgresql.Driver"
+      USERNAME: "postgres"
+      PASSWORD: ""
+      PORT: 8000
+      INTERFACE: "0.0.0.0"
+      GOOGLEAPICREDENTIALPATH: "/opt/docker/config/credential.json"
+    networks:
+      - backend
+    volumes:
+     - tokens:/opt/docker/tokens
+     - .:/opt/docker/config
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+  postgres:
+    image: postgres:latest
+    hostname: postgres
+    ports:
+      - 5432:5432
+    networks:
+      - backend
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=""
+      - POSTGRES_DB=leaderboard
+volumes:
+  tokens:
+  postgres:
+networks:
+  backend:
