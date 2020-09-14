@@ -1,0 +1,49 @@
+<app-headers [backBtn]="false"></app-headers>
+<ion-content>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="page-title">
+                    Hall of Fame
+                </h1>
+                <div class="col-12 card p-3 border-0 my-4" *ngFor="let monthData of list">
+                    <div class="col-12">
+                        {{monthData.month}}, {{monthData.year}}
+                    </div>
+                    <div class="col-12 scrolling-wrapper d-flex w-100 h-100 py-3">
+                        <div class="score-card d-flex flex-column align-items-center p-2"
+                             *ngFor="let leaderData of monthData.leaders; let i = index">
+                            <div class="my-1 p-0 rank-badge d-flex justify-content-center align-items-center"
+                                 [ngClass]="{'first' : i === 0, 'second': i >= 1 && i < 3,  'third': i > 2}">
+                                {{leaderData.monthlyRank}}
+                            </div>
+
+                            <div class="knolder-name d-flex align-items-center font-weight-bolder text-center my-1">
+                                {{leaderData.knolderName}}
+                            </div>
+
+                            <div class="mt-1 mb-0 monthly-score">
+                                {{leaderData.monthlyScore}}
+                            </div>
+
+                            <div class="mb-1 mt-0 monthly-score-heading">
+                                Monthly Score
+                            </div>
+
+                            <div class="text-center overall-status my-1">
+                                <div class="col-12">
+                                    <span class="text-secondary"> Overall Score: </span>
+                                    <span class="overall-score">{{leaderData.overallScore}}</span>
+                                </div>
+                                <div class="col-12">
+                                    <span class="text-secondary"> Overall Rank: </span>
+                                    <span class="overall-rank">{{leaderData.overallRank}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-content>
