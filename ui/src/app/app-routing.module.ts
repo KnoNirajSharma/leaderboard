@@ -24,7 +24,8 @@ const routes: Routes = [
   },
   {
     path: 'hall-of-fame',
-    loadChildren: './pages/hall-of-fame/hall-of-fame.module#HallOfFamePageModule'
+    loadChildren: './pages/hall-of-fame/hall-of-fame.module#HallOfFamePageModule',
+    canActivate: [AuthGuard]
   },
 ];
 

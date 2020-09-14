@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TrendsModel } from '../../models/trends.model';
-import { environment } from '../../../environments/environment';
+import { NgxChartConfigService } from '../../services/ngxChartConfig.service';
+import {NgxStackVerticalBarGraphResultModel} from '../../models/ngxStackVerticalBarGraphResultModel';
 
 @Component({
   selector: 'app-vertical-bar-graph',
@@ -9,13 +10,18 @@ import { environment } from '../../../environments/environment';
 })
 export class VerticalBarGraphComponent implements OnInit {
     @Input() trendsData: TrendsModel[];
-    yAxisLabel = environment.ngxChartOptions.verticalBarChart.yAxisLabel;
-    barPadding = environment.ngxChartOptions.verticalBarChart.barPadding;
-    colorScheme = environment.ngxChartOptions.chartColorScheme;
+    yAxisLabel: string;
+    barPadding: number;
+    colorScheme: { domain: string[]; };
+    result: NgxStackVerticalBarGraphResultModel[] = [];
 
-    result: { name: string; series: { name: string; value: number; }[]; }[] = [];
+    constructor(private chartConfigs: NgxChartConfigService) {
+    }
 
     ngOnInit() {
+      this.yAxisLabel = this.chartConfigs.verticalBarChartYLabel;
+      this.barPadding = this.chartConfigs.verticalBarChartPadding;
+      this.colorScheme = this.chartConfigs.colorScheme;
       this.trendsData.map(monthData => this.result.push({ name: monthData.month.substring(0, 3) + ',' + String(monthData.year),
         series: [
           { name: 'Blogs', value: monthData.blogScore },

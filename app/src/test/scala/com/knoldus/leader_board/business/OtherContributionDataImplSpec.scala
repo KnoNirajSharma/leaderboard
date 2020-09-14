@@ -7,7 +7,7 @@ import java.util
 
 import com.google.api.services.sheets.v4.model.ValueRange
 import com.knoldus.leader_board.OtherContributionDetails
-import com.knoldus.leader_board.utils.SpreadSheetApi
+import com.knoldus.leader_board.utils.SpreadSheetApiImpl
 import com.typesafe.config.ConfigFactory
 import org.mockito.ArgumentMatchersSugar.any
 import org.mockito.MockitoSugar
@@ -16,7 +16,7 @@ import org.scalatest.wordspec.AnyWordSpecLike
 
 
 class OtherContributionDataImplSpec extends AnyWordSpecLike with MockitoSugar with BeforeAndAfterEach {
-  val mockOtherContributionResponse = mock[SpreadSheetApi]
+  val mockOtherContributionResponse = mock[SpreadSheetApiImpl]
   val mockDateTimeFormat = mock[ParseDateTimeFormats]
   val otherContributionObj: OtherContributionData = new OtherContributionDataImpl(mockDateTimeFormat, mockOtherContributionResponse, ConfigFactory.load())
   val formatOne = new SimpleDateFormat("M/dd/yyyy")
