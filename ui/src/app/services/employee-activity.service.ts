@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment';
 import { KnolderDetailsModel } from '../models/knolder-details.model';
 import { ReputationModel } from '../models/reputation.model';
 import { TrendsModel } from '../models/trends.model';
-import {HallOfFameModel} from '../models/hallOfFame.model';
+import { HallOfFameModel } from '../models/hallOfFame.model';
 
 @Injectable({
   providedIn: 'root'

@@ -9,7 +9,9 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from '../../../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { of } from 'rxjs';
+import { of, throwError} from 'rxjs';
+import {ComponentsModule} from '../../components/components.module';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('HallOfFamePage', () => {
   let component: HallOfFamePage;
@@ -48,7 +50,9 @@ describe('HallOfFamePage', () => {
         IonicModule.forRoot(),
         AngularFireModule.initializeApp(environment.firebaseConfig, 'angular-auth-firebase'),
         AngularFirestoreModule,
-        AngularFireAuthModule
+        AngularFireAuthModule,
+        ComponentsModule,
+        RouterTestingModule,
       ],
     }).compileComponents();
 
@@ -62,5 +66,12 @@ describe('HallOfFamePage', () => {
     spyOn(mockEmployeeService, 'getHallOfFameData').and.returnValue(of(mockHallOfFameData));
     component.ngOnInit();
     expect(component.hallOfFameLeaders).toEqual(mockHallOfFameData);
+  });
+
+  it('should dismiss loader when error occurred', () => {
+    spyOn(loadingControllerService, 'dismiss');
+    spyOn(mockEmployeeService, 'getHallOfFameData').and.returnValue(throwError({status: 404}));
+    component.ngOnInit();
+    expect(loadingControllerService.dismiss).toHaveBeenCalled();
   });
 });
