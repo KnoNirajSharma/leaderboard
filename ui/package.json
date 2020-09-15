@@ -12,7 +12,8 @@
     "e2e": "ng e2e",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "build:prod": "ng build --prod",
-    "eslint": "eslint src/**"
+    "eslint": "eslint src/**",
+    "test-headless": "ng test --watch=false --browsers=ChromeHeadless"
   },
   "private": true,
   "dependencies": {

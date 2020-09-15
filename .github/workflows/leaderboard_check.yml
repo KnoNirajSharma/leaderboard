@@ -70,4 +70,4 @@ jobs:
       working-directory: ui
       run: |
         npm install
-        ng test
+        npm test-headless
