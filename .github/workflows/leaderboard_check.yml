@@ -56,17 +56,17 @@ jobs:
           curl -X PUT -F "projectName=$PROJECT_NAME" -F "moduleName=$MODULE_NAME" -F "organisation=$ORG" -F "file=@${codesquad[$i]}" -F "registrationKey=${{ secrets.CODESQUAD_KEY }}" $CODESQAUD_URL
         done
 
-  build_fe:
-    runs-on:
-      steps:
-        - uses: actions/checkout@v2
+  build_be:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up Node 12
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12'
 
-        - name: Set up Node 14
-          uses: actions/setup-node@v1
-          with:
-            node-version: '14'
-
-        - name: Run Test
-          working-directory: ui
-          run: |
-            ng test
+    - name: Run Test
+      working-directory: ui
+      run: |
+        ng test
