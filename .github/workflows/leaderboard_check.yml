@@ -58,10 +58,13 @@ jobs:
 
   build_fe:
     runs-on: ubuntu-latest
-    container: circleci/node:12-browsers
     steps:
     - uses: actions/checkout@v1
 
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '12'
+  
     - name: Cache Packages
       uses: actions/cache@v2
       with:
