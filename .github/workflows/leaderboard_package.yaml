@@ -15,18 +15,20 @@ jobs:
       MODULE_NAME: leaderboard
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - if: |
+        "!contains(github.event.head_commit.message, 'ci skip') || contains(github.event.head_commit.message, 'Backend')"
+      uses: actions/checkout@v2
 
     - name: Set up JDK 1.8
       if: |
-        "!contains(github.event.head_commit.message, `ci skip`) || contains(github.event.head_commit.message, `Backend`)"
+        "!contains(github.event.head_commit.message, 'ci skip') || contains(github.event.head_commit.message, 'Backend')"
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
     
     - name: Cache SBT
       if: |
-        "!contains(github.event.head_commit.message, `ci skip`) || contains(github.event.head_commit.message, `Backend`)"
+        "!contains(github.event.head_commit.message, 'ci skip') || contains(github.event.head_commit.message, 'Backend')"
       uses: actions/cache@v2
       with:
         path: |
@@ -35,7 +37,7 @@ jobs:
         key: ${{ runner.os }}-sbt-${{ hashFiles('**/build.sbt') }}
     
     - name: Prepare Docker
-        "!contains(github.event.head_commit.message, `ci skip`) || contains(github.event.head_commit.message, `Backend`)"
+        "!contains(github.event.head_commit.message, 'ci skip') || contains(github.event.head_commit.message, 'Backend')"
       run: |
         echo "==========Docker Login=========="
         echo ${{ secrets.TOKEN }} | docker login docker.pkg.github.com -u girdharshubham --password-stdin
@@ -47,13 +49,13 @@ jobs:
         deploy/delete_packages.sh
 
     - name: Package
-        "!contains(github.event.head_commit.message, `ci skip`) || contains(github.event.head_commit.message, `Backend`)"
+        "!contains(github.event.head_commit.message, 'ci skip') || contains(github.event.head_commit.message, 'Backend')"
       working-directory: app
       run: |
         sbt docker:publishLocal
 
     - name: Publish to Github Packages
-        "!contains(github.event.head_commit.message, `ci skip`) || contains(github.event.head_commit.message, `Backend`)"
+        "!contains(github.event.head_commit.message, 'ci skip') || contains(github.event.head_commit.message, 'Backend')"
       run: |
         echo "==========Tagging and pushing with commit=========="
         COMMIT_ID=$(git rev-parse HEAD | cut -b 1-7)
@@ -64,7 +66,7 @@ jobs:
         docker push docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard-archived:latest
 
     - name: General cleanup
-        "!contains(github.event.head_commit.message, `ci skip`) || contains(github.event.head_commit.message, `Backend`)"
+        "!contains(github.event.head_commit.message, 'ci skip') || contains(github.event.head_commit.message, 'Backend')"
       run: |
         echo "==========Docker logout=========="
         sbt docker:clean
