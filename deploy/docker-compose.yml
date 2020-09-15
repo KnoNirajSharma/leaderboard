@@ -35,8 +35,8 @@ services:
     container_name: leaderboard_app
     hostname: leaderboard_app
     restart: unless-stopped
-    user: "5000"
-    privileged: false
+    user: root
+    privileged: true
     tty: false
     depends_on:
       - postgres
