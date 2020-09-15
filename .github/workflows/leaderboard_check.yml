@@ -62,12 +62,11 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - name: Cache SBT
+    - name: Cache Packages
       uses: actions/cache@v2
       with:
         path: |
-          ~/.ivy2/cache
-          ~/.sbt
+          ui/node_modules
         key: ${{ runner.os }}-npm-${{ hashFiles('**/package.json') }}
 
     - name: NPM Install
