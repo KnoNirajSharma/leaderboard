@@ -16,7 +16,7 @@ jobs:
     env:
       MODULE_NAME: leaderboard
     runs-on: ubuntu-latest
-    if: "!contains(github.event.head_commit.message, 'ci skip') || contains(github.event.head_commit.message, 'Backend')"
+    if: "!contains(github.pull_request.title, 'Skip CI')"
     steps:
     - uses: actions/checkout@v2
 
