@@ -69,4 +69,5 @@ jobs:
     - name: Run Test
       working-directory: ui
       run: |
+        npm install
         ng test
