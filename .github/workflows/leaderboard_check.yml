@@ -58,13 +58,9 @@ jobs:
 
   build_fe:
     runs-on: ubuntu-latest
+    container: circleci/node:12-browsers
     steps:
     - uses: actions/checkout@v2
-    
-    - name: Set up Node 12
-      uses: actions/setup-node@v1
-      with:
-        node-version: '12'
 
     - name: Run Test
       working-directory: ui
