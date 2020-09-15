@@ -76,5 +76,9 @@ jobs:
       working-directory: ui
       run: |
         npm install
+    
+    - name: NPM test
+      working-directory: ui
+      run:
         npm run test-headless
         
