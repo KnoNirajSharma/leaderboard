@@ -70,7 +70,7 @@ jobs:
 
         docker push docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard_ui:${COMMIT_ID}
         docker push docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard_ui:latest
-        docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard_ui-archived:latest
+        docker push docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard_ui-archived:latest
 
     - name: General cleanup
       run: |
