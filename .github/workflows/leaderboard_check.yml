@@ -81,4 +81,3 @@ jobs:
       working-directory: ui
       run:
         npm run test-headless
-        
