@@ -1,0 +1,87 @@
+ion-content {
+  height: 100vh;
+  --background: #f5f5fa;
+}
+
+.container {
+  font-family: 'Poppins', sans-serif;
+}
+
+.page-title {
+  font-size: 2rem;
+  color: #071348;
+}
+
+.scrolling-wrapper{
+  overflow-x: auto;
+
+  &::-webkit-scrollbar {
+    display: none;  /* Safari and Chrome */
+  }
+
+  .score-card {
+    background-image: url('/assets/icon/Pattern.svg');
+    background-repeat: no-repeat;
+    box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.19);
+    margin: 0 0.5rem;
+    min-width: 190px;;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    .rank-badge {
+      border-radius: 50%;
+      height: 50px;
+      width: 50px;
+      font-size: 1.1rem;
+    }
+
+    .first {
+      background: #f6fbd7;
+      color: #af9019;
+    }
+
+    .second {
+      background: #eafbff;
+      color: #017295;
+    }
+
+    .third {
+      background: #fef6eb;
+      color: #9f5f18;
+    }
+
+    .knolder-name {
+      font-size: 0.9rem;
+      color: #3d3c53;
+      height: 20px;
+    }
+
+    .monthly-score {
+      font-size: 1.3rem;
+      color: #6435b8;
+    }
+
+    .monthly-score-heading {
+      font-size: 0.7rem;
+      color: #2d195c;
+    }
+
+    .overall-status {
+      font-size: .6em;
+
+      .overall-rank {
+        color: #4a09ab
+      }
+
+      .overall-score {
+        color: #4a09ab
+      }
+    }
+  }
+}
