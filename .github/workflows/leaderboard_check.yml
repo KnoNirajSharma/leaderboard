@@ -56,7 +56,7 @@ jobs:
           curl -X PUT -F "projectName=$PROJECT_NAME" -F "moduleName=$MODULE_NAME" -F "organisation=$ORG" -F "file=@${codesquad[$i]}" -F "registrationKey=${{ secrets.CODESQUAD_KEY }}" $CODESQAUD_URL
         done
 
-  build_be:
+  build_fe:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
