@@ -12,7 +12,7 @@ env:
   AUTHOR: Shubham Girdhar (girdharshubham)
 
 jobs:
-  leaderboard_check:
+  build_be:
     env:
       MODULE_NAME: leaderboard
     runs-on: ubuntu-latest
@@ -55,3 +55,18 @@ jobs:
           echo "Publishing $i report"
           curl -X PUT -F "projectName=$PROJECT_NAME" -F "moduleName=$MODULE_NAME" -F "organisation=$ORG" -F "file=@${codesquad[$i]}" -F "registrationKey=${{ secrets.CODESQUAD_KEY }}" $CODESQAUD_URL
         done
+
+  build_fe:
+    runs-on:
+      steps:
+        - uses: actions/checkout@v2
+
+        - name: Set up Node 14
+          uses: actions/setup-node@v1
+          with:
+            node-version: '14'
+
+        - name: Run Test
+          working-directory: ui
+          run: |
+            ng test
