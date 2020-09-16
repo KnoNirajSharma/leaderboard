@@ -8,6 +8,8 @@ import { ScoreBreakDownModel } from '../../models/ScoreBreakDown.model';
 import { LoadingControllerService } from '../../services/loading-controller.service ';
 import { TrendsModel } from '../../models/trends.model';
 import { NgxChartConfigService } from '../../services/ngxChartConfig.service';
+import { HallOfFameModel } from '../../models/hallOfFame.model';
+import { LeaderModel } from '../../models/leader.model';
 
 @Component({
   selector: 'app-details',
@@ -40,20 +42,22 @@ export class DetailsPage implements OnInit {
   allTimeSelected: boolean;
   trendsData: TrendsModel[];
   contributionsTypeColorList: string[];
+  hallOfFameLeaders: HallOfFameModel[];
+  knolderAchievements: LeaderModel[] = [];
+  medalTally: { first: number; sec: number; third: number; };
 
   constructor(
     private route: ActivatedRoute,
     private service: EmployeeActivityService,
     private loadingControllerService: LoadingControllerService,
     private ngxChartConfigs: NgxChartConfigService
-  ) {
-  }
+  ) { }
 
   ngOnInit() {
     this.contributionsTypeColorList = this.ngxChartConfigs.colorScheme.domain;
     this.route.params
       .subscribe((params: Params) => {
-        this.knolderId = params.id;
+        this.knolderId = Number(params.id);
       });
     this.loadingControllerService.present({
       message: 'Loading the score details...',
@@ -77,6 +81,24 @@ export class DetailsPage implements OnInit {
         this.pieChartData = this.allTimeDetails.scoreBreakDown;
         this.loadingControllerService.dismiss();
       });
+    this.service.getHallOfFameData()
+      .subscribe((data: HallOfFameModel[]) => {
+        this.hallOfFameLeaders = data.reverse();
+        // this.hallOfFameLeaders = this.hallOfFameLeaders.reverse();
+        this.hallOfFameLeaders.map(monthLeaders => {
+          monthLeaders.leaders.map(leader => {
+            leader.knolderId ===  this.knolderId
+              ? this.knolderAchievements.push({ ...leader, position: monthLeaders.leaders.indexOf(leader) })
+              : leader;
+          });
+        });
+        this.medalTally = {
+          first: this.knolderAchievements.filter(details => details.position === 0).length,
+          sec: this.knolderAchievements.filter(details => details.position === 1 || details.position === 2).length,
+          third: this.knolderAchievements.filter(details => details.position === 3 || details.position === 4).length,
+        };
+      });
+    console.log('leader', this.hallOfFameLeaders);
   }
 
   onDateChange(selectedDate: Date) {

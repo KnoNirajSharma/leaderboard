@@ -1,4 +1,4 @@
-ion-content{
+ion-content {
   --background: #f5f5fa;
 }
 
@@ -9,13 +9,35 @@ ion-content{
     font-family: 'Poppins', sans-serif;
 
     .name-title {
-      font-size: 2.3em;
-      border-bottom: 5px solid #2B35A8;
+      font-size: 2em;
+      border-bottom: 3px solid #2B35A8;
       color: #071348;
     }
 
+    .medal-tally {
+      .medal-badge {
+        .medal {
+          border-radius: 50%;
+        }
+
+        .gold {
+          height: 50px;
+          width: 50px;
+        }
+
+        .silver {
+          height: 50px;
+          width: 50px;
+        }
+
+        .bronze {
+          height: 50px;
+          width: 50px;
+        }
+      }
+    }
+
     .tab-bar {
-      border: 0 !important;
 
       form {
         width: 100px;
@@ -74,20 +96,19 @@ ion-content{
   border: 0 !important;
 
   .block-title {
-    border-bottom: 1.5px solid #2B35A8;
+    border-bottom: 1px solid #2B35A8;
     padding: 2px 2px;
     position: relative;
 
-    h2 {
+    h2, h4 {
       color: #071348;
       font-weight: 500;
     }
   }
 }
 
-.card-head {
-  border-radius: .25rem;
-  z-index: 9;
+.badges-table {
+  overflow-y: auto;
 }
 
 @media only screen and (max-width: 720px) {

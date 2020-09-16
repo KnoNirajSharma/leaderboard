@@ -15,6 +15,7 @@ import { environment } from '../../../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { TrendsModel } from '../../models/trends.model';
+import {HallOfFameModel} from '../../models/hallOfFame.model';
 
 
 describe('DetailsPage', () => {
@@ -66,6 +67,51 @@ describe('DetailsPage', () => {
       researchPaperScore: 50,
     }
   ];
+  const mockHallOfFameData: HallOfFameModel[] = [
+    { month: 'August',
+      year: 2020,
+      leaders: [
+        { month: 'August',
+          year: 2020,
+          knolderId: 1,
+          knolderName: 'Girish Chandra Bharti',
+          monthlyRank: 1,
+          monthlyScore: 100,
+          allTimeRank: 4,
+          allTimeScore: 2000,
+        },
+        { month: 'August',
+          year: 2020,
+          knolderId: 15,
+          knolderName: 'Gaurav Kumar Shukla',
+          monthlyRank: 5, monthlyScore: 100,
+          allTimeRank: 4,
+          allTimeScore: 2000,
+        },
+      ]
+    }, { month: 'September',
+      year: 2020,
+      leaders: [
+        { month: 'September',
+          year: 2020,
+          knolderId: 1,
+          knolderName: 'Girish Chandra Bharti',
+          monthlyRank: 1,
+          monthlyScore: 100,
+          allTimeRank: 4,
+          allTimeScore: 2000,
+        },
+        { month: 'September',
+          year: 2020,
+          knolderId: 15,
+          knolderName: 'Gaurav Kumar Shukla',
+          monthlyRank: 5, monthlyScore: 100,
+          allTimeRank: 4,
+          allTimeScore: 2000,
+        },
+      ]
+    }
+  ];
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -109,5 +155,28 @@ describe('DetailsPage', () => {
     spyOn(mockEmployeeService, 'getTrendsData').and.returnValue(of(dummyTrendsData));
     component.ngOnInit();
     expect(component.trendsData).toEqual(dummyTrendsData);
+  });
+
+  fit('should get the hall of fame data in reverse as per api call', () => {
+    spyOn(mockEmployeeService, 'getHallOfFameData').and.returnValue(of(mockHallOfFameData));
+    component.ngOnInit();
+    // console.log(component.hallOfFameLeaders);
+    expect(component.hallOfFameLeaders).toEqual(mockHallOfFameData);
+  });
+
+  it('should get knolder achievements from the leaders list', () => {
+    spyOn(mockEmployeeService, 'getHallOfFameData').and.returnValue(of(mockHallOfFameData));
+    component.knolderId = 1;
+    component.ngOnInit();
+    // console.log(component.knolderAchievements);
+    expect(component.knolderAchievements.length).toEqual(2);
+  });
+
+  it('should get tally of medals according to knolder achievements from the leaders list', () => {
+    spyOn(mockEmployeeService, 'getHallOfFameData').and.returnValue(of(mockHallOfFameData));
+    component.knolderId = 1;
+    component.ngOnInit();
+    // console.log(component.medalTally);
+    expect(component.medalTally.first).toEqual(2);
   });
 });

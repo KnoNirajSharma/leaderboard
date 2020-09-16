@@ -1,12 +1,45 @@
 <app-headers [backBtnLink]="mainPageLink" [backBtn]="true"></app-headers>
 <ion-content>
     <div class="container-fluid">
-        <div class="page-wrapper mt-5 col-12 col-xl-11 ion-no-padding">
-            <h1 *ngIf="knolderDetails"
-                class="name-title col-12 col-md-6 mt-lg-0 pb-2">{{knolderDetails.knolderName}}</h1>
+        <div class="page-wrapper mt-3 col-12 col-xl-11 ion-no-padding">
+            <div class="row mb-2">
+                <div class="col-12 col-md-6 d-flex align-self-end">
+            <div *ngIf="knolderDetails"
+                class="name-title w-100 pb-2">{{knolderDetails.knolderName}}</div>
+                </div>
+            <div class="col-12 col-md-6" *ngIf="medalTally">
+                <div class="medal-tally col-10 col-lg-6 mx-auto d-flex flex-row align-content-center border-0 pb-1 mt-3 mt-md-0">
+                    <div class="medal-badge mx-auto d-flex flex-column justify-content-center border-0 ">
+                        <div class="bg-white p-2 shadow-sm medal gold" >
+                            <img alt="medal" src="./assets/icon/medal.svg">
+                        </div>
+                        <div class="text-center badge badge-pill bg-white shadow-sm mt-n1 border-0 " *ngIf="medalTally">
+                            {{medalTally.first}}
+                        </div>
+                    </div>
+                    <div class="medal-badge mx-auto d-flex flex-column justify-content-center border-0 ">
+                        <div class="bg-white p-2 shadow-sm medal silver">
+                            <img alt="medal" src="./assets/icon/medal%20(1).svg">
+                        </div>
+                        <div class="text-center badge badge-pill bg-white shadow-sm mt-n1 border-0 " *ngIf="medalTally">
+                            {{medalTally.sec}}
+                        </div>
+                    </div>
+                    <div class="medal-badge mx-auto d-flex flex-column justify-content-center border-0 ">
+                        <div class="bg-white p-2 shadow-sm medal bronze" >
+                            <img alt="medal" src="./assets/icon/medal%20(2).svg">
+                        </div>
+                        <div class="text-center badge badge-pill bg-white shadow-sm mt-n1 border-0 " *ngIf="medalTally">
+                            {{medalTally.third}}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            </div>
             <div class="row">
                 <div class="col-12 col-md-6">
-                    <div class="card tab-bar mt-4 pr-2">
+                    <div class="card tab-bar border-0 mt-4 pr-2">
                         <div class="row justify-content-end justify-content-sm-center p-1">
                             <form [ngClass]="{'monthSelected' : !allTimeSelected}" class="mr-2  mt-1">
                                 <label>
@@ -81,8 +114,8 @@
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
-                    <div *ngIf="trendsData" class="col-12 text-center card border-0 mt-4 col-xl-10 mx-auto ">
-                        <div class="card-head shadow-box d-flex justify-content-between pt-3 pb-2 px-3 bg-white mt-n4 mx-3">
+                    <div *ngIf="trendsData" class="col-12 text-center block card border-0 mt-4 col-xl-10 mx-auto ">
+                        <div class="block-title d-flex justify-content-between pt-3 pb-2 px-2 bg-white mb-3">
                             <div class="align-self-center">
                                 <h4 class="font-weight-normal m-0">Trends</h4>
                             </div>
@@ -90,13 +123,46 @@
                         <app-vertical-bar-graph [trendsData]="trendsData"></app-vertical-bar-graph>
 
                     </div>
-                    <div *ngIf="allTimeDetails" class="col-12 mt-5 card border-0 col-xl-10 mx-auto pl-2">
-                        <div class="card-head shadow-box d-flex justify-content-between pt-3 pb-2 px-3 bg-white mt-n4 mx-3">
+                    <div *ngIf="allTimeDetails" class="col-12 mt-5 card block border-0 col-xl-10 mx-auto pl-2">
+                        <div class="block-title d-flex justify-content-between pt-3 pb-2 px-2 bg-white">
                             <div class="align-self-center">
                                 <h4 class="font-weight-normal m-0">All Time</h4>
                             </div>
                         </div>
                         <app-pie-chart [inputResult]="pieChartData"></app-pie-chart>
+                    </div>
+
+                    <div style="min-height: 250px; max-height: 300px" *ngIf="hallOfFameLeaders" class="col-12 mt-5 card block border-0 col-xl-10 mx-auto pl-2">
+                        <div class="block-title d-flex justify-content-between pt-3 pb-2 px-2 bg-white">
+                            <div class="align-self-center">
+                                <h4 class="font-weight-normal m-0">Badges</h4>
+                            </div>
+                        </div>
+                        <div *ngIf="knolderAchievements.length === 0" class="py-5">
+                            <span class="text-secondary font-italic">No badge earned till now</span>
+                        </div>
+                        <div class="badges-table px-2">
+                            <div *ngFor="let badgeDetails of knolderAchievements"
+                                 class="d-flex py-2 w-100 border-bottom border-light align-content-center">
+                                <img *ngIf="badgeDetails.position === 0" style="height: 40px" src="./assets/icon/medal.svg" alt="medal">
+                                <img *ngIf="badgeDetails.position === 1 || badgeDetails.position === 2 " style="height: 40px" src="./assets/icon/medal%20(1).svg" alt="medal">
+                                <img *ngIf="badgeDetails.position === 3 || badgeDetails.position === 4 " style="height: 40px" src="./assets/icon/medal%20(2).svg" alt="medal">
+                                <div style="font-size: .7rem" class="ml-auto text-secondar">
+                                    <span class="text-secondary"> Monthly</span><br>
+                                    <span style="font-size: .9rem">
+                                        Rank: {{badgeDetails.monthlyRank}}&nbsp;
+                                        Score: {{badgeDetails.monthlyScore}} </span>
+                                </div>
+                                <div style="font-size: .7rem" class="ml-auto text-secondar">
+                                    <span class="text-secondary"> Overall</span><br>
+                                    <span style="font-size: .9rem">Score: {{badgeDetails.monthlyScore}}
+                                    </span>
+                                </div>
+                                <div class="ml-auto text-center text-primary" style="font-size: .9rem">
+                                   <span> {{badgeDetails.month | slice:0:3}},<br>{{badgeDetails.year}}</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

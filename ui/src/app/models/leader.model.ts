@@ -7,4 +7,5 @@ export interface LeaderModel {
     allTimeRank: number;
     monthlyScore: number;
     monthlyRank: number;
+    position?: number;
 }
