@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+  leaderboard_fe:
+    labels:
+      com.knoldus.app: "leaderboard_fe"
+      com.knoldus.project: "knoldus leaderboard"
+    image: docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard_ui:latest
+    container_name: leaderboard_fe
+    restart: unless-stopped
+    # user: "5000"
+    # privileged: true
+    tty: false
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - frontend
+    ports:
+      - 80:80
+networks:
+  frontend:
+    name: frontend

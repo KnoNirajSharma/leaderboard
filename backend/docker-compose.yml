@@ -1,0 +1,42 @@
+version: "3.8"
+services:
+  leaderboard_be:
+    labels:
+      com.knoldus.app: "leaderboard_be"
+      com.knoldus.project: "knoldus leaderboard"
+    image: docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard:latest
+    container_name: leaderboard_be
+    restart: unless-stopped
+    user: root
+    privileged: true
+    tty: false
+    environment:
+      URL: ${JDBC_URL:-jdbc:postgresql://postgres/knoldus_leaderboard}
+      DRIVER: ${JDBC_DRIVER:-org.postgresql.Driver}
+      USERNAME: ${PG_USER:-postgres}
+      PASSWORD: ${PG_PASSWORD:-changeme}
+      PORT: ${LB_PORT:-8000}
+      INTERFACE: ${LB_INTERFACE:-0.0.0.0}
+      GOOGLEAPICREDENTIALPATH: ${KLB_CPATH:-/opt/docker/config/credential.json}
+    networks:
+      - backend
+      - frontend
+    volumes:
+     - tokens:/opt/docker/tokens
+     - .:/opt/docker/config
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+volumes:
+  tokens:
+    name: "tokens"
+networks:
+  frontend:
+    external:
+      name: frontend
+  backend:
+    external:
+      name: backend
