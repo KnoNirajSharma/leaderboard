@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { HallOfFamePage } from './hall-of-fame.page';
 import { RouterModule, Routes } from '@angular/router';
 import { ComponentsModule } from '../../components/components.module';
+import { ReverseListPipe } from '../../pipe/reverse-list.pipe';
 
 
 const routes: Routes = [
@@ -22,6 +23,6 @@ const routes: Routes = [
     ComponentsModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [HallOfFamePage]
+  declarations: [HallOfFamePage, ReverseListPipe]
 })
 export class HallOfFamePageModule {}

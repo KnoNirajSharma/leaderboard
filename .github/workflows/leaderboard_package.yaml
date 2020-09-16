@@ -38,23 +38,39 @@ jobs:
         docker pull docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard:latest
         docker tag docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard:latest docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard-archived:latest
 
+        docker pull docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard_ui:latest
+        docker tag docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard_ui:latest docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard_ui-archived:latest
+
         export INPUT_TOKEN=${{ secrets.TOKEN }}
         deploy/delete_packages.sh
 
-    - name: Package
+    - name: Package Backend
       working-directory: app
       run: |
         sbt docker:publishLocal
 
+    - name: Package Frontend
+      working-directory: ui
+      run: |
+        docker build -t docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard_ui:latest .
+
+        
     - name: Publish to Github Packages
       run: |
         echo "==========Tagging and pushing with commit=========="
         COMMIT_ID=$(git rev-parse HEAD | cut -b 1-7)
+
+        docker tag docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard_ui:latest docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard_ui:${COMMIT_ID}
         docker tag knoldus_leaderboard:0.1 docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard:${COMMIT_ID}
         docker tag docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard:${COMMIT_ID} docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard:latest
+        
         docker push docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard:${COMMIT_ID}
         docker push docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard:latest
         docker push docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard-archived:latest
+
+        docker push docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard_ui:${COMMIT_ID}
+        docker push docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard_ui:latest
+        docker push docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard_ui-archived:latest
 
     - name: General cleanup
       run: |
