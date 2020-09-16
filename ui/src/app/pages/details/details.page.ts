@@ -44,7 +44,7 @@ export class DetailsPage implements OnInit {
   contributionsTypeColorList: string[];
   hallOfFameLeaders: HallOfFameModel[];
   knolderAchievements: LeaderModel[] = [];
-  medalTally: { first: number; sec: number; third: number; };
+  medalTally: { gold: number; silver: number; bronze: number; };
 
   constructor(
     private route: ActivatedRoute,
@@ -75,30 +75,32 @@ export class DetailsPage implements OnInit {
       .subscribe((data: TrendsModel[]) => {
         this.trendsData = data;
       });
+    this.service.getHallOfFameData()
+      .subscribe((data: HallOfFameModel[]) => {
+        this.hallOfFameLeaders = data;
+        this.hallOfFameLeaders
+          .forEach(monthLeaders => {
+            monthLeaders.leaders.forEach(leader => {
+              leader.knolderId ===  this.knolderId
+                ? this.knolderAchievements.push({ ...leader, position: monthLeaders.leaders.indexOf(leader) })
+                : leader.position = -1;
+            });
+          });
+        this.medalTally = {
+          gold: this.knolderAchievements.filter(details => details.position === 0).length,
+          silver: this.knolderAchievements.filter(details => details.position === 1 || details.position === 2).length,
+          bronze: this.knolderAchievements.filter(details => details.position === 3 || details.position === 4).length,
+        };
+      });
     this.service.getAllTimeDetails(this.knolderId)
       .subscribe((data: KnolderDetailsModel) => {
         this.allTimeDetails = data;
         this.pieChartData = this.allTimeDetails.scoreBreakDown;
         this.loadingControllerService.dismiss();
+      }, (error) => {
+        console.log(error);
+        this.loadingControllerService.dismiss();
       });
-    this.service.getHallOfFameData()
-      .subscribe((data: HallOfFameModel[]) => {
-        this.hallOfFameLeaders = data.reverse();
-        // this.hallOfFameLeaders = this.hallOfFameLeaders.reverse();
-        this.hallOfFameLeaders.map(monthLeaders => {
-          monthLeaders.leaders.map(leader => {
-            leader.knolderId ===  this.knolderId
-              ? this.knolderAchievements.push({ ...leader, position: monthLeaders.leaders.indexOf(leader) })
-              : leader;
-          });
-        });
-        this.medalTally = {
-          first: this.knolderAchievements.filter(details => details.position === 0).length,
-          sec: this.knolderAchievements.filter(details => details.position === 1 || details.position === 2).length,
-          third: this.knolderAchievements.filter(details => details.position === 3 || details.position === 4).length,
-        };
-      });
-    console.log('leader', this.hallOfFameLeaders);
   }
 
   onDateChange(selectedDate: Date) {

@@ -8,14 +8,17 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { IonicModule } from '@ionic/angular';
 import { KnolderDetailsModel } from '../../models/knolder-details.model';
 import { LoadingControllerService } from '../../services/loading-controller.service ';
-import { of } from 'rxjs';
+import {of, throwError} from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../../../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { TrendsModel } from '../../models/trends.model';
-import {HallOfFameModel} from '../../models/hallOfFame.model';
+import { HallOfFameModel } from '../../models/hallOfFame.model';
+import { ReverseListPipe } from '../../pipe/reverse-list.pipe';
+import { ActivatedRoute } from '@angular/router';
+import {CustomPipesModule} from '../../pipe/CustomPipes.module';
 
 
 describe('DetailsPage', () => {
@@ -67,6 +70,7 @@ describe('DetailsPage', () => {
       researchPaperScore: 50,
     }
   ];
+
   const mockHallOfFameData: HallOfFameModel[] = [
     { month: 'August',
       year: 2020,
@@ -126,8 +130,18 @@ describe('DetailsPage', () => {
         ComponentsModule,
         AngularFireModule.initializeApp(environment.firebaseConfig, 'angular-auth-firebase'),
         AngularFirestoreModule,
-        AngularFireAuthModule
-      ]
+        AngularFireAuthModule,
+        CustomPipesModule
+      ],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            params: of({
+              id: 1,
+            })
+          }
+        }]
     }).compileComponents();
 
     fixture = TestBed.createComponent(DetailsPage);
@@ -147,8 +161,26 @@ describe('DetailsPage', () => {
   it('should return the knolder Alltime details Data as per api call', () => {
     spyOn(mockEmployeeService, 'getAllTimeDetails').and.returnValue(of(dummyKnolderDetails));
     component.ngOnInit();
+    expect(component.allTimeDetails).toEqual(dummyKnolderDetails);
+  });
+
+  it('should dissmiss the loader when error occurs in all time api service', () => {
+    spyOn(mockEmployeeService, 'getAllTimeDetails').and.returnValue(throwError({status: 404}));
+    spyOn(loadingControllerService, 'dismiss');
+    component.ngOnInit();
+    expect(loadingControllerService.dismiss).toHaveBeenCalled();
+  });
+
+  it('should make knolder details all time details', () => {
+    spyOn(mockEmployeeService, 'getAllTimeDetails').and.returnValue(of(dummyKnolderDetails));
+    component.ngOnInit();
     component.getAllTimeDetails();
     expect(component.knolderDetails).toEqual(dummyKnolderDetails);
+  });
+
+  it('should make alltimeSelected true', () => {
+    component.getAllTimeDetails();
+    expect(component.allTimeSelected).toEqual(true);
   });
 
   it('should return the trendsData as per api call', () => {
@@ -157,10 +189,9 @@ describe('DetailsPage', () => {
     expect(component.trendsData).toEqual(dummyTrendsData);
   });
 
-  fit('should get the hall of fame data in reverse as per api call', () => {
+  it('should get the hall of fame data as per api call', () => {
     spyOn(mockEmployeeService, 'getHallOfFameData').and.returnValue(of(mockHallOfFameData));
     component.ngOnInit();
-    // console.log(component.hallOfFameLeaders);
     expect(component.hallOfFameLeaders).toEqual(mockHallOfFameData);
   });
 
@@ -168,7 +199,6 @@ describe('DetailsPage', () => {
     spyOn(mockEmployeeService, 'getHallOfFameData').and.returnValue(of(mockHallOfFameData));
     component.knolderId = 1;
     component.ngOnInit();
-    // console.log(component.knolderAchievements);
     expect(component.knolderAchievements.length).toEqual(2);
   });
 
@@ -176,7 +206,6 @@ describe('DetailsPage', () => {
     spyOn(mockEmployeeService, 'getHallOfFameData').and.returnValue(of(mockHallOfFameData));
     component.knolderId = 1;
     component.ngOnInit();
-    // console.log(component.medalTally);
-    expect(component.medalTally.first).toEqual(2);
+    expect(component.medalTally.gold).toEqual(2);
   });
 });

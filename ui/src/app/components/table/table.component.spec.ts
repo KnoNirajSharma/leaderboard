@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { ComponentsModule } from '../components.module';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { ReverseListPipe } from '../../pipe/reverse-list.pipe';
 
 describe('TableComponent', () => {
   let component: TableComponent;
@@ -27,6 +28,7 @@ describe('TableComponent', () => {
         ParentComponent,
         EmployeeFilterPipe,
         DetailsPage,
+        ReverseListPipe
       ],
       imports: [
         HttpClientTestingModule,

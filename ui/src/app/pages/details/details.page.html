@@ -8,13 +8,13 @@
                 class="name-title w-100 pb-2">{{knolderDetails.knolderName}}</div>
                 </div>
             <div class="col-12 col-md-6" *ngIf="medalTally">
-                <div class="medal-tally col-10 col-lg-6 mx-auto d-flex flex-row align-content-center border-0 pb-1 mt-3 mt-md-0">
+                <div class="medal-tally col-12 col-lg-6 mx-auto d-flex flex-row align-content-center border-0 pb-1 mt-3 mt-md-0">
                     <div class="medal-badge mx-auto d-flex flex-column justify-content-center border-0 ">
                         <div class="bg-white p-2 shadow-sm medal gold" >
                             <img alt="medal" src="./assets/icon/medal.svg">
                         </div>
                         <div class="text-center badge badge-pill bg-white shadow-sm mt-n1 border-0 " *ngIf="medalTally">
-                            {{medalTally.first}}
+                            {{medalTally.gold}}
                         </div>
                     </div>
                     <div class="medal-badge mx-auto d-flex flex-column justify-content-center border-0 ">
@@ -22,7 +22,7 @@
                             <img alt="medal" src="./assets/icon/medal%20(1).svg">
                         </div>
                         <div class="text-center badge badge-pill bg-white shadow-sm mt-n1 border-0 " *ngIf="medalTally">
-                            {{medalTally.sec}}
+                            {{medalTally.silver}}
                         </div>
                     </div>
                     <div class="medal-badge mx-auto d-flex flex-column justify-content-center border-0 ">
@@ -30,7 +30,7 @@
                             <img alt="medal" src="./assets/icon/medal%20(2).svg">
                         </div>
                         <div class="text-center badge badge-pill bg-white shadow-sm mt-n1 border-0 " *ngIf="medalTally">
-                            {{medalTally.third}}
+                            {{medalTally.bronze}}
                         </div>
                     </div>
 
@@ -132,7 +132,7 @@
                         <app-pie-chart [inputResult]="pieChartData"></app-pie-chart>
                     </div>
 
-                    <div style="min-height: 250px; max-height: 300px" *ngIf="hallOfFameLeaders" class="col-12 mt-5 card block border-0 col-xl-10 mx-auto pl-2">
+                    <div *ngIf="hallOfFameLeaders" class="badge-details col-12 mt-5 card block border-0 col-xl-10 mx-auto pl-2">
                         <div class="block-title d-flex justify-content-between pt-3 pb-2 px-2 bg-white">
                             <div class="align-self-center">
                                 <h4 class="font-weight-normal m-0">Badges</h4>
@@ -142,23 +142,24 @@
                             <span class="text-secondary font-italic">No badge earned till now</span>
                         </div>
                         <div class="badges-table px-2">
-                            <div *ngFor="let badgeDetails of knolderAchievements"
-                                 class="d-flex py-2 w-100 border-bottom border-light align-content-center">
-                                <img *ngIf="badgeDetails.position === 0" style="height: 40px" src="./assets/icon/medal.svg" alt="medal">
-                                <img *ngIf="badgeDetails.position === 1 || badgeDetails.position === 2 " style="height: 40px" src="./assets/icon/medal%20(1).svg" alt="medal">
-                                <img *ngIf="badgeDetails.position === 3 || badgeDetails.position === 4 " style="height: 40px" src="./assets/icon/medal%20(2).svg" alt="medal">
-                                <div style="font-size: .7rem" class="ml-auto text-secondar">
-                                    <span class="text-secondary"> Monthly</span><br>
-                                    <span style="font-size: .9rem">
+                            <div *ngFor="let badgeDetails of knolderAchievements | reverse"
+                                 class="d-flex py-2 w-100 align-content-center badge-table-row">
+                                <img *ngIf="badgeDetails.position === 0" class="medal-image" src="./assets/icon/medal.svg" alt="medal">
+                                <img *ngIf="badgeDetails.position === 1 || badgeDetails.position === 2" class="medal-image" src="./assets/icon/medal%20(1).svg" alt="medal">
+                                <img *ngIf="badgeDetails.position === 3 || badgeDetails.position === 4" class="medal-image" src="./assets/icon/medal%20(2).svg" alt="medal">
+                                <div class="ml-auto d-flex flex-column">
+                                    <span class="text-secondary badge-score-category pt-0"> Monthly</span>
+                                    <span class="badge-score-details">
                                         Rank: {{badgeDetails.monthlyRank}}&nbsp;
-                                        Score: {{badgeDetails.monthlyScore}} </span>
-                                </div>
-                                <div style="font-size: .7rem" class="ml-auto text-secondar">
-                                    <span class="text-secondary"> Overall</span><br>
-                                    <span style="font-size: .9rem">Score: {{badgeDetails.monthlyScore}}
+                                        Score: {{badgeDetails.monthlyScore}}
                                     </span>
                                 </div>
-                                <div class="ml-auto text-center text-primary" style="font-size: .9rem">
+                                <div class="ml-auto d-flex flex-column">
+                                    <span class="text-secondary badge-score-category"> Overall</span>
+                                    <span class="badge-score-details">Rank: {{badgeDetails.allTimeRank}}
+                                    </span>
+                                </div>
+                                <div class="ml-auto text-center text-primary badge-score-month">
                                    <span> {{badgeDetails.month | slice:0:3}},<br>{{badgeDetails.year}}</span>
                                 </div>
                             </div>

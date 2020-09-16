@@ -16,6 +16,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
+import { HallOfFamePageModule } from './pages/hall-of-fame/hall-of-fame.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,7 +32,8 @@ import { environment } from '../environments/environment';
     LoginPageModule,
     AngularFireModule.initializeApp(environment.firebaseConfig, 'angular-auth-firebase'),
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    HallOfFamePageModule
   ],
   providers: [
     StatusBar,
@@ -39,7 +41,7 @@ import { environment } from '../environments/environment';
     { provide: HTTP_INTERCEPTORS, useClass: HttpIntercept, multi: true },
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {
 }

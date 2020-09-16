@@ -7,6 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ComponentsModule } from '../../components/components.module';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { CustomPipesModule } from '../../pipe/CustomPipes.module';
 
 const routes: Routes = [
   {
@@ -25,6 +26,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     ComponentsModule,
     NgxChartsModule,
+    CustomPipesModule
   ],
   declarations: [DetailsPage]
 })
