@@ -22,11 +22,9 @@ ion-content {
   .score-card {
     background-image: url('/assets/icon/Pattern.svg');
     background-repeat: no-repeat;
-    //box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.19);
     margin: 0 0.5rem;
     min-width: 190px;
     box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
-    //box-shadow: 0 8px 6px -6px black;
 
     &:first-child {
       margin-left: 0;
