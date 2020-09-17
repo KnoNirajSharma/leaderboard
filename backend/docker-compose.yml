@@ -35,7 +35,6 @@ volumes:
     name: "tokens"
 networks:
   frontend:
-    external:
       name: frontend
   backend:
     external:

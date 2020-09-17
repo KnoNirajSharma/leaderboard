@@ -22,4 +22,5 @@ services:
       - 80:80
 networks:
   frontend:
-    name: frontend
+    external:
+      name: frontend
