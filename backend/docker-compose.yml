@@ -11,7 +11,7 @@ services:
     privileged: true
     tty: false
     environment:
-      URL: ${JDBC_URL:-jdbc:postgresql://postgres/knoldus_leaderboard}
+      URL: ${JDBC_URL:-jdbc:postgresql://postgres/leaderboard}
       DRIVER: ${JDBC_DRIVER:-org.postgresql.Driver}
       USERNAME: ${PG_USER:-postgres}
       PASSWORD: ${PG_PASSWORD:-changeme}
