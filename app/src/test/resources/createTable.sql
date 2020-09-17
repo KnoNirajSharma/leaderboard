@@ -81,3 +81,15 @@ id INT AUTO_INCREMENT PRIMARY KEY,
 knolder_id INT NOT NULL,
 streak VARCHAR(20) NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS halloffame(
+id INT AUTO_INCREMENT PRIMARY KEY,
+knolder_id INT NOT NULL,
+knolder_name VARCHAR(255) NOT NULL,
+monthly_score INT NOT NULL,
+all_time_score INT NOT NULL,
+monthly_rank INT NOT NULL,
+all_time_rank INT NOT NULL,
+month VARCHAR(255),
+year INT
+);
