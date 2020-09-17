@@ -20,27 +20,28 @@ object DriverApp extends App {
   val dateTimeFormat = new ParseDateTimeFormats
   val knolderScore: KnolderScore = new KnolderScoreImpl(config)
   val knolderRank: KnolderRank = new KnolderRankImpl
-  val readBlog = new ReadContributionImpl(config)
+  val readContribution = new ReadContributionImpl(config)
   val readAllTimeReputation: ReadAllTimeReputation = new ReadAllTimeReputationImpl(config)
   val writeAllTimeReputation: WriteAllTimeReputation = new WriteAllTimeReputationImpl(config)
   val allTimeReputation: AllTimeReputation =
-    new AllTimeReputationImpl(readBlog, knolderRank, knolderScore, readAllTimeReputation)
+    new AllTimeReputationImpl(readContribution, knolderRank, knolderScore, readAllTimeReputation)
   val readMonthlyReputation: ReadMonthlyReputation = new ReadMonthlyReputationImpl(config)
   val writeMonthlyReputation: WriteMonthlyReputation = new WriteMonthlyReputationImpl(config)
   val monthlyReputation: MonthlyReputation =
-    new MonthlyReputationImpl(readBlog, knolderRank, knolderScore, readMonthlyReputation)
+    new MonthlyReputationImpl(readContribution, knolderRank, knolderScore, readMonthlyReputation)
   val readQuarterlyReputation: ReadQuarterlyReputation = new ReadQuarterlyReputationImpl(config)
   val writeQuarterlyReputation: WriteQuarterlyReputation = new WriteQuarterlyReputationImpl(config)
   val quarterlyReputation: QuarterlyReputation =
-    new QuarterlyReputationImpl(readBlog, knolderScore, readQuarterlyReputation)
+    new QuarterlyReputationImpl(readContribution, knolderScore, readQuarterlyReputation)
   val fetchReputation: FetchReputation = new FetchReputationImpl(config)
   val fetchKnolderDetails: FetchKnolderContributionDetails = new FetchKnolderContributionDetailsImpl(config)
-  val twelveMonthsContribution: TwelveMonthsContribution = new TwelveMonthsContributionImpl(readBlog)
+  val twelveMonthsContribution: TwelveMonthsContribution = new TwelveMonthsContributionImpl(readContribution)
   val fetchReputationWithCount: FetchCountWithReputation =
     new FetchCountWithReputationImpl(config, fetchReputation)
+  val fetchMonthlyTopFiveLeaders: FetchMonthlyTopFiveLeaders = new FetchMonthlyTopFiveLeadersImpl(config)
   val reputationOnAPI: ReputationOnAPI =
-    new ReputationOnAPIImpl(twelveMonthsContribution, fetchKnolderDetails, fetchReputationWithCount, config)
-  val spreadSheetApiObj:SpreadSheetApi = new SpreadSheetApiImpl(config)
+    new ReputationOnAPIImpl(fetchMonthlyTopFiveLeaders, twelveMonthsContribution, fetchKnolderDetails, fetchReputationWithCount, config)
+  val spreadSheetApiObj: SpreadSheetApi = new SpreadSheetApiImpl(config)
   val webinarSpreadSheetData: WebinarSpreadSheetData =
     new WebinarSpreadSheetDataImpl(dateTimeFormat, spreadSheetApiObj, config)
   val storeWebinar = new StoreWebinarImpl(config)
@@ -54,6 +55,10 @@ object DriverApp extends App {
   val storeConferenceDetails: StoreConferenceDetails = new StoreConferenceDetailsImpl(config)
   val storeBooksContribution: StoreBooksContribution = new StoreBooksContributionImpl(config)
   val storeResearchPapersContribution: StoreResearchPapersContribution = new StoreResearchPapersContributionImpl(config)
+  val fetchAllTimeKnoldersReputation: FetchAllTimeReputation = new FetchAllTimeReputationImpl(config)
+  val monthlyLeadersObj: MonthlyLeaders = new MonthlyLeadersImpl(readContribution, fetchAllTimeKnoldersReputation, knolderScore
+    , knolderRank)
+  val storeTopFiveLeaders: StoreTopFiveLeaders = new StoreTopFiveLeadersImpl(config, monthlyLeadersObj)
   val URLResponse: URLResponse = new URLResponse
   val techHubData: TechHubData = new TechHubDataImpl(fetchTechHub, URLResponse, config)
   val otherContributionDataObj: OtherContributionData =
@@ -135,6 +140,13 @@ object DriverApp extends App {
       )
     ),
     "OtherContributionScriptActor"
+  )
+
+  val monthlyLeadersActorRef = system.actorOf(
+    Props(
+      new MonthlyLeadersActor(storeTopFiveLeaders)
+    ),
+    "MonthlyLeaderActor"
   )
 
   val latestBlogs = blogs.getLatestBlogsFromAPI
@@ -220,4 +232,11 @@ object DriverApp extends App {
   QuartzSchedulerExtension
     .get(system)
     .schedule("TechHubScriptScheduler", techHubScriptActorRef, ExecuteTechHubScript)
+
+  QuartzSchedulerExtension
+    .get(system)
+    .createSchedule("HallOfFameScheduler", None, "0 0 1 2 * ? *", None, IndianTime.indianTimezone)
+  QuartzSchedulerExtension
+    .get(system)
+    .schedule("HallOfFameScheduler", monthlyLeadersActorRef, StoreMonthlyLeaders)
 }

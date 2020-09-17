@@ -23,5 +23,8 @@ class MainSpec extends Suites(
   new StoreOSContributionDetailsImplSpec,
   new StoreConferenceDetailsImplSpec,
   new StoreBooksContributionImplSpec,
-  new StoreResearchPapersContributionImplSpec
+  new StoreResearchPapersContributionImplSpec,
+  new StoreTopFiveLeadersImplSpec,
+  new FetchAllTimeReputationImplSpec,
+  new FetchMonthlyTopFiveLeadersImplSpec
 )

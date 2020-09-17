@@ -49,6 +49,13 @@ final case class Webinar(id: String, deliveredOn: Option[Timestamp], name: Strin
 final case class ContributionScore(blogScore: Int, knolxScore: Int, webinarScore: Int, techHubScore: Int, osContributionScore: Int, conferenceScore: Int,
                                    bookScore: Int, researchPaperScore: Int)
 
+final case class MonthlyTopFiveLeaders(month: String, year: Int, knolderId: Int, knolderName: String, monthlyScore: Int, monthlyRank: Int, allTimeScore: Int
+                                       , allTimeRank: Int)
+
+final case class MonthlyAllTimeReputation(knolderId: Int, knolderName: String, allTimeScore: Int, allTimeRank: Int, monthlyScore: Int, monthlyRank: Int)
+
+final case class MonthYearWithTopFiveLeaders(month: String, year: Int, leaders: List[MonthlyTopFiveLeaders])
+
 case object ExecuteBlogsScript
 
 case object ExecuteWebinarScript
