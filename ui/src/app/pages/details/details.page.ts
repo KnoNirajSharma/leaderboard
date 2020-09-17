@@ -67,10 +67,7 @@ export class DetailsPage implements OnInit {
     this.dpConfig.minMode = 'month';
     this.allTimeSelected = false;
     this.getMonthlyDetails(this.monthList[this.currentDate.getMonth()], this.currentDate.getFullYear());
-    this.service.getTrendsData(this.knolderId)
-      .subscribe((data: TrendsModel[]) => {
-        this.trendsData = data;
-      });
+    this.getTrendsData();
     this.service.getAllTimeDetails(this.knolderId)
       .subscribe((data: KnolderDetailsModel) => {
         this.allTimeDetails = data;
@@ -92,7 +89,20 @@ export class DetailsPage implements OnInit {
   }
 
   getAllTimeDetails() {
+    this.service.getAllTimeDetails(this.knolderId)
+      .subscribe((data: KnolderDetailsModel) => {
+        this.allTimeDetails = data;
+        this.pieChartData = this.allTimeDetails.scoreBreakDown;
+        this.loadingControllerService.dismiss();
+      });
     this.knolderDetails = this.allTimeDetails;
     this.allTimeSelected = true;
+  }
+
+  getTrendsData() {
+    this.service.getTrendsData(this.knolderId)
+      .subscribe((data: TrendsModel[]) => {
+        this.trendsData = data;
+      });
   }
 }
