@@ -1,12 +1,19 @@
 <app-headers [backBtnLink]="mainPageLink" [backBtn]="true"></app-headers>
 <ion-content>
     <div class="container-fluid">
-        <div class="page-wrapper mt-5 col-12 col-xl-11 ion-no-padding">
-            <h1 *ngIf="knolderDetails"
-                class="name-title col-12 col-md-6 mt-lg-0 pb-2">{{knolderDetails.knolderName}}</h1>
+        <div class="page-wrapper mt-3 col-12 col-xl-11 ion-no-padding">
+            <div class="row mb-2">
+                <div class="col-12 col-md-6 d-flex align-self-end">
+                    <div *ngIf="knolderDetails"
+                         class="name-title w-100 pb-2">{{knolderDetails.knolderName}}</div>
+                </div>
+                <div class="col-12 col-md-4 col-lg-3 mx-auto" *ngIf="medalTally">
+                    <app-medal-tally [medalTally]="medalTally"></app-medal-tally>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-12 col-md-6">
-                    <div class="card tab-bar mt-4 pr-2">
+                    <div class="card tab-bar border-0 mt-4 pr-2">
                         <div class="row justify-content-end justify-content-sm-center p-1">
                             <form [ngClass]="{'monthSelected' : !allTimeSelected}" class="mr-2  mt-1">
                                 <label>
@@ -81,8 +88,8 @@
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
-                    <div *ngIf="trendsData" class="col-12 text-center card border-0 mt-4 col-xl-10 mx-auto ">
-                        <div class="card-head shadow-box d-flex justify-content-between pt-3 pb-2 px-3 bg-white mt-n4 mx-3">
+                    <div *ngIf="trendsData" class="col-12 text-center block card border-0 mt-4 col-xl-10 mx-auto ">
+                        <div class="block-title d-flex justify-content-between pt-3 pb-2 px-2 bg-white mb-3">
                             <div class="align-self-center">
                                 <h4 class="font-weight-normal m-0">Trends</h4>
                             </div>
@@ -90,8 +97,8 @@
                         <app-vertical-bar-graph [trendsData]="trendsData"></app-vertical-bar-graph>
 
                     </div>
-                    <div *ngIf="allTimeDetails" class="col-12 mt-5 card border-0 col-xl-10 mx-auto pl-2">
-                        <div class="card-head shadow-box d-flex justify-content-between pt-3 pb-2 px-3 bg-white mt-n4 mx-3">
+                    <div *ngIf="allTimeDetails" class="col-12 mt-5 card block border-0 col-xl-10 mx-auto pl-2">
+                        <div class="block-title d-flex justify-content-between pt-3 pb-2 px-2 bg-white">
                             <div class="align-self-center">
                                 <h4 class="font-weight-normal m-0">All Time</h4>
                             </div>

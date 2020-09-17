@@ -8,6 +8,9 @@ import { ScoreBreakDownModel } from '../../models/ScoreBreakDown.model';
 import { LoadingControllerService } from '../../services/loading-controller.service ';
 import { TrendsModel } from '../../models/trends.model';
 import { NgxChartConfigService } from '../../services/ngxChartConfig.service';
+import { HallOfFameModel } from '../../models/hallOfFame.model';
+import { LeaderModel } from '../../models/leader.model';
+import {MedalTallyModel} from '../../models/medalTally.model';
 
 @Component({
   selector: 'app-details',
@@ -25,6 +28,7 @@ export class DetailsPage implements OnInit {
   pieChartData: ScoreBreakDownModel[] = [];
   trendsData: TrendsModel[];
   contributionsTypeColorList: string[];
+  medalTally: MedalTallyModel = { gold: 1, silver: 2, bronze: 0 };
   allTimeSelected = false;
   monthList = [
     'January',
