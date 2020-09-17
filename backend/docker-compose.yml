@@ -14,7 +14,7 @@ services:
       URL: ${JDBC_URL:-jdbc:postgresql://postgres/leaderboard}
       DRIVER: ${JDBC_DRIVER:-org.postgresql.Driver}
       USERNAME: ${PG_USER:-postgres}
-      PASSWORD: ${PG_PASSWORD}
+      PASSWORD: ${PASSWORD}
       PORT: ${LB_PORT:-8000}
       INTERFACE: ${LB_INTERFACE:-0.0.0.0}
       GOOGLEAPICREDENTIALPATH: ${KLB_CPATH:-/opt/docker/config/credential.json}
