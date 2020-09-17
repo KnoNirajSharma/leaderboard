@@ -1,0 +1,227 @@
+{
+  "knolderName": "Muskan Gupta",
+  "score": 20,
+  "scoreBreakDown": [
+    {
+      "contributionType": "Blog",
+      "contributionCount": 4,
+      "contributionScore": 20,
+      "contributionDetails": [
+        {
+          "title": "Serialization in Lagom",
+          "date": "2020-05-06 14:16:23"
+        },
+        {
+          "title": "Akka-Streams: All About Graphs!",
+          "date": "2020-05-06 13:39:53"
+        },
+        {
+          "title": "Akka-Streams: All About Materialization!",
+          "date": "2020-05-06 13:34:09"
+        },
+        {
+          "title": "Getting Started with Akka-Streams",
+          "date": "2020-05-06 13:29:14"
+        }
+      ]
+    },
+    {
+      "contributionType": "knolx",
+      "contributionCount": 4,
+      "contributionScore": 30,
+      "contributionDetails": [
+        {
+          "title": "Serialization in Lagom",
+          "date": "2020-05-06 14:16:23"
+        },
+        {
+          "title": "Akka-Streams: All About Graphs!",
+          "date": "2020-05-06 13:39:53"
+        },
+        {
+          "title": "Akka-Streams: All About Materialization!",
+          "date": "2020-05-06 13:34:09"
+        },
+        {
+          "title": "Getting Started with Akka-Streams",
+          "date": "2020-05-06 13:29:14"
+        }
+      ]
+    },
+    {
+      "contributionType": "Webinar",
+      "contributionCount": 4,
+      "contributionScore": 20,
+      "contributionDetails": [
+        {
+          "title": "Serialization in Lagom",
+          "date": "2020-05-06 14:16:23"
+        },
+        {
+          "title": "Akka-Streams: All About Graphs!",
+          "date": "2020-05-06 13:39:53"
+        },
+        {
+          "title": "Akka-Streams: All About Materialization!",
+          "date": "2020-05-06 13:34:09"
+        },
+        {
+          "title": "Getting Started with Akka-Streams",
+          "date": "2020-05-06 13:29:14"
+        }
+      ]
+    },
+    {
+      "contributionType": "TechHub Templates",
+      "contributionCount": 4,
+      "contributionScore": 20,
+      "contributionDetails": [
+        {
+          "title": "Serialization in Lagom",
+          "date": "2020-05-06 14:16:23"
+        },
+        {
+          "title": "Akka-Streams: All About Graphs!",
+          "date": "2020-05-06 13:39:53"
+        },
+        {
+          "title": "Akka-Streams: All About Materialization!",
+          "date": "2020-05-06 13:34:09"
+        },
+        {
+          "title": "Getting Started with Akka-Streams",
+          "date": "2020-05-06 13:29:14"
+        }
+      ]
+    },
+    {
+      "contributionType": "OS Contribution",
+      "contributionCount": 4,
+      "contributionScore": 20,
+      "contributionDetails": [
+        {
+          "title": "Serialization in Lagom",
+          "date": "2020-05-06 14:16:23"
+        },
+        {
+          "title": "Akka-Streams: All About Graphs!",
+          "date": "2020-05-06 13:39:53"
+        },
+        {
+          "title": "Akka-Streams: All About Materialization!",
+          "date": "2020-05-06 13:34:09"
+        },
+        {
+          "title": "Getting Started with Akka-Streams",
+          "date": "2020-05-06 13:29:14"
+        }
+      ]
+    },
+    {
+      "contributionType": "Conferences",
+      "contributionCount": 4,
+      "contributionScore": 20,
+      "contributionDetails": [
+        {
+          "title": "Serialization in Lagom",
+          "date": "2020-05-06 14:16:23"
+        },
+        {
+          "title": "Akka-Streams: All About Graphs!",
+          "date": "2020-05-06 13:39:53"
+        },
+        {
+          "title": "Akka-Streams: All About Materialization!",
+          "date": "2020-05-06 13:34:09"
+        },
+        {
+          "title": "Getting Started with Akka-Streams",
+          "date": "2020-05-06 13:29:14"
+        }
+      ]
+    },
+    {
+      "contributionType": "Book",
+      "contributionCount": 4,
+      "contributionScore": 20,
+      "contributionDetails": [
+        {
+          "title": "Serialization in Lagom",
+          "date": "2020-05-06 14:16:23"
+        },
+        {
+          "title": "Akka-Streams: All About Graphs!",
+          "date": "2020-05-06 13:39:53"
+        },
+        {
+          "title": "Akka-Streams: All About Materialization!",
+          "date": "2020-05-06 13:34:09"
+        },
+        {
+          "title": "Getting Started with Akka-Streams",
+          "date": "2020-05-06 13:29:14"
+        }
+      ]
+    },
+    {
+      "contributionType": "Research Paper",
+      "contributionCount": 4,
+      "contributionScore": 20,
+      "contributionDetails": [
+        {
+          "title": "Serialization in Lagom",
+          "date": "2020-05-06 14:16:23"
+        },
+        {
+          "title": "Akka-Streams: All About Graphs!",
+          "date": "2020-05-06 13:39:53"
+        },
+        {
+          "title": "Akka-Streams: All About Materialization!",
+          "date": "2020-05-06 13:34:09"
+        },
+        {
+          "title": "Getting Started with Akka-Streams",
+          "date": "2020-05-06 13:29:14"
+        }
+      ]
+    }
+  ],
+  "pastTrend": [
+    {
+      "month": "1968-01-16T00:00:00",
+      "score": 20
+    }, {
+      "month": "1968-02-16T00:00:00",
+      "score": 15
+    }, {
+      "month": "1968-03-16T00:00:00",
+      "score": 55
+    }, {
+      "month": "1968-05-16T00:00:00",
+      "score": 25
+    }, {
+      "month": "1968-06-16T00:00:00",
+      "score": 5
+    }, {
+      "month": "1968-07-16T00:00:00",
+      "score": 15
+    }, {
+      "month": "1968-08-16T00:00:00",
+      "score": 25
+    }, {
+      "month": "1968-09-16T00:00:00",
+      "score": 5
+    }, {
+      "month": "1968-10-16T00:00:00",
+      "score": 55
+    }, {
+      "month": "1968-11-16T00:00:00",
+      "score": 35
+    }, {
+      "month": "1968-12-16T00:00:00",
+      "score": 45
+    }
+  ]
+}
+

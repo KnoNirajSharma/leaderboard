@@ -1,0 +1,31 @@
+.content-container {
+  background-image: linear-gradient(45deg, #6325d1 9%, #013998 100%);
+  height: 100vh;
+}
+
+.login-container {
+  height: 500px;
+  width: 400px;
+}
+
+.knoldus-logo {
+  height: 40px;
+  background-color: transparent;
+}
+
+.title {
+  font-size: 2.5em;
+  color: white;
+}
+
+.sign-in-btn {
+  background-color: black;
+  border-radius: 10px;
+  transition: 0.3s;
+  color: white;
+}
+
+.sign-in-btn:hover {
+  background-color: #6325d1;
+  cursor: pointer;
+}
