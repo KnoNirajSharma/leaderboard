@@ -11,25 +11,25 @@
                 <div class="medal-tally col-12 col-lg-6 mx-auto d-flex flex-row align-content-center border-0 pb-1 mt-3 mt-md-0">
                     <div class="medal-badge mx-auto d-flex flex-column justify-content-center border-0 ">
                         <div class="bg-white p-2 shadow-sm medal gold" >
-                            <img alt="medal" src="./assets/icon/medal.svg">
+                            <img alt="medal" src="../../../assets/icon/gold-medal.svg">
                         </div>
-                        <div class="text-center badge badge-pill bg-white shadow-sm mt-n1 border-0 " *ngIf="medalTally">
+                        <div class="text-center badge badge-pill bg-white shadow-sm mt-n1 border-0">
                             {{medalTally.gold}}
                         </div>
                     </div>
                     <div class="medal-badge mx-auto d-flex flex-column justify-content-center border-0 ">
                         <div class="bg-white p-2 shadow-sm medal silver">
-                            <img alt="medal" src="./assets/icon/medal%20(1).svg">
+                            <img alt="medal" src="./assets/icon/silver-medal.svg">
                         </div>
-                        <div class="text-center badge badge-pill bg-white shadow-sm mt-n1 border-0 " *ngIf="medalTally">
+                        <div class="text-center badge badge-pill bg-white shadow-sm mt-n1 border-0">
                             {{medalTally.silver}}
                         </div>
                     </div>
-                    <div class="medal-badge mx-auto d-flex flex-column justify-content-center border-0 ">
+                    <div class="medal-badge mx-auto d-flex flex-column justify-content-center border-0">
                         <div class="bg-white p-2 shadow-sm medal bronze" >
-                            <img alt="medal" src="./assets/icon/medal%20(2).svg">
+                            <img alt="medal" src="./assets/icon/bronze-medal.svg">
                         </div>
-                        <div class="text-center badge badge-pill bg-white shadow-sm mt-n1 border-0 " *ngIf="medalTally">
+                        <div class="text-center badge badge-pill bg-white shadow-sm mt-n1 border-0">
                             {{medalTally.bronze}}
                         </div>
                     </div>
@@ -144,9 +144,9 @@
                         <div class="badges-table px-2">
                             <div *ngFor="let badgeDetails of knolderAchievements | reverse"
                                  class="d-flex py-2 w-100 align-content-center badge-table-row">
-                                <img *ngIf="badgeDetails.position === 0" class="medal-image" src="./assets/icon/medal.svg" alt="medal">
-                                <img *ngIf="badgeDetails.position === 1 || badgeDetails.position === 2" class="medal-image" src="./assets/icon/medal%20(1).svg" alt="medal">
-                                <img *ngIf="badgeDetails.position === 3 || badgeDetails.position === 4" class="medal-image" src="./assets/icon/medal%20(2).svg" alt="medal">
+                                <img *ngIf="badgeDetails.position === 0" class="medal-image" src="./assets/icon/gold-medal.svg" alt="medal">
+                                <img *ngIf="badgeDetails.position === 1 || badgeDetails.position === 2" class="medal-image" src="./assets/icon/silver-medal.svg" alt="medal">
+                                <img *ngIf="badgeDetails.position === 3 || badgeDetails.position === 4" class="medal-image" src="./assets/icon/bronze-medal.svg" alt="medal">
                                 <div class="ml-auto d-flex flex-column">
                                     <span class="text-secondary badge-score-category pt-0"> Monthly</span>
                                     <span class="badge-score-details">

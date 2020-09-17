@@ -10,6 +10,7 @@ import { TrendsModel } from '../../models/trends.model';
 import { NgxChartConfigService } from '../../services/ngxChartConfig.service';
 import { HallOfFameModel } from '../../models/hallOfFame.model';
 import { LeaderModel } from '../../models/leader.model';
+import { MedalTallyModel } from '../../models/medalTally.model';
 
 @Component({
   selector: 'app-details',
@@ -44,7 +45,7 @@ export class DetailsPage implements OnInit {
   contributionsTypeColorList: string[];
   hallOfFameLeaders: HallOfFameModel[];
   knolderAchievements: LeaderModel[] = [];
-  medalTally: { gold: number; silver: number; bronze: number; };
+  medalTally: MedalTallyModel;
 
   constructor(
     private route: ActivatedRoute,
