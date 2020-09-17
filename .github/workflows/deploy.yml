@@ -24,6 +24,11 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         script: |
-          docker ps
-          docker images
-          docker volume ls
+          docker-compose -f leaderboard/backend/docker-compose.yml -f leaderboard/frontend/docker-compose.yml stop
+          rm -rf leaderboard
+          git clone --single-branch -b ${{ secrets.DEPLOY_BRANCH }} https://${{ secrets.TOKEN }}@github.com/knoldus/leaderboard.git
+          sleep 3s
+          cat ${{ secret.CREDENTIAL }} > leaderboard/backend/credential.json
+          docker container prune
+          docker-compose -f leaderboard/backend/docker-compose.yml -f leaderboard/frontend/docker-compose.yml pull
+          docker-compose -f leaderboard/backend/docker-compose.yml -f leaderboard/frontend/docker-compose.yml up -d --force-recreate
