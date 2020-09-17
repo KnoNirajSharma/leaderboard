@@ -12,8 +12,7 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
 import {of, throwError} from 'rxjs';
 import {ComponentsModule} from '../../components/components.module';
 import {RouterTestingModule} from '@angular/router/testing';
-import {ReverseListPipe} from '../../pipe/reverse-list.pipe';
-import {CustomPipesModule} from '../../pipe/CustomPipes.module';
+import {CustomPipesModule} from '../../pipe/custom-pipes.module';
 
 describe('HallOfFamePage', () => {
   let component: HallOfFamePage;

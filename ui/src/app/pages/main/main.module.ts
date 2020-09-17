@@ -7,7 +7,7 @@ import { MainPage } from './main.page';
 import { TableComponent } from '../../components/table/table.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ComponentsModule } from '../../components/components.module';
-import { CustomPipesModule } from '../../pipe/CustomPipes.module';
+import { CustomPipesModule } from '../../pipe/custom-pipes.module';
 
 const routes: Routes = [
   {

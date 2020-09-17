@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { ComponentsModule } from '../components.module';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import {CustomPipesModule} from '../../pipe/CustomPipes.module';
+import {CustomPipesModule} from '../../pipe/custom-pipes.module';
 
 describe('TableComponent', () => {
   let component: TableComponent;

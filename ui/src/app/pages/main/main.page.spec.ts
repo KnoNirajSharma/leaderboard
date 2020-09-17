@@ -16,7 +16,7 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from '../../../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { CustomPipesModule } from '../../pipe/CustomPipes.module';
+import { CustomPipesModule } from '../../pipe/custom-pipes.module';
 
 describe('MainPage', () => {
   let component: MainPage;
