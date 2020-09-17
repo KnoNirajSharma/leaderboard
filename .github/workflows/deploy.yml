@@ -19,12 +19,13 @@ jobs:
 
     - name: Fire and Foget
       uses: appleboy/ssh-action@master
+      env:
+        PG_PASSWORD: ${{ secrets.PG_PASSWORD}} 
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         script: |
-          source /home/${{ secrets.USERNAME }}/.bashrc
           docker-compose -f leaderboard/backend/docker-compose.yml -f leaderboard/frontend/docker-compose.yml stop
           rm -rf leaderboard
           git clone --single-branch -b ${{ secrets.DEPLOY_BRANCH }} https://${{ secrets.TOKEN }}@github.com/knoldus/leaderboard.git
