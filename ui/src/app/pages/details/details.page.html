@@ -11,7 +11,7 @@
                             <form [ngClass]="{'monthSelected' : !allTimeSelected}" class="mr-2  mt-1">
                                 <label>
                                     <input (bsValueChange)="onDateChange($event)"
-                                           [bsConfig]="dpConfig"
+                                           [bsConfig]="datepickerConfig"
                                            [formControl]="datePicker"
                                            [maxDate]="currentDate"
                                            autocomplete="off"
@@ -22,7 +22,7 @@
                                 </label>
                             </form>
                             <div>
-                                <button (click)="getAllTimeDetails()"
+                                <button (click)="viewAllTimeDetails()"
                                         [ngClass]="{'btn-primary': allTimeSelected}"
                                         class="all-time-btn btn btn-primary px-1 mr-2 mt-1"> All
                                     time
@@ -63,7 +63,7 @@
                         </div>
                         <div *ngFor="let knolderData of knolderDetails.scoreBreakDown; let i = index">
                             <h3 class="detail-type"><span
-                                    class="contribution-type badge text-light" [ngStyle]="{'background-color': contributionsTypeColorList[i]}">{{knolderData.contributionType}}</span>
+                                    class="contribution-type badge text-light" [ngStyle]="{'background-color': ngxChartConfigs.chartColorScheme.domain[i]}">{{knolderData.contributionType}}</span>
                             </h3>
                             <div *ngIf="knolderData.contributionDetails.length !== 0" class="row ml-xl-1">
                                 <div class="col-8 col-md-8"><h4>Title</h4></div>

@@ -8,6 +8,7 @@ import { ScoreBreakDownModel } from '../../models/ScoreBreakDown.model';
 import { LoadingControllerService } from '../../services/loading-controller.service ';
 import { TrendsModel } from '../../models/trends.model';
 import { NgxChartConfigService } from '../../services/ngxChartConfig.service';
+import {BsDatepickerViewMode} from 'ngx-bootstrap/datepicker/models';
 
 @Component({
   selector: 'app-details',
@@ -21,7 +22,11 @@ export class DetailsPage implements OnInit {
   knolderId: number;
   currentDate: Date;
   datePicker = new FormControl();
-  dpConfig: Partial<BsDatepickerConfig> = new BsDatepickerConfig();
+  datepickerConfig: Partial<BsDatepickerConfig> = new BsDatepickerConfig();
+  pieChartData: ScoreBreakDownModel[] = [];
+  trendsData: TrendsModel[];
+  contributionsTypeColorList: string[];
+  allTimeSelected = false;
   monthList = [
     'January',
     'February',
@@ -36,55 +41,51 @@ export class DetailsPage implements OnInit {
     'November',
     'December'
   ];
-  pieChartData: ScoreBreakDownModel[] = [];
-  allTimeSelected: boolean;
-  trendsData: TrendsModel[];
-  contributionsTypeColorList: string[];
 
   constructor(
     private route: ActivatedRoute,
     private service: EmployeeActivityService,
     private loadingControllerService: LoadingControllerService,
-    private ngxChartConfigs: NgxChartConfigService
-  ) {
-  }
+    public ngxChartConfigs: NgxChartConfigService
+  ) { }
 
   ngOnInit() {
-    this.contributionsTypeColorList = this.ngxChartConfigs.colorScheme.domain;
     this.route.params
       .subscribe((params: Params) => {
-        this.knolderId = params.id;
+        this.knolderId = Number(params.id);
       });
     this.loadingControllerService.present({
       message: 'Loading the score details...',
       translucent: 'false',
       spinner: 'bubbles'
     });
-    this.currentDate = new Date();
-    this.datePicker = new FormControl(this.currentDate);
-    this.dpConfig.containerClass = 'theme-dark-blue';
-    this.dpConfig.dateInputFormat = 'MMM-YYYY';
-    this.dpConfig.minMode = 'month';
-    this.allTimeSelected = false;
+    this.calenderInitialisation();
     this.getMonthlyDetails(this.monthList[this.currentDate.getMonth()], this.currentDate.getFullYear());
     this.getTrendsData();
-    this.service.getAllTimeDetails(this.knolderId)
-      .subscribe((data: KnolderDetailsModel) => {
-        this.allTimeDetails = data;
-        this.pieChartData = this.allTimeDetails.scoreBreakDown;
-        this.loadingControllerService.dismiss();
-      });
+    this.getAllTimeDetails();
   }
 
-  onDateChange(selectedDate: Date) {
-    this.allTimeSelected = false;
-    this.getMonthlyDetails(this.monthList[selectedDate.getMonth()], selectedDate.getFullYear());
+  calenderInitialisation() {
+    this.currentDate = new Date();
+    this.datePicker = new FormControl(this.currentDate);
+    this.datepickerConfig = { containerClass: 'theme-dark-blue', dateInputFormat: 'MMM-YYYY', minMode: 'month' };
   }
 
   getMonthlyDetails(month: string, year: number) {
     this.service.getMonthlyDetails(this.knolderId, month, year)
       .subscribe((data: KnolderDetailsModel) => {
         this.knolderDetails = data;
+      }, (error) => {
+        console.log(error);
+      });
+  }
+
+  getTrendsData() {
+    this.service.getTrendsData(this.knolderId)
+      .subscribe((data: TrendsModel[]) => {
+        this.trendsData = data;
+      }, (error) => {
+        console.log(error);
       });
   }
 
@@ -94,15 +95,19 @@ export class DetailsPage implements OnInit {
         this.allTimeDetails = data;
         this.pieChartData = this.allTimeDetails.scoreBreakDown;
         this.loadingControllerService.dismiss();
+      }, (error) => {
+        console.log(error);
+        this.loadingControllerService.dismiss();
       });
-    this.knolderDetails = this.allTimeDetails;
-    this.allTimeSelected = true;
   }
 
-  getTrendsData() {
-    this.service.getTrendsData(this.knolderId)
-      .subscribe((data: TrendsModel[]) => {
-        this.trendsData = data;
-      });
+  onDateChange(selectedDate: Date) {
+    this.allTimeSelected = false;
+    this.getMonthlyDetails(this.monthList[selectedDate.getMonth()], selectedDate.getFullYear());
+  }
+
+  viewAllTimeDetails() {
+    this.knolderDetails = { ...this.allTimeDetails };
+    this.allTimeSelected = true;
   }
 }

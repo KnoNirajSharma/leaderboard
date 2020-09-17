@@ -8,13 +8,14 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { IonicModule } from '@ionic/angular';
 import { KnolderDetailsModel } from '../../models/knolder-details.model';
 import { LoadingControllerService } from '../../services/loading-controller.service ';
-import { of } from 'rxjs';
+import {of, throwError} from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../../../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { TrendsModel } from '../../models/trends.model';
+import {ActivatedRoute} from '@angular/router';
 
 
 describe('DetailsPage', () => {
@@ -81,7 +82,16 @@ describe('DetailsPage', () => {
         AngularFireModule.initializeApp(environment.firebaseConfig, 'angular-auth-firebase'),
         AngularFirestoreModule,
         AngularFireAuthModule
-      ]
+      ],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            params: of({
+              id: 1,
+            })
+          }
+        }]
     }).compileComponents();
 
     fixture = TestBed.createComponent(DetailsPage);
@@ -89,6 +99,16 @@ describe('DetailsPage', () => {
     mockEmployeeService = TestBed.get(EmployeeActivityService);
     loadingControllerService = TestBed.get(LoadingControllerService);
   }));
+
+  it('should get knolder id from params', () => {
+    component.ngOnInit();
+    expect(component.knolderId).toEqual(1);
+  });
+
+  it('should set values for datepickerConfig', () => {
+    component.calenderInitialisation();
+    expect(component.datepickerConfig.containerClass).toEqual('theme-dark-blue');
+  });
 
   it('should return the knolder monthly details Data as per api call', () => {
     const testMonth = 'june';
@@ -98,16 +118,38 @@ describe('DetailsPage', () => {
     expect(component.knolderDetails).toEqual(dummyKnolderDetails);
   });
 
-  it('should return the knolder Alltime details Data as per api call', () => {
-    spyOn(mockEmployeeService, 'getAllTimeDetails').and.returnValue(of(dummyKnolderDetails));
-    component.ngOnInit();
-    component.getAllTimeDetails();
-    expect(component.knolderDetails).toEqual(dummyKnolderDetails);
-  });
-
   it('should return the trendsData as per api call', () => {
     spyOn(mockEmployeeService, 'getTrendsData').and.returnValue(of(dummyTrendsData));
-    component.ngOnInit();
+    component.getTrendsData();
     expect(component.trendsData).toEqual(dummyTrendsData);
+  });
+
+  it('should return the knolder Alltime details Data as per api call', () => {
+    spyOn(mockEmployeeService, 'getAllTimeDetails').and.returnValue(of(dummyKnolderDetails));
+    component.getAllTimeDetails();
+    expect(component.allTimeDetails).toEqual(dummyKnolderDetails);
+  });
+
+  it('should dissmiss the loader when error occurs in all time api service', () => {
+    spyOn(mockEmployeeService, 'getAllTimeDetails').and.returnValue(throwError({status: 404}));
+    spyOn(loadingControllerService, 'dismiss');
+    component.getAllTimeDetails();
+    expect(loadingControllerService.dismiss).toHaveBeenCalled();
+  });
+
+  it('should change alltimeSelected value to false', () => {
+    component.onDateChange(new Date());
+    expect(component.allTimeSelected).toEqual(false);
+  });
+
+  it('should change alltimeSelected value to true', () => {
+    component.viewAllTimeDetails();
+    expect(component.allTimeSelected).toEqual(true);
+  });
+
+  it('should change knolderDetails value to alltimeDetails', () => {
+    component.allTimeDetails = dummyKnolderDetails;
+    component.viewAllTimeDetails();
+    expect(component.knolderDetails).toEqual(component.allTimeDetails);
   });
 });
