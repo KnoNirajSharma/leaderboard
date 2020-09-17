@@ -8,3 +8,4 @@ val typesafeVersion = "0.13.15"
 libraryDependencies += "io.gatling.highcharts" % "gatling-charts-highcharts" % gatlingHighchartsVersion % "test,it"
 libraryDependencies += "io.gatling" % "gatling-test-framework" % gatlingFrameworkVersion % "test,it"
 libraryDependencies += "com.typesafe.sbt" % "sbt-interface" % typesafeVersion
+

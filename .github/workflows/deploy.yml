@@ -1,0 +1,38 @@
+name: Leaderboard Deploy
+
+on:
+  push:
+    branches:
+      - master 
+
+env:
+  ORG: knoldus Inc
+  AUTHOR: Shubham Girdhar (girdharshubham)
+
+jobs:
+  leaderboard_package:
+    env:
+      MODULE_NAME: leaderboard
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Fire and Foget
+      uses: appleboy/ssh-action@master
+      env:
+        PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        envs: PG_PASSWORD
+        script: |
+          docker-compose -f leaderboard/backend/docker-compose.yml -f leaderboard/frontend/docker-compose.yml stop
+          rm -rf leaderboard
+          git clone --single-branch -b ${{ secrets.DEPLOY_BRANCH }} https://${{ secrets.TOKEN }}@github.com/knoldus/leaderboard.git
+          sleep 3s
+          cp ${{ secrets.CREDENTIAL }} leaderboard/backend/
+          docker container stop leaderboard_be leaderboard_fe
+          docker container rm leaderboard_be leaderboard_fe
+          docker-compose -f leaderboard/backend/docker-compose.yml -f leaderboard/frontend/docker-compose.yml pull
+          docker-compose -f leaderboard/backend/docker-compose.yml -f leaderboard/frontend/docker-compose.yml up -d --force-recreate
