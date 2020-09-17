@@ -13,6 +13,7 @@ import {of, throwError} from 'rxjs';
 import {ComponentsModule} from '../../components/components.module';
 import {RouterTestingModule} from '@angular/router/testing';
 import {ReverseListPipe} from '../../pipe/reverse-list.pipe';
+import {CustomPipesModule} from '../../pipe/CustomPipes.module';
 
 describe('HallOfFamePage', () => {
   let component: HallOfFamePage;
@@ -74,7 +75,7 @@ describe('HallOfFamePage', () => {
 
   beforeEach(async(() => {
       TestBed.configureTestingModule({
-          declarations: [HallOfFamePage, ReverseListPipe],
+          declarations: [HallOfFamePage],
           imports: [
             HttpClientTestingModule,
             IonicModule.forRoot(),
@@ -83,6 +84,7 @@ describe('HallOfFamePage', () => {
             AngularFireAuthModule,
             ComponentsModule,
             RouterTestingModule,
+            CustomPipesModule
           ],
       }).compileComponents();
 

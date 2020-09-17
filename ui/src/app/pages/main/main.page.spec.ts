@@ -16,6 +16,7 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from '../../../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { CustomPipesModule } from '../../pipe/CustomPipes.module';
 
 describe('MainPage', () => {
   let component: MainPage;
@@ -62,7 +63,7 @@ describe('MainPage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [MainPage, TableComponent, EmployeeFilterPipe],
+      declarations: [MainPage, TableComponent],
       imports: [
         HttpClientTestingModule,
         IonicModule.forRoot(),
@@ -72,7 +73,8 @@ describe('MainPage', () => {
         ComponentsModule,
         AngularFireModule.initializeApp(environment.firebaseConfig, 'angular-auth-firebase'),
         AngularFirestoreModule,
-        AngularFireAuthModule
+        AngularFireAuthModule,
+        CustomPipesModule
       ],
       providers: [EmployeeFilterPipe]
     }).compileComponents();

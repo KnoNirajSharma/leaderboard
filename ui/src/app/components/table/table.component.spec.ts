@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { ComponentsModule } from '../components.module';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import {CustomPipesModule} from '../../pipe/CustomPipes.module';
 
 describe('TableComponent', () => {
   let component: TableComponent;
@@ -25,8 +26,7 @@ describe('TableComponent', () => {
       declarations: [
         TableComponent,
         ParentComponent,
-        EmployeeFilterPipe,
-        DetailsPage,
+        DetailsPage
       ],
       imports: [
         HttpClientTestingModule,
@@ -37,6 +37,7 @@ describe('TableComponent', () => {
         BsDatepickerModule.forRoot(),
         FormsModule,
         ReactiveFormsModule,
+        CustomPipesModule,
         RouterTestingModule.withRoutes([
           {
             path: 'details/:id',
