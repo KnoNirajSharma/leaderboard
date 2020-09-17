@@ -19,8 +19,6 @@ jobs:
 
     - name: Fire and Foget
       uses: appleboy/ssh-action@master
-      env:
-        PG_PASSWORD: ${{ secrets.PG_PASSWORD}} 
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
@@ -34,4 +32,5 @@ jobs:
           docker container stop leaderboard_be leaderboard_fe
           docker container rm leaderboard_be leaderboard_fe
           docker-compose -f leaderboard/backend/docker-compose.yml -f leaderboard/frontend/docker-compose.yml pull
+          sed -i 's/${PG_PASSWORD:-changeme}/${{ secrets.PG_PASSWORD }}/g' leaderboard/backend/docker-compose.yml 
           docker-compose -f leaderboard/backend/docker-compose.yml -f leaderboard/frontend/docker-compose.yml up -d --force-recreate
