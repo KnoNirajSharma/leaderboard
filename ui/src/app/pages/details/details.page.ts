@@ -21,7 +21,11 @@ export class DetailsPage implements OnInit {
   knolderId: number;
   currentDate: Date;
   datePicker = new FormControl();
-  dpConfig: Partial<BsDatepickerConfig> = new BsDatepickerConfig();
+  datepickerConfig: Partial<BsDatepickerConfig> = new BsDatepickerConfig();
+  pieChartData: ScoreBreakDownModel[] = [];
+  trendsData: TrendsModel[];
+  contributionsTypeColorList: string[];
+  allTimeSelected = false;
   monthList = [
     'January',
     'February',
@@ -36,45 +40,62 @@ export class DetailsPage implements OnInit {
     'November',
     'December'
   ];
-  pieChartData: ScoreBreakDownModel[] = [];
-  allTimeSelected: boolean;
-  trendsData: TrendsModel[];
-  contributionsTypeColorList: string[];
 
   constructor(
     private route: ActivatedRoute,
-    private service: EmployeeActivityService,
+    private employeeActivityService: EmployeeActivityService,
     private loadingControllerService: LoadingControllerService,
-    private ngxChartConfigs: NgxChartConfigService
-  ) {
-  }
+    private ngxChartConfigService: NgxChartConfigService
+  ) { }
 
   ngOnInit() {
-    this.contributionsTypeColorList = this.ngxChartConfigs.colorScheme.domain;
+    this.contributionsTypeColorList = this.ngxChartConfigService.chartColorScheme.domain;
     this.route.params
       .subscribe((params: Params) => {
-        this.knolderId = params.id;
+        this.knolderId = Number(params.id);
       });
     this.loadingControllerService.present({
       message: 'Loading the score details...',
       translucent: 'false',
       spinner: 'bubbles'
     });
+    this.calenderInitialisation();
+    this.getMonthlyDetails(this.monthList[this.currentDate.getMonth()], this.currentDate.getFullYear());
+    this.getTrendsData();
+    this.getAllTimeDetails();
+  }
+
+  calenderInitialisation() {
     this.currentDate = new Date();
     this.datePicker = new FormControl(this.currentDate);
-    this.dpConfig.containerClass = 'theme-dark-blue';
-    this.dpConfig.dateInputFormat = 'MMM-YYYY';
-    this.dpConfig.minMode = 'month';
-    this.allTimeSelected = false;
-    this.getMonthlyDetails(this.monthList[this.currentDate.getMonth()], this.currentDate.getFullYear());
-    this.service.getTrendsData(this.knolderId)
+    this.datepickerConfig = { containerClass: 'theme-dark-blue', dateInputFormat: 'MMM-YYYY', minMode: 'month' };
+  }
+
+  getMonthlyDetails(month: string, year: number) {
+    this.employeeActivityService.getMonthlyDetails(this.knolderId, month, year)
+      .subscribe((data: KnolderDetailsModel) => {
+        this.knolderDetails = data;
+      }, (error) => {
+        console.log(error);
+      });
+  }
+
+  getTrendsData() {
+    this.employeeActivityService.getTrendsData(this.knolderId)
       .subscribe((data: TrendsModel[]) => {
         this.trendsData = data;
+      }, (error) => {
+        console.log(error);
       });
-    this.service.getAllTimeDetails(this.knolderId)
+  }
+
+  getAllTimeDetails() {
+    this.employeeActivityService.getAllTimeDetails(this.knolderId)
       .subscribe((data: KnolderDetailsModel) => {
         this.allTimeDetails = data;
         this.pieChartData = this.allTimeDetails.scoreBreakDown;
+        this.loadingControllerService.dismiss();
+      }, () => {
         this.loadingControllerService.dismiss();
       });
   }
@@ -84,15 +105,8 @@ export class DetailsPage implements OnInit {
     this.getMonthlyDetails(this.monthList[selectedDate.getMonth()], selectedDate.getFullYear());
   }
 
-  getMonthlyDetails(month: string, year: number) {
-    this.service.getMonthlyDetails(this.knolderId, month, year)
-      .subscribe((data: KnolderDetailsModel) => {
-        this.knolderDetails = data;
-      });
-  }
-
-  getAllTimeDetails() {
-    this.knolderDetails = this.allTimeDetails;
+  setAllTimeDetailsOnClick() {
+    this.knolderDetails = { ...this.allTimeDetails };
     this.allTimeSelected = true;
   }
 }
