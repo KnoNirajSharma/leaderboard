@@ -100,9 +100,16 @@ describe('DetailsPage', () => {
     loadingControllerService = TestBed.get(LoadingControllerService);
   }));
 
-  it('should get knolder id from params', () => {
+  it('should get knolder id from params and also initialize all data', () => {
+    component.currentDate = new Date();
+    spyOn(component, 'calenderInitialisation');
+    spyOn(component, 'getMonthlyDetails');
+    spyOn(component, 'getTrendsData');
+    spyOn(component, 'getAllTimeDetails');
+    spyOn(loadingControllerService, 'present');
     component.ngOnInit();
     expect(component.knolderId).toEqual(1);
+    expect(loadingControllerService.present).toHaveBeenCalled();
   });
 
   it('should set values for datepickerConfig', () => {
@@ -111,17 +118,26 @@ describe('DetailsPage', () => {
   });
 
   it('should return the knolder monthly details Data as per api call', () => {
-    const testMonth = 'june';
-    const testYear = 2020;
     spyOn(mockEmployeeService, 'getMonthlyDetails').and.returnValue(of(dummyKnolderDetails));
-    component.getMonthlyDetails(testMonth, testYear);
+    component.getMonthlyDetails('june', 2020);
     expect(component.knolderDetails).toEqual(dummyKnolderDetails);
   });
+
+  it('should handle error if error occurs in monthly api', () => {
+    spyOn(mockEmployeeService, 'getMonthlyDetails').and.returnValue(throwError({status: 404}));
+    component.getMonthlyDetails('june', 2020);
+  });
+
 
   it('should return the trendsData as per api call', () => {
     spyOn(mockEmployeeService, 'getTrendsData').and.returnValue(of(dummyTrendsData));
     component.getTrendsData();
     expect(component.trendsData).toEqual(dummyTrendsData);
+  });
+
+  it('should handle error if error occurs in trend api', () => {
+    spyOn(mockEmployeeService, 'getTrendsData').and.returnValue(throwError({status: 404}));
+    component.getTrendsData();
   });
 
   it('should return the knolder Alltime details Data as per api call', () => {
@@ -143,13 +159,13 @@ describe('DetailsPage', () => {
   });
 
   it('should change alltimeSelected value to true', () => {
-    component.viewAllTimeDetails();
+    component.setAllTimeDetailsOnClick();
     expect(component.allTimeSelected).toEqual(true);
   });
 
   it('should change knolderDetails value to alltimeDetails', () => {
     component.allTimeDetails = dummyKnolderDetails;
-    component.viewAllTimeDetails();
+    component.setAllTimeDetailsOnClick();
     expect(component.knolderDetails).toEqual(component.allTimeDetails);
   });
 });

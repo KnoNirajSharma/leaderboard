@@ -43,12 +43,13 @@ export class DetailsPage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private service: EmployeeActivityService,
+    private employeeActivityService: EmployeeActivityService,
     private loadingControllerService: LoadingControllerService,
-    public ngxChartConfigs: NgxChartConfigService
+    private ngxChartConfigService: NgxChartConfigService
   ) { }
 
   ngOnInit() {
+    this.contributionsTypeColorList = this.ngxChartConfigService.chartColorScheme.domain;
     this.route.params
       .subscribe((params: Params) => {
         this.knolderId = Number(params.id);
@@ -71,7 +72,7 @@ export class DetailsPage implements OnInit {
   }
 
   getMonthlyDetails(month: string, year: number) {
-    this.service.getMonthlyDetails(this.knolderId, month, year)
+    this.employeeActivityService.getMonthlyDetails(this.knolderId, month, year)
       .subscribe((data: KnolderDetailsModel) => {
         this.knolderDetails = data;
       }, (error) => {
@@ -80,7 +81,7 @@ export class DetailsPage implements OnInit {
   }
 
   getTrendsData() {
-    this.service.getTrendsData(this.knolderId)
+    this.employeeActivityService.getTrendsData(this.knolderId)
       .subscribe((data: TrendsModel[]) => {
         this.trendsData = data;
       }, (error) => {
@@ -89,13 +90,12 @@ export class DetailsPage implements OnInit {
   }
 
   getAllTimeDetails() {
-    this.service.getAllTimeDetails(this.knolderId)
+    this.employeeActivityService.getAllTimeDetails(this.knolderId)
       .subscribe((data: KnolderDetailsModel) => {
         this.allTimeDetails = data;
         this.pieChartData = this.allTimeDetails.scoreBreakDown;
         this.loadingControllerService.dismiss();
-      }, (error) => {
-        console.log(error);
+      }, () => {
         this.loadingControllerService.dismiss();
       });
   }
@@ -105,7 +105,7 @@ export class DetailsPage implements OnInit {
     this.getMonthlyDetails(this.monthList[selectedDate.getMonth()], selectedDate.getFullYear());
   }
 
-  viewAllTimeDetails() {
+  setAllTimeDetailsOnClick() {
     this.knolderDetails = { ...this.allTimeDetails };
     this.allTimeSelected = true;
   }
