@@ -7,25 +7,28 @@ import { PieChartComponent } from './pie-chart/pie-chart.component';
 import { RouterModule } from '@angular/router';
 import { VerticalBarGraphComponent } from './veritcal-bar-graph/vertical-bar-graph.component';
 import { MedalTallyComponent } from './medal-tally/medal-tally.component';
+import { BadgeDetailTableComponent } from './badge-detail-table/badge-detail-table.component';
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     RouterModule,
-    NgxChartsModule
+    NgxChartsModule,
   ],
   declarations: [
     HeadersComponent,
     PieChartComponent,
     VerticalBarGraphComponent,
-    MedalTallyComponent
+    MedalTallyComponent,
+    BadgeDetailTableComponent
   ],
   exports: [
     HeadersComponent,
     PieChartComponent,
     VerticalBarGraphComponent,
-    MedalTallyComponent
+    MedalTallyComponent,
+    BadgeDetailTableComponent
   ],
 })
 export class ComponentsModule {

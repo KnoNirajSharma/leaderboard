@@ -105,6 +105,17 @@
                         </div>
                         <app-pie-chart [inputResult]="pieChartData"></app-pie-chart>
                     </div>
+
+                    <div *ngIf="hallOfFameLeaders" class="badge-details col-12 mt-5 card block border-0 col-xl-10 mx-auto pl-2">
+                        <div class="block-title d-flex justify-content-between pt-3 pb-2 px-2 bg-white">
+                            <div class="align-self-center">
+                                <h4 class="font-weight-normal m-0">Badges</h4>
+                            </div>
+                        </div>
+                        <div class="badge-details-table">
+                        <app-badge-detail-table [knolderAchievements]="knolderAchievements"></app-badge-detail-table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

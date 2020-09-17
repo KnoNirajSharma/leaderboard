@@ -29,6 +29,8 @@ export class DetailsPage implements OnInit {
   trendsData: TrendsModel[];
   contributionsTypeColorList: string[];
   medalTally: MedalTallyModel = { gold: 1, silver: 2, bronze: 0 };
+  hallOfFameLeaders: HallOfFameModel[];
+  knolderAchievements: LeaderModel[] = [];
   allTimeSelected = false;
   monthList = [
     'January',
@@ -66,6 +68,24 @@ export class DetailsPage implements OnInit {
     this.calenderInitialisation();
     this.getMonthlyDetails(this.monthList[this.currentDate.getMonth()], this.currentDate.getFullYear());
     this.getTrendsData();
+
+    this.employeeActivityService.getHallOfFameData()
+        .subscribe((data: HallOfFameModel[]) => {
+          this.hallOfFameLeaders = data;
+          this.hallOfFameLeaders
+              .forEach(monthLeaders => {
+                monthLeaders.leaders.forEach(leader => {
+                  leader.knolderId ===  this.knolderId
+                      ? this.knolderAchievements.push({ ...leader, position: monthLeaders.leaders.indexOf(leader) })
+                      : leader.position = -1;
+                });
+              });
+          this.medalTally = {
+            gold: this.knolderAchievements.filter(details => details.position === 0).length,
+            silver: this.knolderAchievements.filter(details => details.position === 1 || details.position === 2).length,
+            bronze: this.knolderAchievements.filter(details => details.position === 3 || details.position === 4).length,
+          };
+        });
     this.getAllTimeDetails();
   }
 
