@@ -8,7 +8,6 @@ import { ScoreBreakDownModel } from '../../models/ScoreBreakDown.model';
 import { LoadingControllerService } from '../../services/loading-controller.service ';
 import { TrendsModel } from '../../models/trends.model';
 import { NgxChartConfigService } from '../../services/ngxChartConfig.service';
-import {BsDatepickerViewMode} from 'ngx-bootstrap/datepicker/models';
 
 @Component({
   selector: 'app-details',
