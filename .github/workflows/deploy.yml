@@ -19,12 +19,13 @@ jobs:
 
     - name: SSH Test
       uses: appleboy/ssh-action@master
+      env:
+        PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
-        envs:
-          PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
+        envs: PG_PASSWORD
         script: |
           docker-compose -f leaderboard/backend/docker-compose.yml -f leaderboard/frontend/docker-compose.yml stop
           rm -rf leaderboard
