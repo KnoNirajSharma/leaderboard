@@ -124,6 +124,8 @@ export class DetailsPage implements OnInit {
         this.setKnolderAchievements();
         this.setMedalTally();
         console.log(this.medalTally);
+      }, (error) => {
+        console.log(error);
       });
   }
 

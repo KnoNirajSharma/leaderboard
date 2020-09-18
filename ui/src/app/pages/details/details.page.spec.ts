@@ -232,6 +232,13 @@ describe('DetailsPage', () => {
     expect(component.hallOfFameLeaders).toEqual(mockHallOfFameData);
   });
 
+  it('should handle error if error occures in hall of fame api', () => {
+    spyOn(component, 'setKnolderAchievements');
+    spyOn(component, 'setMedalTally');
+    spyOn(mockEmployeeService, 'getHallOfFameData').and.returnValue(throwError({status: 404}));
+    component.getHallOfFameData();
+  });
+
   it('should set knolderAchievements by matching the knolderID', () => {
     component.knolderId = 1;
     component.hallOfFameLeaders = mockHallOfFameData;
