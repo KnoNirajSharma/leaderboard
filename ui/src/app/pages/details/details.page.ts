@@ -123,6 +123,7 @@ export class DetailsPage implements OnInit {
         this.hallOfFameLeaders = data;
         this.setKnolderAchievements();
         this.setMedalTally();
+        console.log(this.medalTally);
       });
   }
 
@@ -141,15 +142,15 @@ export class DetailsPage implements OnInit {
     this.medalTally = {
       gold: {
         count: this.knolderAchievements.filter(details => details.position === 0).length,
-        src: './assets/icons/gold-medal.svg'
+        src: ''
       },
       silver: {
         count: this.knolderAchievements.filter(details => details.position === 1 || details.position === 2).length,
-        src: './assets/icons/gold-medal.svg'
+        src: ''
       },
       bronze: {
         count: this.knolderAchievements.filter(details => details.position === 3 || details.position === 4).length,
-        src: './assets/icons/gold-medal.svg'
+        src: ''
       }
     };
   }
