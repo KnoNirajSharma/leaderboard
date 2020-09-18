@@ -28,7 +28,7 @@ export class DetailsPage implements OnInit {
   pieChartData: ScoreBreakDownModel[] = [];
   trendsData: TrendsModel[];
   contributionsTypeColorList: string[];
-  medalTally: MedalTallyModel = { gold: 1, silver: 2, bronze: 0 };
+  medalTally: MedalTallyModel = { gold: { count: 1, src: './assets/icon/gold-medal.svg' }, silver: { count: 2, src: './assets/icon/silver-medal.svg' }, bronze: { count: 4, src: './assets/icon/bronze-medal.svg' } };
   allTimeSelected = false;
   monthList = [
     'January',

@@ -1,10 +1,10 @@
 <div class="medal-tally w-100 d-flex align-content-center mt-3 mt-md-0">
     <div *ngFor="let key of medalTallyKeys" class="medal-badge mx-auto d-flex flex-column justify-content-center border-0">
         <div class="bg-white p-2 shadow-sm medal gold">
-            <img alt="medal" [src]="imageSrcMap[key]">
+            <img alt="medal" [src]="medalTally[key].src">
         </div>
         <div class="text-center badge badge-pill bg-white shadow-sm mt-n1 border-0">
-            {{medalTally[key]}}
+            {{medalTally[key].count}}
         </div>
     </div>
 </div>
