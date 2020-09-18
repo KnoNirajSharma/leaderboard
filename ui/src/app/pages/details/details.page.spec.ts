@@ -239,7 +239,7 @@ describe('DetailsPage', () => {
     expect(component.knolderAchievements.length).toEqual(2);
   });
 
-  it('should set medal tally by checking for each type of achievement by the knolder', () => {
+  it('should set medal tally by checking count of each rank of achievement by the knolder', () => {
     component.knolderAchievements = [
       { ...mockHallOfFameData[0].leaders[0], position: 0 },
       { ...mockHallOfFameData[1].leaders[0], position: 0 }

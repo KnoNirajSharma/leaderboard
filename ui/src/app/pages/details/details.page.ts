@@ -68,6 +68,7 @@ export class DetailsPage implements OnInit {
     this.calenderInitialisation();
     this.getMonthlyDetails(this.monthList[this.currentDate.getMonth()], this.currentDate.getFullYear());
     this.getTrendsData();
+    this.getHallOfFameData();
     this.getAllTimeDetails();
   }
 
