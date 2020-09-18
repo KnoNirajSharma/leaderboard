@@ -9,11 +9,6 @@ import { MedalTallyModel } from '../../models/medalTally.model';
 export class MedalTallyComponent implements OnInit {
   @Input() medalTally: MedalTallyModel;
   medalTallyKeys: string[];
-  imageSrcMap = {
-    gold: './assets/icon/gold-medal.svg',
-    silver: './assets/icon/silver-medal.svg',
-    bronze: './assets/icon/bronze-medal.svg'
-  };
 
   ngOnInit() {
     this.medalTallyKeys = Object.keys(this.medalTally);
