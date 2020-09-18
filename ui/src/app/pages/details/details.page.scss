@@ -84,35 +84,6 @@ ion-content {
   }
 }
 
-.badge-details {
-  min-height: 250px;
-  max-height: 300px;
-
-  .badges-table {
-    overflow-y: auto;
-
-    .badge-table-row {
-      border-bottom: 1px solid lightgray;
-    }
-    .medal-image {
-      height: 40px;
-      width: 40px;
-    }
-
-    .badge-score-category {
-      font-size: 0.7rem;
-    }
-
-    .badge-score-details {
-      font-size: 0.9rem;
-    }
-
-    .badge-score-month {
-      font-size: 0.9rem;
-    }
-  }
-}
-
 @media only screen and (max-width: 720px) {
   .container-fluid {
     .page-wrapper {
