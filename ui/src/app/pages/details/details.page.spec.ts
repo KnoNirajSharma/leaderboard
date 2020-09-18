@@ -245,6 +245,6 @@ describe('DetailsPage', () => {
       { ...mockHallOfFameData[1].leaders[0], position: 0 }
       ];
     component.setMedalTally();
-    expect(component.medalTally.gold).toEqual(2);
+    expect(component.medalTally.gold.count).toEqual(2);
   });
 });

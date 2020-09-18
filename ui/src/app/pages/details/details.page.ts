@@ -139,9 +139,18 @@ export class DetailsPage implements OnInit {
 
   setMedalTally() {
     this.medalTally = {
-      gold: this.knolderAchievements.filter(details => details.position === 0).length,
-      silver: this.knolderAchievements.filter(details => details.position === 1 || details.position === 2).length,
-      bronze: this.knolderAchievements.filter(details => details.position === 3 || details.position === 4).length,
+      gold: {
+        count: this.knolderAchievements.filter(details => details.position === 0).length,
+        src: './assets/icons/gold-medal.svg'
+      },
+      silver: {
+        count: this.knolderAchievements.filter(details => details.position === 1 || details.position === 2).length,
+        src: './assets/icons/gold-medal.svg'
+      },
+      bronze: {
+        count: this.knolderAchievements.filter(details => details.position === 3 || details.position === 4).length,
+        src: './assets/icons/gold-medal.svg'
+      }
     };
   }
 }

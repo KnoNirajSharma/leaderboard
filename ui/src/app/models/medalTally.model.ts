@@ -1,5 +1,5 @@
 export interface MedalTallyModel {
-  gold: number;
-  silver: number;
-  bronze: number;
+  gold: { count: number; src: string; };
+  silver: { count: number; src: string; };
+  bronze: { count: number; src: string; };
 }
