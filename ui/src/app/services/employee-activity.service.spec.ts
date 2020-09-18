@@ -12,7 +12,7 @@ describe('EmployeeActivityService', () => {
   let httpTestingController: HttpTestingController;
   const url = `${environment.api.baseUrl}${environment.api.routes.author.endpoint}`;
   const trendsUrl = `${environment.api.baseUrl}${environment.api.routes.trends.endpoint}`;
-  const hallOfFameUrl = '/assets/data/hofData.json';
+  const hallOfFameUrl = `${environment.api.baseUrl}${environment.api.routes.hallOfFame.endpoint}`;
 
   const dummyReputationData: ReputationModel = {
     monthlyBlogCount: 2,
