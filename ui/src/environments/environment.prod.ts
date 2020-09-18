@@ -6,7 +6,8 @@ export const environment = {
     baseUrl: 'http://35.232.185.162:8000/',
     routes: {
       author: { endpoint: 'reputation', method: 'GET' },
-      trends: { endpoint: 'reputation/twelvemonths', method: 'GET' }
+      trends: { endpoint: 'reputation/twelvemonths', method: 'GET' },
+      hallOfFame: { endpoint: 'reputation/halloffame', method: 'GET' }
     }
   },
   firebaseConfig: {
