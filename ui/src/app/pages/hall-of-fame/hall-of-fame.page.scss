@@ -12,6 +12,13 @@ ion-content {
   color: #071348;
 }
 
+.pagination-wrapper {
+  position: fixed;
+  bottom: 0; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 50
+}
+
 .scrolling-wrapper{
   overflow-x: auto;
 

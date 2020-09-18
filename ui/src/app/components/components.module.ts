@@ -6,6 +6,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { PieChartComponent } from './pie-chart/pie-chart.component';
 import { RouterModule } from '@angular/router';
 import { VerticalBarGraphComponent } from './veritcal-bar-graph/vertical-bar-graph.component';
+import { ListPaginatorComponent } from './list-paginator/list-paginator.component';
 
 @NgModule({
   imports: [
@@ -17,12 +18,14 @@ import { VerticalBarGraphComponent } from './veritcal-bar-graph/vertical-bar-gra
   exports: [
     HeadersComponent,
     PieChartComponent,
-    VerticalBarGraphComponent
+    VerticalBarGraphComponent,
+    ListPaginatorComponent
   ],
   declarations: [
     HeadersComponent,
     PieChartComponent,
-    VerticalBarGraphComponent
+    VerticalBarGraphComponent,
+    ListPaginatorComponent
   ],
 })
 export class ComponentsModule {
