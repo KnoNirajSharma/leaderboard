@@ -91,6 +91,24 @@ ion-content {
   .badge-details-table{
     overflow-y: auto;
   }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #e0dede;
+    border-radius: 15px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #999;
+  }
+
 }
 
 @media only screen and (max-width: 720px) {

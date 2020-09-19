@@ -13,7 +13,8 @@ import { HallOfFameModel } from '../models/hallOfFame.model';
 export class EmployeeActivityService {
   private url = `${environment.api.baseUrl}${environment.api.routes.author.endpoint}`;
   private trendUrl = `${environment.api.baseUrl}${environment.api.routes.trends.endpoint}`;
-  private hallOfFameUrl = '/assets/data/hofData.json';
+  // private hallOfFameUrl = `${environment.api.baseUrl}${environment.api.routes.hallOfFame.endpoint}`;
+  private hallOfFameUrl = './assets/data/hofData.json';
 
   constructor(private httpClient: HttpClient) {
   }
