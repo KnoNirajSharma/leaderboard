@@ -9,7 +9,7 @@ export class ListPaginatorComponent implements OnInit {
   @Input() paginatorLength: number;
   @Input() currentPage: number;
   @Output() pageSelected = new EventEmitter();
-  paginatorList: any[];
+  paginatorList = [];
 
   ngOnInit() {
     this.paginatorList = new Array(this.paginatorLength);

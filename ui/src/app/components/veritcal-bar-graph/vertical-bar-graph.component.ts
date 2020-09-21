@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TrendsModel } from '../../models/trends.model';
-import { NgxChartConfigService } from '../../services/ngxChartConfig.service';
-import {NgxStackVerticalBarGraphResultModel} from '../../models/ngxStackVerticalBarGraphResultModel';
+import { CommonService } from '../../services/common.service';
+import { NgxStackVerticalBarGraphResultModel } from '../../models/ngxStackVerticalBarGraphResultModel';
 
 @Component({
   selector: 'app-vertical-bar-graph',
@@ -15,13 +15,13 @@ export class VerticalBarGraphComponent implements OnInit {
     colorScheme: { domain: string[]; };
     result: NgxStackVerticalBarGraphResultModel[] = [];
 
-    constructor(private chartConfigs: NgxChartConfigService) {
+    constructor(private commonService: CommonService) {
     }
 
     ngOnInit() {
-      this.yAxisLabel = this.chartConfigs.verticalBarChartYLabel;
-      this.barPadding = this.chartConfigs.verticalBarChartPadding;
-      this.colorScheme = this.chartConfigs.colorScheme;
+      this.yAxisLabel = this.commonService.verticalBarChartYLabel;
+      this.barPadding = this.commonService.verticalBarChartPadding;
+      this.colorScheme = this.commonService.colorScheme;
       this.trendsData.map(monthData => this.result.push({ name: monthData.month.substring(0, 3) + ',' + String(monthData.year),
         series: [
           { name: 'Blogs', value: monthData.blogScore },

@@ -21,4 +21,10 @@ describe('ListPaginatorComponent', () => {
     component.ngOnInit();
     expect(component.paginatorList.length).toEqual(3);
   });
+
+  it('should call the Output event emitter pageItemOnCLick', () => {
+    spyOn(component.pageSelected, 'emit');
+    component.pageItemOnClick(1);
+    expect(component.pageSelected.emit).toHaveBeenCalled();
+  });
 });

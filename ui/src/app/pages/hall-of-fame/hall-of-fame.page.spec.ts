@@ -13,12 +13,14 @@ import {of, throwError} from 'rxjs';
 import {ComponentsModule} from '../../components/components.module';
 import {RouterTestingModule} from '@angular/router/testing';
 import {CustomPipesModule} from '../../pipe/custom-pipes.module';
+import {CommonService} from '../../services/common.service';
 
 describe('HallOfFamePage', () => {
   let component: HallOfFamePage;
   let fixture: ComponentFixture<HallOfFamePage>;
   let mockEmployeeService: EmployeeActivityService;
   let loadingControllerService: LoadingControllerService;
+  let commonService: CommonService;
   const mockHallOfFameData: HallOfFameModel[] = [
     {
       month: 'August',
@@ -91,9 +93,17 @@ describe('HallOfFamePage', () => {
       component = fixture.componentInstance;
       mockEmployeeService = TestBed.get(EmployeeActivityService);
       loadingControllerService = TestBed.get(LoadingControllerService);
+      commonService = TestBed.get(CommonService);
   }));
 
+  it('should get the value for number of items in a page in hall of fame', () => {
+     spyOnProperty(commonService, 'getNumberOfItemsInHallOfFame', 'get').and.returnValue(10);
+     component.ngOnInit();
+     expect(component.numberOfItemsInPage).toEqual(10);
+    });
+
   it('should return the hall of fame data as per api call', () => {
+      spyOnProperty(commonService, 'getNumberOfItemsInHallOfFame', 'get');
       spyOn(mockEmployeeService, 'getHallOfFameData').and.returnValue(of([...mockHallOfFameData]));
       component.ngOnInit();
       expect(component.hallOfFameLeaders).toEqual(mockHallOfFameData);
@@ -108,6 +118,7 @@ describe('HallOfFamePage', () => {
   });
 
   it('should set start and end index of list for a page', () => {
+    component.numberOfItemsInPage = 10;
     component.setListIndexForPage(1);
     expect(component.startIndexOfListForPage).toEqual(10);
     expect(component.lastIndexOfListForPage).toEqual(20);
