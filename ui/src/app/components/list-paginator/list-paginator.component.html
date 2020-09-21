@@ -1,8 +1,8 @@
 <nav>
-    <ul class="pagination m-0" >
-        <li class="page-item" *ngFor="let pageListItem of paginatorList; let pageIndex = index"
-            (click)="pageItemOnClick(pageListItem)">
-        <div class="page-link" [ngClass]="{'bg-primary text-white': pageListItem === currentPage}">{{pageListItem + 1}}</div>
+    <ul class="pagination m-0">
+        <li class="page-item" *ngFor="let pageListItem of paginatorList" (click)="pageItemOnClick(pageListItem)">
+            <div class="page-link"
+                 [ngClass]="{'bg-primary text-white': pageListItem === currentPage}">{{pageListItem + 1}}</div>
         </li>
     </ul>
 </nav>

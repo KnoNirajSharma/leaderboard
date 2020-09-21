@@ -12,10 +12,7 @@ export class ListPaginatorComponent implements OnInit {
   paginatorList = [];
 
   ngOnInit() {
-    // this.paginatorList = [...Array(this.paginatorLength).keys()];
-    this.paginatorList = new Array(this.paginatorLength);
-    this.paginatorList.map((_, index) => index);
-    console.log(this.paginatorList);
+    this.paginatorList = Array(this.paginatorLength).join('_').split('_').map((_, i) => i);
   }
 
   pageItemOnClick(index: number) {

@@ -16,13 +16,13 @@ describe('ListPaginatorComponent', () => {
     component = fixture.componentInstance;
   }));
 
-  it('should create and emplty list of length same as paginatorLength', () => {
+  it('should create and empty list of length same as paginatorLength', () => {
     component.paginatorLength = 3;
     component.ngOnInit();
     expect(component.paginatorList.length).toEqual(3);
   });
 
-  it('should call the Output event emitter pageItemOnCLick', () => {
+  it('should call the Output event emitter function pageItemOnCLick', () => {
     spyOn(component.pageSelected, 'emit');
     component.pageItemOnClick(1);
     expect(component.pageSelected.emit).toHaveBeenCalled();
