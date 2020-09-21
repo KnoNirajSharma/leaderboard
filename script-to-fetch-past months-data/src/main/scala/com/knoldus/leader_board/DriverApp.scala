@@ -11,7 +11,7 @@ object DriverApp extends App {
   val knolderRank: KnolderRank = new KnolderRankImpl
   val fetchAllTimeAndMonthlyReputation: FetchAllTimeAndMonthlyReputation = new FetchAllTimeAndMonthlyReputationImpl(config)
   val monthlyLeaders = new MonthlyLeadersImpl(fetchAllTimeAndMonthlyReputation, knolderScore, knolderRank)
-  val twelveMonthsContribution = new PastMonthsLeadersImpl(monthlyLeaders)
-  val storeTopFiveLeaders = new StoreTopFiveLeadersImpl(config,twelveMonthsContribution)
+  val pastMonthsLeadersObj = new PastMonthsLeadersImpl(monthlyLeaders)
+  val storeTopFiveLeaders = new StoreTopFiveLeadersImpl(config,pastMonthsLeadersObj)
   storeTopFiveLeaders.insertTopFiveLeaders
 }
