@@ -144,15 +144,15 @@ export class DetailsPage implements OnInit {
     this.medalTally = {
       gold: {
         count: this.knolderAchievements.filter(details => details.position === 0).length,
-        src: ''
+        imgUrl: './assets/icon/gold-medal.svg'
       },
       silver: {
         count: this.knolderAchievements.filter(details => details.position === 1 || details.position === 2).length,
-        src: ''
+        imgUrl: './assets/icon/silver-medal.svg'
       },
       bronze: {
         count: this.knolderAchievements.filter(details => details.position === 3 || details.position === 4).length,
-        src: ''
+        imgUrl: './assets/icon/bronze-medal.svg'
       }
     };
   }
