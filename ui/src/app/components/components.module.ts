@@ -7,6 +7,7 @@ import { PieChartComponent } from './pie-chart/pie-chart.component';
 import { RouterModule } from '@angular/router';
 import { VerticalBarGraphComponent } from './veritcal-bar-graph/vertical-bar-graph.component';
 import { ListPaginatorComponent } from './list-paginator/list-paginator.component';
+import { MedalTallyComponent } from './medal-tally/medal-tally.component';
 
 @NgModule({
   imports: [
@@ -20,13 +21,15 @@ import { ListPaginatorComponent } from './list-paginator/list-paginator.componen
     PieChartComponent,
     VerticalBarGraphComponent,
     ListPaginatorComponent,
+    MedalTallyComponent
   ],
   exports: [
     HeadersComponent,
     PieChartComponent,
     VerticalBarGraphComponent,
-    ListPaginatorComponent
-  ]
+    ListPaginatorComponent,
+    MedalTallyComponent
+  ],
 })
 export class ComponentsModule {
 }
