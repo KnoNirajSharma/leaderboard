@@ -7,11 +7,11 @@
                     Hall of Fame
                 </h1>
                 <div *ngIf="hallOfFameLeaders">
-                    <div class="shadow pagination-wrapper" *ngIf="paginationLength !== 0">
-                        <app-list-paginator [currentPage]="startIndex / 10" [paginatorLength]="paginationLength" (pageSelected)="generateSliceIndex($event)">
+                    <div class="pagination-wrapper" *ngIf="paginationLength > 1">
+                        <app-list-paginator [currentPage]="startIndexOfListForPage / 10" [paginatorLength]="paginationLength" (pageSelected)="setListIndexForPage($event)">
                         </app-list-paginator>
                     </div>
-                    <div class="col-12 card p-3 border-0 my-4" *ngFor="let monthData of hallOfFameLeaders | reverse | slice: startIndex: lastIndex">
+                    <div class="col-12 card p-3 border-0 my-4" *ngFor="let monthData of hallOfFameLeaders | reverse | slice: startIndexOfListForPage: lastIndexOfListForPage">
                         <div class="col-12">
                             {{monthData.month | titlecase}}, {{monthData.year}}
                         </div>

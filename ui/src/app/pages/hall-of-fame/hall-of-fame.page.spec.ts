@@ -101,8 +101,15 @@ describe('HallOfFamePage', () => {
 
   it('should dismiss loader when error occurred', () => {
       spyOn(loadingControllerService, 'dismiss');
+      spyOn(component, 'setListIndexForPage');
       spyOn(mockEmployeeService, 'getHallOfFameData').and.returnValue(throwError({status: 404}));
       component.ngOnInit();
       expect(loadingControllerService.dismiss).toHaveBeenCalled();
+  });
+
+  it('should set start and end index of list for a page', () => {
+    component.setListIndexForPage(1);
+    expect(component.startIndexOfListForPage).toEqual(10);
+    expect(component.lastIndexOfListForPage).toEqual(20);
   });
 });

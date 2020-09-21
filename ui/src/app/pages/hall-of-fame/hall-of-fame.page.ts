@@ -12,8 +12,8 @@ export class HallOfFamePage implements OnInit {
   mainPageLink = '/';
   hallOfFameLeaders: HallOfFameModel[];
   paginationLength: number;
-  startIndex: number;
-  lastIndex: number;
+  startIndexOfListForPage: number;
+  lastIndexOfListForPage: number;
 
   constructor(private service: EmployeeActivityService, private loadingControllerService: LoadingControllerService) {
   }
@@ -33,12 +33,11 @@ export class HallOfFamePage implements OnInit {
         this.loadingControllerService.dismiss();
         console.log(error);
       });
-    this.generateSliceIndex(0);
+    this.setListIndexForPage(0);
   }
 
-  generateSliceIndex(event) {
-    this.startIndex = event * 10;
-    this.lastIndex = this.startIndex + 10;
-    console.log(event);
+  setListIndexForPage(pageIndex) {
+    this.startIndexOfListForPage = pageIndex * 10;
+    this.lastIndexOfListForPage = this.startIndexOfListForPage + 10;
   }
 }

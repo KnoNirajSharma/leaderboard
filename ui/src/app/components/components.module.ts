@@ -13,20 +13,20 @@ import { ListPaginatorComponent } from './list-paginator/list-paginator.componen
     IonicModule,
     CommonModule,
     RouterModule,
-    NgxChartsModule
+    NgxChartsModule,
+  ],
+  declarations: [
+    HeadersComponent,
+    PieChartComponent,
+    VerticalBarGraphComponent,
+    ListPaginatorComponent,
   ],
   exports: [
     HeadersComponent,
     PieChartComponent,
     VerticalBarGraphComponent,
     ListPaginatorComponent
-  ],
-  declarations: [
-    HeadersComponent,
-    PieChartComponent,
-    VerticalBarGraphComponent,
-    ListPaginatorComponent
-  ],
+  ]
 })
 export class ComponentsModule {
 }

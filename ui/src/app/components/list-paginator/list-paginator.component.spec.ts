@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-
 import { ListPaginatorComponent } from './list-paginator.component';
 
 describe('ListPaginatorComponent', () => {
@@ -15,10 +14,11 @@ describe('ListPaginatorComponent', () => {
 
     fixture = TestBed.createComponent(ListPaginatorComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should create and emplty list of length same as paginatorLength', () => {
+    component.paginatorLength = 3;
+    component.ngOnInit();
+    expect(component.paginatorList.length).toEqual(3);
   });
 });
