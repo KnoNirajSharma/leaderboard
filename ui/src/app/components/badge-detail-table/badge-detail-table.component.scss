@@ -1,0 +1,23 @@
+.badges-table {
+
+  .badge-table-row {
+    border-bottom: 1px solid lightgray;
+
+    .medal-image {
+      height: 40px;
+      width: 40px;
+    }
+
+    .badge-score-category {
+      font-size: 0.7rem;
+    }
+
+    .badge-score-details {
+      font-size: 0.9rem;
+    }
+
+    .badge-score-month {
+      font-size: 0.9rem;
+    }
+  }
+}

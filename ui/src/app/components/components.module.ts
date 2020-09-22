@@ -6,23 +6,34 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { PieChartComponent } from './pie-chart/pie-chart.component';
 import { RouterModule } from '@angular/router';
 import { VerticalBarGraphComponent } from './veritcal-bar-graph/vertical-bar-graph.component';
+import { ListPaginatorComponent } from './list-paginator/list-paginator.component';
+import { MedalTallyComponent } from './medal-tally/medal-tally.component';
+import { BadgeDetailTableComponent } from './badge-detail-table/badge-detail-table.component';
+import { CustomPipesModule } from '../pipe/custom-pipes.module';
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     RouterModule,
-    NgxChartsModule
-  ],
-  exports: [
-    HeadersComponent,
-    PieChartComponent,
-    VerticalBarGraphComponent
+    NgxChartsModule,
+    CustomPipesModule,
   ],
   declarations: [
     HeadersComponent,
     PieChartComponent,
-    VerticalBarGraphComponent
+    VerticalBarGraphComponent,
+    ListPaginatorComponent,
+    MedalTallyComponent,
+    BadgeDetailTableComponent
+  ],
+  exports: [
+    HeadersComponent,
+    PieChartComponent,
+    VerticalBarGraphComponent,
+    ListPaginatorComponent,
+    MedalTallyComponent,
+    BadgeDetailTableComponent
   ],
 })
 export class ComponentsModule {

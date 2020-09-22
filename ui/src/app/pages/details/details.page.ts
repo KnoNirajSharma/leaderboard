@@ -7,7 +7,10 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { ScoreBreakDownModel } from '../../models/ScoreBreakDown.model';
 import { LoadingControllerService } from '../../services/loading-controller.service ';
 import { TrendsModel } from '../../models/trends.model';
-import { NgxChartConfigService } from '../../services/ngxChartConfig.service';
+import { CommonService } from '../../services/common.service';
+import { HallOfFameModel } from '../../models/hallOfFame.model';
+import { LeaderModel } from '../../models/leader.model';
+import { MedalTallyModel } from '../../models/medalTally.model';
 
 @Component({
   selector: 'app-details',
@@ -25,6 +28,9 @@ export class DetailsPage implements OnInit {
   pieChartData: ScoreBreakDownModel[] = [];
   trendsData: TrendsModel[];
   contributionsTypeColorList: string[];
+  hallOfFameLeaders: HallOfFameModel[];
+  medalTally: MedalTallyModel;
+  knolderAchievements: LeaderModel[] = [];
   allTimeSelected = false;
   monthList = [
     'January',
@@ -45,7 +51,7 @@ export class DetailsPage implements OnInit {
     private route: ActivatedRoute,
     private employeeActivityService: EmployeeActivityService,
     private loadingControllerService: LoadingControllerService,
-    private ngxChartConfigService: NgxChartConfigService
+    private ngxChartConfigService: CommonService
   ) { }
 
   ngOnInit() {
@@ -62,6 +68,7 @@ export class DetailsPage implements OnInit {
     this.calenderInitialisation();
     this.getMonthlyDetails(this.monthList[this.currentDate.getMonth()], this.currentDate.getFullYear());
     this.getTrendsData();
+    this.getHallOfFameData();
     this.getAllTimeDetails();
   }
 
@@ -108,5 +115,44 @@ export class DetailsPage implements OnInit {
   setAllTimeDetailsOnClick() {
     this.knolderDetails = { ...this.allTimeDetails };
     this.allTimeSelected = true;
+  }
+
+  getHallOfFameData() {
+    this.employeeActivityService.getHallOfFameData()
+      .subscribe((data: HallOfFameModel[]) => {
+        this.hallOfFameLeaders = data;
+        this.setKnolderAchievements();
+        this.setMedalTally();
+      }, (error) => {
+        console.log(error);
+      });
+  }
+
+  setKnolderAchievements() {
+    this.hallOfFameLeaders
+      .forEach(monthLeaders => {
+        monthLeaders.leaders.forEach(leader => {
+          leader.knolderId ===  this.knolderId
+            ? this.knolderAchievements.push({ ...leader, position: monthLeaders.leaders.indexOf(leader) })
+            : leader.position = -1;
+        });
+      });
+  }
+
+  setMedalTally() {
+    this.medalTally = {
+      gold: {
+        count: this.knolderAchievements.filter(details => details.position === 0).length,
+        imgUrl: './assets/icon/gold-medal.svg'
+      },
+      silver: {
+        count: this.knolderAchievements.filter(details => details.position === 1 || details.position === 2).length,
+        imgUrl: './assets/icon/silver-medal.svg'
+      },
+      bronze: {
+        count: this.knolderAchievements.filter(details => details.position === 3 || details.position === 4).length,
+        imgUrl: './assets/icon/bronze-medal.svg'
+      }
+    };
   }
 }

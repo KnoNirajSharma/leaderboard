@@ -1,0 +1,31 @@
+<div *ngIf="knolderAchievements.length === 0" class="py-4">
+    <span class="text-secondary font-italic">No badge earned till now.</span>
+</div>
+<div class="badges-table px-2">
+    <div *ngFor="let badgeDetails of knolderAchievements | reverse"
+         class="badge-table-row d-flex align-content-center py-2 w-100">
+        <img *ngIf="badgeDetails.position === 0"
+             class="medal-image" src="./assets/icon/gold-medal.svg" alt="medal">
+        <img *ngIf="badgeDetails.position === 1 || badgeDetails.position === 2"
+             class="medal-image" src="./assets/icon/silver-medal.svg" alt="medal">
+        <img *ngIf="badgeDetails.position > 2"
+             class="medal-image" src="./assets/icon/bronze-medal.svg" alt="medal">
+        <div class="ml-auto d-flex flex-column">
+            <span class="text-secondary badge-score-category pt-0">Monthly</span>
+            <span class="badge-score-details">
+                Rank: {{badgeDetails.monthlyRank}},
+                Score: {{badgeDetails.monthlyScore}}
+            </span>
+        </div>
+        <div class="ml-auto d-flex flex-column">
+            <span class="text-secondary badge-score-category">Overall</span>
+            <span class="badge-score-details">
+                Rank: {{badgeDetails.allTimeRank}}
+            </span>
+        </div>
+        <div class="ml-auto text-center text-primary badge-score-month">
+            {{badgeDetails.month | slice:0:3}},<br>
+            {{badgeDetails.year}}
+        </div>
+    </div>
+</div>

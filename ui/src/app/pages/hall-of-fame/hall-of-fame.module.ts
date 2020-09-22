@@ -22,7 +22,7 @@ const routes: Routes = [
     IonicModule,
     ComponentsModule,
     RouterModule.forChild(routes),
-    CustomPipesModule
+    CustomPipesModule,
   ],
   declarations: [HallOfFamePage]
 })
