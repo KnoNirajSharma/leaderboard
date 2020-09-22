@@ -97,12 +97,15 @@ describe('HallOfFamePage', () => {
   }));
 
   it('should get the value for number of items in a page in hall of fame', () => {
+     spyOn(component, 'setListIndexForPage');
+     spyOn(mockEmployeeService, 'getHallOfFameData').and.returnValue(of([...mockHallOfFameData]));
      spyOnProperty(commonService, 'getNumberOfItemsInHallOfFame', 'get').and.returnValue(10);
      component.ngOnInit();
      expect(component.numberOfItemsInPage).toEqual(10);
     });
 
   it('should return the hall of fame data as per api call', () => {
+      spyOn(component, 'setListIndexForPage');
       spyOnProperty(commonService, 'getNumberOfItemsInHallOfFame', 'get');
       spyOn(mockEmployeeService, 'getHallOfFameData').and.returnValue(of([...mockHallOfFameData]));
       component.ngOnInit();
