@@ -32,6 +32,7 @@ export class DetailsPage implements OnInit {
   medalTally: MedalTallyModel;
   knolderAchievements: LeaderModel[] = [];
   allTimeSelected = false;
+  badgeDetailsTableDimension = { 'max-height': '250px', 'min-height': '200px' };
   monthList = [
     'January',
     'February',

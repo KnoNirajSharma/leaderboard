@@ -1,22 +1,41 @@
 .badges-table {
+  overflow-y: auto;
 
   .badge-table-row {
     border-bottom: 1px solid lightgray;
-  }
-  .medal-image {
-    height: 40px;
-    width: 40px;
-  }
 
-  .badge-score-category {
-    font-size: 0.7rem;
-  }
+    .medal-image {
+      height: 40px;
+      width: 40px;
+    }
 
-  .badge-score-details {
-    font-size: 0.9rem;
-  }
+    .badge-score-category {
+      font-size: 0.7rem;
+    }
 
-  .badge-score-month {
-    font-size: 0.9rem;
+    .badge-score-details {
+      font-size: 0.9rem;
+    }
+
+    .badge-score-month {
+      font-size: 0.9rem;
+    }
   }
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e0dede;
+  border-radius: 15px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #999;
 }

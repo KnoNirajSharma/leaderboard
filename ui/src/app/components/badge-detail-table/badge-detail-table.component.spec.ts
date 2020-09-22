@@ -15,7 +15,6 @@ describe('BadgeDetailTableComponent', () => {
 
     fixture = TestBed.createComponent(BadgeDetailTableComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   }));
 
   it('should create', () => {
