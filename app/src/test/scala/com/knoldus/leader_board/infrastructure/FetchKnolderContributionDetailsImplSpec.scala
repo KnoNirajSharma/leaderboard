@@ -22,6 +22,21 @@ class FetchKnolderContributionDetailsImplSpec extends DBSpec with BeforeAndAfter
   "fetch knolder details" should {
     val date = Timestamp.valueOf("2020-04-13 13:10:40")
 
+    def insertAllTimeReputation: Unit ={
+      val insertAllTimeReputationData: String =
+        """
+          |insert into all_time_reputation(id, knolder_id, score, rank)
+          |values (?,?,?,?)
+""".stripMargin
+
+      val preparedStmt: PreparedStatement = connection.prepareStatement(insertAllTimeReputationData)
+      preparedStmt.setInt(1, 1)
+      preparedStmt.setInt(2, 1)
+      preparedStmt.setInt(3, 670)
+      preparedStmt.setInt(4, 1)
+      preparedStmt.execute
+      preparedStmt.close()
+    }
     def insertBlog: Unit = {
       val insertBlogOne: String =
         """
@@ -337,7 +352,7 @@ class FetchKnolderContributionDetailsImplSpec extends DBSpec with BeforeAndAfter
     }
 
     "return all time details of specific knolder" in {
-
+      insertAllTimeReputation
       insertBlog
       insertKnolx
       insertWebinar
