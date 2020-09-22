@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { LeaderModel } from '../../models/leader.model';
-import { BadgeDetailsTableDimensionModel } from '../../models/badgeDetailsTableDimension.model';
 
 @Component({
   selector: 'app-badge-detail-table',
@@ -9,5 +8,4 @@ import { BadgeDetailsTableDimensionModel } from '../../models/badgeDetailsTableD
 })
 export class BadgeDetailTableComponent {
   @Input() knolderAchievements: LeaderModel[];
-  @Input() tableDimensions: BadgeDetailsTableDimensionModel;
 }

@@ -1,5 +1,4 @@
 .badges-table {
-  overflow-y: auto;
 
   .badge-table-row {
     border-bottom: 1px solid lightgray;
@@ -21,21 +20,4 @@
       font-size: 0.9rem;
     }
   }
-}
-
-::-webkit-scrollbar {
-  width: 5px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #e0dede;
-  border-radius: 15px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #999;
 }

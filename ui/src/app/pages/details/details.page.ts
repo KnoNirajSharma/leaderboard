@@ -124,7 +124,6 @@ export class DetailsPage implements OnInit {
         this.hallOfFameLeaders = data;
         this.setKnolderAchievements();
         this.setMedalTally();
-        console.log(this.medalTally);
       }, (error) => {
         console.log(error);
       });
