@@ -23,6 +23,12 @@ ion-content {
 
 .scrolling-wrapper{
   overflow-x: auto;
+  
+  &::after {
+    content: '-';
+    background: transparent;
+    color: white;
+  }
 
   &::-webkit-scrollbar {
     display: none;  /* Safari and Chrome */
