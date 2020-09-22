@@ -6,6 +6,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { PieChartComponent } from './pie-chart/pie-chart.component';
 import { RouterModule } from '@angular/router';
 import { VerticalBarGraphComponent } from './veritcal-bar-graph/vertical-bar-graph.component';
+import { ListPaginatorComponent } from './list-paginator/list-paginator.component';
 import { MedalTallyComponent } from './medal-tally/medal-tally.component';
 
 @NgModule({
@@ -13,18 +14,20 @@ import { MedalTallyComponent } from './medal-tally/medal-tally.component';
     IonicModule,
     CommonModule,
     RouterModule,
-    NgxChartsModule
+    NgxChartsModule,
   ],
   declarations: [
     HeadersComponent,
     PieChartComponent,
     VerticalBarGraphComponent,
+    ListPaginatorComponent,
     MedalTallyComponent
   ],
   exports: [
     HeadersComponent,
     PieChartComponent,
     VerticalBarGraphComponent,
+    ListPaginatorComponent,
     MedalTallyComponent
   ],
 })

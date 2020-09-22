@@ -7,7 +7,7 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { ScoreBreakDownModel } from '../../models/ScoreBreakDown.model';
 import { LoadingControllerService } from '../../services/loading-controller.service ';
 import { TrendsModel } from '../../models/trends.model';
-import { NgxChartConfigService } from '../../services/ngxChartConfig.service';
+import { CommonService } from '../../services/common.service';
 import { HallOfFameModel } from '../../models/hallOfFame.model';
 import { LeaderModel } from '../../models/leader.model';
 import { MedalTallyModel } from '../../models/medalTally.model';
@@ -51,7 +51,7 @@ export class DetailsPage implements OnInit {
     private route: ActivatedRoute,
     private employeeActivityService: EmployeeActivityService,
     private loadingControllerService: LoadingControllerService,
-    private ngxChartConfigService: NgxChartConfigService
+    private ngxChartConfigService: CommonService
   ) { }
 
   ngOnInit() {
