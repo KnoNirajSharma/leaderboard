@@ -55,6 +55,32 @@ ion-content {
       border-left: 2px solid blue;
     }
   }
+
+  .badge-details {
+
+    .badge-details-table {
+      min-height: 200px;
+      max-height: 250px;
+      overflow-y: auto;
+
+      &::-webkit-scrollbar {
+        width: 5px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #e0dede;
+        border-radius: 15px;
+
+        &:hover {
+          background: #999;
+        }
+      }
+    }
+  }
 }
 
 .shadow-box {

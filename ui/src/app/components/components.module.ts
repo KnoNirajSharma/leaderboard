@@ -8,6 +8,8 @@ import { RouterModule } from '@angular/router';
 import { VerticalBarGraphComponent } from './veritcal-bar-graph/vertical-bar-graph.component';
 import { ListPaginatorComponent } from './list-paginator/list-paginator.component';
 import { MedalTallyComponent } from './medal-tally/medal-tally.component';
+import { BadgeDetailTableComponent } from './badge-detail-table/badge-detail-table.component';
+import { CustomPipesModule } from '../pipe/custom-pipes.module';
 
 @NgModule({
   imports: [
@@ -15,20 +17,23 @@ import { MedalTallyComponent } from './medal-tally/medal-tally.component';
     CommonModule,
     RouterModule,
     NgxChartsModule,
+    CustomPipesModule,
   ],
   declarations: [
     HeadersComponent,
     PieChartComponent,
     VerticalBarGraphComponent,
     ListPaginatorComponent,
-    MedalTallyComponent
+    MedalTallyComponent,
+    BadgeDetailTableComponent
   ],
   exports: [
     HeadersComponent,
     PieChartComponent,
     VerticalBarGraphComponent,
     ListPaginatorComponent,
-    MedalTallyComponent
+    MedalTallyComponent,
+    BadgeDetailTableComponent
   ],
 })
 export class ComponentsModule {
