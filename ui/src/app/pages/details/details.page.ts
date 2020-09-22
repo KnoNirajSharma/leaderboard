@@ -7,7 +7,7 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { ScoreBreakDownModel } from '../../models/ScoreBreakDown.model';
 import { LoadingControllerService } from '../../services/loading-controller.service ';
 import { TrendsModel } from '../../models/trends.model';
-import { NgxChartConfigService } from '../../services/ngxChartConfig.service';
+import { CommonService } from '../../services/common.service';
 import { HallOfFameModel } from '../../models/hallOfFame.model';
 import { LeaderModel } from '../../models/leader.model';
 import { MedalTallyModel } from '../../models/medalTally.model';
@@ -52,7 +52,7 @@ export class DetailsPage implements OnInit {
     private route: ActivatedRoute,
     private employeeActivityService: EmployeeActivityService,
     private loadingControllerService: LoadingControllerService,
-    private ngxChartConfigService: NgxChartConfigService
+    private ngxChartConfigService: CommonService
   ) { }
 
   ngOnInit() {
@@ -145,15 +145,15 @@ export class DetailsPage implements OnInit {
     this.medalTally = {
       gold: {
         count: this.knolderAchievements.filter(details => details.position === 0).length,
-        src: './assets/icon/gold-medal.svg'
+        imgUrl: './assets/icon/gold-medal.svg'
       },
       silver: {
         count: this.knolderAchievements.filter(details => details.position === 1 || details.position === 2).length,
-        src: './assets/icon/silver-medal.svg'
+        imgUrl: './assets/icon/silver-medal.svg'
       },
       bronze: {
         count: this.knolderAchievements.filter(details => details.position === 3 || details.position === 4).length,
-        src: './assets/icon/bronze-medal.svg'
+        imgUrl: './assets/icon/bronze-medal.svg'
       }
     };
   }

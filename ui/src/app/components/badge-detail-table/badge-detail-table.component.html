@@ -1,9 +1,8 @@
 <div *ngIf="knolderAchievements.length === 0" class="py-4">
     <span class="text-secondary font-italic">No badge earned till now.</span>
 </div>
-
 <div class="badges-table px-2" [ngStyle]="tableDimensions">
-    <div *ngFor="let badgeDetails of knolderAchievements"
+    <div *ngFor="let badgeDetails of knolderAchievements | reverse"
          class="badge-table-row d-flex align-content-center py-2 w-100">
         <img *ngIf="badgeDetails.position === 0"
              class="medal-image" src="./assets/icon/gold-medal.svg" alt="medal">
@@ -14,7 +13,7 @@
         <div class="ml-auto d-flex flex-column">
             <span class="text-secondary badge-score-category pt-0">Monthly</span>
             <span class="badge-score-details">
-                Rank: {{badgeDetails.monthlyRank}},&nbsp;
+                Rank: {{badgeDetails.monthlyRank}},
                 Score: {{badgeDetails.monthlyScore}}
             </span>
         </div>
@@ -25,10 +24,8 @@
             </span>
         </div>
         <div class="ml-auto text-center text-primary badge-score-month">
-<!--            <span> -->
-                {{badgeDetails.month | slice:0:3}},<br>
-                {{badgeDetails.year}}
-<!--            </span>-->
+            {{badgeDetails.month | slice:0:3}},<br>
+            {{badgeDetails.year}}
         </div>
     </div>
 </div>

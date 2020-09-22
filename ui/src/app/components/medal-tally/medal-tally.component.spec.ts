@@ -18,9 +18,9 @@ describe('MedalTallyComponent', () => {
 
   it('should set medalTallyKeys according to medalTally object', () => {
     component.medalTally = {
-      gold: {count: 1, src: './assets/icon/gold-medal.svg'},
-      silver: {count: 0, src: './assets/icon/silver-medal.svg'},
-      bronze: {count: 2, src: './assets/icon/bronze-medal.svg'}
+      gold: {count: 1, imgUrl: './assets/icon/gold-medal.svg'},
+      silver: {count: 0, imgUrl: './assets/icon/silver-medal.svg'},
+      bronze: {count: 2, imgUrl: './assets/icon/bronze-medal.svg'}
     };
     component.ngOnInit();
     expect(component.medalTallyKeys[0]).toEqual('gold');
