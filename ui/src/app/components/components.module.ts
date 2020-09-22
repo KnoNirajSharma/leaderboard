@@ -23,7 +23,6 @@ import { CustomPipesModule } from '../pipe/custom-pipes.module';
     HeadersComponent,
     PieChartComponent,
     VerticalBarGraphComponent,
-    MedalTallyComponent,
     ListPaginatorComponent,
     MedalTallyComponent,
     BadgeDetailTableComponent
@@ -32,7 +31,6 @@ import { CustomPipesModule } from '../pipe/custom-pipes.module';
     HeadersComponent,
     PieChartComponent,
     VerticalBarGraphComponent,
-    MedalTallyComponent,
     ListPaginatorComponent,
     MedalTallyComponent,
     BadgeDetailTableComponent
