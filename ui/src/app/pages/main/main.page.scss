@@ -10,21 +10,11 @@
     .knoldus-stats-container {
       position: relative;
 
+      &:hover .knoldus-stats-tooltip {
+        visibility: visible;
+      }
+
       .knoldus-stats-tooltip {
-        //visibility: hidden;
-        //background-color: white;
-        //position: absolute;
-        //border: 1px solid blue;
-        //z-index: 1;
-        //top: 100%;
-        //left: 70%;
-        //margin-top: 10px;
-        //margin-left: -60px;
-        //font-size: 0.75em;
-        //width: 150px;
-        //border-radius: 5px;
-
-
         visibility: hidden;
         background: #424242;
         position: absolute;
@@ -86,6 +76,21 @@
           flex-grow: 1;
           min-width: 130px;
 
+          &:after {
+            content : "";
+            position: absolute;
+            right    : 0;
+            z-index: 100;
+            top  : 25%;
+            width  : 1px;
+            height   : 50%;
+            background: lightgrey;
+          }
+
+          &:last-child:after {
+            width: 0;
+          }
+
           .contribution-title {
             color: black;
             font-size: 1em;
@@ -116,26 +121,7 @@
             max-width: 130px;
           }
         }
-
-        .knoldus-stats-card:after {
-          content : "";
-          position: absolute;
-          right    : 0;
-          z-index: 100;
-          top  : 25%;
-          width  : 1px;
-          height   : 50%;
-          background: lightgrey;
-        }
-
-        .knoldus-stats-card:last-child:after {
-          width: 0;
-        }
       }
-    }
-
-    .knoldus-stats-container:hover .knoldus-stats-tooltip {
-      visibility: visible;
     }
 
     .leaderboard-table {
