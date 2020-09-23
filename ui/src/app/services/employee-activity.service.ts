@@ -14,14 +14,12 @@ export class EmployeeActivityService {
   private url = `${environment.api.baseUrl}${environment.api.routes.author.endpoint}`;
   private trendUrl = `${environment.api.baseUrl}${environment.api.routes.trends.endpoint}`;
   private hallOfFameUrl = `${environment.api.baseUrl}${environment.api.routes.hallOfFame.endpoint}`;
-  private mockReputationUrl = 'assets/data/authorProfile.json';
-
 
   constructor(private httpClient: HttpClient) {
   }
 
   getData(): Observable<ReputationModel> {
-    return this.httpClient.get<ReputationModel>(this.mockReputationUrl);
+    return this.httpClient.get<ReputationModel>(this.url);
   }
 
   getAllTimeDetails(id: number): Observable<KnolderDetailsModel> {
