@@ -1,21 +1,13 @@
 import { AuthorModel } from './author.model';
 
 export interface ReputationModel {
-  monthlyBlogCount: number;
-  monthlyKnolxCount: number;
-  monthlyWebinarCount: number;
-  monthlyTechHubCount: number;
-  monthlyOsContributionCount: number;
-  monthlyConferenceCount: number;
-  monthlyResearchPaperCount: number;
-  monthlyBookCount: number;
-  allTimeBlogCount: number;
-  allTimeKnolxCount: number;
-  allTimeWebinarCount: number;
-  allTimeTechHubCount: number;
-  allTimeOsContributionCount: number;
-  allTimeConferenceCount: number;
-  allTimeBookCount: number;
-  allTimeResearchPaperCount: number;
+  blogs: { monthly: number; allTime: number; };
+  knolx: { monthly: number; allTime: number; };
+  webinars: { monthly: number; allTime: number; };
+  techhubTemplate: { monthly: number; allTime: number; };
+  osContribution: { monthly: number; allTime: number; };
+  conferences: { monthly: number; allTime: number; };
+  books: { monthly: number; allTime: number; };
+  researchPapers: { monthly: number; allTime: number; };
   reputation: AuthorModel[];
 }

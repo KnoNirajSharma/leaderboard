@@ -4,7 +4,7 @@ import { MainPage } from './main.page';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { EmployeeActivityService } from '../../services/employee-activity.service';
-import { of } from 'rxjs';
+import {of, throwError} from 'rxjs';
 import { TableComponent } from '../../components/table/table.component';
 import { EmployeeFilterPipe } from '../../pipe/employee-filter.pipe';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -17,6 +17,7 @@ import { environment } from '../../../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { CustomPipesModule } from '../../pipe/custom-pipes.module';
+import {error} from 'util';
 
 describe('MainPage', () => {
   let component: MainPage;
@@ -24,22 +25,14 @@ describe('MainPage', () => {
   let mockEmployeeService: EmployeeActivityService;
   let loadingControllerService: LoadingControllerService;
   const dummyReputationData: ReputationModel = {
-    monthlyBlogCount: 2,
-    monthlyKnolxCount: 2,
-    monthlyWebinarCount: 2,
-    monthlyTechHubCount: 2,
-    monthlyOsContributionCount: 3,
-    monthlyConferenceCount: 3,
-    monthlyBookCount: 1,
-    monthlyResearchPaperCount: 1,
-    allTimeBlogCount: 3,
-    allTimeKnolxCount: 2,
-    allTimeWebinarCount: 2,
-    allTimeTechHubCount: 3,
-    allTimeOsContributionCount: 3,
-    allTimeConferenceCount: 3,
-    allTimeBookCount: 3,
-    allTimeResearchPaperCount: 3,
+    blogs: { monthly: 2, allTime: 3 },
+    knolx: { monthly: 2, allTime: 3 },
+    webinars: { monthly: 2, allTime: 3 },
+    techhubTemplate: { monthly: 2, allTime: 3 },
+    osContribution: { monthly: 2, allTime: 3 },
+    conferences: { monthly: 2, allTime: 3 },
+    books: { monthly: 2, allTime: 3 },
+    researchPapers: { monthly: 2, allTime: 3 },
     reputation: [
       {
         knolderId: 1,
@@ -60,7 +53,6 @@ describe('MainPage', () => {
       }
     ]
   };
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [MainPage, TableComponent],
@@ -86,6 +78,8 @@ describe('MainPage', () => {
   }));
 
   it('should return the authorData as per api call', () => {
+    spyOn(loadingControllerService, 'dismiss');
+    spyOn(loadingControllerService, 'present');
     spyOn(mockEmployeeService, 'getData').and.returnValue(of(dummyReputationData));
     const mockReputationListAfterFetch = [
       {...dummyReputationData.reputation[0], topRanker : true},
@@ -95,13 +89,34 @@ describe('MainPage', () => {
     expect(component.employeeData).toEqual(mockReputationListAfterFetch);
   });
 
+  it('should dismiss the loader if error occurs in reputation api', () => {
+    spyOn(mockEmployeeService, 'getData').and.returnValue(throwError({status: 404}));
+    spyOn(loadingControllerService, 'dismiss');
+    spyOn(loadingControllerService, 'present');
+    component.ngOnInit();
+    expect(loadingControllerService.dismiss).toHaveBeenCalled();
+  });
+
+  it('should construct array of reputation keys excepts reputation', () => {
+    spyOn(mockEmployeeService, 'getData').and.returnValue(of(dummyReputationData));
+    spyOn(loadingControllerService, 'dismiss');
+    spyOn(loadingControllerService, 'present');
+    component.ngOnInit();
+    expect(component.reputationKeys[0]).toEqual('blogs');
+    expect(component.reputationKeys.indexOf('reputation')).toEqual(-1);
+  });
+
   it('should add topRanker equal to true if the index is less than 5', () => {
+    spyOn(loadingControllerService, 'dismiss');
+    spyOn(loadingControllerService, 'present');
     spyOn(mockEmployeeService, 'getData').and.returnValue(of(dummyReputationData));
     component.ngOnInit();
     expect(component.employeeData[1].topRanker).toEqual(true);
   });
 
   it('should not add topRanker parameter to knolder is index is 5 or greater', () => {
+    spyOn(loadingControllerService, 'dismiss');
+    spyOn(loadingControllerService, 'present');
     spyOn(mockEmployeeService, 'getData').and.returnValue(of({
       ...dummyReputationData,
       reputation: [
@@ -192,5 +207,22 @@ describe('MainPage', () => {
     spyOn(component, 'comparisonBasedOnAllTimeScore').and.returnValue(true);
     component.sortTable({newValue: 'asc', column: {prop: 'allTimeScore'}});
     expect(component.filteredEmpData[0].knolderId).toEqual(1);
+  });
+
+  it('should change the mouseHoveredOverKnoldusStats to true', () => {
+    component.mouseOverKnoldusStats({clientX: 100});
+    expect(component.mouseHoveredOverKnoldusStats).toEqual(true);
+  });
+
+  it('should not change the mouseHoveredOverKnoldusStats if the value is true already', () => {
+    component.mouseHoveredOverKnoldusStats = true;
+    component.mouseOverKnoldusStats({clientX: 100});
+    expect(component.mouseHoveredOverKnoldusStats).toEqual(true);
+  });
+
+  it('should change the mouseHoveredOverKnoldusStats value to false', () => {
+    component.mouseHoveredOverKnoldusStats = true;
+    component.mouseLeftKnoldusStats();
+    expect(component.mouseHoveredOverKnoldusStats).toEqual(false);
   });
 });

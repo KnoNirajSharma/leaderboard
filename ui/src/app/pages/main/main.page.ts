@@ -32,6 +32,8 @@ export class MainPage implements OnInit {
     { type: 'Conference', weight: '100', integrated: true, symbol: '&#10004;' },
     { type: 'Book', weight: '100', integrated: true, symbol: '&#10004;' },
   ];
+  mouseHoveredOverKnoldusStats = false;
+  reputationKeys: string[];
 
   constructor(private service: EmployeeActivityService, private loadingControllerService: LoadingControllerService) {
   }
@@ -45,9 +47,12 @@ export class MainPage implements OnInit {
     this.service.getData()
       .subscribe((data: ReputationModel) => {
         this.reputation = data;
+        this.reputationKeys = Object.keys(this.reputation).filter(x => x !== 'reputation');
         this.employeeData = this.reputation.reputation
           .map(knolder => this.reputation.reputation.indexOf(knolder) < 5 ? { ...knolder, topRanker: true } : knolder);
         this.filteredEmpData = [...this.employeeData];
+        this.loadingControllerService.dismiss();
+      }, error => {
         this.loadingControllerService.dismiss();
       });
     this.currentDate = new Date();
@@ -93,5 +98,20 @@ export class MainPage implements OnInit {
       this.filteredEmpData
         .sort((secEmp, firstEmp) => secEmp[event.column.prop] < firstEmp[event.column.prop] ? 1 : -1);
     }
+  }
+
+  mouseOverKnoldusStats(event) {
+    if (this.mouseHoveredOverKnoldusStats === false) {
+      this.mouseHoveredOverKnoldusStats = true;
+      const mainContainer = document.getElementById('main-container');
+      const toolTipElem = document.getElementById('knoldus-stats-tooltip');
+      toolTipElem.style.left = String(event.clientX - mainContainer.offsetLeft - 20) + 'px';
+    } else {
+      this.mouseHoveredOverKnoldusStats = true;
+    }
+  }
+
+  mouseLeftKnoldusStats() {
+    this.mouseHoveredOverKnoldusStats = false;
   }
 }
