@@ -313,45 +313,17 @@ class FetchKnolderContributionDetailsImpl(config: Config) extends FetchKnolderCo
       , fetchAllTimeBookDetails(knolderId), fetchAllTimeResearchPaperDetails(knolderId))
 
     SQL(
-      s"""
-      SELECT
-      knolder.full_name,
-     COUNT(DISTINCT blog.id) * ${config.getInt("scorePerBlog")} + COUNT(DISTINCT knolx.id) * ${config.getInt("scorePerKnolx")}
-      + COUNT(DISTINCT webinar.id) * ${config.getInt("scorePerWebinar")} + COUNT(DISTINCT techhub.id)
-       * ${config.getInt("scorePerTechHub")} + COUNT(DISTINCT oscontribution.id) * ${config.getInt("scorePerOsContribution")} + COUNT(DISTINCT conference.id) *
-        ${config.getInt("scorePerConference")}  + COUNT(DISTINCT researchpaper.id) * ${config.getInt("scorePerResearchPaper")}
-        + COUNT(DISTINCT book.id) * ${config.getInt("scorePerBook")}
-        AS score
+      """SELECT
+      knolder.full_name,all_time_reputation.score AS score
     FROM
     knolder
     LEFT JOIN
-      blog
-    ON knolder.wordpress_id = blog.wordpress_id
-    LEFT JOIN
-      techhub
-    ON knolder.email_id = techhub.email_id
-    LEFT JOIN
-      knolx
-    ON knolder.email_id = knolx.email_id
-    LEFT JOIN
-      webinar
-    ON knolder.email_id = webinar.email_id
-     LEFT JOIN
-      oscontribution
-    ON knolder.email_id = oscontribution.email_id
-    LEFT JOIN
-      conference
-    ON knolder.email_id = conference.email_id
-     LEFT JOIN
-      book
-    ON knolder.email_id = book.email_id
-     LEFT JOIN
-      researchpaper
-    ON knolder.email_id = researchpaper.email_id
+    all_time_reputation
+    on knolder.id = all_time_reputation.knolder_id
     WHERE
     knolder.id = ?
     GROUP BY
-      knolder.full_name""")
+      knolder.full_name ,all_time_reputation.score""")
       .bind(knolderId)
       .map(rs => KnolderDetails(rs.string("full_name"), rs.int("score"), contributions))
       .single().apply()
