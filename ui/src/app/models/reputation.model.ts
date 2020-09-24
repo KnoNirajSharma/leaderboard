@@ -1,5 +1,4 @@
 import { AuthorModel } from './author.model';
-import { KnoldusStatsModel } from './knoldusStats.model';
 
 export interface ReputationModel {
   blogs: KnoldusStatsModel;
@@ -11,4 +10,9 @@ export interface ReputationModel {
   books: KnoldusStatsModel;
   researchPapers: KnoldusStatsModel;
   reputation: AuthorModel[];
+}
+
+export interface KnoldusStatsModel {
+  monthly: number;
+  allTime: number;
 }

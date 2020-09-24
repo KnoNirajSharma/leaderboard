@@ -57,13 +57,17 @@ export class MainPage implements OnInit {
     this.employeeActivityService.getData()
       .subscribe((data: ReputationModel) => {
         this.reputation = { ...data };
-        this.setKnoldusStatsReputationKeys();
-        this.setKnoldersList();
-        this.setInitialFilteredKnolderList();
+        this.setAllKnolderData();
         this.loadingControllerService.dismiss();
       }, error => {
         this.loadingControllerService.dismiss();
       });
+  }
+
+  setAllKnolderData() {
+    this.setKnoldusStatsReputationKeys();
+    this.setKnoldersList();
+    this.setInitialFilteredKnolderList();
   }
 
   setKnoldusStatsReputationKeys() {

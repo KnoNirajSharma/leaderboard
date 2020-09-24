@@ -87,9 +87,7 @@ describe('MainPage', () => {
 
   it('should return the authorData as per api call', () => {
     spyOn(loadingControllerService, 'dismiss');
-    spyOn(component, 'setKnoldersList');
-    spyOn(component, 'setKnoldusStatsReputationKeys');
-    spyOn(component, 'setInitialFilteredKnolderList');
+    spyOn(component, 'setAllKnolderData');
     spyOn(mockEmployeeService, 'getData').and.returnValue(of(dummyReputationData));
     const mockReputationListAfterFetch = [
       {...dummyReputationData.reputation[0], topRanker : true},
@@ -102,11 +100,19 @@ describe('MainPage', () => {
   it('should dismiss the loader if error occurs in reputation api', () => {
     spyOn(mockEmployeeService, 'getData').and.returnValue(throwError({status: 404}));
     spyOn(loadingControllerService, 'dismiss');
+    spyOn(component, 'setAllKnolderData');
+    component.getReputationData();
+    expect(loadingControllerService.dismiss).toHaveBeenCalled();
+  });
+
+  it('should call setKnolderList, setKnoldusReputationKeys and setInitialFilteredList', () => {
     spyOn(component, 'setKnoldersList');
     spyOn(component, 'setKnoldusStatsReputationKeys');
     spyOn(component, 'setInitialFilteredKnolderList');
-    component.getReputationData();
-    expect(loadingControllerService.dismiss).toHaveBeenCalled();
+    component.setAllKnolderData();
+    expect(component.setKnoldersList).toHaveBeenCalled();
+    expect(component.setKnoldusStatsReputationKeys).toHaveBeenCalled();
+    expect(component.setInitialFilteredKnolderList).toHaveBeenCalled();
   });
 
   it('should construct array of reputation keys excepts reputation', () => {

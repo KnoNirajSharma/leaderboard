@@ -75,7 +75,7 @@
 
         &:last-child{
           &:after{
-            width: 0;
+            display: none;
           }
         }
 
@@ -89,6 +89,9 @@
           border-radius: 50%;
           height: 40px;
           width: 40px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
 
         .contribution-color {
