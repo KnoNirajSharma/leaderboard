@@ -37,12 +37,9 @@ final case class KnolderDetails(knolderName: String, score: Int, scoreBreakDown:
 final case class TwelveMonthsScore(month: String, year: Int, blogScore: Int, knolxScore: Int, webinarScore: Int, techHubScore: Int,
                                    osContributionScore: Int, conferenceScore: Int, bookScore: Int, researchPaperScore: Int)
 
-final case class ReputationWithCount(monthlyBlogCount: Int, monthlyKnolxCount: Int, monthlyWebinarCount: Int,
-                                     monthlyTechHubCount: Int, monthlyOsContributionCount: Int, monthlyConferenceCount: Int, monthlyBookCount: Int,
-                                     monthlyResearchPaperCount: Int, allTimeBlogCount: Int, allTimeKnolxCount: Int,
-                                     allTimeWebinarCount: Int, allTimeTechHubCount: Int, allTimeOsContributionCount: Int,
-                                     allTimeConferenceCount: Int, allTimeBookCount: Int,
-                                     allTimeResearchPaperCount: Int, reputation: List[Reputation])
+final case class ReputationWithCount(blogs: ContributionCount, knolx: ContributionCount, webinars: ContributionCount, techhubTemplates: ContributionCount,
+                                     osContributions: ContributionCount, conferences: ContributionCount,
+                                     books: ContributionCount, researchPapers: ContributionCount, reputation: List[Reputation])
 
 final case class Webinar(id: String, deliveredOn: Option[Timestamp], name: String, title: String, emailId: String)
 

@@ -31,14 +31,17 @@ class ReputationOnAPIImplSpec extends AnyWordSpecLike with MockitoSugar with Mat
   val reputations = List(Reputation(1, "Mukesh Gupta", 10, 1, "15-20-20", 10, 1),
     Reputation(2, "Abhishek Baranwal", 5, 2, "10-10-15", 5, 2),
     Reputation(3, "Komal Rajpal", 5, 2, "5-10-5", 5, 2))
-  val reputationWithCount = Option(ReputationWithCount(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, reputations))
+  val contributionCount = ContributionCount(1, 1)
+  val reputationWithCount = Option(ReputationWithCount(contributionCount, contributionCount, contributionCount,
+    contributionCount, contributionCount, contributionCount, contributionCount, contributionCount, reputations))
   val blogTitles = List(ContributionDetails("windows handling using selenium webdriver", "2020-04-13 13:10:40"),
     ContributionDetails("Java 9: Enhance your Jav…ptional API enhancement", "2020-04-13 13:10:40"))
   val blogDetails: Option[Contribution] = Option(Contribution("Blog", 2, 10, blogTitles))
   val contributions = List(blogDetails)
   val knolderDetails: Option[KnolderDetails] = Option(KnolderDetails("Mukesh Gupta", 10, contributions))
   val twelveMonthDetails = Option(List(TwelveMonthsScore("JUNE", 2020, 30, 20, 40, 10, 15, 100, 100, 50)))
-  when(mockFetchReputation.allTimeAndMonthlyContributionCountWithReputation).thenReturn(Option(ReputationWithCount(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, reputations)))
+  when(mockFetchReputation.allTimeAndMonthlyContributionCountWithReputation).thenReturn(Option(ReputationWithCount(contributionCount, contributionCount, contributionCount,
+    contributionCount, contributionCount, contributionCount, contributionCount, contributionCount, reputations)))
   when(mockFetchMonthlyLeaders.fetchMonthlyTopFiveLeaders).thenReturn(listOfMonthlyLeaders)
 
 
