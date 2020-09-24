@@ -7,214 +7,202 @@
   font-family: 'Poppins', sans-serif;
   margin: auto;
 
-    .knoldus-stats-container {
-      position: relative;
+  .knoldus-stats-container {
+    position: relative;
 
-      &:hover .knoldus-stats-tooltip {
-        visibility: visible;
-      }
+    &:hover .knoldus-stats-tooltip {
+      visibility: visible;
+    }
 
-      .knoldus-stats-tooltip {
-        visibility: hidden;
-        background: #424242;
-        position: absolute;
-        z-index: 1;
-        top: 100%;
-        margin-top: 10px;
-        font-size: 0.75em;
-        width: 150px;
-        border-radius: 5px;
-        opacity: 70%;
+    .knoldus-stats-tooltip {
+      visibility: hidden;
+      background-color: white;
+      position: absolute;
+      border: 1px solid blue;
+      z-index: 1;
+      top: 100%;
+      left: 70%;
+      margin-top: 10px;
+      margin-left: -60px;
+      font-size: 0.75em;
+      width: 150px;
+      border-radius: 5px;
+      color: black;
 
-        &:before {
-          position: absolute;
-          width: 10px;
+      .knoldus-stats-tooltip-legend {
+        font-size: 1.1em;
+
+        .bg-color {
+          background-color: #602CA5;
+        }
+
+        div {
+          margin-right: 10px;
+          display: inline-block;
           height: 10px;
-          border-top: 1px solid;
-          border-right: 0 solid;
-          border-bottom: 0 solid;
-          border-left: 1px solid;
-          bottom: 100%;
-          left: 50%;
-          content: '';
-          margin-left: -50px;
-          margin-bottom: -5px;
-          transform: rotate(45deg);
-          background: #424242;
-        }
-
-        .knoldus-stats-tooltip-legend {
-          font-size: 1.1em;
-
-          .bg-color {
-            background-color: #602CA5;
-          }
-
-          div {
-            margin-right: 10px;
-            display: inline-block;
-            height: 10px;
-            width: 10px;
-            border: 1px solid white;
-          }
+          width: 10px;
+          border: 1px solid white;
         }
       }
+    }
 
-      .scrolling-wrapper {
-        overflow-x: auto;
-        overflow-y: hidden;
-        white-space: nowrap;
-        display: flex;
+    .scrolling-wrapper {
+      overflow-x: auto;
+      overflow-y: hidden;
+      white-space: nowrap;
+      display: flex;
 
-        &::-webkit-scrollbar {
-          display: none;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      .knoldus-stats-card {
+        position: relative;
+        font-size: 0.75em;
+        flex-grow: 1;
+        min-width: 130px;
+
+        &:after {
+          content: "";
+          position: absolute;
+          right: 0;
+          z-index: 100;
+          top: 25%;
+          width: 1px;
+          height: 50%;
+          background: lightgrey;
         }
 
-        .knoldus-stats-card {
-          position: relative;
-          font-size: 0.75em;
-          flex-grow: 1;
-          min-width: 130px;
-
-          &:after {
-            content : "";
-            position: absolute;
-            right    : 0;
-            z-index: 100;
-            top  : 25%;
-            width  : 1px;
-            height   : 50%;
-            background: lightgrey;
-          }
-
-          &:last-child:after {
+        &:last-child{
+          &:after{
             width: 0;
           }
+        }
 
-          .contribution-title {
-            color: black;
-            font-size: 1em;
-            font-weight: bolder;
-          }
+        .contribution-title {
+          color: black;
+          font-size: 1em;
+          font-weight: bolder;
+        }
 
-          .contribution-count {
-            border-radius: 50%;
-            height: 40px;
-            width: 40px;
-          }
+        .contribution-count {
+          border-radius: 50%;
+          height: 40px;
+          width: 40px;
+        }
 
-          .contribution-color {
-            color: #1F253A;
-          }
+        .contribution-color {
+          color: #1F253A;
+        }
 
-          .contribution-left {
-            color: #0F7291;
-            background-color: #ECFBFF;
-          }
+        .contribution-left {
+          color: #0F7291;
+          background-color: #ECFBFF;
+        }
 
-          .contribution-right {
-            color: #602CA5;
-            background-color: #F4ECFF;
-          }
+        .contribution-right {
+          color: #602CA5;
+          background-color: #F4ECFF;
+        }
 
-          div:nth-child(2) {
-            max-width: 130px;
-          }
+        .contribution-count-block {
+          max-width: 130px;
         }
       }
     }
+  }
 
-    .leaderboard-table {
+  .leaderboard-table {
 
-      .current-month-signifier {
-        font-size: 0.9rem;
-      }
+    .current-month-signifier {
+      font-size: 0.9rem;
+    }
 
-      .scoring-info {
+    .scoring-info {
 
-        .scoring-info-btn {
-          position: relative;
-          font-size: .9rem;
-          cursor: default;
+      .scoring-info-btn {
+        position: relative;
+        font-size: .9rem;
+        cursor: default;
 
-          .scoring-info-table {
-            font-size: 0.9rem;
-            position: absolute;
-            visibility: hidden;
-            top: 100%;
-            margin-top: 20px;
-            right: 0;
-            background-color: white;
-            opacity: 0;
-            color: #071348;
-            padding: 1.5rem;
-            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-            width: auto;
-
-            table {
-              border-collapse: collapse;
-            }
-
-            table, td, th {
-              border: 1px solid #2C42A5;
-              padding: 2px;
-            }
-          }
-
-          .scoring-info-table:before {
-            position: absolute;
-            content: "";
-            top: -0.7rem;
-            right: 20px;
-            border-style: solid;
-            border-width: 0 10px 10px 10px;
-            -moz-column-width: 50px;
-            border-color: transparent transparent #bfbfbf transparent;
-          }
-        }
-
-        .scoring-info-btn:hover .scoring-info-table {
-          visibility: visible;
-          z-index: 10;
-          opacity: 1;
-          transform: translate(0, -10px);
-          transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
-          -moz-margin-start: -50px;
-        }
-      }
-
-      .hall-of-fame {
-        .hall-of-fame-btn {
-          font-size: .9rem;
-        }
-      }
-
-      .search-bar-container {
-
-        label {
+        .scoring-info-table {
+          font-size: 0.9rem;
+          position: absolute;
+          visibility: hidden;
+          top: 100%;
+          margin-top: 20px;
+          right: 0;
           background-color: white;
+          opacity: 0;
+          color: #071348;
+          padding: 1.5rem;
+          box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+          width: auto;
 
-          input {
-            position: relative;
-            background: #FFFFFF 0 0 no-repeat padding-box;
-            border: 1px solid #707070;
-            border-radius: 5px;
-            text-align: left;
-            font-size: 0.9rem !important;
-            letter-spacing: 0;
-            color: #6D6D6D;
-            opacity: 0.45;
+          table {
+            border-collapse: collapse;
           }
 
-          .search-img {
-            position: absolute;
-            top: 40%;
-            right: 10px;
-            width: 10px;
+          table, td, th {
+            border: 1px solid #2C42A5;
+            padding: 2px;
           }
+        }
+
+        .scoring-info-table:before {
+          position: absolute;
+          content: "";
+          top: -0.7rem;
+          right: 20px;
+          border-style: solid;
+          border-width: 0 10px 10px 10px;
+          -moz-column-width: 50px;
+          border-color: transparent transparent #bfbfbf transparent;
+        }
+      }
+
+      .scoring-info-btn:hover .scoring-info-table {
+        visibility: visible;
+        z-index: 10;
+        opacity: 1;
+        transform: translate(0, -10px);
+        transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
+        -moz-margin-start: -50px;
+      }
+    }
+
+    .hall-of-fame {
+      .hall-of-fame-btn {
+        font-size: .9rem;
+      }
+    }
+
+    .search-bar-container {
+
+      label {
+        background-color: white;
+
+        input {
+          position: relative;
+          background: #FFFFFF 0 0 no-repeat padding-box;
+          border: 1px solid #707070;
+          border-radius: 5px;
+          text-align: left;
+          font-size: 0.9rem !important;
+          letter-spacing: 0;
+          color: #6D6D6D;
+          opacity: 0.45;
+        }
+
+        .search-img {
+          position: absolute;
+          top: 40%;
+          right: 10px;
+          width: 10px;
         }
       }
     }
+  }
 }
 
 ion-content {
@@ -228,14 +216,16 @@ ion-content {
   }
 }
 
-@media only screen and (max-width: 992px) {
+@media only screen and (max-width: 991px) {
   .main-container {
-      .knoldus-stats-container {
-        .scrolling-wrapper {
-          .knoldus-stats-card:after {
+    .knoldus-stats-container {
+      .scrolling-wrapper {
+        .knoldus-stats-card {
+          &:after {
             width: 0;
           }
         }
       }
     }
+  }
 }

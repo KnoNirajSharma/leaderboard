@@ -1,13 +1,14 @@
 import { AuthorModel } from './author.model';
+import { KnoldusStatsModel } from './knoldusStats.model';
 
 export interface ReputationModel {
-  blogs: { monthly: number; allTime: number; };
-  knolx: { monthly: number; allTime: number; };
-  webinars: { monthly: number; allTime: number; };
-  techhubTemplates: { monthly: number; allTime: number; };
-  osContributions: { monthly: number; allTime: number; };
-  conferences: { monthly: number; allTime: number; };
-  books: { monthly: number; allTime: number; };
-  researchPapers: { monthly: number; allTime: number; };
+  blogs: KnoldusStatsModel;
+  knolx: KnoldusStatsModel;
+  webinars: KnoldusStatsModel;
+  techhubTemplates: KnoldusStatsModel;
+  osContributions: KnoldusStatsModel;
+  conferences: KnoldusStatsModel;
+  books: KnoldusStatsModel;
+  researchPapers: KnoldusStatsModel;
   reputation: AuthorModel[];
 }

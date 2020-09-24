@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'splitCamelCase'
 })
 export class SplitCamelCasePipe implements PipeTransform {
-  transform(stringInCamelCase: string): string {
-    return stringInCamelCase.split(/(?=[A-Z])/).join(' ');
+  transform(inputString: string): string {
+    return inputString.split(/(?=[A-Z])/).join(' ');
   }
 }
