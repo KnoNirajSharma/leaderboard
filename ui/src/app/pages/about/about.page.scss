@@ -9,3 +9,30 @@ h1 {
   color: #071348;
   border-bottom: 3px solid #2B35A8;
 }
+
+p {
+  font-size: 1.2rem;
+  text-align: justify;
+  color: #2a2a2a;
+}
+
+blockquote {
+  background: #f9f9f9;
+  border-left: 10px solid #0f2791;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+
+  &:before {
+    color: #0f2791;
+    content: open-quote;
+    font-size: 4em;
+    line-height: 0.2em;
+    margin-right: 0.25em;
+    vertical-align: -0.4em;
+  }
+
+  p {
+    display: inline;
+  }
+}
+
