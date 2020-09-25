@@ -32,6 +32,11 @@ const routes: Routes = [
     loadChildren: './pages/about/about.module#AboutPageModule',
     canActivate: [AuthGuard]
   },
+  {
+    path: 'report-issue',
+    loadChildren: './pages/report-issue/report-issue.module#ReportIssuePageModule',
+    canActivate: [AuthGuard]
+  },
 ];
 
 @NgModule({

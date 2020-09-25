@@ -18,6 +18,7 @@ export class HeadersComponent implements OnInit {
       { title: 'Hall of Fame', link: '/hall-of-fame' },
       { title: 'Why Leaderboard?', link: '/about' }
     ];
+    reportIssuePageLink = '/report-issue';
 
     constructor(private loginService: LoginService, private location: Location) {
     }
