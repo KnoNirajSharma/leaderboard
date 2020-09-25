@@ -1,24 +1,24 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { HeadersComponent } from './headers.component';
-import { Component } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../../../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import {LoginService} from '../../services/login.service';
+import { LoginService } from '../../services/login.service';
+import { Location } from '@angular/common';
 
 describe('HeadersComponent', () => {
   let component: HeadersComponent;
   let loginService: LoginService;
-  let fixture: ComponentFixture<ParentComponent>;
+  let fixture: ComponentFixture<HeadersComponent>;
+  let location: Location;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        HeadersComponent,
-        ParentComponent
+        HeadersComponent
       ],
       imports: [
         IonicModule.forRoot(),
@@ -29,14 +29,21 @@ describe('HeadersComponent', () => {
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ParentComponent);
-    component = fixture.debugElement.children[0].componentInstance;
+    fixture = TestBed.createComponent(HeadersComponent);
+    component = fixture.componentInstance;
     loginService = TestBed.get(LoginService);
-    fixture.detectChanges();
+    location = TestBed.get(Location);
   }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should set dropDownMenuVisibility value to false', () => {
+    component.ngOnInit();
+    expect(component.dropdownMenuVisibility).toEqual(false);
+  });
+
+  it('should call back function', () => {
+    spyOn(location, 'back');
+    component.goBack();
+    expect(location.back).toHaveBeenCalled();
   });
 
   it('should change the visibility status for dropdown menu button', () => {
@@ -57,10 +64,3 @@ describe('HeadersComponent', () => {
     expect(loginService.logout).toHaveBeenCalled();
   });
 });
-
-@Component({
-  selector: 'parent',
-  template: '<app-headers></app-headers>'
-})
-class ParentComponent {
-}

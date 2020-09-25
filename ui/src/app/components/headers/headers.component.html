@@ -1,63 +1,33 @@
 <ion-header>
-        <div class="header align-items-center">
-            <div [routerLink]="backBtnLink" class="d-flex align-items-center mr-5" [ngClass]="{pointer: backBtn}">
-                <div class="ml-0 ml-xl-1 back-btn-container d-inline-block">
-                    <a *ngIf="backBtn" class="float-left"><i class="arrow-left"></i></a>
-                </div>
-                <div>
-                    <img alt="leaderboard logo" class="logo ml-xl-1 ml-0 mr-2" src="./assets/icon/cup.png">
-                </div>
-                <div class="title" [innerHTML]="title">
-                </div>
+    <div class="header d-flex align-items-center">
+        <div (click)="goBack()" class="d-flex align-items-center mr-5" [ngClass]="{'pointer': backBtn, 'non-click': !backBtn}">
+            <div class="ml-0 ml-xl-1 back-btn-container">
+                <a *ngIf="backBtn" class="float-lef"><i class="arrow-left"></i></a>
             </div>
-                    <div class="nav-bar d-flex h-100 ml-2">
-                        <div class="text-white d-flex align-items-center py-0 mr-3 h-100">
-                            <span class="d-none d-lg-inline-block">Hall of Fame</span>
-                        </div>
-                        <div class="text-white d-flex align-items-center py-0 mr-3">
-                            <span class="d-none d-lg-inline-block">Why Leaderboard?</span>
-                        </div>
-                    </div>
-            <div class="ml-auto mr-xl-5 dropdown-menu-btn d-flex position-relative mr-1" (click)="onDropdown()">
-                <img alt="knoldus logo" class="float-left knoldus-logo d-none d-sm-block" src="./assets/icon/knoldus-logo-transparent.png" />
-                <img alt="knoldus logo" class="float-right knoldus-logo d-block d-sm-none" src="./assets/icon/knoldus-just-logo.png" />
-                <div class="arrow-down my-auto ml-1"></div>
-                <div class="dropdown-menu-container position-absolute bg-white"
-                     *ngIf="dropdownMenuVisibility">
-                    <div class="dropdown-menu-item p-2 border-bottom border-light" (click)="openForm()">Add Contribution</div>
-                    <div class="dropdown-menu-item p-2" (click)="onLogout()">Logout</div>
-                </div>
+            <div>
+                <img alt="leaderboard logo" class="logo ml-xl-1 ml-0 mr-2" src="./assets/icon/cup.png">
+            </div>
+            <div class="title" [innerHTML]="title">
             </div>
         </div>
-<!--    <div class="header d-flex align-items-center">-->
-<!--        <div class="back-button d-flex align-items-center mr-5">-->
-<!--            <div class="back-arrow" *ngIf="backBtn">-->
-<!--                <img class="h-100 d-non" src="./assets/icon/left-chevron.svg" alt="left arrow">-->
-<!--            </div>-->
-<!--            <img class="h-100 leaderboard-logo mx-1" src="./assets/icon/trophy-cup-silhouette.svg"-->
-<!--                 alt="leaderboard logo">-->
-<!--            <div class="title" [innerHTML]="title"></div>-->
-<!--        </div>-->
-<!--        <div class="nav-bar d-flex h-100">-->
-<!--            <div class="text-white d-flex align-items-center py-0 mr-3 h-100">-->
-<!--                <span class="d-none d-lg-inline-block">Hall of Fame</span>-->
-<!--            </div>-->
-<!--            <div class="text-white d-flex align-items-center py-0 mr-3">-->
-<!--                <span class="d-none d-lg-inline-block">Why Leaderboard?</span>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="mr-1 mr-xl-5 dropdown-menu-btn d-flex position-relative ml-auto" (click)="onDropdown()">-->
-<!--            <img alt="knoldus logo" class="float-left knoldus-logo d-none d-sm-block"-->
-<!--                 src="./assets/icon/knoldus-logo-transparent.png"/>-->
-<!--            <img alt="knoldus logo" class="float-right knoldus-logo d-block d-sm-none"-->
-<!--                 src="./assets/icon/knoldus-just-logo.png"/>-->
-<!--            <div class="arrow-down my-auto ml-1"></div>-->
-<!--            <div class="dropdown-menu-container position-absolute bg-white"-->
-<!--                 *ngIf="dropdownMenuVisibility">-->
-<!--                <div class="dropdown-menu-item p-2 border-bottom border-light" (click)="openForm()">Add Contribution-->
-<!--                </div>-->
-<!--                <div class="dropdown-menu-item p-2" (click)="onLogout()">Logout</div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
+        <div class="nav-bar d-flex h-100 ml-2">
+            <div *ngFor="let item of navItems" [routerLink]="item.link"
+                 class="nav-item text-white d-flex align-items-center py-0 mr-3 h-100 pointer">
+                <span class="d-none d-lg-inline-block font-weight-bolder">{{item.title}}</span>
+            </div>
+        </div>
+        <div class="ml-auto mr-xl-5 dropdown-menu-btn d-flex position-relative mr-1" (click)="onDropdown()">
+            <img alt="knoldus logo" class="knoldus-logo d-none d-sm-block"
+                 src="./assets/icon/knoldus-logo-transparent.png"/>
+            <img alt="knoldus logo" class="knoldus-logo d-block d-sm-none"
+                 src="./assets/icon/knoldus-just-logo.png"/>
+            <div class="arrow-down my-auto ml-1"></div>
+            <div class="dropdown-menu-container position-absolute bg-white"
+                 *ngIf="dropdownMenuVisibility">
+                <div class="dropdown-menu-item p-2 border-bottom border-light" (click)="openForm()">Add Contribution
+                </div>
+                <div class="dropdown-menu-item p-2" (click)="onLogout()">Logout</div>
+            </div>
+        </div>
+    </div>
 </ion-header>
