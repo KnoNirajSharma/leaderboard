@@ -1,9 +1,11 @@
 ion-content {
   height: 100vh;
   --background: #f5f5fa;
+  font-family: 'Poppins', sans-serif;
 }
 
 h1 {
-  font-weight: 700;
-  font-size: 1.7rem;
+  font-size: 2rem;
+  color: #071348;
+  border-bottom: 3px solid #2B35A8;
 }
