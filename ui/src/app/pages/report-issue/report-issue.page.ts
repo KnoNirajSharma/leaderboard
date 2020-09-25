@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-report-issue',
   templateUrl: './report-issue.page.html',
   styleUrls: ['./report-issue.page.scss'],
 })
-export class ReportIssuePage implements OnInit {
+export class ReportIssuePage {
+  kekaUrl = 'https://knoldus.keka.com';
 
-  constructor() { }
-
-  ngOnInit() {
+  openKeka() {
+    window.open(this.kekaUrl, '_blank');
   }
-
 }
