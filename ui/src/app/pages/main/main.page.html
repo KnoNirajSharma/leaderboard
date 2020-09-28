@@ -93,13 +93,12 @@
             <ion-card class="leaderboard-table w-100 ion-no-padding ion-no-margin">
                 <div class="container-fluid">
                     <div class="row d-flex align-items-center">
-                        <div class="col-7 col-sm-6 col-md-3 col-lg-3 py-1 current-month-signifier">
+                        <div class="col-7 col-md-4 col-lg-3 py-1 current-month-signifier">
                             Summary of {{ currentDate | date: 'MMMM yyyy'}}
                         </div>
-                        <div class="col-5 col-sm-2 col-md-2 col-lg-1 py-1 scoring-info">
-                            <div class=" btn btn-outline-primary scoring-info-btn float-right float-sm-left py-1 popover-wrapper ">
-                                 Scoring
-                                <div class="scoring-info-table">
+                        <div class="col-5 col-md-2 col-lg-2 py-1 scoring-info">
+                            <div class="btn btn-outline-primary scoring-info-btn float-right float-md-left py-1 popover-wrapper">
+                                 Scoring<div class="scoring-info-table">
                                     <div class="popover-content">
                                         <table class="popover-message">
                                             <tr>
@@ -117,12 +116,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-sm-4 col-md-3 col-lg-2 py-1 hall-of-fame">
-                            <div [routerLink]="['/hall-of-fame']" class="w-100 btn btn-outline-primary p-1 hall-of-fame-btn">
-                                 Hall of Fame
-                            </div>
-                        </div>
-                        <div class="search-bar-container col-12 col-md-4 py-1 col-lg-6">
+                        <div class="search-bar-container col-12 col-md-6 py-1 col-lg-7">
                             <label class="p-0 m-0 col-12 col-md-8 float-right">
                                 <input (keyup)="filterEmp()" [formControl]="searchBar"
                                        class="form-control w-100" placeholder="Search" type="text">
