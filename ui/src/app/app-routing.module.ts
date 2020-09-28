@@ -27,6 +27,11 @@ const routes: Routes = [
     loadChildren: './pages/hall-of-fame/hall-of-fame.module#HallOfFamePageModule',
     canActivate: [AuthGuard]
   },
+  {
+    path: 'about',
+    loadChildren: './pages/about/about.module#AboutPageModule',
+    canActivate: [AuthGuard]
+  },
 ];
 
 @NgModule({
