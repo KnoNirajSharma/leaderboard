@@ -27,10 +27,6 @@ export class HeadersComponent implements OnInit {
       this.dropdownMenuVisibility = false;
     }
 
-    goBack() {
-      this.location.back();
-    }
-
     onDropdown() {
       this.dropdownMenuVisibility = !this.dropdownMenuVisibility;
     }
