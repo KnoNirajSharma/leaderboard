@@ -18,6 +18,7 @@ export class HeadersComponent implements OnInit {
       { title: 'Vision', link: '/about' }
     ];
     mainPageLink = '/';
+    reportIssuePageLink = '/report-issue';
 
     constructor(private loginService: LoginService) {
     }

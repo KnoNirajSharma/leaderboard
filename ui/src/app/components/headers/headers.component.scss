@@ -40,6 +40,18 @@
     }
   }
 
+  .report-issue-btn {
+    border: 1px solid white;
+    border-radius: 15px;
+    color: white;
+    font-size: 0.8rem;
+
+    &:hover {
+      background-color: white;
+      color: black;
+    }
+  }
+
   .dropdown-menu-btn {
     cursor: pointer;
 
@@ -77,10 +89,6 @@
     }
   }
 
-}
-
-.cursor-pointer {
-  cursor: pointer;
 }
 
 .pointer-none {
