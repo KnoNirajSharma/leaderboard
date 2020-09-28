@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import { NavBarItemModel } from '../../models/nav-bar-item.model';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-headers',
@@ -15,16 +14,13 @@ export class HeadersComponent implements OnInit {
     title = 'LEADERBOARD';
     formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSfjOGd2TI-zYb2b3_lpLnn-Kk_K57SAKQtjPsb7to9XzY6-tw/viewform';
     navItems: NavBarItemModel[] = [{ title: 'Hall of Fame', link: '/hall-of-fame' }];
+    mainPageLink = '/';
 
-    constructor(private loginService: LoginService, private location: Location) {
+    constructor(private loginService: LoginService) {
     }
 
     ngOnInit() {
       this.dropdownMenuVisibility = false;
-    }
-
-    goBack() {
-      this.location.back();
     }
 
     onDropdown() {

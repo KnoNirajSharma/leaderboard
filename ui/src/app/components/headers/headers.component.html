@@ -1,6 +1,6 @@
 <ion-header>
     <div class="header d-flex align-items-center">
-        <div (click)="goBack()" class="d-flex align-items-center mr-5 cursor-pointer" [ngClass]="{'pointer-none': !backBtn}">
+        <div  [routerLink]="mainPageLink" class="d-flex align-items-center mr-5 cursor-pointer" [ngClass]="{'pointer-none': !backBtn}">
             <div class="ml-0 ml-xl-1 back-btn-container">
                 <a *ngIf="backBtn"><i class="arrow-left"></i></a>
             </div>
