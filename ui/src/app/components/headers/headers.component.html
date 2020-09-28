@@ -1,8 +1,8 @@
 <ion-header>
-    <div class="header">
-        <div [routerLink]="backBtnLink" class="d-flex align-items-center" [ngClass]="{pointer: backBtn}">
-            <div class="ml-0 ml-xl-1 back-btn-container d-inline-block">
-                <a *ngIf="backBtn" class="float-left"><i class="arrow-left"></i></a>
+    <div class="header d-flex align-items-center">
+        <div  [routerLink]="mainPageLink" class="d-flex align-items-center mr-5 cursor-pointer" [ngClass]="{'pointer-none': !backBtn}">
+            <div class="ml-0 ml-xl-1 back-btn-container">
+                <a *ngIf="backBtn"><i class="arrow-left"></i></a>
             </div>
             <div>
                 <img alt="leaderboard logo" class="logo ml-xl-1 ml-0 mr-2" src="./assets/icon/cup.png">
@@ -10,13 +10,22 @@
             <div class="title" [innerHTML]="title">
             </div>
         </div>
+        <div class="nav-bar d-flex h-100 ml-2">
+            <div *ngFor="let item of navItems" [routerLink]="item.link"
+                 class="nav-item text-white d-flex align-items-center py-0 mr-3 h-100 cursor-pointer">
+                <span class="d-none d-lg-inline-block font-weight-bolder">{{item.title}}</span>
+            </div>
+        </div>
         <div class="ml-auto mr-xl-5 dropdown-menu-btn d-flex position-relative mr-1" (click)="onDropdown()">
-            <img alt="knoldus logo" class="float-left knoldus-logo d-none d-sm-block" src="./assets/icon/knoldus-logo-transparent.png" />
-            <img alt="knoldus logo" class="float-right knoldus-logo d-block d-sm-none" src="./assets/icon/knoldus-just-logo.png" />
+            <img alt="knoldus logo" class="knoldus-logo d-none d-sm-block"
+                 src="./assets/icon/knoldus-logo-transparent.png"/>
+            <img alt="knoldus logo" class="knoldus-logo d-block d-sm-none"
+                 src="./assets/icon/knoldus-just-logo.png"/>
             <div class="arrow-down my-auto ml-1"></div>
             <div class="dropdown-menu-container position-absolute bg-white"
                  *ngIf="dropdownMenuVisibility">
-                <div class="dropdown-menu-item p-2 border-bottom border-light" (click)="openForm()">Add Contribution</div>
+                <div class="dropdown-menu-item p-2 border-bottom border-light" (click)="openForm()">Add Contribution
+                </div>
                 <div class="dropdown-menu-item p-2" (click)="onLogout()">Logout</div>
             </div>
         </div>
