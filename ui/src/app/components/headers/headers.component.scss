@@ -33,6 +33,7 @@
     .nav-item {
       border-bottom: 3px solid transparent;
       border-top: 3px solid transparent;
+
       &:hover {
         border-bottom-color: white;
       }
@@ -89,10 +90,11 @@
   }
 
 }
-.pointer {
+
+.cursor-pointer {
   cursor: pointer;
 }
 
-.non-click {
- pointer-events: none;
+.pointer-none {
+  pointer-events: none;
 }
