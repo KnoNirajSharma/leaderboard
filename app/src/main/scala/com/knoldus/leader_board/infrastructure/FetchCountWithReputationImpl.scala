@@ -2,7 +2,7 @@ package com.knoldus.leader_board.infrastructure
 
 import java.sql.{Connection, Timestamp}
 
-import com.knoldus.leader_board.{DatabaseConnection, IndianTime, ReputationWithCount}
+import com.knoldus.leader_board.{ContributionCount, DatabaseConnection, IndianTime, ReputationWithCount}
 import com.typesafe.config.Config
 import com.typesafe.scalalogging.LazyLogging
 import scalikejdbc.{DB, DBSession, SQL}
@@ -54,12 +54,12 @@ class FetchCountWithReputationImpl(config: Config, fetchReputation: FetchReputat
       .bind(currentMonth, nextMonth, currentMonth, nextMonth, currentMonth, nextMonth,
         currentMonth, nextMonth, currentMonth, nextMonth, currentMonth, nextMonth, currentMonth, nextMonth
         , currentMonth, nextMonth)
-      .map(rs => ReputationWithCount(rs.int("monthly_blog_count"), rs.int("monthly_knolx_count"),
-        rs.int("monthly_webinar_count"), rs.int("monthly_techhub_count"), rs.int("monthly_oscontribution_count"),
-        rs.int("monthly_conference_count"), rs.int("monthly_book_count"), rs.int("monthly_researchpaper_count"), rs.int("total_blog_count"),
-        rs.int("total_knolx_count"), rs.int("total_webinar_count"), rs.int("total_techhub_count"),
-        rs.int("total_oscontribution_count"), rs.int("total_conference_count"), rs.int("total_book_count"), rs.int("total_researchpaper_count"),
-        fetchReputation.fetchReputation))
-      .single().apply()
+      .map(rs => ReputationWithCount(ContributionCount(rs.int("monthly_blog_count"), rs.int("total_blog_count")),
+        ContributionCount(rs.int("monthly_knolx_count"), rs.int("total_knolx_count")),
+        ContributionCount(rs.int("monthly_webinar_count"), rs.int("total_webinar_count")), ContributionCount(rs.int("monthly_techhub_count"),
+          rs.int("total_techhub_count")), ContributionCount(rs.int("monthly_oscontribution_count"), rs.int("total_oscontribution_count")),
+      ContributionCount(rs.int("monthly_conference_count"), rs.int("total_conference_count")),ContributionCount(rs.int("monthly_book_count"),
+          rs.int("total_book_count")),ContributionCount(rs.int("monthly_researchpaper_count"), rs.int("total_researchpaper_count")),
+        fetchReputation.fetchReputation)).single().apply()
   }
 }

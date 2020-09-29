@@ -1,23 +1,42 @@
 <ion-header>
-    <div class="header">
-        <div [routerLink]="backBtnLink" class="d-flex align-items-center" [ngClass]="{pointer: backBtn}">
-            <div class="ml-0 ml-xl-1 back-btn-container d-inline-block">
-                <a *ngIf="backBtn" class="float-left"><i class="arrow-left"></i></a>
+    <div class="header d-flex align-items-center">
+        <div [ngClass]="{'pointer-none': !backBtn}" [routerLink]="mainPageLink"
+             class="d-flex align-items-center mr-5 cursor-pointer">
+            <div class="ml-0 ml-xl-1 back-btn-container">
+                <a *ngIf="backBtn"><i class="arrow-left"></i></a>
             </div>
             <div>
                 <img alt="leaderboard logo" class="logo ml-xl-1 ml-0 mr-2" src="./assets/icon/cup.png">
             </div>
-            <div class="title" [innerHTML]="title">
+            <div [innerHTML]="title" class="title">
             </div>
         </div>
-        <div class="ml-auto mr-xl-5 dropdown-menu-btn d-flex position-relative mr-1" (click)="onDropdown()">
-            <img alt="knoldus logo" class="float-left knoldus-logo d-none d-sm-block" src="./assets/icon/knoldus-logo-transparent.png" />
-            <img alt="knoldus logo" class="float-right knoldus-logo d-block d-sm-none" src="./assets/icon/knoldus-just-logo.png" />
+        <div class="nav-bar d-flex h-100 ml-2">
+            <div *ngFor="let item of navItems" [routerLink]="item.link"
+                 class="nav-item text-white d-flex align-items-center py-0 mr-3 h-100 cursor-pointer">
+                <span *ngIf="item.isNavbarLevelItem"
+                      class="d-none d-lg-inline-block font-weight-bolder">{{item.title}}</span>
+            </div>
+        </div>
+        <div [routerLink]="reportIssuePageLink"
+             class="report-issue-btn cursor-pointer py-0 px-1 ml-auto d-none d-lg-inline-block">
+            Report issue
+        </div>
+        <div (click)="onMenuBtnClick()" class="h-50 ml-auto ml-lg-3 position-relative cursor-pointer">
+            <img alt="menu box button" class="h-100" src="assets/icon/dots-menu.svg">
+            <app-menu-box *ngIf="menuBoxVisibility" [menuItemList]="navItems"></app-menu-box>
+        </div>
+        <div (click)="onDropdown()" class="ml-3 mr-xl-5 dropdown-menu-btn d-flex position-relative mr-1">
+            <img alt="knoldus logo" class="knoldus-logo d-none d-sm-block"
+                 src="./assets/icon/knoldus-logo-transparent.png"/>
+            <img alt="knoldus logo" class="knoldus-logo d-block d-sm-none"
+                 src="./assets/icon/knoldus-just-logo.png"/>
             <div class="arrow-down my-auto ml-1"></div>
-            <div class="dropdown-menu-container position-absolute bg-white"
-                 *ngIf="dropdownMenuVisibility">
-                <div class="dropdown-menu-item p-2 border-bottom border-light" (click)="openForm()">Add Contribution</div>
-                <div class="dropdown-menu-item p-2" (click)="onLogout()">Logout</div>
+            <div *ngIf="dropdownMenuVisibility"
+                 class="dropdown-menu-container position-absolute bg-white">
+                <div (click)="openForm()" class="dropdown-menu-item p-2 border-bottom border-light">Add Contribution
+                </div>
+                <div (click)="onLogout()" class="dropdown-menu-item p-2">Logout</div>
             </div>
         </div>
     </div>
