@@ -1,12 +1,11 @@
 .menu-box-container {
-  width: 300px;
   max-height: 200px;
   z-index: 50;
-  right: -20px;
+  right: -40px;
   border-radius: 5px;
   overflow-y: auto;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 90px 90px 90px;
   grid-gap: 5px;
   grid-auto-rows: 70px;
   box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;

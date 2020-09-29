@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import { NavBarItemModel } from '../../models/nav-bar-item.model';
 import { Location } from '@angular/common';
@@ -8,7 +8,7 @@ import { Location } from '@angular/common';
   templateUrl: './headers.component.html',
   styleUrls: ['./headers.component.scss'],
 })
-export class HeadersComponent implements OnInit, OnDestroy{
+export class HeadersComponent implements OnInit {
     @Input() backBtn: boolean;
     @Input() backBtnLink: string;
     dropdownMenuVisibility: boolean;
@@ -18,7 +18,7 @@ export class HeadersComponent implements OnInit, OnDestroy{
     navItems: NavBarItemModel[] = [
       { title: 'Hall of Fame', link: '/hall-of-fame', imgSrc: './assets/icon/star.svg', isNavbarLevelItem: true },
       { title: 'Vision', link: '/about', imgSrc: './assets/icon/shuttle.svg', isNavbarLevelItem: false },
-      { title: 'Report issue', link: '/report-issue', imgSrc: './assets/icon/help.svg', isNavbarLevelItem: false },
+      { title: 'Report issue', link: '/report-issue', imgSrc: './assets/icon/help.svg', isNavbarLevelItem: false }
     ];
     reportIssuePageLink = '/report-issue';
 
@@ -39,11 +39,6 @@ export class HeadersComponent implements OnInit, OnDestroy{
       this.dropdownMenuVisibility = !this.dropdownMenuVisibility;
     }
 
-    onMenuBtnClick() {
-      this.dropdownMenuVisibility = false;
-      this.menuBoxVisibility = !this.menuBoxVisibility;
-    }
-
     onLogout() {
       this.loginService.logout();
     }
@@ -52,8 +47,8 @@ export class HeadersComponent implements OnInit, OnDestroy{
       window.open(this.formUrl, '_blank');
     }
 
-    ngOnDestroy() {
-        this.menuBoxVisibility = false;
-        this.dropdownMenuVisibility = false;
+    onMenuBtnClick() {
+      this.dropdownMenuVisibility = false;
+      this.menuBoxVisibility = !this.menuBoxVisibility;
     }
 }

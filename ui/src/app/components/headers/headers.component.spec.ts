@@ -46,10 +46,12 @@ describe('HeadersComponent', () => {
     expect(location.back).toHaveBeenCalled();
   });
 
-  it('should change the visibility status for dropdown menu button', () => {
+  it('should change the visibility status for dropdown menu button and make menu-box visibility false', () => {
     component.dropdownMenuVisibility = false;
+    component.menuBoxVisibility = true;
     component.onDropdown();
     expect(component.dropdownMenuVisibility).toEqual(true);
+    expect(component.menuBoxVisibility).toEqual(false);
   });
 
   it('should call window.open with form url', () => {
@@ -62,5 +64,13 @@ describe('HeadersComponent', () => {
     spyOn(loginService, 'logout');
     component.onLogout();
     expect(loginService.logout).toHaveBeenCalled();
+  });
+
+  it('should change the visibility status for menu-box and dropdown menu visibility false', () => {
+    component.dropdownMenuVisibility = true;
+    component.menuBoxVisibility = false;
+    component.onMenuBtnClick();
+    expect(component.menuBoxVisibility).toEqual(true);
+    expect(component.dropdownMenuVisibility).toEqual(false);
   });
 });

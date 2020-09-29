@@ -19,8 +19,8 @@
         <div class="report-issue-btn pointer py-0 px-1 ml-auto d-none d-lg-inline-block" [routerLink]="reportIssuePageLink">
             Report issue
         </div>
-        <div class="h-50 ml-auto ml-lg-3 position-relative pointer">
-            <img class="h-100 pointer" src="assets/icon/dots-menu.svg" alt="menu box button" (click)="onMenuBtnClick()">
+        <div class="h-50 ml-auto ml-lg-3 position-relative pointer" (click)="onMenuBtnClick()">
+            <img class="h-100 pointer" src="assets/icon/dots-menu.svg" alt="menu box button">
             <app-menu-box *ngIf="menuBoxVisibility" [menuItemList]="navItems"></app-menu-box>
         </div>
         <div class="ml-3 mr-xl-5 dropdown-menu-btn d-flex position-relative mr-1" (click)="onDropdown()">
