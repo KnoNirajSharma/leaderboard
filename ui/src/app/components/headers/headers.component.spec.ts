@@ -34,12 +34,6 @@ describe('HeadersComponent', () => {
     loginService = TestBed.get(LoginService);
   }));
 
-  it('should set dropDownMenuVisibility and menuBoxVisibility value to false', () => {
-    component.ngOnInit();
-    expect(component.dropdownMenuVisibility).toEqual(false);
-    expect(component.menuBoxVisibility).toEqual(false);
-  });
-
   it('should change the visibility status for dropdown menu button and make menu-box visibility false', () => {
     component.dropdownMenuVisibility = false;
     component.menuBoxVisibility = true;

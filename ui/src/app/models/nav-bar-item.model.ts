@@ -1,6 +1,6 @@
 export interface NavBarItemModel {
   title: string;
   link: string;
-  imgSrc: string;
+  imageUrl: string;
   isNavbarLevelItem: boolean;
 }
