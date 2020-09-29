@@ -13,41 +13,32 @@ describe('EmployeeActivityService', () => {
   const url = `${environment.api.baseUrl}${environment.api.routes.author.endpoint}`;
   const trendsUrl = `${environment.api.baseUrl}${environment.api.routes.trends.endpoint}`;
   const hallOfFameUrl = `${environment.api.baseUrl}${environment.api.routes.hallOfFame.endpoint}`;
-
   const dummyReputationData: ReputationModel = {
-    monthlyBlogCount: 2,
-    monthlyKnolxCount: 2,
-    monthlyWebinarCount: 2,
-    monthlyTechHubCount: 2,
-    monthlyOsContributionCount: 3,
-    monthlyConferenceCount: 1,
-    monthlyBookCount: 1,
-    monthlyResearchPaperCount: 1,
-    allTimeBlogCount: 3,
-    allTimeKnolxCount: 2,
-    allTimeWebinarCount: 2,
-    allTimeTechHubCount: 3,
-    allTimeOsContributionCount: 3,
-    allTimeConferenceCount: 5,
-    allTimeBookCount: 3,
-    allTimeResearchPaperCount: 3,
+    blogs: { monthly: 2, allTime: 3 },
+    knolx: { monthly: 2, allTime: 3 },
+    webinars: { monthly: 2, allTime: 3 },
+    techhubTemplates: { monthly: 2, allTime: 3 },
+    osContributions: { monthly: 2, allTime: 3 },
+    conferences: { monthly: 2, allTime: 3 },
+    books: { monthly: 2, allTime: 3 },
+    researchPapers: { monthly: 2, allTime: 3 },
     reputation: [
       {
         knolderId: 1,
         knolderName: 'mark',
         allTimeScore: 10,
-        allTimeRank: 2,
+        allTimeRank: 7,
         quarterlyStreak: '5-6-7',
-        monthlyScore: 7,
-        monthlyRank: 1
+        monthlyScore: 10,
+        monthlyRank: 1,
       }, {
         knolderId: 2,
         knolderName: 'sam',
-        allTimeScore: 15,
-        allTimeRank: 1,
+        allTimeScore: 20,
+        allTimeRank: 6,
         quarterlyStreak: '5-6-8',
-        monthlyScore: 5,
-        monthlyRank: 2
+        monthlyScore: 10,
+        monthlyRank: 1,
       }
     ]
   };

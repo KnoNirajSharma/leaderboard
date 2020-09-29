@@ -4,7 +4,7 @@ import { MainPage } from './main.page';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { EmployeeActivityService } from '../../services/employee-activity.service';
-import { of } from 'rxjs';
+import {of, throwError} from 'rxjs';
 import { TableComponent } from '../../components/table/table.component';
 import { EmployeeFilterPipe } from '../../pipe/employee-filter.pipe';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -17,6 +17,7 @@ import { environment } from '../../../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { CustomPipesModule } from '../../pipe/custom-pipes.module';
+import {error} from 'util';
 
 describe('MainPage', () => {
   let component: MainPage;
@@ -24,22 +25,14 @@ describe('MainPage', () => {
   let mockEmployeeService: EmployeeActivityService;
   let loadingControllerService: LoadingControllerService;
   const dummyReputationData: ReputationModel = {
-    monthlyBlogCount: 2,
-    monthlyKnolxCount: 2,
-    monthlyWebinarCount: 2,
-    monthlyTechHubCount: 2,
-    monthlyOsContributionCount: 3,
-    monthlyConferenceCount: 3,
-    monthlyBookCount: 1,
-    monthlyResearchPaperCount: 1,
-    allTimeBlogCount: 3,
-    allTimeKnolxCount: 2,
-    allTimeWebinarCount: 2,
-    allTimeTechHubCount: 3,
-    allTimeOsContributionCount: 3,
-    allTimeConferenceCount: 3,
-    allTimeBookCount: 3,
-    allTimeResearchPaperCount: 3,
+    blogs: { monthly: 2, allTime: 3 },
+    knolx: { monthly: 2, allTime: 3 },
+    webinars: { monthly: 2, allTime: 3 },
+    techhubTemplates: { monthly: 2, allTime: 3 },
+    osContributions: { monthly: 2, allTime: 3 },
+    conferences: { monthly: 2, allTime: 3 },
+    books: { monthly: 2, allTime: 3 },
+    researchPapers: { monthly: 2, allTime: 3 },
     reputation: [
       {
         knolderId: 1,
@@ -60,7 +53,6 @@ describe('MainPage', () => {
       }
     ]
   };
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [MainPage, TableComponent],
@@ -85,24 +77,59 @@ describe('MainPage', () => {
     loadingControllerService = TestBed.get(LoadingControllerService);
   }));
 
+  it(' should call loading controller and getReputationData', () => {
+    spyOn(loadingControllerService, 'present');
+    spyOn(mockEmployeeService, 'getData').and.returnValue(of(dummyReputationData));
+    component.ngOnInit();
+    expect(loadingControllerService.present).toHaveBeenCalled();
+    expect(mockEmployeeService.getData).toHaveBeenCalled();
+  });
+
   it('should return the authorData as per api call', () => {
+    spyOn(loadingControllerService, 'dismiss');
+    spyOn(component, 'setAllKnolderData');
     spyOn(mockEmployeeService, 'getData').and.returnValue(of(dummyReputationData));
     const mockReputationListAfterFetch = [
       {...dummyReputationData.reputation[0], topRanker : true},
       {...dummyReputationData.reputation[1], topRanker : true},
     ];
-    component.ngOnInit();
-    expect(component.employeeData).toEqual(mockReputationListAfterFetch);
+    component.getReputationData();
+    expect(component.reputation).toEqual(dummyReputationData);
+  });
+
+  it('should dismiss the loader if error occurs in reputation api', () => {
+    spyOn(mockEmployeeService, 'getData').and.returnValue(throwError({status: 404}));
+    spyOn(loadingControllerService, 'dismiss');
+    spyOn(component, 'setAllKnolderData');
+    component.getReputationData();
+    expect(loadingControllerService.dismiss).toHaveBeenCalled();
+  });
+
+  it('should call setKnolderList, setKnoldusReputationKeys and setInitialFilteredList', () => {
+    spyOn(component, 'setKnoldersList');
+    spyOn(component, 'setKnoldusStatsReputationKeys');
+    spyOn(component, 'setInitialFilteredKnolderList');
+    component.setAllKnolderData();
+    expect(component.setKnoldersList).toHaveBeenCalled();
+    expect(component.setKnoldusStatsReputationKeys).toHaveBeenCalled();
+    expect(component.setInitialFilteredKnolderList).toHaveBeenCalled();
+  });
+
+  it('should construct array of reputation keys excepts reputation', () => {
+    component.reputation = {...dummyReputationData};
+    component.setKnoldusStatsReputationKeys();
+    expect(component.knoldusStatsReputationKeys[0]).toEqual('blogs');
+    expect(component.knoldusStatsReputationKeys.indexOf('reputation')).toEqual(-1);
   });
 
   it('should add topRanker equal to true if the index is less than 5', () => {
-    spyOn(mockEmployeeService, 'getData').and.returnValue(of(dummyReputationData));
-    component.ngOnInit();
-    expect(component.employeeData[1].topRanker).toEqual(true);
+    component.reputation = {...dummyReputationData};
+    component.setKnoldersList();
+    expect(component.knoldersReputationList[1].topRanker).toEqual(true);
   });
 
   it('should not add topRanker parameter to knolder is index is 5 or greater', () => {
-    spyOn(mockEmployeeService, 'getData').and.returnValue(of({
+    component.reputation = {
       ...dummyReputationData,
       reputation: [
         {...dummyReputationData.reputation[0]},
@@ -112,17 +139,23 @@ describe('MainPage', () => {
         {...dummyReputationData.reputation[0]},
         {...dummyReputationData.reputation[0]},
       ]
-    }));
-    component.ngOnInit();
-    expect(component.employeeData[5].topRanker).toBeUndefined();
+    };
+    component.setKnoldersList();
+    expect(component.knoldersReputationList[5].topRanker).toBeUndefined();
+  });
+
+  it('should set set initial filtered knolder data as knolderList', () => {
+    component.knoldersReputationList = [...dummyReputationData.reputation];
+    component.setInitialFilteredKnolderList();
+    expect(component.filteredKnolderList[0]).toEqual(dummyReputationData.reputation[0]);
   });
 
   it('should filter Employee', () => {
     component.empFilterPipe = new EmployeeFilterPipe();
-    component.employeeData = dummyReputationData.reputation;
+    component.knoldersReputationList = dummyReputationData.reputation;
     component.searchBar.setValue('mark');
-    component.filterEmp();
-    expect(component.filteredEmpData).toEqual([dummyReputationData.reputation[0]]);
+    component.filterKnolderList();
+    expect(component.filteredKnolderList).toEqual([dummyReputationData.reputation[0]]);
   });
 
   it('should compare on the allTimeRank property if values are not equal', () => {
@@ -155,42 +188,42 @@ describe('MainPage', () => {
   });
 
   it('should sort list in asc on the basis of quarterly score', () => {
-    component.filteredEmpData = [...dummyReputationData.reputation];
+    component.filteredKnolderList = [...dummyReputationData.reputation];
     spyOn(component, 'compareQuarterlyScore').and.returnValue(true);
     component.sortTable({newValue: 'asc', column: {prop: 'quarterlyStreak'}});
-    expect(component.filteredEmpData[0].knolderId).toEqual(1);
+    expect(component.filteredKnolderList[0].knolderId).toEqual(1);
   });
 
   it('should sort list in desc on the basis of quarterly score', () => {
-    component.filteredEmpData = [...dummyReputationData.reputation];
+    component.filteredKnolderList = [...dummyReputationData.reputation];
     spyOn(component, 'compareQuarterlyScore').and.returnValue(false);
     component.sortTable({newValue: 'asc', column: {prop: 'quarterlyStreak'}});
-    expect(component.filteredEmpData[0].knolderId).toEqual(2);
+    expect(component.filteredKnolderList[0].knolderId).toEqual(2);
   });
 
   it('should sort the list in descending order on the basis of allTimeRank', () => {
-    component.filteredEmpData = [...dummyReputationData.reputation];
+    component.filteredKnolderList = [...dummyReputationData.reputation];
     component.sortTable({newValue: 'desc', column: {prop: 'allTimeRank'}});
-    expect(component.filteredEmpData[0].knolderId).toEqual(1);
+    expect(component.filteredKnolderList[0].knolderId).toEqual(1);
   });
 
   it('should sort the list in descending order on the basis of allTimeScore', () => {
-    component.filteredEmpData = [...dummyReputationData.reputation];
+    component.filteredKnolderList = [...dummyReputationData.reputation];
     component.sortTable({newValue: 'desc', column: {prop: 'allTimeScore'}});
-    expect(component.filteredEmpData[0].knolderId).toEqual(2);
+    expect(component.filteredKnolderList[0].knolderId).toEqual(2);
   });
 
   it('should sort the list in ascending order on the basis of monthlyScore', () => {
-    component.filteredEmpData = [...dummyReputationData.reputation];
+    component.filteredKnolderList = [...dummyReputationData.reputation];
     spyOn(component, 'comparisonBasedOnAllTimeScore').and.returnValue(false);
     component.sortTable({newValue: 'asc', column: {prop: 'monthlyScore'}});
-    expect(component.filteredEmpData[0].knolderId).toEqual(2);
+    expect(component.filteredKnolderList[0].knolderId).toEqual(2);
   });
 
   it('should sort the list in ascending order on the basis of allTimeScore', () => {
-    component.filteredEmpData = [...dummyReputationData.reputation];
+    component.filteredKnolderList = [...dummyReputationData.reputation];
     spyOn(component, 'comparisonBasedOnAllTimeScore').and.returnValue(true);
     component.sortTable({newValue: 'asc', column: {prop: 'allTimeScore'}});
-    expect(component.filteredEmpData[0].knolderId).toEqual(1);
+    expect(component.filteredKnolderList[0].knolderId).toEqual(1);
   });
 });
