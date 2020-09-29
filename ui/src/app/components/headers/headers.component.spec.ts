@@ -7,43 +7,37 @@ import { environment } from '../../../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { LoginService } from '../../services/login.service';
-import { Location } from '@angular/common';
+import {MenuBoxComponent} from '../menu-box/menu-box.component';
 
 describe('HeadersComponent', () => {
   let component: HeadersComponent;
   let loginService: LoginService;
   let fixture: ComponentFixture<HeadersComponent>;
-  let location: Location;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        HeadersComponent
+        HeadersComponent,
+        MenuBoxComponent
       ],
       imports: [
         IonicModule.forRoot(),
         RouterTestingModule,
         AngularFireModule.initializeApp(environment.firebaseConfig, 'angular-auth-firebase'),
         AngularFirestoreModule,
-        AngularFireAuthModule
+        AngularFireAuthModule,
       ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HeadersComponent);
     component = fixture.componentInstance;
     loginService = TestBed.get(LoginService);
-    location = TestBed.get(Location);
   }));
 
-  it('should set dropDownMenuVisibility value to false', () => {
+  it('should set dropDownMenuVisibility and menuBoxVisibility value to false', () => {
     component.ngOnInit();
     expect(component.dropdownMenuVisibility).toEqual(false);
-  });
-
-  it('should call back function', () => {
-    spyOn(location, 'back');
-    component.goBack();
-    expect(location.back).toHaveBeenCalled();
+    expect(component.menuBoxVisibility).toEqual(false);
   });
 
   it('should change the visibility status for dropdown menu button and make menu-box visibility false', () => {

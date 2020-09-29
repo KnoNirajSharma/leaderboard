@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import { NavBarItemModel } from '../../models/nav-bar-item.model';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-headers',
@@ -20,18 +19,15 @@ export class HeadersComponent implements OnInit {
       { title: 'Vision', link: '/about', imgSrc: './assets/icon/shuttle.svg', isNavbarLevelItem: false },
       { title: 'Report issue', link: '/report-issue', imgSrc: './assets/icon/help.svg', isNavbarLevelItem: false }
     ];
+    mainPageLink = '/';
     reportIssuePageLink = '/report-issue';
 
-    constructor(private loginService: LoginService, private location: Location) {
+    constructor(private loginService: LoginService) {
     }
 
     ngOnInit() {
       this.dropdownMenuVisibility = false;
       this.menuBoxVisibility = false;
-    }
-
-    goBack() {
-      this.location.back();
     }
 
     onDropdown() {
