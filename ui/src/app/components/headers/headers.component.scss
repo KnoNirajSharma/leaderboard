@@ -23,7 +23,7 @@
   }
 
   .title {
-    font-size: 1.5em;
+    font-size: 1.5rem;
     font-weight: bold;
     background-color: transparent;
     color: white;
@@ -52,6 +52,10 @@
     }
   }
 
+  .menu-box-wrapper {
+    border-radius: 50%;
+  }
+
   .dropdown-menu-btn {
     cursor: pointer;
 
@@ -70,8 +74,10 @@
       cursor: pointer;
       width: 150px;
 
+
       .dropdown-menu-item {
         color: #2B35A8;
+        font-size: 0.8rem;
 
         &:hover {
           background: #2B35A8;
@@ -94,3 +100,20 @@
 .pointer-none {
   pointer-events: none;
 }
+
+@media only screen and (max-width: 768px) {
+  .header {
+    .title {
+      font-size: 1.2rem;
+    }
+
+    .logo {
+      height: 22px;
+    }
+
+    .nav-bar {
+      width: 0;
+    }
+  }
+}
+

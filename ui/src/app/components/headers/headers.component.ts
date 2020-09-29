@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import { NavBarItemModel } from '../../models/nav-bar-item.model';
 
@@ -7,15 +7,17 @@ import { NavBarItemModel } from '../../models/nav-bar-item.model';
   templateUrl: './headers.component.html',
   styleUrls: ['./headers.component.scss'],
 })
-export class HeadersComponent implements OnInit {
+export class HeadersComponent {
     @Input() backBtn: boolean;
     @Input() backBtnLink: string;
-    dropdownMenuVisibility: boolean;
+    dropdownMenuVisibility = false;
+    menuBoxVisibility = false;
     title = 'LEADERBOARD';
     formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSfjOGd2TI-zYb2b3_lpLnn-Kk_K57SAKQtjPsb7to9XzY6-tw/viewform';
     navItems: NavBarItemModel[] = [
-      { title: 'Hall of Fame', link: '/hall-of-fame' },
-      { title: 'Vision', link: '/about' }
+      { title: 'Hall of Fame', link: '/hall-of-fame', imageUrl: './assets/icon/star.svg', isNavbarLevelItem: true },
+      { title: 'Vision', link: '/about', imageUrl: './assets/icon/shuttle.svg', isNavbarLevelItem: false },
+      { title: 'Report issue', link: '/report-issue', imageUrl: './assets/icon/help.svg', isNavbarLevelItem: false }
     ];
     mainPageLink = '/';
     reportIssuePageLink = '/report-issue';
@@ -23,11 +25,8 @@ export class HeadersComponent implements OnInit {
     constructor(private loginService: LoginService) {
     }
 
-    ngOnInit() {
-      this.dropdownMenuVisibility = false;
-    }
-
     onDropdown() {
+      this.menuBoxVisibility = false;
       this.dropdownMenuVisibility = !this.dropdownMenuVisibility;
     }
 
@@ -37,5 +36,10 @@ export class HeadersComponent implements OnInit {
 
     openForm() {
       window.open(this.formUrl, '_blank');
+    }
+
+    onMenuBtnClick() {
+      this.dropdownMenuVisibility = false;
+      this.menuBoxVisibility = !this.menuBoxVisibility;
     }
 }
