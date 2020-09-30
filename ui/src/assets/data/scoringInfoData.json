@@ -1,0 +1,10 @@
+{
+  "blogs": { "points": 5, "multiplier": 3 },
+  "knolx": { "points": 20, "multiplier": 1 },
+  "webinar": { "points": 15, "multiplier": 2 },
+  "techhubTemplate": { "points": 15, "multiplier": 1 },
+  "osContribution": { "points": 30, "multiplier": 1 },
+  "conference": { "points": 100, "multiplier": 1 },
+  "book": { "points": 100, "multiplier": 1 },
+  "researchPaper": { "points": 50, "multiplier": 1 }
+}
