@@ -51,12 +51,12 @@ export class DetailsPage implements OnInit {
     private route: ActivatedRoute,
     private employeeActivityService: EmployeeActivityService,
     private loadingControllerService: LoadingControllerService,
-    private ngxChartConfigService: CommonService
+    private commonService: CommonService
   ) { }
 
   ngOnInit() {
-    this.contributionsTypeColorList = this.ngxChartConfigService.chartColorScheme.domain;
-    this.route.params
+    this.contributionsTypeColorList = this.commonService.chartColorScheme.domain;
+    this.route.queryParams
       .subscribe((params: Params) => {
         this.knolderId = Number(params.id);
       });

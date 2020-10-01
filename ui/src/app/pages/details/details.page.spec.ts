@@ -141,7 +141,7 @@ describe('DetailsPage', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            params: of({
+            queryParams: of({
               id: 1,
             })
           }

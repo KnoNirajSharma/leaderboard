@@ -22,7 +22,7 @@ export class TableComponent {
       let id: number;
       if (event.type === 'click') {
         id = event.row.knolderId;
-        this.router.navigate(['/details', id]);
+        this.router.navigate(['/details'], { queryParams: { id } });
       } else {
         this.router.navigate(['/']);
       }
