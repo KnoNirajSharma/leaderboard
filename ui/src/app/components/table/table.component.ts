@@ -3,6 +3,7 @@ import { AuthorModel } from '../../models/author.model';
 import { Router } from '@angular/router';
 import { TableHeaderModel } from '../../models/tableHeader.model';
 import { CommonService } from '../../services/common.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-table',
@@ -15,10 +16,9 @@ export class TableComponent {
     @Input() tableRows: AuthorModel[];
     @Input() tableHeading: TableHeaderModel[];
     @Output() sortCriteria = new EventEmitter();
-    currentData = new Date();
+    currentDate = moment();
 
-    constructor(public router: Router, private commonService: CommonService) {
-    }
+    constructor(public router: Router) { }
 
     onActivate(event) {
       let id: number;
@@ -29,8 +29,8 @@ export class TableComponent {
           {
             queryParams: {
               id,
-              year: this.currentData.getFullYear(),
-              month: this.commonService.getMonthName(this.currentData)
+              year: this.currentDate.year(),
+              month: this.currentDate.format('MMMM')
             }
           }
         );

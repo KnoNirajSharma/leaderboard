@@ -39,16 +39,4 @@ describe('CommonAppConfiguration', () => {
         commonAppConfigService.numberOfItemsInHallOfFame = 10;
         expect(commonAppConfigService.getNumberOfItemsInHallOfFame).toEqual(10);
     });
-
-    it('should get list on months', () => {
-        commonAppConfigService.months = ['january', 'february', 'march'];
-        expect(commonAppConfigService.monthList.length).toEqual(3);
-    });
-
-    it('should get name of the month for the the date provided', () => {
-        commonAppConfigService.months = ['january', 'february', 'march'];
-        const date = new Date();
-        date.setMonth(0);
-        expect(commonAppConfigService.getMonthName(date)).toEqual(commonAppConfigService.months[0]);
-    });
 });

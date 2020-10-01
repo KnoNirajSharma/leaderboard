@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { TrendsModel } from '../../models/trends.model';
 import { CommonService } from '../../services/common.service';
 import { NgxStackVerticalBarGraphResultModel } from '../../models/ngxStackVerticalBarGraphResultModel';
@@ -8,20 +8,19 @@ import { NgxStackVerticalBarGraphResultModel } from '../../models/ngxStackVertic
   templateUrl: './vertical-bar-graph.component.html',
   styleUrls: ['./vertical-bar-graph.component.scss'],
 })
-export class VerticalBarGraphComponent implements OnInit {
+export class VerticalBarGraphComponent implements OnChanges {
     @Input() trendsData: TrendsModel[];
     yAxisLabel: string;
     barPadding: number;
     colorScheme: { domain: string[]; };
-    result: NgxStackVerticalBarGraphResultModel[] = [];
+    result: NgxStackVerticalBarGraphResultModel[];
 
     constructor(private commonService: CommonService) {
     }
 
-    ngOnInit() {
-      this.yAxisLabel = this.commonService.verticalBarChartYLabel;
-      this.barPadding = this.commonService.verticalBarChartPadding;
-      this.colorScheme = this.commonService.colorScheme;
+    ngOnChanges() {
+      this.setBarGraphConfigs();
+      this.result = [];
       this.trendsData.map(monthData => this.result.push({ name: monthData.month.substring(0, 3) + ',' + String(monthData.year),
         series: [
           { name: 'Blogs', value: monthData.blogScore },
@@ -34,5 +33,11 @@ export class VerticalBarGraphComponent implements OnInit {
           { name: 'Research Paper', value: monthData.researchPaperScore }
         ] }));
       this.result.reverse();
+    }
+
+    setBarGraphConfigs() {
+      this.yAxisLabel = this.commonService.verticalBarChartYLabel;
+      this.barPadding = this.commonService.verticalBarChartPadding;
+      this.colorScheme = this.commonService.colorScheme;
     }
 }

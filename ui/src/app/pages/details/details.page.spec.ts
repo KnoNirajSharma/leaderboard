@@ -121,7 +121,6 @@ describe('DetailsPage', () => {
       ]
     }
   ];
-  const mockMonthList = ['jan', 'feb', 'march'];
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -158,30 +157,30 @@ describe('DetailsPage', () => {
     commonService = TestBed.get(CommonService);
   }));
 
-  it('should get knolder id from params and also initialize all data', () => {
+  it('should get knolder id from params and set contributionsTypeColorList', () => {
     component.currentDate = new Date();
     spyOn(component, 'calenderInitialisation');
     spyOn(component, 'getMonthlyDetails');
     spyOn(component, 'getTrendsData');
     spyOn(component, 'getAllTimeDetails');
     spyOn(component, 'getHallOfFameData');
-    spyOn(component, 'setMonthList');
     spyOn(loadingControllerService, 'present');
+    spyOnProperty(commonService, 'colorScheme', 'get').and.returnValue({domain: ['blue']});
     component.ngOnInit();
     expect(component.knolderId).toEqual(1);
     expect(component.yearFromRoute).toEqual(2020);
     expect(component.monthFromRoute).toEqual('january');
+    expect(component.contributionsTypeColorList[0]).toEqual('blue');
     expect(loadingControllerService.present).toHaveBeenCalled();
   });
 
   it('should set values for datepickerConfig', () => {
-    component.monthList = [...mockMonthList];
-    component.monthFromRoute = 'jan';
+    component.monthFromRoute = 'january';
     component.yearFromRoute = 2020;
     component.calenderInitialisation();
     expect(component.datepickerConfig.containerClass).toEqual('theme-dark-blue');
-    expect(component.dateFromRoute.getMonth()).toEqual(0);
-    expect(component.dateFromRoute.getFullYear()).toEqual(2020);
+    expect(component.dateFromRoute.month()).toEqual(0);
+    expect(component.dateFromRoute.year()).toEqual(2020);
   });
 
   it('should return the knolder monthly details Data as per api call', () => {
@@ -221,9 +220,13 @@ describe('DetailsPage', () => {
   });
 
   it('should change alltimeSelected value to false', () => {
-    spyOn(commonService, 'getMonthName').and.returnValue('jan');
-    component.onDateChange(new Date());
+    spyOn(component, 'getMonthlyDetails');
+    const date = new Date();
+    date.setMonth(0);
+    date.setFullYear(2020);
+    component.onDateChange(date);
     expect(component.allTimeSelected).toEqual(false);
+    expect(component.getMonthlyDetails).toHaveBeenCalledWith('january', 2020);
   });
 
   it('should change alltimeSelected value to true', () => {
@@ -266,11 +269,5 @@ describe('DetailsPage', () => {
       ];
     component.setMedalTally();
     expect(component.medalTally.gold.count).toEqual(2);
-  });
-
-  it('should set the month list as provided from common service', () => {
-    spyOnProperty(commonService, 'monthList', 'get').and.returnValue(mockMonthList);
-    component.setMonthList();
-    expect(component.monthList[0]).toEqual('jan');
   });
 });
