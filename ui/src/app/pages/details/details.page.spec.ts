@@ -17,6 +17,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { TrendsModel } from '../../models/trends.model';
 import { ActivatedRoute } from '@angular/router';
 import {HallOfFameModel} from '../../models/hallOfFame.model';
+import {CommonService} from '../../services/common.service';
 
 
 describe('DetailsPage', () => {
@@ -24,6 +25,7 @@ describe('DetailsPage', () => {
   let fixture: ComponentFixture<DetailsPage>;
   let mockEmployeeService: EmployeeActivityService;
   let loadingControllerService: LoadingControllerService;
+  let commonService: CommonService;
   const dummyKnolderDetails: KnolderDetailsModel = {
     knolderName: 'Muskan Gupta',
     score: 20,
@@ -41,7 +43,6 @@ describe('DetailsPage', () => {
       }
     ]
   };
-
   const dummyTrendsData: TrendsModel[] = [
     {
       month: 'JUNE',
@@ -68,7 +69,6 @@ describe('DetailsPage', () => {
       researchPaperScore: 50,
     }
   ];
-
   const mockHallOfFameData: HallOfFameModel[] = [
     {
       month: 'August',
@@ -121,6 +121,7 @@ describe('DetailsPage', () => {
       ]
     }
   ];
+  const mockMonthList = ['jan', 'feb', 'march'];
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -143,6 +144,8 @@ describe('DetailsPage', () => {
           useValue: {
             queryParams: of({
               id: 1,
+              year: 2020,
+              month: 'january'
             })
           }
         }]
@@ -152,6 +155,7 @@ describe('DetailsPage', () => {
     component = fixture.componentInstance;
     mockEmployeeService = TestBed.get(EmployeeActivityService);
     loadingControllerService = TestBed.get(LoadingControllerService);
+    commonService = TestBed.get(CommonService);
   }));
 
   it('should get knolder id from params and also initialize all data', () => {
@@ -161,15 +165,23 @@ describe('DetailsPage', () => {
     spyOn(component, 'getTrendsData');
     spyOn(component, 'getAllTimeDetails');
     spyOn(component, 'getHallOfFameData');
+    spyOn(component, 'setMonthList');
     spyOn(loadingControllerService, 'present');
     component.ngOnInit();
     expect(component.knolderId).toEqual(1);
+    expect(component.yearFromRoute).toEqual(2020);
+    expect(component.monthFromRoute).toEqual('january');
     expect(loadingControllerService.present).toHaveBeenCalled();
   });
 
   it('should set values for datepickerConfig', () => {
+    component.monthList = [...mockMonthList];
+    component.monthFromRoute = 'jan';
+    component.yearFromRoute = 2020;
     component.calenderInitialisation();
     expect(component.datepickerConfig.containerClass).toEqual('theme-dark-blue');
+    expect(component.dateFromRoute.getMonth()).toEqual(0);
+    expect(component.dateFromRoute.getFullYear()).toEqual(2020);
   });
 
   it('should return the knolder monthly details Data as per api call', () => {
@@ -209,6 +221,7 @@ describe('DetailsPage', () => {
   });
 
   it('should change alltimeSelected value to false', () => {
+    spyOn(commonService, 'getMonthName').and.returnValue('jan');
     component.onDateChange(new Date());
     expect(component.allTimeSelected).toEqual(false);
   });
@@ -253,5 +266,11 @@ describe('DetailsPage', () => {
       ];
     component.setMedalTally();
     expect(component.medalTally.gold.count).toEqual(2);
+  });
+
+  it('should set the month list as provided from common service', () => {
+    spyOnProperty(commonService, 'monthList', 'get').and.returnValue(mockMonthList);
+    component.setMonthList();
+    expect(component.monthList[0]).toEqual('jan');
   });
 });

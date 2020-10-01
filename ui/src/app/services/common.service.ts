@@ -9,6 +9,20 @@ export class CommonService {
     domain: ['#2C42A5', '#4CA52C', '#C7AD05', '#224A4B', '#0B8D84', '#2CA1A5', '#2F3640', '#4B0082']
   };
   numberOfItemsInHallOfFame = 10;
+  months = [
+    'january',
+    'february',
+    'march',
+    'april',
+    'may',
+    'june',
+    'july',
+    'august',
+    'september',
+    'october',
+    'november',
+    'december'
+  ];
 
   get verticalBarChartPadding(): number {
     return this.verticalBarChartConfigs.barPadding;
@@ -24,5 +38,13 @@ export class CommonService {
 
   get getNumberOfItemsInHallOfFame(): number {
     return this.numberOfItemsInHallOfFame;
+  }
+
+  get monthList(): string[] {
+    return this.months;
+  }
+
+  getMonthName(date: Date): string {
+    return this.months[date.getMonth()];
   }
 }

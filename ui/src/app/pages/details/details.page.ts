@@ -22,7 +22,10 @@ export class DetailsPage implements OnInit {
   knolderDetails: KnolderDetailsModel;
   allTimeDetails: KnolderDetailsModel;
   knolderId: number;
+  monthFromRoute: string;
+  yearFromRoute: number;
   currentDate: Date;
+  dateFromRoute: Date;
   datePicker = new FormControl();
   datepickerConfig: Partial<BsDatepickerConfig> = new BsDatepickerConfig();
   pieChartData: ScoreBreakDownModel[] = [];
@@ -32,20 +35,7 @@ export class DetailsPage implements OnInit {
   medalTally: MedalTallyModel;
   knolderAchievements: LeaderModel[] = [];
   allTimeSelected = false;
-  monthList = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
-  ];
+  monthList: string[];
 
   constructor(
     private route: ActivatedRoute,
@@ -59,14 +49,16 @@ export class DetailsPage implements OnInit {
     this.route.queryParams
       .subscribe((params: Params) => {
         this.knolderId = Number(params.id);
+        this.yearFromRoute = Number(params.year);
+        this.monthFromRoute = params.month;
+        this.setMonthList();
+        this.calenderInitialisation();
       });
     this.loadingControllerService.present({
       message: 'Loading the score details...',
       translucent: 'false',
       spinner: 'bubbles'
     });
-    this.calenderInitialisation();
-    this.getMonthlyDetails(this.monthList[this.currentDate.getMonth()], this.currentDate.getFullYear());
     this.getTrendsData();
     this.getHallOfFameData();
     this.getAllTimeDetails();
@@ -74,7 +66,10 @@ export class DetailsPage implements OnInit {
 
   calenderInitialisation() {
     this.currentDate = new Date();
-    this.datePicker = new FormControl(this.currentDate);
+    this.dateFromRoute = new Date();
+    this.dateFromRoute.setMonth(this.monthList.indexOf(this.monthFromRoute.toLowerCase()));
+    this.dateFromRoute.setFullYear(this.yearFromRoute);
+    this.datePicker = new FormControl(this.dateFromRoute);
     this.datepickerConfig = { containerClass: 'theme-dark-blue', dateInputFormat: 'MMM-YYYY', minMode: 'month' };
   }
 
@@ -109,7 +104,7 @@ export class DetailsPage implements OnInit {
 
   onDateChange(selectedDate: Date) {
     this.allTimeSelected = false;
-    this.getMonthlyDetails(this.monthList[selectedDate.getMonth()], selectedDate.getFullYear());
+    this.getMonthlyDetails(this.commonService.getMonthName(selectedDate), selectedDate.getFullYear());
   }
 
   setAllTimeDetailsOnClick() {
@@ -154,5 +149,9 @@ export class DetailsPage implements OnInit {
         imgUrl: './assets/icon/bronze-medal.svg'
       }
     };
+  }
+
+  setMonthList() {
+    this.monthList = this.commonService.monthList;
   }
 }
