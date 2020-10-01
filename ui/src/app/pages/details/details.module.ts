@@ -24,7 +24,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     ReactiveFormsModule,
     ComponentsModule,
-    NgxChartsModule,
+    NgxChartsModule
   ],
   declarations: [DetailsPage]
 })
