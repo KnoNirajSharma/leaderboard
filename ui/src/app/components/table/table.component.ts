@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angu
 import { AuthorModel } from '../../models/author.model';
 import { Router } from '@angular/router';
 import { TableHeaderModel } from '../../models/tableHeader.model';
-import { CommonService } from '../../services/common.service';
 import * as moment from 'moment';
 
 @Component({
