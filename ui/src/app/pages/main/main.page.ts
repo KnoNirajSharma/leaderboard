@@ -6,7 +6,7 @@ import { EmployeeFilterPipe } from '../../pipe/employee-filter.pipe';
 import { TableHeaderModel } from '../../models/tableHeader.model';
 import { ReputationModel } from '../../models/reputation.model';
 import { LoadingControllerService } from '../../services/loading-controller.service ';
-import { ScoringInfoModel } from '../../models/scoringInfo.model';
+import {ScoringInfoModel, ScoringTableModel} from '../../models/scoring-table.model';
 
 @Component({
   selector: 'app-main',
@@ -19,16 +19,8 @@ export class MainPage implements OnInit {
   empFilterPipe = new EmployeeFilterPipe();
   filteredKnolderList: AuthorModel[];
   reputation: ReputationModel;
-  scoringInfoData: ScoringInfoModel[] = [
-    { type: 'Blog', weight: '5', integrated: true, symbol: '&#10004;' },
-    { type: 'Knolx', weight: '20', integrated: true, symbol: '&#10004;' },
-    { type: 'Webinar', weight: '15', integrated: true, symbol: '&#10004;' },
-    { type: 'TechHub Templates', weight: '15', integrated: true, symbol: '&#10004;' },
-    { type: 'OS Contribution', weight: '30', integrated: true, symbol: '&#10004;' },
-    { type: 'Research Paper', weight: '50', integrated: true, symbol: '&#10004;' },
-    { type: 'Conference', weight: '100', integrated: true, symbol: '&#10004;' },
-    { type: 'Book', weight: '100', integrated: true, symbol: '&#10004;' },
-  ];
+  scoringInfoData: ScoringTableModel;
+  scoringInfoKeys: string[];
   knoldusStatsReputationKeys: string[];
   currentDate: Date = new Date();
   tableHeading: TableHeaderModel[] = [
@@ -50,6 +42,7 @@ export class MainPage implements OnInit {
       translucent: 'false',
       spinner: 'bubbles'
     });
+    this.getScoringInfoData();
     this.getReputationData();
   }
 
@@ -64,6 +57,17 @@ export class MainPage implements OnInit {
       });
   }
 
+  getScoringInfoData() {
+    this.employeeActivityService.getScoringInfoData()
+      .subscribe((scoringInfoData: ScoringTableModel) => {
+        this.scoringInfoData = { ...scoringInfoData };
+        this.setScoringInfoKeys();
+        this.loadingControllerService.dismiss();
+      }, error => {
+        this.loadingControllerService.dismiss();
+      });
+  }
+
   setAllKnolderData() {
     this.setKnoldusStatsReputationKeys();
     this.setKnoldersList();
@@ -72,6 +76,10 @@ export class MainPage implements OnInit {
 
   setKnoldusStatsReputationKeys() {
     this.knoldusStatsReputationKeys = Object.keys(this.reputation).filter(x => x !== 'reputation');
+  }
+
+  setScoringInfoKeys() {
+    this.scoringInfoKeys = Object.keys(this.scoringInfoData);
   }
 
   setKnoldersList() {

@@ -17,7 +17,7 @@ import { environment } from '../../../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { CustomPipesModule } from '../../pipe/custom-pipes.module';
-import {error} from 'util';
+import { ScoringTableModel } from '../../models/scoring-table.model';
 
 describe('MainPage', () => {
   let component: MainPage;
@@ -53,6 +53,16 @@ describe('MainPage', () => {
       }
     ]
   };
+  const mockScoringData: ScoringTableModel = {
+    blog: {points: 5, multiplier: 1},
+    knolx: {points: 5, multiplier: 1},
+    webinar: {points: 5, multiplier: 1},
+    techhubTemplate: {points: 5, multiplier: 1},
+    osContribution: {points: 5, multiplier: 1},
+    conference: {points: 5, multiplier: 1},
+    book: {points: 5, multiplier: 1},
+    researchPaper: {points: 5, multiplier: 1},
+  };
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [MainPage, TableComponent],
@@ -77,22 +87,20 @@ describe('MainPage', () => {
     loadingControllerService = TestBed.get(LoadingControllerService);
   }));
 
-  it(' should call loading controller and getReputationData', () => {
+  it(' should initiate loading controller and getReputationData', () => {
     spyOn(loadingControllerService, 'present');
-    spyOn(mockEmployeeService, 'getData').and.returnValue(of(dummyReputationData));
+    spyOn(component, 'getReputationData');
+    spyOn(component, 'getScoringInfoData');
     component.ngOnInit();
     expect(loadingControllerService.present).toHaveBeenCalled();
-    expect(mockEmployeeService.getData).toHaveBeenCalled();
+    expect(component.getScoringInfoData).toHaveBeenCalled();
+    expect(component.getReputationData).toHaveBeenCalled();
   });
 
   it('should return the authorData as per api call', () => {
     spyOn(loadingControllerService, 'dismiss');
     spyOn(component, 'setAllKnolderData');
     spyOn(mockEmployeeService, 'getData').and.returnValue(of(dummyReputationData));
-    const mockReputationListAfterFetch = [
-      {...dummyReputationData.reputation[0], topRanker : true},
-      {...dummyReputationData.reputation[1], topRanker : true},
-    ];
     component.getReputationData();
     expect(component.reputation).toEqual(dummyReputationData);
   });
@@ -103,6 +111,19 @@ describe('MainPage', () => {
     spyOn(component, 'setAllKnolderData');
     component.getReputationData();
     expect(loadingControllerService.dismiss).toHaveBeenCalled();
+  });
+
+  it('should return the scoring info data as per api call', () => {
+    spyOn(component, 'setScoringInfoKeys');
+    spyOn(mockEmployeeService, 'getScoringInfoData').and.returnValue(of(mockScoringData));
+    component.getScoringInfoData();
+    expect(component.scoringInfoData).toEqual(mockScoringData);
+  });
+
+  it('should handle if error occurs in scoring info api', () => {
+    spyOn(mockEmployeeService, 'getScoringInfoData').and.returnValue(throwError({status: 404}));
+    spyOn(component, 'setScoringInfoKeys');
+    component.getScoringInfoData();
   });
 
   it('should call setKnolderList, setKnoldusReputationKeys and setInitialFilteredList', () => {
@@ -120,6 +141,12 @@ describe('MainPage', () => {
     component.setKnoldusStatsReputationKeys();
     expect(component.knoldusStatsReputationKeys[0]).toEqual('blogs');
     expect(component.knoldusStatsReputationKeys.indexOf('reputation')).toEqual(-1);
+  });
+
+  it('should construct array of keys from scoringTableModel', () => {
+    component.scoringInfoData = {...mockScoringData};
+    component.setScoringInfoKeys();
+    expect(component.scoringInfoKeys[0]).toEqual('blog');
   });
 
   it('should add topRanker equal to true if the index is less than 5', () => {

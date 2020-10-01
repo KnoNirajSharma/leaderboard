@@ -38,14 +38,14 @@
                                     <div class="popover-content">
                                         <table class="popover-message">
                                             <tr>
-                                                <th>Event</th>
-                                                <th>Weightage</th>
-                                                <th>Integration</th>
+                                                <th>Contribution</th>
+                                                <th>Points</th>
+                                                <th>Boost</th>
                                             </tr>
-                                            <tr *ngFor="let contribution of scoringInfoData">
-                                                <td>{{contribution.type}}</td>
-                                                <td>{{contribution.weight}}</td>
-                                                <td [ngClass]="contribution.integrated ? 'text-success' : 'text-danger'" [innerHTML]="contribution.symbol"></td>
+                                            <tr *ngFor="let key of scoringInfoKeys">
+                                                <td>{{key | splitCamelCase | titlecase}}</td>
+                                                <td>{{scoringInfoData[key].points}}</td>
+                                                <td>x{{scoringInfoData[key].multiplier}}</td>
                                             </tr>
                                         </table>
                                     </div>
