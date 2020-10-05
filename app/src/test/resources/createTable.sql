@@ -110,6 +110,7 @@ year INT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS dynamicscoring(
+id INT AUTO_INCREMENT PRIMARY KEY,
 blog_score_multiplier INT NOT NULL,
 knolx_score_multiplier INT NOT NULL,
 webinar_score_multiplier INT NOT NULL,
