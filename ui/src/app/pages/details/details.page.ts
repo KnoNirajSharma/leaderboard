@@ -26,7 +26,7 @@ export class DetailsPage implements OnInit {
   monthFromRoute: string;
   yearFromRoute: number;
   currentDate = moment().toDate();
-  dateFromRoute = moment();
+  dateFromRoute: moment.Moment;
   datePicker = new FormControl();
   datepickerConfig: Partial<BsDatepickerConfig> = new BsDatepickerConfig();
   pieChartData: ScoreBreakDownModel[] = [];
@@ -64,6 +64,7 @@ export class DetailsPage implements OnInit {
   }
 
   calenderInitialisation() {
+    this.dateFromRoute = moment();
     this.dateFromRoute.month(this.monthFromRoute);
     this.dateFromRoute.set({ year: this.yearFromRoute });
     this.datePicker = new FormControl(this.dateFromRoute.toDate());

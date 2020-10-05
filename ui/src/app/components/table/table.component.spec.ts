@@ -38,7 +38,6 @@ describe('TableComponent', () => {
   });
 
   it('should change route on click of row', () => {
-    component.currentDate = moment();
     component.currentDate.set({ year: 2020, month: 0 });
     const event = { type: 'click', row: { knolderId: 2 } };
     component.onActivate(event);
