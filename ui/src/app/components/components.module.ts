@@ -11,6 +11,7 @@ import { MedalTallyComponent } from './medal-tally/medal-tally.component';
 import { BadgeDetailTableComponent } from './badge-detail-table/badge-detail-table.component';
 import { CustomPipesModule } from '../pipe/custom-pipes.module';
 import { MenuBoxComponent } from './menu-box/menu-box.component';
+import {ScoringInfoTableComponent} from '../component/scoring-info-table/scoring-info-table.component';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { MenuBoxComponent } from './menu-box/menu-box.component';
     ListPaginatorComponent,
     MedalTallyComponent,
     BadgeDetailTableComponent,
-    MenuBoxComponent
+    MenuBoxComponent,
+    ScoringInfoTableComponent
   ],
   exports: [
     HeadersComponent,
@@ -36,7 +38,8 @@ import { MenuBoxComponent } from './menu-box/menu-box.component';
     ListPaginatorComponent,
     MedalTallyComponent,
     BadgeDetailTableComponent,
-    MenuBoxComponent
+    MenuBoxComponent,
+    ScoringInfoTableComponent
   ],
 })
 export class ComponentsModule {

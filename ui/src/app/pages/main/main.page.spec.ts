@@ -54,14 +54,14 @@ describe('MainPage', () => {
     ]
   };
   const mockScoringData: ScoringTableModel = {
-    blog: {points: 5, multiplier: 1},
-    knolx: {points: 5, multiplier: 1},
-    webinar: {points: 5, multiplier: 1},
-    techhubTemplate: {points: 5, multiplier: 1},
-    osContribution: {points: 5, multiplier: 1},
-    conference: {points: 5, multiplier: 1},
-    book: {points: 5, multiplier: 1},
-    researchPaper: {points: 5, multiplier: 1},
+    blog: {points: 5, pointsMultiplier: 1},
+    knolx: {points: 5, pointsMultiplier: 1},
+    webinar: {points: 5, pointsMultiplier: 1},
+    techhubTemplate: {points: 5, pointsMultiplier: 1},
+    osContribution: {points: 5, pointsMultiplier: 1},
+    conference: {points: 5, pointsMultiplier: 1},
+    book: {points: 5, pointsMultiplier: 1},
+    researchPaper: {points: 5, pointsMultiplier: 1},
   };
   beforeEach(async(() => {
     TestBed.configureTestingModule({
