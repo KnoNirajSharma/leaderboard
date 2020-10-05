@@ -45,13 +45,16 @@
                                             <tr>
                                                 <th>Contribution</th>
                                                 <th>Points</th>
-                                                <th>Boost</th>
                                             </tr>
                                             <tr *ngFor="let key of scoringInfoKeys"
                                                 [ngClass]="{'boosted-score': scoringInfoData[key].pointsMultiplier > 1}">
                                                 <td>{{key | splitCamelCase | titlecase}}</td>
-                                                <td>{{scoringInfoData[key].points}}</td>
-                                                <td>x{{scoringInfoData[key].pointsMultiplier}}</td>
+                                                <td>
+                                                    {{scoringInfoData[key].points}}
+                                                    <span class="badge badge-pill badge-warning" *ngIf="scoringInfoData[key].pointsMultiplier > 1">
+                                                        x{{scoringInfoData[key].pointsMultiplier}}
+                                                    </span>
+                                                </td>
                                             </tr>
                                         </table>
                                     </div>

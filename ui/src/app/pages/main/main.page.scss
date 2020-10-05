@@ -162,19 +162,16 @@
             tr {
               td, th {
                 &:first-child {
-                  width: 10px;
-                  white-space: nowrap;
-                  text-overflow: ellipsis;
-                  overflow: hidden;
                   text-align: left;
                 }
+                white-space: nowrap;
               }
             }
           }
 
           table, td, th {
             border: 1px solid #2C42A5;
-            padding: 2px 5px 2px 5px;
+            padding: 5px;
             font-size: 0.9rem;
           }
         }
