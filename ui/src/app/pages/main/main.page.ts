@@ -63,8 +63,8 @@ export class MainPage implements OnInit {
     this.employeeActivityService.getScoringInfoData()
       .subscribe((scoringInfoData: ScoringTableModel) => {
         this.scoringInfoData = { ...scoringInfoData };
-        this.boostedScoreCount = this.setScoringInfoKeys();
-        this.getNumberOfScoresBoosted();
+        this.scoringInfoKeys = this.getScoringInfoKeys();
+        this.boostedScoreCount = this.getNumberOfScoresBoosted();
       }, error => {
         console.log(error);
       });
@@ -80,8 +80,8 @@ export class MainPage implements OnInit {
     this.knoldusStatsReputationKeys = Object.keys(this.reputation).filter(x => x !== 'reputation');
   }
 
-  setScoringInfoKeys() {
-    this.scoringInfoKeys = Object.keys(this.scoringInfoData);
+  getScoringInfoKeys(): string[] {
+    return Object.keys(this.scoringInfoData);
   }
 
   setKnoldersList() {

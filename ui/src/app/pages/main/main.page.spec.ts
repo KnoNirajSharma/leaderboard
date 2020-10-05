@@ -114,16 +114,18 @@ describe('MainPage', () => {
   });
 
   it('should return the scoring info data as per api call', () => {
-    spyOn(component, 'setScoringInfoKeys');
-    spyOn(component, 'getNumberOfScoresBoosted');
+    spyOn(component, 'getScoringInfoKeys').and.returnValue(['blog', 'knolx']);
+    spyOn(component, 'getNumberOfScoresBoosted').and.returnValue(3);
     spyOn(mockEmployeeService, 'getScoringInfoData').and.returnValue(of(mockScoringData));
     component.getScoringInfoData();
     expect(component.scoringInfoData).toEqual(mockScoringData);
+    expect(component.scoringInfoKeys).toEqual(['blog', 'knolx']);
+    expect(component.boostedScoreCount).toEqual(3);
   });
 
   it('should handle if error occurs in scoring info api', () => {
     spyOn(mockEmployeeService, 'getScoringInfoData').and.returnValue(throwError({status: 404}));
-    spyOn(component, 'setScoringInfoKeys');
+    spyOn(component, 'getScoringInfoKeys');
     component.getScoringInfoData();
   });
 
@@ -146,8 +148,7 @@ describe('MainPage', () => {
 
   it('should construct array of keys from scoringTableModel', () => {
     component.scoringInfoData = {...mockScoringData};
-    component.setScoringInfoKeys();
-    expect(component.scoringInfoKeys[0]).toEqual('blog');
+    expect(component.getScoringInfoKeys()[0]).toEqual('blog');
   });
 
   it('should add topRanker equal to true if the index is less than 5', () => {
