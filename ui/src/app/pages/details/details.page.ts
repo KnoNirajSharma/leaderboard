@@ -11,6 +11,7 @@ import { CommonService } from '../../services/common.service';
 import { HallOfFameModel } from '../../models/hallOfFame.model';
 import { LeaderModel } from '../../models/leader.model';
 import { MedalTallyModel } from '../../models/medalTally.model';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-details',
@@ -22,7 +23,10 @@ export class DetailsPage implements OnInit {
   knolderDetails: KnolderDetailsModel;
   allTimeDetails: KnolderDetailsModel;
   knolderId: number;
-  currentDate: Date;
+  monthFromRoute: string;
+  yearFromRoute: number;
+  currentDate = moment().toDate();
+  dateFromRoute: moment.Moment;
   datePicker = new FormControl();
   datepickerConfig: Partial<BsDatepickerConfig> = new BsDatepickerConfig();
   pieChartData: ScoreBreakDownModel[] = [];
@@ -32,20 +36,6 @@ export class DetailsPage implements OnInit {
   medalTally: MedalTallyModel;
   knolderAchievements: LeaderModel[] = [];
   allTimeSelected = false;
-  monthList = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
-  ];
 
   constructor(
     private route: ActivatedRoute,
@@ -55,26 +45,29 @@ export class DetailsPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.contributionsTypeColorList = this.commonService.chartColorScheme.domain;
+    this.contributionsTypeColorList = this.commonService.colorScheme.domain;
     this.route.queryParams
       .subscribe((params: Params) => {
         this.knolderId = Number(params.id);
+        this.yearFromRoute = Number(params.year);
+        this.monthFromRoute = params.month.toLowerCase();
+        this.loadingControllerService.present({
+          message: 'Loading the score details...',
+          translucent: 'false',
+          spinner: 'bubbles'
+        });
+        this.calenderInitialisation();
+        this.getTrendsData();
+        this.getHallOfFameData();
+        this.getAllTimeDetails();
       });
-    this.loadingControllerService.present({
-      message: 'Loading the score details...',
-      translucent: 'false',
-      spinner: 'bubbles'
-    });
-    this.calenderInitialisation();
-    this.getMonthlyDetails(this.monthList[this.currentDate.getMonth()], this.currentDate.getFullYear());
-    this.getTrendsData();
-    this.getHallOfFameData();
-    this.getAllTimeDetails();
   }
 
   calenderInitialisation() {
-    this.currentDate = new Date();
-    this.datePicker = new FormControl(this.currentDate);
+    this.dateFromRoute = moment();
+    this.dateFromRoute.month(this.monthFromRoute);
+    this.dateFromRoute.set({ year: this.yearFromRoute });
+    this.datePicker = new FormControl(this.dateFromRoute.toDate());
     this.datepickerConfig = { containerClass: 'theme-dark-blue', dateInputFormat: 'MMM-YYYY', minMode: 'month' };
   }
 
@@ -109,7 +102,8 @@ export class DetailsPage implements OnInit {
 
   onDateChange(selectedDate: Date) {
     this.allTimeSelected = false;
-    this.getMonthlyDetails(this.monthList[selectedDate.getMonth()], selectedDate.getFullYear());
+    const date = moment().set({ year: selectedDate.getFullYear(), month: selectedDate.getMonth() });
+    this.getMonthlyDetails(date.format('MMMM').toLowerCase(), date.year());
   }
 
   setAllTimeDetailsOnClick() {
@@ -129,6 +123,7 @@ export class DetailsPage implements OnInit {
   }
 
   setKnolderAchievements() {
+    this.knolderAchievements = [];
     this.hallOfFameLeaders
       .forEach(monthLeaders => {
         monthLeaders.leaders.forEach(leader => {

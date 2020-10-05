@@ -1,44 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { VerticalBarGraphComponent } from './vertical-bar-graph.component';
-import {TrendsModel} from '../../models/trends.model';
+import { TrendsModel } from '../../models/trends.model';
+import { CommonService } from '../../services/common.service';
 
 describe('VeritcalBarGraphComponent', () => {
   let component: VerticalBarGraphComponent;
-  let fixture: ComponentFixture<ParentComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        VerticalBarGraphComponent,
-        ParentComponent
-      ],
-      imports: [
-        IonicModule.forRoot(),
-        NgxChartsModule,
-        BrowserAnimationsModule
-      ]
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(ParentComponent);
-    component = fixture.debugElement.children[0].componentInstance;
-    fixture.detectChanges();
-  }));
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
-
-@Component({
-  selector: 'parent',
-  template: '<app-vertical-bar-graph [trendsData]="dummyTrendsData"></app-vertical-bar-graph>'
-})
-class ParentComponent {
-  dummyTrendsData: TrendsModel[] = [
+  let fixture: ComponentFixture<VerticalBarGraphComponent>;
+  let commonService: CommonService;
+  const mockTrendsData: TrendsModel[] = [
     {
       month: 'JUNE',
       year: 2020,
@@ -54,7 +26,7 @@ class ParentComponent {
     {
       month: 'JULY',
       year: 2020,
-      blogScore: 30,
+      blogScore: 40,
       knolxScore: 20,
       webinarScore: 34,
       techHubScore: 20,
@@ -64,4 +36,39 @@ class ParentComponent {
       researchPaperScore: 50,
     }
   ];
-}
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        VerticalBarGraphComponent
+      ],
+      imports: [
+        IonicModule.forRoot(),
+        NgxChartsModule,
+        BrowserAnimationsModule
+      ]
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(VerticalBarGraphComponent);
+    component = fixture.componentInstance;
+    commonService = TestBed.get(CommonService);
+  }));
+
+  it('result array values should be equal to inputResult values', () => {
+    spyOn(component, 'setBarGraphConfigs');
+    component.trendsData = [...mockTrendsData];
+    component.ngOnChanges();
+    expect(component.result[0].series[0].value).toEqual(component.trendsData[1].blogScore);
+    expect(component.setBarGraphConfigs).toHaveBeenCalled();
+  });
+
+  it('should set chart config values', () => {
+    spyOnProperty(commonService, 'colorScheme').and.returnValue({domain: ['blue']});
+    spyOnProperty(commonService, 'verticalBarChartYLabel').and.returnValue('scores');
+    spyOnProperty(commonService, 'verticalBarChartPadding').and.returnValue(1);
+    component.setBarGraphConfigs();
+    expect(component.colorScheme.domain[0]).toEqual('blue');
+    expect(component.yAxisLabel).toEqual('scores');
+    expect(component.barPadding).toEqual(1);
+  });
+});

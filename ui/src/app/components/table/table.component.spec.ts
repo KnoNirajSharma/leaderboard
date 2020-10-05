@@ -5,6 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import * as moment from 'moment';
 
 describe('TableComponent', () => {
   let component: TableComponent;
@@ -37,9 +38,13 @@ describe('TableComponent', () => {
   });
 
   it('should change route on click of row', () => {
+    component.currentDate.set({ year: 2020, month: 0 });
     const event = { type: 'click', row: { knolderId: 2 } };
     component.onActivate(event);
-    expect(routerSpy.navigate).toHaveBeenCalledWith(['/details'], { queryParams: { id : event.row.knolderId } });
+    expect(routerSpy.navigate).toHaveBeenCalledWith(
+        ['/details'],
+        { queryParams: { id : event.row.knolderId, year: 2020, month: 'January' } }
+      );
   });
 
   it('should stay on same route on other events', () => {
