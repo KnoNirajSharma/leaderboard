@@ -25,7 +25,7 @@ class WebinarSpreadSheetDataImpl(dateTimeFormats: ParseDateTimeFormats, response
       val webinarData = values.map(data => data.asScala.toList.map(_.toString))
       val webinarList = webinarData.map {
         case List(id, date, name, topic, emailId, _*) => val deliveredOn = dateTimeFormats.parseDateTimeFormat(date)
-          Webinar(id, deliveredOn, name, topic, emailId)
+          Webinar(id, deliveredOn, name, topic, emailId.trim)
       }
       webinarList.filter(webinar => webinar.deliveredOn.isDefined)
     } match {
