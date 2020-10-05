@@ -115,6 +115,7 @@ describe('MainPage', () => {
 
   it('should return the scoring info data as per api call', () => {
     spyOn(component, 'setScoringInfoKeys');
+    spyOn(component, 'getNumberOfScoresBoosted');
     spyOn(mockEmployeeService, 'getScoringInfoData').and.returnValue(of(mockScoringData));
     component.getScoringInfoData();
     expect(component.scoringInfoData).toEqual(mockScoringData);
@@ -252,5 +253,16 @@ describe('MainPage', () => {
     spyOn(component, 'comparisonBasedOnAllTimeScore').and.returnValue(true);
     component.sortTable({newValue: 'asc', column: {prop: 'allTimeScore'}});
     expect(component.filteredKnolderList[0].knolderId).toEqual(1);
+  });
+
+  it('should get the number of scores boosted', ()  => {
+    component.scoringInfoKeys = ['blog', 'knolx', 'webinar'];
+    component.scoringInfoData = {
+      ...mockScoringData,
+      blog: {points: 5, pointsMultiplier: 2},
+      knolx: {points: 20, pointsMultiplier: 2}
+    };
+    component.getNumberOfScoresBoosted();
+    expect(component.boostedScoreCount).toEqual(2);
   });
 });

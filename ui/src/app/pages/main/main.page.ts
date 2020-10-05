@@ -133,7 +133,5 @@ export class MainPage implements OnInit {
   getNumberOfScoresBoosted() {
     this.boostedScoreCount = this.scoringInfoKeys.map(key => this.scoringInfoData[key])
       .filter(scoreInfo => scoreInfo.pointsMultiplier > 1).length;
-    console.log(this.boostedScoreCount);
-    console.log(this.scoringInfoKeys);
   }
 }
