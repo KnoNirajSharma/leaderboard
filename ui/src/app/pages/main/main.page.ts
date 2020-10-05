@@ -62,9 +62,8 @@ export class MainPage implements OnInit {
       .subscribe((scoringInfoData: ScoringTableModel) => {
         this.scoringInfoData = { ...scoringInfoData };
         this.setScoringInfoKeys();
-        this.loadingControllerService.dismiss();
       }, error => {
-        this.loadingControllerService.dismiss();
+        console.log(error);
       });
   }
 
