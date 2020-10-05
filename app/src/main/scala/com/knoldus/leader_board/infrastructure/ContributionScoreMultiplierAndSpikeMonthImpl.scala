@@ -7,7 +7,7 @@ import com.typesafe.config.Config
 import com.typesafe.scalalogging.LazyLogging
 import scalikejdbc.{DB, DBSession, SQL}
 
-case class ScoreMultiplier(blogScoreMultiplier: Int, knolxScoreMultiplier: Int, webinarScoreMultiplier: Int
+final case class ScoreMultiplier(blogScoreMultiplier: Int, knolxScoreMultiplier: Int, webinarScoreMultiplier: Int
                            , techHubScoreMultiplier: Int, osContributionScoreMultiplier: Int, conferenceScoreMultiplier: Int
                            , researchPaperScoreMultiplier: Int, bookScoreMultiplier: Int, month: String, year: Int)
 

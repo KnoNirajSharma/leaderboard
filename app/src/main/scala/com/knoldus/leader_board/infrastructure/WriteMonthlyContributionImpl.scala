@@ -5,14 +5,26 @@ import java.sql.Connection
 import com.knoldus.leader_board.DatabaseConnection
 import com.knoldus.leader_board.business.KnolderIdWithKnolderContributionScore
 import com.typesafe.config.Config
+import com.typesafe.scalalogging.LazyLogging
 import scalikejdbc.{DB, DBSession, SQL}
 
-class WriteMonthlyContributionImpl(config:Config) extends WriteMonthlyContribution {
+class WriteMonthlyContributionImpl(config:Config) extends WriteMonthlyContribution with LazyLogging {
 
   implicit val connection: Connection = DatabaseConnection.connection(config)
   implicit val session: DBSession = DB.autoCommitSession()
 
+  /**
+   * Verifies whether knolder contribution of current month already exist in monthly contribution table or not, if not then it inserts it into the
+   * table with its score and rank.
+   *
+   * @param knolderMonthlyContribution List of contribution of knolders along with their knolder id fetched from monthly
+   *                             contribution table..
+   * @return List of Integer which displays the status of query execution.
+   */
+
   def insertKnolderMonthlyContribution(knolderMonthlyContribution:List[KnolderIdWithKnolderContributionScore]): List[Int] ={
+    logger.info("Inserting contribution of knolder monthly contribution table.")
+
     knolderMonthlyContribution.filter(knolderContribution=>knolderContribution.knolderId.isEmpty)
       .map{knolderContribution=>
         SQL(
@@ -27,7 +39,18 @@ class WriteMonthlyContributionImpl(config:Config) extends WriteMonthlyContributi
           knolderContribution.knolderContributionScore.year).update().apply()
       }
   }
+
+  /**
+   * Verifies whether knolder current month contribution already exist in monthly cpontribution table or not, if it does then it updates its score
+   * and rank.
+   *
+   * @param knolderMonthlyContribution List of contribution of knolders along with their knolder id fetched from monthly
+   *                             contribution table.
+   * @return List of Integer which displays the status of query execution.
+   */
   def updateKnolderMonthlyContribution(knolderMonthlyContribution:List[KnolderIdWithKnolderContributionScore]): List[Int] ={
+    logger.info("Updating contribution of knolder in monthly contribution table.")
+
     knolderMonthlyContribution.filter(knolderContribution=>knolderContribution.knolderId.isDefined)
       .map{knolderContribution=>
         SQL(
