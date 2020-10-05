@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EmployeeActivityService } from '../../services/employee-activity.service';
 import { HallOfFameModel } from '../../models/hallOfFame.model';
 import { LoadingControllerService } from '../../services/loading-controller.service ';
-import {CommonService} from '../../services/common.service';
+import { CommonService } from '../../services/common.service';
 
 @Component({
   selector: 'app-hall-of-fame',

@@ -6,6 +6,7 @@ import { KnolderDetailsModel } from '../models/knolder-details.model';
 import { ReputationModel } from '../models/reputation.model';
 import {TrendsModel} from '../models/trends.model';
 import {HallOfFameModel} from '../models/hallOfFame.model';
+import {ScoringTableModel} from '../models/scoring-table.model';
 
 describe('EmployeeActivityService', () => {
   let employeeActivityService: EmployeeActivityService;
@@ -13,6 +14,7 @@ describe('EmployeeActivityService', () => {
   const url = `${environment.api.baseUrl}${environment.api.routes.author.endpoint}`;
   const trendsUrl = `${environment.api.baseUrl}${environment.api.routes.trends.endpoint}`;
   const hallOfFameUrl = `${environment.api.baseUrl}${environment.api.routes.hallOfFame.endpoint}`;
+  const scoringInfoUrl = '/assets/data/scoringInfoData.json';
   const dummyReputationData: ReputationModel = {
     blogs: { monthly: 2, allTime: 3 },
     knolx: { monthly: 2, allTime: 3 },
@@ -59,7 +61,6 @@ describe('EmployeeActivityService', () => {
       }
     ]
   };
-
   const dummyTrendsData: TrendsModel[] = [
     {
       month: 'JUNE',
@@ -109,6 +110,16 @@ describe('EmployeeActivityService', () => {
         },
       ] }
   ];
+  const mockScoringData: ScoringTableModel = {
+    blog: {points: 5, pointsMultiplier: 1},
+    knolx: {points: 5, pointsMultiplier: 1},
+    webinar: {points: 5, pointsMultiplier: 1},
+    techhubTemplate: {points: 5, pointsMultiplier: 1},
+    osContribution: {points: 5, pointsMultiplier: 1},
+    conference: {points: 5, pointsMultiplier: 1},
+    book: {points: 5, pointsMultiplier: 1},
+    researchPaper: {points: 5, pointsMultiplier: 1},
+  };
   const id = 1;
   const month = 'june';
   const year = 2020;
@@ -171,6 +182,15 @@ describe('EmployeeActivityService', () => {
     const requestCheck = httpTestingController.expectOne(hallOfFameUrl);
     expect(requestCheck.request.method).toBe('GET');
     requestCheck.flush(mockHallOfFameData);
+  });
+
+  it('should retrieve scoring info data from the API via GET', () => {
+    employeeActivityService.getScoringInfoData().subscribe(data => {
+      expect(data).toEqual(mockScoringData);
+    });
+    const requestCheck = httpTestingController.expectOne(scoringInfoUrl);
+    expect(requestCheck.request.method).toBe('GET');
+    requestCheck.flush(mockScoringData);
   });
 
   afterEach(() => {
