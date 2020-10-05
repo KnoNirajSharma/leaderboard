@@ -63,7 +63,7 @@ export class MainPage implements OnInit {
     this.employeeActivityService.getScoringInfoData()
       .subscribe((scoringInfoData: ScoringTableModel) => {
         this.scoringInfoData = { ...scoringInfoData };
-        this.setScoringInfoKeys();
+        this.boostedScoreCount = this.setScoringInfoKeys();
         this.getNumberOfScoresBoosted();
       }, error => {
         console.log(error);
@@ -131,7 +131,7 @@ export class MainPage implements OnInit {
   }
 
   getNumberOfScoresBoosted() {
-    this.boostedScoreCount = this.scoringInfoKeys.map(key => this.scoringInfoData[key])
+    return this.scoringInfoKeys.map(key => this.scoringInfoData[key])
       .filter(scoreInfo => scoreInfo.pointsMultiplier > 1).length;
   }
 }

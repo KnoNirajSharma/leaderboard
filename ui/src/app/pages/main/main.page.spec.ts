@@ -262,7 +262,6 @@ describe('MainPage', () => {
       blog: {points: 5, pointsMultiplier: 2},
       knolx: {points: 20, pointsMultiplier: 2}
     };
-    component.getNumberOfScoresBoosted();
-    expect(component.boostedScoreCount).toEqual(2);
+    expect(component.getNumberOfScoresBoosted()).toEqual(2);
   });
 });
