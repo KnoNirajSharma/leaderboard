@@ -130,7 +130,7 @@ export class MainPage implements OnInit {
     }
   }
 
-  getNumberOfScoresBoosted() {
+  getNumberOfScoresBoosted(): number {
     return this.scoringInfoKeys.map(key => this.scoringInfoData[key])
       .filter(scoreInfo => scoreInfo.pointsMultiplier > 1).length;
   }
