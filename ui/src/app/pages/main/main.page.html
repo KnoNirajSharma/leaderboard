@@ -28,24 +28,33 @@
             </div>
             <ion-card class="leaderboard-table w-100 ion-no-padding ion-no-margin">
                 <div class="container-fluid">
-                    <div class="row d-flex align-items-center">
+                    <div class="row d-flex align-items-center py-2">
                         <div class="col-7 col-md-4 col-lg-3 py-1 current-month-signifier">
                             Summary of {{ currentDate | date: 'MMMM yyyy'}}
                         </div>
                         <div class="col-5 col-md-2 col-lg-2 py-1 scoring-info">
                             <div class="btn btn-outline-primary scoring-info-btn float-right float-md-left py-1 popover-wrapper">
-                                 Scoring<div class="scoring-info-table">
+                                 Scoring
+                                <div *ngIf="boostedScoreCount > 0" class="badge badge-pill badge-danger position-absolute boost-notification d-flex align-items-center">
+                                <img alt="shuttle" src="assets/icon/shuttle-white.svg"/>
+                                <span class="ml-1 font-weight-bolder">{{boostedScoreCount}}</span>
+                                </div>
+                                <div class="scoring-info-table">
                                     <div class="popover-content">
                                         <table class="popover-message">
                                             <tr>
                                                 <th>Contribution</th>
                                                 <th>Points</th>
-                                                <th>Boost</th>
                                             </tr>
-                                            <tr *ngFor="let key of scoringInfoKeys">
+                                            <tr *ngFor="let key of scoringInfoKeys"
+                                                [ngClass]="{'boosted-score': scoringInfoData[key].pointsMultiplier > 1}">
                                                 <td>{{key | splitCamelCase | titlecase}}</td>
-                                                <td>{{scoringInfoData[key].points}}</td>
-                                                <td>x{{scoringInfoData[key].multiplier}}</td>
+                                                <td>
+                                                    {{scoringInfoData[key].points}}
+                                                    <span class="badge badge-pill badge-warning" *ngIf="scoringInfoData[key].pointsMultiplier > 1">
+                                                        x{{scoringInfoData[key].pointsMultiplier}}
+                                                    </span>
+                                                </td>
                                             </tr>
                                         </table>
                                     </div>

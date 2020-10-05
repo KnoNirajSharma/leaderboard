@@ -54,14 +54,14 @@ describe('MainPage', () => {
     ]
   };
   const mockScoringData: ScoringTableModel = {
-    blog: {points: 5, multiplier: 1},
-    knolx: {points: 5, multiplier: 1},
-    webinar: {points: 5, multiplier: 1},
-    techhubTemplate: {points: 5, multiplier: 1},
-    osContribution: {points: 5, multiplier: 1},
-    conference: {points: 5, multiplier: 1},
-    book: {points: 5, multiplier: 1},
-    researchPaper: {points: 5, multiplier: 1},
+    blog: {points: 5, pointsMultiplier: 1},
+    knolx: {points: 5, pointsMultiplier: 1},
+    webinar: {points: 5, pointsMultiplier: 1},
+    techhubTemplate: {points: 5, pointsMultiplier: 1},
+    osContribution: {points: 5, pointsMultiplier: 1},
+    conference: {points: 5, pointsMultiplier: 1},
+    book: {points: 5, pointsMultiplier: 1},
+    researchPaper: {points: 5, pointsMultiplier: 1},
   };
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -114,15 +114,18 @@ describe('MainPage', () => {
   });
 
   it('should return the scoring info data as per api call', () => {
-    spyOn(component, 'setScoringInfoKeys');
+    spyOn(component, 'getScoringInfoKeys').and.returnValue(['blog', 'knolx']);
+    spyOn(component, 'getNumberOfScoresBoosted').and.returnValue(3);
     spyOn(mockEmployeeService, 'getScoringInfoData').and.returnValue(of(mockScoringData));
     component.getScoringInfoData();
     expect(component.scoringInfoData).toEqual(mockScoringData);
+    expect(component.scoringInfoKeys).toEqual(['blog', 'knolx']);
+    expect(component.boostedScoreCount).toEqual(3);
   });
 
   it('should handle if error occurs in scoring info api', () => {
     spyOn(mockEmployeeService, 'getScoringInfoData').and.returnValue(throwError({status: 404}));
-    spyOn(component, 'setScoringInfoKeys');
+    spyOn(component, 'getScoringInfoKeys');
     component.getScoringInfoData();
   });
 
@@ -145,8 +148,7 @@ describe('MainPage', () => {
 
   it('should construct array of keys from scoringTableModel', () => {
     component.scoringInfoData = {...mockScoringData};
-    component.setScoringInfoKeys();
-    expect(component.scoringInfoKeys[0]).toEqual('blog');
+    expect(component.getScoringInfoKeys()[0]).toEqual('blog');
   });
 
   it('should add topRanker equal to true if the index is less than 5', () => {
@@ -252,5 +254,15 @@ describe('MainPage', () => {
     spyOn(component, 'comparisonBasedOnAllTimeScore').and.returnValue(true);
     component.sortTable({newValue: 'asc', column: {prop: 'allTimeScore'}});
     expect(component.filteredKnolderList[0].knolderId).toEqual(1);
+  });
+
+  it('should get the number of scores boosted', ()  => {
+    component.scoringInfoKeys = ['blog', 'knolx', 'webinar'];
+    component.scoringInfoData = {
+      ...mockScoringData,
+      blog: {points: 5, pointsMultiplier: 2},
+      knolx: {points: 20, pointsMultiplier: 2}
+    };
+    expect(component.getNumberOfScoresBoosted()).toEqual(2);
   });
 });

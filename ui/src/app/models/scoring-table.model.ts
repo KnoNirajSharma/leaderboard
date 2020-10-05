@@ -1,6 +1,6 @@
 export interface ScoringInfoModel {
   points: number;
-  multiplier: number;
+  pointsMultiplier: number;
 }
 
 export interface ScoringTableModel {

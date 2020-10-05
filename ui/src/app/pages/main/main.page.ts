@@ -6,7 +6,8 @@ import { EmployeeFilterPipe } from '../../pipe/employee-filter.pipe';
 import { TableHeaderModel } from '../../models/tableHeader.model';
 import { ReputationModel } from '../../models/reputation.model';
 import { LoadingControllerService } from '../../services/loading-controller.service ';
-import {ScoringInfoModel, ScoringTableModel} from '../../models/scoring-table.model';
+import { ScoringTableModel } from '../../models/scoring-table.model';
+import {createConsoleLogServer} from '@ionic/angular-toolkit/builders/cordova-serve/log-server';
 
 @Component({
   selector: 'app-main',
@@ -23,6 +24,7 @@ export class MainPage implements OnInit {
   scoringInfoKeys: string[];
   knoldusStatsReputationKeys: string[];
   currentDate: Date = new Date();
+  boostedScoreCount: any;
   tableHeading: TableHeaderModel[] = [
     { title: 'MONTHLY RANK' },
     { title: 'MONTHLY SCORE' },
@@ -61,7 +63,8 @@ export class MainPage implements OnInit {
     this.employeeActivityService.getScoringInfoData()
       .subscribe((scoringInfoData: ScoringTableModel) => {
         this.scoringInfoData = { ...scoringInfoData };
-        this.setScoringInfoKeys();
+        this.scoringInfoKeys = this.getScoringInfoKeys();
+        this.boostedScoreCount = this.getNumberOfScoresBoosted();
       }, error => {
         console.log(error);
       });
@@ -77,8 +80,8 @@ export class MainPage implements OnInit {
     this.knoldusStatsReputationKeys = Object.keys(this.reputation).filter(x => x !== 'reputation');
   }
 
-  setScoringInfoKeys() {
-    this.scoringInfoKeys = Object.keys(this.scoringInfoData);
+  getScoringInfoKeys(): string[] {
+    return Object.keys(this.scoringInfoData);
   }
 
   setKnoldersList() {
@@ -125,5 +128,10 @@ export class MainPage implements OnInit {
       this.filteredKnolderList
         .sort((secEmp, firstEmp) => secEmp[event.column.prop] < firstEmp[event.column.prop] ? 1 : -1);
     }
+  }
+
+  getNumberOfScoresBoosted(): number {
+    return this.scoringInfoKeys.map(key => this.scoringInfoData[key])
+      .filter(scoreInfo => scoreInfo.pointsMultiplier > 1).length;
   }
 }
