@@ -27,7 +27,7 @@ class OtherContributionDataImpl(dateTimeFormats: ParseDateTimeFormats, response:
       val otherContributionList = otherContributionData.map {
         case List(_, name, emailId, typeOfContribution, title, date, _, urlLink, _*) =>
           val dateOfContribution = dateTimeFormats.parseDateTimeFormat(date)
-          OtherContributionDetails(urlLink, emailId, name, dateOfContribution, title, typeOfContribution)
+          OtherContributionDetails(urlLink, emailId.trim, name, dateOfContribution, title, typeOfContribution)
       }
       otherContributionList.filter(otherContribution => otherContribution.contributedOn.isDefined)
     } match {

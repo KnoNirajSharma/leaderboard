@@ -27,7 +27,7 @@ class OtherContributionDataImplSpec extends AnyWordSpecLike with MockitoSugar wi
     val valueRange: ValueRange = new ValueRange
     val osContributionValueRange = valueRange.setValues(
       util.Arrays.asList(
-        util.Arrays.asList("abc@knoldus.com", "amit","a@gmail.com", "Open Source","java lambdas","6/2/2020", "why java lambdas", "abc@github.com"),
+        util.Arrays.asList("abc@knoldus.com", "amit","a@gmail.com ", "Open Source","java lambdas","6/2/2020", "why java lambdas", "abc@github.com"),
         util.Arrays.asList("xyz@knoldus.com", "akash","b@gmail.com","Conference","rust", """05\02\2020""", " why rust", "xyz@github.com")))
     "return other contribution details " in {
       val formatDateOne = formatOne.parse("6/2/2020")
