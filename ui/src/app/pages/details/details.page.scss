@@ -60,8 +60,7 @@ ion-content {
   .badge-details {
 
     .badge-details-table {
-      min-height: 200px;
-      max-height: 250px;
+      height: 200px;
       overflow-y: auto;
 
       &::-webkit-scrollbar {

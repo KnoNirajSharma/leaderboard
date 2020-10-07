@@ -34,8 +34,9 @@ export class DetailsPage implements OnInit {
   contributionsTypeColorList: string[];
   hallOfFameLeaders: HallOfFameModel[];
   medalTally: MedalTallyModel;
-  knolderAchievements: LeaderModel[] = [];
+  knolderAchievements: any[] = [];
   allTimeSelected = false;
+  mockList = [1, 2, 3, 4];
 
   constructor(
     private route: ActivatedRoute,
@@ -123,15 +124,19 @@ export class DetailsPage implements OnInit {
   }
 
   setKnolderAchievements() {
-    this.knolderAchievements = [];
-    this.hallOfFameLeaders
-      .forEach(monthLeaders => {
-        monthLeaders.leaders.forEach(leader => {
-          leader.knolderId ===  this.knolderId
-            ? this.knolderAchievements.push({ ...leader, position: monthLeaders.leaders.indexOf(leader) })
-            : leader.position = -1;
-        });
-      });
+    this.knolderAchievements = this.hallOfFameLeaders.map((monthData) => {
+      return monthData.leaders
+        .map((leader, index) => {
+          return {
+            ...leader,
+            position: index
+          };
+        })
+        .filter(leader => leader.knolderId === this.knolderId);
+    })
+      .reduce((knolderAchievementList, leaderDetails) => {
+        return knolderAchievementList.concat(leaderDetails);
+      }, []);
   }
 
   setMedalTally() {
