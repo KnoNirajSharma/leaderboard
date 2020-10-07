@@ -1,6 +1,7 @@
 ion-content {
   height: 100vh;
   --background: #f5f5fa;
+  color: #2a2a2a;
 }
 
 .container {
@@ -23,7 +24,7 @@ ion-content {
 
 .scrolling-wrapper{
   overflow-x: auto;
-  
+
   &::after {
     content: '-';
     background: transparent;
