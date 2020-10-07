@@ -89,6 +89,16 @@
                 </div>
             </div>
             <div class="col-12 col-md-6">
+                <div *ngIf="hallOfFameLeaders" class="badge-details col-12 mt-4 card block border-0 col-xl-10 mx-auto pl-2">
+                    <div class="block-title d-flex justify-content-between pt-3 pb-2 px-2 bg-white">
+                        <div class="align-self-center">
+                            <h4 class="font-weight-normal m-0">Badges</h4>
+                        </div>
+                    </div>
+                    <div class="badge-details-table">
+                        <app-badge-detail-table [knolderAchievements]="knolderAchievements"></app-badge-detail-table>
+                    </div>
+                </div>
                 <div *ngIf="trendsData" class="col-12 text-center block card border-0 mt-4 col-xl-10 mx-auto ">
                     <div class="block-title d-flex justify-content-between pt-3 pb-2 px-2 bg-white mb-3">
                         <div class="align-self-center">
@@ -96,7 +106,6 @@
                         </div>
                     </div>
                     <app-vertical-bar-graph [trendsData]="trendsData"></app-vertical-bar-graph>
-
                 </div>
                 <div *ngIf="allTimeDetails" class="col-12 mt-5 card block border-0 col-xl-10 mx-auto pl-2">
                     <div class="block-title d-flex justify-content-between pt-3 pb-2 px-2 bg-white">
@@ -105,16 +114,6 @@
                         </div>
                     </div>
                     <app-pie-chart [inputResult]="pieChartData"></app-pie-chart>
-                </div>
-                <div *ngIf="hallOfFameLeaders" class="badge-details col-12 mt-5 card block border-0 col-xl-10 mx-auto pl-2">
-                    <div class="block-title d-flex justify-content-between pt-3 pb-2 px-2 bg-white">
-                        <div class="align-self-center">
-                            <h4 class="font-weight-normal m-0">Badges</h4>
-                        </div>
-                    </div>
-                    <div class="badge-details-table">
-                    <app-badge-detail-table [knolderAchievements]="knolderAchievements"></app-badge-detail-table>
-                    </div>
                 </div>
             </div>
         </div>
