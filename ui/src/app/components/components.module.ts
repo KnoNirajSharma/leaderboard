@@ -10,6 +10,7 @@ import { ListPaginatorComponent } from './list-paginator/list-paginator.componen
 import { MedalTallyComponent } from './medal-tally/medal-tally.component';
 import { BadgeDetailTableComponent } from './badge-detail-table/badge-detail-table.component';
 import { CustomPipesModule } from '../pipe/custom-pipes.module';
+import { MenuBoxComponent } from './menu-box/menu-box.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { CustomPipesModule } from '../pipe/custom-pipes.module';
     VerticalBarGraphComponent,
     ListPaginatorComponent,
     MedalTallyComponent,
-    BadgeDetailTableComponent
+    BadgeDetailTableComponent,
+    MenuBoxComponent
   ],
   exports: [
     HeadersComponent,
@@ -33,7 +35,8 @@ import { CustomPipesModule } from '../pipe/custom-pipes.module';
     VerticalBarGraphComponent,
     ListPaginatorComponent,
     MedalTallyComponent,
-    BadgeDetailTableComponent
+    BadgeDetailTableComponent,
+    MenuBoxComponent
   ],
 })
 export class ComponentsModule {

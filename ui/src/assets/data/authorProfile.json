@@ -1,30 +1,13 @@
 {
-  "monthlyBlogCount":4,
-  "monthlyKnolxCount":0,
-  "monthlyWebinarCount":0,
-  "monthlyTechHubCount":0,
-  "monthlyOsContributionCount":1,
-  "monthlyConferenceCount":0,
-  "monthlyBookCount": 3,
-  "monthlyResearchPaperCount": 3,
-  "allTimeBlogCount":1700,
-  "allTimeKnolxCount":167,
-  "allTimeWebinarCount":40,
-  "allTimeTechHubCount":228,
-  "allTimeOsContributionCount":95,
-  "allTimeConferenceCount":7,
-  "allTimeBookCount": 3,
-  "allTimeResearchPaperCount": 3,
+  "blogs": { "monthly": 2, "allTime": 3 },
+  "knolx": { "monthly": 2, "allTime": 3 },
+  "webinars": { "monthly": 2, "allTime": 3 },
+  "techhubTemplates": { "monthly": 2, "allTime": 3 },
+  "osContributions": { "monthly": 2, "allTime": 3 },
+  "conferences": { "monthly": 2, "allTime": 3 },
+  "books": { "monthly": 2, "allTime": 3 },
+  "researchPapers": { "monthly": 2, "allTime": 3 },
   "reputation":[
-    {
-      "knolderId":57,
-      "knolderName":"Manas Kashyap",
-      "allTimeScore":220,
-      "allTimeRank":24,
-      "quarterlyStreak":"30-35-0",
-      "monthlyScore":30,
-      "monthlyRank":1
-    },
     {
       "knolderId":5,
       "knolderName":"Gaurav Kumar Shukla",
@@ -32,34 +15,16 @@
       "allTimeRank":18,
       "quarterlyStreak":"0-0-5",
       "monthlyScore":5,
-      "monthlyRank":2
-    },
-    {
-      "knolderId":30,
-      "knolderName":"kundan kumar",
-      "allTimeScore":195,
-      "allTimeRank":26,
-      "quarterlyStreak":"15-0-45",
-      "monthlyScore":5,
-      "monthlyRank":2
-    },
-    {
-      "knolderId":118,
-      "knolderName":"Sparsh Bhardwaj",
-      "allTimeScore":35,
-      "allTimeRank":52,
-      "quarterlyStreak":"0-10-0",
-      "monthlyScore":5,
-      "monthlyRank":2
+      "monthlyRank":1
     },
     {
       "knolderId":117,
       "knolderName":"Suraj Saini",
       "allTimeScore":15,
-      "allTimeRank":56,
+      "allTimeRank":55,
       "quarterlyStreak":"5-0-5",
       "monthlyScore":5,
-      "monthlyRank":2
+      "monthlyRank":1
     },
     {
       "knolderId":27,
@@ -68,7 +33,7 @@
       "allTimeRank":1,
       "quarterlyStreak":"35-135-95",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":21,
@@ -77,7 +42,7 @@
       "allTimeRank":2,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":8,
@@ -86,7 +51,7 @@
       "allTimeRank":3,
       "quarterlyStreak":"0-0-15",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":6,
@@ -95,7 +60,7 @@
       "allTimeRank":4,
       "quarterlyStreak":"35-0-185",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":41,
@@ -104,7 +69,7 @@
       "allTimeRank":5,
       "quarterlyStreak":"90-0-20",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":20,
@@ -113,7 +78,7 @@
       "allTimeRank":6,
       "quarterlyStreak":"0-10-30",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":11,
@@ -122,7 +87,7 @@
       "allTimeRank":7,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":76,
@@ -131,7 +96,7 @@
       "allTimeRank":8,
       "quarterlyStreak":"0-50-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":35,
@@ -140,7 +105,7 @@
       "allTimeRank":9,
       "quarterlyStreak":"10-100-50",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":29,
@@ -149,7 +114,7 @@
       "allTimeRank":10,
       "quarterlyStreak":"0-0-15",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":9,
@@ -158,7 +123,7 @@
       "allTimeRank":11,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":100,
@@ -167,7 +132,7 @@
       "allTimeRank":12,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":22,
@@ -176,7 +141,7 @@
       "allTimeRank":13,
       "quarterlyStreak":"5-0-45",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":78,
@@ -185,7 +150,7 @@
       "allTimeRank":14,
       "quarterlyStreak":"0-5-20",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":99,
@@ -194,7 +159,7 @@
       "allTimeRank":14,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":23,
@@ -203,7 +168,7 @@
       "allTimeRank":15,
       "quarterlyStreak":"45-50-30",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":102,
@@ -212,7 +177,7 @@
       "allTimeRank":15,
       "quarterlyStreak":"5-30-145",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":2,
@@ -221,7 +186,7 @@
       "allTimeRank":16,
       "quarterlyStreak":"0-0-10",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":101,
@@ -230,7 +195,7 @@
       "allTimeRank":17,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":73,
@@ -239,7 +204,7 @@
       "allTimeRank":19,
       "quarterlyStreak":"0-0-20",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":28,
@@ -248,7 +213,7 @@
       "allTimeRank":20,
       "quarterlyStreak":"5-0-25",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":91,
@@ -257,7 +222,7 @@
       "allTimeRank":20,
       "quarterlyStreak":"20-15-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":51,
@@ -266,7 +231,7 @@
       "allTimeRank":21,
       "quarterlyStreak":"0-0-20",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":4,
@@ -275,7 +240,7 @@
       "allTimeRank":22,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":58,
@@ -284,979 +249,1006 @@
       "allTimeRank":23,
       "quarterlyStreak":"0-10-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":15,
       "knolderName":"Azmat Hasan",
       "allTimeScore":210,
-      "allTimeRank":25,
+      "allTimeRank":24,
       "quarterlyStreak":"0-0-35",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":14,
       "knolderName":"Ayush Hooda",
       "allTimeScore":195,
-      "allTimeRank":26,
+      "allTimeRank":25,
       "quarterlyStreak":"0-0-30",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":44,
       "knolderName":"Etash",
       "allTimeScore":195,
-      "allTimeRank":26,
+      "allTimeRank":25,
       "quarterlyStreak":"0-35-10",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
+    },
+    {
+      "knolderId":57,
+      "knolderName":"Manas Kashyap",
+      "allTimeScore":190,
+      "allTimeRank":26,
+      "quarterlyStreak":"30-35-0",
+      "monthlyScore":0,
+      "monthlyRank":2
+    },
+    {
+      "knolderId":30,
+      "knolderName":"kundan kumar",
+      "allTimeScore":190,
+      "allTimeRank":26,
+      "quarterlyStreak":"15-0-45",
+      "monthlyScore":0,
+      "monthlyRank":2
     },
     {
       "knolderId":42,
       "knolderName":"Neha Bhardwaj",
       "allTimeScore":190,
-      "allTimeRank":27,
+      "allTimeRank":26,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":25,
       "knolderName":"Muskan Gupta",
       "allTimeScore":180,
-      "allTimeRank":28,
+      "allTimeRank":27,
       "quarterlyStreak":"20-55-25",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":48,
       "knolderName":"Bhawna Sharma",
       "allTimeScore":175,
-      "allTimeRank":29,
+      "allTimeRank":28,
       "quarterlyStreak":"5-70-15",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":62,
       "knolderName":"Bhavya Aggarwal",
       "allTimeScore":175,
-      "allTimeRank":29,
+      "allTimeRank":28,
       "quarterlyStreak":"0-0-20",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":46,
       "knolderName":"Vinisha Sharma",
       "allTimeScore":170,
-      "allTimeRank":30,
+      "allTimeRank":29,
       "quarterlyStreak":"0-0-5",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":128,
       "knolderName":"Abhishek Baranwal",
       "allTimeScore":165,
-      "allTimeRank":31,
+      "allTimeRank":30,
       "quarterlyStreak":"0-30-30",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":59,
       "knolderName":"Lokesh Aggarwal",
       "allTimeScore":160,
-      "allTimeRank":32,
+      "allTimeRank":31,
       "quarterlyStreak":"10-15-45",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":12,
       "knolderName":"Shubham Verma",
       "allTimeScore":155,
-      "allTimeRank":33,
+      "allTimeRank":32,
       "quarterlyStreak":"0-0-15",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":10,
       "knolderName":"Himani Arora",
       "allTimeScore":150,
-      "allTimeRank":34,
+      "allTimeRank":33,
       "quarterlyStreak":"0-0-15",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":61,
       "knolderName":"Yatharth Sharma",
       "allTimeScore":150,
-      "allTimeRank":34,
+      "allTimeRank":33,
       "quarterlyStreak":"0-0-25",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":80,
       "knolderName":"Jyoti Sachdeva",
       "allTimeScore":145,
-      "allTimeRank":35,
+      "allTimeRank":34,
       "quarterlyStreak":"5-10-40",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":64,
       "knolderName":"Anmol Sarna",
       "allTimeScore":145,
-      "allTimeRank":35,
+      "allTimeRank":34,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":7,
       "knolderName":"Mayank Bairagi",
       "allTimeScore":145,
-      "allTimeRank":35,
+      "allTimeRank":34,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":3,
       "knolderName":"Narayan Kumar",
       "allTimeScore":140,
-      "allTimeRank":36,
+      "allTimeRank":35,
       "quarterlyStreak":"0-0-10",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":34,
       "knolderName":"Swantika Gupta",
       "allTimeScore":140,
-      "allTimeRank":36,
+      "allTimeRank":35,
       "quarterlyStreak":"30-40-20",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":54,
       "knolderName":"Prashant Sharma",
       "allTimeScore":140,
-      "allTimeRank":36,
+      "allTimeRank":35,
       "quarterlyStreak":"0-10-20",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":31,
       "knolderName":"Jasmine Kaur",
       "allTimeScore":140,
-      "allTimeRank":36,
+      "allTimeRank":35,
       "quarterlyStreak":"0-15-5",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":32,
       "knolderName":"Vandana Yadav",
       "allTimeScore":130,
-      "allTimeRank":37,
+      "allTimeRank":36,
       "quarterlyStreak":"0-0-25",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":45,
       "knolderName":"Shivraj Singh",
       "allTimeScore":130,
-      "allTimeRank":37,
+      "allTimeRank":36,
       "quarterlyStreak":"0-35-5",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":1,
       "knolderName":"Sidharth Khattri",
       "allTimeScore":130,
-      "allTimeRank":37,
+      "allTimeRank":36,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":82,
       "knolderName":"Ayush Singhal",
       "allTimeScore":130,
-      "allTimeRank":37,
+      "allTimeRank":36,
       "quarterlyStreak":"0-30-60",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":85,
       "knolderName":"Miral Gandhi",
       "allTimeScore":130,
-      "allTimeRank":37,
+      "allTimeRank":36,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":75,
       "knolderName":"Priyanka Thakur",
       "allTimeScore":115,
-      "allTimeRank":38,
+      "allTimeRank":37,
       "quarterlyStreak":"0-0-25",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":96,
       "knolderName":"Ayush Tiwari",
       "allTimeScore":115,
-      "allTimeRank":38,
+      "allTimeRank":37,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":13,
       "knolderName":"Randhir kumar",
       "allTimeScore":115,
-      "allTimeRank":38,
+      "allTimeRank":37,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":55,
       "knolderName":"Nitin Arora",
       "allTimeScore":105,
-      "allTimeRank":39,
+      "allTimeRank":38,
       "quarterlyStreak":"5-0-5",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":50,
       "knolderName":"Sanjana Aggarwal",
       "allTimeScore":105,
-      "allTimeRank":39,
+      "allTimeRank":38,
       "quarterlyStreak":"0-5-60",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":87,
       "knolderName":"Shubhrank Rastogi",
       "allTimeScore":105,
-      "allTimeRank":39,
+      "allTimeRank":38,
       "quarterlyStreak":"20-15-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":83,
       "knolderName":"Shivangi Gupta",
       "allTimeScore":100,
-      "allTimeRank":40,
+      "allTimeRank":39,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":19,
       "knolderName":"Ruchika Dubey",
       "allTimeScore":95,
-      "allTimeRank":41,
+      "allTimeRank":40,
       "quarterlyStreak":"20-0-5",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":18,
       "knolderName":"Niharika Datta",
       "allTimeScore":95,
-      "allTimeRank":41,
+      "allTimeRank":40,
       "quarterlyStreak":"0-5-10",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":24,
       "knolderName":"Upanshu Chaudhary",
       "allTimeScore":90,
-      "allTimeRank":42,
+      "allTimeRank":41,
       "quarterlyStreak":"5-5-15",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":53,
       "knolderName":"Ankur Thakur",
       "allTimeScore":90,
-      "allTimeRank":42,
+      "allTimeRank":41,
       "quarterlyStreak":"0-15-20",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":104,
       "knolderName":"Rahul Khanna",
       "allTimeScore":90,
-      "allTimeRank":42,
+      "allTimeRank":41,
       "quarterlyStreak":"0-0-35",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":47,
       "knolderName":"Ayush Prashar",
       "allTimeScore":80,
-      "allTimeRank":43,
+      "allTimeRank":42,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":40,
       "knolderName":"Krishna Singh",
       "allTimeScore":75,
-      "allTimeRank":44,
+      "allTimeRank":43,
       "quarterlyStreak":"5-45-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":74,
       "knolderName":"Jashan Goyal",
       "allTimeScore":75,
-      "allTimeRank":44,
+      "allTimeRank":43,
       "quarterlyStreak":"0-15-15",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":43,
       "knolderName":"Mukesh Yadav",
       "allTimeScore":75,
-      "allTimeRank":44,
+      "allTimeRank":43,
       "quarterlyStreak":"15-0-45",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":97,
       "knolderName":"Shubham Agarwal",
       "allTimeScore":70,
-      "allTimeRank":45,
+      "allTimeRank":44,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":56,
       "knolderName":"Gautam Singal",
       "allTimeScore":65,
-      "allTimeRank":46,
+      "allTimeRank":45,
       "quarterlyStreak":"0-5-45",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":17,
       "knolderName":"Divyansh Jain",
       "allTimeScore":65,
-      "allTimeRank":46,
+      "allTimeRank":45,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":79,
       "knolderName":"Neelam Lakra",
       "allTimeScore":60,
-      "allTimeRank":47,
+      "allTimeRank":46,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":52,
       "knolderName":"Harshit Daga",
       "allTimeScore":60,
-      "allTimeRank":47,
+      "allTimeRank":46,
       "quarterlyStreak":"5-0-5",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":68,
       "knolderName":"Sakshi Gawande",
       "allTimeScore":60,
-      "allTimeRank":47,
+      "allTimeRank":46,
       "quarterlyStreak":"5-15-25",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":37,
       "knolderName":"Komal Rajpal",
       "allTimeScore":60,
-      "allTimeRank":47,
+      "allTimeRank":46,
       "quarterlyStreak":"0-0-5",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":16,
       "knolderName":"Megha Jatana",
       "allTimeScore":60,
-      "allTimeRank":47,
+      "allTimeRank":46,
       "quarterlyStreak":"0-5-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":33,
       "knolderName":"Alok Jha",
       "allTimeScore":55,
-      "allTimeRank":48,
+      "allTimeRank":47,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":60,
       "knolderName":"Juoko Virtanen",
       "allTimeScore":55,
-      "allTimeRank":48,
+      "allTimeRank":47,
       "quarterlyStreak":"0-0-5",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":63,
       "knolderName":"Ram Indukuri",
       "allTimeScore":55,
-      "allTimeRank":48,
+      "allTimeRank":47,
       "quarterlyStreak":"0-0-5",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":84,
       "knolderName":"Vidisha Gupta",
       "allTimeScore":55,
-      "allTimeRank":48,
+      "allTimeRank":47,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":36,
       "knolderName":"Mukesh Kumar",
       "allTimeScore":50,
-      "allTimeRank":49,
+      "allTimeRank":48,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":93,
       "knolderName":"Nitin Aggarwal",
       "allTimeScore":50,
-      "allTimeRank":49,
+      "allTimeRank":48,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
-    },
-    {
-      "knolderId":106,
-      "knolderName":"Addi",
-      "allTimeScore":45,
-      "allTimeRank":50,
-      "quarterlyStreak":"5-5-5",
-      "monthlyScore":0,
-      "monthlyRank":3
-    },
-    {
-      "knolderId":112,
-      "knolderName":"Umang Goyal",
-      "allTimeScore":45,
-      "allTimeRank":50,
-      "quarterlyStreak":"0-0-45",
-      "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":77,
       "knolderName":"Nancy Jain",
       "allTimeScore":45,
-      "allTimeRank":50,
+      "allTimeRank":49,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":81,
       "knolderName":"Mudit Chhabra",
       "allTimeScore":45,
-      "allTimeRank":50,
+      "allTimeRank":49,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
+    },
+    {
+      "knolderId":106,
+      "knolderName":"Addi",
+      "allTimeScore":45,
+      "allTimeRank":49,
+      "quarterlyStreak":"5-5-5",
+      "monthlyScore":0,
+      "monthlyRank":2
+    },
+    {
+      "knolderId":112,
+      "knolderName":"Umang Goyal",
+      "allTimeScore":45,
+      "allTimeRank":49,
+      "quarterlyStreak":"0-0-45",
+      "monthlyScore":0,
+      "monthlyRank":2
     },
     {
       "knolderId":94,
       "knolderName":"Ayush Aggarwal",
       "allTimeScore":40,
-      "allTimeRank":51,
+      "allTimeRank":50,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":70,
       "knolderName":"Anjali Sharma",
       "allTimeScore":40,
-      "allTimeRank":51,
+      "allTimeRank":50,
       "quarterlyStreak":"0-0-20",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":66,
       "knolderName":"Ayushi Hasija",
       "allTimeScore":40,
-      "allTimeRank":51,
+      "allTimeRank":50,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":129,
       "knolderName":"Sonu Mehrotra",
       "allTimeScore":40,
-      "allTimeRank":51,
+      "allTimeRank":50,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":38,
       "knolderName":"Nishchal Vashisht",
       "allTimeScore":35,
-      "allTimeRank":52,
+      "allTimeRank":51,
       "quarterlyStreak":"0-10-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":116,
       "knolderName":"Yamini Bansal",
       "allTimeScore":35,
-      "allTimeRank":52,
+      "allTimeRank":51,
       "quarterlyStreak":"0-5-10",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":26,
       "knolderName":"Sarvesh Tripathi",
       "allTimeScore":30,
-      "allTimeRank":53,
+      "allTimeRank":52,
       "quarterlyStreak":"0-5-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":113,
       "knolderName":"Abhinav Sharma",
       "allTimeScore":30,
-      "allTimeRank":53,
+      "allTimeRank":52,
       "quarterlyStreak":"0-10-15",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
+    },
+    {
+      "knolderId":118,
+      "knolderName":"Sparsh Bhardwaj",
+      "allTimeScore":30,
+      "allTimeRank":52,
+      "quarterlyStreak":"0-10-0",
+      "monthlyScore":0,
+      "monthlyRank":2
     },
     {
       "knolderId":122,
       "knolderName":"Aditi Varshney",
       "allTimeScore":30,
-      "allTimeRank":53,
+      "allTimeRank":52,
       "quarterlyStreak":"5-10-5",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":39,
       "knolderName":"Utkarsha Musmade",
       "allTimeScore":25,
-      "allTimeRank":54,
+      "allTimeRank":53,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":115,
       "knolderName":"Shivani Mehrotra",
       "allTimeScore":25,
-      "allTimeRank":54,
+      "allTimeRank":53,
       "quarterlyStreak":"15-0-10",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":119,
       "knolderName":"Gopal Kumar Mahato",
       "allTimeScore":25,
-      "allTimeRank":54,
+      "allTimeRank":53,
       "quarterlyStreak":"0-15-5",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":90,
       "knolderName":"Sachin Slathia",
       "allTimeScore":20,
-      "allTimeRank":55,
+      "allTimeRank":54,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":86,
       "knolderName":"Paramjeet Yadav",
       "allTimeScore":15,
-      "allTimeRank":56,
+      "allTimeRank":55,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":72,
       "knolderName":"Pinku Swargiary",
       "allTimeScore":15,
-      "allTimeRank":56,
+      "allTimeRank":55,
       "quarterlyStreak":"5-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":49,
       "knolderName":"Jyoti Jali",
       "allTimeScore":15,
-      "allTimeRank":56,
+      "allTimeRank":55,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":114,
       "knolderName":"Kartik Tiwari",
       "allTimeScore":15,
-      "allTimeRank":56,
+      "allTimeRank":55,
       "quarterlyStreak":"0-0-10",
       "monthlyScore":0,
-      "monthlyRank":3
-    },
-    {
-      "knolderId":88,
-      "knolderName":"Siddhant",
-      "allTimeScore":10,
-      "allTimeRank":57,
-      "quarterlyStreak":"0-0-0",
-      "monthlyScore":0,
-      "monthlyRank":3
-    },
-    {
-      "knolderId":67,
-      "knolderName":"Praful Bangar",
-      "allTimeScore":10,
-      "allTimeRank":57,
-      "quarterlyStreak":"0-0-0",
-      "monthlyScore":0,
-      "monthlyRank":3
-    },
-    {
-      "knolderId":65,
-      "knolderName":"Kaushik Nath",
-      "allTimeScore":10,
-      "allTimeRank":57,
-      "quarterlyStreak":"0-0-0",
-      "monthlyScore":0,
-      "monthlyRank":3
-    },
-    {
-      "knolderId":121,
-      "knolderName":"Rahul Agrawal",
-      "allTimeScore":10,
-      "allTimeRank":57,
-      "quarterlyStreak":"0-5-5",
-      "monthlyScore":0,
-      "monthlyRank":3
-    },
-    {
-      "knolderId":123,
-      "knolderName":"Jitendra Kumar Singh",
-      "allTimeScore":10,
-      "allTimeRank":57,
-      "quarterlyStreak":"0-5-5",
-      "monthlyScore":0,
-      "monthlyRank":3
-    },
-    {
-      "knolderId":130,
-      "knolderName":"Peter Haig Boyajian",
-      "allTimeScore":10,
-      "allTimeRank":57,
-      "quarterlyStreak":"0-0-5",
-      "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":71,
       "knolderName":"Swapnil Gosavi",
       "allTimeScore":10,
-      "allTimeRank":57,
+      "allTimeRank":56,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
+    },
+    {
+      "knolderId":88,
+      "knolderName":"Siddhant",
+      "allTimeScore":10,
+      "allTimeRank":56,
+      "quarterlyStreak":"0-0-0",
+      "monthlyScore":0,
+      "monthlyRank":2
+    },
+    {
+      "knolderId":67,
+      "knolderName":"Praful Bangar",
+      "allTimeScore":10,
+      "allTimeRank":56,
+      "quarterlyStreak":"0-0-0",
+      "monthlyScore":0,
+      "monthlyRank":2
+    },
+    {
+      "knolderId":65,
+      "knolderName":"Kaushik Nath",
+      "allTimeScore":10,
+      "allTimeRank":56,
+      "quarterlyStreak":"0-0-0",
+      "monthlyScore":0,
+      "monthlyRank":2
+    },
+    {
+      "knolderId":121,
+      "knolderName":"Rahul Agrawal",
+      "allTimeScore":10,
+      "allTimeRank":56,
+      "quarterlyStreak":"0-5-5",
+      "monthlyScore":0,
+      "monthlyRank":2
+    },
+    {
+      "knolderId":123,
+      "knolderName":"Jitendra Kumar Singh",
+      "allTimeScore":10,
+      "allTimeRank":56,
+      "quarterlyStreak":"0-5-5",
+      "monthlyScore":0,
+      "monthlyRank":2
+    },
+    {
+      "knolderId":130,
+      "knolderName":"Peter Haig Boyajian",
+      "allTimeScore":10,
+      "allTimeRank":56,
+      "quarterlyStreak":"0-0-5",
+      "monthlyScore":0,
+      "monthlyRank":2
     },
     {
       "knolderId":95,
       "knolderName":"Jatin Dhawan",
       "allTimeScore":5,
-      "allTimeRank":58,
+      "allTimeRank":57,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":98,
       "knolderName":"Deepankar",
       "allTimeScore":5,
-      "allTimeRank":58,
+      "allTimeRank":57,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":89,
       "knolderName":"Sugandha Arora",
       "allTimeScore":5,
-      "allTimeRank":58,
+      "allTimeRank":57,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":92,
       "knolderName":"Rajeev Thakur",
       "allTimeScore":5,
-      "allTimeRank":58,
+      "allTimeRank":57,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":103,
       "knolderName":"Bobin Singla",
       "allTimeScore":5,
-      "allTimeRank":58,
+      "allTimeRank":57,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":109,
       "knolderName":"Neeraj Kumar",
       "allTimeScore":5,
-      "allTimeRank":58,
+      "allTimeRank":57,
       "quarterlyStreak":"0-5-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":120,
       "knolderName":"Atul Rawat",
       "allTimeScore":5,
-      "allTimeRank":58,
+      "allTimeRank":57,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":131,
       "knolderName":"Sam M Woodruff",
       "allTimeScore":5,
-      "allTimeRank":58,
+      "allTimeRank":57,
       "quarterlyStreak":"0-0-5",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":69,
       "knolderName":"Rachna Bulbule",
       "allTimeScore":5,
-      "allTimeRank":58,
+      "allTimeRank":57,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":105,
       "knolderName":"Divyanshu Srivastava",
       "allTimeScore":0,
-      "allTimeRank":59,
+      "allTimeRank":58,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":107,
       "knolderName":"Anshika Agrawal",
       "allTimeScore":0,
-      "allTimeRank":59,
+      "allTimeRank":58,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":108,
       "knolderName":"Gaurav Agarwal",
       "allTimeScore":0,
-      "allTimeRank":59,
+      "allTimeRank":58,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":110,
       "knolderName":"Deevisha Verma",
       "allTimeScore":0,
-      "allTimeRank":59,
+      "allTimeRank":58,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":111,
       "knolderName":"Diksha Yadav",
       "allTimeScore":0,
-      "allTimeRank":59,
+      "allTimeRank":58,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":124,
       "knolderName":"Vandana Jha",
       "allTimeScore":0,
-      "allTimeRank":59,
+      "allTimeRank":58,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":125,
       "knolderName":"Megha Khurana",
       "allTimeScore":0,
-      "allTimeRank":59,
+      "allTimeRank":58,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":126,
       "knolderName":"Shubhangi Pandey",
       "allTimeScore":0,
-      "allTimeRank":59,
+      "allTimeRank":58,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":127,
       "knolderName":"Nikhil Kharkhodia",
       "allTimeScore":0,
-      "allTimeRank":59,
+      "allTimeRank":58,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":132,
       "knolderName":"Sowmya Chandrasekhar",
       "allTimeScore":0,
-      "allTimeRank":59,
+      "allTimeRank":58,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":133,
       "knolderName":"Francisco Jose Bermejo Herrera",
       "allTimeScore":0,
-      "allTimeRank":59,
+      "allTimeRank":58,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":134,
       "knolderName":"Anwaya Rath",
       "allTimeScore":0,
-      "allTimeRank":59,
+      "allTimeRank":58,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":135,
       "knolderName":"Ankit Kumar",
       "allTimeScore":0,
-      "allTimeRank":59,
+      "allTimeRank":58,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":136,
       "knolderName":"Vijendra Singh",
       "allTimeScore":0,
-      "allTimeRank":59,
+      "allTimeRank":58,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":137,
       "knolderName":"Zahid Ahamad",
       "allTimeScore":0,
-      "allTimeRank":59,
+      "allTimeRank":58,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     },
     {
       "knolderId":138,
       "knolderName":"Anil Kumar",
       "allTimeScore":0,
-      "allTimeRank":59,
+      "allTimeRank":58,
       "quarterlyStreak":"0-0-0",
       "monthlyScore":0,
-      "monthlyRank":3
+      "monthlyRank":2
     }
   ]
 }

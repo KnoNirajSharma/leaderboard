@@ -17,6 +17,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { TrendsModel } from '../../models/trends.model';
 import { ActivatedRoute } from '@angular/router';
 import {HallOfFameModel} from '../../models/hallOfFame.model';
+import {CommonService} from '../../services/common.service';
 
 
 describe('DetailsPage', () => {
@@ -24,6 +25,7 @@ describe('DetailsPage', () => {
   let fixture: ComponentFixture<DetailsPage>;
   let mockEmployeeService: EmployeeActivityService;
   let loadingControllerService: LoadingControllerService;
+  let commonService: CommonService;
   const dummyKnolderDetails: KnolderDetailsModel = {
     knolderName: 'Muskan Gupta',
     score: 20,
@@ -41,7 +43,6 @@ describe('DetailsPage', () => {
       }
     ]
   };
-
   const dummyTrendsData: TrendsModel[] = [
     {
       month: 'JUNE',
@@ -68,7 +69,6 @@ describe('DetailsPage', () => {
       researchPaperScore: 50,
     }
   ];
-
   const mockHallOfFameData: HallOfFameModel[] = [
     {
       month: 'August',
@@ -141,8 +141,10 @@ describe('DetailsPage', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            params: of({
+            queryParams: of({
               id: 1,
+              year: 2020,
+              month: 'january'
             })
           }
         }]
@@ -152,9 +154,10 @@ describe('DetailsPage', () => {
     component = fixture.componentInstance;
     mockEmployeeService = TestBed.get(EmployeeActivityService);
     loadingControllerService = TestBed.get(LoadingControllerService);
+    commonService = TestBed.get(CommonService);
   }));
 
-  it('should get knolder id from params and also initialize all data', () => {
+  it('should get knolder id from params and set contributionsTypeColorList', () => {
     component.currentDate = new Date();
     spyOn(component, 'calenderInitialisation');
     spyOn(component, 'getMonthlyDetails');
@@ -162,14 +165,22 @@ describe('DetailsPage', () => {
     spyOn(component, 'getAllTimeDetails');
     spyOn(component, 'getHallOfFameData');
     spyOn(loadingControllerService, 'present');
+    spyOnProperty(commonService, 'colorScheme', 'get').and.returnValue({domain: ['blue']});
     component.ngOnInit();
     expect(component.knolderId).toEqual(1);
+    expect(component.yearFromRoute).toEqual(2020);
+    expect(component.monthFromRoute).toEqual('january');
+    expect(component.contributionsTypeColorList[0]).toEqual('blue');
     expect(loadingControllerService.present).toHaveBeenCalled();
   });
 
   it('should set values for datepickerConfig', () => {
+    component.monthFromRoute = 'january';
+    component.yearFromRoute = 2020;
     component.calenderInitialisation();
     expect(component.datepickerConfig.containerClass).toEqual('theme-dark-blue');
+    expect(component.dateFromRoute.month()).toEqual(0);
+    expect(component.dateFromRoute.year()).toEqual(2020);
   });
 
   it('should return the knolder monthly details Data as per api call', () => {
@@ -209,8 +220,13 @@ describe('DetailsPage', () => {
   });
 
   it('should change alltimeSelected value to false', () => {
-    component.onDateChange(new Date());
+    spyOn(component, 'getMonthlyDetails');
+    const date = new Date();
+    date.setMonth(0);
+    date.setFullYear(2020);
+    component.onDateChange(date);
     expect(component.allTimeSelected).toEqual(false);
+    expect(component.getMonthlyDetails).toHaveBeenCalledWith('january', 2020);
   });
 
   it('should change alltimeSelected value to true', () => {

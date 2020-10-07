@@ -6,7 +6,8 @@ import { EmployeeFilterPipe } from '../../pipe/employee-filter.pipe';
 import { TableHeaderModel } from '../../models/tableHeader.model';
 import { ReputationModel } from '../../models/reputation.model';
 import { LoadingControllerService } from '../../services/loading-controller.service ';
-import { ScoringInfoModel } from '../../models/scoringInfo.model';
+import { ScoringTableModel } from '../../models/scoring-table.model';
+import {createConsoleLogServer} from '@ionic/angular-toolkit/builders/cordova-serve/log-server';
 
 @Component({
   selector: 'app-main',
@@ -14,27 +15,28 @@ import { ScoringInfoModel } from '../../models/scoringInfo.model';
   styleUrls: ['./main.page.scss'],
 })
 export class MainPage implements OnInit {
-  employeeData: AuthorModel[];
+  knoldersReputationList: AuthorModel[];
   searchBar = new FormControl('');
   empFilterPipe = new EmployeeFilterPipe();
-  filteredEmpData: AuthorModel[];
-  today: Date = new Date();
-  currentDate: Date;
-  tableHeading: TableHeaderModel[];
+  filteredKnolderList: AuthorModel[];
   reputation: ReputationModel;
-  scoringInfoData: ScoringInfoModel[] = [
-    { type: 'Blog', weight: '5', integrated: true, symbol: '&#10004;' },
-    { type: 'Knolx', weight: '20', integrated: true, symbol: '&#10004;' },
-    { type: 'Webinar', weight: '15', integrated: true, symbol: '&#10004;' },
-    { type: 'TechHub Templates', weight: '15', integrated: true, symbol: '&#10004;' },
-    { type: 'OS Contribution', weight: '30', integrated: true, symbol: '&#10004;' },
-    { type: 'Research Paper', weight: '50', integrated: true, symbol: '&#10004;' },
-    { type: 'Conference', weight: '100', integrated: true, symbol: '&#10004;' },
-    { type: 'Book', weight: '100', integrated: true, symbol: '&#10004;' },
+  scoringInfoData: ScoringTableModel;
+  scoringInfoKeys: string[];
+  knoldusStatsReputationKeys: string[];
+  currentDate: Date = new Date();
+  boostedScoreCount: any;
+  tableHeading: TableHeaderModel[] = [
+    { title: 'MONTHLY RANK' },
+    { title: 'MONTHLY SCORE' },
+    { title: 'OVERALL RANK' },
+    { title: 'OVERALL SCORE' },
+    { title: '3-MONTH-STREAK' }
   ];
 
-  constructor(private service: EmployeeActivityService, private loadingControllerService: LoadingControllerService) {
-  }
+  constructor(
+    private employeeActivityService: EmployeeActivityService,
+    private loadingControllerService: LoadingControllerService
+  ) { }
 
   ngOnInit() {
     this.loadingControllerService.present({
@@ -42,26 +44,59 @@ export class MainPage implements OnInit {
       translucent: 'false',
       spinner: 'bubbles'
     });
-    this.service.getData()
+    this.getScoringInfoData();
+    this.getReputationData();
+  }
+
+  getReputationData() {
+    this.employeeActivityService.getData()
       .subscribe((data: ReputationModel) => {
-        this.reputation = data;
-        this.employeeData = this.reputation.reputation
-          .map(knolder => this.reputation.reputation.indexOf(knolder) < 5 ? { ...knolder, topRanker: true } : knolder);
-        this.filteredEmpData = [...this.employeeData];
+        this.reputation = { ...data };
+        this.setAllKnolderData();
+        this.loadingControllerService.dismiss();
+      }, error => {
         this.loadingControllerService.dismiss();
       });
-    this.currentDate = new Date();
-    this.tableHeading = [
-      { title: 'MONTHLY RANK' },
-      { title: 'MONTHLY SCORE' },
-      { title: 'OVERALL RANK' },
-      { title: 'OVERALL SCORE' },
-      { title: '3-MONTH-STREAK' }
+  }
+
+  getScoringInfoData() {
+    this.employeeActivityService.getScoringInfoData()
+      .subscribe((scoringInfoData: ScoringTableModel) => {
+        this.scoringInfoData = { ...scoringInfoData };
+        this.scoringInfoKeys = this.getScoringInfoKeys();
+        this.boostedScoreCount = this.getNumberOfScoresBoosted();
+      }, error => {
+        console.log(error);
+      });
+  }
+
+  setAllKnolderData() {
+    this.setKnoldusStatsReputationKeys();
+    this.setKnoldersList();
+    this.setInitialFilteredKnolderList();
+  }
+
+  setKnoldusStatsReputationKeys() {
+    this.knoldusStatsReputationKeys = Object.keys(this.reputation).filter(x => x !== 'reputation');
+  }
+
+  getScoringInfoKeys(): string[] {
+    return Object.keys(this.scoringInfoData);
+  }
+
+  setKnoldersList() {
+    this.knoldersReputationList = [
+      ...this.reputation.reputation
+        .map(knolder => this.reputation.reputation.indexOf(knolder) < 5 ? { ...knolder, topRanker: true } : knolder)
     ];
   }
 
-  filterEmp() {
-    this.filteredEmpData = this.empFilterPipe.transform(this.employeeData, this.searchBar.value);
+  setInitialFilteredKnolderList() {
+    this.filteredKnolderList = [...this.knoldersReputationList];
+  }
+
+  filterKnolderList() {
+    this.filteredKnolderList = this.empFilterPipe.transform(this.knoldersReputationList, this.searchBar.value);
   }
 
   comparisonBasedOnAllTimeScore(firstEmp: AuthorModel, secEmp: AuthorModel, propertyName: string) {
@@ -84,14 +119,19 @@ export class MainPage implements OnInit {
 
   sortTable(event) {
     if (event.column.prop === 'quarterlyStreak') {
-      this.filteredEmpData
+      this.filteredKnolderList
         .sort((secEmp, firstEmp) => this.compareQuarterlyScore(firstEmp.quarterlyStreak, secEmp.quarterlyStreak,  event.newValue) ? 1 : -1);
     } else if (event.newValue === 'asc') {
-      this.filteredEmpData
+      this.filteredKnolderList
         .sort((secEmp, firstEmp) => this.comparisonBasedOnAllTimeScore(secEmp, firstEmp, event.column.prop) ? 1 : -1);
     } else {
-      this.filteredEmpData
+      this.filteredKnolderList
         .sort((secEmp, firstEmp) => secEmp[event.column.prop] < firstEmp[event.column.prop] ? 1 : -1);
     }
+  }
+
+  getNumberOfScoresBoosted(): number {
+    return this.scoringInfoKeys.map(key => this.scoringInfoData[key])
+      .filter(scoreInfo => scoreInfo.pointsMultiplier > 1).length;
   }
 }

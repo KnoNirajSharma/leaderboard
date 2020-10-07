@@ -1,48 +1,45 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { HeadersComponent } from './headers.component';
-import { Component } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../../../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import {LoginService} from '../../services/login.service';
+import { LoginService } from '../../services/login.service';
+import {MenuBoxComponent} from '../menu-box/menu-box.component';
 
 describe('HeadersComponent', () => {
   let component: HeadersComponent;
   let loginService: LoginService;
-  let fixture: ComponentFixture<ParentComponent>;
+  let fixture: ComponentFixture<HeadersComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
         HeadersComponent,
-        ParentComponent
+        MenuBoxComponent
       ],
       imports: [
         IonicModule.forRoot(),
         RouterTestingModule,
         AngularFireModule.initializeApp(environment.firebaseConfig, 'angular-auth-firebase'),
         AngularFirestoreModule,
-        AngularFireAuthModule
+        AngularFireAuthModule,
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ParentComponent);
-    component = fixture.debugElement.children[0].componentInstance;
+    fixture = TestBed.createComponent(HeadersComponent);
+    component = fixture.componentInstance;
     loginService = TestBed.get(LoginService);
-    fixture.detectChanges();
   }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('should change the visibility status for dropdown menu button', () => {
+  it('should change the visibility status for dropdown menu button and make menu-box visibility false', () => {
     component.dropdownMenuVisibility = false;
+    component.menuBoxVisibility = true;
     component.onDropdown();
     expect(component.dropdownMenuVisibility).toEqual(true);
+    expect(component.menuBoxVisibility).toEqual(false);
   });
 
   it('should call window.open with form url', () => {
@@ -56,11 +53,12 @@ describe('HeadersComponent', () => {
     component.onLogout();
     expect(loginService.logout).toHaveBeenCalled();
   });
-});
 
-@Component({
-  selector: 'parent',
-  template: '<app-headers></app-headers>'
-})
-class ParentComponent {
-}
+  it('should change the visibility status for menu-box and dropdown menu visibility false', () => {
+    component.dropdownMenuVisibility = true;
+    component.menuBoxVisibility = false;
+    component.onMenuBtnClick();
+    expect(component.menuBoxVisibility).toEqual(true);
+    expect(component.dropdownMenuVisibility).toEqual(false);
+  });
+});

@@ -26,7 +26,7 @@ class WebinarSpreadSheetDataImplSpec extends AnyWordSpecLike with MockitoSugar w
     val valueRange: ValueRange = new ValueRange
     val webinarValueRange = valueRange.setValues(
       util.Arrays.asList(
-        util.Arrays.asList("1", "12/2/2020", "amit", "java lambdas", "abc@knoldus.com"),
+        util.Arrays.asList("1", "12/2/2020", "amit", "java lambdas", "abc@knoldus.com "),
         util.Arrays.asList("2", "13/2/2020", "akash", "k", "xyz@knoldus.com")))
     "return webinar details " in {
       when(mockWebinarResponse.getResponse(any, any))

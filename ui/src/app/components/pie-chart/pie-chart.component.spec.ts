@@ -1,45 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { PieChartComponent } from './pie-chart.component';
-import { Component } from '@angular/core';
 import { KnolderDetailsModel } from '../../models/knolder-details.model';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CommonService } from '../../services/common.service';
 
 describe('PieChartComponent', () => {
   let component: PieChartComponent;
-  let fixture: ComponentFixture<ParentComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [PieChartComponent, ParentComponent],
-      imports: [
-        IonicModule.forRoot(),
-        NgxChartsModule,
-        BrowserAnimationsModule
-      ]
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(ParentComponent);
-    component = fixture.debugElement.children[0].componentInstance;
-    fixture.detectChanges();
-  }));
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('result array values should be equal to inputResult values', () => {
-    expect(component.result).toEqual([{ name: 'Blog', value: 20 }]);
-  });
-});
-
-@Component({
-  selector: 'parent',
-  template: '<app-pie-chart [inputResult]="dummyKnolderDetails.scoreBreakDown"></app-pie-chart>'
-})
-class ParentComponent {
-  dummyKnolderDetails: KnolderDetailsModel = {
+  let fixture: ComponentFixture<PieChartComponent>;
+  let commonService: CommonService;
+  const mockKnolderDetails: KnolderDetailsModel = {
     knolderName: 'Muskan Gupta',
     score: 20,
     scoreBreakDown: [
@@ -56,4 +27,27 @@ class ParentComponent {
       }
     ]
   };
-}
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [PieChartComponent],
+      imports: [
+        IonicModule.forRoot(),
+        NgxChartsModule,
+        BrowserAnimationsModule
+      ]
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(PieChartComponent);
+    component = fixture.componentInstance;
+    commonService = TestBed.get(CommonService);
+  }));
+
+  it('result array values should be equal to inputResult values', () => {
+    spyOnProperty(commonService, 'colorScheme', 'get').and.returnValue({domain: ['blue']});
+    component.inputResult = [...mockKnolderDetails.scoreBreakDown];
+    component.ngOnChanges();
+    expect(component.result).toEqual([{ name: 'Blog', value: 20 }]);
+    expect(component.colorScheme.domain[0]).toEqual('blue');
+  });
+});

@@ -2,7 +2,7 @@ package com.knoldus.leader_board.infrastructure
 
 import java.sql.{Connection, PreparedStatement}
 
-import com.knoldus.leader_board.{DatabaseConnection, Reputation, ReputationWithCount}
+import com.knoldus.leader_board.{ContributionCount, DatabaseConnection, Reputation, ReputationWithCount}
 import com.typesafe.config.ConfigFactory
 import org.mockito.MockitoSugar
 import org.scalatest.matchers.should.Matchers
@@ -77,8 +77,10 @@ class FetchCountWithReputationImplSpec extends DBSpec with BeforeAndAfterEach wi
         Reputation(2, "Abhishek Baranwal", 5, 2, "10-10-15", 5, 2))
       when(mockFetchReputation.fetchReputation).thenReturn(reputations)
 
-      val monthlyCountAndReputation = Option(ReputationWithCount(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, reputations))
+      val contributionCount = ContributionCount(0, 0)
 
+      val monthlyCountAndReputation = Option(ReputationWithCount(contributionCount, contributionCount, contributionCount,
+        contributionCount, contributionCount,contributionCount,contributionCount,contributionCount,reputations))
       assert(fetchReputationWithCount.allTimeAndMonthlyContributionCountWithReputation == monthlyCountAndReputation)
     }
   }

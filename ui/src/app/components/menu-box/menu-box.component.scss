@@ -1,0 +1,47 @@
+.menu-box-container {
+  max-height: 200px;
+  z-index: 50;
+  right: -40px;
+  border-radius: 5px;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: 90px 90px 90px;
+  grid-gap: 5px;
+  grid-auto-rows: 70px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #e0dede;
+    border-radius: 15px;
+    border: 2px solid white;
+
+    &:hover {
+      background: #999;
+    }
+  }
+
+  .menu-box-item {
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #f2f2f2;
+    }
+
+    .title {
+      font-size: 0.7rem;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      color: #1e2023;
+    }
+  }
+}
