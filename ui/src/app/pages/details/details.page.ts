@@ -134,8 +134,8 @@ export class DetailsPage implements OnInit {
         })
         .filter(leader => leader.knolderId === this.knolderId);
     })
-      .reduce((knolderAchievementList, elem) => {
-        return knolderAchievementList.concat(elem);
+      .reduce((knolderAchievementList, leaderDetails) => {
+        return knolderAchievementList.concat(leaderDetails);
       }, []);
   }
 
