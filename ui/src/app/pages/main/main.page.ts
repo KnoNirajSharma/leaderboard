@@ -7,7 +7,6 @@ import { TableHeaderModel } from '../../models/tableHeader.model';
 import { ReputationModel } from '../../models/reputation.model';
 import { LoadingControllerService } from '../../services/loading-controller.service ';
 import { ScoringTableModel } from '../../models/scoring-table.model';
-import {createConsoleLogServer} from '@ionic/angular-toolkit/builders/cordova-serve/log-server';
 
 @Component({
   selector: 'app-main',

@@ -123,15 +123,14 @@ export class DetailsPage implements OnInit {
   }
 
   setKnolderAchievements() {
-    this.knolderAchievements = [];
-    this.hallOfFameLeaders
-      .forEach(monthLeaders => {
-        monthLeaders.leaders.forEach(leader => {
-          leader.knolderId ===  this.knolderId
-            ? this.knolderAchievements.push({ ...leader, position: monthLeaders.leaders.indexOf(leader) })
-            : leader.position = -1;
-        });
-      });
+    this.knolderAchievements = this.hallOfFameLeaders.map(monthsData => {
+      return monthsData.leaders
+        .map(leader => leader.knolderId === this.knolderId ? { ...leader, position: monthsData.leaders.indexOf(leader) } : leader)
+        .filter(leader => leader.knolderId === this.knolderId);
+    })
+      .reduce((knolderAchievementList, el) => {
+        return knolderAchievementList.concat(el);
+      }, []);
   }
 
   setMedalTally() {
