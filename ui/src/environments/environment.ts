@@ -5,7 +5,7 @@ export const environment = {
     version: '1.0.0',
     baseUrl: 'http://35.232.185.162:8000/',
     routes: {
-      author: { endpoint: 'reputation', method: 'GET' },
+      author: { endpoint: 'reputatio', method: 'GET' },
       trends: { endpoint: 'reputation/twelvemonths', method: 'GET' },
       hallOfFame: { endpoint: 'reputation/halloffame', method: 'GET' }
     }

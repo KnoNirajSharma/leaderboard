@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeActivityService } from '../../services/employee-activity.service';
 import { HallOfFameModel } from '../../models/hallOfFame.model';
-import { LoadingControllerService } from '../../services/loading-controller.service ';
 import { CommonService } from '../../services/common.service';
 
 @Component({
@@ -19,24 +18,16 @@ export class HallOfFamePage implements OnInit {
 
   constructor(
     private service: EmployeeActivityService,
-    private loadingControllerService: LoadingControllerService,
     private commonService: CommonService
   ) {}
 
   ngOnInit() {
     this.numberOfItemsInPage = this.commonService.getNumberOfItemsInHallOfFame;
-    this.loadingControllerService.present({
-      message: 'Loading the Leaderboard...',
-      translucent: 'false',
-      spinner: 'bubbles'
-    });
     this.service.getHallOfFameData()
       .subscribe((data: HallOfFameModel[]) => {
         this.hallOfFameLeaders = [...data];
         this.paginationLength = Math.ceil(this.hallOfFameLeaders.length / this.numberOfItemsInPage);
-        this.loadingControllerService.dismiss();
-      }, (error) => {
-        this.loadingControllerService.dismiss();
+      }, error => {
         console.log(error);
       });
     this.setListIndexForPage(0);

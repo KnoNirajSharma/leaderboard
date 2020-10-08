@@ -7,7 +7,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { IonicModule } from '@ionic/angular';
 import { KnolderDetailsModel } from '../../models/knolder-details.model';
-import { LoadingControllerService } from '../../services/loading-controller.service ';
 import {of, throwError} from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AngularFireModule } from '@angular/fire';
@@ -16,15 +15,14 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { TrendsModel } from '../../models/trends.model';
 import { ActivatedRoute } from '@angular/router';
-import {HallOfFameModel} from '../../models/hallOfFame.model';
-import {CommonService} from '../../services/common.service';
+import { HallOfFameModel } from '../../models/hallOfFame.model';
+import { CommonService } from '../../services/common.service';
 
 
 describe('DetailsPage', () => {
   let component: DetailsPage;
   let fixture: ComponentFixture<DetailsPage>;
   let mockEmployeeService: EmployeeActivityService;
-  let loadingControllerService: LoadingControllerService;
   let commonService: CommonService;
   const dummyKnolderDetails: KnolderDetailsModel = {
     knolderName: 'Muskan Gupta',
@@ -153,7 +151,6 @@ describe('DetailsPage', () => {
     fixture = TestBed.createComponent(DetailsPage);
     component = fixture.componentInstance;
     mockEmployeeService = TestBed.get(EmployeeActivityService);
-    loadingControllerService = TestBed.get(LoadingControllerService);
     commonService = TestBed.get(CommonService);
   }));
 
@@ -164,14 +161,12 @@ describe('DetailsPage', () => {
     spyOn(component, 'getTrendsData');
     spyOn(component, 'getAllTimeDetails');
     spyOn(component, 'getHallOfFameData');
-    spyOn(loadingControllerService, 'present');
     spyOnProperty(commonService, 'colorScheme', 'get').and.returnValue({domain: ['blue']});
     component.ngOnInit();
     expect(component.knolderId).toEqual(1);
     expect(component.yearFromRoute).toEqual(2020);
     expect(component.monthFromRoute).toEqual('january');
     expect(component.contributionsTypeColorList[0]).toEqual('blue');
-    expect(loadingControllerService.present).toHaveBeenCalled();
   });
 
   it('should set values for datepickerConfig', () => {
@@ -212,11 +207,9 @@ describe('DetailsPage', () => {
     expect(component.allTimeDetails).toEqual(dummyKnolderDetails);
   });
 
-  it('should dissmiss the loader when error occurs in all time api service', () => {
+  it('should handle when error occurs in all time api service', () => {
     spyOn(mockEmployeeService, 'getAllTimeDetails').and.returnValue(throwError({status: 404}));
-    spyOn(loadingControllerService, 'dismiss');
     component.getAllTimeDetails();
-    expect(loadingControllerService.dismiss).toHaveBeenCalled();
   });
 
   it('should change alltimeSelected value to false', () => {

@@ -11,7 +11,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ComponentsModule } from '../../components/components.module';
 import { ReputationModel } from '../../models/reputation.model';
-import { LoadingControllerService } from '../../services/loading-controller.service ';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../../../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -23,7 +22,6 @@ describe('MainPage', () => {
   let component: MainPage;
   let fixture: ComponentFixture<MainPage>;
   let mockEmployeeService: EmployeeActivityService;
-  let loadingControllerService: LoadingControllerService;
   const dummyReputationData: ReputationModel = {
     blogs: { monthly: 2, allTime: 3 },
     knolx: { monthly: 2, allTime: 3 },
@@ -84,33 +82,27 @@ describe('MainPage', () => {
     fixture = TestBed.createComponent(MainPage);
     component = fixture.componentInstance;
     mockEmployeeService = TestBed.get(EmployeeActivityService);
-    loadingControllerService = TestBed.get(LoadingControllerService);
   }));
 
-  it(' should initiate loading controller and getReputationData', () => {
-    spyOn(loadingControllerService, 'present');
+  it(' should call getReputationData and scoringInfoData', () => {
     spyOn(component, 'getReputationData');
     spyOn(component, 'getScoringInfoData');
     component.ngOnInit();
-    expect(loadingControllerService.present).toHaveBeenCalled();
     expect(component.getScoringInfoData).toHaveBeenCalled();
     expect(component.getReputationData).toHaveBeenCalled();
   });
 
   it('should return the authorData as per api call', () => {
-    spyOn(loadingControllerService, 'dismiss');
     spyOn(component, 'setAllKnolderData');
     spyOn(mockEmployeeService, 'getData').and.returnValue(of(dummyReputationData));
     component.getReputationData();
     expect(component.reputation).toEqual(dummyReputationData);
   });
 
-  it('should dismiss the loader if error occurs in reputation api', () => {
+  it('should handle occurs in reputation api', () => {
     spyOn(mockEmployeeService, 'getData').and.returnValue(throwError({status: 404}));
-    spyOn(loadingControllerService, 'dismiss');
     spyOn(component, 'setAllKnolderData');
     component.getReputationData();
-    expect(loadingControllerService.dismiss).toHaveBeenCalled();
   });
 
   it('should return the scoring info data as per api call', () => {

@@ -5,7 +5,6 @@ import { KnolderDetailsModel } from '../../models/knolder-details.model';
 import { FormControl } from '@angular/forms';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { ScoreBreakDownModel } from '../../models/ScoreBreakDown.model';
-import { LoadingControllerService } from '../../services/loading-controller.service ';
 import { TrendsModel } from '../../models/trends.model';
 import { CommonService } from '../../services/common.service';
 import { HallOfFameModel } from '../../models/hallOfFame.model';
@@ -34,14 +33,12 @@ export class DetailsPage implements OnInit {
   contributionsTypeColorList: string[];
   hallOfFameLeaders: HallOfFameModel[];
   medalTally: MedalTallyModel;
-  knolderAchievements: any[] = [];
+  knolderAchievements: LeaderModel[] = [];
   allTimeSelected = false;
-  mockList = [1, 2, 3, 4];
 
   constructor(
     private route: ActivatedRoute,
     private employeeActivityService: EmployeeActivityService,
-    private loadingControllerService: LoadingControllerService,
     private commonService: CommonService
   ) { }
 
@@ -52,11 +49,6 @@ export class DetailsPage implements OnInit {
         this.knolderId = Number(params.id);
         this.yearFromRoute = Number(params.year);
         this.monthFromRoute = params.month.toLowerCase();
-        this.loadingControllerService.present({
-          message: 'Loading the score details...',
-          translucent: 'false',
-          spinner: 'bubbles'
-        });
         this.calenderInitialisation();
         this.getTrendsData();
         this.getHallOfFameData();
@@ -95,9 +87,8 @@ export class DetailsPage implements OnInit {
       .subscribe((data: KnolderDetailsModel) => {
         this.allTimeDetails = data;
         this.pieChartData = this.allTimeDetails.scoreBreakDown;
-        this.loadingControllerService.dismiss();
-      }, () => {
-        this.loadingControllerService.dismiss();
+      }, error => {
+        console.log(error);
       });
   }
 
