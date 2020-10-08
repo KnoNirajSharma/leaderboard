@@ -18,7 +18,8 @@ object DriverApp extends App {
   implicit val executionContext: ExecutionContextExecutor = system.dispatcher
   val config: Config = ConfigFactory.load()
   val dateTimeFormat = new ParseDateTimeFormats
-  val knolderScore: KnolderScore = new KnolderScoreImpl(config)
+  val contributionScoreMultiplierAndSpikeMonth: ContributionScoreMultiplierAndSpikeMonth = new ContributionScoreMultiplierAndSpikeMonthImpl(config)
+  val knolderScore: KnolderScore = new KnolderScoreImpl(contributionScoreMultiplierAndSpikeMonth,config)
   val knolderRank: KnolderRank = new KnolderRankImpl
   val readContribution = new ReadContributionImpl(config)
   val readAllTimeReputation: ReadAllTimeReputation = new ReadAllTimeReputationImpl(config)
@@ -63,6 +64,10 @@ object DriverApp extends App {
   val techHubData: TechHubData = new TechHubDataImpl(fetchTechHub, URLResponse, config)
   val otherContributionDataObj: OtherContributionData =
     new OtherContributionDataImpl(dateTimeFormat, spreadSheetApiObj, config)
+  val fetchMonthlyKnolderContribution: FetchMonthlyKnolderContribution = new FetchMonthlyKnolderContributionImpl(config)
+  val knolderMonthlyContribution: KnolderMonthlyContribution = new KnolderMonthlyContributionImpl(readContribution, knolderScore,
+    fetchMonthlyKnolderContribution)
+  val writeMonthlyContribution: WriteMonthlyContribution = new WriteMonthlyContributionImpl(config)
 
   val blogs: Blogs = new BlogsImpl(fetchBlogs, URLResponse, config)
   val knolx: Knolxs = new KnolxImpl(fetchKnolx, URLResponse, config)
@@ -162,6 +167,9 @@ object DriverApp extends App {
   storeResearchPapersContribution.insertResearchPaperContributionDetails(otherContributionDetails)
   val techHubDataList = techHubData.getLatestTechHubTemplates
   storeTechHub.insertTechHub(techHubDataList)
+  val knolderMonthlyContributionDetails = knolderMonthlyContribution.getKnolderMonthlyContribution
+  writeMonthlyContribution.insertKnolderMonthlyContribution(knolderMonthlyContributionDetails)
+  writeMonthlyContribution.updateKnolderMonthlyContribution(knolderMonthlyContributionDetails)
   val allTimeReputations = allTimeReputation.getKnolderReputation
   writeAllTimeReputation.insertAllTimeReputationData(allTimeReputations)
   writeAllTimeReputation.updateAllTimeReputationData(allTimeReputations)
