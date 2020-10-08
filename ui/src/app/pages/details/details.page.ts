@@ -42,7 +42,7 @@ export class DetailsPage implements OnInit {
     private commonService: CommonService
   ) { }
 
-    ngOnInit() {
+  ngOnInit() {
     this.contributionsTypeColorList = this.commonService.colorScheme.domain;
     this.route.queryParams
       .subscribe((params: Params) => {
