@@ -1,7 +1,7 @@
 package com.knoldus.leader_board.infrastructure
 
 import java.sql.{Connection, PreparedStatement, Timestamp}
-import java.time.Instant
+import java.time.{ZoneId, ZonedDateTime}
 
 import com.knoldus.leader_board.{ContributionScore, DatabaseConnection, GetContributionCount, IndianTime}
 import com.typesafe.config.ConfigFactory
@@ -31,6 +31,31 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       .withDayOfMonth(1).toLocalDate.minusMonths(1).atStartOfDay())
 
     val date = Timestamp.valueOf("2020-06-01 21:32:37")
+
+    def insertMonthlyContribution(month: String, year: Int): Unit = {
+      val insertMonthlyContribution: String =
+        """
+          |insert into monthlycontribution(id, knolder_id,blog_score,knolx_score,webinar_score,techhub_score
+          |,oscontribution_score,book_score,conference_score,researchpaper_score,month,year)
+          |values (?,?,?,?,?,?,?,?,?,?,?,?)
+""".stripMargin
+
+      val preparedStmt: PreparedStatement = connection.prepareStatement(insertMonthlyContribution)
+      preparedStmt.setInt(1, 1)
+      preparedStmt.setInt(2, 1)
+      preparedStmt.setInt(3, 10)
+      preparedStmt.setInt(4, 40)
+      preparedStmt.setInt(5, 30)
+      preparedStmt.setInt(6, 30)
+      preparedStmt.setInt(7, 60)
+      preparedStmt.setInt(8, 200)
+      preparedStmt.setInt(9, 200)
+      preparedStmt.setInt(10, 100)
+      preparedStmt.setString(11, month)
+      preparedStmt.setInt(12, year)
+      preparedStmt.execute
+      preparedStmt.close()
+    }
 
     def insertKnolder {
       val insertKnolderOne: String =
@@ -251,21 +276,18 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
     }
 
     "return number of contributions of each knolder" in {
-      val date = Timestamp.from(Instant.parse("2020-04-13T12:57:27Z"))
+      val month = ZonedDateTime.now(ZoneId.of("Asia/Calcutta")).getMonth.toString
+      val year = ZonedDateTime.now(ZoneId.of("Asia/Calcutta")).getYear
       insertKnolder
-      insertBlogs(date)
-      insertKnolx(date)
-      insertWebinar(date)
-      insertTechHub(date)
-      insertConference(date)
+      insertMonthlyContribution(month, year)
 
 
-      val knoldersWithBlogs = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0, 2, 0, 0),
-        GetContributionCount(3, "Komal Rajpal", 1, 0, 0, 0, 0, 0, 0, 0),
-        GetContributionCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0, 0, 0, 0))
+      val knoldersWithContribution = List(KnolderContributionScore(1, "Mukesh Kumar", Option(10), Option(40), Option(30), Option(30), Option(60),
+        Option(200), Option(200), Option(100)))
+
 
       val result = readContribution.fetchKnoldersWithContributions
-      result shouldBe knoldersWithBlogs
+      result shouldBe knoldersWithContribution
     }
 
     "return number of contributions of each knolder in current month" in {
@@ -275,76 +297,74 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       insertWebinar(currentMonth)
       insertTechHub(currentMonth)
       insertConference(currentMonth)
+      val month = ZonedDateTime.now(ZoneId.of("Asia/Calcutta")).getMonth.toString
+      val year = ZonedDateTime.now(ZoneId.of("Asia/Calcutta")).getYear
 
-      val knoldersWithMonthlyBlogs = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0, 2, 0, 0),
+      val knoldersWithMonthlyContribution = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0, 2, 0, 0),
         GetContributionCount(3, "Komal Rajpal", 1, 0, 0, 0, 0, 0, 0, 0),
         GetContributionCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0, 0, 0, 0))
 
-      val result = readContribution.fetchKnoldersWithMonthlyContributions
-      result shouldBe knoldersWithMonthlyBlogs
+      val result = readContribution.fetchKnoldersWithMonthlyContributions(month,year)
+      result shouldBe knoldersWithMonthlyContribution
     }
 
     "return number of contributions of each knolder in first month of quarter" in {
+      val month = ZonedDateTime.now(ZoneId.of("Asia/Calcutta")).minusMonths(3).getMonth.toString
+      val year = ZonedDateTime.now(ZoneId.of("Asia/Calcutta")).minusMonths(3).getYear
       insertKnolder
-      insertBlogs(firstMonth)
-      insertKnolx(firstMonth)
-      insertWebinar(firstMonth)
-      insertTechHub(firstMonth)
-      insertConference(firstMonth)
+      insertMonthlyContribution(month, year)
 
-      val knoldersWithQuarterlyBlogs = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0, 2, 0, 0),
-        GetContributionCount(3, "Komal Rajpal", 1, 0, 0, 0, 0, 0, 0, 0),
-        GetContributionCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0, 0, 0, 0))
+      val knoldersWithQuarterlyContribution = List(KnolderContributionScore(1, "Mukesh Kumar", Option(10), Option(40), Option(30), Option(30), Option(60), Option(200),Option(200), Option(100)))
 
       val result = readContribution.fetchKnoldersWithQuarterFirstMonthContributions
-      result shouldBe knoldersWithQuarterlyBlogs
+      result shouldBe knoldersWithQuarterlyContribution
     }
 
     "return number of contributiobns of each knolder in second month of quarter" in {
+      val month = ZonedDateTime.now(ZoneId.of("Asia/Calcutta")).minusMonths(2).getMonth.toString
+      val year = ZonedDateTime.now(ZoneId.of("Asia/Calcutta")).minusMonths(2).getYear
       insertKnolder
-      insertBlogs(secondMonth)
-      insertKnolx(secondMonth)
-      insertWebinar(secondMonth)
-      insertTechHub(secondMonth)
-      insertConference(secondMonth)
+      insertMonthlyContribution(month, year)
 
-      val knoldersWithQuarterlyBlogs = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0, 2, 0, 0),
-        GetContributionCount(3, "Komal Rajpal", 1, 0, 0, 0, 0, 0, 0, 0),
-        GetContributionCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0, 0, 0, 0))
+      val knoldersWithQuarterlyContribution = List(KnolderContributionScore(1, "Mukesh Kumar",  Option(10), Option(40), Option(30), Option(30), Option(60), Option(200),Option(200), Option(100)))
 
       val result = readContribution.fetchKnoldersWithQuarterSecondMonthContributions
-      result shouldBe knoldersWithQuarterlyBlogs
+      result shouldBe knoldersWithQuarterlyContribution
     }
 
     "return number of contributions of each knolder in third month of quarter" in {
 
+      val month = ZonedDateTime.now(ZoneId.of("Asia/Calcutta")).minusMonths(1).getMonth.toString
+      val year = ZonedDateTime.now(ZoneId.of("Asia/Calcutta")).minusMonths(1).getYear
       insertKnolder
-      insertBlogs(thirdMonth)
-      insertKnolx(thirdMonth)
-      insertWebinar(thirdMonth)
-      insertTechHub(thirdMonth)
-      insertConference(thirdMonth)
+      insertMonthlyContribution(month, year)
 
-      val knoldersWithQuarterlyBlogs = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0, 2, 0, 0),
-        GetContributionCount(3, "Komal Rajpal", 1, 0, 0, 0, 0, 0, 0, 0),
-        GetContributionCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0, 0, 0, 0))
+      val knoldersWithQuarterlyContribution = List(KnolderContributionScore(1, "Mukesh Kumar",  Option(10), Option(40), Option(30), Option(30), Option(60), Option(200),Option(200), Option(100)))
 
       val result = readContribution.fetchKnoldersWithQuarterThirdMonthContributions
-      result shouldBe knoldersWithQuarterlyBlogs
+      result shouldBe knoldersWithQuarterlyContribution
     }
 
     "return score of particular knolder in particular month" in {
+      val month = ZonedDateTime.now(ZoneId.of("Asia/Calcutta")).getMonth.toString
+      val year = ZonedDateTime.now(ZoneId.of("Asia/Calcutta")).getYear
+      insertMonthlyContribution(month, year)
 
+      val result = readContribution.fetchKnoldersWithTwelveMonthContributions(ZonedDateTime.now(ZoneId.of("Asia/Calcutta")).getMonthValue
+        , year, 1)
+      result shouldBe Option(ContributionScore(10, 40, 30, 30, 60, 200, 200, 100))
+    }
+    "return each contribution score of particular knolder in particular month" in {
+      val month = ZonedDateTime.now(ZoneId.of("Asia/Calcutta")).getMonth.toString
+      val year = ZonedDateTime.now(ZoneId.of("Asia/Calcutta")).getYear
 
       insertKnolder
-      insertBlogs(date)
-      insertKnolx(date)
-      insertWebinar(date)
-      insertTechHub(date)
-      insertConference(date)
+      insertMonthlyContribution(month, year)
 
-      val result = readContribution.fetchKnoldersWithTwelveMonthContributions(6, 2020, 1)
-      result shouldBe Option(ContributionScore(10, 40, 30, 30, 0, 200, 0, 0))
+      val result = readContribution.fetchMonthlyContributionScore
+      result shouldBe List(KnolderContributionScore(1, "Mukesh Kumar",  Option(10), Option(40), Option(30), Option(30), Option(60), Option(200),Option(200), Option(100)),
+        KnolderContributionScore(2,"Abhishek Baranwal",None,None,None,None,None,None,None,None),
+        KnolderContributionScore(3,"Komal Rajpal",None,None,None,None,None,None,None,None))
     }
   }
 }

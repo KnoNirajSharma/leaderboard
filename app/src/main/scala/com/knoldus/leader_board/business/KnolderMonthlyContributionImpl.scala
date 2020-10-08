@@ -1,6 +1,5 @@
 package com.knoldus.leader_board.business
 
-import com.knoldus.leader_board.IndianTime
 import com.knoldus.leader_board.infrastructure.{FetchMonthlyKnolderContribution, ReadContribution}
 import com.typesafe.scalalogging.LazyLogging
 
@@ -15,12 +14,11 @@ class KnolderMonthlyContributionImpl(readContribution: ReadContribution, knolder
    * @return List of each contribution scores of knolders along with their knolder id.
    */
 
-  def getKnolderMonthlyContribution: List[KnolderIdWithKnolderContributionScore] = {
+  def getKnolderMonthlyContribution(month:String,year:Int): List[KnolderIdWithKnolderContributionScore] = {
     logger.info("getting contribution scores of each knolder along with their knolder id")
 
-    val month = IndianTime.currentTime.getMonth.toString
-    val year = IndianTime.currentTime.getYear
-    val contributions = readContribution.fetchKnoldersWithMonthlyContributions
+
+    val contributions = readContribution.fetchKnoldersWithMonthlyContributions(month,year)
 
     val knolderEachContributionScore = knolderScore.calculateEachContributionScore(month, year, contributions)
     knolderEachContributionScore.map(knolderContributionScore => KnolderIdWithKnolderContributionScore

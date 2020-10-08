@@ -15,12 +15,12 @@ class MonthlyReputationImplSpec extends AnyFlatSpec with MockitoSugar {
 
   "get monthly reputation" should "return monthly knolder reputation of each knolder along with their knolder id" in {
     val scorePerKnolder = List(GetScore(1, "Mukesh Gupta", 365))
-    val contributionCounts = List(GetContributionCount(1, "Mukesh Gupta", 3, 2, 1, 1, 1, 1, 1, 1))
+    val contributionScores = List(KnolderContributionScore(1, "Mukesh Gupta", Option(15), Option(40), Option(15), Option(15), Option(30), Option(100),Option(100),Option(50)))
 
-    when(mockReadContribution.fetchKnoldersWithMonthlyContributions)
-      .thenReturn(contributionCounts)
+    when(mockReadContribution.fetchMonthlyContributionScore)
+      .thenReturn(contributionScores)
 
-    when(mockKnolderScore.calculateScore(contributionCounts))
+    when(mockKnolderScore.calculateScore(contributionScores))
       .thenReturn(scorePerKnolder)
 
     when(mockKnolderRank.calculateRank(scorePerKnolder))

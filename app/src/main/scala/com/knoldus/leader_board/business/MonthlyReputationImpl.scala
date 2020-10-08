@@ -13,7 +13,7 @@ class MonthlyReputationImpl(readContribution: ReadContribution, knolderRank: Kno
    * @return List of monthly reputation of knolders along with their knolder id.
    */
   override def getKnolderMonthlyReputation: List[KnolderReputation] = {
-    val contributions = readContribution.fetchKnoldersWithMonthlyContributions
+    val contributions = readContribution.fetchMonthlyContributionScore
     val scorePerKnolder = knolderScore.calculateScore(contributions)
     val reputationOfKnolders: List[GetReputation] = knolderRank.calculateRank(scorePerKnolder)
     logger.info("Fetching knolder id of knolders from monthly reputation table.")
