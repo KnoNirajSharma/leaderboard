@@ -84,7 +84,7 @@ describe('MainPage', () => {
     mockEmployeeService = TestBed.get(EmployeeActivityService);
   }));
 
-  it(' should call getReputationData and scoringInfoData', () => {
+  it('should call getReputationData and scoringInfoData', () => {
     spyOn(component, 'getReputationData');
     spyOn(component, 'getScoringInfoData');
     component.ngOnInit();
@@ -99,12 +99,6 @@ describe('MainPage', () => {
     expect(component.reputation).toEqual(dummyReputationData);
   });
 
-  it('should handle occurs in reputation api', () => {
-    spyOn(mockEmployeeService, 'getData').and.returnValue(throwError({status: 404}));
-    spyOn(component, 'setAllKnolderData');
-    component.getReputationData();
-  });
-
   it('should return the scoring info data as per api call', () => {
     spyOn(component, 'getScoringInfoKeys').and.returnValue(['blog', 'knolx']);
     spyOn(component, 'getNumberOfScoresBoosted').and.returnValue(3);
@@ -113,12 +107,6 @@ describe('MainPage', () => {
     expect(component.scoringInfoData).toEqual(mockScoringData);
     expect(component.scoringInfoKeys).toEqual(['blog', 'knolx']);
     expect(component.boostedScoreCount).toEqual(3);
-  });
-
-  it('should handle if error occurs in scoring info api', () => {
-    spyOn(mockEmployeeService, 'getScoringInfoData').and.returnValue(throwError({status: 404}));
-    spyOn(component, 'getScoringInfoKeys');
-    component.getScoringInfoData();
   });
 
   it('should call setKnolderList, setKnoldusReputationKeys and setInitialFilteredList', () => {

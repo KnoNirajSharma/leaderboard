@@ -109,12 +109,6 @@ describe('HallOfFamePage', () => {
       expect(component.hallOfFameLeaders).toEqual(mockHallOfFameData);
   });
 
-  it('should handle when error occurred', () => {
-      spyOn(component, 'setListIndexForPage');
-      spyOn(mockEmployeeService, 'getHallOfFameData').and.returnValue(throwError({status: 404}));
-      component.ngOnInit();
-  });
-
   it('should set start and end index of list for a page', () => {
     component.numberOfItemsInPage = 10;
     component.setListIndexForPage(1);

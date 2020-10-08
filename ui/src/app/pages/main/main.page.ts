@@ -43,8 +43,6 @@ export class MainPage implements OnInit {
       .subscribe((data: ReputationModel) => {
         this.reputation = { ...data };
         this.setAllKnolderData();
-      }, error => {
-        console.log(error);
       });
   }
 
@@ -54,8 +52,6 @@ export class MainPage implements OnInit {
         this.scoringInfoData = { ...scoringInfoData };
         this.scoringInfoKeys = this.getScoringInfoKeys();
         this.boostedScoreCount = this.getNumberOfScoresBoosted();
-      }, error => {
-        console.log(error);
       });
   }
 
