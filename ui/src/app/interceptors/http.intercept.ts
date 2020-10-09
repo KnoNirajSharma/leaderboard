@@ -40,7 +40,6 @@ export class HttpIntercept implements HttpInterceptor {
         }),
         catchError((error: HttpErrorResponse) => {
           const errorMessage = `Error Status: ${error.status}`;
-          console.log('error 2');
           loading.then(loader => {
             loader.dismiss();
           });

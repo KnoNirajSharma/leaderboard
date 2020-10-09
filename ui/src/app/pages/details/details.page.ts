@@ -72,8 +72,6 @@ export class DetailsPage implements OnInit {
     this.employeeActivityService.getMonthlyDetails(this.knolderId, month, year)
       .subscribe((data: KnolderDetailsModel) => {
         this.knolderDetails = data;
-      }, (error) => {
-        console.log(error);
       });
   }
 
@@ -81,8 +79,6 @@ export class DetailsPage implements OnInit {
     this.employeeActivityService.getTrendsData(this.knolderId)
       .subscribe((data: TrendsModel[]) => {
         this.trendsData = data;
-      }, (error) => {
-        console.log(error);
       });
   }
 
@@ -91,8 +87,6 @@ export class DetailsPage implements OnInit {
       .subscribe((data: KnolderDetailsModel) => {
         this.allTimeDetails = data;
         this.pieChartData = this.allTimeDetails.scoreBreakDown;
-      }, error => {
-        console.log(error);
       });
   }
 
@@ -113,8 +107,6 @@ export class DetailsPage implements OnInit {
         this.hallOfFameLeaders = data;
         this.setKnolderAchievements();
         this.setMedalTally();
-      }, (error) => {
-        console.log(error);
       });
   }
 

@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { IonicModule } from '@ionic/angular';
 import { KnolderDetailsModel } from '../../models/knolder-details.model';
-import {of, throwError} from 'rxjs';
+import { of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../../../environments/environment';
@@ -184,32 +184,16 @@ describe('DetailsPage', () => {
     expect(component.knolderDetails).toEqual(dummyKnolderDetails);
   });
 
-  it('should handle error if error occurs in monthly api', () => {
-    spyOn(mockEmployeeService, 'getMonthlyDetails').and.returnValue(throwError({status: 404}));
-    component.getMonthlyDetails('june', 2020);
-  });
-
-
   it('should return the trendsData as per api call', () => {
     spyOn(mockEmployeeService, 'getTrendsData').and.returnValue(of(dummyTrendsData));
     component.getTrendsData();
     expect(component.trendsData).toEqual(dummyTrendsData);
   });
 
-  it('should handle error if error occurs in trend api', () => {
-    spyOn(mockEmployeeService, 'getTrendsData').and.returnValue(throwError({status: 404}));
-    component.getTrendsData();
-  });
-
   it('should return the knolder Alltime details Data as per api call', () => {
     spyOn(mockEmployeeService, 'getAllTimeDetails').and.returnValue(of(dummyKnolderDetails));
     component.getAllTimeDetails();
     expect(component.allTimeDetails).toEqual(dummyKnolderDetails);
-  });
-
-  it('should handle when error occurs in all time api service', () => {
-    spyOn(mockEmployeeService, 'getAllTimeDetails').and.returnValue(throwError({status: 404}));
-    component.getAllTimeDetails();
   });
 
   it('should change alltimeSelected value to false', () => {
@@ -239,13 +223,6 @@ describe('DetailsPage', () => {
     spyOn(mockEmployeeService, 'getHallOfFameData').and.returnValue(of(mockHallOfFameData));
     component.getHallOfFameData();
     expect(component.hallOfFameLeaders).toEqual(mockHallOfFameData);
-  });
-
-  it('should handle error if error occures in hall of fame api', () => {
-    spyOn(component, 'setKnolderAchievements');
-    spyOn(component, 'setMedalTally');
-    spyOn(mockEmployeeService, 'getHallOfFameData').and.returnValue(throwError({status: 404}));
-    component.getHallOfFameData();
   });
 
   it('should set knolderAchievements by matching the knolderID', () => {

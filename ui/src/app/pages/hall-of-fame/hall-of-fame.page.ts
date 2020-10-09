@@ -27,8 +27,6 @@ export class HallOfFamePage implements OnInit {
       .subscribe((data: HallOfFameModel[]) => {
         this.hallOfFameLeaders = [...data];
         this.paginationLength = Math.ceil(this.hallOfFameLeaders.length / this.numberOfItemsInPage);
-      }, error => {
-        console.log(error);
       });
     this.setListIndexForPage(0);
   }
