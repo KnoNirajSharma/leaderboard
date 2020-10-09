@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { AuthorModel } from '../../models/author.model';
 import { EmployeeActivityService } from '../../services/employee-activity.service';
 import { FormControl } from '@angular/forms';
@@ -12,7 +12,7 @@ import { ScoringTableModel } from '../../models/scoring-table.model';
   templateUrl: './main.page.html',
   styleUrls: ['./main.page.scss'],
 })
-export class MainPage implements OnInit {
+export class MainPage implements OnInit, AfterViewInit {
   knoldersReputationList: AuthorModel[];
   searchBar = new FormControl('');
   empFilterPipe = new EmployeeFilterPipe();
@@ -30,12 +30,18 @@ export class MainPage implements OnInit {
     { title: 'OVERALL SCORE' },
     { title: '3-MONTH-STREAK' }
   ];
+  @ViewChild('maincontainer', { static: true }) knoldusStats: ElementRef;
 
   constructor(private employeeActivityService: EmployeeActivityService) { }
 
   ngOnInit() {
     this.getScoringInfoData();
     this.getReputationData();
+    console.log(this.knoldusStats, this.knoldusStats.nativeElement.offsetLeft);
+  }
+
+  ngAfterViewInit() {
+    console.log(this.knoldusStats, this.knoldusStats.nativeElement.getBoundingClientRect().right);
   }
 
   getReputationData() {
