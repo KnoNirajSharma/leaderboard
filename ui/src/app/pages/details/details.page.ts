@@ -61,7 +61,11 @@ export class DetailsPage implements OnInit {
     this.dateFromRoute.month(this.monthFromRoute);
     this.dateFromRoute.set({ year: this.yearFromRoute });
     this.datePicker = new FormControl(this.dateFromRoute.toDate());
-    this.datepickerConfig = { containerClass: 'theme-dark-blue', dateInputFormat: 'MMM-YYYY', minMode: 'month' };
+    this.datepickerConfig = {
+      containerClass: 'theme-dark-blue',
+      dateInputFormat: 'MMM-YYYY',
+      minMode: 'month'
+    };
   }
 
   getMonthlyDetails(month: string, year: number) {
