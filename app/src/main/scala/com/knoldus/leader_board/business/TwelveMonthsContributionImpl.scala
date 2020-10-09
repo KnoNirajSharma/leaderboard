@@ -24,11 +24,14 @@ class TwelveMonthsContributionImpl(readContribution: ReadContribution) extends T
         val monthName = IndianTime.currentTime.minusMonths(monthsIndex).getMonth.toString
         val year = IndianTime.currentTime.minusMonths(monthsIndex).getYear
         val monthScore = readContribution.fetchKnoldersWithTwelveMonthContributions(monthValue, year, id)
-        monthScore.flatMap(contributionScore =>
-          calculateMonthsScore(scoreList :+ TwelveMonthsScore(monthName, year, contributionScore.blogScore, contributionScore.knolxScore,
-            contributionScore.webinarScore, contributionScore.techHubScore, contributionScore.osContributionScore, contributionScore.conferenceScore
-            , contributionScore.bookScore, contributionScore.researchPaperScore),
-            monthsIndex + 1, id))
+        monthScore match {
+          case Some(contributionScore) =>calculateMonthsScore(scoreList :+ TwelveMonthsScore(monthName, year, contributionScore.blogScore,
+            contributionScore.knolxScore, contributionScore.webinarScore, contributionScore.techHubScore, contributionScore.osContributionScore,
+            contributionScore.conferenceScore, contributionScore.bookScore, contributionScore.researchPaperScore),
+            monthsIndex + 1, id)
+          case None =>calculateMonthsScore(scoreList :+ TwelveMonthsScore(monthName, year, 0, 0, 0, 0, 0, 0, 0, 0),
+            monthsIndex + 1, id)
+        }
       }
     }
 
