@@ -64,8 +64,8 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
   val queryToFetchKnolderContributionSCore =
     """select knolder.full_name,knolder.id AS knolder_id,blog_score,knolx_Score,webinar_score,techhub_Score
   ,oscontribution_score,conference_score,researchpaper_score,book_score
-  from knolder inner join monthlycontribution
-  on knolder.id=monthlycontribution.knolder_id where month= ? And year=?"""
+  from knolder left join monthlycontribution
+  on knolder.id=monthlycontribution.knolder_id And month= ? And year=? WHERE knolder.active_status = true"""
 
   /**
    * Fetches all time scores of contributions of each knolder.
@@ -80,7 +80,8 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
        SUM(webinar_score) as webinar_score,SUM(techhub_score) as techhub_score,SUM(oscontribution_score) as oscontribution_score,
        SUM(conference_score) as conference_score,SUM(book_score) as book_score,SUM(researchpaper_score) as researchpaper_score
        from knolder
-       inner join monthlycontribution on knolder.id=monthlycontribution.knolder_id
+       left join monthlycontribution on knolder.id=monthlycontribution.knolder_id
+       WHERE knolder.active_status = true
         group by monthlycontribution.knolder_id,knolder.full_name,knolder.id""")
       .map(rs => KnolderContributionScore(rs.int("knolder_id"), rs.string("full_name"), rs.intOpt("blog_score")
         , rs.intOpt("knolx_score"), rs.intOpt("webinar_score"), rs.intOpt("techhub_score"),
@@ -188,10 +189,7 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
     val year = IndianTime.currentTime.getYear
 
     SQL(
-      """ select knolder.full_name,knolder.id AS knolder_id,blog_score,knolx_Score,webinar_score,techhub_Score
-        | ,oscontribution_score,conference_score,researchpaper_score,book_score
-        | from knolder left join monthlycontribution
-        | on knolder.id = monthlycontribution.knolder_id And month= ? And year=?""".stripMargin).bind(month, year)
+      queryToFetchKnolderContributionSCore.stripMargin).bind(month, year)
       .map(rs => KnolderContributionScore(rs.int("knolder_id"), rs.string("full_name"), rs.intOpt("blog_score")
         , rs.intOpt("knolx_score"), rs.intOpt("webinar_score"), rs.intOpt("techhub_score"),
         rs.intOpt("oscontribution_score"), rs.intOpt("conference_score"), rs.intOpt("book_score"),

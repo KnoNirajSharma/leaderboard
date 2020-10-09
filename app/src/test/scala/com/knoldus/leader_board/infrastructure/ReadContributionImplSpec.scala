@@ -282,8 +282,9 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       insertMonthlyContribution(month, year)
 
 
-      val knoldersWithContribution = List(KnolderContributionScore(1, "Mukesh Kumar", Option(10), Option(40), Option(30), Option(30), Option(60),
-        Option(200), Option(200), Option(100)))
+      val knoldersWithContribution = List( KnolderContributionScore(2,"Abhishek Baranwal",None,None,None,None,None,None,None,None),
+        KnolderContributionScore(1, "Mukesh Kumar",  Option(10), Option(40), Option(30), Option(30), Option(60), Option(200),Option(200), Option(100))
+       , KnolderContributionScore(3,"Komal Rajpal",None,None,None,None,None,None,None,None))
 
 
       val result = readContribution.fetchKnoldersWithContributions
@@ -314,7 +315,9 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       insertKnolder
       insertMonthlyContribution(month, year)
 
-      val knoldersWithQuarterlyContribution = List(KnolderContributionScore(1, "Mukesh Kumar", Option(10), Option(40), Option(30), Option(30), Option(60), Option(200),Option(200), Option(100)))
+      val knoldersWithQuarterlyContribution = List(KnolderContributionScore(1, "Mukesh Kumar",  Option(10), Option(40), Option(30), Option(30), Option(60), Option(200),Option(200), Option(100)),
+        KnolderContributionScore(2,"Abhishek Baranwal",None,None,None,None,None,None,None,None),
+        KnolderContributionScore(3,"Komal Rajpal",None,None,None,None,None,None,None,None))
 
       val result = readContribution.fetchKnoldersWithQuarterFirstMonthContributions
       result shouldBe knoldersWithQuarterlyContribution
@@ -326,7 +329,9 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       insertKnolder
       insertMonthlyContribution(month, year)
 
-      val knoldersWithQuarterlyContribution = List(KnolderContributionScore(1, "Mukesh Kumar",  Option(10), Option(40), Option(30), Option(30), Option(60), Option(200),Option(200), Option(100)))
+      val knoldersWithQuarterlyContribution = List(KnolderContributionScore(1, "Mukesh Kumar",  Option(10), Option(40), Option(30), Option(30), Option(60), Option(200),Option(200), Option(100)),
+        KnolderContributionScore(2,"Abhishek Baranwal",None,None,None,None,None,None,None,None),
+        KnolderContributionScore(3,"Komal Rajpal",None,None,None,None,None,None,None,None))
 
       val result = readContribution.fetchKnoldersWithQuarterSecondMonthContributions
       result shouldBe knoldersWithQuarterlyContribution
@@ -339,7 +344,9 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       insertKnolder
       insertMonthlyContribution(month, year)
 
-      val knoldersWithQuarterlyContribution = List(KnolderContributionScore(1, "Mukesh Kumar",  Option(10), Option(40), Option(30), Option(30), Option(60), Option(200),Option(200), Option(100)))
+      val knoldersWithQuarterlyContribution = List(KnolderContributionScore(1, "Mukesh Kumar",  Option(10), Option(40), Option(30), Option(30), Option(60), Option(200),Option(200), Option(100)),
+        KnolderContributionScore(2,"Abhishek Baranwal",None,None,None,None,None,None,None,None),
+        KnolderContributionScore(3,"Komal Rajpal",None,None,None,None,None,None,None,None))
 
       val result = readContribution.fetchKnoldersWithQuarterThirdMonthContributions
       result shouldBe knoldersWithQuarterlyContribution
