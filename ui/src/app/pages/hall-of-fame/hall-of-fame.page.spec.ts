@@ -2,7 +2,6 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {IonicModule} from '@ionic/angular';
 import {HallOfFamePage} from './hall-of-fame.page';
 import {EmployeeActivityService} from '../../services/employee-activity.service';
-import {LoadingControllerService} from '../../services/loading-controller.service ';
 import {HallOfFameModel} from '../../models/hallOfFame.model';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {AngularFireModule} from '@angular/fire';
@@ -19,7 +18,6 @@ describe('HallOfFamePage', () => {
   let component: HallOfFamePage;
   let fixture: ComponentFixture<HallOfFamePage>;
   let mockEmployeeService: EmployeeActivityService;
-  let loadingControllerService: LoadingControllerService;
   let commonService: CommonService;
   const mockHallOfFameData: HallOfFameModel[] = [
     {
@@ -92,7 +90,6 @@ describe('HallOfFamePage', () => {
       fixture = TestBed.createComponent(HallOfFamePage);
       component = fixture.componentInstance;
       mockEmployeeService = TestBed.get(EmployeeActivityService);
-      loadingControllerService = TestBed.get(LoadingControllerService);
       commonService = TestBed.get(CommonService);
   }));
 
@@ -110,14 +107,6 @@ describe('HallOfFamePage', () => {
       spyOn(mockEmployeeService, 'getHallOfFameData').and.returnValue(of([...mockHallOfFameData]));
       component.ngOnInit();
       expect(component.hallOfFameLeaders).toEqual(mockHallOfFameData);
-  });
-
-  it('should dismiss loader when error occurred', () => {
-      spyOn(loadingControllerService, 'dismiss');
-      spyOn(component, 'setListIndexForPage');
-      spyOn(mockEmployeeService, 'getHallOfFameData').and.returnValue(throwError({status: 404}));
-      component.ngOnInit();
-      expect(loadingControllerService.dismiss).toHaveBeenCalled();
   });
 
   it('should set start and end index of list for a page', () => {

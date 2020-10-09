@@ -5,7 +5,6 @@ import { FormControl } from '@angular/forms';
 import { EmployeeFilterPipe } from '../../pipe/employee-filter.pipe';
 import { TableHeaderModel } from '../../models/tableHeader.model';
 import { ReputationModel } from '../../models/reputation.model';
-import { LoadingControllerService } from '../../services/loading-controller.service ';
 import { ScoringTableModel } from '../../models/scoring-table.model';
 
 @Component({
@@ -32,17 +31,9 @@ export class MainPage implements OnInit {
     { title: '3-MONTH-STREAK' }
   ];
 
-  constructor(
-    private employeeActivityService: EmployeeActivityService,
-    private loadingControllerService: LoadingControllerService
-  ) { }
+  constructor(private employeeActivityService: EmployeeActivityService) { }
 
   ngOnInit() {
-    this.loadingControllerService.present({
-      message: 'Loading the Leaderboard...',
-      translucent: 'false',
-      spinner: 'bubbles'
-    });
     this.getScoringInfoData();
     this.getReputationData();
   }
@@ -52,9 +43,6 @@ export class MainPage implements OnInit {
       .subscribe((data: ReputationModel) => {
         this.reputation = { ...data };
         this.setAllKnolderData();
-        this.loadingControllerService.dismiss();
-      }, error => {
-        this.loadingControllerService.dismiss();
       });
   }
 
@@ -64,8 +52,6 @@ export class MainPage implements OnInit {
         this.scoringInfoData = { ...scoringInfoData };
         this.scoringInfoKeys = this.getScoringInfoKeys();
         this.boostedScoreCount = this.getNumberOfScoresBoosted();
-      }, error => {
-        console.log(error);
       });
   }
 
