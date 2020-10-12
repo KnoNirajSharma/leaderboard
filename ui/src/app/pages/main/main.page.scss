@@ -11,11 +11,11 @@
   .knoldus-stats-container {
     position: relative;
 
-    .knoldus-stats-tooltip-two {
+    .knoldus-stats-tooltip {
       visibility: hidden;
     }
 
-    &:hover .knoldus-stats-tooltip-two {
+    &:hover .knoldus-stats-tooltip {
       visibility: visible;
     }
 

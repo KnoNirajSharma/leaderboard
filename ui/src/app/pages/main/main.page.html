@@ -2,11 +2,12 @@
 <ion-content [fullscreen]="true">
     <div class="float-right last-update-timestamp w-100 text-right">Last updated: {{currentDate | date:'dd MMMM yyyy'}}</div>
     <div class="main-container col-12 col-xl-11 p-0">
-            <div #knoldusStats (mouseenter)="mouseEnterOnKnoldusStatsHandler($event)" class="position-relative knoldus-stats-container mb-4 mt-5 px-0">
+            <div #knoldusStats (mouseenter)="mouseEnterOnKnoldusStatsHandler($event)"
+                 class="position-relative knoldus-stats-container mb-4 mt-5 px-0">
                     <app-legend-tooltip [legendData]="knoldusStatsLegend"
                                         [positionX]="knoldusStatsLegendPosX"
                                         [positionY]="knoldusStatsLegendPosY"
-                                        class="shadow-sm knoldus-stats-tooltip-two">
+                                        class="shadow-sm knoldus-stats-tooltip">
                     </app-legend-tooltip>
                 <div *ngIf="reputation" class="scrolling-wrapper contribution-color">
                     <div *ngFor="let key of knoldusStatsReputationKeys" class="knoldus-stats-card card mx-1 mx-lg-0 py-2 border-0">

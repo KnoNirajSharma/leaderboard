@@ -1,4 +1,5 @@
-<div [ngStyle]="{'left.px': positionX, 'top.px': positionY}" id="knoldus-stats-tooltip" class="shadow-sm legend-tooltip p-2">
+<div [ngStyle]="{'left.px': positionX, 'top.px': positionY}"
+     class="shadow-sm legend-tooltip p-2">
   <span>Stats for Knoldus</span>
   <div *ngFor="let key of legendKeys" class="legend">
     <div [ngStyle]="{'background-color': legendData[key]}"></div>
