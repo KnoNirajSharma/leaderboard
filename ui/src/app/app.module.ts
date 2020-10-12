@@ -16,6 +16,8 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { HoverDirective } from './hover.directive';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,7 +33,8 @@ import { environment } from '../environments/environment';
     LoginPageModule,
     AngularFireModule.initializeApp(environment.firebaseConfig, 'angular-auth-firebase'),
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    OverlayModule
   ],
   providers: [
     StatusBar,

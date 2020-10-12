@@ -1,0 +1,7 @@
+<div [ngStyle]="{'left.px': positionX, 'top.px': positionY}" id="knoldus-stats-tooltip" class="shadow-sm knoldus-stats-tooltip p-2">
+  <span>Stats for Knoldus</span>
+  <div *ngFor="let key of legendKeys" class="knoldus-stats-tooltip-legend">
+    <div [ngStyle]="{'background-color': legendData[key]}"></div>
+    {{key | splitCamelCase | titlecase}}
+  </div>
+</div>
