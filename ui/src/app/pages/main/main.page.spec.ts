@@ -17,6 +17,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { CustomPipesModule } from '../../pipe/custom-pipes.module';
 import { ScoringTableModel } from '../../models/scoring-table.model';
+import {ElementRef} from '@angular/core';
 
 describe('MainPage', () => {
   let component: MainPage;
@@ -244,5 +245,12 @@ describe('MainPage', () => {
       knolx: {points: 20, pointsMultiplier: 2}
     };
     expect(component.getNumberOfScoresBoosted()).toEqual(2);
+  });
+
+  it('should set knoldusStatLegend x and y position', () => {
+    component.knoldusStatsRef = new ElementRef<any>({offsetHeight: 80});
+    component.mouseEnterOnKnoldusStatsHandler({offsetX: 30});
+    expect(component.knoldusStatsLegendPosX).toEqual(30);
+    expect(component.knoldusStatsLegendPosY).toEqual(80);
   });
 });

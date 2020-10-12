@@ -8,10 +8,6 @@ import { TableComponent } from '../../components/table/table.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ComponentsModule } from '../../components/components.module';
 import { CustomPipesModule } from '../../pipe/custom-pipes.module';
-import {LegendTooltipComponent} from '../../components/legend-tooltip/legend-tooltip.component';
-import { HoverDirective } from '../../hover.directive';
-import {OverlayModule} from '@angular/cdk/overlay';
-import {AwesomeTooltipDirective} from '../../tooltip-directive';
 
 const routes: Routes = [
   {
@@ -30,10 +26,8 @@ const routes: Routes = [
     NgxDatatableModule,
     ComponentsModule,
     CustomPipesModule,
-    OverlayModule
   ],
-  declarations: [MainPage, TableComponent, HoverDirective, AwesomeTooltipDirective],
-  entryComponents: [LegendTooltipComponent]
+  declarations: [MainPage, TableComponent],
 })
 export class MainPageModule {
 }

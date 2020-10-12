@@ -13,49 +13,11 @@
 
     .knoldus-stats-tooltip-two {
       visibility: hidden;
-      display: none;
     }
 
     &:hover .knoldus-stats-tooltip-two {
-      position: absolute;
       visibility: visible;
-      display: block;
-      z-index: 100;
-      //top: 100%;
-      //left: 70%;
     }
-
-    //.knoldus-stats-tooltip {
-    //  visibility: hidden;
-    //  background-color: white;
-    //  position: absolute;
-    //  border: 1px solid blue;
-    //  z-index: 1;
-    //  top: 100%;
-    //  left: 70%;
-    //  margin-top: 10px;
-    //  margin-left: -60px;
-    //  font-size: 0.75rem;
-    //  width: 150px;
-    //  border-radius: 5px;
-    //  color: black;
-    //
-    //  .knoldus-stats-tooltip-legend {
-    //    color: black;
-    //
-    //    .bg-color {
-    //      background-color: #602CA5;
-    //    }
-    //
-    //    div {
-    //        margin-right: 10px;
-    //        display: inline-block;
-    //        height: 10px;
-    //        width: 10px;
-    //        border: 1px solid white;
-    //      }
-    //    }
-    //  }
 
     .scrolling-wrapper {
       overflow-x: auto;
