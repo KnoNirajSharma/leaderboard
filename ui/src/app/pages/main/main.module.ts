@@ -25,9 +25,9 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     NgxDatatableModule,
     ComponentsModule,
-    CustomPipesModule
+    CustomPipesModule,
   ],
-  declarations: [MainPage, TableComponent]
+  declarations: [MainPage, TableComponent],
 })
 export class MainPageModule {
 }

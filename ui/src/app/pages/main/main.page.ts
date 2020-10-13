@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AuthorModel } from '../../models/author.model';
 import { EmployeeActivityService } from '../../services/employee-activity.service';
 import { FormControl } from '@angular/forms';
@@ -13,6 +13,7 @@ import { ScoringTableModel } from '../../models/scoring-table.model';
   styleUrls: ['./main.page.scss'],
 })
 export class MainPage implements OnInit {
+  @ViewChild('knoldusStats', { static: false }) knoldusStatsRef: ElementRef;
   knoldersReputationList: AuthorModel[];
   searchBar = new FormControl('');
   empFilterPipe = new EmployeeFilterPipe();
@@ -30,6 +31,12 @@ export class MainPage implements OnInit {
     { title: 'OVERALL SCORE' },
     { title: '3-MONTH-STREAK' }
   ];
+  knoldusStatsLegend = {
+    currentMonth: '#0F7291',
+    allTime: '#602CA5'
+  };
+  knoldusStatsLegendPosX = 0;
+  knoldusStatsLegendPosY = 0;
 
   constructor(private employeeActivityService: EmployeeActivityService) { }
 
@@ -118,5 +125,10 @@ export class MainPage implements OnInit {
   getNumberOfScoresBoosted(): number {
     return this.scoringInfoKeys.map(key => this.scoringInfoData[key])
       .filter(scoreInfo => scoreInfo.pointsMultiplier > 1).length;
+  }
+
+  mouseEnterOnKnoldusStatsHandler(event) {
+    this.knoldusStatsLegendPosX = event.offsetX;
+    this.knoldusStatsLegendPosY = this.knoldusStatsRef.nativeElement.offsetHeight;
   }
 }
