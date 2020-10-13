@@ -1,0 +1,11 @@
+.contribution-type {
+  font-size: 0.9em;
+}
+
+.detail-row {
+  &:hover {
+    div {
+      border-left: 2px solid blue;
+    }
+  }
+}

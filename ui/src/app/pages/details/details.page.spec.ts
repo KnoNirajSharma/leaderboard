@@ -18,6 +18,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HallOfFameModel } from '../../models/hallOfFame.model';
 import { CommonService } from '../../services/common.service';
 import { ScoreDrilldownComponent } from './components/score-drilldown/score-drilldown.component';
+import { ScoreDetailsComponent } from './components/score-details/score-details.component';
 
 
 describe('DetailsPage', () => {
@@ -123,7 +124,7 @@ describe('DetailsPage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [DetailsPage, ScoreDrilldownComponent],
+      declarations: [DetailsPage, ScoreDrilldownComponent, ScoreDetailsComponent],
       imports: [
         HttpClientTestingModule,
         IonicModule.forRoot(),
