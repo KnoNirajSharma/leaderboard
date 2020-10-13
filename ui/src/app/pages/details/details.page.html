@@ -31,36 +31,15 @@
                         <div>
                             <button (click)="setAllTimeDetailsOnClick()"
                                     [ngClass]="{'btn-primary': allTimeSelected}"
-                                    class="all-time-btn btn btn-primary px-1 mr-2 mt-1"> All
-                                time
+                                    class="all-time-btn btn btn-primary px-1 mr-2 mt-1">
+                                All time
                             </button>
                         </div>
                     </div>
                 </div>
                 <app-score-drilldown [knolderDetails]="knolderDetails"></app-score-drilldown>
-                <div *ngIf="knolderDetails" class="block px-2">
-                    <div class="block-title col-12">
-                        <h2>Details</h2>
-                    </div>
-                    <div *ngFor="let knolderData of knolderDetails.scoreBreakDown; let i = index">
-                        <h3 class="detail-type"><span
-                                class="contribution-type badge text-light"
-                                [ngStyle]="{'background-color': contributionsTypeColorList[i]}">{{knolderData.contributionType}}</span>
-                        </h3>
-                        <div *ngIf="knolderData.contributionDetails.length !== 0" class="row ml-xl-1">
-                            <div class="col-8 col-md-8"><h4>Title</h4></div>
-                            <div class="col-4 col-md-4 text-right text-xl-center"><h4>Date</h4></div>
-                        </div>
-                        <div *ngIf="knolderData.contributionDetails.length === 0">
-                            <span class="text-secondary font-italic">No details to display</span>
-                        </div>
-                        <div *ngFor="let knolderDetails of knolderData.contributionDetails"
-                             class="detail-row row pt-3 ml-xl-1">
-                            <div [innerHTML]="knolderDetails.title" class="col-8 col-md-8"></div>
-                            <div class="col-4 col-md-4 text-right text-xl-center">{{knolderDetails.date | date:'dd-MMM-yyyy'}}</div>
-                        </div>
-                    </div>
-                </div>
+                <app-score-details [contributionsTypeColorList]="contributionsTypeColorList"
+                                   [knolderDetails]="knolderDetails"></app-score-details>
             </div>
             <div class="col-12 col-lg-6">
                 <div *ngIf="hallOfFameLeaders" class="badge-details col-12 mt-4 card block border-0 col-xl-10 mx-auto pl-2">
