@@ -37,33 +37,7 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="knolderDetails" class="score-drilldown-wrapper block px-2">
-                    <div class="block-title col-12">
-                        <h2>Score drill-down</h2>
-                    </div>
-                    <div class="block-content container-fluid">
-                        <div class="row total-score mt-2">
-                            <div class="col-6 col-sm-4 col-xl-5">Score</div>
-                            <div class="col-3 col-xl-2"><span
-                                    class="badge badge-pill badge-warning">{{knolderDetails.score}}</span>
-                            </div>
-                        </div>
-                        <div class="row mt-4">
-                            <div class="col-6 col-sm-4 col-xl-5"></div>
-                            <div class="col-3 col-md-4 col-xl-3">
-                                <span class="text-secondary font-italic">Total No.</span></div>
-                            <div class="col-3 col-md-3 col-xl-3">
-                                <span class="text-secondary font-italic">Total Score</span></div>
-                        </div>
-                        <div *ngFor="let knolderData of knolderDetails.scoreBreakDown; let i = index"
-                             class="row score-table bg-light" [ngClass]="{ 'bg-light': (i%2 !== 0)}">
-                            <div class="col-6 col-sm-4 col-xl-5 contribution-type d-flex align-items-center">{{knolderData.contributionType}}
-                            </div>
-                            <span class="col-3 col-md-4 col-xl-3 d-flex align-items-center">{{knolderData.contributionCount}}</span>
-                            <span class="col-3 col-md-3 col-xl-2 d-flex align-items-center">{{knolderData.contributionScore}}</span>
-                        </div>
-                    </div>
-                </div>
+                <app-score-drilldown [knolderDetails]="knolderDetails"></app-score-drilldown>
                 <div *ngIf="knolderDetails" class="block px-2">
                     <div class="block-title col-12">
                         <h2>Details</h2>

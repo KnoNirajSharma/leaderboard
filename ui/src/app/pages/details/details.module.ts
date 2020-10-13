@@ -7,6 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ComponentsModule } from '../../components/components.module';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { ScoreDrilldownComponent } from './components/score-drilldown/score-drilldown.component';
 
 const routes: Routes = [
   {
@@ -26,7 +27,7 @@ const routes: Routes = [
     ComponentsModule,
     NgxChartsModule
   ],
-  declarations: [DetailsPage]
+  declarations: [DetailsPage, ScoreDrilldownComponent]
 })
 export class DetailsPageModule {
 }
