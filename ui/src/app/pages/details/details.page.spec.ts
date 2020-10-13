@@ -17,7 +17,7 @@ import { TrendsModel } from '../../models/trends.model';
 import { ActivatedRoute } from '@angular/router';
 import { HallOfFameModel } from '../../models/hallOfFame.model';
 import { CommonService } from '../../services/common.service';
-import {ScoreDrilldownComponent} from './components/score-drilldown/score-drilldown.component';
+import { ScoreDrilldownComponent } from './components/score-drilldown/score-drilldown.component';
 
 
 describe('DetailsPage', () => {
