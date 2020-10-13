@@ -1,0 +1,26 @@
+.block {
+  background-color: white;
+  padding-bottom: 1em;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  border: 0 !important;
+
+  .block-title {
+    border-bottom: 1px solid #2B35A8;
+    padding: 2px 2px;
+    position: relative;
+
+    h2, h4 {
+      color: #071348;
+      font-weight: 500;
+    }
+  }
+
+  .block-content {
+
+    .total-score {
+      font-weight: bold;
+      font-size: 1.19em;
+    }
+  }
+}
