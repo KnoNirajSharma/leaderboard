@@ -5,7 +5,7 @@ import java.sql.Connection
 import akka.actor.{ActorRef, ActorSystem, Props}
 import akka.testkit.{ImplicitSender, TestKit, TestProbe}
 import com.knoldus.leader_board.infrastructure._
-import com.knoldus.leader_board.{DatabaseConnection, ExecuteBlogsScript, ExecuteWebinarScript}
+import com.knoldus.leader_board.{DatabaseConnection, ExecuteWebinarScript}
 import com.typesafe.config.ConfigFactory
 import org.mockito.MockitoSugar
 import org.scalatest.BeforeAndAfterAll
@@ -23,6 +23,8 @@ class WebinarScriptActorSpec extends TestKit(ActorSystem("WebinarScriptActorSpec
   val mockWriteMonthlyReputation: WriteMonthlyReputation = mock[WriteMonthlyReputationImpl]
   val mockQuarterlyReputation: QuarterlyReputation = mock[QuarterlyReputationImpl]
   val mockWriteQuarterlyReputation: WriteQuarterlyReputation = mock[WriteQuarterlyReputationImpl]
+  val mockKnolderMonthlyContribution= mock[KnolderMonthlyContributionImpl]
+  val mockWriteMonthlyContribution= mock[WriteMonthlyContribution]
   val allTimeReputationActorRef: ActorRef = system.actorOf(Props(new AllTimeReputationActor(mockAllTimeReputation,
     mockWriteAllTimeReputation)), "allTimeReputationActor")
   val monthlyReputationActorRef: ActorRef = system.actorOf(Props(new MonthlyReputationActor(mockMonthlyReputation,
@@ -38,7 +40,7 @@ class WebinarScriptActorSpec extends TestKit(ActorSystem("WebinarScriptActorSpec
     "not do anything with incorrect message" in {
       val probe = TestProbe()
       val scriptActor = system.actorOf(Props(new WebinarScriptActor(allTimeReputationActorRef, monthlyReputationActorRef,
-        quarterlyReputationActorRef, mockStoreWebinar, mockWebinars)))
+        quarterlyReputationActorRef, mockStoreWebinar, mockWebinars,mockKnolderMonthlyContribution,mockWriteMonthlyContribution)))
       probe watch scriptActor
       probe.send(scriptActor, "display reputation")
       probe.expectMsg("invalid message")
@@ -47,7 +49,7 @@ class WebinarScriptActorSpec extends TestKit(ActorSystem("WebinarScriptActorSpec
       val probe = TestProbe.apply()
       val mockActorRef = probe.ref
       val scriptActor = system.actorOf(Props(new WebinarScriptActor(mockActorRef, mockActorRef, mockActorRef,
-        mockStoreWebinar, mockWebinars)))
+        mockStoreWebinar, mockWebinars,mockKnolderMonthlyContribution,mockWriteMonthlyContribution)))
       probe watch scriptActor
       probe.send(scriptActor, ExecuteWebinarScript)
       probe.expectMsg("stored webinars")

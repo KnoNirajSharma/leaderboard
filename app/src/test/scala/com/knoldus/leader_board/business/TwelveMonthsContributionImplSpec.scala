@@ -30,7 +30,6 @@ class TwelveMonthsContributionImplSpec extends AnyWordSpecLike with MockitoSugar
     "return list of scores of 12 month of particular knolder if month is less than 12 when that knolder last month data not exist" in {
       val month = IndianTime.currentTime.minusMonths(12).getMonthValue
       val monthName = IndianTime.currentTime.minusMonths(12).getMonth.toString
-
       val year = IndianTime.currentTime.minusMonths(12).getYear
       when(mockReadContribution.fetchKnoldersWithTwelveMonthContributions(month, year, 1))
         .thenReturn(None)

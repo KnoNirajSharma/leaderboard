@@ -36,7 +36,7 @@ class ReputationOnAPIImplSpec extends AnyWordSpecLike with MockitoSugar with Mat
     contributionCount, contributionCount, contributionCount, contributionCount, contributionCount, reputations))
   val blogTitles = List(ContributionDetails("windows handling using selenium webdriver", "2020-04-13 13:10:40"),
     ContributionDetails("Java 9: Enhance your Jav…ptional API enhancement", "2020-04-13 13:10:40"))
-  val blogDetails: Option[Contribution] = Option(Contribution("Blog", 2, 10, blogTitles))
+  val blogDetails:Contribution = Contribution("Blog", 2, 10, blogTitles)
   val contributions = List(blogDetails)
   val knolderDetails: Option[KnolderDetails] = Option(KnolderDetails("Mukesh Gupta", 10, contributions))
   val twelveMonthDetails = Option(List(TwelveMonthsScore("JUNE", 2020, 30, 20, 40, 10, 15, 100, 100, 50)))

@@ -7,36 +7,36 @@ trait FetchKnolderContributionDetails {
 
   def fetchKnolderAllTimeDetails(knolderId: Int): Option[KnolderDetails]
 
-  def fetchKnolderMonthlyWebinarDetails(month: Int, year: Int, knolderId: Int): Option[Contribution]
+  def fetchKnolderMonthlyWebinarDetails(month: Int, year: Int, knolderId: Int): Contribution
 
-  def fetchKnolderMonthlyBlogDetails(month: Int, year: Int, knolderId: Int): Option[Contribution]
+  def fetchKnolderMonthlyBlogDetails(month: Int, year: Int, knolderId: Int): Contribution
 
-  def fetchKnolderMonthlyKnolxDetails(month: Int, year: Int, knolderId: Int): Option[Contribution]
+  def fetchKnolderMonthlyKnolxDetails(month: Int, year: Int, knolderId: Int): Contribution
 
-  def fetchAllTimeknolxDetails(knolderId: Int): Option[Contribution]
+  def fetchAllTimeknolxDetails(knolderId: Int): Contribution
 
-  def fetchAllTimeWebinarDetails(knolderId: Int): Option[Contribution]
+  def fetchAllTimeWebinarDetails(knolderId: Int): Contribution
 
-  def fetchAllTimeBlogDetails(knolderId: Int): Option[Contribution]
+  def fetchAllTimeBlogDetails(knolderId: Int): Contribution
 
-  def fetchKnolderMonthlyTechHubDetails(month: Int, year: Int, knolderId: Int): Option[Contribution]
+  def fetchKnolderMonthlyTechHubDetails(month: Int, year: Int, knolderId: Int): Contribution
 
-  def fetchAllTimeTechHubDetails(knolderId: Int): Option[Contribution]
+  def fetchAllTimeTechHubDetails(knolderId: Int): Contribution
 
-  def fetchKnolderMonthlyOsContributionDetails(month: Int, year: Int, knolderId: Int): Option[Contribution]
+  def fetchKnolderMonthlyOsContributionDetails(month: Int, year: Int, knolderId: Int): Contribution
 
-  def fetchAllTimeOsContributionDetails(knolderId: Int): Option[Contribution]
+  def fetchAllTimeOsContributionDetails(knolderId: Int): Contribution
 
-  def fetchKnolderMonthlyConferenceDetails(month: Int, year: Int, knolderId: Int): Option[Contribution]
+  def fetchKnolderMonthlyConferenceDetails(month: Int, year: Int, knolderId: Int): Contribution
 
-  def fetchAllTimeConferenceDetails(knolderId: Int): Option[Contribution]
+  def fetchAllTimeConferenceDetails(knolderId: Int): Contribution
 
-  def fetchKnolderMonthlyBookDetails(month: Int, year: Int, knolderId: Int): Option[Contribution]
+  def fetchKnolderMonthlyBookDetails(month: Int, year: Int, knolderId: Int): Contribution
 
-  def fetchAllTimeBookDetails(knolderId: Int): Option[Contribution]
+  def fetchAllTimeBookDetails(knolderId: Int): Contribution
 
-  def fetchKnolderMonthlyResearchPaperDetails(month: Int, year: Int, knolderId: Int): Option[Contribution]
+  def fetchKnolderMonthlyResearchPaperDetails(month: Int, year: Int, knolderId: Int): Contribution
 
-  def fetchAllTimeResearchPaperDetails(knolderId: Int): Option[Contribution]
+  def fetchAllTimeResearchPaperDetails(knolderId: Int): Contribution
 
 }
