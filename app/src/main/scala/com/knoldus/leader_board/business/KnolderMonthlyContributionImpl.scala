@@ -14,11 +14,11 @@ class KnolderMonthlyContributionImpl(readContribution: ReadContribution, knolder
    * @return List of each contribution scores of knolders along with their knolder id.
    */
 
-  def getKnolderMonthlyContribution(month:String,year:Int): List[KnolderIdWithKnolderContributionScore] = {
+  def getKnolderMonthlyContribution(month: String, year: Int): List[KnolderIdWithKnolderContributionScore] = {
     logger.info("getting contribution scores of each knolder along with their knolder id")
 
 
-    val contributions = readContribution.fetchKnoldersWithMonthlyContributions(month,year)
+    val contributions = readContribution.fetchKnoldersWithMonthlyContributions(month, year)
 
     val knolderEachContributionScore = knolderScore.calculateEachContributionScore(month, year, contributions)
     knolderEachContributionScore.map(knolderContributionScore => KnolderIdWithKnolderContributionScore
