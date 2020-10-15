@@ -16,8 +16,8 @@
                     <div *ngFor="let monthData of hallOfFameLeaders | reverse | slice: startIndexOfListForPage: lastIndexOfListForPage"
                          class="col-12 card p-3 border-0 my-4">
                         <div class="col-12">
-                            <span class="font-weight-bolder month-title">{{monthData.month | titlecase}}
-                                , {{monthData.year}}</span>
+                            <span class="font-weight-bolder month-title">
+                                {{monthData.month | titlecase}}, {{monthData.year}}</span>
                         </div>
                         <div class="col-12 scrolling-wrapper d-flex w-100 h-100 py-3">
                             <div *ngFor="let leaderData of monthData.leaders; let index = index"
