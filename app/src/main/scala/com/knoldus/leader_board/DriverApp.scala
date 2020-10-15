@@ -167,7 +167,9 @@ object DriverApp extends App {
   storeResearchPapersContribution.insertResearchPaperContributionDetails(otherContributionDetails)
   val techHubDataList = techHubData.getLatestTechHubTemplates
   storeTechHub.insertTechHub(techHubDataList)
-  val knolderMonthlyContributionDetails = knolderMonthlyContribution.getKnolderMonthlyContribution
+  val month = IndianTime.currentTime.getMonth.toString
+  val year = IndianTime.currentTime.getYear
+  val knolderMonthlyContributionDetails = knolderMonthlyContribution.getKnolderMonthlyContribution(month, year)
   writeMonthlyContribution.insertKnolderMonthlyContribution(knolderMonthlyContributionDetails)
   writeMonthlyContribution.updateKnolderMonthlyContribution(knolderMonthlyContributionDetails)
   val allTimeReputations = allTimeReputation.getKnolderReputation

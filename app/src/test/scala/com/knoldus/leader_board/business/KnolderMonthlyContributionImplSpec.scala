@@ -19,7 +19,7 @@ class KnolderMonthlyContributionImplSpec extends AnyFlatSpec with MockitoSugar {
     val contributionCount = List(GetContributionCount(1, "Mukesh Gupta", 2, 2, 1, 1, 1, 1,1,1))
     val month = IndianTime.currentTime.getMonth.toString
     val year = IndianTime.currentTime.getYear
-    when(mockReadContribution.fetchKnoldersWithMonthlyContributions)
+    when(mockReadContribution.fetchKnoldersWithMonthlyContributions(month,year))
       .thenReturn(contributionCount)
 
     when(mockKnolderScore.calculateEachContributionScore(month,year,contributionCount))
@@ -31,6 +31,6 @@ class KnolderMonthlyContributionImplSpec extends AnyFlatSpec with MockitoSugar {
 
     val contributionOfKnolders = List(KnolderIdWithKnolderContributionScore(Some(1), KnolderEachContrbutionScore(1,"Mukesh Gupta",10,40,15,15,30,100,100,50,"SEPTEMBER",2020)))
 
-    assert(knolderMonthlyContribution.getKnolderMonthlyContribution == contributionOfKnolders)
+    assert(knolderMonthlyContribution.getKnolderMonthlyContribution(month,year) == contributionOfKnolders)
   }
 }

@@ -1,6 +1,6 @@
 package com.knoldus.leader_board.business
 
-import com.knoldus.leader_board.infrastructure.ContributionScoreMultiplierAndSpikeMonth
+import com.knoldus.leader_board.infrastructure.{ContributionScoreMultiplierAndSpikeMonth, KnolderContributionScore}
 import com.knoldus.leader_board.{GetContributionCount, GetScore}
 import com.typesafe.config.Config
 import com.typesafe.scalalogging.LazyLogging
@@ -8,8 +8,7 @@ import com.typesafe.scalalogging.LazyLogging
 final case class KnolderEachContrbutionScore(knolderId: Int, knolderName: String, blogScore: Int, knolxScore: Int, webinarScore: Int, techHubScore: Int,
                                              osContributionScore: Int, conferenceScore: Int, bookScore: Int, researchPaperScore: Int, month: String, year: Int)
 
-class KnolderScoreImpl(fetchSpikeMonth: ContributionScoreMultiplierAndSpikeMonth,config: Config) extends KnolderScore with LazyLogging {
-
+class KnolderScoreImpl(fetchSpikeMonth: ContributionScoreMultiplierAndSpikeMonth, config: Config) extends KnolderScore with LazyLogging {
   val scorePerBlog: Int = config.getInt("scorePerBlog")
   val scorePerWebinar: Int = config.getInt("scorePerWebinar")
   val scorePerKnolx: Int = config.getInt("scorePerKnolx")
@@ -20,19 +19,18 @@ class KnolderScoreImpl(fetchSpikeMonth: ContributionScoreMultiplierAndSpikeMonth
   val scorePerResearchPaper: Int = config.getInt("scorePerResearchPaper")
 
   /**
-   * Calculates score of each knolder.
-   *
+   * Calculates overall score of each knolder and if score is not available
+   * then put the default score as 0.
    * @return List of scores of knolders.
    */
-  override def calculateScore(counts: List[GetContributionCount]): List[GetScore] = {
-    logger.info("Calculating score of each knolder.")
+  override def calculateScore(score: List[KnolderContributionScore]): List[GetScore] = {
+    logger.info("calculating overall contribution score ")
 
 
-    counts.map(count => GetScore(count.knolderId, count.knolderName,
-      count.numberOfBlogs * scorePerBlog +
-        (count.numberOfKnolx * scorePerKnolx) + (count.numberOfWebinar * scorePerWebinar) + (count.numberOfTechHub * scorePerTechHub)
-        + (count.numberOfOSContribution * scorePerOsContribution) + (count.numberOfConferences * scorePerConference)
-        + (count.numberOfBooks * scorePerBook) + (count.numberOfResearchPapers * scorePerResearchPaper)))
+    score.map(contributionScore => GetScore(contributionScore.knolderId, contributionScore.knolderName,
+      contributionScore.blogScore.getOrElse(0) + contributionScore.knolxScore.getOrElse(0) + contributionScore.webinarScore.getOrElse(0)
+        + contributionScore.techHubScore.getOrElse(0) + contributionScore.osContributionScore.getOrElse(0) + contributionScore.conferenceScore.getOrElse(0)
+        + contributionScore.bookScore.getOrElse(0) + contributionScore.researchPaperScore.getOrElse(0)))
       .sortBy(knolder => knolder.score).reverse
   }
 
