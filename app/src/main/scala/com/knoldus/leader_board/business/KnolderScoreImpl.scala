@@ -19,8 +19,8 @@ class KnolderScoreImpl(fetchSpikeMonth: ContributionScoreMultiplierAndSpikeMonth
   val scorePerResearchPaper: Int = config.getInt("scorePerResearchPaper")
 
   /**
-   * Calculates overall score of each knolder.
-   *
+   * Calculates overall score of each knolder and if score is not available
+   * then put the default score as 0.
    * @return List of scores of knolders.
    */
   override def calculateScore(score: List[KnolderContributionScore]): List[GetScore] = {
