@@ -23,6 +23,8 @@ class KnolxScriptActorSpec extends TestKit(ActorSystem("KnolxScriptActorSpec")) 
   val mockWriteMonthlyReputation: WriteMonthlyReputation = mock[WriteMonthlyReputationImpl]
   val mockQuarterlyReputation: QuarterlyReputation = mock[QuarterlyReputationImpl]
   val mockWriteQuarterlyReputation: WriteQuarterlyReputation = mock[WriteQuarterlyReputationImpl]
+  val mockKnolderMonthlyContribution= mock[KnolderMonthlyContributionImpl]
+  val mockWriteMonthlyContribution= mock[WriteMonthlyContribution]
   val allTimeReputationActorRef: ActorRef = system.actorOf(Props(new AllTimeReputationActor(mockAllTimeReputation,
     mockWriteAllTimeReputation)), "allTimeReputationActor")
   val monthlyReputationActorRef: ActorRef = system.actorOf(Props(new MonthlyReputationActor(mockMonthlyReputation,
@@ -38,7 +40,7 @@ class KnolxScriptActorSpec extends TestKit(ActorSystem("KnolxScriptActorSpec")) 
     "not do anything with incorrect message" in {
       val probe = TestProbe()
       val scriptActor = system.actorOf(Props(new KnolxScriptActor(allTimeReputationActorRef, monthlyReputationActorRef,
-        quarterlyReputationActorRef, mockStoreKnolx, mockKnolx)))
+        quarterlyReputationActorRef, mockStoreKnolx, mockKnolx,mockKnolderMonthlyContribution,mockWriteMonthlyContribution)))
       probe watch scriptActor
       probe.send(scriptActor, "display reputation")
       probe.expectMsg("invalid message")
@@ -47,7 +49,7 @@ class KnolxScriptActorSpec extends TestKit(ActorSystem("KnolxScriptActorSpec")) 
       val probe = TestProbe.apply()
       val mockActorRef = probe.ref
       val scriptActor = system.actorOf(Props(new KnolxScriptActor(mockActorRef, mockActorRef, mockActorRef,
-        mockStoreKnolx, mockKnolx)))
+        mockStoreKnolx, mockKnolx,mockKnolderMonthlyContribution,mockWriteMonthlyContribution)))
       probe watch scriptActor
       probe.send(scriptActor, ExecuteKnolxScript)
       probe.expectMsg("stored knolx")
