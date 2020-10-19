@@ -40,8 +40,11 @@ object DriverApp extends App {
   val fetchReputationWithCount: FetchCountWithReputation =
     new FetchCountWithReputationImpl(config, fetchReputation)
   val fetchMonthlyTopFiveLeaders: FetchMonthlyTopFiveLeaders = new FetchMonthlyTopFiveLeadersImpl(config)
+  val readSpikeMonthAndScoreMultiplier: ReadSpikeMonthAndScoreMultiplier = new ReadSpikeMonthAndScoreMultiplierImpl(config,
+    contributionScoreMultiplierAndSpikeMonth)
   val reputationOnAPI: ReputationOnAPI =
-    new ReputationOnAPIImpl(fetchMonthlyTopFiveLeaders, twelveMonthsContribution, fetchKnolderDetails, fetchReputationWithCount, config)
+    new ReputationOnAPIImpl(readSpikeMonthAndScoreMultiplier, fetchMonthlyTopFiveLeaders,
+      twelveMonthsContribution, fetchKnolderDetails, fetchReputationWithCount, config)
   val spreadSheetApiObj: SpreadSheetApi = new SpreadSheetApiImpl(config)
   val webinarSpreadSheetData: WebinarSpreadSheetData =
     new WebinarSpreadSheetDataImpl(dateTimeFormat, spreadSheetApiObj, config)
