@@ -32,7 +32,7 @@ final case class Contribution(contributionType: String, contributionCount: Int, 
 
 final case class ContributionDetails(title: String, date: String)
 
-final case class KnolderDetails(knolderName: String, score: Int, scoreBreakDown: List[Option[Contribution]])
+final case class KnolderDetails(knolderName: String, score: Int, scoreBreakDown: List[Contribution])
 
 final case class TwelveMonthsScore(month: String, year: Int, blogScore: Int, knolxScore: Int, webinarScore: Int, techHubScore: Int,
                                    osContributionScore: Int, conferenceScore: Int, bookScore: Int, researchPaperScore: Int)

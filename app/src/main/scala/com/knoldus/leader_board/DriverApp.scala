@@ -93,7 +93,7 @@ object DriverApp extends App {
         monthlyReputationActorRef,
         quarterlyReputationActorRef,
         storeBlogs,
-        blogs
+        blogs, knolderMonthlyContribution, writeMonthlyContribution
       )
     ),
     "BlogScriptActor"
@@ -105,7 +105,7 @@ object DriverApp extends App {
         monthlyReputationActorRef,
         quarterlyReputationActorRef,
         storeKnolx,
-        knolx
+        knolx, knolderMonthlyContribution, writeMonthlyContribution
       )
     ),
     "KnolxScriptActor"
@@ -117,7 +117,7 @@ object DriverApp extends App {
         monthlyReputationActorRef,
         quarterlyReputationActorRef,
         storeWebinar,
-        webinarSpreadSheetData
+        webinarSpreadSheetData, knolderMonthlyContribution, writeMonthlyContribution
       )
     ),
     "WebinarScriptActor"
@@ -129,7 +129,7 @@ object DriverApp extends App {
         monthlyReputationActorRef,
         quarterlyReputationActorRef,
         storeTechHub,
-        techHubData
+        techHubData, knolderMonthlyContribution, writeMonthlyContribution
       )
     ),
     "TechHubScriptActor"
@@ -144,11 +144,12 @@ object DriverApp extends App {
         storeConferenceDetails,
         storeBooksContribution,
         storeResearchPapersContribution,
-        otherContributionDataObj
+        otherContributionDataObj, knolderMonthlyContribution, writeMonthlyContribution
       )
     ),
     "OtherContributionScriptActor"
   )
+
 
   val monthlyLeadersActorRef = system.actorOf(
     Props(
