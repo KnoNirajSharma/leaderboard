@@ -7,7 +7,8 @@ export const environment = {
     routes: {
       author: { endpoint: 'reputation', method: 'GET' },
       trends: { endpoint: 'reputation/twelvemonths', method: 'GET' },
-      hallOfFame: { endpoint: 'reputation/halloffame', method: 'GET' }
+      hallOfFame: { endpoint: 'reputation/halloffame', method: 'GET' },
+      dynamicScoring: { endpoint: 'reputation/dynamicscoring', method: 'GET' }
     }
   },
   firebaseConfig: {
