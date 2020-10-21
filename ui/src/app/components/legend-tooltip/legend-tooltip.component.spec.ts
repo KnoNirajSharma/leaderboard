@@ -1,0 +1,24 @@
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { LegendTooltipComponent } from './legend-tooltip.component';
+import {CustomPipesModule} from '../../pipe/custom-pipes.module';
+
+describe('LegendTooltipComponent', () => {
+  let component: LegendTooltipComponent;
+  let fixture: ComponentFixture<LegendTooltipComponent>;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ LegendTooltipComponent ],
+      imports: [CustomPipesModule]
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(LegendTooltipComponent);
+    component = fixture.componentInstance;
+  }));
+
+  it('should set legendKeys', () => {
+    component.legendData = {legendOne: 'red', legendTwo: 'blue'};
+    component.ngOnInit();
+    expect(component.legendKeys[0]).toEqual('legendOne');
+  });
+});

@@ -18,7 +18,8 @@ object DriverApp extends App {
   implicit val executionContext: ExecutionContextExecutor = system.dispatcher
   val config: Config = ConfigFactory.load()
   val dateTimeFormat = new ParseDateTimeFormats
-  val knolderScore: KnolderScore = new KnolderScoreImpl(config)
+  val contributionScoreMultiplierAndSpikeMonth: ContributionScoreMultiplierAndSpikeMonth = new ContributionScoreMultiplierAndSpikeMonthImpl(config)
+  val knolderScore: KnolderScore = new KnolderScoreImpl(contributionScoreMultiplierAndSpikeMonth,config)
   val knolderRank: KnolderRank = new KnolderRankImpl
   val readContribution = new ReadContributionImpl(config)
   val readAllTimeReputation: ReadAllTimeReputation = new ReadAllTimeReputationImpl(config)
@@ -39,8 +40,11 @@ object DriverApp extends App {
   val fetchReputationWithCount: FetchCountWithReputation =
     new FetchCountWithReputationImpl(config, fetchReputation)
   val fetchMonthlyTopFiveLeaders: FetchMonthlyTopFiveLeaders = new FetchMonthlyTopFiveLeadersImpl(config)
+  val readSpikeMonthAndScoreMultiplier: ReadSpikeMonthAndScoreMultiplier = new ReadSpikeMonthAndScoreMultiplierImpl(config,
+    contributionScoreMultiplierAndSpikeMonth)
   val reputationOnAPI: ReputationOnAPI =
-    new ReputationOnAPIImpl(fetchMonthlyTopFiveLeaders, twelveMonthsContribution, fetchKnolderDetails, fetchReputationWithCount, config)
+    new ReputationOnAPIImpl(readSpikeMonthAndScoreMultiplier, fetchMonthlyTopFiveLeaders,
+      twelveMonthsContribution, fetchKnolderDetails, fetchReputationWithCount, config)
   val spreadSheetApiObj: SpreadSheetApi = new SpreadSheetApiImpl(config)
   val webinarSpreadSheetData: WebinarSpreadSheetData =
     new WebinarSpreadSheetDataImpl(dateTimeFormat, spreadSheetApiObj, config)
@@ -63,6 +67,10 @@ object DriverApp extends App {
   val techHubData: TechHubData = new TechHubDataImpl(fetchTechHub, URLResponse, config)
   val otherContributionDataObj: OtherContributionData =
     new OtherContributionDataImpl(dateTimeFormat, spreadSheetApiObj, config)
+  val fetchMonthlyKnolderContribution: FetchMonthlyKnolderContribution = new FetchMonthlyKnolderContributionImpl(config)
+  val knolderMonthlyContribution: KnolderMonthlyContribution = new KnolderMonthlyContributionImpl(readContribution, knolderScore,
+    fetchMonthlyKnolderContribution)
+  val writeMonthlyContribution: WriteMonthlyContribution = new WriteMonthlyContributionImpl(config)
 
   val blogs: Blogs = new BlogsImpl(fetchBlogs, URLResponse, config)
   val knolx: Knolxs = new KnolxImpl(fetchKnolx, URLResponse, config)
@@ -85,7 +93,7 @@ object DriverApp extends App {
         monthlyReputationActorRef,
         quarterlyReputationActorRef,
         storeBlogs,
-        blogs
+        blogs, knolderMonthlyContribution, writeMonthlyContribution
       )
     ),
     "BlogScriptActor"
@@ -97,7 +105,7 @@ object DriverApp extends App {
         monthlyReputationActorRef,
         quarterlyReputationActorRef,
         storeKnolx,
-        knolx
+        knolx, knolderMonthlyContribution, writeMonthlyContribution
       )
     ),
     "KnolxScriptActor"
@@ -109,7 +117,7 @@ object DriverApp extends App {
         monthlyReputationActorRef,
         quarterlyReputationActorRef,
         storeWebinar,
-        webinarSpreadSheetData
+        webinarSpreadSheetData, knolderMonthlyContribution, writeMonthlyContribution
       )
     ),
     "WebinarScriptActor"
@@ -121,7 +129,7 @@ object DriverApp extends App {
         monthlyReputationActorRef,
         quarterlyReputationActorRef,
         storeTechHub,
-        techHubData
+        techHubData, knolderMonthlyContribution, writeMonthlyContribution
       )
     ),
     "TechHubScriptActor"
@@ -136,11 +144,12 @@ object DriverApp extends App {
         storeConferenceDetails,
         storeBooksContribution,
         storeResearchPapersContribution,
-        otherContributionDataObj
+        otherContributionDataObj, knolderMonthlyContribution, writeMonthlyContribution
       )
     ),
     "OtherContributionScriptActor"
   )
+
 
   val monthlyLeadersActorRef = system.actorOf(
     Props(
@@ -162,6 +171,11 @@ object DriverApp extends App {
   storeResearchPapersContribution.insertResearchPaperContributionDetails(otherContributionDetails)
   val techHubDataList = techHubData.getLatestTechHubTemplates
   storeTechHub.insertTechHub(techHubDataList)
+  val month = IndianTime.currentTime.getMonth.toString
+  val year = IndianTime.currentTime.getYear
+  val knolderMonthlyContributionDetails = knolderMonthlyContribution.getKnolderMonthlyContribution(month, year)
+  writeMonthlyContribution.insertKnolderMonthlyContribution(knolderMonthlyContributionDetails)
+  writeMonthlyContribution.updateKnolderMonthlyContribution(knolderMonthlyContributionDetails)
   val allTimeReputations = allTimeReputation.getKnolderReputation
   writeAllTimeReputation.insertAllTimeReputationData(allTimeReputations)
   writeAllTimeReputation.updateAllTimeReputationData(allTimeReputations)

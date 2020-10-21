@@ -15,8 +15,8 @@ class MonthlyLeadersImpl(fetchMonthlyReputation: ReadContribution, getAllTimeRep
   override def getMonthlyAndAllTimeReputation: List[MonthlyAllTimeReputation] = {
     logger.info("getting monthly and all time reputation of knolders")
 
-    val monthlyCount = fetchMonthlyReputation.fetchKnoldersWithQuarterThirdMonthContributions
-    val scorePerKnolder = knolderScore.calculateScore(monthlyCount)
+    val monthlyContribution = fetchMonthlyReputation.fetchKnoldersWithQuarterThirdMonthContributions
+    val scorePerKnolder = knolderScore.calculateScore(monthlyContribution)
     val monthlyReputationOfKnolders: List[GetReputation] = knolderRank.calculateRank(scorePerKnolder).sortBy(knolderReputation =>
       knolderReputation.knolderId)
     val allTimeReputationOfKnolders = getAllTimeReputation.fetchAllTimeReputation.sortBy(knolderReputation => knolderReputation

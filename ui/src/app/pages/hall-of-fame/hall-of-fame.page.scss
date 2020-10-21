@@ -1,15 +1,14 @@
 ion-content {
   height: 100vh;
   --background: #f5f5fa;
-}
-
-.container {
+  color: #2a2a2a;
   font-family: 'Poppins', sans-serif;
 }
 
 .page-title {
   font-size: 2rem;
   color: #071348;
+  border-bottom: 3px solid #2B35A8;
 }
 
 .pagination-wrapper {
@@ -21,19 +20,32 @@ ion-content {
   box-shadow: 0 0 15px 2px rgba(199,197,199,1);
 }
 
-.scrolling-wrapper{
+.scrolling-wrapper {
   overflow-x: auto;
 
+  &::after {
+    content: '-';
+    background: transparent;
+    color: white;
+  }
+
   &::-webkit-scrollbar {
-    display: none;  /* Safari and Chrome */
+    display: none; /* Safari and Chrome */
+  }
+
+  .month-title {
+    color: #3d3c53;
   }
 
   .score-card {
-    background-image: url('/assets/icon/Pattern.svg');
-    background-repeat: no-repeat;
     margin: 0 0.5rem;
     min-width: 190px;
     box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+    transition: box-shadow 0.3s;
+
+    &:hover {
+      box-shadow: 0 0 15px -5px rgba(33, 97, 207, 1);
+    }
 
     &:first-child {
       margin-left: 0;
@@ -43,57 +55,32 @@ ion-content {
       margin-right: 0;
     }
 
-    .rank-badge {
-      border-radius: 50%;
-      height: 50px;
-      width: 50px;
-      font-size: 1.1rem;
-      border: 1px solid;
+    .knolder-named-flex {
+      border-bottom: 1px solid #0000ff;
+      color: #2B35A8
     }
 
-    .first {
-      background: #f6fbd7;
-      color: #af9019;
-      border-color: rgba(175, 144, 25, 0.2);
-    }
+    .score-card-content {
+      background-image: url('/assets/icon/Pattern.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
 
-    .second {
-      background: #eafbff;
-      color: #017295;
-      border-color: rgba(1, 114, 149, 0.2);
-    }
-
-    .third {
-      background: #fef6eb;
-      color: #9f5f18;
-      border-color: rgba(159, 95, 24, 0.2);
-    }
-
-    .knolder-name {
-      font-size: 0.9rem;
-      color: #3d3c53;
-      height: 20px;
-    }
-
-    .monthly-score {
-      font-size: 1.3rem;
-      color: #6435b8;
-    }
-
-    .monthly-score-heading {
-      font-size: 0.7rem;
-      color: #2d195c;
-    }
-
-    .overall-status {
-      font-size: .6em;
-
-      .overall-rank {
-        color: #4a09ab
+      .monthly-details-parameter {
+        font-size: 0.6rem;
       }
 
-      .overall-score {
-        color: #4a09ab
+      .monthly-details-value {
+        font-size: 1.5rem;
+        color: #4d4d4d;
+      }
+
+      .rank-badge {
+        height: 40px;
+        width: 40px;
+      }
+
+      .overall-status {
+        font-size: .6em;
       }
     }
   }

@@ -5,7 +5,7 @@ import akka.http.scaladsl.server.Route
 import akka.http.scaladsl.testkit.ScalatestRouteTest
 import com.knoldus.leader_board._
 import com.knoldus.leader_board.business.TwelveMonthsContribution
-import com.knoldus.leader_board.infrastructure.{FetchCountWithReputation, FetchKnolderContributionDetails, FetchMonthlyTopFiveLeaders}
+import com.knoldus.leader_board.infrastructure.{ContributionPointsWithMultiplier, FetchCountWithReputation, FetchKnolderContributionDetails, FetchMonthlyTopFiveLeaders, PointsAndMultiplier, ReadSpikeMonthAndScoreMultiplier}
 import com.typesafe.config.ConfigFactory
 import net.liftweb.json.Extraction.decompose
 import net.liftweb.json.{DefaultFormats, compactRender}
@@ -18,10 +18,15 @@ class ReputationOnAPIImplSpec extends AnyWordSpecLike with MockitoSugar with Mat
   val mockFetchReputation: FetchCountWithReputation = mock[FetchCountWithReputation]
   val mockFetchKnolderDetails: FetchKnolderContributionDetails = mock[FetchKnolderContributionDetails]
   val mockTwelveMonthsDetails = mock[TwelveMonthsContribution]
+  val mockSpikeMonths =mock[ReadSpikeMonthAndScoreMultiplier]
 
   val mockFetchMonthlyLeaders = mock[FetchMonthlyTopFiveLeaders]
-  val reputationOnAPI: ReputationOnAPI = new ReputationOnAPIImpl(mockFetchMonthlyLeaders, mockTwelveMonthsDetails, mockFetchKnolderDetails, mockFetchReputation,
+  val reputationOnAPI: ReputationOnAPI = new ReputationOnAPIImpl(mockSpikeMonths,mockFetchMonthlyLeaders, mockTwelveMonthsDetails, mockFetchKnolderDetails, mockFetchReputation,
     ConfigFactory.load())
+  val contributionPointsAndMultiplier=PointsAndMultiplier(5,2)
+  val scoreMultiplier = ContributionPointsWithMultiplier(contributionPointsAndMultiplier,contributionPointsAndMultiplier,
+    contributionPointsAndMultiplier,contributionPointsAndMultiplier,contributionPointsAndMultiplier,contributionPointsAndMultiplier,
+    contributionPointsAndMultiplier,contributionPointsAndMultiplier)
   val listOfMonthlyLeaders = List(MonthYearWithTopFiveLeaders("SEPTEMBER", 2020, List(MonthlyTopFiveLeaders
   ("SEPTEMBER", 2020, 1, "Mukesh", 30, 1, 100, 1), MonthlyTopFiveLeaders
   ("SEPTEMBER", 2020, 2, "akash", 25, 2, 60, 2), MonthlyTopFiveLeaders
@@ -36,7 +41,7 @@ class ReputationOnAPIImplSpec extends AnyWordSpecLike with MockitoSugar with Mat
     contributionCount, contributionCount, contributionCount, contributionCount, contributionCount, reputations))
   val blogTitles = List(ContributionDetails("windows handling using selenium webdriver", "2020-04-13 13:10:40"),
     ContributionDetails("Java 9: Enhance your Jav…ptional API enhancement", "2020-04-13 13:10:40"))
-  val blogDetails: Option[Contribution] = Option(Contribution("Blog", 2, 10, blogTitles))
+  val blogDetails:Contribution = Contribution("Blog", 2, 10, blogTitles)
   val contributions = List(blogDetails)
   val knolderDetails: Option[KnolderDetails] = Option(KnolderDetails("Mukesh Gupta", 10, contributions))
   val twelveMonthDetails = Option(List(TwelveMonthsScore("JUNE", 2020, 30, 20, 40, 10, 15, 100, 100, 50)))
@@ -105,6 +110,13 @@ class ReputationOnAPIImplSpec extends AnyWordSpecLike with MockitoSugar with Mat
     "display top five leaders of every month to routed path" in {
       Get("/reputation/halloffame") ~> reputationOnAPI.hallOfFameRoute ~> check {
         responseAs[String] shouldEqual compactRender(decompose(listOfMonthlyLeaders))
+      }
+    }
+    "display dynamic scoring with months on dynamic scoring api" in {
+      when(mockSpikeMonths.readContributionScoreMultiplierAndSpikeMonth).thenReturn(scoreMultiplier)
+
+      Get("/reputation/dynamicscoring") ~> reputationOnAPI.spikeMonthAndScoreMultiplierRoute ~> check {
+        responseAs[String] shouldEqual compactRender(decompose(scoreMultiplier))
       }
     }
   }

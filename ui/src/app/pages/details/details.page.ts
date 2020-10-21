@@ -5,7 +5,6 @@ import { KnolderDetailsModel } from '../../models/knolder-details.model';
 import { FormControl } from '@angular/forms';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { ScoreBreakDownModel } from '../../models/ScoreBreakDown.model';
-import { LoadingControllerService } from '../../services/loading-controller.service ';
 import { TrendsModel } from '../../models/trends.model';
 import { CommonService } from '../../services/common.service';
 import { HallOfFameModel } from '../../models/hallOfFame.model';
@@ -40,7 +39,6 @@ export class DetailsPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private employeeActivityService: EmployeeActivityService,
-    private loadingControllerService: LoadingControllerService,
     private commonService: CommonService
   ) { }
 
@@ -51,11 +49,6 @@ export class DetailsPage implements OnInit {
         this.knolderId = Number(params.id);
         this.yearFromRoute = Number(params.year);
         this.monthFromRoute = params.month.toLowerCase();
-        this.loadingControllerService.present({
-          message: 'Loading the score details...',
-          translucent: 'false',
-          spinner: 'bubbles'
-        });
         this.calenderInitialisation();
         this.getTrendsData();
         this.getHallOfFameData();
@@ -68,15 +61,17 @@ export class DetailsPage implements OnInit {
     this.dateFromRoute.month(this.monthFromRoute);
     this.dateFromRoute.set({ year: this.yearFromRoute });
     this.datePicker = new FormControl(this.dateFromRoute.toDate());
-    this.datepickerConfig = { containerClass: 'theme-dark-blue', dateInputFormat: 'MMM-YYYY', minMode: 'month' };
+    this.datepickerConfig = {
+      containerClass: 'theme-dark-blue',
+      dateInputFormat: 'MMM-YYYY',
+      minMode: 'month'
+    };
   }
 
   getMonthlyDetails(month: string, year: number) {
     this.employeeActivityService.getMonthlyDetails(this.knolderId, month, year)
       .subscribe((data: KnolderDetailsModel) => {
         this.knolderDetails = data;
-      }, (error) => {
-        console.log(error);
       });
   }
 
@@ -84,8 +79,6 @@ export class DetailsPage implements OnInit {
     this.employeeActivityService.getTrendsData(this.knolderId)
       .subscribe((data: TrendsModel[]) => {
         this.trendsData = data;
-      }, (error) => {
-        console.log(error);
       });
   }
 
@@ -94,9 +87,6 @@ export class DetailsPage implements OnInit {
       .subscribe((data: KnolderDetailsModel) => {
         this.allTimeDetails = data;
         this.pieChartData = this.allTimeDetails.scoreBreakDown;
-        this.loadingControllerService.dismiss();
-      }, () => {
-        this.loadingControllerService.dismiss();
       });
   }
 
@@ -117,21 +107,23 @@ export class DetailsPage implements OnInit {
         this.hallOfFameLeaders = data;
         this.setKnolderAchievements();
         this.setMedalTally();
-      }, (error) => {
-        console.log(error);
       });
   }
 
   setKnolderAchievements() {
-    this.knolderAchievements = [];
-    this.hallOfFameLeaders
-      .forEach(monthLeaders => {
-        monthLeaders.leaders.forEach(leader => {
-          leader.knolderId ===  this.knolderId
-            ? this.knolderAchievements.push({ ...leader, position: monthLeaders.leaders.indexOf(leader) })
-            : leader.position = -1;
-        });
-      });
+    this.knolderAchievements = this.hallOfFameLeaders.map((monthData) => {
+      return monthData.leaders
+        .map((leader, index) => {
+          return {
+            ...leader,
+            position: index
+          };
+        })
+        .filter(leader => leader.knolderId === this.knolderId);
+    })
+      .reduce((knolderAchievementList, leaderDetails) => {
+        return knolderAchievementList.concat(leaderDetails);
+      }, []);
   }
 
   setMedalTally() {

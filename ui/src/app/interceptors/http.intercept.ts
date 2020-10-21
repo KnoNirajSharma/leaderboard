@@ -3,29 +3,54 @@ import {
   HttpHandler,
   HttpRequest,
   HttpErrorResponse,
-  HttpInterceptor
+  HttpInterceptor, HttpEventType
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
+import { LoadingController, ToastController } from '@ionic/angular';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class HttpIntercept implements HttpInterceptor {
+  constructor(public loadingCtrl: LoadingController, private toastCtrl: ToastController) {
+  }
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    request = request.clone({
+    const modifiedRequest = request.clone({
       setHeaders: {
         'Content-Type': 'application/json'
       },
     });
-    return next.handle(request)
-      .pipe(catchError((error: HttpErrorResponse) => {
-        let errorMessage: string;
-        if (error instanceof ErrorEvent) {
-          // client-side error
-          errorMessage = `Error: ${error.message}`;
-        } else {
-          // server-side error
-          errorMessage = `Error Status: ${error.status}\nMessage: ${error.message}`;
-        }
-        return throwError(errorMessage);
-      }));
+
+    const loading = this.loadingCtrl.create({
+      message: 'Please wait...'
+    });
+
+    loading.then(loader => {
+      loader.present();
+    });
+
+    return next.handle(modifiedRequest)
+      .pipe(
+        tap(event => {
+          if (event.type === HttpEventType.Response) {
+            loading.then(loader => {
+              loader.dismiss();
+            });
+          }
+        }),
+        catchError((error: HttpErrorResponse) => {
+          const errorMessage = `Error Status: ${error.status}`;
+          loading.then(loader => {
+            loader.dismiss();
+          });
+          this.toastCtrl.create({
+            message: 'Error Occurred\n' + errorMessage,
+            buttons: [{ text: 'close' }],
+            position: 'top',
+            color: 'danger'
+          }).then(toaster => toaster.present());
+          return throwError(errorMessage);
+        })
+      );
   }
 }

@@ -4,8 +4,8 @@ import java.sql.Connection
 
 import akka.actor.{ActorRef, ActorSystem, Props}
 import akka.testkit.{ImplicitSender, TestKit, TestProbe}
-import com.knoldus.leader_board.{DatabaseConnection, ExecuteOtherContributionScript}
 import com.knoldus.leader_board.infrastructure._
+import com.knoldus.leader_board.{DatabaseConnection, ExecuteOtherContributionScript}
 import com.typesafe.config.ConfigFactory
 import org.mockito.MockitoSugar
 import org.scalatest.BeforeAndAfterAll
@@ -26,6 +26,8 @@ class OtherContributionActorSpec extends TestKit(ActorSystem("OtherContributionA
   val mockWriteMonthlyReputation: WriteMonthlyReputation = mock[WriteMonthlyReputationImpl]
   val mockQuarterlyReputation: QuarterlyReputation = mock[QuarterlyReputationImpl]
   val mockWriteQuarterlyReputation: WriteQuarterlyReputation = mock[WriteQuarterlyReputationImpl]
+  val mockKnolderMonthlyContribution= mock[KnolderMonthlyContributionImpl]
+  val mockWriteMonthlyContribution= mock[WriteMonthlyContribution]
   val allTimeReputationActorRef: ActorRef = system.actorOf(Props(new AllTimeReputationActor(mockAllTimeReputation,
     mockWriteAllTimeReputation)), "allTimeReputationActor")
   val monthlyReputationActorRef: ActorRef = system.actorOf(Props(new MonthlyReputationActor(mockMonthlyReputation,
@@ -41,7 +43,8 @@ class OtherContributionActorSpec extends TestKit(ActorSystem("OtherContributionA
     "not do anything with incorrect message" in {
       val probe = TestProbe()
       val scriptActor = system.actorOf(Props(new OtherContributionActor(allTimeReputationActorRef, monthlyReputationActorRef,
-        quarterlyReputationActorRef, mockStoreOSContribution, mockStoreConferenceDetails,mockStoreBooksContribution,mockStoreResearchPaperContribution, mockOtherContribution)))
+        quarterlyReputationActorRef, mockStoreOSContribution, mockStoreConferenceDetails,mockStoreBooksContribution
+        ,mockStoreResearchPaperContribution, mockOtherContribution,mockKnolderMonthlyContribution,mockWriteMonthlyContribution)))
       probe watch scriptActor
       probe.send(scriptActor, "display reputation")
       probe.expectMsg("invalid message")
@@ -50,7 +53,8 @@ class OtherContributionActorSpec extends TestKit(ActorSystem("OtherContributionA
       val probe = TestProbe.apply()
       val mockActorRef = probe.ref
       val scriptActor = system.actorOf(Props(new OtherContributionActor(mockActorRef, mockActorRef, mockActorRef,
-        mockStoreOSContribution, mockStoreConferenceDetails,mockStoreBooksContribution,mockStoreResearchPaperContribution, mockOtherContribution)))
+        mockStoreOSContribution, mockStoreConferenceDetails,mockStoreBooksContribution,
+        mockStoreResearchPaperContribution, mockOtherContribution,mockKnolderMonthlyContribution,mockWriteMonthlyContribution)))
       probe watch scriptActor
       probe.send(scriptActor, ExecuteOtherContributionScript)
       probe.expectMsg("stored other contribution data")

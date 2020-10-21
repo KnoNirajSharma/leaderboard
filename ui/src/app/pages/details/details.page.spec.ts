@@ -7,8 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { IonicModule } from '@ionic/angular';
 import { KnolderDetailsModel } from '../../models/knolder-details.model';
-import { LoadingControllerService } from '../../services/loading-controller.service ';
-import {of, throwError} from 'rxjs';
+import { of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../../../environments/environment';
@@ -16,15 +15,16 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { TrendsModel } from '../../models/trends.model';
 import { ActivatedRoute } from '@angular/router';
-import {HallOfFameModel} from '../../models/hallOfFame.model';
-import {CommonService} from '../../services/common.service';
+import { HallOfFameModel } from '../../models/hallOfFame.model';
+import { CommonService } from '../../services/common.service';
+import { ScoreDrilldownComponent } from './components/score-drilldown/score-drilldown.component';
+import { ScoreDetailsComponent } from './components/score-details/score-details.component';
 
 
 describe('DetailsPage', () => {
   let component: DetailsPage;
   let fixture: ComponentFixture<DetailsPage>;
   let mockEmployeeService: EmployeeActivityService;
-  let loadingControllerService: LoadingControllerService;
   let commonService: CommonService;
   const dummyKnolderDetails: KnolderDetailsModel = {
     knolderName: 'Muskan Gupta',
@@ -124,7 +124,7 @@ describe('DetailsPage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [DetailsPage],
+      declarations: [DetailsPage, ScoreDrilldownComponent, ScoreDetailsComponent],
       imports: [
         HttpClientTestingModule,
         IonicModule.forRoot(),
@@ -153,7 +153,6 @@ describe('DetailsPage', () => {
     fixture = TestBed.createComponent(DetailsPage);
     component = fixture.componentInstance;
     mockEmployeeService = TestBed.get(EmployeeActivityService);
-    loadingControllerService = TestBed.get(LoadingControllerService);
     commonService = TestBed.get(CommonService);
   }));
 
@@ -164,14 +163,12 @@ describe('DetailsPage', () => {
     spyOn(component, 'getTrendsData');
     spyOn(component, 'getAllTimeDetails');
     spyOn(component, 'getHallOfFameData');
-    spyOn(loadingControllerService, 'present');
     spyOnProperty(commonService, 'colorScheme', 'get').and.returnValue({domain: ['blue']});
     component.ngOnInit();
     expect(component.knolderId).toEqual(1);
     expect(component.yearFromRoute).toEqual(2020);
     expect(component.monthFromRoute).toEqual('january');
     expect(component.contributionsTypeColorList[0]).toEqual('blue');
-    expect(loadingControllerService.present).toHaveBeenCalled();
   });
 
   it('should set values for datepickerConfig', () => {
@@ -189,34 +186,16 @@ describe('DetailsPage', () => {
     expect(component.knolderDetails).toEqual(dummyKnolderDetails);
   });
 
-  it('should handle error if error occurs in monthly api', () => {
-    spyOn(mockEmployeeService, 'getMonthlyDetails').and.returnValue(throwError({status: 404}));
-    component.getMonthlyDetails('june', 2020);
-  });
-
-
   it('should return the trendsData as per api call', () => {
     spyOn(mockEmployeeService, 'getTrendsData').and.returnValue(of(dummyTrendsData));
     component.getTrendsData();
     expect(component.trendsData).toEqual(dummyTrendsData);
   });
 
-  it('should handle error if error occurs in trend api', () => {
-    spyOn(mockEmployeeService, 'getTrendsData').and.returnValue(throwError({status: 404}));
-    component.getTrendsData();
-  });
-
   it('should return the knolder Alltime details Data as per api call', () => {
     spyOn(mockEmployeeService, 'getAllTimeDetails').and.returnValue(of(dummyKnolderDetails));
     component.getAllTimeDetails();
     expect(component.allTimeDetails).toEqual(dummyKnolderDetails);
-  });
-
-  it('should dissmiss the loader when error occurs in all time api service', () => {
-    spyOn(mockEmployeeService, 'getAllTimeDetails').and.returnValue(throwError({status: 404}));
-    spyOn(loadingControllerService, 'dismiss');
-    component.getAllTimeDetails();
-    expect(loadingControllerService.dismiss).toHaveBeenCalled();
   });
 
   it('should change alltimeSelected value to false', () => {
@@ -246,13 +225,6 @@ describe('DetailsPage', () => {
     spyOn(mockEmployeeService, 'getHallOfFameData').and.returnValue(of(mockHallOfFameData));
     component.getHallOfFameData();
     expect(component.hallOfFameLeaders).toEqual(mockHallOfFameData);
-  });
-
-  it('should handle error if error occures in hall of fame api', () => {
-    spyOn(component, 'setKnolderAchievements');
-    spyOn(component, 'setMedalTally');
-    spyOn(mockEmployeeService, 'getHallOfFameData').and.returnValue(throwError({status: 404}));
-    component.getHallOfFameData();
   });
 
   it('should set knolderAchievements by matching the knolderID', () => {

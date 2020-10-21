@@ -11,19 +11,18 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ComponentsModule } from '../../components/components.module';
 import { ReputationModel } from '../../models/reputation.model';
-import { LoadingControllerService } from '../../services/loading-controller.service ';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../../../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { CustomPipesModule } from '../../pipe/custom-pipes.module';
 import { ScoringTableModel } from '../../models/scoring-table.model';
+import {ElementRef} from '@angular/core';
 
 describe('MainPage', () => {
   let component: MainPage;
   let fixture: ComponentFixture<MainPage>;
   let mockEmployeeService: EmployeeActivityService;
-  let loadingControllerService: LoadingControllerService;
   const dummyReputationData: ReputationModel = {
     blogs: { monthly: 2, allTime: 3 },
     knolx: { monthly: 2, allTime: 3 },
@@ -84,33 +83,21 @@ describe('MainPage', () => {
     fixture = TestBed.createComponent(MainPage);
     component = fixture.componentInstance;
     mockEmployeeService = TestBed.get(EmployeeActivityService);
-    loadingControllerService = TestBed.get(LoadingControllerService);
   }));
 
-  it(' should initiate loading controller and getReputationData', () => {
-    spyOn(loadingControllerService, 'present');
+  it('should call getReputationData and scoringInfoData', () => {
     spyOn(component, 'getReputationData');
     spyOn(component, 'getScoringInfoData');
     component.ngOnInit();
-    expect(loadingControllerService.present).toHaveBeenCalled();
     expect(component.getScoringInfoData).toHaveBeenCalled();
     expect(component.getReputationData).toHaveBeenCalled();
   });
 
   it('should return the authorData as per api call', () => {
-    spyOn(loadingControllerService, 'dismiss');
     spyOn(component, 'setAllKnolderData');
     spyOn(mockEmployeeService, 'getData').and.returnValue(of(dummyReputationData));
     component.getReputationData();
     expect(component.reputation).toEqual(dummyReputationData);
-  });
-
-  it('should dismiss the loader if error occurs in reputation api', () => {
-    spyOn(mockEmployeeService, 'getData').and.returnValue(throwError({status: 404}));
-    spyOn(loadingControllerService, 'dismiss');
-    spyOn(component, 'setAllKnolderData');
-    component.getReputationData();
-    expect(loadingControllerService.dismiss).toHaveBeenCalled();
   });
 
   it('should return the scoring info data as per api call', () => {
@@ -121,12 +108,6 @@ describe('MainPage', () => {
     expect(component.scoringInfoData).toEqual(mockScoringData);
     expect(component.scoringInfoKeys).toEqual(['blog', 'knolx']);
     expect(component.boostedScoreCount).toEqual(3);
-  });
-
-  it('should handle if error occurs in scoring info api', () => {
-    spyOn(mockEmployeeService, 'getScoringInfoData').and.returnValue(throwError({status: 404}));
-    spyOn(component, 'getScoringInfoKeys');
-    component.getScoringInfoData();
   });
 
   it('should call setKnolderList, setKnoldusReputationKeys and setInitialFilteredList', () => {
@@ -264,5 +245,12 @@ describe('MainPage', () => {
       knolx: {points: 20, pointsMultiplier: 2}
     };
     expect(component.getNumberOfScoresBoosted()).toEqual(2);
+  });
+
+  it('should set knoldusStatLegend x and y position', () => {
+    component.knoldusStatsRef = new ElementRef<any>({offsetHeight: 80});
+    component.mouseEnterOnKnoldusStatsHandler({offsetX: 30});
+    expect(component.knoldusStatsLegendPosX).toEqual(30);
+    expect(component.knoldusStatsLegendPosY).toEqual(80);
   });
 });

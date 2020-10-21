@@ -4,6 +4,7 @@ ion-content {
 
 .page-wrapper {
   font-family: 'Poppins', sans-serif;
+  color: #2a2a2a;
 
   .name-title {
     font-size: 2em;
@@ -37,30 +38,10 @@ ion-content {
     }
   }
 
-  .total-score {
-    font-weight: bold;
-    font-size: 1.19em;
-  }
-
-  .score-table {
-    font-size: 1.1em;
-  }
-
-  .contribution-type {
-    font-size: 0.9em;
-  }
-
-  .detail-row:hover {
-    div {
-      border-left: 2px solid blue;
-    }
-  }
-
   .badge-details {
 
     .badge-details-table {
-      min-height: 200px;
-      max-height: 250px;
+      height: 200px;
       overflow-y: auto;
 
       &::-webkit-scrollbar {
@@ -85,31 +66,4 @@ ion-content {
 
 .shadow-box {
   box-shadow: 0 0 13px 0 rgba(0, 0, 0, 0.1);
-}
-
-.block {
-  background-color: white;
-  padding-bottom: 1em;
-  margin-top: 2em;
-  margin-bottom: 2em;
-  border: 0 !important;
-
-  .block-title {
-    border-bottom: 1px solid #2B35A8;
-    padding: 2px 2px;
-    position: relative;
-
-    h2, h4 {
-      color: #071348;
-      font-weight: 500;
-    }
-  }
-}
-
-@media only screen and (max-width: 720px) {
-  .page-wrapper {
-    .score-table {
-      height: 50px;
-    }
-  }
 }

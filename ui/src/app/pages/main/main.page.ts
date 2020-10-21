@@ -1,13 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AuthorModel } from '../../models/author.model';
 import { EmployeeActivityService } from '../../services/employee-activity.service';
 import { FormControl } from '@angular/forms';
 import { EmployeeFilterPipe } from '../../pipe/employee-filter.pipe';
 import { TableHeaderModel } from '../../models/tableHeader.model';
 import { ReputationModel } from '../../models/reputation.model';
-import { LoadingControllerService } from '../../services/loading-controller.service ';
 import { ScoringTableModel } from '../../models/scoring-table.model';
-import {createConsoleLogServer} from '@ionic/angular-toolkit/builders/cordova-serve/log-server';
 
 @Component({
   selector: 'app-main',
@@ -15,6 +13,7 @@ import {createConsoleLogServer} from '@ionic/angular-toolkit/builders/cordova-se
   styleUrls: ['./main.page.scss'],
 })
 export class MainPage implements OnInit {
+  @ViewChild('knoldusStats', { static: false }) knoldusStatsRef: ElementRef;
   knoldersReputationList: AuthorModel[];
   searchBar = new FormControl('');
   empFilterPipe = new EmployeeFilterPipe();
@@ -32,18 +31,16 @@ export class MainPage implements OnInit {
     { title: 'OVERALL SCORE' },
     { title: '3-MONTH-STREAK' }
   ];
+  knoldusStatsLegend = {
+    currentMonth: '#0F7291',
+    allTime: '#602CA5'
+  };
+  knoldusStatsLegendPosX = 0;
+  knoldusStatsLegendPosY = 0;
 
-  constructor(
-    private employeeActivityService: EmployeeActivityService,
-    private loadingControllerService: LoadingControllerService
-  ) { }
+  constructor(private employeeActivityService: EmployeeActivityService) { }
 
   ngOnInit() {
-    this.loadingControllerService.present({
-      message: 'Loading the Leaderboard...',
-      translucent: 'false',
-      spinner: 'bubbles'
-    });
     this.getScoringInfoData();
     this.getReputationData();
   }
@@ -53,9 +50,6 @@ export class MainPage implements OnInit {
       .subscribe((data: ReputationModel) => {
         this.reputation = { ...data };
         this.setAllKnolderData();
-        this.loadingControllerService.dismiss();
-      }, error => {
-        this.loadingControllerService.dismiss();
       });
   }
 
@@ -65,8 +59,6 @@ export class MainPage implements OnInit {
         this.scoringInfoData = { ...scoringInfoData };
         this.scoringInfoKeys = this.getScoringInfoKeys();
         this.boostedScoreCount = this.getNumberOfScoresBoosted();
-      }, error => {
-        console.log(error);
       });
   }
 
@@ -133,5 +125,10 @@ export class MainPage implements OnInit {
   getNumberOfScoresBoosted(): number {
     return this.scoringInfoKeys.map(key => this.scoringInfoData[key])
       .filter(scoreInfo => scoreInfo.pointsMultiplier > 1).length;
+  }
+
+  mouseEnterOnKnoldusStatsHandler(event) {
+    this.knoldusStatsLegendPosX = event.offsetX;
+    this.knoldusStatsLegendPosY = this.knoldusStatsRef.nativeElement.offsetHeight;
   }
 }

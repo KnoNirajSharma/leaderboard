@@ -22,6 +22,8 @@ class BlogScriptActorSpec extends TestKit(ActorSystem("BlogScriptActorSpec")) wi
   val mockMonthlyReputation: MonthlyReputation = mock[MonthlyReputationImpl]
   val mockWriteMonthlyReputation: WriteMonthlyReputation = mock[WriteMonthlyReputationImpl]
   val mockQuarterlyReputation: QuarterlyReputation = mock[QuarterlyReputationImpl]
+  val mockKnolderMonthlyContribution= mock[KnolderMonthlyContributionImpl]
+  val mockWriteMonthlyContribution= mock[WriteMonthlyContribution]
   val mockWriteQuarterlyReputation: WriteQuarterlyReputation = mock[WriteQuarterlyReputationImpl]
   val allTimeReputationActorRef: ActorRef = system.actorOf(Props(new AllTimeReputationActor(mockAllTimeReputation,
     mockWriteAllTimeReputation)), "allTimeReputationActor")
@@ -38,7 +40,7 @@ class BlogScriptActorSpec extends TestKit(ActorSystem("BlogScriptActorSpec")) wi
     "not do anything with incorrect message" in {
       val probe = TestProbe()
       val scriptActor = system.actorOf(Props(new BlogScriptActor(allTimeReputationActorRef, monthlyReputationActorRef,
-        quarterlyReputationActorRef, mockStoreBlogs, mockBlogs)))
+        quarterlyReputationActorRef, mockStoreBlogs, mockBlogs,mockKnolderMonthlyContribution,mockWriteMonthlyContribution)))
       probe watch scriptActor
       probe.send(scriptActor, "display reputation")
       probe.expectMsg("invalid message")
@@ -47,7 +49,7 @@ class BlogScriptActorSpec extends TestKit(ActorSystem("BlogScriptActorSpec")) wi
       val probe = TestProbe.apply()
       val mockActorRef = probe.ref
       val scriptActor = system.actorOf(Props(new BlogScriptActor(mockActorRef, mockActorRef, mockActorRef,
-        mockStoreBlogs, mockBlogs)))
+        mockStoreBlogs, mockBlogs,mockKnolderMonthlyContribution,mockWriteMonthlyContribution)))
       probe watch scriptActor
       probe.send(scriptActor, ExecuteBlogsScript)
       probe.expectMsg("stored blogs")

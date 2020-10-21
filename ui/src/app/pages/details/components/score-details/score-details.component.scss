@@ -1,0 +1,36 @@
+.contribution-type {
+  font-size: 0.9em;
+}
+
+.detail-row {
+  &:hover {
+    div {
+      border-left: 2px solid blue;
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .details {
+    height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #e0dede;
+      border-radius: 15px;
+
+      &:hover {
+        background: #999;
+      }
+    }
+  }
+}

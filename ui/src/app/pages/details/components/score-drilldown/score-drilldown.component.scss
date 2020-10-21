@@ -1,0 +1,18 @@
+.total-score {
+  font-weight: bold;
+  font-size: 1.19em;
+}
+
+.score-table {
+  font-size: 1.1em;
+}
+
+@media only screen and (max-width: 991px) {
+  .block {
+    .block-content {
+      .score-table {
+        height: 50px;
+      }
+    }
+  }
+}
