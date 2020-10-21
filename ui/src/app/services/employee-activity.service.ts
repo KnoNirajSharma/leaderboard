@@ -6,7 +6,7 @@ import { KnolderDetailsModel } from '../models/knolder-details.model';
 import { ReputationModel } from '../models/reputation.model';
 import { TrendsModel } from '../models/trends.model';
 import { HallOfFameModel } from '../models/hallOfFame.model';
-import {ScoringTableModel} from '../models/scoring-table.model';
+import { ScoringTableModel } from '../models/scoring-table.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class EmployeeActivityService {
   private url = `${environment.api.baseUrl}${environment.api.routes.author.endpoint}`;
   private trendUrl = `${environment.api.baseUrl}${environment.api.routes.trends.endpoint}`;
   private hallOfFameUrl = `${environment.api.baseUrl}${environment.api.routes.hallOfFame.endpoint}`;
-  private scoringInfoUrl = '/assets/data/scoringInfoData.json';
+  private scoringInfoUrl = `${environment.api.baseUrl}${environment.api.routes.dynamicScoring.endpoint}`;
 
   constructor(private httpClient: HttpClient) {
   }
