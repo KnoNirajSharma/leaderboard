@@ -144,7 +144,7 @@ class ReputationOnAPIImpl(readSpikeMonthAndScoreMultiplier: ReadSpikeMonthAndSco
     }
   }
   override def spikeMonthAndScoreMultiplierRoute: Route = {
-    logger.info("Displaying top five leaders of every month.")
+    logger.info("Displaying spike months details with the contribution points.")
     cors(settings = CorsSettings.defaultSettings) {
       path("reputation" / "dynamicscoring") {
         get {
