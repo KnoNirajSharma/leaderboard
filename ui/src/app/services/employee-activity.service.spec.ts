@@ -14,7 +14,7 @@ describe('EmployeeActivityService', () => {
   const url = `${environment.api.baseUrl}${environment.api.routes.author.endpoint}`;
   const trendsUrl = `${environment.api.baseUrl}${environment.api.routes.trends.endpoint}`;
   const hallOfFameUrl = `${environment.api.baseUrl}${environment.api.routes.hallOfFame.endpoint}`;
-  const scoringInfoUrl = '/assets/data/scoringInfoData.json';
+  const scoringInfoUrl = `${environment.api.baseUrl}${environment.api.routes.dynamicScoring.endpoint}`;
   const dummyReputationData: ReputationModel = {
     blogs: { monthly: 2, allTime: 3 },
     knolx: { monthly: 2, allTime: 3 },
