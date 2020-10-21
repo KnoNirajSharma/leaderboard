@@ -71,7 +71,7 @@
                             {{row.knolderName}}
                         </ion-card-title>
                     </ion-card-header>
-                    <div [routerLink]="['/details', row.knolderId]" class="grid-container">
+                    <div (click)="onActivate({type: 'click', row: {knolderId: row.knolderId}})" class="grid-container">
                         <div class="item1">
                             <ion-row *ngFor="let head of tableHeading">{{head.title}}</ion-row>
                         </div>
