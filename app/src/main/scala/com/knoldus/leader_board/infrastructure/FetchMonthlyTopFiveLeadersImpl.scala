@@ -23,7 +23,7 @@ class FetchMonthlyTopFiveLeadersImpl(config: Config) extends FetchMonthlyTopFive
 
     val topFiveLeaders = SQL(
       """select knolder_id, knolder_name, monthly_score, all_time_score, monthly_rank, all_time_rank,month,year
-           from halloffame
+           from halloffame order by id
       """).map(rs => MonthlyTopFiveLeaders(rs.string("month"), rs.int("year"), rs.int("knolder_id"),
       rs.string("knolder_name"), rs.int("monthly_score"), rs.int("monthly_rank")
       , rs.int("all_time_score"), rs.int("all_time_rank"))).list().apply()
@@ -31,7 +31,7 @@ class FetchMonthlyTopFiveLeadersImpl(config: Config) extends FetchMonthlyTopFive
     topFiveLeaders.grouped(groupedValue).map { listOfTopFiveLeaders =>
       listOfTopFiveLeaders.groupBy(monthlyLeaders => (monthlyLeaders.month, monthlyLeaders.year)).toList
     }.toList.flatten.map(monthAndYearWithTopLeaders =>
-      MonthYearWithTopFiveLeaders(monthAndYearWithTopLeaders._1._1, monthAndYearWithTopLeaders._1._2, monthAndYearWithTopLeaders._2))
-
+      MonthYearWithTopFiveLeaders(monthAndYearWithTopLeaders._1._1, monthAndYearWithTopLeaders._1._2, monthAndYearWithTopLeaders._2.sortBy(reputation =>
+        (reputation.monthlyRank, reputation.allTimeScore))(Ordering.Tuple2(Ordering.Int, Ordering.Int.reverse))))
   }
 }
