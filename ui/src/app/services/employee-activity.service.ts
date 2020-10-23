@@ -7,6 +7,7 @@ import { ReputationModel } from '../models/reputation.model';
 import { TrendsModel } from '../models/trends.model';
 import { HallOfFameModel } from '../models/hallOfFame.model';
 import { ScoringTableModel } from '../models/scoring-table.model';
+import { TribesSummeryModel } from '../models/tribes-summery.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class EmployeeActivityService {
   private trendUrl = `${environment.api.baseUrl}${environment.api.routes.trends.endpoint}`;
   private hallOfFameUrl = `${environment.api.baseUrl}${environment.api.routes.hallOfFame.endpoint}`;
   private scoringInfoUrl = `${environment.api.baseUrl}${environment.api.routes.dynamicScoring.endpoint}`;
+  private allTribesUrl = '/assets/data/tribes-main.json';
 
   constructor(private httpClient: HttpClient) {
   }
@@ -42,5 +44,9 @@ export class EmployeeActivityService {
 
   getScoringInfoData(): Observable<ScoringTableModel> {
     return this.httpClient.get<ScoringTableModel>(this.scoringInfoUrl);
+  }
+
+  getAllTribesData(): Observable<TribesSummeryModel[]> {
+    return this.httpClient.get<TribesSummeryModel[]>(this.allTribesUrl);
   }
 }

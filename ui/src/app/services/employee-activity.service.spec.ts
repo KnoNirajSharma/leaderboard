@@ -7,6 +7,7 @@ import { ReputationModel } from '../models/reputation.model';
 import {TrendsModel} from '../models/trends.model';
 import {HallOfFameModel} from '../models/hallOfFame.model';
 import {ScoringTableModel} from '../models/scoring-table.model';
+import {TribesSummeryModel} from '../models/tribes-summery.model';
 
 describe('EmployeeActivityService', () => {
   let employeeActivityService: EmployeeActivityService;
@@ -15,6 +16,7 @@ describe('EmployeeActivityService', () => {
   const trendsUrl = `${environment.api.baseUrl}${environment.api.routes.trends.endpoint}`;
   const hallOfFameUrl = `${environment.api.baseUrl}${environment.api.routes.hallOfFame.endpoint}`;
   const scoringInfoUrl = `${environment.api.baseUrl}${environment.api.routes.dynamicScoring.endpoint}`;
+  const allTribesUrl = '/assets/data/tribes-main.json';
   const dummyReputationData: ReputationModel = {
     blogs: { monthly: 2, allTime: 3 },
     knolx: { monthly: 2, allTime: 3 },
@@ -120,6 +122,24 @@ describe('EmployeeActivityService', () => {
     book: {points: 5, pointsMultiplier: 1},
     researchPaper: {points: 5, pointsMultiplier: 1},
   };
+  const mockAllTrendSummeryData: TribesSummeryModel[] = [
+    {
+      id: 'scala',
+      name: 'Scala',
+      allTimeScore: 3000,
+      monthlyScore: 200,
+      memberAvg: 40,
+      memberCount: 50
+    },
+    {
+      id: 'dev-ops',
+      name: 'DevOps',
+      allTimeScore: 3000,
+      monthlyScore: 200,
+      memberAvg: 40,
+      memberCount: 50
+    },
+  ];
   const id = 1;
   const month = 'june';
   const year = 2020;
@@ -191,6 +211,15 @@ describe('EmployeeActivityService', () => {
     const requestCheck = httpTestingController.expectOne(scoringInfoUrl);
     expect(requestCheck.request.method).toBe('GET');
     requestCheck.flush(mockScoringData);
+  });
+
+  it('should retrieve all tribes summery data from the API via GET', () => {
+    employeeActivityService.getAllTribesData().subscribe(data => {
+      expect(data).toEqual(mockAllTrendSummeryData);
+    });
+    const requestCheck = httpTestingController.expectOne(allTribesUrl);
+    expect(requestCheck.request.method).toBe('GET');
+    requestCheck.flush(mockAllTrendSummeryData);
   });
 
   afterEach(() => {
