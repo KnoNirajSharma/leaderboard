@@ -1,0 +1,58 @@
+[
+  {
+    "id":"scala",
+    "name":"Scala",
+    "allTimeScore":3000,
+    "monthlyScore":200,
+    "memberAvg":40,
+    "memberCount":50
+  },
+  {
+    "id":"dev-ops",
+    "name":"DevOps",
+    "allTimeScore":3000,
+    "monthlyScore":200,
+    "memberAvg":40,
+    "memberCount":50
+  },
+  {
+    "id":"rust",
+    "name":"Rust",
+    "allTimeScore":3000,
+    "monthlyScore":200,
+    "memberAvg":40,
+    "memberCount":50
+  },
+  {
+    "id":"test-automation",
+    "name":"Test Automation",
+    "allTimeScore":3000,
+    "monthlyScore":200,
+    "memberAvg":40,
+    "memberCount":50
+  },
+  {
+    "id":"ui",
+    "name":"UI Practice",
+    "allTimeScore":3000,
+    "monthlyScore":200,
+    "memberAvg":40,
+    "memberCount":50
+  },
+  {
+    "id":"tag",
+    "name":"The Architect Group",
+    "allTimeScore":3000,
+    "monthlyScore":200,
+    "memberAvg":40,
+    "memberCount":50
+  },
+  {
+    "id":"tribex",
+    "name":"DevOps",
+    "allTimeScore":3000,
+    "monthlyScore":200,
+    "memberAvg":40,
+    "memberCount":50
+  }
+]
