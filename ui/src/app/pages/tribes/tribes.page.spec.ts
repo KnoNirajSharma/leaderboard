@@ -11,6 +11,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { EmployeeActivityService } from '../../services/employee-activity.service';
 import { of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
+import { TribeCardComponent } from './components/tribe-card/tribe-card.component';
 
 describe('TribesPage', () => {
   let component: TribesPage;
@@ -37,7 +38,7 @@ describe('TribesPage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TribesPage ],
+      declarations: [ TribesPage, TribeCardComponent ],
       imports: [
         IonicModule.forRoot(),
         ComponentsModule,

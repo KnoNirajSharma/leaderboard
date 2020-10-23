@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { TribesPage } from './tribes.page';
 import { RouterModule, Routes } from '@angular/router';
 import { ComponentsModule } from '../../components/components.module';
+import { TribeCardComponent } from './components/tribe-card/tribe-card.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,6 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     ComponentsModule
   ],
-  declarations: [TribesPage]
+  declarations: [TribesPage, TribeCardComponent]
 })
 export class TribesPageModule {}
