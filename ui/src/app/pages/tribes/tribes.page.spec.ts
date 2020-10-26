@@ -13,7 +13,7 @@ import { of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TribeCardComponent } from './components/tribe-card/tribe-card.component';
 
-describe('TribesPage', () => {
+fdescribe('TribesPage', () => {
   let component: TribesPage;
   let fixture: ComponentFixture<TribesPage>;
   let mockEmployeeService: EmployeeActivityService;
@@ -47,7 +47,7 @@ describe('TribesPage', () => {
         AngularFireModule.initializeApp(environment.firebaseConfig, 'angular-auth-firebase'),
         AngularFirestoreModule,
         AngularFireAuthModule,
-        RouterTestingModule,
+        // RouterTestingModule,
       ]
     }).compileComponents();
 

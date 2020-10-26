@@ -8,6 +8,7 @@ import {TrendsModel} from '../models/trends.model';
 import {HallOfFameModel} from '../models/hallOfFame.model';
 import {ScoringTableModel} from '../models/scoring-table.model';
 import {TribesSummeryModel} from '../models/tribes-summery.model';
+import {TribeDetailsModel} from '../models/tribe-details.model';
 
 describe('EmployeeActivityService', () => {
   let employeeActivityService: EmployeeActivityService;
@@ -17,6 +18,8 @@ describe('EmployeeActivityService', () => {
   const hallOfFameUrl = `${environment.api.baseUrl}${environment.api.routes.hallOfFame.endpoint}`;
   const scoringInfoUrl = `${environment.api.baseUrl}${environment.api.routes.dynamicScoring.endpoint}`;
   const allTribesUrl = '/assets/data/tribes-main.json';
+  const tribeDetailUrl = '/assets/data/tribes-detail.json';
+
   const dummyReputationData: ReputationModel = {
     blogs: { monthly: 2, allTime: 3 },
     knolx: { monthly: 2, allTime: 3 },
@@ -140,6 +143,64 @@ describe('EmployeeActivityService', () => {
       memberCount: 50
     },
   ];
+  const mockTribeDetailsData: TribeDetailsModel = {
+    name: 'DevOps',
+    tribeSummery: [
+      {name: 'all time score', value: 2000},
+      {name: 'monthly score', value: 200},
+      {name: 'Per member score', value: 20},
+    ],
+    allTimeScoreBreakdown: [
+      {contributionType: 'Blog', contributionScore: 45},
+      {contributionType: 'Knolx', contributionScore: 4},
+      {contributionType: 'webinar', contributionScore: 70}
+    ],
+    trends: [
+      {
+        month: 'JUNE',
+        year: 2020,
+        blogScore: 30,
+        knolxScore: 20,
+        webinarScore: 34,
+        techHubScore: 20,
+        osContributionScore: 30,
+        conferenceScore: 100,
+        bookScore: 100,
+        researchPaperScore: 0,
+      },
+      {
+        month: 'JULY',
+        year: 2020,
+        blogScore: 30,
+        knolxScore: 20,
+        webinarScore: 34,
+        techHubScore: 20,
+        osContributionScore: 20,
+        conferenceScore: 0,
+        bookScore: 0,
+        researchPaperScore: 100,
+      }
+    ],
+    memberReputations: [
+      {
+        knolderId: 1,
+        knolderName: 'mark',
+        allTimeScore: 10,
+        allTimeRank: 7,
+        quarterlyStreak: '5-6-7',
+        monthlyScore: 10,
+        monthlyRank: 1,
+      }, {
+        knolderId: 2,
+        knolderName: 'sam',
+        allTimeScore: 20,
+        allTimeRank: 6,
+        quarterlyStreak: '5-6-8',
+        monthlyScore: 10,
+        monthlyRank: 1,
+      }
+    ]
+  };
   const id = 1;
   const month = 'june';
   const year = 2020;
@@ -220,6 +281,15 @@ describe('EmployeeActivityService', () => {
     const requestCheck = httpTestingController.expectOne(allTribesUrl);
     expect(requestCheck.request.method).toBe('GET');
     requestCheck.flush(mockAllTrendSummeryData);
+  });
+
+  it('should retrieve tribe detail data from the API via GET', () => {
+    employeeActivityService.getTribeDetails().subscribe(data => {
+      expect(data).toEqual(mockTribeDetailsData);
+    });
+    const requestCheck = httpTestingController.expectOne(tribeDetailUrl);
+    expect(requestCheck.request.method).toBe('GET');
+    requestCheck.flush(mockTribeDetailsData);
   });
 
   afterEach(() => {

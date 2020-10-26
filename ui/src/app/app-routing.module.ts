@@ -41,6 +41,10 @@ const routes: Routes = [
     path: 'tribes',
     loadChildren: './pages/tribes/tribes.module#TribesPageModule',
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'tribe-details',
+    loadChildren: () => import('./pages/tribe-details/tribe-details.module').then( m => m.TribeDetailsPageModule)
   }
 ];
 
