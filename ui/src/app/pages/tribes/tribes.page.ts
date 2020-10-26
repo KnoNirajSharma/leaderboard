@@ -14,7 +14,7 @@ export class TribesPage implements OnInit {
 
   ngOnInit() {
     this.employeeActivityService.getAllTribesData()
-      .subscribe(response => {
+      .subscribe((response: TribesSummeryModel[]) => {
         this.tribesList = [...response];
       });
   }
