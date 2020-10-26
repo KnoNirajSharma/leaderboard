@@ -39,7 +39,7 @@ class FetchMonthlyTopFiveLeadersImplSpec extends DBSpec with BeforeAndAfterEach 
       preparedStmtOne.setInt(2, 1)
       preparedStmtOne.setString(3, "Mukesh Gupta")
       preparedStmtOne.setInt(4, 30)
-      preparedStmtOne.setInt(5, 1)
+      preparedStmtOne.setInt(5, 2)
       preparedStmtOne.setInt(6, 100)
       preparedStmtOne.setInt(7, 1)
       preparedStmtOne.setString(8, "SEPTEMBER")
@@ -51,8 +51,8 @@ class FetchMonthlyTopFiveLeadersImplSpec extends DBSpec with BeforeAndAfterEach 
       preparedStmtTwo.setInt(1, 2)
       preparedStmtTwo.setInt(2, 2)
       preparedStmtTwo.setString(3, "Akash Gupta")
-      preparedStmtTwo.setInt(4, 25)
-      preparedStmtTwo.setInt(5, 2)
+      preparedStmtTwo.setInt(4, 50)
+      preparedStmtTwo.setInt(5, 1)
       preparedStmtTwo.setInt(6, 80)
       preparedStmtTwo.setInt(7, 2)
       preparedStmtTwo.setString(8, "SEPTEMBER")
@@ -100,12 +100,12 @@ class FetchMonthlyTopFiveLeadersImplSpec extends DBSpec with BeforeAndAfterEach 
       preparedStmtFive.close()
 
 
-          val listOfMonthlyLeaders = List(MonthYearWithTopFiveLeaders("SEPTEMBER" ,2020,List(MonthlyTopFiveLeaders
-          ("SEPTEMBER" ,2020,1,"Mukesh Gupta",30,1,100,1),MonthlyTopFiveLeaders
-          ("SEPTEMBER" ,2020,2,"Akash Gupta",25,2,80,2),MonthlyTopFiveLeaders
-          ("SEPTEMBER" ,2020,3,"Amit Gupta",20,3,60,3),MonthlyTopFiveLeaders
-          ("SEPTEMBER" ,2020,4,"Amit Gupta",15,4,40,4),MonthlyTopFiveLeaders
-          ("SEPTEMBER" ,2020,5,"Amit Gupta",10,5,30,5))))
+      val listOfMonthlyLeaders = List(MonthYearWithTopFiveLeaders("SEPTEMBER" ,2020,List(MonthlyTopFiveLeaders
+      ("SEPTEMBER" ,2020,2,"Akash Gupta",50,1,80,2),
+        MonthlyTopFiveLeaders("SEPTEMBER" ,2020,1,"Mukesh Gupta",30,2,100,1),MonthlyTopFiveLeaders
+        ("SEPTEMBER" ,2020,3,"Amit Gupta",20,3,60,3),MonthlyTopFiveLeaders
+        ("SEPTEMBER" ,2020,4,"Amit Gupta",15,4,40,4),MonthlyTopFiveLeaders
+        ("SEPTEMBER" ,2020,5,"Amit Gupta",10,5,30,5))))
 
 
       assert(fetchMonthlyTopFiveLeadersObj.fetchMonthlyTopFiveLeaders == listOfMonthlyLeaders)
