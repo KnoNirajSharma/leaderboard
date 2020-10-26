@@ -1,0 +1,41 @@
+.tribe-summery-card {
+  box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+  transition: box-shadow 0.3s;
+
+  &:hover {
+    box-shadow: 0 0 15px -5px rgba(33, 97, 207, 1);
+  }
+
+  h4 {
+    border-bottom: 1px solid #2B35A8;
+    color: #071348;
+
+    span {
+      color: #4d4d4d;
+      font-size: 0.7rem;
+    };
+  }
+
+  .tribe-detail {
+    display: flex;
+    align-items: center;
+
+    .detail-value-box {
+      width: 50px;
+      height: 50px;
+      background-color: lightgray;
+      border-radius: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .detail-name {
+      font-size: 0.9rem;
+    }
+  }
+
+  .view-details {
+    font-size: 0.6rem;
+  }
+}
