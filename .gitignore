@@ -35,3 +35,7 @@ stats/
 
 # Node Based directories to ignore
 node_modules
+
+# VS Code
+.metals
+.vscode
