@@ -44,7 +44,8 @@ const routes: Routes = [
   },
   {
     path: 'tribe-details',
-    loadChildren: () => import('./pages/tribe-details/tribe-details.module').then( m => m.TribeDetailsPageModule)
+    loadChildren: './pages/tribe-details/tribe-details.module#TribeDetailsPageModule',
+    canActivate: [AuthGuard]
   }
 ];
 

@@ -18,7 +18,7 @@ describe('EmployeeActivityService', () => {
   const hallOfFameUrl = `${environment.api.baseUrl}${environment.api.routes.hallOfFame.endpoint}`;
   const scoringInfoUrl = `${environment.api.baseUrl}${environment.api.routes.dynamicScoring.endpoint}`;
   const allTribesUrl = '/assets/data/tribes-main.json';
-  const tribeDetailUrl = '/assets/data/tribes-detail.json';
+  const tribeDetailUrl = '/assets/data/tribe-details.json';
 
   const dummyReputationData: ReputationModel = {
     blogs: { monthly: 2, allTime: 3 },

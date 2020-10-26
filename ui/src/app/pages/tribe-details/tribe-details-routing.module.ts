@@ -5,7 +5,7 @@ import { TribeDetailsPage } from './tribe-details.page';
 
 const routes: Routes = [
   {
-    path: '',
+    path: ':id',
     component: TribeDetailsPage
   }
 ];

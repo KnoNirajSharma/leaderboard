@@ -6,7 +6,8 @@
         <h1 class="pb-2 mb-2">Tribes</h1>
         <div class="mt-3 d-flex flex-wrap ">
           <div *ngFor="let tribe of tribesList" class="col-12 col-sm-6 col-lg-3 my-3">
-            <app-tribe-card [tribeSummeryDetails]="tribe"></app-tribe-card>
+            <app-tribe-card [routerLink]="['/', 'tribe-details', tribe.id]"
+                            [tribeSummeryDetails]="tribe"></app-tribe-card>
           </div>
         </div>
       </div>
