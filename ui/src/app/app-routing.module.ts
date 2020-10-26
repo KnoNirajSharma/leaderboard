@@ -36,6 +36,11 @@ const routes: Routes = [
     path: 'report-issue',
     loadChildren: './pages/report-issue/report-issue.module#ReportIssuePageModule',
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'tribes',
+    loadChildren: './pages/tribes/tribes.module#TribesPageModule',
+    canActivate: [AuthGuard]
   }
 ];
 
