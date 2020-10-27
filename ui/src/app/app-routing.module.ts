@@ -41,11 +41,6 @@ const routes: Routes = [
     path: 'tribes',
     loadChildren: './pages/tribes/tribes.module#TribesPageModule',
     canActivate: [AuthGuard]
-  },
-  {
-    path: 'tribe-details',
-    loadChildren: './pages/tribe-details/tribe-details.module#TribeDetailsPageModule',
-    canActivate: [AuthGuard]
   }
 ];
 
