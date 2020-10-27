@@ -3,13 +3,13 @@ import { AuthorModel } from './author.model';
 
 export interface TribeDetailsModel {
   name: string;
-  tribeSummery: SummeryDetails[];
+  tribeSummery: SummaryDetails[];
   allTimeScoreBreakdown: AllTimeScoreBreakdownModel[];
   trends: TrendsModel[];
   memberReputations: AuthorModel[];
 }
 
-interface SummeryDetails {
+interface SummaryDetails {
   name: string;
   value: number;
 }
