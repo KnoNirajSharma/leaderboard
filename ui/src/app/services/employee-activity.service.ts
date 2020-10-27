@@ -52,7 +52,7 @@ export class EmployeeActivityService {
     return this.httpClient.get<TribesSummeryModel[]>(this.allTribesUrl);
   }
 
-  getTribeDetails(): Observable<TribeDetailsModel> {
+  getTribeDetails(tribeId: string): Observable<TribeDetailsModel> {
     return this.httpClient.get<TribeDetailsModel>(this.tribeDetailsUrl);
   }
 }

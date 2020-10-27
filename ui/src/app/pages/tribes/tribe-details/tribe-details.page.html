@@ -1,9 +1,19 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>tribe-details</ion-title>
-  </ion-toolbar>
-</ion-header>
-
+<app-headers [backBtn]="true"></app-headers>
 <ion-content>
-
+  <div class="container-fluid page-wrapper col-12 col-xl-11">
+    <div *ngIf="tribeDetails" class="row mb-2 mt-2">
+      <div class="col-12 col-lg-6 d-flex align-self-end">
+        <div class="name-title w-100 pb-2">
+          {{tribeDetails.name}}
+        </div>
+      </div>
+      <div class="circle col-12 col-lg-4 mx-auto mt-3 mt-lg-0 d-flex flex-row justify-content-around">
+        <app-labeled-number-circle
+                *ngFor="let tribeDetail of tribeDetails.tribeSummery"
+                [displayValue]="tribeDetail.value"
+                [label]="tribeDetail.name">
+        </app-labeled-number-circle>
+      </div>
+    </div>
+  </div>
 </ion-content>

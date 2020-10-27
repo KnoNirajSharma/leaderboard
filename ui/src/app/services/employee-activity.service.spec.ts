@@ -204,6 +204,7 @@ describe('EmployeeActivityService', () => {
   const id = 1;
   const month = 'june';
   const year = 2020;
+  const tribeId = 'dev-ops';
 
   beforeEach(() => TestBed.configureTestingModule({
     imports: [HttpClientTestingModule],
@@ -284,7 +285,7 @@ describe('EmployeeActivityService', () => {
   });
 
   it('should retrieve tribe detail data from the API via GET', () => {
-    employeeActivityService.getTribeDetails().subscribe(data => {
+    employeeActivityService.getTribeDetails(tribeId).subscribe(data => {
       expect(data).toEqual(mockTribeDetailsData);
     });
     const requestCheck = httpTestingController.expectOne(tribeDetailUrl);

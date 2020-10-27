@@ -7,6 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ComponentsModule } from '../../components/components.module';
 import { TribeCardComponent } from './components/tribe-card/tribe-card.component';
 import { TribeDetailsPage } from './tribe-details/tribe-details.page';
+import { LabeledNumberCircleComponent } from './components/labeled-number-circle/labeled-number-circle.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,6 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     ComponentsModule
   ],
-  declarations: [TribesPage, TribeCardComponent, TribeDetailsPage]
+  declarations: [TribesPage, TribeCardComponent, TribeDetailsPage, LabeledNumberCircleComponent]
 })
 export class TribesPageModule {}
