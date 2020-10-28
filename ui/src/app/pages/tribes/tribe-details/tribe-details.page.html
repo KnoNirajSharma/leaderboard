@@ -14,6 +14,28 @@
                 [label]="tribeDetail.name">
         </app-labeled-number-circle>
       </div>
+      <div class="d-flex flex-wrap w-100">
+        <div class="col-12 col-lg-6">
+          <div *ngIf="tribeDetails" class="col-12 card block mx-auto">
+            <div class="block-title d-flex justify-content-between pt-3 pb-2 px-2 bg-white">
+              <div class="align-self-center">
+                <h4 class="font-weight-normal m-0">All Time</h4>
+              </div>
+            </div>
+            <app-pie-chart [inputResult]="tribeDetails.allTimeScoreBreakdown"></app-pie-chart>
+          </div>
+        </div>
+        <div class="col-12 col-lg-6">
+          <div *ngIf="tribeDetails" class="col-12 card text-center block mx-auto">
+            <div class="block-title d-flex justify-content-between pt-3 pb-2 px-2 bg-white">
+              <div class="align-self-center">
+                <h4 class="font-weight-normal m-0">Trends</h4>
+              </div>
+            </div>
+            <app-vertical-bar-graph [trendsData]="tribeDetails.trends"></app-vertical-bar-graph>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </ion-content>
