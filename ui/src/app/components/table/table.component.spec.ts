@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import * as moment from 'moment';
+import { AuthorModel } from '../../models/author.model';
 
 describe('TableComponent', () => {
   let component: TableComponent;
@@ -13,6 +13,26 @@ describe('TableComponent', () => {
   let router: Router;
   let location: Location;
   const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+  const dummyKnolderList: AuthorModel[] = [
+      {
+        knolderId: 1,
+        knolderName: 'mark',
+        allTimeScore: 10,
+        allTimeRank: 7,
+        quarterlyStreak: '5-6-7',
+        monthlyScore: 10,
+        monthlyRank: 1,
+      }, {
+        knolderId: 2,
+        knolderName: 'sam',
+        allTimeScore: 20,
+        allTimeRank: 6,
+        quarterlyStreak: '5-6-8',
+        monthlyScore: 10,
+        monthlyRank: 1,
+      }
+    ];
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
@@ -47,16 +67,72 @@ describe('TableComponent', () => {
       );
   });
 
-  it('should stay on same route on other events', () => {
-    const nonClickEvent = { type: 'notClick', row: { knolderId: 2 } };
-    component.onActivate(nonClickEvent);
-    expect(routerSpy.navigate).toHaveBeenCalledWith(['/']);
+  it('should compare on the allTimeRank property if values are not equal', () => {
+    const firstEmp = dummyKnolderList[1];
+    const secEmp = dummyKnolderList[0];
+    expect(component.comparisonBasedOnAllTimeScore(firstEmp, secEmp, 'allTimeRank')).toEqual(false);
   });
 
-  it('should emit sorting criteria', () => {
-    const eventObj = {newValue: 'asc', column: {prop: 'monthlyRank'}};
-    spyOn(component.sortCriteria, 'emit');
-    component.onSort(eventObj);
-    expect(component.sortCriteria.emit).toHaveBeenCalledWith({newValue: 'asc', column: {prop: 'monthlyRank'}});
+  it('should compare on allTimeScore if values are equal', () => {
+    const firstEmp = dummyKnolderList[1];
+    const secEmp = dummyKnolderList[0];
+    expect(component.comparisonBasedOnAllTimeScore(firstEmp, secEmp, 'monthlyScore')).toEqual(false);
+  });
+
+  it('should return the total sum of all month in 3 month streak', () => {
+    const streakScore = '1-1-1';
+    expect(component.totalOfQuarterlyScore(streakScore)).toEqual(3);
+  });
+
+  it('should return true or false depending on if the quarterly total score are in ascending order', () => {
+    const firstEmpStreak = dummyKnolderList[0].quarterlyStreak;
+    const secEmpStreak = dummyKnolderList[1].quarterlyStreak;
+    expect(component.compareQuarterlyScore(firstEmpStreak, secEmpStreak, 'asc')).toEqual(true);
+  });
+
+  it('should return true or false depending on if the quarterly total score are in descending order', () => {
+    const firstEmpStreak = dummyKnolderList[0].quarterlyStreak;
+    const secEmpStreak = dummyKnolderList[1].quarterlyStreak;
+    expect(component.compareQuarterlyScore(firstEmpStreak, secEmpStreak, 'desc')).toEqual(false);
+  });
+
+  it('should sort list in asc on the basis of quarterly score', () => {
+    component.tableRows = [...dummyKnolderList];
+    spyOn(component, 'compareQuarterlyScore').and.returnValue(true);
+    component.onSort({newValue: 'asc', column: {prop: 'quarterlyStreak'}});
+    expect(component.tableRows[0].knolderId).toEqual(1);
+  });
+
+  it('should sort list in desc on the basis of quarterly score', () => {
+    component.tableRows = [...dummyKnolderList];
+    spyOn(component, 'compareQuarterlyScore').and.returnValue(false);
+    component.onSort({newValue: 'asc', column: {prop: 'quarterlyStreak'}});
+    expect(component.tableRows[0].knolderId).toEqual(2);
+  });
+
+  it('should sort the list in descending order on the basis of allTimeRank', () => {
+    component.tableRows = [...dummyKnolderList];
+    component.onSort({newValue: 'desc', column: {prop: 'allTimeRank'}});
+    expect(component.tableRows[0].knolderId).toEqual(1);
+  });
+
+  it('should sort the list in descending order on the basis of allTimeScore', () => {
+    component.tableRows = [...dummyKnolderList];
+    component.onSort({newValue: 'desc', column: {prop: 'allTimeScore'}});
+    expect(component.tableRows[0].knolderId).toEqual(2);
+  });
+
+  it('should sort the list in ascending order on the basis of monthlyScore', () => {
+    component.tableRows = [...dummyKnolderList];
+    spyOn(component, 'comparisonBasedOnAllTimeScore').and.returnValue(false);
+    component.onSort({newValue: 'asc', column: {prop: 'monthlyScore'}});
+    expect(component.tableRows[0].knolderId).toEqual(2);
+  });
+
+  it('should sort the list in ascending order on the basis of allTimeScore', () => {
+    component.tableRows = [...dummyKnolderList];
+    spyOn(component, 'comparisonBasedOnAllTimeScore').and.returnValue(true);
+    component.onSort({newValue: 'asc', column: {prop: 'allTimeScore'}});
+    expect(component.tableRows[0].knolderId).toEqual(1);
   });
 });

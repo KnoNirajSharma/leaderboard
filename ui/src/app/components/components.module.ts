@@ -12,6 +12,8 @@ import { BadgeDetailTableComponent } from './badge-detail-table/badge-detail-tab
 import { CustomPipesModule } from '../pipe/custom-pipes.module';
 import { MenuBoxComponent } from './menu-box/menu-box.component';
 import { LegendTooltipComponent } from './legend-tooltip/legend-tooltip.component';
+import {TableComponent} from './table/table.component';
+import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 
 @NgModule({
   imports: [
@@ -20,6 +22,7 @@ import { LegendTooltipComponent } from './legend-tooltip/legend-tooltip.componen
     RouterModule,
     NgxChartsModule,
     CustomPipesModule,
+    NgxDatatableModule
   ],
   declarations: [
     HeadersComponent,
@@ -29,7 +32,8 @@ import { LegendTooltipComponent } from './legend-tooltip/legend-tooltip.componen
     MedalTallyComponent,
     BadgeDetailTableComponent,
     MenuBoxComponent,
-    LegendTooltipComponent
+    LegendTooltipComponent,
+    TableComponent
   ],
   exports: [
     HeadersComponent,
@@ -39,7 +43,8 @@ import { LegendTooltipComponent } from './legend-tooltip/legend-tooltip.componen
     MedalTallyComponent,
     BadgeDetailTableComponent,
     MenuBoxComponent,
-    LegendTooltipComponent
+    LegendTooltipComponent,
+    TableComponent
   ],
 })
 export class ComponentsModule {

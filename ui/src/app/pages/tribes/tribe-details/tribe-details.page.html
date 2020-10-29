@@ -37,5 +37,23 @@
         </div>
       </div>
     </div>
-  </div>
+      <ion-card  *ngIf="tribeDetails" class="leaderboard-table shadow-none mb-5 col-12 w-100 ion-no-padding ion-no-margin">
+        <div class="container-fluid">
+          <div class="row d-flex align-items-center py-2">
+            <div class="col-7 col-md-4 py-1 table-title">
+              Members
+            </div>
+            <div class="search-bar-container col-12 col-md-8 py-1">
+              <label class="p-0 m-0 col-12 col-md-8 float-right">
+                <input  [formControl]="searchBar"
+                       class="form-control w-100" placeholder="Search" type="text">
+                <img alt="search-logo" class="search-img" src="./assets/icon/search.svg"/>
+              </label>
+            </div>
+          </div>
+        </div>
+        <app-table  [tableHeading]="tableHeading"
+                    [tableRows]="tribeDetails.memberReputations | employeeFilter: searchBar.value"></app-table>
+      </ion-card>
+    </div>
 </ion-content>

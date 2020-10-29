@@ -58,14 +58,15 @@
                         </div>
                         <div class="search-bar-container col-12 col-md-6 py-1 col-lg-7">
                             <label class="p-0 m-0 col-12 col-md-8 float-right">
-                                <input (keyup)="filterKnolderList()" [formControl]="searchBar"
+                                <input [formControl]="searchBar"
                                        class="form-control w-100" placeholder="Search" type="text">
                                 <img alt="search-logo" class="search-img" src="./assets/icon/search.svg"/>
                             </label>
                         </div>
                     </div>
                 </div>
-                <app-table (sortCriteria)="sortTable($event)" [tableHeading]="tableHeading" [tableRows]="filteredKnolderList"></app-table>
+                <app-table [tableHeading]="tableHeading"
+                           [tableRows]="knoldersReputationList | employeeFilter: searchBar.value"></app-table>
             </ion-card>
         </div>
 </ion-content>
