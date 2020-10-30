@@ -2,7 +2,6 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AuthorModel } from '../../models/author.model';
 import { EmployeeActivityService } from '../../services/employee-activity.service';
 import { FormControl } from '@angular/forms';
-import { EmployeeFilterPipe } from '../../pipe/employee-filter.pipe';
 import { TableHeaderModel } from '../../models/tableHeader.model';
 import { ReputationModel } from '../../models/reputation.model';
 import { ScoringTableModel } from '../../models/scoring-table.model';
@@ -16,8 +15,6 @@ export class MainPage implements OnInit {
   @ViewChild('knoldusStats', { static: false }) knoldusStatsRef: ElementRef;
   knoldersReputationList: AuthorModel[];
   searchBar = new FormControl('');
-  empFilterPipe = new EmployeeFilterPipe();
-  filteredKnolderList: AuthorModel[];
   reputation: ReputationModel;
   scoringInfoData: ScoringTableModel;
   scoringInfoKeys: string[];
@@ -65,7 +62,6 @@ export class MainPage implements OnInit {
   setAllKnolderData() {
     this.setKnoldusStatsReputationKeys();
     this.setKnoldersList();
-    this.setInitialFilteredKnolderList();
   }
 
   setKnoldusStatsReputationKeys() {
@@ -81,45 +77,6 @@ export class MainPage implements OnInit {
       ...this.reputation.reputation
         .map(knolder => this.reputation.reputation.indexOf(knolder) < 5 ? { ...knolder, topRanker: true } : knolder)
     ];
-  }
-
-  setInitialFilteredKnolderList() {
-    this.filteredKnolderList = [...this.knoldersReputationList];
-  }
-
-  filterKnolderList() {
-    this.filteredKnolderList = this.empFilterPipe.transform(this.knoldersReputationList, this.searchBar.value);
-  }
-
-  comparisonBasedOnAllTimeScore(firstEmp: AuthorModel, secEmp: AuthorModel, propertyName: string) {
-    return firstEmp[propertyName] === secEmp[propertyName]
-      ? firstEmp.allTimeScore < secEmp.allTimeScore
-      : firstEmp[propertyName] > secEmp[propertyName];
-  }
-
-  totalOfQuarterlyScore(quarterlyScore: string) {
-    return quarterlyScore.split('-')
-      .map(Number)
-      .reduce((firstMonth, secondMonth) => firstMonth + secondMonth);
-  }
-
-  compareQuarterlyScore(firstEmpScoreStreak, secEmpScoreStreak, sortType) {
-    return sortType === 'asc'
-      ? this.totalOfQuarterlyScore(firstEmpScoreStreak) < this.totalOfQuarterlyScore(secEmpScoreStreak)
-      : this.totalOfQuarterlyScore(firstEmpScoreStreak) > this.totalOfQuarterlyScore(secEmpScoreStreak);
-  }
-
-  sortTable(event) {
-    if (event.column.prop === 'quarterlyStreak') {
-      this.filteredKnolderList
-        .sort((secEmp, firstEmp) => this.compareQuarterlyScore(firstEmp.quarterlyStreak, secEmp.quarterlyStreak,  event.newValue) ? 1 : -1);
-    } else if (event.newValue === 'asc') {
-      this.filteredKnolderList
-        .sort((secEmp, firstEmp) => this.comparisonBasedOnAllTimeScore(secEmp, firstEmp, event.column.prop) ? 1 : -1);
-    } else {
-      this.filteredKnolderList
-        .sort((secEmp, firstEmp) => secEmp[event.column.prop] < firstEmp[event.column.prop] ? 1 : -1);
-    }
   }
 
   getNumberOfScoresBoosted(): number {

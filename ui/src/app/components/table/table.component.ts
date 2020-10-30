@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { AuthorModel } from '../../models/author.model';
 import { Router } from '@angular/router';
 import { TableHeaderModel } from '../../models/tableHeader.model';
@@ -14,7 +14,6 @@ import * as moment from 'moment';
 export class TableComponent {
     @Input() tableRows: AuthorModel[];
     @Input() tableHeading: TableHeaderModel[];
-    @Output() sortCriteria = new EventEmitter();
     currentDate = moment();
 
     constructor(public router: Router) { }
@@ -33,12 +32,39 @@ export class TableComponent {
             }
           }
         );
-      } else {
-        this.router.navigate(['/']);
       }
     }
 
-    onSort(event) {
-      this.sortCriteria.emit(event);
+    comparisonBasedOnAllTimeScore(firstEmp: AuthorModel, secEmp: AuthorModel, propertyName: string) {
+      return firstEmp[propertyName] === secEmp[propertyName]
+        ? firstEmp.allTimeScore < secEmp.allTimeScore
+        : firstEmp[propertyName] > secEmp[propertyName];
     }
+
+    totalOfQuarterlyScore(quarterlyScore: string) {
+      return quarterlyScore.split('-')
+        .map(Number)
+        .reduce((firstMonth, secondMonth) => firstMonth + secondMonth);
+    }
+
+    compareQuarterlyScore(firstEmpScoreStreak, secEmpScoreStreak, sortType) {
+      return sortType === 'asc'
+        ? this.totalOfQuarterlyScore(firstEmpScoreStreak) < this.totalOfQuarterlyScore(secEmpScoreStreak)
+        : this.totalOfQuarterlyScore(firstEmpScoreStreak) > this.totalOfQuarterlyScore(secEmpScoreStreak);
+    }
+
+    onSort(event) {
+      if (event.column.prop === 'quarterlyStreak') {
+        this.tableRows.sort((secEmp, firstEmp) => {
+          return this.compareQuarterlyScore(firstEmp.quarterlyStreak, secEmp.quarterlyStreak,  event.newValue) ? 1 : -1;
+        });
+      } else if (event.newValue === 'asc') {
+        this.tableRows
+          .sort((secEmp, firstEmp) => this.comparisonBasedOnAllTimeScore(secEmp, firstEmp, event.column.prop) ? 1 : -1);
+      } else {
+        this.tableRows
+          .sort((secEmp, firstEmp) => secEmp[event.column.prop] < firstEmp[event.column.prop] ? 1 : -1);
+      }
+    }
+
 }

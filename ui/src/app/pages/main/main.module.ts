@@ -23,11 +23,10 @@ const routes: Routes = [
     ReactiveFormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    NgxDatatableModule,
     ComponentsModule,
     CustomPipesModule,
   ],
-  declarations: [MainPage, TableComponent],
+  declarations: [MainPage],
 })
 export class MainPageModule {
 }

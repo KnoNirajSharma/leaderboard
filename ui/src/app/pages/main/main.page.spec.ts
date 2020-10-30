@@ -1,10 +1,10 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { MainPage } from './main.page';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { EmployeeActivityService } from '../../services/employee-activity.service';
-import {of, throwError} from 'rxjs';
+import {of } from 'rxjs';
 import { TableComponent } from '../../components/table/table.component';
 import { EmployeeFilterPipe } from '../../pipe/employee-filter.pipe';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -64,7 +64,7 @@ describe('MainPage', () => {
   };
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [MainPage, TableComponent],
+      declarations: [MainPage],
       imports: [
         HttpClientTestingModule,
         IonicModule.forRoot(),
@@ -113,11 +113,9 @@ describe('MainPage', () => {
   it('should call setKnolderList, setKnoldusReputationKeys and setInitialFilteredList', () => {
     spyOn(component, 'setKnoldersList');
     spyOn(component, 'setKnoldusStatsReputationKeys');
-    spyOn(component, 'setInitialFilteredKnolderList');
     component.setAllKnolderData();
     expect(component.setKnoldersList).toHaveBeenCalled();
     expect(component.setKnoldusStatsReputationKeys).toHaveBeenCalled();
-    expect(component.setInitialFilteredKnolderList).toHaveBeenCalled();
   });
 
   it('should construct array of reputation keys excepts reputation', () => {
@@ -152,89 +150,6 @@ describe('MainPage', () => {
     };
     component.setKnoldersList();
     expect(component.knoldersReputationList[5].topRanker).toBeUndefined();
-  });
-
-  it('should set set initial filtered knolder data as knolderList', () => {
-    component.knoldersReputationList = [...dummyReputationData.reputation];
-    component.setInitialFilteredKnolderList();
-    expect(component.filteredKnolderList[0]).toEqual(dummyReputationData.reputation[0]);
-  });
-
-  it('should filter Employee', () => {
-    component.empFilterPipe = new EmployeeFilterPipe();
-    component.knoldersReputationList = dummyReputationData.reputation;
-    component.searchBar.setValue('mark');
-    component.filterKnolderList();
-    expect(component.filteredKnolderList).toEqual([dummyReputationData.reputation[0]]);
-  });
-
-  it('should compare on the allTimeRank property if values are not equal', () => {
-    const firstEmp = dummyReputationData.reputation[1];
-    const secEmp = dummyReputationData.reputation[0];
-    expect(component.comparisonBasedOnAllTimeScore(firstEmp, secEmp, 'allTimeRank')).toEqual(false);
-  });
-
-  it('should compare on allTimeScore if values are equal', () => {
-    const firstEmp = dummyReputationData.reputation[1];
-    const secEmp = dummyReputationData.reputation[0];
-    expect(component.comparisonBasedOnAllTimeScore(firstEmp, secEmp, 'monthlyScore')).toEqual(false);
-  });
-
-  it('should return the total sum of all month in 3 month streak', () => {
-    const streakScore = '1-1-1';
-    expect(component.totalOfQuarterlyScore(streakScore)).toEqual(3);
-  });
-
-  it('should return true or false depending on if the quarterly total score are in ascending order', () => {
-    const firstEmpStreak = dummyReputationData.reputation[0].quarterlyStreak;
-    const secEmpStreak = dummyReputationData.reputation[1].quarterlyStreak;
-    expect(component.compareQuarterlyScore(firstEmpStreak, secEmpStreak, 'asc')).toEqual(true);
-  });
-
-  it('should return true or false depending on if the quarterly total score are in descending order', () => {
-    const firstEmpStreak = dummyReputationData.reputation[0].quarterlyStreak;
-    const secEmpStreak = dummyReputationData.reputation[1].quarterlyStreak;
-    expect(component.compareQuarterlyScore(firstEmpStreak, secEmpStreak, 'desc')).toEqual(false);
-  });
-
-  it('should sort list in asc on the basis of quarterly score', () => {
-    component.filteredKnolderList = [...dummyReputationData.reputation];
-    spyOn(component, 'compareQuarterlyScore').and.returnValue(true);
-    component.sortTable({newValue: 'asc', column: {prop: 'quarterlyStreak'}});
-    expect(component.filteredKnolderList[0].knolderId).toEqual(1);
-  });
-
-  it('should sort list in desc on the basis of quarterly score', () => {
-    component.filteredKnolderList = [...dummyReputationData.reputation];
-    spyOn(component, 'compareQuarterlyScore').and.returnValue(false);
-    component.sortTable({newValue: 'asc', column: {prop: 'quarterlyStreak'}});
-    expect(component.filteredKnolderList[0].knolderId).toEqual(2);
-  });
-
-  it('should sort the list in descending order on the basis of allTimeRank', () => {
-    component.filteredKnolderList = [...dummyReputationData.reputation];
-    component.sortTable({newValue: 'desc', column: {prop: 'allTimeRank'}});
-    expect(component.filteredKnolderList[0].knolderId).toEqual(1);
-  });
-
-  it('should sort the list in descending order on the basis of allTimeScore', () => {
-    component.filteredKnolderList = [...dummyReputationData.reputation];
-    component.sortTable({newValue: 'desc', column: {prop: 'allTimeScore'}});
-    expect(component.filteredKnolderList[0].knolderId).toEqual(2);
-  });
-
-  it('should sort the list in ascending order on the basis of monthlyScore', () => {
-    component.filteredKnolderList = [...dummyReputationData.reputation];
-    spyOn(component, 'comparisonBasedOnAllTimeScore').and.returnValue(false);
-    component.sortTable({newValue: 'asc', column: {prop: 'monthlyScore'}});
-    expect(component.filteredKnolderList[0].knolderId).toEqual(2);
-  });
-
-  it('should sort the list in ascending order on the basis of allTimeScore', () => {
-    component.filteredKnolderList = [...dummyReputationData.reputation];
-    spyOn(component, 'comparisonBasedOnAllTimeScore').and.returnValue(true);
-    component.sortTable({newValue: 'asc', column: {prop: 'allTimeScore'}});
-    expect(component.filteredKnolderList[0].knolderId).toEqual(1);
   });
 
   it('should get the number of scores boosted', ()  => {

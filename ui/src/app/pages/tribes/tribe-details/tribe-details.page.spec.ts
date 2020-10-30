@@ -15,6 +15,8 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
 import {EmployeeActivityService} from '../../../services/employee-activity.service';
 import {Inject} from '@angular/core';
 import {TribeDetailsModel} from '../../../models/tribe-details.model';
+import {CustomPipesModule} from '../../../pipe/custom-pipes.module';
+import {ReactiveFormsModule} from '@angular/forms';
 
 describe('TribeDetailsPage', () => {
   let component: TribeDetailsPage;
@@ -89,7 +91,9 @@ describe('TribeDetailsPage', () => {
         ComponentsModule,
         AngularFireModule.initializeApp(environment.firebaseConfig, 'angular-auth-firebase'),
         AngularFirestoreModule,
-        AngularFireAuthModule
+        AngularFireAuthModule,
+        CustomPipesModule,
+        ReactiveFormsModule
       ],
       providers: [
         {

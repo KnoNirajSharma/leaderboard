@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { TribesPage } from './tribes.page';
 import { RouterModule, Routes } from '@angular/router';
@@ -8,6 +8,7 @@ import { ComponentsModule } from '../../components/components.module';
 import { TribeCardComponent } from './components/tribe-card/tribe-card.component';
 import { TribeDetailsPage } from './tribe-details/tribe-details.page';
 import { LabeledNumberCircleComponent } from './components/labeled-number-circle/labeled-number-circle.component';
+import {CustomPipesModule} from '../../pipe/custom-pipes.module';
 
 const routes: Routes = [
   {
@@ -23,10 +24,11 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
+    ReactiveFormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    ComponentsModule
+    ComponentsModule,
+    CustomPipesModule,
   ],
   declarations: [TribesPage, TribeCardComponent, TribeDetailsPage, LabeledNumberCircleComponent]
 })
