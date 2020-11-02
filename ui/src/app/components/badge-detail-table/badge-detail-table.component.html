@@ -10,6 +10,10 @@
              class="medal-image" src="./assets/icon/silver-medal.svg" alt="medal">
         <img *ngIf="badgeDetails.position > 2"
              class="medal-image" src="./assets/icon/bronze-medal.svg" alt="medal">
+        <div class="ml-auto text-center text-primary badge-score-month">
+            {{badgeDetails.month | slice:0:3}},<br>
+            {{badgeDetails.year}}
+        </div>
         <div class="ml-auto d-flex flex-column">
             <span class="text-secondary badge-score-category pt-0">Monthly</span>
             <span class="badge-score-details">
@@ -22,10 +26,6 @@
             <span class="badge-score-details">
                 Rank: {{badgeDetails.allTimeRank}}
             </span>
-        </div>
-        <div class="ml-auto text-center text-primary badge-score-month">
-            {{badgeDetails.month | slice:0:3}},<br>
-            {{badgeDetails.year}}
         </div>
     </div>
 </div>
