@@ -61,30 +61,41 @@
                     </ngx-datatable-column>
                 </ngx-datatable>
             </div>
-            <ion-list class="mt-0 d-block d-sm-none bg-white">
-                <ion-card *ngFor="let row of tableRows">
-                    <ion-card-header class="bg-white">
-                        <ion-card-title class="font-weight-light text-dark">
-                            <img *ngIf="row.topRanker"
-                                 alt="trophy-image" class="image-mobile"
-                                 src="./assets/icon/icons-trophy.png"/>
-                            {{row.knolderName}}
-                        </ion-card-title>
-                    </ion-card-header>
-                    <div (click)="onActivate({type: 'click', row: {knolderId: row.knolderId}})" class="grid-container">
-                        <div class="item1">
-                            <ion-row *ngFor="let head of tableHeading">{{head.title}}</ion-row>
-                        </div>
-                        <div class="item2">
-                            <ion-row>{{row.monthlyRank}}</ion-row>
-                            <ion-row>{{row.monthlyScore}}</ion-row>
-                            <ion-row>{{row.allTimeRank}}</ion-row>
-                            <ion-row>{{row.allTimeScore}}</ion-row>
-                            <ion-row>{{row.quarterlyStreak}}</ion-row>
-                        </div>
-                    </div>
-                </ion-card>
-            </ion-list>
+
+            <div *ngFor="let row of tableRows"
+                 (click)="onActivate({type: 'click', row: row})"
+                 class="mobile-table-row d-block d-sm-none shadow-sm card d-flex flex-wrap flex-row p-2 mb-3 w-100">
+                <div class="col-12 text-dark font-weight-bolder pb-1 px-0 mb-1 row-title">
+                    <img *ngIf="row.topRanker"
+                         alt="trophy-image" class="image-mobile"
+                         src="./assets/icon/icons-trophy.png"/>
+                    {{row.knolderName}}
+                </div>
+                <div class="mr-auto d-flex flex-column">
+                    <span class="text-dark heading">Monthly</span>
+                    <span class="score-details text-secondary">
+                        Rank: {{row.monthlyRank}}
+                    </span>
+                    <span class="score-details text-secondary">
+                        Score: {{row.monthlyScore}}
+                    </span>
+                </div>
+                <div class="mx-auto d-flex flex-column">
+                    <span class="text-dark heading">Overall</span>
+                    <span class="score-details text-secondary">
+                        Rank: {{row.allTimeRank}}
+                    </span>
+                    <span class="score-details text-secondary">
+                        Score: {{row.allTimeScore}}
+                    </span>
+                </div>
+                <div class="ml-auto d-flex flex-column">
+                    <span class="text-dark heading">3 month streak</span>
+                    <span class="score-details text-secondary">
+                        {{row.quarterlyStreak}}
+                    </span>
+                </div>
+            </div>
         </div>
     </div>
 </div>
