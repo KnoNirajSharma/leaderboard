@@ -68,7 +68,7 @@ class FetchKnolderContributionDetailsImpl(config: Config) extends FetchKnolderCo
     val webinarScore = SQL(
       """
         |select webinar_score from monthlycontribution where knolder_id= ? and month = ? and year=?
-        |""".stripMargin).bind(knolderId, Month.of(month).toString, year).map(rs => rs.int("webinar_score")).single().apply()
+        |""".stripMargin).bind(knolderId, Month.of(month).toString, year).map(rs => rs.int("webinar_score")).first().apply()
 
     val webinarCount = webinarTitles.length
 
@@ -104,7 +104,7 @@ class FetchKnolderContributionDetailsImpl(config: Config) extends FetchKnolderCo
     val blogScore = SQL(
       """
         |select blog_score from monthlycontribution where knolder_id= ? and month = ? and year=?
-        |""".stripMargin).bind(knolderId, Month.of(month).toString, year).map(rs => rs.int("blog_score")).single().apply()
+        |""".stripMargin).bind(knolderId, Month.of(month).toString, year).map(rs => rs.int("blog_score")).first().apply()
 
     val blogCount = blogTitles.length
 
@@ -140,7 +140,7 @@ class FetchKnolderContributionDetailsImpl(config: Config) extends FetchKnolderCo
     val knolxScore = SQL(
       """
         |select knolx_score from monthlycontribution where knolder_id= ? and month = ? and year=?
-        |""".stripMargin).bind(knolderId, Month.of(month).toString, year).map(rs => rs.int("knolx_score")).single().apply()
+        |""".stripMargin).bind(knolderId, Month.of(month).toString, year).map(rs => rs.int("knolx_score")).first.apply()
 
     val knolxCount = knolxTitles.length
 
@@ -177,7 +177,7 @@ class FetchKnolderContributionDetailsImpl(config: Config) extends FetchKnolderCo
     val techHubScore = SQL(
       """
         |select techhub_score from monthlycontribution where knolder_id= ? and month = ? and year=?
-        |""".stripMargin).bind(knolderId, Month.of(month).toString, year).map(rs => rs.int("techhub_score")).single().apply()
+        |""".stripMargin).bind(knolderId, Month.of(month).toString, year).map(rs => rs.int("techhub_score")).first().apply()
 
     val techHubCount = techHubTitles.length
 
@@ -208,12 +208,12 @@ class FetchKnolderContributionDetailsImpl(config: Config) extends FetchKnolderCo
     AND knolder.id = ? ORDER BY contributed_on desc """)
       .bind(month, year, knolderId)
       .map(rs => ContributionDetails(rs.string("title"), rs.string("contributed_on")))
-      .list().apply()
+      .first().apply()
 
     val osContributionScore = SQL(
       """
         |select oscontribution_score from monthlycontribution where knolder_id= ? and month = ? and year=?
-        |""".stripMargin).bind(knolderId, Month.of(month).toString, year).map(rs => rs.int("oscontribution_score")).single().apply()
+        |""".stripMargin).bind(knolderId, Month.of(month).toString, year).map(rs => rs.int("oscontribution_score")).first().apply()
 
     val osContributionCount = osContributionTitles.length
 
@@ -249,7 +249,7 @@ class FetchKnolderContributionDetailsImpl(config: Config) extends FetchKnolderCo
     val conferenceScore = SQL(
       """
         |select conference_score from monthlycontribution where knolder_id= ? and month = ? and year=?
-        |""".stripMargin).bind(knolderId, Month.of(month).toString, year).map(rs => rs.int("conference_score")).single().apply()
+        |""".stripMargin).bind(knolderId, Month.of(month).toString, year).map(rs => rs.int("conference_score")).first.apply()
 
     val conferenceCount = conferenceTitles.length
 
@@ -285,7 +285,7 @@ class FetchKnolderContributionDetailsImpl(config: Config) extends FetchKnolderCo
     val bookScore = SQL(
       """
         |select book_score from monthlycontribution where knolder_id= ? and month = ? and year=?
-        |""".stripMargin).bind(knolderId, Month.of(month).toString, year).map(rs => rs.int("book_score")).single().apply()
+        |""".stripMargin).bind(knolderId, Month.of(month).toString, year).map(rs => rs.int("book_score")).first.apply()
 
     val bookCount = bookTitles.length
 
@@ -321,7 +321,7 @@ class FetchKnolderContributionDetailsImpl(config: Config) extends FetchKnolderCo
     val researchPaperScore = SQL(
       """
         |select researchpaper_score from monthlycontribution where knolder_id= ? and month = ? and year=?
-        |""".stripMargin).bind(knolderId, Month.of(month).toString, year).map(rs => rs.int("researchpaper_score")).single().apply()
+        |""".stripMargin).bind(knolderId, Month.of(month).toString, year).map(rs => rs.int("researchpaper_score")).first().apply()
 
     val researchPaperCount = researchPaperTitles.length
 
