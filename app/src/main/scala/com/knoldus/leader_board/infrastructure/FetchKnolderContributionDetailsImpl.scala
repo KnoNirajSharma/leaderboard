@@ -208,7 +208,7 @@ class FetchKnolderContributionDetailsImpl(config: Config) extends FetchKnolderCo
     AND knolder.id = ? ORDER BY contributed_on desc """)
       .bind(month, year, knolderId)
       .map(rs => ContributionDetails(rs.string("title"), rs.string("contributed_on")))
-      .first().apply()
+      .list().apply()
 
     val osContributionScore = SQL(
       """
