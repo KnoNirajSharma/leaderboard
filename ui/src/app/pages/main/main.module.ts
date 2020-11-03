@@ -5,9 +5,9 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule, Routes } from '@angular/router';
 import { MainPage } from './main.page';
 import { TableComponent } from '../../components/table/table.component';
-import { EmployeeFilterPipe } from '../../pipe/employee-filter.pipe';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ComponentsModule } from '../../components/components.module';
+import { CustomPipesModule } from '../../pipe/custom-pipes.module';
 
 const routes: Routes = [
   {
@@ -23,10 +23,10 @@ const routes: Routes = [
     ReactiveFormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    NgxDatatableModule,
     ComponentsModule,
+    CustomPipesModule,
   ],
-  declarations: [MainPage, TableComponent, EmployeeFilterPipe]
+  declarations: [MainPage],
 })
 export class MainPageModule {
 }

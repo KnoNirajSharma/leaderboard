@@ -5,9 +5,12 @@ import { KnolderDetailsModel } from '../../models/knolder-details.model';
 import { FormControl } from '@angular/forms';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { ScoreBreakDownModel } from '../../models/ScoreBreakDown.model';
-import { LoadingControllerService } from '../../services/loading-controller.service ';
 import { TrendsModel } from '../../models/trends.model';
-import { environment } from '../../../environments/environment';
+import { CommonService } from '../../services/common.service';
+import { HallOfFameModel } from '../../models/hallOfFame.model';
+import { LeaderModel } from '../../models/leader.model';
+import { MedalTallyModel } from '../../models/medalTally.model';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-details',
@@ -19,78 +22,124 @@ export class DetailsPage implements OnInit {
   knolderDetails: KnolderDetailsModel;
   allTimeDetails: KnolderDetailsModel;
   knolderId: number;
-  currentDate: Date;
+  monthFromRoute: string;
+  yearFromRoute: number;
+  currentDate = moment().toDate();
+  dateFromRoute: moment.Moment;
   datePicker = new FormControl();
-  dpConfig: Partial<BsDatepickerConfig> = new BsDatepickerConfig();
-  monthList = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
-  ];
+  datepickerConfig: Partial<BsDatepickerConfig> = new BsDatepickerConfig();
   pieChartData: ScoreBreakDownModel[] = [];
-  allTimeSelected: boolean;
   trendsData: TrendsModel[];
-  contributionsTypeColorList = environment.ngxChartOptions.chartColorScheme.domain;
+  contributionsTypeColorList: string[];
+  hallOfFameLeaders: HallOfFameModel[];
+  medalTally: MedalTallyModel;
+  knolderAchievements: LeaderModel[] = [];
+  allTimeSelected = false;
 
   constructor(
     private route: ActivatedRoute,
-    private service: EmployeeActivityService,
-    private loadingControllerService: LoadingControllerService
-  ) {
-  }
+    private employeeActivityService: EmployeeActivityService,
+    private commonService: CommonService
+  ) { }
 
   ngOnInit() {
-    this.route.params
+    this.contributionsTypeColorList = this.commonService.colorScheme.domain;
+    this.route.queryParams
       .subscribe((params: Params) => {
-        this.knolderId = params.id;
-      });
-    this.loadingControllerService.present({
-      message: 'Loading the score details...',
-      translucent: 'false',
-      spinner: 'bubbles'
-    });
-    this.currentDate = new Date();
-    this.datePicker = new FormControl(this.currentDate);
-    this.dpConfig.containerClass = 'theme-dark-blue';
-    this.dpConfig.dateInputFormat = 'MMM-YYYY';
-    this.dpConfig.minMode = 'month';
-    this.allTimeSelected = false;
-    this.getMonthlyDetails(this.monthList[this.currentDate.getMonth()], this.currentDate.getFullYear());
-    this.service.getTrendsData(this.knolderId)
-      .subscribe((data: TrendsModel[]) => {
-        this.trendsData = data;
-      });
-    this.service.getAllTimeDetails(this.knolderId)
-      .subscribe((data: KnolderDetailsModel) => {
-        this.allTimeDetails = data;
-        this.pieChartData = this.allTimeDetails.scoreBreakDown;
-        this.loadingControllerService.dismiss();
+        this.knolderId = Number(params.id);
+        this.yearFromRoute = Number(params.year);
+        this.monthFromRoute = params.month.toLowerCase();
+        this.calenderInitialisation();
+        this.getTrendsData();
+        this.getHallOfFameData();
+        this.getAllTimeDetails();
       });
   }
 
-  onDateChange(selectedDate: Date) {
-    this.allTimeSelected = false;
-    this.getMonthlyDetails(this.monthList[selectedDate.getMonth()], selectedDate.getFullYear());
+  calenderInitialisation() {
+    this.dateFromRoute = moment();
+    this.dateFromRoute.month(this.monthFromRoute);
+    this.dateFromRoute.set({ year: this.yearFromRoute });
+    this.datePicker = new FormControl(this.dateFromRoute.toDate());
+    this.datepickerConfig = {
+      containerClass: 'theme-dark-blue',
+      dateInputFormat: 'MMM-YYYY',
+      minMode: 'month'
+    };
   }
 
   getMonthlyDetails(month: string, year: number) {
-    this.service.getMonthlyDetails(this.knolderId, month, year)
+    this.employeeActivityService.getMonthlyDetails(this.knolderId, month, year)
       .subscribe((data: KnolderDetailsModel) => {
         this.knolderDetails = data;
       });
   }
 
+  getTrendsData() {
+    this.employeeActivityService.getTrendsData(this.knolderId)
+      .subscribe((data: TrendsModel[]) => {
+        this.trendsData = data;
+      });
+  }
+
   getAllTimeDetails() {
-    this.knolderDetails = this.allTimeDetails;
+    this.employeeActivityService.getAllTimeDetails(this.knolderId)
+      .subscribe((data: KnolderDetailsModel) => {
+        this.allTimeDetails = data;
+        this.pieChartData = this.allTimeDetails.scoreBreakDown;
+      });
+  }
+
+  onDateChange(selectedDate: Date) {
+    this.allTimeSelected = false;
+    const date = moment().set({ year: selectedDate.getFullYear(), month: selectedDate.getMonth() });
+    this.getMonthlyDetails(date.format('MMMM').toLowerCase(), date.year());
+  }
+
+  setAllTimeDetailsOnClick() {
+    this.knolderDetails = { ...this.allTimeDetails };
     this.allTimeSelected = true;
+  }
+
+  getHallOfFameData() {
+    this.employeeActivityService.getHallOfFameData()
+      .subscribe((data: HallOfFameModel[]) => {
+        this.hallOfFameLeaders = data;
+        this.setKnolderAchievements();
+        this.setMedalTally();
+      });
+  }
+
+  setKnolderAchievements() {
+    this.knolderAchievements = this.hallOfFameLeaders.map((monthData) => {
+      return monthData.leaders
+        .map((leader, index) => {
+          return {
+            ...leader,
+            position: index
+          };
+        })
+        .filter(leader => leader.knolderId === this.knolderId);
+    })
+      .reduce((knolderAchievementList, leaderDetails) => {
+        return knolderAchievementList.concat(leaderDetails);
+      }, []);
+  }
+
+  setMedalTally() {
+    this.medalTally = {
+      gold: {
+        count: this.knolderAchievements.filter(details => details.position === 0).length,
+        imgUrl: './assets/icon/gold-medal.svg'
+      },
+      silver: {
+        count: this.knolderAchievements.filter(details => details.position === 1 || details.position === 2).length,
+        imgUrl: './assets/icon/silver-medal.svg'
+      },
+      bronze: {
+        count: this.knolderAchievements.filter(details => details.position === 3 || details.position === 4).length,
+        imgUrl: './assets/icon/bronze-medal.svg'
+      }
+    };
   }
 }

@@ -1,22 +1,25 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { ScoreBreakDownModel } from '../../models/ScoreBreakDown.model';
-import { environment } from '../../../environments/environment';
+import { CommonService } from '../../services/common.service';
+import { NgxPieChartResultModel } from '../../models/ngxPieChartResultModel';
 
 @Component({
   selector: 'app-pie-chart',
   templateUrl: './pie-chart.component.html',
   styleUrls: ['./pie-chart.component.scss'],
 })
-export class PieChartComponent implements OnInit {
+export class PieChartComponent implements OnChanges {
   @Input() inputResult: ScoreBreakDownModel[];
-  colorScheme = environment.ngxChartOptions.chartColorScheme;
+  colorScheme: { domain: string[]; };
+  result: NgxPieChartResultModel[];
 
-  result: { name: string; value: number; }[] = [];
-
-  constructor() {
+  constructor(private commonService: CommonService) {
   }
 
-  ngOnInit() {
+  ngOnChanges() {
+    this.colorScheme = this.commonService.colorScheme;
+    this.result = [];
+    this.colorScheme = this.commonService.colorScheme;
     this.inputResult.map(obj => this.result.push({ name: obj.contributionType, value: obj.contributionScore }));
   }
 }

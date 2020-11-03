@@ -2,7 +2,7 @@ package com.knoldus.leader_board.infrastructure
 
 import java.sql.Connection
 
-import com.knoldus.leader_board.{DatabaseConnection, OSContributionTemplate}
+import com.knoldus.leader_board.{DatabaseConnection, OtherContributionDetails}
 import com.typesafe.config.Config
 import com.typesafe.scalalogging.LazyLogging
 import scalikejdbc.{DB, DBSession, SQL}
@@ -15,11 +15,12 @@ class StoreOSContributionDetailsImpl(config: Config) extends StoreOSContribution
   /**
    * Stores list of oscontribution in oscontribution table.
    *
-   * @param listOfOSContribution List of os contribution.
+   * @param listOfContribution List of other contribution.
    * @return List of Integer which displays the status of query execution.
    */
-  override def insertOSContribution(listOfOSContribution: List[OSContributionTemplate]): List[Int] = {
+  override def insertOSContribution(listOfContribution: List[OtherContributionDetails]): List[Int] = {
     logger.info("Querying oscontribution table to insert oscontribution details.")
+    val listOfOSContribution = listOfContribution.filter(contribution => contribution.typeOfContributon == "Open Source")
     listOfOSContribution.map { oSContributionData =>
       SQL(
         """INSERT INTO
@@ -48,8 +49,8 @@ class StoreOSContributionDetailsImpl(config: Config) extends StoreOSContribution
           WHERE
           id = ?
         )""").stripMargin
-        .bind(oSContributionData.OSContributionId, oSContributionData.emailId, oSContributionData.contributedOn, oSContributionData.title,
-          oSContributionData.emailId, oSContributionData.OSContributionId)
+        .bind(oSContributionData.contributionId, oSContributionData.emailId, oSContributionData.contributedOn, oSContributionData.title,
+          oSContributionData.emailId, oSContributionData.contributionId)
         .update().apply()
     }
   }

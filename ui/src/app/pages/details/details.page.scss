@@ -1,58 +1,64 @@
-ion-content{
+ion-content {
   --background: #f5f5fa;
 }
 
-.container-fluid {
-  .page-wrapper {
-    margin-left: auto;
-    margin-right: auto;
-    font-family: 'Poppins', sans-serif;
+.page-wrapper {
+  font-family: 'Poppins', sans-serif;
+  color: #2a2a2a;
 
-    .name-title {
-      font-size: 2.3em;
-      border-bottom: 5px solid #2B35A8;
-      color: #071348;
+  .name-title {
+    font-size: 2em;
+    border-bottom: 3px solid #2B35A8;
+    color: #071348;
+  }
+
+  .tab-bar {
+
+    form {
+      width: 100px;
+
+      input {
+        font-size: .9em;
+      }
     }
 
-    .tab-bar {
+    .monthSelected {
+      border-bottom: 2px solid blue;
+    }
+
+    button {
+      height: 39px;
+      width: 100px;
       border: 0 !important;
-
-      form {
-        width: 100px;
-      }
-
-      .monthSelected {
-        border-bottom: 2px solid blue;
-      }
-
-      button {
-        height: 39px;
-        width: 100px;
-        border: 0 !important;
-        box-shadow: 0 0 5px -1px rgba(0, 0, 0, 0.75);
-      }
-
-      button:hover {
-        box-shadow: 0 0 24px -5px rgba(33, 97, 207, 1);
-      }
+      box-shadow: 0 0 5px -1px rgba(0, 0, 0, 0.75);
     }
 
-    .total-score {
-      font-weight: bold;
-      font-size: 1.19em;
+    button:hover {
+      box-shadow: 0 0 24px -5px rgba(33, 97, 207, 1);
     }
+  }
 
-    .score-table {
-      font-size: 1.1em;
-    }
+  .badge-details {
 
-    .contribution-type {
-      font-size: 0.9em;
-    }
+    .badge-details-table {
+      height: 200px;
+      overflow-y: auto;
 
-    .detail-row:hover {
-      div {
-        border-left: 2px solid blue;
+      &::-webkit-scrollbar {
+        width: 5px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #e0dede;
+        border-radius: 15px;
+
+        &:hover {
+          background: #999;
+        }
       }
     }
   }
@@ -60,38 +66,4 @@ ion-content{
 
 .shadow-box {
   box-shadow: 0 0 13px 0 rgba(0, 0, 0, 0.1);
-}
-
-.block {
-  background-color: white;
-  padding-bottom: 1em;
-  margin-top: 2em;
-  margin-bottom: 2em;
-  border: 0 !important;
-
-  .block-title {
-    border-bottom: 1.5px solid #2B35A8;
-    padding: 2px 2px;
-    position: relative;
-
-    h2 {
-      color: #071348;
-      font-weight: 500;
-    }
-  }
-}
-
-.card-head {
-  border-radius: .25rem;
-  z-index: 9;
-}
-
-@media only screen and (max-width: 720px) {
-  .container-fluid {
-    .page-wrapper {
-      .score-table {
-        height: 50px;
-      }
-    }
-  }
 }

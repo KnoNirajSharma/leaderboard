@@ -16,4 +16,7 @@ trait ReputationOnAPI {
 
   def twelveMonthsRoute: Route
 
+  def hallOfFameRoute: Route
+
+  def spikeMonthAndScoreMultiplierRoute: Route
 }

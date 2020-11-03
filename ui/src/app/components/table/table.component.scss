@@ -11,7 +11,7 @@
     .datatable-body-cell {
       display: flex;
       color: #6D6D6D;
-      font-size: 1em;
+      font-size: 1.1em;
     }
 
     .ngx-datatable {
@@ -116,49 +116,8 @@
   }
 }
 
-ion-card-header {
-  border-bottom: 1px solid blue;
-
-  ion-card-title {
-    font-size: 1.1em
-  }
-}
-
-.grid-container {
-  display: grid;
-  grid-template-columns: auto auto auto auto;
-  grid-gap: 0;
-  background-color: white;
-  padding: 0.5rem;
-  font-family: 'Poppins', sans-serif;
-}
-
-.grid-container > div {
-  background-color: rgba(255, 255, 255, 0.8);
-  text-align: center;
-  padding: 0.5rem 0;
-  font-size: 0.8rem;
-}
-
-.item1 {
-  grid-row: 1 / 2;
-  color: #071348;
-}
-
-.item2 {
-  color: #6D6D6D;
-}
-
-ion-row {
-  padding: 5px 2px 15px 0;
-}
-
 .image-table {
   width: 15px;
-}
-
-.image-mobile {
-  width: 12px;
 }
 
 .table-header-style {
@@ -176,6 +135,27 @@ ion-row {
   text-align: right;
 }
 
+.mobile-table-row {
+  .row-title {
+
+    .image-mobile {
+      width: 12px;
+      margin-bottom: 3px;
+    }
+  
+    border-bottom: 1px solid blue;
+    font-size: 0.9rem;
+  }
+
+  .heading {
+    font-size: 0.7rem;
+  }
+
+  .score-details {
+    font-size: 0.9rem;
+  }
+}
+
 @media only screen and (max-width: 720px) {
   .table-block {
 
@@ -187,10 +167,6 @@ ion-row {
 
       ngx-datatable-row-detail {
         padding: 0.625rem;
-        font-size: 0.625rem;
-      }
-
-      .grid-container {
         font-size: 0.625rem;
       }
     }

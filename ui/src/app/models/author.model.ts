@@ -6,4 +6,5 @@ export interface AuthorModel {
   quarterlyStreak: string;
   monthlyScore: number;
   monthlyRank: number;
+  topRanker?: boolean;
 }

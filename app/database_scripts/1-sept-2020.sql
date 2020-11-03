@@ -1,0 +1,6 @@
+-- !Ups
+CREATE TABLE book(id VARCHAR(255) PRIMARY KEY, email_id VARCHAR(100) NOT NULL, published_on TIMESTAMP NOT NULL, title VARCHAR(255) NOT NULL);
+CREATE TABLE referencepaper(id VARCHAR(255) PRIMARY KEY, email_id VARCHAR(100) NOT NULL, published_on TIMESTAMP NOT NULL, title VARCHAR(255) NOT NULL);
+-- !Downs
+DROP TABLE book;
+DROP TABLE referencepaper;

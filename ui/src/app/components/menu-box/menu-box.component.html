@@ -1,0 +1,6 @@
+<div class="menu-box-container position-absolute bg-white text-dark mt-3 p-2">
+  <div [routerLink]="item.link" class="menu-box-item d-flex flex-column justify-content-center" *ngFor="let item of menuItemList">
+    <img class="h-50 mb-1" [src]="item.imageUrl" alt="menu item icon">
+    <div class="text-center title">{{item.title}}</div>
+  </div>
+</div>

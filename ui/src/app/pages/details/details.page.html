@@ -1,103 +1,72 @@
 <app-headers [backBtnLink]="mainPageLink" [backBtn]="true"></app-headers>
 <ion-content>
-    <div class="container-fluid">
-        <div class="page-wrapper mt-5 col-12 col-xl-10 ion-no-padding">
-            <h1 *ngIf="knolderDetails"
-                class="name-title col-12 col-md-6 mt-lg-0 pb-2">{{knolderDetails.knolderName}}</h1>
-            <div class="row">
-                <div class="col-12 col-md-6">
-                    <div class="card tab-bar mt-4 pr-2">
-                        <div class="row justify-content-end justify-content-sm-center p-1">
-                            <form [ngClass]="{'monthSelected' : !allTimeSelected}" class="mr-2  mt-1">
-                                <label>
-                                    <input (bsValueChange)="onDateChange($event)"
-                                           [bsConfig]="dpConfig"
-                                           [formControl]="datePicker"
-                                           [maxDate]="currentDate"
-                                           autocomplete="off"
-                                           bsDatepicker
-                                           class="form-control"
-                                           name="date"
-                                           readonly>
-                                </label>
-                            </form>
-                            <div>
-                                <button (click)="getAllTimeDetails()"
-                                        [ngClass]="{'btn-primary': allTimeSelected}"
-                                        class="all-time-btn btn btn-primary px-1 mr-2 mt-1"> All
-                                    time
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div *ngIf="knolderDetails" class="score-drilldown-wrapper block px-2">
-                        <div class="block-title col-12">
-                            <h2>Score drill-down</h2>
-                        </div>
-                        <div class="block-content container">
-                            <div class="row total-score mt-2">
-                                <div class="col-6 col-sm-4 col-xl-5">Score</div>
-                                <div class="col-3 col-xl-2"><span
-                                        class="badge badge-pill badge-warning">{{knolderDetails.score}}</span>
-                                </div>
-                            </div>
-                            <div class="row mt-4">
-                                <div class="col-6 col-sm-4 col-xl-5"></div>
-                                <div class="col-3 col-md-4 col-xl-3">
-                                    <span class="text-secondary font-italic">Total No.</span></div>
-                                <div class="col-3 col-md-3 col-xl-3">
-                                    <span class="text-secondary font-italic">Total Score</span></div>
-                            </div>
-                            <div *ngFor="let knolderData of knolderDetails.scoreBreakDown; let i = index"
-                                 class="row score-table bg-light" [ngClass]="{ 'bg-light': (i%2 !== 0)}">
-                                <div class="col-6 col-sm-4 col-xl-5 contribution-type d-flex align-items-center">{{knolderData.contributionType}}
-                                </div>
-                                <span class="col-3 col-md-4 col-xl-3 d-flex align-items-center">{{knolderData.contributionCount}}</span>
-                                <span class="col-3 col-md-3 col-xl-2 d-flex align-items-center">{{knolderData.contributionScore}}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div *ngIf="knolderDetails" class="block px-2">
-                        <div class="block-title col-12">
-                            <h2>Details</h2>
-                        </div>
-                        <div *ngFor="let knolderData of knolderDetails.scoreBreakDown; let i = index">
-                            <h3 class="detail-type"><span
-                                    class="contribution-type badge text-light" [ngStyle]="{'background-color': contributionsTypeColorList[i]}">{{knolderData.contributionType}}</span>
-                            </h3>
-                            <div *ngIf="knolderData.contributionDetails.length !== 0" class="row ml-xl-1">
-                                <div class="col-8 col-md-8"><h4>Title</h4></div>
-                                <div class="col-4 col-md-4 text-right text-xl-center"><h4>Date</h4></div>
-                            </div>
-                            <div *ngIf="knolderData.contributionDetails.length === 0">
-                                <span class="text-secondary font-italic">No details to display</span>
-                            </div>
-                            <div *ngFor="let knolderDetails of knolderData.contributionDetails"
-                                 class="detail-row row pt-3 ml-xl-1">
-                                <div [innerHTML]="knolderDetails.title" class="col-8 col-md-8"></div>
-                                <div class="col-4 col-md-4 text-right text-xl-center">{{knolderDetails.date | date:'dd-MMM-yyyy'}}</div>
-                            </div>
+    <div class="container-fluid page-wrapper col-12 col-xl-11">
+        <div class="row mb-2 mt-2">
+            <div class="col-12 col-lg-6 d-flex align-self-end">
+                <div *ngIf="knolderDetails" class="name-title w-100 pb-2">
+                    {{knolderDetails.knolderName}}
+                </div>
+            </div>
+            <div class="col-12 col-lg-3 mx-auto mt-3 mt-lg-0" *ngIf="medalTally">
+                <app-medal-tally [medalTally]="medalTally"></app-medal-tally>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <div class="card tab-bar border-0 mt-4 pr-2">
+                    <div class="row justify-content-end justify-content-sm-center p-1">
+                        <form [ngClass]="{'monthSelected' : !allTimeSelected}" class="mr-2  mt-1">
+                            <label>
+                                <input (bsValueChange)="onDateChange($event)"
+                                       [bsConfig]="datepickerConfig"
+                                       [formControl]="datePicker"
+                                       [maxDate]="currentDate"
+                                       autocomplete="off"
+                                       bsDatepicker
+                                       class="form-control text-center"
+                                       name="date"
+                                       readonly>
+                            </label>
+                        </form>
+                        <div>
+                            <button (click)="setAllTimeDetailsOnClick()"
+                                    [ngClass]="{'btn-primary': allTimeSelected}"
+                                    class="all-time-btn btn btn-primary px-1 mr-2 mt-1">
+                                All time
+                            </button>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-6">
-                    <div *ngIf="trendsData" class="col-12 text-center card border-0 mt-4 col-xl-9 mx-auto ">
-                        <div class="card-head shadow-box d-flex justify-content-between pt-3 pb-2 px-3 bg-white mt-n4 mx-3">
-                            <div class="align-self-center">
-                                <h4 class="font-weight-normal m-0">Trends</h4>
-                            </div>
+                <app-score-drilldown [knolderDetails]="knolderDetails"></app-score-drilldown>
+                <app-score-details [contributionsTypeColorList]="contributionsTypeColorList"
+                                   [knolderDetails]="knolderDetails"></app-score-details>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div *ngIf="hallOfFameLeaders" class="badge-details col-12 mt-4 card block border-0 col-xl-10 mx-auto pl-2">
+                    <div class="block-title d-flex justify-content-between pt-3 pb-2 px-2 bg-white">
+                        <div class="align-self-center">
+                            <h4 class="font-weight-normal m-0">Badges</h4>
                         </div>
-                        <app-vertical-bar-graph [inputResult]="trendsData"></app-vertical-bar-graph>
-
                     </div>
-                    <div *ngIf="allTimeDetails" class="col-12 mt-5 card border-0 col-xl-9 mx-auto pl-2">
-                        <div class="card-head shadow-box d-flex justify-content-between pt-3 pb-2 px-3 bg-white mt-n4 mx-3">
-                            <div class="align-self-center">
-                                <h4 class="font-weight-normal m-0">All Time</h4>
-                            </div>
+                    <div class="badge-details-table">
+                        <app-badge-detail-table [knolderAchievements]="knolderAchievements"></app-badge-detail-table>
+                    </div>
+                </div>
+                <div *ngIf="trendsData" class="col-12 text-center block card border-0 mt-4 col-xl-10 mx-auto ">
+                    <div class="block-title d-flex justify-content-between pt-3 pb-2 px-2 bg-white mb-3">
+                        <div class="align-self-center">
+                            <h4 class="font-weight-normal m-0">Trends</h4>
                         </div>
-                        <app-pie-chart [inputResult]="pieChartData"></app-pie-chart>
                     </div>
+                    <app-vertical-bar-graph [trendsData]="trendsData"></app-vertical-bar-graph>
+                </div>
+                <div *ngIf="allTimeDetails" class="col-12 mt-5 card block border-0 col-xl-10 mx-auto pl-2">
+                    <div class="block-title d-flex justify-content-between pt-3 pb-2 px-2 bg-white">
+                        <div class="align-self-center">
+                            <h4 class="font-weight-normal m-0">All Time</h4>
+                        </div>
+                    </div>
+                    <app-pie-chart [inputResult]="pieChartData"></app-pie-chart>
                 </div>
             </div>
         </div>

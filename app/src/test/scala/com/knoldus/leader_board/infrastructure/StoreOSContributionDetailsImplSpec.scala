@@ -52,12 +52,12 @@ class StoreOSContributionDetailsImplSpec extends DBSpec with BeforeAndAfterEach 
       preparedStmtTwo.execute
       preparedStmtTwo.close()
 
-      val osContribution = List(
-        OSContributionTemplate("1", "mukesh.kumar@knoldus.com", "mukesh", Option(Timestamp.valueOf("1970-01-19 11:49:09.0")), "Reactive Microservices"),
-        OSContributionTemplate("2", "abhishek.baranwal@knoldus.com", "Abhishek", Option(Timestamp.valueOf("1970-01-19 15:11:46.0")), "Delta Lake"))
+      val otherContribution = List(
+        OtherContributionDetails("1", "mukesh.kumar@knoldus.com", "mukesh", Option(Timestamp.valueOf("1970-01-19 11:49:09.0")), "Reactive Microservices", "Open Source"),
+        OtherContributionDetails("2", "abhishek.baranwal@knoldus.com", "Abhishek", Option(Timestamp.valueOf("1970-01-19 15:11:46.0")), "Delta Lake", "Conference"))
 
-      val result = storeData.insertOSContribution(osContribution)
-      result.sum shouldBe 2
+      val result = storeData.insertOSContribution(otherContribution)
+      result.sum shouldBe 1
     }
   }
 }

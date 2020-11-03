@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { AuthorModel } from '../../models/author.model';
 import { Router } from '@angular/router';
 import { TableHeaderModel } from '../../models/tableHeader.model';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-table',
@@ -10,29 +11,60 @@ import { TableHeaderModel } from '../../models/tableHeader.model';
   encapsulation: ViewEncapsulation.None,
 })
 
-export class TableComponent implements OnInit {
+export class TableComponent {
     @Input() tableRows: AuthorModel[];
     @Input() tableHeading: TableHeaderModel[];
-    @Input() employeeRows: AuthorModel[];
-    @Output() sortCriteria = new EventEmitter();
+    currentDate = moment();
 
-    constructor(public router: Router) {
-    }
-
-    ngOnInit() {
-    }
+    constructor(public router: Router) { }
 
     onActivate(event) {
       let id: number;
       if (event.type === 'click') {
         id = event.row.knolderId;
-        this.router.navigate(['/details', id]);
-      } else {
-        this.router.navigate(['/']);
+        this.router.navigate(
+          ['/details'],
+          {
+            queryParams: {
+              id,
+              year: this.currentDate.year(),
+              month: this.currentDate.format('MMMM')
+            }
+          }
+        );
       }
     }
 
-    onSort(event) {
-      this.sortCriteria.emit(event);
+    comparisonBasedOnAllTimeScore(firstEmp: AuthorModel, secEmp: AuthorModel, propertyName: string) {
+      return firstEmp[propertyName] === secEmp[propertyName]
+        ? firstEmp.allTimeScore < secEmp.allTimeScore
+        : firstEmp[propertyName] > secEmp[propertyName];
     }
+
+    totalOfQuarterlyScore(quarterlyScore: string) {
+      return quarterlyScore.split('-')
+        .map(Number)
+        .reduce((firstMonth, secondMonth) => firstMonth + secondMonth);
+    }
+
+    compareQuarterlyScore(firstEmpScoreStreak, secEmpScoreStreak, sortType) {
+      return sortType === 'asc'
+        ? this.totalOfQuarterlyScore(firstEmpScoreStreak) < this.totalOfQuarterlyScore(secEmpScoreStreak)
+        : this.totalOfQuarterlyScore(firstEmpScoreStreak) > this.totalOfQuarterlyScore(secEmpScoreStreak);
+    }
+
+    onSort(event) {
+      if (event.column.prop === 'quarterlyStreak') {
+        this.tableRows.sort((secEmp, firstEmp) => {
+          return this.compareQuarterlyScore(firstEmp.quarterlyStreak, secEmp.quarterlyStreak,  event.newValue) ? 1 : -1;
+        });
+      } else if (event.newValue === 'asc') {
+        this.tableRows
+          .sort((secEmp, firstEmp) => this.comparisonBasedOnAllTimeScore(secEmp, firstEmp, event.column.prop) ? 1 : -1);
+      } else {
+        this.tableRows
+          .sort((secEmp, firstEmp) => secEmp[event.column.prop] < firstEmp[event.column.prop] ? 1 : -1);
+      }
+    }
+
 }

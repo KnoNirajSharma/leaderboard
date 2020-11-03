@@ -25,3 +25,25 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 @import '~@swimlane/ngx-datatable/assets/icons.css';
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.block {
+  background-color: white;
+  padding-bottom: 1em;
+  margin-top: 2em;
+  border: 0 !important;
+
+  .block-title {
+    border-bottom: 1px solid #2B35A8;
+    padding: 2px 2px;
+
+    h2, h4 {
+      color: #071348;
+      font-weight: 500;
+    }
+  }
+}
+

@@ -1,30 +1,43 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { TrendsModel } from '../../models/trends.model';
-import { environment } from '../../../environments/environment';
+import { CommonService } from '../../services/common.service';
+import { NgxStackVerticalBarGraphResultModel } from '../../models/ngxStackVerticalBarGraphResultModel';
 
 @Component({
   selector: 'app-vertical-bar-graph',
   templateUrl: './vertical-bar-graph.component.html',
   styleUrls: ['./vertical-bar-graph.component.scss'],
 })
-export class VerticalBarGraphComponent implements OnInit {
-    @Input() inputResult: TrendsModel[];
-    yAxisLabel = environment.ngxChartOptions.verticalBarChart.yAxisLabel;
-    barPadding = environment.ngxChartOptions.verticalBarChart.barPadding;
-    colorScheme = environment.ngxChartOptions.chartColorScheme;
+export class VerticalBarGraphComponent implements OnChanges {
+    @Input() trendsData: TrendsModel[];
+    yAxisLabel: string;
+    barPadding: number;
+    colorScheme: { domain: string[]; };
+    result: NgxStackVerticalBarGraphResultModel[];
 
-    result: { name: string; series: { name: string; value: number; }[]; }[] = [];
+    constructor(private commonService: CommonService) {
+    }
 
-    ngOnInit() {
-      this.inputResult.map(obj => this.result.push({ name: obj.month.substring(0, 3) + ',' + obj.year,
+    ngOnChanges() {
+      this.setBarGraphConfigs();
+      this.result = [];
+      this.trendsData.map(monthData => this.result.push({ name: monthData.month.substring(0, 3) + ',' + String(monthData.year),
         series: [
-          { name: 'Blogs', value: obj.blogScore },
-          { name: 'Knolx', value: obj.knolxScore },
-          { name: 'Webinar', value: obj.webinarScore },
-          { name: 'TechHub Templates', value: obj.techHubScore },
-          { name: 'OS Contribution', value: obj.osContributionScore }
+          { name: 'Blogs', value: monthData.blogScore },
+          { name: 'Knolx', value: monthData.knolxScore },
+          { name: 'Webinar', value: monthData.webinarScore },
+          { name: 'TechHub Template', value: monthData.techHubScore },
+          { name: 'OS Contribution', value: monthData.osContributionScore },
+          { name: 'Conference', value: monthData.conferenceScore },
+          { name: 'Book', value: monthData.bookScore },
+          { name: 'Research Paper', value: monthData.researchPaperScore }
         ] }));
       this.result.reverse();
     }
 
+    setBarGraphConfigs() {
+      this.yAxisLabel = this.commonService.verticalBarChartYLabel;
+      this.barPadding = this.commonService.verticalBarChartPadding;
+      this.colorScheme = this.commonService.colorScheme;
+    }
 }

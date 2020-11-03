@@ -1,0 +1,67 @@
+version: "3.8"
+services:
+  postgres:
+    labels:
+      com.knoldus.app: "postgres"
+      com.knoldus.project: "knoldus leaderboard"
+    image: postgres:9.6
+    hostname: postgres
+    container_name: postgres
+    restart: unless-stopped
+    user: root
+    privileged: true
+    tty: false
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    environment:
+      - POSTGRES_USER=${PG_USER}
+      - POSTGRES_PASSWORD=${PG_PASSWORD}
+      - POSTGRES_DB=${PG_DATABASE}
+    networks:
+      - backend
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres:/var/lib/postgresql/data
+  leaderboard_app:
+    labels:
+      com.knoldus.app: "leaderboard_app"
+      com.knoldus.project: "knoldus leaderboard"
+    image: docker.pkg.github.com/knoldus/leaderboard/knoldus_leaderboard:latest
+    container_name: leaderboard_app
+    hostname: leaderboard_app
+    restart: unless-stopped
+    user: root
+    privileged: true
+    tty: false
+    depends_on:
+      - postgres
+    environment:
+      URL: ${JDBC_URL}
+      DRIVER: ${JDBC_DRIVER}
+      USERNAME: ${PG_USER}
+      PASSWORD: ${PG_PASSWORD}
+      PORT: ${LB_PORT}
+      INTERFACE: ${LB_INTERFACE}
+      GOOGLEAPICREDENTIALPATH: ${KLB_CPATH}
+    networks:
+      - backend
+    volumes:
+     - tokens:/opt/docker/tokens
+     - .:/opt/docker/config
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+volumes:
+  tokens:
+  postgres:
+    name: postgres
+networks:
+  backend:

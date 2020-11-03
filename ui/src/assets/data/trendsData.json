@@ -5,7 +5,11 @@
     "blogScore": 20,
     "knolxScore": 0,
     "webinarScore": 15,
-    "techHubScore": 0
+    "techHubScore": 0,
+    "osContributionScore": 0,
+    "conferenceScore": 0,
+    "bookScore": 0,
+    "researchPaperScore": 50
   },
   {
     "month": "JULY",
@@ -13,7 +17,11 @@
     "blogScore": 20,
     "knolxScore": 20,
     "webinarScore": 0,
-    "techHubScore": 0
+    "techHubScore": 0,
+    "osContributionScore": 0,
+    "conferenceScore": 0,
+    "bookScore": 0,
+    "researchPaperScore": 0
   },
   {
     "month": "JUNE",
@@ -21,7 +29,11 @@
     "blogScore": 20,
     "knolxScore": 0,
     "webinarScore": 0,
-    "techHubScore": 40
+    "techHubScore": 40,
+    "osContributionScore": 0,
+    "conferenceScore": 0,
+    "bookScore": 0,
+    "researchPaperScore": 0
   },
   {
     "month": "MAY",
@@ -29,7 +41,11 @@
     "blogScore": 0,
     "knolxScore": 20,
     "webinarScore": 0,
-    "techHubScore": 50
+    "techHubScore": 50,
+    "osContributionScore": 0,
+    "conferenceScore": 0,
+    "bookScore": 0,
+    "researchPaperScore": 0
   },
   {
     "month": "APRIL",
@@ -37,7 +53,11 @@
     "blogScore": 0,
     "knolxScore": 20,
     "webinarScore": 0,
-    "techHubScore": 0
+    "techHubScore": 0,
+    "osContributionScore": 0,
+    "conferenceScore": 15,
+    "bookScore": 0,
+    "researchPaperScore": 0
   },
   {
     "month": "MARCH",
@@ -45,15 +65,11 @@
     "blogScore": 5,
     "knolxScore": 40,
     "webinarScore": 0,
-    "techHubScore": 0
-  },
-  {
-    "month": "AUGUST",
-    "year": 2020,
-    "blogScore": 20,
-    "knolxScore": 0,
-    "webinarScore": 30,
-    "techHubScore": 0
+    "techHubScore": 0,
+    "osContributionScore": 0,
+    "conferenceScore": 0,
+    "bookScore": 100,
+    "researchPaperScore": 0
   },
   {
     "month": "FEBUARY",
@@ -61,7 +77,11 @@
     "blogScore": 0,
     "knolxScore": 0,
     "webinarScore": 40,
-    "techHubScore": 0
+    "techHubScore": 0,
+    "osContributionScore": 0,
+    "conferenceScore": 0,
+    "bookScore": 0,
+    "researchPaperScore": 0
   },
   {
     "month": "JANUARY",
@@ -69,7 +89,11 @@
     "blogScore": 0,
     "knolxScore": 20,
     "webinarScore": 0,
-    "techHubScore": 0
+    "techHubScore": 0,
+    "osContributionScore": 30,
+    "conferenceScore": 0,
+    "bookScore": 0,
+    "researchPaperScore": 0
   },
   {
     "month": "DECEMBER",
@@ -77,7 +101,11 @@
     "blogScore": 0,
     "knolxScore": 0,
     "webinarScore": 10,
-    "techHubScore": 0
+    "techHubScore": 0,
+    "osContributionScore": 30,
+    "conferenceScore": 0,
+    "bookScore": 0,
+    "researchPaperScore": 0
   },
   {
     "month": "NOVEMBER",
@@ -85,7 +113,11 @@
     "blogScore": 0,
     "knolxScore": 0,
     "webinarScore": 40,
-    "techHubScore": 0
+    "techHubScore": 0,
+    "osContributionScore": 0,
+    "conferenceScore": 0,
+    "bookScore": 0,
+    "researchPaperScore": 0
   },
   {
     "month": "OCTOBER",
@@ -93,6 +125,10 @@
     "blogScore": 0,
     "knolxScore": 20,
     "webinarScore": 0,
-    "techHubScore": 50
+    "techHubScore": 50,
+    "osContributionScore": 0,
+    "conferenceScore": 0,
+    "bookScore": 0,
+    "researchPaperScore": 0
   }
 ]

@@ -13,6 +13,7 @@
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "build:prod": "ng build --prod",
     "eslint": "eslint src/**",
+    "test-headless": "ng test --watch=false --browsers=ChromeHeadless",
     "sonar": "sonar-scanner"
   },
   "private": true,
@@ -35,6 +36,7 @@
     "bootstrap": "^4.5.0",
     "core-js": "^2.5.4",
     "firebase": "^7.17.1",
+    "moment": "^2.29.0",
     "ngx-bootstrap": "^5.1.0",
     "node-sass": "^4.14.1",
     "rxjs": "~6.5.1",

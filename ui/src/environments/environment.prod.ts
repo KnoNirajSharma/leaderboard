@@ -3,19 +3,12 @@ export const environment = {
   appVersion: '1.0.0',
   api: {
     version: '1.0.0',
-    baseUrl: 'http://35.232.185.162:8000/',
+    baseUrl: 'http://backend.knoldus.com/',
     routes: {
       author: { endpoint: 'reputation', method: 'GET' },
-      trends: { endpoint: 'reputation/twelvemonths', method: 'GET' }
-    }
-  },
-  ngxChartOptions: {
-    verticalBarChart: {
-      barPadding: 16,
-      yAxisLabel: 'score',
-    },
-    chartColorScheme: {
-      domain: ['#2C42A5', '#4CA52C', '#C7AD05', '#224A4B', '#0B8D84', '#2CA1A5', '#2F3640']
+      trends: { endpoint: 'reputation/twelvemonths', method: 'GET' },
+      hallOfFame: { endpoint: 'reputation/halloffame', method: 'GET' },
+      dynamicScoring: { endpoint: 'reputation/dynamicscoring', method: 'GET' }
     }
   },
   firebaseConfig: {

@@ -6,7 +6,7 @@ import akka.actor.{ActorSystem, Props}
 import com.knoldus.leader_board.application.{ReputationOnAPI, ReputationOnAPIImpl}
 import com.knoldus.leader_board.business._
 import com.knoldus.leader_board.infrastructure._
-import com.knoldus.leader_board.utils.SpreadSheetApi
+import com.knoldus.leader_board.utils.{SpreadSheetApi, SpreadSheetApiImpl}
 import com.typesafe.akka.extension.quartz.QuartzSchedulerExtension
 import com.typesafe.config.{Config, ConfigFactory}
 
@@ -18,29 +18,34 @@ object DriverApp extends App {
   implicit val executionContext: ExecutionContextExecutor = system.dispatcher
   val config: Config = ConfigFactory.load()
   val dateTimeFormat = new ParseDateTimeFormats
-  val knolderScore: KnolderScore = new KnolderScoreImpl(config)
+  val contributionScoreMultiplierAndSpikeMonth: ContributionScoreMultiplierAndSpikeMonth = new ContributionScoreMultiplierAndSpikeMonthImpl(config)
+  val knolderScore: KnolderScore = new KnolderScoreImpl(contributionScoreMultiplierAndSpikeMonth,config)
   val knolderRank: KnolderRank = new KnolderRankImpl
-  val readBlog = new ReadContributionImpl(config)
+  val readContribution = new ReadContributionImpl(config)
   val readAllTimeReputation: ReadAllTimeReputation = new ReadAllTimeReputationImpl(config)
   val writeAllTimeReputation: WriteAllTimeReputation = new WriteAllTimeReputationImpl(config)
   val allTimeReputation: AllTimeReputation =
-    new AllTimeReputationImpl(readBlog, knolderRank, knolderScore, readAllTimeReputation)
+    new AllTimeReputationImpl(readContribution, knolderRank, knolderScore, readAllTimeReputation)
   val readMonthlyReputation: ReadMonthlyReputation = new ReadMonthlyReputationImpl(config)
   val writeMonthlyReputation: WriteMonthlyReputation = new WriteMonthlyReputationImpl(config)
   val monthlyReputation: MonthlyReputation =
-    new MonthlyReputationImpl(readBlog, knolderRank, knolderScore, readMonthlyReputation)
+    new MonthlyReputationImpl(readContribution, knolderRank, knolderScore, readMonthlyReputation)
   val readQuarterlyReputation: ReadQuarterlyReputation = new ReadQuarterlyReputationImpl(config)
   val writeQuarterlyReputation: WriteQuarterlyReputation = new WriteQuarterlyReputationImpl(config)
   val quarterlyReputation: QuarterlyReputation =
-    new QuarterlyReputationImpl(readBlog, knolderScore, readQuarterlyReputation)
+    new QuarterlyReputationImpl(readContribution, knolderScore, readQuarterlyReputation)
   val fetchReputation: FetchReputation = new FetchReputationImpl(config)
   val fetchKnolderDetails: FetchKnolderContributionDetails = new FetchKnolderContributionDetailsImpl(config)
-  val twelveMonthsContribution: TwelveMonthsContribution = new TwelveMonthsContributionImpl(readBlog)
+  val twelveMonthsContribution: TwelveMonthsContribution = new TwelveMonthsContributionImpl(readContribution)
   val fetchReputationWithCount: FetchCountWithReputation =
     new FetchCountWithReputationImpl(config, fetchReputation)
+  val fetchMonthlyTopFiveLeaders: FetchMonthlyTopFiveLeaders = new FetchMonthlyTopFiveLeadersImpl(config)
+  val readSpikeMonthAndScoreMultiplier: ReadSpikeMonthAndScoreMultiplier = new ReadSpikeMonthAndScoreMultiplierImpl(config,
+    contributionScoreMultiplierAndSpikeMonth)
   val reputationOnAPI: ReputationOnAPI =
-    new ReputationOnAPIImpl(twelveMonthsContribution, fetchKnolderDetails, fetchReputationWithCount, config)
-  val spreadSheetApiObj = new SpreadSheetApi(config)
+    new ReputationOnAPIImpl(readSpikeMonthAndScoreMultiplier, fetchMonthlyTopFiveLeaders,
+      twelveMonthsContribution, fetchKnolderDetails, fetchReputationWithCount, config)
+  val spreadSheetApiObj: SpreadSheetApi = new SpreadSheetApiImpl(config)
   val webinarSpreadSheetData: WebinarSpreadSheetData =
     new WebinarSpreadSheetDataImpl(dateTimeFormat, spreadSheetApiObj, config)
   val storeWebinar = new StoreWebinarImpl(config)
@@ -51,10 +56,21 @@ object DriverApp extends App {
   val storeKnolx: StoreKnolx = new StoreKnolxImpl(config)
   val storeTechHub: StoreTechHub = new StoreTechHubImpl(config)
   val storeOSContributionDetails: StoreOSContributionDetails = new StoreOSContributionDetailsImpl(config)
+  val storeConferenceDetails: StoreConferenceDetails = new StoreConferenceDetailsImpl(config)
+  val storeBooksContribution: StoreBooksContribution = new StoreBooksContributionImpl(config)
+  val storeResearchPapersContribution: StoreResearchPapersContribution = new StoreResearchPapersContributionImpl(config)
+  val fetchAllTimeKnoldersReputation: FetchAllTimeReputation = new FetchAllTimeReputationImpl(config)
+  val monthlyLeadersObj: MonthlyLeaders = new MonthlyLeadersImpl(readContribution, fetchAllTimeKnoldersReputation, knolderScore
+    , knolderRank)
+  val storeTopFiveLeaders: StoreTopFiveLeaders = new StoreTopFiveLeadersImpl(config, monthlyLeadersObj)
   val URLResponse: URLResponse = new URLResponse
   val techHubData: TechHubData = new TechHubDataImpl(fetchTechHub, URLResponse, config)
-  val osContributionDataObj: OSContributionData =
-    new OSContributionDataImpl(dateTimeFormat, spreadSheetApiObj, config)
+  val otherContributionDataObj: OtherContributionData =
+    new OtherContributionDataImpl(dateTimeFormat, spreadSheetApiObj, config)
+  val fetchMonthlyKnolderContribution: FetchMonthlyKnolderContribution = new FetchMonthlyKnolderContributionImpl(config)
+  val knolderMonthlyContribution: KnolderMonthlyContribution = new KnolderMonthlyContributionImpl(readContribution, knolderScore,
+    fetchMonthlyKnolderContribution)
+  val writeMonthlyContribution: WriteMonthlyContribution = new WriteMonthlyContributionImpl(config)
 
   val blogs: Blogs = new BlogsImpl(fetchBlogs, URLResponse, config)
   val knolx: Knolxs = new KnolxImpl(fetchKnolx, URLResponse, config)
@@ -77,7 +93,7 @@ object DriverApp extends App {
         monthlyReputationActorRef,
         quarterlyReputationActorRef,
         storeBlogs,
-        blogs
+        blogs, knolderMonthlyContribution, writeMonthlyContribution
       )
     ),
     "BlogScriptActor"
@@ -89,7 +105,7 @@ object DriverApp extends App {
         monthlyReputationActorRef,
         quarterlyReputationActorRef,
         storeKnolx,
-        knolx
+        knolx, knolderMonthlyContribution, writeMonthlyContribution
       )
     ),
     "KnolxScriptActor"
@@ -101,7 +117,7 @@ object DriverApp extends App {
         monthlyReputationActorRef,
         quarterlyReputationActorRef,
         storeWebinar,
-        webinarSpreadSheetData
+        webinarSpreadSheetData, knolderMonthlyContribution, writeMonthlyContribution
       )
     ),
     "WebinarScriptActor"
@@ -113,33 +129,53 @@ object DriverApp extends App {
         monthlyReputationActorRef,
         quarterlyReputationActorRef,
         storeTechHub,
-        techHubData
+        techHubData, knolderMonthlyContribution, writeMonthlyContribution
       )
     ),
     "TechHubScriptActor"
   )
-  val osContributionScriptActorRef = system.actorOf(
+  val otherContributionScriptActorRef = system.actorOf(
     Props(
-      new OSContributionActor(
+      new OtherContributionActor(
         allTimeReputationActorRef,
         monthlyReputationActorRef,
         quarterlyReputationActorRef,
         storeOSContributionDetails,
-        osContributionDataObj
+        storeConferenceDetails,
+        storeBooksContribution,
+        storeResearchPapersContribution,
+        otherContributionDataObj, knolderMonthlyContribution, writeMonthlyContribution
       )
     ),
-    "OSCOntributionScriptActor"
+    "OtherContributionScriptActor"
   )
+
+
+  val monthlyLeadersActorRef = system.actorOf(
+    Props(
+      new MonthlyLeadersActor(storeTopFiveLeaders)
+    ),
+    "MonthlyLeaderActor"
+  )
+
   val latestBlogs = blogs.getLatestBlogsFromAPI
   storeBlogs.insertBlog(latestBlogs)
   val latestKnolx = knolx.getLatestKnolxFromAPI
   storeKnolx.insertKnolx(latestKnolx)
   val webinarDetails = webinarSpreadSheetData.getWebinarData
   storeWebinar.insertWebinar(webinarDetails)
-  val osContributionDetails = osContributionDataObj.getOSContributionData
-  storeOSContributionDetails.insertOSContribution(osContributionDetails)
+  val otherContributionDetails = otherContributionDataObj.getOtherContributionData
+  storeOSContributionDetails.insertOSContribution(otherContributionDetails)
+  storeConferenceDetails.insertConferenceDetails(otherContributionDetails)
+  storeBooksContribution.insertBooksContributionDetails(otherContributionDetails)
+  storeResearchPapersContribution.insertResearchPaperContributionDetails(otherContributionDetails)
   val techHubDataList = techHubData.getLatestTechHubTemplates
   storeTechHub.insertTechHub(techHubDataList)
+  val month = IndianTime.currentTime.getMonth.toString
+  val year = IndianTime.currentTime.getYear
+  val knolderMonthlyContributionDetails = knolderMonthlyContribution.getKnolderMonthlyContribution(month, year)
+  writeMonthlyContribution.insertKnolderMonthlyContribution(knolderMonthlyContributionDetails)
+  writeMonthlyContribution.updateKnolderMonthlyContribution(knolderMonthlyContributionDetails)
   val allTimeReputations = allTimeReputation.getKnolderReputation
   writeAllTimeReputation.insertAllTimeReputationData(allTimeReputations)
   writeAllTimeReputation.updateAllTimeReputationData(allTimeReputations)
@@ -172,13 +208,13 @@ object DriverApp extends App {
   )
 
   /**
-   * Fetching latest os contribution from os contribution sheet and stored in os contribution table.
+   * Fetching latest other contribution from other contribution sheet and stored in other contribution table.
    */
   system.scheduler.scheduleAtFixedRate(
     timeForScriptExecution.seconds,
     24.hours,
-    osContributionScriptActorRef,
-    ExecuteOSContributionScript
+    otherContributionScriptActorRef,
+    ExecuteOtherContributionScript
   )
 
   /**
@@ -210,4 +246,11 @@ object DriverApp extends App {
   QuartzSchedulerExtension
     .get(system)
     .schedule("TechHubScriptScheduler", techHubScriptActorRef, ExecuteTechHubScript)
+
+  QuartzSchedulerExtension
+    .get(system)
+    .createSchedule("HallOfFameScheduler", None, "0 0 1 2 * ? *", None, IndianTime.indianTimezone)
+  QuartzSchedulerExtension
+    .get(system)
+    .schedule("HallOfFameScheduler", monthlyLeadersActorRef, StoreMonthlyLeaders)
 }

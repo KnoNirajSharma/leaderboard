@@ -1,0 +1,67 @@
+<app-headers [backBtnLink]="mainPageLink" [backBtn]="true"></app-headers>
+<ion-content>
+    <div class="container-fluid col-12 col-xl-11">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="page-title pb-2">
+                    Hall of Fame
+                </h1>
+                <div *ngIf="hallOfFameLeaders">
+                    <div *ngIf="paginationLength > 1" class="pagination-wrapper">
+                        <app-list-paginator (pageSelected)="setListIndexForPage($event)"
+                                            [currentPage]="startIndexOfListForPage / 10"
+                                            [paginatorLength]="paginationLength">
+                        </app-list-paginator>
+                    </div>
+                    <div *ngFor="let monthData of hallOfFameLeaders | reverse | slice: startIndexOfListForPage: lastIndexOfListForPage"
+                         class="col-12 card p-3 border-0 my-4">
+                        <div class="col-12">
+                            <span class="font-weight-bolder month-title">
+                                {{monthData.month | titlecase}}, {{monthData.year}}</span>
+                        </div>
+                        <div class="col-12 scrolling-wrapper d-flex justify-content-start justify-content-xl-around w-100 h-100 py-3">
+                            <div *ngFor="let leaderData of monthData.leaders; let index = index"
+                                 [queryParams]="{id: leaderData.knolderId, year: leaderData.year, month: leaderData.month}"
+                                 [routerLink]="['/','details']"
+                                 class="score-card p-1 cursor-pointer pb-3">
+
+                                <div class="py-1 knolder-named-flex align-items-center justify-content-center font-weight-bolder text-center my-1 w-100">
+                                    {{leaderData.knolderName}}
+                                </div>
+
+                                <div class="score-card-content d-flex flex-column align-items-center w-100">
+                                    <div class="d-flex w-100 my-1">
+                                        <div class="w-50 d-flex flex-column justify-content-center align-items-center">
+                                            <span class="font-weight-bolder monthly-details-value">{{leaderData.monthlyRank}}</span>
+                                            <span class="bg-white monthly-details-parameter">Rank</span>
+                                        </div>
+                                        <div class="w-50 d-flex flex-column justify-content-center align-items-center">
+                                            <span class="font-weight-bolder monthly-details-value">{{leaderData.monthlyScore}}</span>
+                                            <span class="bg-white monthly-details-parameter">Score</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-center overall-status my-2">
+                                        <div class="col-12 text-secondary">
+                                            Overall Score: {{leaderData.allTimeScore}}
+                                        </div>
+                                        <div class="col-12 text-secondary">
+                                            Overall Rank: {{leaderData.allTimeRank}}
+                                        </div>
+                                    </div>
+
+                                    <img *ngIf="index === 0" alt='medal-icon' class="rank-badge"
+                                         src="./assets/icon/gold-medal.svg">
+                                    <img *ngIf="index > 0 && index < 3" alt='medal-icon' class="rank-badge"
+                                         src="./assets/icon/silver-medal.svg">
+                                    <img *ngIf="index > 2" alt='medal-icon' class="rank-badge"
+                                         src="./assets/icon/bronze-medal.svg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-content>
