@@ -3,7 +3,6 @@ import { TribeDetailsModel } from '../../../models/tribe-details.model';
 import { EmployeeActivityService } from '../../../services/employee-activity.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { FormControl } from '@angular/forms';
-import { AuthorModel } from '../../../models/author.model';
 import { TableHeaderModel } from '../../../models/tableHeader.model';
 
 @Component({
