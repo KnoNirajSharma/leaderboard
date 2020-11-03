@@ -12,7 +12,8 @@
     "e2e": "ng e2e",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "build:prod": "ng build --prod",
-    "eslint": "eslint src/**"
+    "eslint": "eslint src/**",
+    "sonar": "sonar-scanner"
   },
   "private": true,
   "dependencies": {
@@ -66,6 +67,7 @@
     "karma-jasmine-html-reporter": "^1.4.0",
     "prettier": "~2.0.4",
     "protractor": "~5.4.0",
+    "sonar-scanner": "^3.1.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
     "typescript": "~3.4.3"
