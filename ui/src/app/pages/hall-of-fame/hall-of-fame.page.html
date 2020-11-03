@@ -1,6 +1,6 @@
 <app-headers [backBtnLink]="mainPageLink" [backBtn]="true"></app-headers>
 <ion-content>
-    <div class="container">
+    <div class="container-fluid col-12 col-xl-11">
         <div class="row">
             <div class="col-12">
                 <h1 class="page-title pb-2">
@@ -19,11 +19,11 @@
                             <span class="font-weight-bolder month-title">
                                 {{monthData.month | titlecase}}, {{monthData.year}}</span>
                         </div>
-                        <div class="col-12 scrolling-wrapper d-flex w-100 h-100 py-3">
+                        <div class="col-12 scrolling-wrapper d-flex justify-content-start justify-content-xl-around w-100 h-100 py-3">
                             <div *ngFor="let leaderData of monthData.leaders; let index = index"
                                  [queryParams]="{id: leaderData.knolderId, year: leaderData.year, month: leaderData.month}"
                                  [routerLink]="['/','details']"
-                                 class="score-card p-1 cursor-pointer">
+                                 class="score-card p-1 cursor-pointer pb-3">
 
                                 <div class="py-1 knolder-named-flex align-items-center justify-content-center font-weight-bolder text-center my-1 w-100">
                                     {{leaderData.knolderName}}
