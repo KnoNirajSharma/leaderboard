@@ -162,8 +162,8 @@ object DriverApp extends App {
   val month = IndianTime.currentTime.getMonth.toString
   val year = IndianTime.currentTime.getYear
   val knolderMonthlyContributionDetails = knolderMonthlyContribution.getKnolderMonthlyContribution(month, year)
-//  writeMonthlyContribution.insertKnolderMonthlyContribution(knolderMonthlyContributionDetails)
-//  writeMonthlyContribution.updateKnolderMonthlyContribution(knolderMonthlyContributionDetails)
+  writeMonthlyContribution.insertKnolderMonthlyContribution(knolderMonthlyContributionDetails)
+  writeMonthlyContribution.updateKnolderMonthlyContribution(knolderMonthlyContributionDetails)
   val allTimeReputations = allTimeReputation.getKnolderReputation
   writeAllTimeReputation.insertAllTimeReputationData(allTimeReputations)
   writeAllTimeReputation.updateAllTimeReputationData(allTimeReputations)
