@@ -1,4 +1,0 @@
-
-> leaderboard@1.0.0 lint /home/knoldus/UI-UX/lead4/leaderboard/ui
-> ng lint --ts-config tsconfig.json --tslint-config tslint.json "pmd"
-
