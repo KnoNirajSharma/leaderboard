@@ -58,7 +58,7 @@ object DriverApp extends App {
   val storeOSContributionDetails: StoreOSContributionDetails = new StoreOSContributionDetailsImpl(config)
   val storeConferenceDetails: StoreConferenceDetails = new StoreConferenceDetailsImpl(config)
   val storeBooksContribution: StoreBooksContribution = new StoreBooksContributionImpl(config)
-  val sibution: StoreMeetupContribution = new StoreMeetupContributionImpl(config)
+  val storeMeetupContribution: StoreMeetupContribution = new StoreMeetupContributionImpl(config)
   val storeResearchPapersContribution: StoreResearchPapersContribution = new StoreResearchPapersContributionImpl(config)
   val fetchAllTimeKnoldersReputation: FetchAllTimeReputation = new FetchAllTimeReputationImpl(config)
   val monthlyLeadersObj: MonthlyLeaders = new MonthlyLeadersImpl(readContribution, fetchAllTimeKnoldersReputation, knolderScore
