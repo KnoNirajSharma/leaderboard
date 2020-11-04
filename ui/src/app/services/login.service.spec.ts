@@ -1,13 +1,14 @@
-import { TestBed } from '@angular/core/testing';
-import { LoginService } from './login.service';
-import { RouterTestingModule } from '@angular/router/testing';
-import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { environment } from '../../environments/environment';
-import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/auth';
+import { TestBed } from '@angular/core/testing';
 import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+
 import { mockResponseUserData } from '../../assets/data/mockFirebaseResponse';
+import { environment } from '../../environments/environment';
+import { LoginService } from './login.service';
 
 describe('LoginService', () => {
     let loginService: LoginService;
@@ -28,7 +29,7 @@ describe('LoginService', () => {
             },
             removeItem: (key: string) => {
                 delete store[key];
-            }
+            },
         };
 
         spyOn(localStorage, 'getItem')
@@ -43,13 +44,13 @@ describe('LoginService', () => {
                 RouterTestingModule,
                 AngularFireModule.initializeApp(environment.firebaseConfig, 'angular-auth-firebase'),
                 AngularFirestoreModule,
-                AngularFireAuthModule
+                AngularFireAuthModule,
             ],
             providers: [
                 LoginService,
                 AngularFireAuth,
-                { provide: Router, useValue: routerSpy }
-            ]
+                { provide: Router, useValue: routerSpy },
+            ],
         }).compileComponents();
 
         TestBed.configureTestingModule({});

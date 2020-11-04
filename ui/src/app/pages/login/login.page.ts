@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
+
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,7 @@ export class LoginPage {
 
   onSignIn() {
     this.loginService.signInWithGoogle().then((result) => {
+      console.log('in then block');
       this.loginService.setAuthStatus(true);
       localStorage.setItem('authenticated', String(true));
       this.router.navigate(['/']);

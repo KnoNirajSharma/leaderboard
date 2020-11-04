@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { LoginService } from '../../services/login.service';
+
 import { NavBarItemModel } from '../../models/nav-bar-item.model';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-headers',
@@ -17,7 +18,7 @@ export class HeadersComponent {
     navItems: NavBarItemModel[] = [
       { title: 'Hall of Fame', link: '/hall-of-fame', imageUrl: './assets/icon/star.svg', isNavbarLevelItem: true },
       { title: 'Vision', link: '/about', imageUrl: './assets/icon/shuttle.svg', isNavbarLevelItem: false },
-      { title: 'Report issue', link: '/report-issue', imageUrl: './assets/icon/help.svg', isNavbarLevelItem: false }
+      { title: 'Report issue', link: '/report-issue', imageUrl: './assets/icon/help.svg', isNavbarLevelItem: false },
     ];
     mainPageLink = '/';
     reportIssuePageLink = '/report-issue';

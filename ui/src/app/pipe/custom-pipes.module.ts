@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
-import { ReverseListPipe } from './reverse-list.pipe';
+
 import { EmployeeFilterPipe } from './employee-filter.pipe';
+import { ReverseListPipe } from './reverse-list.pipe';
 import { SplitCamelCasePipe } from './splitCamelCase.pipe';
 
 @NgModule({

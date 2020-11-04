@@ -2,9 +2,10 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicModule } from '@ionic/angular';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { VerticalBarGraphComponent } from './vertical-bar-graph.component';
+
 import { TrendsModel } from '../../models/trends.model';
 import { CommonService } from '../../services/common.service';
+import { VerticalBarGraphComponent } from './vertical-bar-graph.component';
 
 describe('VeritcalBarGraphComponent', () => {
   let component: VerticalBarGraphComponent;
@@ -34,19 +35,19 @@ describe('VeritcalBarGraphComponent', () => {
       conferenceScore: 30,
       bookScore: 0,
       researchPaperScore: 50,
-    }
+    },
   ];
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        VerticalBarGraphComponent
+        VerticalBarGraphComponent,
       ],
       imports: [
         IonicModule.forRoot(),
         NgxChartsModule,
-        BrowserAnimationsModule
-      ]
+        BrowserAnimationsModule,
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(VerticalBarGraphComponent);

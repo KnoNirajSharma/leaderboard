@@ -1,17 +1,18 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
-import { TribesPage } from './tribes.page';
+import { of } from 'rxjs';
+
+import { environment } from '../../../environments/environment';
 import { ComponentsModule } from '../../components/components.module';
 import { TribesSummeryModel } from '../../models/tribes-summery.model';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { AngularFireModule } from '@angular/fire';
-import { environment } from '../../../environments/environment';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireAuthModule } from '@angular/fire/auth';
 import { EmployeeActivityService } from '../../services/employee-activity.service';
-import { of } from 'rxjs';
-import { RouterTestingModule } from '@angular/router/testing';
 import { TribeCardComponent } from './components/tribe-card/tribe-card.component';
+import { TribesPage } from './tribes.page';
 
 describe('TribesPage', () => {
   let component: TribesPage;
@@ -24,7 +25,7 @@ describe('TribesPage', () => {
       allTimeScore: 3000,
       monthlyScore: 200,
       memberAvg: 40,
-      memberCount: 50
+      memberCount: 50,
     },
     {
       id: 'dev-ops',
@@ -32,7 +33,7 @@ describe('TribesPage', () => {
       allTimeScore: 3000,
       monthlyScore: 200,
       memberAvg: 40,
-      memberCount: 50
+      memberCount: 50,
     },
   ];
 
@@ -48,7 +49,7 @@ describe('TribesPage', () => {
         AngularFirestoreModule,
         AngularFireAuthModule,
         RouterTestingModule,
-      ]
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TribesPage);

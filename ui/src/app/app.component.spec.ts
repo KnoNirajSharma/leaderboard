@@ -1,14 +1,15 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import {TestBed, async, ComponentFixture} from '@angular/core/testing';
-import { Platform } from '@ionic/angular';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { RouterTestingModule } from '@angular/router/testing';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { AppComponent } from './app.component';
-import { RouterTestingModule } from '@angular/router/testing';
+import { Platform } from '@ionic/angular';
+
 import { environment } from '../environments/environment';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AppComponent } from './app.component';
 import { LoginService } from './services/login.service';
 
 describe('AppComponent', () => {
@@ -28,14 +29,14 @@ describe('AppComponent', () => {
         RouterTestingModule,
         AngularFireModule.initializeApp(environment.firebaseConfig, 'angular-auth-firebase'),
         AngularFirestoreModule,
-        AngularFireAuthModule
+        AngularFireAuthModule,
       ],
       declarations: [AppComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [
         { provide: StatusBar, useValue: statusBarSpy },
         { provide: SplashScreen, useValue: splashScreenSpy },
-        { provide: Platform, useValue: platformSpy }
+        { provide: Platform, useValue: platformSpy },
       ],
     }).compileComponents();
 

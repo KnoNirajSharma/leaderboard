@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { ActivatedRoute, Params } from '@angular/router';
+
+import { TableHeaderModel } from '../../../models/tableHeader.model';
 import { TribeDetailsModel } from '../../../models/tribe-details.model';
 import { EmployeeActivityService } from '../../../services/employee-activity.service';
-import { ActivatedRoute, Params } from '@angular/router';
-import { FormControl } from '@angular/forms';
-import { TableHeaderModel } from '../../../models/tableHeader.model';
 
 @Component({
   selector: 'app-tribe-details',
@@ -19,7 +20,7 @@ export class TribeDetailsPage implements OnInit {
     { title: 'MONTHLY SCORE' },
     { title: 'OVERALL RANK' },
     { title: 'OVERALL SCORE' },
-    { title: '3-MONTH-STREAK' }
+    { title: '3-MONTH-STREAK' },
   ];
   constructor(private employeeActivityService: EmployeeActivityService, private route: ActivatedRoute) { }
 

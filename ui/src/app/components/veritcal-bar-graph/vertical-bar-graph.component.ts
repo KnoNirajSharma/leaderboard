@@ -1,7 +1,8 @@
 import { Component, Input, OnChanges } from '@angular/core';
+
+import { NgxStackVerticalBarGraphResultModel } from '../../models/ngxStackVerticalBarGraphResultModel';
 import { TrendsModel } from '../../models/trends.model';
 import { CommonService } from '../../services/common.service';
-import { NgxStackVerticalBarGraphResultModel } from '../../models/ngxStackVerticalBarGraphResultModel';
 
 @Component({
   selector: 'app-vertical-bar-graph',
@@ -29,7 +30,7 @@ export class VerticalBarGraphComponent implements OnChanges {
           { name: 'OS Contribution', value: monthData.osContributionScore },
           { name: 'Conference', value: monthData.conferenceScore },
           { name: 'Book', value: monthData.bookScore },
-          { name: 'Research Paper', value: monthData.researchPaperScore }
+          { name: 'Research Paper', value: monthData.researchPaperScore },
         ] }));
       this.result.reverse();
     }

@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
+
 import { TribeCardComponent } from './tribe-card.component';
 
 describe('TribeCardComponent', () => {
@@ -9,7 +10,7 @@ describe('TribeCardComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ TribeCardComponent ],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TribeCardComponent);

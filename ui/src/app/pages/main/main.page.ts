@@ -1,10 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { AuthorModel } from '../../models/author.model';
-import { EmployeeActivityService } from '../../services/employee-activity.service';
 import { FormControl } from '@angular/forms';
-import { TableHeaderModel } from '../../models/tableHeader.model';
+
+import { AuthorModel } from '../../models/author.model';
 import { ReputationModel } from '../../models/reputation.model';
 import { ScoringTableModel } from '../../models/scoring-table.model';
+import { TableHeaderModel } from '../../models/tableHeader.model';
+import { EmployeeActivityService } from '../../services/employee-activity.service';
 
 @Component({
   selector: 'app-main',
@@ -26,11 +27,11 @@ export class MainPage implements OnInit {
     { title: 'MONTHLY SCORE' },
     { title: 'OVERALL RANK' },
     { title: 'OVERALL SCORE' },
-    { title: '3-MONTH-STREAK' }
+    { title: '3-MONTH-STREAK' },
   ];
   knoldusStatsLegend = {
     currentMonth: '#0F7291',
-    allTime: '#602CA5'
+    allTime: '#602CA5',
   };
   knoldusStatsLegendPosX = 0;
   knoldusStatsLegendPosY = 0;
@@ -75,7 +76,7 @@ export class MainPage implements OnInit {
   setKnoldersList() {
     this.knoldersReputationList = [
       ...this.reputation.reputation
-        .map(knolder => this.reputation.reputation.indexOf(knolder) < 5 ? { ...knolder, topRanker: true } : knolder)
+        .map(knolder => this.reputation.reputation.indexOf(knolder) < 5 ? { ...knolder, topRanker: true } : knolder),
     ];
   }
 

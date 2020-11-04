@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { TribesSummeryModel } from '../../models/tribes-summery.model';
 import { EmployeeActivityService } from '../../services/employee-activity.service';
 

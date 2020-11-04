@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+
 import { TribesSummeryModel } from '../../../../models/tribes-summery.model';
 
 @Component({

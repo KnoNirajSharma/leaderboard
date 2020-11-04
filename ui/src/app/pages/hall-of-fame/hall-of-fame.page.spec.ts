@@ -1,18 +1,19 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {IonicModule} from '@ionic/angular';
-import {HallOfFamePage} from './hall-of-fame.page';
-import {EmployeeActivityService} from '../../services/employee-activity.service';
-import {HallOfFameModel} from '../../models/hallOfFame.model';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {AngularFireModule} from '@angular/fire';
-import {environment} from '../../../environments/environment';
-import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireAuthModule} from '@angular/fire/auth';
-import {of, throwError} from 'rxjs';
-import {ComponentsModule} from '../../components/components.module';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {RouterTestingModule} from '@angular/router/testing';
+import {IonicModule} from '@ionic/angular';
+import {of} from 'rxjs';
+
+import {environment} from '../../../environments/environment';
+import {ComponentsModule} from '../../components/components.module';
+import {HallOfFameModel} from '../../models/hallOfFame.model';
 import {CustomPipesModule} from '../../pipe/custom-pipes.module';
 import {CommonService} from '../../services/common.service';
+import {EmployeeActivityService} from '../../services/employee-activity.service';
+import {HallOfFamePage} from './hall-of-fame.page';
 
 describe('HallOfFamePage', () => {
   let component: HallOfFamePage;
@@ -43,7 +44,7 @@ describe('HallOfFamePage', () => {
           allTimeRank: 4,
           allTimeScore: 2000,
         },
-      ]
+      ],
     },
     {
       month: 'September',
@@ -68,8 +69,8 @@ describe('HallOfFamePage', () => {
           allTimeRank: 4,
           allTimeScore: 2000,
         },
-      ]
-    }
+      ],
+    },
   ];
 
   beforeEach(async(() => {
@@ -83,7 +84,7 @@ describe('HallOfFamePage', () => {
             AngularFireAuthModule,
             ComponentsModule,
             RouterTestingModule,
-            CustomPipesModule
+            CustomPipesModule,
           ],
       }).compileComponents();
 

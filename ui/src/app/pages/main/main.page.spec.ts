@@ -1,23 +1,23 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
-import { MainPage } from './main.page';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { EmployeeActivityService } from '../../services/employee-activity.service';
-import {of } from 'rxjs';
-import { TableComponent } from '../../components/table/table.component';
-import { EmployeeFilterPipe } from '../../pipe/employee-filter.pipe';
+import {ElementRef} from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+import { IonicModule } from '@ionic/angular';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import {of } from 'rxjs';
+
+import { environment } from '../../../environments/environment';
 import { ComponentsModule } from '../../components/components.module';
 import { ReputationModel } from '../../models/reputation.model';
-import { AngularFireModule } from '@angular/fire';
-import { environment } from '../../../environments/environment';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireAuthModule } from '@angular/fire/auth';
-import { CustomPipesModule } from '../../pipe/custom-pipes.module';
 import { ScoringTableModel } from '../../models/scoring-table.model';
-import {ElementRef} from '@angular/core';
+import { CustomPipesModule } from '../../pipe/custom-pipes.module';
+import { EmployeeFilterPipe } from '../../pipe/employee-filter.pipe';
+import { EmployeeActivityService } from '../../services/employee-activity.service';
+import { MainPage } from './main.page';
 
 describe('MainPage', () => {
   let component: MainPage;
@@ -49,8 +49,8 @@ describe('MainPage', () => {
         quarterlyStreak: '5-6-8',
         monthlyScore: 10,
         monthlyRank: 1,
-      }
-    ]
+      },
+    ],
   };
   const mockScoringData: ScoringTableModel = {
     blog: {points: 5, pointsMultiplier: 1},
@@ -75,9 +75,9 @@ describe('MainPage', () => {
         AngularFireModule.initializeApp(environment.firebaseConfig, 'angular-auth-firebase'),
         AngularFirestoreModule,
         AngularFireAuthModule,
-        CustomPipesModule
+        CustomPipesModule,
       ],
-      providers: [EmployeeFilterPipe]
+      providers: [EmployeeFilterPipe],
     }).compileComponents();
 
     fixture = TestBed.createComponent(MainPage);
@@ -146,7 +146,7 @@ describe('MainPage', () => {
         {...dummyReputationData.reputation[0]},
         {...dummyReputationData.reputation[0]},
         {...dummyReputationData.reputation[0]},
-      ]
+      ],
     };
     component.setKnoldersList();
     expect(component.knoldersReputationList[5].topRanker).toBeUndefined();
@@ -157,7 +157,7 @@ describe('MainPage', () => {
     component.scoringInfoData = {
       ...mockScoringData,
       blog: {points: 5, pointsMultiplier: 2},
-      knolx: {points: 20, pointsMultiplier: 2}
+      knolx: {points: 20, pointsMultiplier: 2},
     };
     expect(component.getNumberOfScoresBoosted()).toEqual(2);
   });

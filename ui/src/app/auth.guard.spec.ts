@@ -1,12 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-import { AuthGuard } from './auth.guard';
-import { Router } from '@angular/router';
-import { LoginService } from './services/login.service';
-import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+
+import { environment } from '../environments/environment';
+import { AuthGuard } from './auth.guard';
+import { LoginService } from './services/login.service';
 
 describe('AuthGuard', () => {
   let guard: AuthGuard;
@@ -20,9 +21,9 @@ describe('AuthGuard', () => {
         RouterTestingModule,
         AngularFireModule.initializeApp(environment.firebaseConfig, 'angular-auth-firebase'),
         AngularFirestoreModule,
-        AngularFireAuthModule
+        AngularFireAuthModule,
       ],
-      providers: [AuthGuard, { provide: Router, useValue: routerMock }]
+      providers: [AuthGuard, { provide: Router, useValue: routerMock }],
     });
 
     guard = TestBed.get(AuthGuard);

@@ -1,14 +1,14 @@
 import {
-  HttpEvent,
-  HttpHandler,
-  HttpRequest,
   HttpErrorResponse,
-  HttpInterceptor, HttpEventType
+  HttpEvent,
+  HttpEventType,
+  HttpHandler,
+  HttpInterceptor, HttpRequest,
 } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { LoadingController, ToastController } from '@ionic/angular';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { LoadingController, ToastController } from '@ionic/angular';
-import { Injectable } from '@angular/core';
 
 @Injectable()
 export class HttpIntercept implements HttpInterceptor {
@@ -17,12 +17,12 @@ export class HttpIntercept implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const modifiedRequest = request.clone({
       setHeaders: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
     });
 
     const loading = this.loadingCtrl.create({
-      message: 'Please wait...'
+      message: 'Please wait...',
     });
 
     loading.then(loader => {
@@ -47,10 +47,10 @@ export class HttpIntercept implements HttpInterceptor {
             message: 'Error Occurred\n' + errorMessage,
             buttons: [{ text: 'close' }],
             position: 'top',
-            color: 'danger'
+            color: 'danger',
           }).then(toaster => toaster.present());
           return throwError(errorMessage);
-        })
+        }),
       );
   }
 }

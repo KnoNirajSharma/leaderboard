@@ -1,19 +1,20 @@
 import { TestBed } from '@angular/core/testing';
+
 import { CommonService } from './common.service';
 
 describe('CommonAppConfiguration', () => {
     let commonAppConfigService: CommonService;
     const mockVerticalBarConfig = {
         barPadding: 1,
-        yAxisLabel: 'test'
+        yAxisLabel: 'test',
     };
     const mockColorScheme = {
-        domain: ['test']
+        domain: ['test'],
     };
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [CommonService]
+            providers: [CommonService],
         });
         commonAppConfigService = TestBed.get(CommonService);
     });
@@ -31,7 +32,7 @@ describe('CommonAppConfiguration', () => {
     it('should get barPadding', () => {
         commonAppConfigService.chartColorScheme = mockColorScheme;
         expect(commonAppConfigService.colorScheme).toEqual({
-            domain: ['test']
+            domain: ['test'],
         });
     });
 

@@ -1,5 +1,5 @@
-import { EmployeeFilterPipe } from './employee-filter.pipe';
 import { AuthorModel } from '../models/author.model';
+import { EmployeeFilterPipe } from './employee-filter.pipe';
 
 describe('EmployeeFilterPipe', () => {
   let pipe: EmployeeFilterPipe;
@@ -11,7 +11,7 @@ describe('EmployeeFilterPipe', () => {
       allTimeRank: 2,
       quarterlyStreak: '5-6-7',
       monthlyScore: 7,
-      monthlyRank: 1
+      monthlyRank: 1,
     }, {
       knolderId: 2,
       knolderName: 'sam',
@@ -19,8 +19,8 @@ describe('EmployeeFilterPipe', () => {
       allTimeRank: 2,
       quarterlyStreak: '5-6-7',
       monthlyScore: 7,
-      monthlyRank: 1
-    }
+      monthlyRank: 1,
+    },
   ];
   beforeEach(() => {
     pipe = new EmployeeFilterPipe();
