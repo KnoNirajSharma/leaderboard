@@ -26,6 +26,18 @@
 @import "~@ionic/angular/css/flex-utils.css";
 @import '~@swimlane/ngx-datatable/assets/icons.css';
 
+.page-wrapper {
+  --background: #f5f5fa;
+  font-family: 'Poppins', sans-serif;
+  color: #2a2a2a;
+}
+
+.page-title {
+  font-size: 2rem;
+  color: #071348;
+  border-bottom: 3px solid #2B35A8;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }

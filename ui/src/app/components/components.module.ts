@@ -12,8 +12,8 @@ import { BadgeDetailTableComponent } from './badge-detail-table/badge-detail-tab
 import { CustomPipesModule } from '../pipe/custom-pipes.module';
 import { MenuBoxComponent } from './menu-box/menu-box.component';
 import { LegendTooltipComponent } from './legend-tooltip/legend-tooltip.component';
-import {TableComponent} from './table/table.component';
-import {NgxDatatableModule} from '@swimlane/ngx-datatable';
+import { TableComponent } from './table/table.component';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
   imports: [

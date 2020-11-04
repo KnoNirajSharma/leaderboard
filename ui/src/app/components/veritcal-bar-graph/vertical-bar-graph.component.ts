@@ -20,8 +20,7 @@ export class VerticalBarGraphComponent implements OnChanges {
 
     ngOnChanges() {
       this.setBarGraphConfigs();
-      this.result = [];
-      this.trendsData.map(monthData => this.result.push({ name: monthData.month.substring(0, 3) + ',' + String(monthData.year),
+      this.result = this.trendsData.map(monthData => ({ name: monthData.month.substring(0, 3) + ',' + String(monthData.year),
         series: [
           { name: 'Blogs', value: monthData.blogScore },
           { name: 'Knolx', value: monthData.knolxScore },
