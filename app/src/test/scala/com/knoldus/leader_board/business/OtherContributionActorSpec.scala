@@ -42,9 +42,10 @@ class OtherContributionActorSpec extends TestKit(ActorSystem("OtherContributionA
   "other contribution Actor" must {
     "not do anything with incorrect message" in {
       val probe = TestProbe()
-      val scriptActor = system.actorOf(Props(new OtherContributionActor(allTimeReputationActorRef, monthlyReputationActorRef,
-        quarterlyReputationActorRef, mockStoreOSContribution, mockStoreConferenceDetails,mockStoreBooksContribution
-        ,mockStoreResearchPaperContribution, mockOtherContribution,mockKnolderMonthlyContribution,mockWriteMonthlyContribution)))
+      val mockActorRef = probe.ref
+
+      val scriptActor = system.actorOf(Props(new OtherContributionActor(mockStoreOSContribution, mockStoreConferenceDetails,mockStoreBooksContribution
+        ,mockStoreResearchPaperContribution, mockOtherContribution,mockActorRef)))
       probe watch scriptActor
       probe.send(scriptActor, "display reputation")
       probe.expectMsg("invalid message")
@@ -52,9 +53,9 @@ class OtherContributionActorSpec extends TestKit(ActorSystem("OtherContributionA
     "execute other contribution script" in {
       val probe = TestProbe.apply()
       val mockActorRef = probe.ref
-      val scriptActor = system.actorOf(Props(new OtherContributionActor(mockActorRef, mockActorRef, mockActorRef,
+      val scriptActor = system.actorOf(Props(new OtherContributionActor(
         mockStoreOSContribution, mockStoreConferenceDetails,mockStoreBooksContribution,
-        mockStoreResearchPaperContribution, mockOtherContribution,mockKnolderMonthlyContribution,mockWriteMonthlyContribution)))
+        mockStoreResearchPaperContribution, mockOtherContribution,mockActorRef)))
       probe watch scriptActor
       probe.send(scriptActor, ExecuteOtherContributionScript)
       probe.expectMsg("stored other contribution data")

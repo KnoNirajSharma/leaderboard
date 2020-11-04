@@ -39,8 +39,8 @@ class WebinarScriptActorSpec extends TestKit(ActorSystem("WebinarScriptActorSpec
   "Webinar Script Actor" must {
     "not do anything with incorrect message" in {
       val probe = TestProbe()
-      val scriptActor = system.actorOf(Props(new WebinarScriptActor(allTimeReputationActorRef, monthlyReputationActorRef,
-        quarterlyReputationActorRef, mockStoreWebinar, mockWebinars,mockKnolderMonthlyContribution,mockWriteMonthlyContribution)))
+      val mockActorRef = probe.ref
+      val scriptActor = system.actorOf(Props(new WebinarScriptActor( mockStoreWebinar, mockWebinars,mockActorRef)))
       probe watch scriptActor
       probe.send(scriptActor, "display reputation")
       probe.expectMsg("invalid message")
@@ -48,8 +48,8 @@ class WebinarScriptActorSpec extends TestKit(ActorSystem("WebinarScriptActorSpec
     "execute webinar script" in {
       val probe = TestProbe.apply()
       val mockActorRef = probe.ref
-      val scriptActor = system.actorOf(Props(new WebinarScriptActor(mockActorRef, mockActorRef, mockActorRef,
-        mockStoreWebinar, mockWebinars,mockKnolderMonthlyContribution,mockWriteMonthlyContribution)))
+      val scriptActor = system.actorOf(Props(new WebinarScriptActor(
+        mockStoreWebinar, mockWebinars,mockActorRef)))
       probe watch scriptActor
       probe.send(scriptActor, ExecuteWebinarScript)
       probe.expectMsg("stored webinars")

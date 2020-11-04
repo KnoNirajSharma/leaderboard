@@ -39,8 +39,8 @@ class KnolxScriptActorSpec extends TestKit(ActorSystem("KnolxScriptActorSpec")) 
   "Knolx Script Actor" must {
     "not do anything with incorrect message" in {
       val probe = TestProbe()
-      val scriptActor = system.actorOf(Props(new KnolxScriptActor(allTimeReputationActorRef, monthlyReputationActorRef,
-        quarterlyReputationActorRef, mockStoreKnolx, mockKnolx,mockKnolderMonthlyContribution,mockWriteMonthlyContribution)))
+      val mockActorRef = probe.ref
+      val scriptActor = system.actorOf(Props(new KnolxScriptActor(mockStoreKnolx, mockKnolx,mockActorRef)))
       probe watch scriptActor
       probe.send(scriptActor, "display reputation")
       probe.expectMsg("invalid message")
@@ -48,8 +48,8 @@ class KnolxScriptActorSpec extends TestKit(ActorSystem("KnolxScriptActorSpec")) 
     "execute knolx script" in {
       val probe = TestProbe.apply()
       val mockActorRef = probe.ref
-      val scriptActor = system.actorOf(Props(new KnolxScriptActor(mockActorRef, mockActorRef, mockActorRef,
-        mockStoreKnolx, mockKnolx,mockKnolderMonthlyContribution,mockWriteMonthlyContribution)))
+      val scriptActor = system.actorOf(Props(new KnolxScriptActor(
+        mockStoreKnolx, mockKnolx,mockActorRef)))
       probe watch scriptActor
       probe.send(scriptActor, ExecuteKnolxScript)
       probe.expectMsg("stored knolx")
