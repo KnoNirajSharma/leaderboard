@@ -19,7 +19,7 @@ object DriverApp extends App {
   val config: Config = ConfigFactory.load()
   val dateTimeFormat = new ParseDateTimeFormats
   val contributionScoreMultiplierAndSpikeMonth: ContributionScoreMultiplierAndSpikeMonth = new ContributionScoreMultiplierAndSpikeMonthImpl(config)
-  val knolderScore: KnolderScore = new KnolderScoreImpl(contributionScoreMultiplierAndSpikeMonth,config)
+  val knolderScore: KnolderScore = new KnolderScoreImpl(contributionScoreMultiplierAndSpikeMonth, config)
   val knolderRank: KnolderRank = new KnolderRankImpl
   val readContribution = new ReadContributionImpl(config)
   val readAllTimeReputation: ReadAllTimeReputation = new ReadAllTimeReputationImpl(config)
@@ -145,7 +145,7 @@ object DriverApp extends App {
         storeConferenceDetails,
         storeBooksContribution,
         storeResearchPapersContribution,
-        otherContributionDataObj, knolderMonthlyContribution,writeMonthlyContribution
+        otherContributionDataObj, knolderMonthlyContribution, writeMonthlyContribution
       )
     ),
     "OtherContributionScriptActor"
