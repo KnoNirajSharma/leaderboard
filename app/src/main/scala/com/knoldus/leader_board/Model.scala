@@ -12,7 +12,7 @@ final case class OtherContributionDetails(contributionId: String, emailId: Strin
                                           , title: String, typeOfContributon: String)
 
 final case class GetContributionCount(knolderId: Int, knolderName: String, numberOfBlogs: Int, numberOfKnolx: Int, numberOfWebinar: Int, numberOfTechHub: Int
-                                      , numberOfOSContribution: Int, numberOfConferences: Int, numberOfBooks: Int, numberOfResearchPapers: Int)
+                                      , numberOfOSContribution: Int, numberOfConferences: Int, numberOfBooks: Int, numberOfResearchPapers: Int, numberOfMeetup: Int)
 
 final case class GetScore(knolderId: Int, knolderName: String, score: Int)
 
@@ -44,7 +44,7 @@ final case class ReputationWithCount(blogs: ContributionCount, knolx: Contributi
 final case class Webinar(id: String, deliveredOn: Option[Timestamp], name: String, title: String, emailId: String)
 
 final case class ContributionScore(blogScore: Int, knolxScore: Int, webinarScore: Int, techHubScore: Int, osContributionScore: Int, conferenceScore: Int,
-                                   bookScore: Int, researchPaperScore: Int)
+                                   bookScore: Int, researchPaperScore: Int,MeetupScore: Int)
 
 final case class MonthlyTopFiveLeaders(month: String, year: Int, knolderId: Int, knolderName: String, monthlyScore: Int, monthlyRank: Int, allTimeScore: Int
                                        , allTimeRank: Int)

@@ -6,7 +6,8 @@ import com.typesafe.config.Config
 import com.typesafe.scalalogging.LazyLogging
 
 final case class KnolderEachContrbutionScore(knolderId: Int, knolderName: String, blogScore: Int, knolxScore: Int, webinarScore: Int, techHubScore: Int,
-                                             osContributionScore: Int, conferenceScore: Int, bookScore: Int, researchPaperScore: Int, month: String, year: Int)
+                                             osContributionScore: Int, conferenceScore: Int, bookScore: Int, researchPaperScore: Int,
+                                             MeetupScore:Int,  month: String, year: Int)
 
 class KnolderScoreImpl(fetchSpikeMonth: ContributionScoreMultiplierAndSpikeMonth, config: Config) extends KnolderScore with LazyLogging {
   val scorePerBlog: Int = config.getInt("scorePerBlog")
@@ -17,6 +18,7 @@ class KnolderScoreImpl(fetchSpikeMonth: ContributionScoreMultiplierAndSpikeMonth
   val scorePerConference: Int = config.getInt("scorePerConference")
   val scorePerBook: Int = config.getInt("scorePerBook")
   val scorePerResearchPaper: Int = config.getInt("scorePerResearchPaper")
+  val scorePerMeetup: Int = config.getInt("scorePerMeetup")
 
   /**
    * Calculates overall score of each knolder and if score is not available
@@ -30,7 +32,7 @@ class KnolderScoreImpl(fetchSpikeMonth: ContributionScoreMultiplierAndSpikeMonth
     score.map(contributionScore => GetScore(contributionScore.knolderId, contributionScore.knolderName,
       contributionScore.blogScore.getOrElse(0) + contributionScore.knolxScore.getOrElse(0) + contributionScore.webinarScore.getOrElse(0)
         + contributionScore.techHubScore.getOrElse(0) + contributionScore.osContributionScore.getOrElse(0) + contributionScore.conferenceScore.getOrElse(0)
-        + contributionScore.bookScore.getOrElse(0) + contributionScore.researchPaperScore.getOrElse(0)))
+        + contributionScore.bookScore.getOrElse(0) + contributionScore.researchPaperScore.getOrElse(0) + contributionScore.MeetupScore.getOrElse(0)))
       .sortBy(knolder => knolder.score).reverse
   }
 
@@ -51,7 +53,8 @@ class KnolderScoreImpl(fetchSpikeMonth: ContributionScoreMultiplierAndSpikeMonth
           value.techHubScoreMultiplier * count.numberOfTechHub * scorePerTechHub, value.osContributionScoreMultiplier *
             count.numberOfOSContribution * scorePerOsContribution, value.conferenceScoreMultiplier * count.numberOfConferences * scorePerConference
           , value.bookScoreMultiplier * count.numberOfBooks * scorePerBook,
-          value.researchPaperScoreMultiplier * count.numberOfResearchPapers * scorePerResearchPaper, value.month, value.year))
+          value.researchPaperScoreMultiplier * count.numberOfResearchPapers * scorePerResearchPaper,
+          value.MeetupScoreMultiplier * count.numberOfMeetup * scorePerMeetup, value.month, value.year))
 
 
       case None => logger.info("calculating each contribution score if the month is not spike")
@@ -59,7 +62,7 @@ class KnolderScoreImpl(fetchSpikeMonth: ContributionScoreMultiplierAndSpikeMonth
           count.numberOfBlogs * scorePerBlog,
           count.numberOfKnolx * scorePerKnolx, count.numberOfWebinar * scorePerWebinar, count.numberOfTechHub * scorePerTechHub
           , count.numberOfOSContribution * scorePerOsContribution, count.numberOfConferences * scorePerConference
-          , count.numberOfBooks * scorePerBook, count.numberOfResearchPapers * scorePerResearchPaper, month, year))
+          , count.numberOfBooks * scorePerBook, count.numberOfResearchPapers * scorePerResearchPaper,count.numberOfMeetup * scorePerMeetup, month, year))
 
     }
   }
