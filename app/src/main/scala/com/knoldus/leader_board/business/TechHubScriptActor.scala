@@ -14,12 +14,12 @@ class TechHubScriptActor(storeTechHub: StoreTechHub, techHubData: TechHubData, k
       storeTechHub.insertTechHub(latestTechHub)
       logger.info("Techhub stored successfully.")
       self ! WriteMonthlyContribution
-      sender() ! "stored techhub"
+      sender() ! StoredTechHub
 
     case WriteMonthlyContribution => logger.info("write monthly contribution table")
       knolderMonthlyContributionActorRef ! UpdateAndInsertMonthlyContribution
-      sender() ! "stored monthly contribution details"
+      sender() ! StoredMonthlyContributionDetails
 
-    case _ => sender() ! "invalid message"
+    case _ => sender() ! InvalidMessage
   }
 }

@@ -48,7 +48,7 @@ class OtherContributionActorSpec extends TestKit(ActorSystem("OtherContributionA
         ,mockStoreResearchPaperContribution, mockOtherContribution,mockActorRef)))
       probe watch scriptActor
       probe.send(scriptActor, "display reputation")
-      probe.expectMsg("invalid message")
+      probe.expectMsg(InvalidMessage)
     }
     "execute other contribution script" in {
       val probe = TestProbe.apply()
@@ -58,7 +58,7 @@ class OtherContributionActorSpec extends TestKit(ActorSystem("OtherContributionA
         mockStoreResearchPaperContribution, mockOtherContribution,mockActorRef)))
       probe watch scriptActor
       probe.send(scriptActor, ExecuteOtherContributionScript)
-      probe.expectMsg("stored other contribution data")
+      probe.expectMsg(StoredOtherContributionData)
     }
   }
 }

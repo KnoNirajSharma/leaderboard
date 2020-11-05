@@ -15,12 +15,12 @@ class BlogScriptActor(storeBlogs: StoreBlogs, blogs: Blogs, knolderMonthlyContri
       storeBlogs.insertBlog(latestBlogs)
       logger.info("Blogs stored successfully.")
       self ! WriteMonthlyContribution
-      sender() ! "stored blogs"
+      sender() ! StoredBlogs
 
     case WriteMonthlyContribution => logger.info("write monthly contribution table")
       knolderMonthlyContributionActorRef ! UpdateAndInsertMonthlyContribution
-      sender() ! "stored monthly contribution details"
+      sender() ! StoredMonthlyContributionDetails
 
-    case _ => sender() ! "invalid message"
+    case _ => sender() ! InvalidMessage
   }
 }

@@ -36,7 +36,7 @@ class BlogScriptActorSpec extends TestKit(ActorSystem("BlogScriptActorSpec")) wi
       val scriptActor = system.actorOf(Props(new BlogScriptActor(mockStoreBlogs, mockBlogs,mockActorRef)))
       probe watch scriptActor
       probe.send(scriptActor, "display reputation")
-      probe.expectMsg("invalid message")
+      probe.expectMsg(InvalidMessage)
     }
     "execute blogs script" in {
       val probe = TestProbe.apply()
@@ -45,7 +45,7 @@ class BlogScriptActorSpec extends TestKit(ActorSystem("BlogScriptActorSpec")) wi
         mockStoreBlogs, mockBlogs,mockActorRef)))
       probe watch scriptActor
       probe.send(scriptActor, ExecuteBlogsScript)
-      probe.expectMsg("stored blogs")
+      probe.expectMsg(StoredBlogs)
     }
   }
 }

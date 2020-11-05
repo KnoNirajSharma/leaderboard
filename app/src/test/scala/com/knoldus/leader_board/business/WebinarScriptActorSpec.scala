@@ -43,7 +43,7 @@ class WebinarScriptActorSpec extends TestKit(ActorSystem("WebinarScriptActorSpec
       val scriptActor = system.actorOf(Props(new WebinarScriptActor( mockStoreWebinar, mockWebinars,mockActorRef)))
       probe watch scriptActor
       probe.send(scriptActor, "display reputation")
-      probe.expectMsg("invalid message")
+      probe.expectMsg(InvalidMessage)
     }
     "execute webinar script" in {
       val probe = TestProbe.apply()
@@ -52,7 +52,7 @@ class WebinarScriptActorSpec extends TestKit(ActorSystem("WebinarScriptActorSpec
         mockStoreWebinar, mockWebinars,mockActorRef)))
       probe watch scriptActor
       probe.send(scriptActor, ExecuteWebinarScript)
-      probe.expectMsg("stored webinars")
+      probe.expectMsg(StoredWebinar)
     }
   }
 }

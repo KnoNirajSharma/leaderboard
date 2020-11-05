@@ -43,7 +43,7 @@ class TechHubScriptActorSpec extends TestKit(ActorSystem("TechHubScriptActorSpec
       val scriptActor = system.actorOf(Props(new TechHubScriptActor( mockStoreTechHub, mocktechHub, mockActorRef)))
       probe watch scriptActor
       probe.send(scriptActor, "display reputation")
-      probe.expectMsg("invalid message")
+      probe.expectMsg(InvalidMessage)
     }
     "execute techhub script" in {
       val probe = TestProbe.apply()
@@ -52,7 +52,7 @@ class TechHubScriptActorSpec extends TestKit(ActorSystem("TechHubScriptActorSpec
         mockStoreTechHub, mocktechHub, mockActorRef)))
       probe watch scriptActor
       probe.send(scriptActor, ExecuteTechHubScript)
-      probe.expectMsg("stored techhub")
+      probe.expectMsg(StoredTechHub)
     }
   }
 }

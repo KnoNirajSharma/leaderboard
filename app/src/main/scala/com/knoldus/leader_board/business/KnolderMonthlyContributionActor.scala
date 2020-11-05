@@ -32,7 +32,7 @@ class KnolderMonthlyContributionActor(allTimeReputationActorRef: ActorRef, month
         writeMonthlyContribution.updateKnolderMonthlyContribution(knolderMonthlyContributionScore)
       }
       self ! CalculateReputation
-      sender() ! "monthly contribution saved"
+      sender() ! MonthlyContributionSaved
 
     case CalculateReputation => logger.info("Calculating reputation")
       allTimeReputationActorRef ! WriteAllTimeReputation
@@ -42,8 +42,8 @@ class KnolderMonthlyContributionActor(allTimeReputationActorRef: ActorRef, month
       if (firstDayOfCurrentMonth == currentDayOfCurrentMonth) {
         quarterlyReputationActorRef ! WriteQuarterlyReputation
       }
-      sender() ! "calculated and stored reputation"
+      sender() ! CalculatedAndStoredReputation
 
-    case _ => sender() ! "invalid message"
+    case _ => sender() ! InvalidMessage
   }
 }

@@ -14,12 +14,12 @@ class KnolxScriptActor(storeKnolx: StoreKnolx, knolx: Knolxs, knolderMonthlyCont
       storeKnolx.insertKnolx(latestKnolx)
       logger.info("Knolx stored successfully.")
       self ! WriteMonthlyContribution
-      sender() ! "stored knolx"
+      sender() ! StoredKnolx
 
     case WriteMonthlyContribution => logger.info("write monthly contribution table")
       knolderMonthlyContributionActorRef ! UpdateAndInsertMonthlyContribution
-      sender() ! "stored monthly contribution details"
+      sender() ! StoredMonthlyContributionDetails
 
-    case _ => sender() ! "invalid message"
+    case _ => sender() ! InvalidMessage
   }
 }

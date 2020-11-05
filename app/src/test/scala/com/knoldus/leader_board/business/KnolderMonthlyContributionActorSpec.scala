@@ -42,7 +42,7 @@ class KnolderMonthlyContributionActorSpec extends TestKit(ActorSystem("KnoldusMo
       mockWriteMonthlyContribution)))
       probe watch scriptActor
       probe.send(scriptActor, "display reputation")
-      probe.expectMsg("invalid message")
+      probe.expectMsg(InvalidMessage)
     }
     "insert and update monthly contribution details of knolders" in {
       val probe = TestProbe.apply()
@@ -51,7 +51,7 @@ class KnolderMonthlyContributionActorSpec extends TestKit(ActorSystem("KnoldusMo
         mockWriteMonthlyContribution)))
       probe watch scriptActor
       probe.send(scriptActor, UpdateAndInsertMonthlyContribution)
-      probe.expectMsg("monthly contribution saved")
+      probe.expectMsg(MonthlyContributionSaved)
     }
   }
 }

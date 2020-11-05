@@ -23,12 +23,12 @@ class OtherContributionActor(storeOSContribution: StoreOSContributionDetails,
       storeResearchPapersContribution.insertResearchPaperContributionDetails(otherContributionDataList)
       logger.info("research paper contribution data stored successfully.")
       self ! WriteMonthlyContribution
-      sender() ! "stored other contribution data"
+      sender() ! StoredOtherContributionData
 
     case WriteMonthlyContribution => logger.info("write monthly contribution table")
       knolderMonthlyContributionActorRef ! UpdateAndInsertMonthlyContribution
-      sender() ! "stored monthly contribution details"
+      sender() ! StoredMonthlyContributionDetails
 
-    case _ => sender() ! "invalid message"
+    case _ => sender() ! InvalidMessage
   }
 }

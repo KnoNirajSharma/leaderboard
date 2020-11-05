@@ -15,12 +15,12 @@ class WebinarScriptActor(storeWebinar: StoreWebinar, webinar: WebinarSpreadSheet
       storeWebinar.insertWebinar(webinarData)
       logger.info("webinars stored successfully.")
       self ! WriteMonthlyContribution
-      sender() ! "stored webinars"
+      sender() ! StoredWebinar
 
     case WriteMonthlyContribution => logger.info("write monthly contribution table")
       knolderMonthlyContributionActorRef ! UpdateAndInsertMonthlyContribution
-      sender() ! "stored monthly contribution details"
+      sender() ! StoredMonthlyContributionDetails
 
-    case _ => sender() ! "invalid message"
+    case _ => sender() ! InvalidMessage
   }
 }
