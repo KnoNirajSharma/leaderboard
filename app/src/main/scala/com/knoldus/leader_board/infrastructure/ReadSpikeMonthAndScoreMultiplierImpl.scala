@@ -8,7 +8,7 @@ final case class PointsAndMultiplier(points: Int, pointsMultiplier: Int)
 
 final case class ContributionPointsWithMultiplier(blog: PointsAndMultiplier, knolx: PointsAndMultiplier, techHubTemplate: PointsAndMultiplier,
                                                   webinar: PointsAndMultiplier, osContribution: PointsAndMultiplier, conference: PointsAndMultiplier,
-                                                  researchPaper: PointsAndMultiplier, book: PointsAndMultiplier)
+                                                  researchPaper: PointsAndMultiplier,  Meetup: PointsAndMultiplier,book: PointsAndMultiplier)
 
 class ReadSpikeMonthAndScoreMultiplierImpl(config:Config,contributionScoreMultiplierAndSpikeMonth: ContributionScoreMultiplierAndSpikeMonth)
   extends ReadSpikeMonthAndScoreMultiplier with LazyLogging {
@@ -28,6 +28,7 @@ class ReadSpikeMonthAndScoreMultiplierImpl(config:Config,contributionScoreMultip
     val scorePerConference: Int = config.getInt("scorePerConference")
     val scorePerBook: Int = config.getInt("scorePerBook")
     val scorePerResearchPaper: Int = config.getInt("scorePerResearchPaper")
+    val scorePerMeetup: Int = config.getInt("scorePerMeetup")
     val month = IndianTime.currentTime.getMonth.toString
     val year = IndianTime.currentTime.getYear
     val score = contributionScoreMultiplierAndSpikeMonth.fetchContributionScoreMultiplierAndSpikeMonthImpl(month, year)
@@ -36,14 +37,14 @@ class ReadSpikeMonthAndScoreMultiplierImpl(config:Config,contributionScoreMultip
         ContributionPointsWithMultiplier(PointsAndMultiplier(scorePerBlog,value.blogScoreMultiplier),
       PointsAndMultiplier(scorePerKnolx,value.knolxScoreMultiplier),PointsAndMultiplier(scorePerTechHub,value.techHubScoreMultiplier),
       PointsAndMultiplier(scorePerWebinar,value.webinarScoreMultiplier),PointsAndMultiplier(scorePerOsContribution,value.osContributionScoreMultiplier),
-      PointsAndMultiplier(scorePerConference,value.conferenceScoreMultiplier),PointsAndMultiplier(scorePerResearchPaper,value.researchPaperScoreMultiplier),
+      PointsAndMultiplier(scorePerConference,value.conferenceScoreMultiplier),PointsAndMultiplier(scorePerResearchPaper,value.researchPaperScoreMultiplier),PointsAndMultiplier(scorePerMeetup,value.MeetupScoreMultiplier),
       PointsAndMultiplier(scorePerBook,value.bookScoreMultiplier))
 
       case None =>  logger.info("getting default points of contribution with default contribution multiplier")
         ContributionPointsWithMultiplier(PointsAndMultiplier(scorePerBlog,1),
         PointsAndMultiplier(scorePerKnolx,1),PointsAndMultiplier(scorePerTechHub,1),
         PointsAndMultiplier(scorePerWebinar,1),PointsAndMultiplier(scorePerOsContribution,1),
-        PointsAndMultiplier(scorePerConference,1),PointsAndMultiplier(scorePerResearchPaper,1),
+        PointsAndMultiplier(scorePerConference,1),PointsAndMultiplier(scorePerResearchPaper,1),PointsAndMultiplier(scorePerMeetup,1),
         PointsAndMultiplier(scorePerBook,1))
     }
   }

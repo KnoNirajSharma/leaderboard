@@ -24,11 +24,11 @@ class WriteMonthlyContributionImplSpec extends DBSpec with BeforeAndAfterEach {
 
     "return number of rows affected when insertion in monthly contribution table" in {
       val contributionOfKnolders = List(KnolderIdWithKnolderContributionScore(None, KnolderEachContrbutionScore(1, "Mukesh Gupta", 10, 10,10,10
-      ,10,10,10,10,"SEPTEMBER",2020)),
+      ,10,10,10,10,10,"SEPTEMBER",2020)),
         KnolderIdWithKnolderContributionScore(None, KnolderEachContrbutionScore(2, "Abhishek Baranwal", 10, 10,10,10
-          ,10,10,10,10,"SEPTEMBER",2020)),
+          ,10,10,10,10,10,"SEPTEMBER",2020)),
         KnolderIdWithKnolderContributionScore(None, KnolderEachContrbutionScore(3, "Komal Rajpal", 10, 10,10,10
-          ,10,10,10,10,"SEPTEMBER",2020)))
+          ,10,10,10,10,10,"SEPTEMBER",2020)))
 
       val result = writeMonthlyContribution.insertKnolderMonthlyContribution(contributionOfKnolders)
       result.sum shouldBe 3
@@ -37,11 +37,11 @@ class WriteMonthlyContributionImplSpec extends DBSpec with BeforeAndAfterEach {
     "return number of rows affected when insertion in monthly contribution table when two entry will not get " +
       "inserted" in {
       val contributionOfKnolders = List(KnolderIdWithKnolderContributionScore(Option(1), KnolderEachContrbutionScore(1, "Mukesh Gupta", 10, 10,10,10
-        ,10,10,10,10,"SEPTEMBER",2020)),
+        ,10,10,10,10,10,"SEPTEMBER",2020)),
         KnolderIdWithKnolderContributionScore(None, KnolderEachContrbutionScore(2, "Abhishek Baranwal", 10, 10,10,10
-          ,10,10,10,10,"SEPTEMBER",2020)),
+          ,10,10,10,10,10,"SEPTEMBER",2020)),
         KnolderIdWithKnolderContributionScore(None, KnolderEachContrbutionScore(3, "Komal Rajpal", 10, 10,10,10
-          ,10,10,10,10,"SEPTEMBER",2020)))
+          ,10,10,10,10,10,"SEPTEMBER",2020)))
 
       val result = writeMonthlyContribution.insertKnolderMonthlyContribution(contributionOfKnolders)
       result.sum shouldBe 2
@@ -49,11 +49,11 @@ class WriteMonthlyContributionImplSpec extends DBSpec with BeforeAndAfterEach {
 
     "return number of rows affected when updation in monthly contribution table" in {
       val contributionOfKnolders = List(KnolderIdWithKnolderContributionScore(Option(1), KnolderEachContrbutionScore(1, "Mukesh Gupta", 10, 10,10,10
-        ,10,10,10,10,"SEPTEMBER",2020)),
+        ,10,10,10,10,10,"SEPTEMBER",2020)),
         KnolderIdWithKnolderContributionScore(None, KnolderEachContrbutionScore(2, "Abhishek Baranwal", 10, 10,10,10
-          ,10,10,10,10,"SEPTEMBER",2020)),
+          ,10,10,10,10,10,"SEPTEMBER",2020)),
         KnolderIdWithKnolderContributionScore(None, KnolderEachContrbutionScore(3, "Komal Rajpal", 10, 10,10,10
-          ,10,10,10,10,"SEPTEMBER",2020)))
+          ,10,10,10,10,10,"SEPTEMBER",2020)))
 
       val result = writeMonthlyContribution.updateKnolderMonthlyContribution(contributionOfKnolders)
       result.sum shouldBe 0
@@ -64,8 +64,8 @@ class WriteMonthlyContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       val insertMonthlyContribution: String =
         """
           |insert into monthlycontribution(id, knolder_id,blog_score,knolx_score,webinar_score,techhub_score
-          |,oscontribution_score,book_score,conference_score,researchpaper_score,month,year)
-          |values (?,?,?,?,?,?,?,?,?,?,?,?)
+          |,oscontribution_score,book_score,conference_score,researchpaper_score,meetup_score,month,year)
+          |values (?,?,?,?,?,?,?,?,?,?,?,?,?)
 """.stripMargin
 
       val preparedStmt: PreparedStatement = connection.prepareStatement(insertMonthlyContribution)
@@ -79,17 +79,18 @@ class WriteMonthlyContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt.setInt(8, 20)
       preparedStmt.setInt(9, 20)
       preparedStmt.setInt(10, 20)
-      preparedStmt.setString(11, "SEPTEMBER")
-      preparedStmt.setInt(12, 2020)
+      preparedStmt.setInt(11, 30)
+      preparedStmt.setString(12, "SEPTEMBER")
+      preparedStmt.setInt(13, 2020)
       preparedStmt.execute
       preparedStmt.close()
 
       val contributionOfKnolders = List(KnolderIdWithKnolderContributionScore(Option(1), KnolderEachContrbutionScore(1, "Mukesh Gupta", 10, 10,10,10
-        ,10,10,10,10,"SEPTEMBER",2020)),
+        ,10,10,10,10,10,"SEPTEMBER",2020)),
         KnolderIdWithKnolderContributionScore(Option(2), KnolderEachContrbutionScore(2, "Abhishek Baranwal", 10, 10,10,10
-          ,10,10,10,10,"SEPTEMBER",2020)),
+          ,10,10,10,10,10,"SEPTEMBER",2020)),
         KnolderIdWithKnolderContributionScore(Option(3), KnolderEachContrbutionScore(3, "Komal Rajpal", 10, 10,10,10
-          ,10,10,10,10,"SEPTEMBER",2020)))
+          ,10,10,10,10,10,"SEPTEMBER",2020)))
 
       val result = writeMonthlyContribution.updateKnolderMonthlyContribution(contributionOfKnolders)
       result.sum shouldBe 1

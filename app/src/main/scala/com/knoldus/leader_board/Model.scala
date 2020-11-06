@@ -35,7 +35,7 @@ final case class ContributionDetails(title: String, date: String)
 final case class KnolderDetails(knolderName: String, score: Int, scoreBreakDown: List[Contribution])
 
 final case class TwelveMonthsScore(month: String, year: Int, blogScore: Int, knolxScore: Int, webinarScore: Int, techHubScore: Int,
-                                   osContributionScore: Int, conferenceScore: Int, bookScore: Int, researchPaperScore: Int)
+                                   osContributionScore: Int, conferenceScore: Int, bookScore: Int, researchPaperScore: Int , meetUpScore:Int)
 
 final case class ReputationWithCount(blogs: ContributionCount, knolx: ContributionCount, webinars: ContributionCount, techhubTemplates: ContributionCount,
                                      osContributions: ContributionCount, conferences: ContributionCount,

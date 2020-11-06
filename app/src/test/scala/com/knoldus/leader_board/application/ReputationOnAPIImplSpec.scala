@@ -26,7 +26,7 @@ class ReputationOnAPIImplSpec extends AnyWordSpecLike with MockitoSugar with Mat
   val contributionPointsAndMultiplier=PointsAndMultiplier(5,2)
   val scoreMultiplier = ContributionPointsWithMultiplier(contributionPointsAndMultiplier,contributionPointsAndMultiplier,
     contributionPointsAndMultiplier,contributionPointsAndMultiplier,contributionPointsAndMultiplier,contributionPointsAndMultiplier,
-    contributionPointsAndMultiplier,contributionPointsAndMultiplier)
+    contributionPointsAndMultiplier,contributionPointsAndMultiplier,contributionPointsAndMultiplier)
   val listOfMonthlyLeaders = List(MonthYearWithTopFiveLeaders("SEPTEMBER", 2020, List(MonthlyTopFiveLeaders
   ("SEPTEMBER", 2020, 1, "Mukesh", 30, 1, 100, 1), MonthlyTopFiveLeaders
   ("SEPTEMBER", 2020, 2, "akash", 25, 2, 60, 2), MonthlyTopFiveLeaders
@@ -44,7 +44,7 @@ class ReputationOnAPIImplSpec extends AnyWordSpecLike with MockitoSugar with Mat
   val blogDetails:Contribution = Contribution("Blog", 2, 10, blogTitles)
   val contributions = List(blogDetails)
   val knolderDetails: Option[KnolderDetails] = Option(KnolderDetails("Mukesh Gupta", 10, contributions))
-  val twelveMonthDetails = Option(List(TwelveMonthsScore("JUNE", 2020, 30, 20, 40, 10, 15, 100, 100, 50)))
+  val twelveMonthDetails = Option(List(TwelveMonthsScore("JUNE", 2020, 30, 20, 40, 10, 15, 100, 100, 50,30)))
   when(mockFetchReputation.allTimeAndMonthlyContributionCountWithReputation).thenReturn(Option(ReputationWithCount(contributionCount, contributionCount, contributionCount,
     contributionCount, contributionCount, contributionCount, contributionCount, contributionCount, reputations)))
   when(mockFetchMonthlyLeaders.fetchMonthlyTopFiveLeaders).thenReturn(listOfMonthlyLeaders)

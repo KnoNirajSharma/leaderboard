@@ -36,8 +36,8 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       val insertMonthlyContribution: String =
         """
           |insert into monthlycontribution(id, knolder_id,blog_score,knolx_score,webinar_score,techhub_score
-          |,oscontribution_score,book_score,conference_score,researchpaper_score,month,year)
-          |values (?,?,?,?,?,?,?,?,?,?,?,?)
+          |,oscontribution_score,book_score,conference_score,researchpaper_score,meetup_score,month,year)
+          |values (?,?,?,?,?,?,?,?,?,?,?,?,?)
 """.stripMargin
 
       val preparedStmt: PreparedStatement = connection.prepareStatement(insertMonthlyContribution)
@@ -51,7 +51,8 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmt.setInt(8, 200)
       preparedStmt.setInt(9, 200)
       preparedStmt.setInt(10, 100)
-      preparedStmt.setString(11, month)
+      preparedStmt.setInt(11,30)
+      preparedStmt.setString(12, month)
       preparedStmt.setInt(12, year)
       preparedStmt.execute
       preparedStmt.close()
@@ -274,6 +275,35 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       preparedStmtTwo.execute
       preparedStmtTwo.close()
     }
+    def insertmeetup(dateColumnValue: Timestamp): Unit = {
+      val insertmeetupOne: String =
+        """
+          |insert into meetup(id, email_id, delivered_on, title)
+          |values (?,?,?,?)
+""".stripMargin
+
+      val preparedStmtOne: PreparedStatement = connection.prepareStatement(insertmeetupOne)
+      preparedStmtOne.setString(1, "1")
+      preparedStmtOne.setString(2, "mukesh.kumar@knoldus.com")
+      preparedStmtOne.setTimestamp(3, dateColumnValue)
+      preparedStmtOne.setString(4, "Reactive Microservices")
+      preparedStmtOne.execute
+      preparedStmtOne.close()
+
+      val insertmeetupTwo: String =
+        """
+          |insert into meetup(id, email_id, delivered_on, title)
+          |values (?,?,?,?)
+""".stripMargin
+
+      val preparedStmtTwo: PreparedStatement = connection.prepareStatement(insertmeetupTwo)
+      preparedStmtTwo.setString(1, "4")
+      preparedStmtTwo.setString(2, "mukesh.kumar@knoldus.com")
+      preparedStmtTwo.setTimestamp(3, dateColumnValue)
+      preparedStmtTwo.setString(4, "Delta Lake")
+      preparedStmtTwo.execute
+      preparedStmtTwo.close()
+    }
 
     "return number of contributions of each knolder" in {
       val month = ZonedDateTime.now(ZoneId.of("Asia/Calcutta")).getMonth.toString
@@ -282,9 +312,9 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       insertMonthlyContribution(month, year)
 
 
-      val knoldersWithContribution = List( KnolderContributionScore(2,"Abhishek Baranwal",None,None,None,None,None,None,None,None),
-        KnolderContributionScore(1, "Mukesh Kumar",  Option(10), Option(40), Option(30), Option(30), Option(60), Option(200),Option(200), Option(100))
-       , KnolderContributionScore(3,"Komal Rajpal",None,None,None,None,None,None,None,None))
+      val knoldersWithContribution = List( KnolderContributionScore(2,"Abhishek Baranwal",None,None,None,None,None,None,None,None,None),
+        KnolderContributionScore(1, "Mukesh Kumar",  Option(10), Option(40), Option(30), Option(30), Option(60), Option(200),Option(200), Option(100), Option(30))
+       , KnolderContributionScore(3,"Komal Rajpal",None,None,None,None,None,None,None,None,None))
 
 
       val result = readContribution.fetchKnoldersWithContributions
@@ -298,12 +328,13 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       insertWebinar(currentMonth)
       insertTechHub(currentMonth)
       insertConference(currentMonth)
+      insertmeetup(currentMonth)
       val month = ZonedDateTime.now(ZoneId.of("Asia/Calcutta")).getMonth.toString
       val year = ZonedDateTime.now(ZoneId.of("Asia/Calcutta")).getYear
 
-      val knoldersWithMonthlyContribution = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0, 2, 0, 0),
-        GetContributionCount(3, "Komal Rajpal", 1, 0, 0, 0, 0, 0, 0, 0),
-        GetContributionCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0, 0, 0, 0))
+      val knoldersWithMonthlyContribution = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0, 2, 0, 0,2),
+        GetContributionCount(3, "Komal Rajpal", 1, 0, 0, 0, 0, 0, 0, 0,2),
+        GetContributionCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0, 0, 0, 0,2))
 
       val result = readContribution.fetchKnoldersWithMonthlyContributions(month,year)
       result shouldBe knoldersWithMonthlyContribution
@@ -315,9 +346,9 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       insertKnolder
       insertMonthlyContribution(month, year)
 
-      val knoldersWithQuarterlyContribution = List(KnolderContributionScore(1, "Mukesh Kumar",  Option(10), Option(40), Option(30), Option(30), Option(60), Option(200),Option(200), Option(100)),
-        KnolderContributionScore(2,"Abhishek Baranwal",None,None,None,None,None,None,None,None),
-        KnolderContributionScore(3,"Komal Rajpal",None,None,None,None,None,None,None,None))
+      val knoldersWithQuarterlyContribution = List(KnolderContributionScore(1, "Mukesh Kumar",  Option(10), Option(40), Option(30), Option(30), Option(60), Option(200),Option(200), Option(100), Option(30)),
+        KnolderContributionScore(2,"Abhishek Baranwal",None,None,None,None,None,None,None,None,None),
+        KnolderContributionScore(3,"Komal Rajpal",None,None,None,None,None,None,None,None,None))
 
       val result = readContribution.fetchKnoldersWithQuarterFirstMonthContributions
       result shouldBe knoldersWithQuarterlyContribution
@@ -329,9 +360,9 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       insertKnolder
       insertMonthlyContribution(month, year)
 
-      val knoldersWithQuarterlyContribution = List(KnolderContributionScore(1, "Mukesh Kumar",  Option(10), Option(40), Option(30), Option(30), Option(60), Option(200),Option(200), Option(100)),
-        KnolderContributionScore(2,"Abhishek Baranwal",None,None,None,None,None,None,None,None),
-        KnolderContributionScore(3,"Komal Rajpal",None,None,None,None,None,None,None,None))
+      val knoldersWithQuarterlyContribution = List(KnolderContributionScore(1, "Mukesh Kumar",  Option(10), Option(40), Option(30), Option(30), Option(60), Option(200),Option(200), Option(100), Option(30)),
+        KnolderContributionScore(2,"Abhishek Baranwal",None,None,None,None,None,None,None,None,None),
+        KnolderContributionScore(3,"Komal Rajpal",None,None,None,None,None,None,None,None,None))
 
       val result = readContribution.fetchKnoldersWithQuarterSecondMonthContributions
       result shouldBe knoldersWithQuarterlyContribution
@@ -344,9 +375,9 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       insertKnolder
       insertMonthlyContribution(month, year)
 
-      val knoldersWithQuarterlyContribution = List(KnolderContributionScore(1, "Mukesh Kumar",  Option(10), Option(40), Option(30), Option(30), Option(60), Option(200),Option(200), Option(100)),
-        KnolderContributionScore(2,"Abhishek Baranwal",None,None,None,None,None,None,None,None),
-        KnolderContributionScore(3,"Komal Rajpal",None,None,None,None,None,None,None,None))
+      val knoldersWithQuarterlyContribution = List(KnolderContributionScore(1, "Mukesh Kumar",  Option(10), Option(40), Option(30), Option(30), Option(60), Option(200),Option(200), Option(100), Option(30)),
+        KnolderContributionScore(2,"Abhishek Baranwal",None,None,None,None,None,None,None,None,None),
+        KnolderContributionScore(3,"Komal Rajpal",None,None,None,None,None,None,None,None,None))
 
       val result = readContribution.fetchKnoldersWithQuarterThirdMonthContributions
       result shouldBe knoldersWithQuarterlyContribution
@@ -359,7 +390,7 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
 
       val result = readContribution.fetchKnoldersWithTwelveMonthContributions(ZonedDateTime.now(ZoneId.of("Asia/Calcutta")).getMonthValue
         , year, 1)
-      result shouldBe Option(ContributionScore(10, 40, 30, 30, 60, 200, 200, 100))
+      result shouldBe Option(ContributionScore(10, 40, 30, 30, 60, 200, 200, 100,30))
     }
     "return each contribution score of particular knolder in particular month" in {
       val month = ZonedDateTime.now(ZoneId.of("Asia/Calcutta")).getMonth.toString
@@ -369,9 +400,9 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       insertMonthlyContribution(month, year)
 
       val result = readContribution.fetchMonthlyContributionScore
-      result shouldBe List(KnolderContributionScore(1, "Mukesh Kumar",  Option(10), Option(40), Option(30), Option(30), Option(60), Option(200),Option(200), Option(100)),
-        KnolderContributionScore(2,"Abhishek Baranwal",None,None,None,None,None,None,None,None),
-        KnolderContributionScore(3,"Komal Rajpal",None,None,None,None,None,None,None,None))
+      result shouldBe List(KnolderContributionScore(1, "Mukesh Kumar",  Option(10), Option(40), Option(30), Option(30), Option(60), Option(200),Option(200), Option(100), Option(30)),
+        KnolderContributionScore(2,"Abhishek Baranwal",None,None,None,None,None,None,None,None,None),
+        KnolderContributionScore(3,"Komal Rajpal",None,None,None,None,None,None,None,None,None))
     }
   }
 }
