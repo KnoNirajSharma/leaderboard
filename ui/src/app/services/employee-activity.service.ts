@@ -1,17 +1,18 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+
 import { environment } from '../../environments/environment';
+import { HallOfFameModel } from '../models/hallOfFame.model';
 import { KnolderDetailsModel } from '../models/knolder-details.model';
 import { ReputationModel } from '../models/reputation.model';
-import { TrendsModel } from '../models/trends.model';
-import { HallOfFameModel } from '../models/hallOfFame.model';
 import { ScoringTableModel } from '../models/scoring-table.model';
-import { TribesSummeryModel } from '../models/tribes-summery.model';
+import { TrendsModel } from '../models/trends.model';
 import { TribeDetailsModel } from '../models/tribe-details.model';
+import { TribesSummeryModel } from '../models/tribes-summery.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EmployeeActivityService {
   private url = `${environment.api.baseUrl}${environment.api.routes.author.endpoint}`;

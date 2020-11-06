@@ -1,20 +1,21 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
-import { DetailsPage } from './details.page';
 import { RouterModule, Routes } from '@angular/router';
-import { ComponentsModule } from '../../components/components.module';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { IonicModule } from '@ionic/angular';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { ScoreDrilldownComponent } from './components/score-drilldown/score-drilldown.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
+import { ComponentsModule } from '../../components/components.module';
 import { ScoreDetailsComponent } from './components/score-details/score-details.component';
+import { ScoreDrilldownComponent } from './components/score-drilldown/score-drilldown.component';
+import { DetailsPage } from './details.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: DetailsPage
-  }
+    component: DetailsPage,
+  },
 ];
 
 @NgModule({
@@ -26,9 +27,9 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     ReactiveFormsModule,
     ComponentsModule,
-    NgxChartsModule
+    NgxChartsModule,
   ],
-  declarations: [DetailsPage, ScoreDrilldownComponent, ScoreDetailsComponent]
+  declarations: [DetailsPage, ScoreDrilldownComponent, ScoreDetailsComponent],
 })
 export class DetailsPageModule {
 }

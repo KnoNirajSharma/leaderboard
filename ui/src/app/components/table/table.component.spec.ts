@@ -1,11 +1,12 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
-import { TableComponent } from './table.component';
-import { RouterTestingModule } from '@angular/router/testing';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { IonicModule } from '@ionic/angular';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+
 import { AuthorModel } from '../../models/author.model';
+import { TableComponent } from './table.component';
 
 describe('TableComponent', () => {
   let component: TableComponent;
@@ -30,7 +31,7 @@ describe('TableComponent', () => {
         quarterlyStreak: '5-6-8',
         monthlyScore: 10,
         monthlyRank: 1,
-      }
+      },
     ];
 
   beforeEach(async(() => {
@@ -41,9 +42,9 @@ describe('TableComponent', () => {
       imports: [
         IonicModule.forRoot(),
         NgxDatatableModule,
-        RouterTestingModule
+        RouterTestingModule,
       ],
-      providers: [{ provide: Router, useValue: routerSpy }]
+      providers: [{ provide: Router, useValue: routerSpy }],
     }).compileComponents();
 
     router = TestBed.get(Router);
@@ -63,7 +64,7 @@ describe('TableComponent', () => {
     component.onActivate(event);
     expect(routerSpy.navigate).toHaveBeenCalledWith(
         ['/details'],
-        { queryParams: { id : event.row.knolderId, year: 2020, month: 'January' } }
+        { queryParams: { id : event.row.knolderId, year: 2020, month: 'January' } },
       );
   });
 

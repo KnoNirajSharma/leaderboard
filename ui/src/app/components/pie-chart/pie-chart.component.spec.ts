@@ -1,10 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
-import { PieChartComponent } from './pie-chart.component';
-import { KnolderDetailsModel } from '../../models/knolder-details.model';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { IonicModule } from '@ionic/angular';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+
+import { KnolderDetailsModel } from '../../models/knolder-details.model';
 import { CommonService } from '../../services/common.service';
+import { PieChartComponent } from './pie-chart.component';
 
 describe('PieChartComponent', () => {
   let component: PieChartComponent;
@@ -21,11 +22,11 @@ describe('PieChartComponent', () => {
         contributionDetails: [
           {
             title: 'Serialization in Lagom',
-            date: '2020-05-06 14:16:23'
-          }
-        ]
-      }
-    ]
+            date: '2020-05-06 14:16:23',
+          },
+        ],
+      },
+    ],
   };
 
   beforeEach(async(() => {
@@ -34,8 +35,8 @@ describe('PieChartComponent', () => {
       imports: [
         IonicModule.forRoot(),
         NgxChartsModule,
-        BrowserAnimationsModule
-      ]
+        BrowserAnimationsModule,
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(PieChartComponent);

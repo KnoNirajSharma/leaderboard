@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { EmployeeActivityService } from '../../services/employee-activity.service';
-import { KnolderDetailsModel } from '../../models/knolder-details.model';
 import { FormControl } from '@angular/forms';
+import { ActivatedRoute, Params } from '@angular/router';
+import * as moment from 'moment';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+
+import { HallOfFameModel } from '../../models/hallOfFame.model';
+import { KnolderDetailsModel } from '../../models/knolder-details.model';
+import { LeaderModel } from '../../models/leader.model';
+import { MedalTallyModel } from '../../models/medalTally.model';
 import { ScoreBreakDownModel } from '../../models/ScoreBreakDown.model';
 import { TrendsModel } from '../../models/trends.model';
 import { CommonService } from '../../services/common.service';
-import { HallOfFameModel } from '../../models/hallOfFame.model';
-import { LeaderModel } from '../../models/leader.model';
-import { MedalTallyModel } from '../../models/medalTally.model';
-import * as moment from 'moment';
+import { EmployeeActivityService } from '../../services/employee-activity.service';
 
 @Component({
   selector: 'app-details',
@@ -39,7 +40,7 @@ export class DetailsPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private employeeActivityService: EmployeeActivityService,
-    private commonService: CommonService
+    private commonService: CommonService,
   ) { }
 
   ngOnInit() {
@@ -64,7 +65,7 @@ export class DetailsPage implements OnInit {
     this.datepickerConfig = {
       containerClass: 'theme-dark-blue',
       dateInputFormat: 'MMM-YYYY',
-      minMode: 'month'
+      minMode: 'month',
     };
   }
 
@@ -116,7 +117,7 @@ export class DetailsPage implements OnInit {
         .map((leader, index) => {
           return {
             ...leader,
-            position: index
+            position: index,
           };
         })
         .filter(leader => leader.knolderId === this.knolderId);
@@ -130,16 +131,16 @@ export class DetailsPage implements OnInit {
     this.medalTally = {
       gold: {
         count: this.knolderAchievements.filter(details => details.position === 0).length,
-        imgUrl: './assets/icon/gold-medal.svg'
+        imgUrl: './assets/icon/gold-medal.svg',
       },
       silver: {
         count: this.knolderAchievements.filter(details => details.position === 1 || details.position === 2).length,
-        imgUrl: './assets/icon/silver-medal.svg'
+        imgUrl: './assets/icon/silver-medal.svg',
       },
       bronze: {
         count: this.knolderAchievements.filter(details => details.position === 3 || details.position === 4).length,
-        imgUrl: './assets/icon/bronze-medal.svg'
-      }
+        imgUrl: './assets/icon/bronze-medal.svg',
+      },
     };
   }
 }

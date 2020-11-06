@@ -1,15 +1,16 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
-import { LoginPage } from './login.page';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AngularFireModule } from '@angular/fire';
-import { environment } from '../../../environments/environment';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireAuthModule } from '@angular/fire/auth';
-import { LoginService } from '../../services/login.service';
-import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { IonicModule } from '@ionic/angular';
+
 import { mockResponseUserData } from '../../../assets/data/mockFirebaseResponse';
+import { environment } from '../../../environments/environment';
+import { LoginService } from '../../services/login.service';
+import { LoginPage } from './login.page';
 
 describe('LoginPage', () => {
   let component: LoginPage;
@@ -32,15 +33,15 @@ describe('LoginPage', () => {
       },
       removeItem: (key: string) => {
         delete store[key];
-      }
+      },
     };
 
     spyOn(localStorage, 'getItem')
-      .and.callFake(mockLocalStorage.getItem);
+        .and.callFake(mockLocalStorage.getItem);
     spyOn(localStorage, 'setItem')
-      .and.callFake(mockLocalStorage.setItem);
+        .and.callFake(mockLocalStorage.setItem);
     spyOn(localStorage, 'removeItem')
-      .and.callFake(mockLocalStorage.removeItem);
+        .and.callFake(mockLocalStorage.removeItem);
 
     TestBed.configureTestingModule({
       declarations: [LoginPage],
@@ -49,9 +50,9 @@ describe('LoginPage', () => {
         RouterTestingModule,
         AngularFireModule.initializeApp(environment.firebaseConfig, 'angular-auth-firebase'),
         AngularFirestoreModule,
-        AngularFireAuthModule
+        AngularFireAuthModule,
       ],
-      providers: [{ provide: Router, useValue: routerSpy }]
+      providers: [{ provide: Router, useValue: routerSpy }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoginPage);
@@ -62,15 +63,12 @@ describe('LoginPage', () => {
     fixture.detectChanges();
   }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('should store auth Status in local storage, navigate to main page of getting data of user', fakeAsync(() => {
+  it('should store auth Status in local storage, navigate to main page of getting data of user', async () => {
     spyOn(loginService, 'signInWithGoogle').and.returnValue(Promise.resolve(promisedData));
-    component.onSignIn();
-    tick();
+    spyOn(loginService, 'setAuthStatus');
+    await component.onSignIn();
     expect(localStorage.getItem('authenticated')).toEqual(String(true));
     expect(routerSpy.navigate).toHaveBeenCalledWith(['/']);
-  }));
+    expect(loginService.setAuthStatus).toHaveBeenCalled();
+  });
 });

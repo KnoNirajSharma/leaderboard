@@ -1,17 +1,35 @@
 {
-  "extends": "tslint:recommended",
-  "rulesDirectory": [
-    "codelyzer"
-  ],
+  "extends": ["tslint:recommended"],
   "rules": {
     "array-type": false,
     "arrow-parens": false,
+    "arrow-return-shorthand": true,
+    "callable-types": true,
+    "class-name": true,
     "deprecation": {
-      "severity": "warn"
+      "severity": "warning"
     },
+    "contextual-lifecycle": true,
+    "directive-class-suffix": true,
+    "directive-selector": [
+      true,
+      "attribute",
+      "app",
+      "camelCase"
+    ],
+    "component-selector": [
+      true,
+      "element",
+      "app",
+      "kebab-case"
+    ],
     "import-blacklist": [
       true,
       "rxjs/Rx"
+    ],
+    "indent": [
+      true,
+      "spaces"
     ],
     "interface-name": false,
     "max-classes-per-file": false,
@@ -40,7 +58,11 @@
       "timeEnd",
       "trace"
     ],
+    "no-duplicate-super": true,
+    "no-duplicate-variable": true,
+    "no-duplicate-imports": true,
     "no-empty": false,
+    "no-empty-interface": false,
     "no-inferrable-types": [
       true,
       "ignore-params"
@@ -49,40 +71,101 @@
     "no-redundant-jsdoc": true,
     "no-switch-case-fall-through": true,
     "no-use-before-declare": true,
+    "no-var-keyword": true,
     "no-var-requires": false,
     "object-literal-key-quotes": [
       true,
       "as-needed"
     ],
     "object-literal-sort-keys": false,
-    "ordered-imports": false,
+    "one-line": [
+      true,
+      "check-open-brace",
+      "check-catch",
+      "check-else",
+      "check-finally",
+      "check-whitespace"
+    ],
+    "ordered-imports": [
+      true,
+      {
+        "grouped-imports": true,
+        "groups": [
+          { "name": "relative paths", "match": "^\\.\\.?", "order": 40 },
+          { "name": "absolute paths (testing)", "match": "^testing\/|^testing$", "order": 30 },
+          { "name": "absolute paths (app)", "match": "^app\/|^app$", "order": 20 },
+          { "name": "libraries", "match": ".*", "order": 10 }
+        ]
+      }
+    ],
+    "prefer-const": false,
     "quotemark": [
       true,
-      "single"
+      "single",
+      "avoid-escape"
     ],
-    "trailing-comma": false,
-    "no-output-on-prefix": true,
-    "no-inputs-metadata-property": true,
+    "semicolon": [
+      true,
+      "always",
+      "ignore-bound-class-methods"
+    ],
+    "trailing-comma": [
+      true,
+      {
+        "multiline": "always",
+        "singleline": "never",
+        "esSpecCompliant": true
+      }
+    ],
+    "triple-equals": [
+      true,
+      "allow-null-check"
+    ],
+    "typedef-whitespace": [
+      true,
+      {
+        "call-signature": "nospace",
+        "index-signature": "nospace",
+        "parameter": "nospace",
+        "property-declaration": "nospace",
+        "variable-declaration": "nospace"
+      }
+    ],
+    "unified-signatures": true,
+    "use-strict": [
+      false,
+      "check-module"
+    ],
+    "variable-name": [
+      true,
+      "check-format",
+      "allow-leading-underscore",
+      "allow-pascal-case",
+      "ban-keywords"
+    ],
+    "whitespace": [
+      true,
+      "check-branch",
+      "check-decl",
+      "check-operator",
+      "check-separator",
+      "check-type"
+    ],
+    "one-variable-per-declaration": false,
+    "no-conflicting-lifecycle": true,
     "no-host-metadata-property": true,
     "no-input-rename": true,
+    "no-inputs-metadata-property": true,
+    "no-output-native": true,
+    "no-output-on-prefix": true,
     "no-output-rename": true,
+    "no-outputs-metadata-property": true,
+    "template-banana-in-box": true,
+    "template-no-negated-async": true,
     "use-lifecycle-interface": true,
-    "use-pipe-transform-interface": true,
-    "one-variable-per-declaration": false,
-    "component-class-suffix": [true, "Page", "Component"],
-    "directive-class-suffix": true,
-    "directive-selector": [
-      true,
-      "attribute",
-      "app",
-      "camelCase"
-    ],
-    "component-selector": [
-      true,
-      "element",
-      "app",
-      "page",
-      "kebab-case"
-    ]
-  }
+    "use-pipe-transform-interface": true
+  },
+  "rulesDirectory": [
+    "codelyzer"
+  ]
 }

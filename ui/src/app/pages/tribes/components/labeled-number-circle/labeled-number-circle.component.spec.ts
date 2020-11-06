@@ -10,7 +10,7 @@ describe('LabeledNumberCircleComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ LabeledNumberCircleComponent ],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LabeledNumberCircleComponent);
