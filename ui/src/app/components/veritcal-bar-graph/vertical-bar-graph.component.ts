@@ -1,7 +1,8 @@
 import { Component, Input, OnChanges } from '@angular/core';
+
+import { NgxStackVerticalBarGraphResultModel } from '../../models/ngxStackVerticalBarGraphResultModel';
 import { TrendsModel } from '../../models/trends.model';
 import { CommonService } from '../../services/common.service';
-import { NgxStackVerticalBarGraphResultModel } from '../../models/ngxStackVerticalBarGraphResultModel';
 
 @Component({
   selector: 'app-vertical-bar-graph',
@@ -20,8 +21,7 @@ export class VerticalBarGraphComponent implements OnChanges {
 
     ngOnChanges() {
       this.setBarGraphConfigs();
-      this.result = [];
-      this.trendsData.map(monthData => this.result.push({ name: monthData.month.substring(0, 3) + ',' + String(monthData.year),
+      this.result = this.trendsData.map(monthData => ({ name: monthData.month.substring(0, 3) + ',' + String(monthData.year),
         series: [
           { name: 'Blogs', value: monthData.blogScore },
           { name: 'Knolx', value: monthData.knolxScore },
@@ -30,7 +30,7 @@ export class VerticalBarGraphComponent implements OnChanges {
           { name: 'OS Contribution', value: monthData.osContributionScore },
           { name: 'Conference', value: monthData.conferenceScore },
           { name: 'Book', value: monthData.bookScore },
-          { name: 'Research Paper', value: monthData.researchPaperScore }
+          { name: 'Research Paper', value: monthData.researchPaperScore },
         ] }));
       this.result.reverse();
     }

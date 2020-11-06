@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
+
 import { MedalTallyComponent } from './medal-tally.component';
 
 describe('MedalTallyComponent', () => {
@@ -9,7 +10,7 @@ describe('MedalTallyComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ MedalTallyComponent ],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(MedalTallyComponent);
@@ -20,7 +21,7 @@ describe('MedalTallyComponent', () => {
     component.medalTally = {
       gold: {count: 1, imgUrl: './assets/icon/gold-medal.svg'},
       silver: {count: 0, imgUrl: './assets/icon/silver-medal.svg'},
-      bronze: {count: 2, imgUrl: './assets/icon/bronze-medal.svg'}
+      bronze: {count: 2, imgUrl: './assets/icon/bronze-medal.svg'},
     };
     component.ngOnInit();
     expect(component.medalTallyKeys[0]).toEqual('gold');

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { EmployeeActivityService } from '../../services/employee-activity.service';
+
 import { HallOfFameModel } from '../../models/hallOfFame.model';
 import { CommonService } from '../../services/common.service';
+import { EmployeeActivityService } from '../../services/employee-activity.service';
 
 @Component({
   selector: 'app-hall-of-fame',
@@ -18,7 +19,7 @@ export class HallOfFamePage implements OnInit {
 
   constructor(
     private service: EmployeeActivityService,
-    private commonService: CommonService
+    private commonService: CommonService,
   ) {}
 
   ngOnInit() {

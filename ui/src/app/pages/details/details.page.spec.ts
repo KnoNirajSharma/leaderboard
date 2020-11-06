@@ -1,24 +1,25 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-import { ComponentsModule } from '../../components/components.module';
-import { DetailsPage } from './details.page';
-import { EmployeeActivityService } from '../../services/employee-activity.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { IonicModule } from '@ionic/angular';
-import { KnolderDetailsModel } from '../../models/knolder-details.model';
-import { of } from 'rxjs';
-import { RouterTestingModule } from '@angular/router/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AngularFireModule } from '@angular/fire';
-import { environment } from '../../../environments/environment';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { TrendsModel } from '../../models/trends.model';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { IonicModule } from '@ionic/angular';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { of } from 'rxjs';
+
+import { environment } from '../../../environments/environment';
+import { ComponentsModule } from '../../components/components.module';
 import { HallOfFameModel } from '../../models/hallOfFame.model';
+import { KnolderDetailsModel } from '../../models/knolder-details.model';
+import { TrendsModel } from '../../models/trends.model';
 import { CommonService } from '../../services/common.service';
-import { ScoreDrilldownComponent } from './components/score-drilldown/score-drilldown.component';
+import { EmployeeActivityService } from '../../services/employee-activity.service';
 import { ScoreDetailsComponent } from './components/score-details/score-details.component';
+import { ScoreDrilldownComponent } from './components/score-drilldown/score-drilldown.component';
+import { DetailsPage } from './details.page';
 
 
 describe('DetailsPage', () => {
@@ -37,11 +38,11 @@ describe('DetailsPage', () => {
         contributionDetails: [
           {
             title: 'Serialization in Lagom',
-            date: '2020-05-06 14:16:23'
-          }
-        ]
-      }
-    ]
+            date: '2020-05-06 14:16:23',
+          },
+        ],
+      },
+    ],
   };
   const dummyTrendsData: TrendsModel[] = [
     {
@@ -67,7 +68,7 @@ describe('DetailsPage', () => {
       conferenceScore: 30,
       bookScore: 0,
       researchPaperScore: 50,
-    }
+    },
   ];
   const mockHallOfFameData: HallOfFameModel[] = [
     {
@@ -93,7 +94,7 @@ describe('DetailsPage', () => {
           allTimeRank: 4,
           allTimeScore: 2000,
         },
-      ]
+      ],
     },
     {
       month: 'September',
@@ -118,8 +119,8 @@ describe('DetailsPage', () => {
           allTimeRank: 4,
           allTimeScore: 2000,
         },
-      ]
-    }
+      ],
+    },
   ];
 
   beforeEach(async(() => {
@@ -135,7 +136,7 @@ describe('DetailsPage', () => {
         ComponentsModule,
         AngularFireModule.initializeApp(environment.firebaseConfig, 'angular-auth-firebase'),
         AngularFirestoreModule,
-        AngularFireAuthModule
+        AngularFireAuthModule,
       ],
       providers: [
         {
@@ -144,10 +145,10 @@ describe('DetailsPage', () => {
             queryParams: of({
               id: 1,
               year: 2020,
-              month: 'january'
-            })
-          }
-        }]
+              month: 'january',
+            }),
+          },
+        }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DetailsPage);
@@ -237,7 +238,7 @@ describe('DetailsPage', () => {
   it('should set medal tally by checking count of each rank of achievement by the knolder', () => {
     component.knolderAchievements = [
       { ...mockHallOfFameData[0].leaders[0], position: 0 },
-      { ...mockHallOfFameData[1].leaders[0], position: 0 }
+      { ...mockHallOfFameData[1].leaders[0], position: 0 },
       ];
     component.setMedalTally();
     expect(component.medalTally.gold.count).toEqual(2);

@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { ScoreDrilldownComponent } from './score-drilldown.component';
 
 describe('ScoreDrilldownComponent', () => {
@@ -7,7 +8,7 @@ describe('ScoreDrilldownComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ScoreDrilldownComponent ]
+      declarations: [ ScoreDrilldownComponent ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ScoreDrilldownComponent);

@@ -1,8 +1,9 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
-import { AuthorModel } from '../../models/author.model';
 import { Router } from '@angular/router';
-import { TableHeaderModel } from '../../models/tableHeader.model';
 import * as moment from 'moment';
+
+import { AuthorModel } from '../../models/author.model';
+import { TableHeaderModel } from '../../models/tableHeader.model';
 
 @Component({
   selector: 'app-table',
@@ -28,9 +29,9 @@ export class TableComponent {
             queryParams: {
               id,
               year: this.currentDate.year(),
-              month: this.currentDate.format('MMMM')
-            }
-          }
+              month: this.currentDate.format('MMMM'),
+            },
+          },
         );
       }
     }

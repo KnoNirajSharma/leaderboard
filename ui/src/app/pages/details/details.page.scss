@@ -1,64 +1,49 @@
-ion-content {
-  --background: #f5f5fa;
+.tab-bar {
+
+  form {
+    width: 100px;
+
+    input {
+      font-size: .9em;
+    }
+  }
+
+  .monthSelected {
+    border-bottom: 2px solid blue;
+  }
+
+  button {
+    height: 39px;
+    width: 100px;
+    border: 0 !important;
+    box-shadow: 0 0 5px -1px rgba(0, 0, 0, 0.75);
+  }
+
+  button:hover {
+    box-shadow: 0 0 24px -5px rgba(33, 97, 207, 1);
+  }
 }
 
-.page-wrapper {
-  font-family: 'Poppins', sans-serif;
-  color: #2a2a2a;
+.badge-details {
 
-  .name-title {
-    font-size: 2em;
-    border-bottom: 3px solid #2B35A8;
-    color: #071348;
-  }
+  .badge-details-table {
+    height: 200px;
+    overflow-y: auto;
 
-  .tab-bar {
-
-    form {
-      width: 100px;
-
-      input {
-        font-size: .9em;
-      }
+    &::-webkit-scrollbar {
+      width: 5px;
     }
 
-    .monthSelected {
-      border-bottom: 2px solid blue;
+    &::-webkit-scrollbar-track {
+      background: transparent;
     }
 
-    button {
-      height: 39px;
-      width: 100px;
-      border: 0 !important;
-      box-shadow: 0 0 5px -1px rgba(0, 0, 0, 0.75);
-    }
+    &::-webkit-scrollbar-thumb {
+      background: #e0dede;
+      border-radius: 15px;
 
-    button:hover {
-      box-shadow: 0 0 24px -5px rgba(33, 97, 207, 1);
-    }
-  }
-
-  .badge-details {
-
-    .badge-details-table {
-      height: 200px;
-      overflow-y: auto;
-
-      &::-webkit-scrollbar {
-        width: 5px;
-      }
-
-      &::-webkit-scrollbar-track {
-        background: transparent;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        background: #e0dede;
-        border-radius: 15px;
-
-        &:hover {
-          background: #999;
-        }
+      &:hover {
+        background: #999;
       }
     }
   }

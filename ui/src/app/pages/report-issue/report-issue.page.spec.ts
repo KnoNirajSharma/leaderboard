@@ -1,13 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {AngularFireModule} from '@angular/fire';
+import {AngularFireAuthModule} from '@angular/fire/auth';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {RouterTestingModule} from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ReportIssuePage } from './report-issue.page';
-import {RouterTestingModule} from '@angular/router/testing';
-import {ComponentsModule} from '../../components/components.module';
-import {AngularFireModule} from '@angular/fire';
 import {environment} from '../../../environments/environment';
-import {AngularFirestoreModule} from '@angular/fire/firestore';
-import {AngularFireAuthModule} from '@angular/fire/auth';
+import {ComponentsModule} from '../../components/components.module';
+import { ReportIssuePage } from './report-issue.page';
 
 describe('ReportIssuePage', () => {
   let component: ReportIssuePage;
@@ -23,8 +23,8 @@ describe('ReportIssuePage', () => {
         RouterTestingModule,
         AngularFireModule.initializeApp(environment.firebaseConfig, 'angular-auth-firebase'),
         AngularFirestoreModule,
-        AngularFireAuthModule
-      ]
+        AngularFireAuthModule,
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ReportIssuePage);

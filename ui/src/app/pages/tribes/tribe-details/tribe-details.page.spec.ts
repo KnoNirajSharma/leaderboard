@@ -1,22 +1,21 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
-
-import { TribeDetailsPage } from './tribe-details.page';
-import {LabeledNumberCircleComponent} from '../components/labeled-number-circle/labeled-number-circle.component';
-import {ActivatedRoute} from '@angular/router';
-import {of} from 'rxjs';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {RouterTestingModule} from '@angular/router/testing';
-import {ComponentsModule} from '../../../components/components.module';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import {AngularFireModule} from '@angular/fire';
-import {environment} from '../../../../environments/environment';
-import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireAuthModule} from '@angular/fire/auth';
-import {EmployeeActivityService} from '../../../services/employee-activity.service';
-import {Inject} from '@angular/core';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {ReactiveFormsModule} from '@angular/forms';
+import {ActivatedRoute} from '@angular/router';
+import {RouterTestingModule} from '@angular/router/testing';
+import { IonicModule } from '@ionic/angular';
+import {of} from 'rxjs';
+
+import {environment} from '../../../../environments/environment';
+import {ComponentsModule} from '../../../components/components.module';
 import {TribeDetailsModel} from '../../../models/tribe-details.model';
 import {CustomPipesModule} from '../../../pipe/custom-pipes.module';
-import {ReactiveFormsModule} from '@angular/forms';
+import {EmployeeActivityService} from '../../../services/employee-activity.service';
+import {LabeledNumberCircleComponent} from '../components/labeled-number-circle/labeled-number-circle.component';
+import { TribeDetailsPage } from './tribe-details.page';
 
 describe('TribeDetailsPage', () => {
   let component: TribeDetailsPage;
@@ -32,7 +31,7 @@ describe('TribeDetailsPage', () => {
     allTimeScoreBreakdown: [
       {contributionType: 'Blog', contributionScore: 45},
       {contributionType: 'Knolx', contributionScore: 4},
-      {contributionType: 'webinar', contributionScore: 70}
+      {contributionType: 'webinar', contributionScore: 70},
     ],
     trends: [
       {
@@ -58,7 +57,7 @@ describe('TribeDetailsPage', () => {
         conferenceScore: 0,
         bookScore: 0,
         researchPaperScore: 100,
-      }
+      },
     ],
     memberReputations: [
       {
@@ -77,8 +76,8 @@ describe('TribeDetailsPage', () => {
         quarterlyStreak: '5-6-8',
         monthlyScore: 10,
         monthlyRank: 1,
-      }
-    ]
+      },
+    ],
   };
 
   beforeEach(async(() => {
@@ -93,17 +92,17 @@ describe('TribeDetailsPage', () => {
         AngularFirestoreModule,
         AngularFireAuthModule,
         CustomPipesModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
       ],
       providers: [
         {
           provide: ActivatedRoute,
           useValue: {
             queryParams: of({
-              id: 'dev-ops'
-            })
-          }
-        }]
+              id: 'dev-ops',
+            }),
+          },
+        }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TribeDetailsPage);

@@ -124,3 +124,10 @@ month VARCHAR(255),
 year INT NOT NULL,
 meetup_score_multiplier INT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS Meetup(
+id VARCHAR(255) PRIMARY KEY ,
+email_id VARCHAR(100) NOT NULL,
+delivered_on TIMESTAMP NOT NULL,
+title VARCHAR(255) NOT NULL
+);

@@ -13,3 +13,4 @@ DROP TABLE quarterly_reputation IF EXISTS;
 DROP TABLE halloffame IF EXISTS;
 DROP TABLE dynamicscoring IF EXISTS;
 DROP TABLE monthlycontribution IF EXISTS;
+DROP TABLE Meetup IF EXISTS;

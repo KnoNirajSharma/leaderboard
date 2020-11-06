@@ -1,7 +1,8 @@
 import { Component, Input, OnChanges } from '@angular/core';
+
+import { NgxPieChartResultModel } from '../../models/ngxPieChartResultModel';
 import { ScoreBreakDownModel } from '../../models/ScoreBreakDown.model';
 import { CommonService } from '../../services/common.service';
-import { NgxPieChartResultModel } from '../../models/ngxPieChartResultModel';
 
 @Component({
   selector: 'app-pie-chart',
@@ -18,8 +19,9 @@ export class PieChartComponent implements OnChanges {
 
   ngOnChanges() {
     this.colorScheme = this.commonService.colorScheme;
-    this.result = [];
     this.colorScheme = this.commonService.colorScheme;
-    this.inputResult.map(obj => this.result.push({ name: obj.contributionType, value: obj.contributionScore }));
+    this.result = this.inputResult.map(obj => {
+      return { name: obj.contributionType, value: obj.contributionScore };
+    });
   }
 }

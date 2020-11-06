@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+
 import { MedalTallyModel } from '../../models/medalTally.model';
 
 @Component({

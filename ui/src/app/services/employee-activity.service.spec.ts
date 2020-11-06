@@ -1,14 +1,15 @@
-import { TestBed } from '@angular/core/testing';
-import { EmployeeActivityService } from './employee-activity.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
+
 import { environment } from '../../environments/environment';
+import {HallOfFameModel} from '../models/hallOfFame.model';
 import { KnolderDetailsModel } from '../models/knolder-details.model';
 import { ReputationModel } from '../models/reputation.model';
-import {TrendsModel} from '../models/trends.model';
-import {HallOfFameModel} from '../models/hallOfFame.model';
 import {ScoringTableModel} from '../models/scoring-table.model';
-import {TribesSummeryModel} from '../models/tribes-summery.model';
+import {TrendsModel} from '../models/trends.model';
 import {TribeDetailsModel} from '../models/tribe-details.model';
+import {TribesSummeryModel} from '../models/tribes-summery.model';
+import { EmployeeActivityService } from './employee-activity.service';
 
 describe('EmployeeActivityService', () => {
   let employeeActivityService: EmployeeActivityService;
@@ -46,8 +47,8 @@ describe('EmployeeActivityService', () => {
         quarterlyStreak: '5-6-8',
         monthlyScore: 10,
         monthlyRank: 1,
-      }
-    ]
+      },
+    ],
   };
   const dummyDetailData: KnolderDetailsModel = {
     knolderName: 'Muskan Gupta',
@@ -60,11 +61,11 @@ describe('EmployeeActivityService', () => {
         contributionDetails: [
           {
             title: 'Serialization in Lagom',
-            date: '2020-05-06 14:16:23'
-          }
-        ]
-      }
-    ]
+            date: '2020-05-06 14:16:23',
+          },
+        ],
+      },
+    ],
   };
   const dummyTrendsData: TrendsModel[] = [
     {
@@ -90,7 +91,7 @@ describe('EmployeeActivityService', () => {
       conferenceScore: 0,
       bookScore: 0,
       researchPaperScore: 100,
-    }
+    },
   ];
   const mockHallOfFameData: HallOfFameModel[] = [
     { month: 'August',
@@ -113,7 +114,7 @@ describe('EmployeeActivityService', () => {
           allTimeRank: 4,
           allTimeScore: 2000,
         },
-      ] }
+      ] },
   ];
   const mockScoringData: ScoringTableModel = {
     blog: {points: 5, pointsMultiplier: 1},
@@ -132,7 +133,7 @@ describe('EmployeeActivityService', () => {
       allTimeScore: 3000,
       monthlyScore: 200,
       memberAvg: 40,
-      memberCount: 50
+      memberCount: 50,
     },
     {
       id: 'dev-ops',
@@ -140,7 +141,7 @@ describe('EmployeeActivityService', () => {
       allTimeScore: 3000,
       monthlyScore: 200,
       memberAvg: 40,
-      memberCount: 50
+      memberCount: 50,
     },
   ];
   const mockTribeDetailsData: TribeDetailsModel = {
@@ -153,7 +154,7 @@ describe('EmployeeActivityService', () => {
     allTimeScoreBreakdown: [
       {contributionType: 'Blog', contributionScore: 45},
       {contributionType: 'Knolx', contributionScore: 4},
-      {contributionType: 'webinar', contributionScore: 70}
+      {contributionType: 'webinar', contributionScore: 70},
     ],
     trends: [
       {
@@ -179,7 +180,7 @@ describe('EmployeeActivityService', () => {
         conferenceScore: 0,
         bookScore: 0,
         researchPaperScore: 100,
-      }
+      },
     ],
     memberReputations: [
       {
@@ -198,8 +199,8 @@ describe('EmployeeActivityService', () => {
         quarterlyStreak: '5-6-8',
         monthlyScore: 10,
         monthlyRank: 1,
-      }
-    ]
+      },
+    ],
   };
   const id = 1;
   const month = 'june';
@@ -208,7 +209,7 @@ describe('EmployeeActivityService', () => {
 
   beforeEach(() => TestBed.configureTestingModule({
     imports: [HttpClientTestingModule],
-    providers: [EmployeeActivityService]
+    providers: [EmployeeActivityService],
   }));
 
   beforeEach(() => {

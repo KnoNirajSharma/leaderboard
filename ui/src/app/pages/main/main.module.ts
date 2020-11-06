@@ -1,13 +1,12 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
 import { RouterModule, Routes } from '@angular/router';
-import { MainPage } from './main.page';
-import { TableComponent } from '../../components/table/table.component';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { IonicModule } from '@ionic/angular';
+
 import { ComponentsModule } from '../../components/components.module';
 import { CustomPipesModule } from '../../pipe/custom-pipes.module';
+import { MainPage } from './main.page';
 
 const routes: Routes = [
   {

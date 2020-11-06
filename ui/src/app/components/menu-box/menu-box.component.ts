@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+
 import { NavBarItemModel } from '../../models/nav-bar-item.model';
 
 @Component({
