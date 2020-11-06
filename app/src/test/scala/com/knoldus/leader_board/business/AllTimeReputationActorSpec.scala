@@ -38,7 +38,7 @@ class AllTimeReputationActorSpec extends TestKit(ActorSystem("AllTimeActorSpec")
         mockWriteAllTimeReputation)))
       probe watch quarterlyReputationActor
       probe.send(quarterlyReputationActor, WriteAllTimeReputation)
-      probe.expectMsg("all time reputation saved")
+      probe.expectMsg(AllTimeReputationSaved)
     }
 
     "insert and update all time reputation with incorrect message" in {
@@ -55,7 +55,7 @@ class AllTimeReputationActorSpec extends TestKit(ActorSystem("AllTimeActorSpec")
         mockWriteAllTimeReputation)))
       probe watch quarterlyReputationActor
       probe.send(quarterlyReputationActor, "read all time reputation")
-      probe.expectMsg("invalid message")
+      probe.expectMsg(InvalidMessage)
     }
   }
 }

@@ -12,7 +12,7 @@ class AllTimeReputationActor(allTimeReputation: AllTimeReputation,
       logger.info("Storing or updating all time reputation of knolder.")
       writeAllTimeReputation.insertAllTimeReputationData(allTimeReputations)
       writeAllTimeReputation.updateAllTimeReputationData(allTimeReputations)
-      sender() ! "all time reputation saved"
-    case _ => sender() ! "invalid message"
+      sender() ! AllTimeReputationSaved
+    case _ => sender() ! InvalidMessage
   }
 }
