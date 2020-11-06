@@ -19,7 +19,7 @@ object DriverApp extends App {
   val config: Config = ConfigFactory.load()
   val dateTimeFormat = new ParseDateTimeFormats
   val contributionScoreMultiplierAndSpikeMonth: ContributionScoreMultiplierAndSpikeMonth = new ContributionScoreMultiplierAndSpikeMonthImpl(config)
-  val knolderScore: KnolderScore = new KnolderScoreImpl(contributionScoreMultiplierAndSpikeMonth,config)
+  val knolderScore: KnolderScore = new KnolderScoreImpl(contributionScoreMultiplierAndSpikeMonth, config)
   val knolderRank: KnolderRank = new KnolderRankImpl
   val readContribution = new ReadContributionImpl(config)
   val readAllTimeReputation: ReadAllTimeReputation = new ReadAllTimeReputationImpl(config)
@@ -58,6 +58,7 @@ object DriverApp extends App {
   val storeOSContributionDetails: StoreOSContributionDetails = new StoreOSContributionDetailsImpl(config)
   val storeConferenceDetails: StoreConferenceDetails = new StoreConferenceDetailsImpl(config)
   val storeBooksContribution: StoreBooksContribution = new StoreBooksContributionImpl(config)
+  val storeMeetupContribution: StoreMeetupContribution = new StoreMeetupContributionImpl(config)
   val storeResearchPapersContribution: StoreResearchPapersContribution = new StoreResearchPapersContributionImpl(config)
   val fetchAllTimeKnoldersReputation: FetchAllTimeReputation = new FetchAllTimeReputationImpl(config)
   val monthlyLeadersObj: MonthlyLeaders = new MonthlyLeadersImpl(readContribution, fetchAllTimeKnoldersReputation, knolderScore
@@ -168,6 +169,7 @@ object DriverApp extends App {
   storeOSContributionDetails.insertOSContribution(otherContributionDetails)
   storeConferenceDetails.insertConferenceDetails(otherContributionDetails)
   storeBooksContribution.insertBooksContributionDetails(otherContributionDetails)
+  storeMeetupContribution.insertMeetupContributionDetails(otherContributionDetails)
   storeResearchPapersContribution.insertResearchPaperContributionDetails(otherContributionDetails)
   val techHubDataList = techHubData.getLatestTechHubTemplates
   storeTechHub.insertTechHub(techHubDataList)
