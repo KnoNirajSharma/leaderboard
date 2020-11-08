@@ -117,4 +117,12 @@ Context "gke_sonarqube-289802_us-central1-c_allknols" modified.
 
 Once the steps from the [Setup and Access](#setup-and-access) section are complete, you are ready to work in the environment. Access to  cloud resources is based on the [Principle of Least Privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege) (PoLP). Your GCP IAM user account has the following roles:
 
-* Logs Viewer
+```
+compute.projects.get
+container.clusters.get
+container.clusters.list
+container.pods.get
+container.pods.getLogs
+container.pods.list
+resourcemanager.projects.get
+```
