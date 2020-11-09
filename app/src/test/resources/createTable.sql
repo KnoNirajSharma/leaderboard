@@ -106,8 +106,7 @@ conference_score INT NOT NULL,
 book_score INT NOT NULL,
 researchpaper_score INT NOT NULL,
 month VARCHAR(255),
-year INT NOT NULL,
-meetup_score INT NOT NULL
+year INT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS dynamicscoring(
@@ -121,8 +120,7 @@ conference_score_multiplier INT NOT NULL,
 book_score_multiplier INT NOT NULL,
 researchpaper_score_multiplier INT NOT NULL,
 month VARCHAR(255),
-year INT NOT NULL,
-meetup_score_multiplier INT NOT NULL
+year INT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Meetup(

@@ -27,13 +27,12 @@ class FetchKnolderContributionDetailsImpl(config: Config) extends FetchKnolderCo
     val knolderConferenceDetails = fetchKnolderMonthlyConferenceDetails(month, year, knolderId)
     val knolderBookDetails = fetchKnolderMonthlyBookDetails(month, year, knolderId)
     val knolderResearchPaperDetails = fetchKnolderMonthlyResearchPaperDetails(month, year, knolderId)
-    val knolderMeetupDetails = fetchKnolderMonthlyMeetupDetails(month, year, knolderId)
     val score = knolderBlogDetails.contributionScore + knolderKnolxDetails.contributionScore + knolderWebinarDetails.contributionScore +
       knolderTechHubDetails.contributionScore + knolderOSContributionDetails.contributionScore + knolderConferenceDetails.contributionScore +
-      knolderBookDetails.contributionScore + knolderResearchPaperDetails.contributionScore + knolderMeetupDetails.contributionScore
+      knolderBookDetails.contributionScore + knolderResearchPaperDetails.contributionScore
 
     val contributions = List(knolderBlogDetails, knolderKnolxDetails, knolderWebinarDetails, knolderTechHubDetails,
-      knolderOSContributionDetails, knolderConferenceDetails, knolderBookDetails, knolderResearchPaperDetails, knolderMeetupDetails)
+      knolderOSContributionDetails, knolderConferenceDetails, knolderBookDetails, knolderResearchPaperDetails)
 
     SQL(
       """select knolder.full_name from knolder where knolder.id = ? """.stripMargin)
@@ -332,42 +331,6 @@ class FetchKnolderContributionDetailsImpl(config: Config) extends FetchKnolderCo
     }
   }
 
-  def fetchKnolderMonthlyMeetupDetails(month: Int, year: Int, knolderId: Int): Contribution = {
-
-    val meetupTitles = SQL(
-      """ SELECT
-      meetup.title,
-      meetup.delivered_on
-        FROM
-        knolder
-        RIGHT JOIN
-        meetup
-        ON knolder.email_id = meetup.email_id
-    WHERE
-    EXTRACT(month
-      FROM
-      delivered_on) = ?
-    AND EXTRACT(year
-      FROM
-      delivered_on) = ?
-    AND knolder.id = ? ORDER BY delivered_on desc """)
-      .bind(month, year, knolderId)
-      .map(rs => ContributionDetails(rs.string("title"), rs.string("delivered_on")))
-      .list().apply()
-
-    val meetupScore = SQL(
-      """
-        |select meetup_score from monthlycontribution where knolder_id= ? and month = ? and year=?
-        |""".stripMargin).bind(knolderId, Month.of(month).toString, year).map(rs => rs.int("meetup_score")).single().apply()
-
-    val meetupCount = meetupTitles.length
-
-    meetupScore match {
-      case Some(score) => Contribution("Meetup", meetupCount, score, meetupTitles)
-      case None => Contribution("Meetup", meetupCount, 0, meetupTitles)
-    }
-  }
-
   /**
    * Fetching all time details of specific knolder.
    *
@@ -378,7 +341,7 @@ class FetchKnolderContributionDetailsImpl(config: Config) extends FetchKnolderCo
 
     val contributions = List(fetchAllTimeBlogDetails(knolderId), fetchAllTimeknolxDetails(knolderId), fetchAllTimeWebinarDetails(knolderId)
       , fetchAllTimeTechHubDetails(knolderId), fetchAllTimeOsContributionDetails(knolderId), fetchAllTimeConferenceDetails(knolderId)
-      , fetchAllTimeBookDetails(knolderId), fetchAllTimeResearchPaperDetails(knolderId), fetchAllTimeMeetupDetails(knolderId))
+      , fetchAllTimeBookDetails(knolderId), fetchAllTimeResearchPaperDetails(knolderId))
 
     SQL(
       """SELECT
@@ -622,34 +585,6 @@ class FetchKnolderContributionDetailsImpl(config: Config) extends FetchKnolderCo
     researchPaperScore match {
       case Some(score) => Contribution("Research Paper", researchPaperCount, score, researchPaperTitles)
       case None => Contribution("Research Paper", researchPaperCount, 0, researchPaperTitles)
-    }
-  }
-
-  def fetchAllTimeMeetupDetails(knolderId: Int): Contribution = {
-    val meetupTitles = SQL(
-      """SELECT
-      meetup.title,
-      meetup.delivered_on
-        FROM
-        knolder
-        RIGHT JOIN
-        meetup
-        ON knolder.email_id = meetup.email_id
-    WHERE
-    knolder.id = ? ORDER BY delivered_on DESC """)
-      .bind(knolderId)
-      .map(rs => ContributionDetails(rs.string("title"), rs.string("delivered_on")))
-      .list().apply()
-
-    val meetupScore = SQL(
-      """
-        | select SUM(meetup_score) as meetup_score from monthlycontribution where knolder_id= ? group by knolder_id
-        |""".stripMargin).bind(knolderId).map(rs => rs.int("meetup_score")).single().apply()
-    val meetupCount = meetupTitles.length
-
-    meetupScore match {
-      case Some(score) => Contribution("Meetup", meetupCount, score, meetupTitles)
-      case None => Contribution("Meetup", meetupCount, 0, meetupTitles)
     }
   }
 }

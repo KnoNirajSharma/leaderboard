@@ -36,8 +36,8 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       val insertMonthlyContribution: String =
         """
           |insert into monthlycontribution(id, knolder_id,blog_score,knolx_score,webinar_score,techhub_score
-          |,oscontribution_score,book_score,conference_score,researchpaper_score,meetup_score,month,year)
-          |values (?,?,?,?,?,?,?,?,?,?,?,?,?)
+          |,oscontribution_score,book_score,conference_score,researchpaper_score,month,year)
+          |values (?,?,?,?,?,?,?,?,?,?,?,?)
 """.stripMargin
 
       val preparedStmt: PreparedStatement = connection.prepareStatement(insertMonthlyContribution)
