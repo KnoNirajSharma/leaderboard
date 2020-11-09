@@ -333,7 +333,7 @@ class ReadContributionImplSpec extends DBSpec with BeforeAndAfterEach {
       val month = ZonedDateTime.now(ZoneId.of("Asia/Calcutta")).getMonth.toString
       val year = ZonedDateTime.now(ZoneId.of("Asia/Calcutta")).getYear
 
-      val knoldersWithMonthlyContribution = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0, 2, 0, 0, 0),
+      val knoldersWithMonthlyContribution = List(GetContributionCount(1, "Mukesh Kumar", 2, 2, 2, 2, 0, 2, 0, 0, 2),
         GetContributionCount(3, "Komal Rajpal", 1, 0, 0, 0, 0, 0, 0, 0, 0),
         GetContributionCount(2, "Abhishek Baranwal", 1, 0, 0, 0, 0, 0, 0, 0, 0))
 
