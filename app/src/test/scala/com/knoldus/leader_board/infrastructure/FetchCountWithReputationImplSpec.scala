@@ -80,7 +80,7 @@ class FetchCountWithReputationImplSpec extends DBSpec with BeforeAndAfterEach wi
       val contributionCount = ContributionCount(0, 0)
 
       val monthlyCountAndReputation = Option(ReputationWithCount(contributionCount, contributionCount, contributionCount,
-        contributionCount, contributionCount,contributionCount,contributionCount,contributionCount,reputations))
+        contributionCount, contributionCount,contributionCount,contributionCount,contributionCount,contributionCount,reputations))
       assert(fetchReputationWithCount.allTimeAndMonthlyContributionCountWithReputation == monthlyCountAndReputation)
     }
   }

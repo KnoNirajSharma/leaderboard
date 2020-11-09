@@ -35,7 +35,8 @@ class WriteMonthlyContributionImpl(config: Config) extends WriteMonthlyContribut
           knolderContribution.knolderContributionScore.knolxScore, knolderContribution.knolderContributionScore.webinarScore,
           knolderContribution.knolderContributionScore.techHubScore, knolderContribution.knolderContributionScore.osContributionScore,
           knolderContribution.knolderContributionScore.conferenceScore, knolderContribution.knolderContributionScore.bookScore,
-          knolderContribution.knolderContributionScore.researchPaperScore, knolderContribution.knolderContributionScore.MeetupScore, knolderContribution.knolderContributionScore.month,
+          knolderContribution.knolderContributionScore.researchPaperScore, knolderContribution.knolderContributionScore.meetupScore,
+          knolderContribution.knolderContributionScore.month,
           knolderContribution.knolderContributionScore.year).update().apply()
       }
   }
@@ -55,13 +56,13 @@ class WriteMonthlyContributionImpl(config: Config) extends WriteMonthlyContribut
       .map { knolderContribution =>
         SQL(
           """update monthlycontribution SET blog_score=?,knolx_score=?,webinar_score=?,techhub_score=?,oscontribution_score=?,
-            |conference_score=?,book_score=?,researchpaper_score=?,Meetup_score=? where knolder_id=? and month=? and year = ?
+            |conference_score=?,book_score=?,researchpaper_score=?,meetup_score=? where knolder_id=? and month=? and year = ?
             |""".stripMargin).bind(knolderContribution.knolderContributionScore.blogScore,
           knolderContribution.knolderContributionScore.knolxScore, knolderContribution.knolderContributionScore.webinarScore,
           knolderContribution.knolderContributionScore.techHubScore, knolderContribution.knolderContributionScore.osContributionScore,
           knolderContribution.knolderContributionScore.conferenceScore, knolderContribution.knolderContributionScore.bookScore,
           knolderContribution.knolderContributionScore.researchPaperScore,
-          knolderContribution.knolderContributionScore.MeetupScore, knolderContribution.knolderContributionScore.knolderId,
+          knolderContribution.knolderContributionScore.meetupScore, knolderContribution.knolderContributionScore.knolderId,
           knolderContribution.knolderContributionScore.month, knolderContribution.knolderContributionScore.year).update().apply()
       }
   }

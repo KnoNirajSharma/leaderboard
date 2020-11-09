@@ -7,7 +7,7 @@ import com.typesafe.scalalogging.LazyLogging
 
 final case class KnolderEachContrbutionScore(knolderId: Int, knolderName: String, blogScore: Int, knolxScore: Int, webinarScore: Int, techHubScore: Int,
                                              osContributionScore: Int, conferenceScore: Int, bookScore: Int, researchPaperScore: Int,
-                                             MeetupScore:Int,  month: String, year: Int)
+                                             meetupScore:Int, month: String, year: Int)
 
 class KnolderScoreImpl(fetchSpikeMonth: ContributionScoreMultiplierAndSpikeMonth, config: Config) extends KnolderScore with LazyLogging {
   val scorePerBlog: Int = config.getInt("scorePerBlog")
@@ -32,7 +32,7 @@ class KnolderScoreImpl(fetchSpikeMonth: ContributionScoreMultiplierAndSpikeMonth
     score.map(contributionScore => GetScore(contributionScore.knolderId, contributionScore.knolderName,
       contributionScore.blogScore.getOrElse(0) + contributionScore.knolxScore.getOrElse(0) + contributionScore.webinarScore.getOrElse(0)
         + contributionScore.techHubScore.getOrElse(0) + contributionScore.osContributionScore.getOrElse(0) + contributionScore.conferenceScore.getOrElse(0)
-        + contributionScore.bookScore.getOrElse(0) + contributionScore.researchPaperScore.getOrElse(0) + contributionScore.MeetupScore.getOrElse(0)))
+        + contributionScore.bookScore.getOrElse(0) + contributionScore.researchPaperScore.getOrElse(0) + contributionScore.meetupScore.getOrElse(0)))
       .sortBy(knolder => knolder.score).reverse
   }
 
@@ -54,7 +54,7 @@ class KnolderScoreImpl(fetchSpikeMonth: ContributionScoreMultiplierAndSpikeMonth
             count.numberOfOSContribution * scorePerOsContribution, value.conferenceScoreMultiplier * count.numberOfConferences * scorePerConference
           , value.bookScoreMultiplier * count.numberOfBooks * scorePerBook,
           value.researchPaperScoreMultiplier * count.numberOfResearchPapers * scorePerResearchPaper,
-          value.MeetupScoreMultiplier * count.numberOfMeetup * scorePerMeetup, value.month, value.year))
+          value.meetupScoreMultiplier * count.numberOfMeetup * scorePerMeetup, value.month, value.year))
 
 
       case None => logger.info("calculating each contribution score if the month is not spike")

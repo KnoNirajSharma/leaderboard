@@ -38,7 +38,7 @@ class ReputationOnAPIImplSpec extends AnyWordSpecLike with MockitoSugar with Mat
     Reputation(3, "Komal Rajpal", 5, 2, "5-10-5", 5, 2))
   val contributionCount = ContributionCount(1, 1)
   val reputationWithCount = Option(ReputationWithCount(contributionCount, contributionCount, contributionCount,
-    contributionCount, contributionCount, contributionCount, contributionCount, contributionCount, reputations))
+    contributionCount, contributionCount, contributionCount, contributionCount, contributionCount, contributionCount, reputations))
   val blogTitles = List(ContributionDetails("windows handling using selenium webdriver", "2020-04-13 13:10:40"),
     ContributionDetails("Java 9: Enhance your Jav…ptional API enhancement", "2020-04-13 13:10:40"))
   val blogDetails:Contribution = Contribution("Blog", 2, 10, blogTitles)
@@ -46,7 +46,7 @@ class ReputationOnAPIImplSpec extends AnyWordSpecLike with MockitoSugar with Mat
   val knolderDetails: Option[KnolderDetails] = Option(KnolderDetails("Mukesh Gupta", 10, contributions))
   val twelveMonthDetails = Option(List(TwelveMonthsScore("JUNE", 2020, 30, 20, 40, 10, 15, 100, 100, 50,30)))
   when(mockFetchReputation.allTimeAndMonthlyContributionCountWithReputation).thenReturn(Option(ReputationWithCount(contributionCount, contributionCount, contributionCount,
-    contributionCount, contributionCount, contributionCount, contributionCount, contributionCount, reputations)))
+    contributionCount, contributionCount, contributionCount, contributionCount, contributionCount, contributionCount,reputations)))
   when(mockFetchMonthlyLeaders.fetchMonthlyTopFiveLeaders).thenReturn(listOfMonthlyLeaders)
 
 

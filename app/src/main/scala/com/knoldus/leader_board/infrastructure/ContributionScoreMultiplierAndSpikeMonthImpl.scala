@@ -8,8 +8,8 @@ import com.typesafe.scalalogging.LazyLogging
 import scalikejdbc.{DB, DBSession, SQL}
 
 final case class ScoreMultiplier(blogScoreMultiplier: Int, knolxScoreMultiplier: Int, webinarScoreMultiplier: Int
-                           , techHubScoreMultiplier: Int, osContributionScoreMultiplier: Int, conferenceScoreMultiplier: Int
-                           , researchPaperScoreMultiplier: Int,MeetupScoreMultiplier: Int ,bookScoreMultiplier: Int, month: String, year: Int)
+                                 , techHubScoreMultiplier: Int, osContributionScoreMultiplier: Int, conferenceScoreMultiplier: Int
+                                 , researchPaperScoreMultiplier: Int, meetupScoreMultiplier: Int, bookScoreMultiplier: Int, month: String, year: Int)
 
 class ContributionScoreMultiplierAndSpikeMonthImpl(config: Config) extends ContributionScoreMultiplierAndSpikeMonth with LazyLogging {
 
@@ -28,7 +28,7 @@ class ContributionScoreMultiplierAndSpikeMonthImpl(config: Config) extends Contr
     SQL("select * from dynamicscoring where month = ? And year= ?").bind(month, year)
       .map(rs => ScoreMultiplier(rs.int("blog_score_multiplier"), rs.int("knolx_score_multiplier")
         , rs.int("webinar_score_multiplier"), rs.int("techhub_score_multiplier"), rs.int("oscontribution_score_multiplier")
-        , rs.int("conference_score_multiplier"), rs.int("researchpaper_score_multiplier"), rs.int("Meetup_score_multiplier"),rs.int("book_score_multiplier")
+        , rs.int("conference_score_multiplier"), rs.int("researchpaper_score_multiplier"), rs.int("meetup_score_multiplier"), rs.int("book_score_multiplier")
         , rs.string("month"), rs.int("year"))).first().apply()
   }
 }
