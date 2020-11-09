@@ -45,7 +45,7 @@ final case class ReputationWithCount(blogs: ContributionCount, knolx: Contributi
 final case class Webinar(id: String, deliveredOn: Option[Timestamp], name: String, title: String, emailId: String)
 
 final case class ContributionScore(blogScore: Int, knolxScore: Int, webinarScore: Int, techHubScore: Int, osContributionScore: Int, conferenceScore: Int,
-                                   bookScore: Int, researchPaperScore: Int, MeetupScore: Int)
+                                   bookScore: Int, researchPaperScore: Int, meetupScore: Int)
 
 final case class MonthlyTopFiveLeaders(month: String, year: Int, knolderId: Int, knolderName: String, monthlyScore: Int, monthlyRank: Int, allTimeScore: Int
                                        , allTimeRank: Int)

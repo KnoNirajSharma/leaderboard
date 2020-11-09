@@ -59,7 +59,7 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
     ON knolder.email_id = researchpaper.email_id AND EXTRACT(month FROM researchpaper.published_on) = ?
     AND EXTRACT(year FROM researchpaper.published_on) = ?
     LEFT JOIN Meetup
-    ON knolder.wordpress_id = Meetup.email_id AND EXTRACT(month FROM Meetup.delivered_on) = ?
+    ON knolder.email_id = Meetup.email_id AND EXTRACT(month FROM Meetup.delivered_on) = ?
      AND EXTRACT(year FROM Meetup.delivered_on) = ?
     WHERE knolder.active_status = true
     GROUP BY knolder.id,knolder.wordpress_id,knolder.email_id,
