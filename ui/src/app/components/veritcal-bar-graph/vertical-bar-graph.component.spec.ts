@@ -23,6 +23,7 @@ describe('VeritcalBarGraphComponent', () => {
       conferenceScore: 30,
       bookScore: 100,
       researchPaperScore: 0,
+      meetUpScore: 10,
     },
     {
       month: 'JULY',
@@ -35,6 +36,7 @@ describe('VeritcalBarGraphComponent', () => {
       conferenceScore: 30,
       bookScore: 0,
       researchPaperScore: 50,
+      meetUpScore: 0,
     },
   ];
 

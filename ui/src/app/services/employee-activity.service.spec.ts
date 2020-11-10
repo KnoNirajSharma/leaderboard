@@ -76,21 +76,23 @@ describe('EmployeeActivityService', () => {
       webinarScore: 34,
       techHubScore: 20,
       osContributionScore: 30,
-      conferenceScore: 100,
+      conferenceScore: 30,
       bookScore: 100,
       researchPaperScore: 0,
+      meetUpScore: 10,
     },
     {
       month: 'JULY',
       year: 2020,
-      blogScore: 30,
+      blogScore: 40,
       knolxScore: 20,
       webinarScore: 34,
       techHubScore: 20,
       osContributionScore: 20,
-      conferenceScore: 0,
+      conferenceScore: 30,
       bookScore: 0,
-      researchPaperScore: 100,
+      researchPaperScore: 50,
+      meetUpScore: 0,
     },
   ];
   const mockHallOfFameData: HallOfFameModel[] = [
@@ -168,6 +170,7 @@ describe('EmployeeActivityService', () => {
         conferenceScore: 100,
         bookScore: 100,
         researchPaperScore: 0,
+        meetUpScore: 0,
       },
       {
         month: 'JULY',
@@ -180,6 +183,7 @@ describe('EmployeeActivityService', () => {
         conferenceScore: 0,
         bookScore: 0,
         researchPaperScore: 100,
+        meetUpScore: 100,
       },
     ],
     memberReputations: [

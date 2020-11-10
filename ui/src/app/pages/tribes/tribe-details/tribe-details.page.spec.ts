@@ -45,6 +45,7 @@ describe('TribeDetailsPage', () => {
         conferenceScore: 100,
         bookScore: 100,
         researchPaperScore: 0,
+        meetUpScore: 0,
       },
       {
         month: 'JULY',
@@ -57,6 +58,7 @@ describe('TribeDetailsPage', () => {
         conferenceScore: 0,
         bookScore: 0,
         researchPaperScore: 100,
+        meetUpScore: 0,
       },
     ],
     memberReputations: [
