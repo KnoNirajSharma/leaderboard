@@ -56,6 +56,7 @@ describe('DetailsPage', () => {
       conferenceScore: 30,
       bookScore: 100,
       researchPaperScore: 0,
+      meetUpScore: 0,
     },
     {
       month: 'JULY',
@@ -68,6 +69,7 @@ describe('DetailsPage', () => {
       conferenceScore: 30,
       bookScore: 0,
       researchPaperScore: 50,
+      meetUpScore: 0,
     },
   ];
   const mockHallOfFameData: HallOfFameModel[] = [

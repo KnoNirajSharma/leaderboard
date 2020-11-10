@@ -31,6 +31,7 @@ export class VerticalBarGraphComponent implements OnChanges {
           { name: 'Conference', value: monthData.conferenceScore },
           { name: 'Book', value: monthData.bookScore },
           { name: 'Research Paper', value: monthData.researchPaperScore },
+          { name: 'Meetup', value: monthData.meetUpScore },
         ] }));
       this.result.reverse();
     }

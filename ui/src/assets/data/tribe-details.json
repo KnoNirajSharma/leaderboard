@@ -59,7 +59,8 @@
       "osContributionScore": 0,
       "conferenceScore": 0,
       "bookScore": 0,
-      "researchPaperScore": 50
+      "researchPaperScore": 50,
+      "meetUpScore": 0
     },
     {
       "month": "JULY",
@@ -71,7 +72,7 @@
       "osContributionScore": 0,
       "conferenceScore": 0,
       "bookScore": 0,
-      "researchPaperScore": 0
+      "meetUpScore": 0
     },
     {
       "month": "JUNE",
@@ -83,7 +84,8 @@
       "osContributionScore": 0,
       "conferenceScore": 0,
       "bookScore": 0,
-      "researchPaperScore": 0
+      "researchPaperScore": 0,
+      "meetUpScore": 0
     },
     {
       "month": "MAY",
@@ -95,7 +97,8 @@
       "osContributionScore": 0,
       "conferenceScore": 0,
       "bookScore": 0,
-      "researchPaperScore": 0
+      "researchPaperScore": 0,
+      "meetUpScore": 0
     },
     {
       "month": "APRIL",
@@ -107,7 +110,8 @@
       "osContributionScore": 0,
       "conferenceScore": 15,
       "bookScore": 0,
-      "researchPaperScore": 0
+      "researchPaperScore": 0,
+      "meetUpScore": 0
     },
     {
       "month": "MARCH",
@@ -119,7 +123,8 @@
       "osContributionScore": 0,
       "conferenceScore": 0,
       "bookScore": 100,
-      "researchPaperScore": 0
+      "researchPaperScore": 0,
+      "meetUpScore": 0
     },
     {
       "month": "FEBUARY",
@@ -131,7 +136,8 @@
       "osContributionScore": 0,
       "conferenceScore": 0,
       "bookScore": 0,
-      "researchPaperScore": 0
+      "researchPaperScore": 0,
+      "meetUpScore": 0
     },
     {
       "month": "JANUARY",
@@ -143,7 +149,8 @@
       "osContributionScore": 30,
       "conferenceScore": 0,
       "bookScore": 0,
-      "researchPaperScore": 0
+      "researchPaperScore": 0,
+      "meetUpScore": 0
     },
     {
       "month": "DECEMBER",
@@ -155,7 +162,8 @@
       "osContributionScore": 30,
       "conferenceScore": 0,
       "bookScore": 0,
-      "researchPaperScore": 0
+      "researchPaperScore": 0,
+      "meetUpScore": 0
     },
     {
       "month": "NOVEMBER",
@@ -167,7 +175,8 @@
       "osContributionScore": 0,
       "conferenceScore": 0,
       "bookScore": 0,
-      "researchPaperScore": 0
+      "researchPaperScore": 0,
+      "meetUpScore": 0
     },
     {
       "month": "OCTOBER",
@@ -179,7 +188,8 @@
       "osContributionScore": 0,
       "conferenceScore": 0,
       "bookScore": 0,
-      "researchPaperScore": 0
+      "researchPaperScore": 0,
+      "meetUpScore": 0
     }
   ],
   "memberReputations":[
