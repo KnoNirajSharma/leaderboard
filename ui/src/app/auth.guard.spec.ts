@@ -7,7 +7,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { environment } from '../environments/environment';
 import { AuthGuard } from './auth.guard';
-import { LoginService } from './services/login.service';
+import {LoginService} from './services/login/login.service';
 
 describe('AuthGuard', () => {
   let guard: AuthGuard;
@@ -40,7 +40,7 @@ describe('AuthGuard', () => {
   });
 
   it('should return true for authenticated user', () => {
-    spyOn(loginService, 'authenticationStatus').and.returnValue(true);
+    spyOn(loginService, 'isAuthenticated').and.returnValue(true);
     expect(guard.canActivate(routeMock, routeStateMock)).toEqual(true);
   });
 });

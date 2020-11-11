@@ -9,7 +9,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { mockResponseUserData } from '../../../assets/data/mockFirebaseResponse';
 import { environment } from '../../../environments/environment';
-import { LoginService } from '../../services/login.service';
+import {LoginService} from '../../services/login/login.service';
 import { LoginPage } from './login.page';
 
 describe('LoginPage', () => {
@@ -65,10 +65,8 @@ describe('LoginPage', () => {
 
   it('should store auth Status in local storage, navigate to main page of getting data of user', async () => {
     spyOn(loginService, 'signInWithGoogle').and.returnValue(Promise.resolve(promisedData));
-    spyOn(loginService, 'setAuthStatus');
     await component.onSignIn();
     expect(localStorage.getItem('authenticated')).toEqual(String(true));
     expect(routerSpy.navigate).toHaveBeenCalledWith(['/']);
-    expect(loginService.setAuthStatus).toHaveBeenCalled();
   });
 });

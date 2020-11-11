@@ -7,34 +7,17 @@ import * as firebase from 'firebase';
   providedIn: 'root',
 })
 export class LoginService {
-  private isAuthenticated = false;
-
   constructor(private router: Router, private firebaseAuth: AngularFireAuth) {
   }
 
   signInWithGoogle() {
     return this.firebaseAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
-
-  setAuthStatus(status: boolean) {
-    this.isAuthenticated =  status;
-  }
-
-  authenticationStatus(): boolean {
-    return this.isAuthenticated;
-  }
-
-  autoLogin() {
-    const authStatus: boolean = JSON.parse(localStorage.getItem('authenticated'));
-    if (!authStatus) {
-      this.isAuthenticated = false;
-    } else {
-      this.isAuthenticated = authStatus;
-    }
+  isAuthenticated(): boolean {
+    return JSON.parse(localStorage.getItem('authenticated'));
   }
 
   logout() {
-    this.isAuthenticated = false;
     localStorage.removeItem('authenticated');
     this.router.navigate(['/', 'login']);
   }

@@ -6,8 +6,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { mockResponseUserData } from '../../assets/data/mockFirebaseResponse';
-import { environment } from '../../environments/environment';
+import {mockResponseUserData} from '../../../assets/data/mockFirebaseResponse';
+import {environment} from '../../../environments/environment';
 import { LoginService } from './login.service';
 
 describe('LoginService', () => {
@@ -72,32 +72,15 @@ describe('LoginService', () => {
             .then(done);
     });
 
-    it('should return the status of authentication', () => {
-        loginService.setAuthStatus(false);
-        const authStatus = loginService.authenticationStatus();
-        expect(authStatus).toEqual(false);
-    });
-
-    it('should change auth status if present in local storage', () => {
+    it('should return the auth status as true based on local storage value', () => {
         localStorage.setItem('authenticated', String(true));
-        loginService.autoLogin();
-        const authStatus = loginService.authenticationStatus();
+        const authStatus = loginService.isAuthenticated();
         expect(authStatus).toEqual(true);
     });
 
-    it('should set auth status as false if not present in local storage', () => {
-        localStorage.setItem('authenticated', null);
-        loginService.autoLogin();
-        const authStatus = loginService.authenticationStatus();
+    it('should return the auth status as false based on local storage value', () => {
+        localStorage.setItem('authenticated', String(false));
+        const authStatus = loginService.isAuthenticated();
         expect(authStatus).toEqual(false);
-    });
-
-    it('should set auth status as false and remove data from local storage and navigate to login page', () => {
-        localStorage.setItem('authenticated', String(true));
-        loginService.logout();
-        const authStatus = loginService.authenticationStatus();
-        expect(authStatus).toEqual(false);
-        expect(localStorage.getItem('authenticated')).toEqual(null);
-        expect(routerSpy.navigate).toHaveBeenCalledWith(['/', 'login']);
     });
 });
