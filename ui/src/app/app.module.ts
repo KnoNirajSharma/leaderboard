@@ -14,7 +14,6 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpIntercept } from './interceptors/http.intercept';
-import { DetailsPageModule } from './pages/details/details.module';
 import { LoginPageModule } from './pages/login/login.module';
 
 @NgModule({
@@ -25,7 +24,6 @@ import { LoginPageModule } from './pages/login/login.module';
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-    DetailsPageModule,
     BrowserAnimationsModule,
     LoginPageModule,
     AngularFireModule.initializeApp(environment.firebaseConfig, 'angular-auth-firebase'),
