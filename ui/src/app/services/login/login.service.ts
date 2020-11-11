@@ -13,12 +13,18 @@ export class LoginService {
   signInWithGoogle() {
     return this.firebaseAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
+
   isAuthenticated(): boolean {
     return JSON.parse(localStorage.getItem('authenticated'));
   }
 
+  isAdmin(): boolean {
+    return JSON.parse(localStorage.getItem('admin'));
+  }
+
   logout() {
     localStorage.removeItem('authenticated');
+    localStorage.removeItem('admin');
     this.router.navigate(['/', 'login']);
   }
 }

@@ -5,9 +5,10 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { environment } from '../environments/environment';
-import { AuthGuard } from './auth.guard';
-import {LoginService} from './services/login/login.service';
+import {environment} from '../../../environments/environment';
+import {LoginService} from '../../services/login/login.service';
+import {AuthGuard} from './auth.guard';
+
 
 describe('AuthGuard', () => {
   let guard: AuthGuard;

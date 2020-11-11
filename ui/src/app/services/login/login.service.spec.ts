@@ -72,15 +72,27 @@ describe('LoginService', () => {
             .then(done);
     });
 
-    it('should return the auth status as true based on local storage value', () => {
+    it('should return the auth status as true based on local storage value for authenticated key', () => {
         localStorage.setItem('authenticated', String(true));
         const authStatus = loginService.isAuthenticated();
         expect(authStatus).toEqual(true);
     });
 
-    it('should return the auth status as false based on local storage value', () => {
+    it('should return the auth status as false based on local storage value for authenticated key', () => {
         localStorage.setItem('authenticated', String(false));
         const authStatus = loginService.isAuthenticated();
         expect(authStatus).toEqual(false);
+    });
+
+    it('should return the admin status as true based on local storage value  for admin key', () => {
+        localStorage.setItem('admin', String(true));
+        const adminStatus = loginService.isAdmin();
+        expect(adminStatus).toEqual(true);
+    });
+
+    it('should return the admin status as false based on local storage value for admin key', () => {
+        localStorage.setItem('admin', String(false));
+        const adminStatus = loginService.isAdmin();
+        expect(adminStatus).toEqual(false);
     });
 });
