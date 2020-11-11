@@ -133,6 +133,7 @@ object DriverApp extends App {
         storeConferenceDetails,
         storeBooksContribution,
         storeResearchPapersContribution,
+        storeMeetupContribution,
         otherContributionDataObj, knolderMonthlyContributionActorRef
       )
     ),
