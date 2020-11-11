@@ -12,10 +12,6 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: './pages/user/user.module#UserPageModule',
-  },
-  {
-    path: 'details',
-    loadChildren: './pages/details/details.module#DetailsPageModule',
     canActivate: [AuthGuard],
   },
   {

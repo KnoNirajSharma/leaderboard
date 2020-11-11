@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { KnolderDetailsModel } from '../../../../models/knolder-details.model';
+import {KnolderDetailsModel} from '../../../models/knolder-details.model';
 
 @Component({
   selector: 'app-score-drilldown',
