@@ -43,6 +43,10 @@ const routes: Routes = [
     loadChildren: './pages/tribes/tribes.module#TribesPageModule',
     canActivate: [AuthGuard],
   },
+  {
+    path: 'user',
+    loadChildren: './pages/user/user.module#UserPageModule',
+  },
 ];
 
 @NgModule({
