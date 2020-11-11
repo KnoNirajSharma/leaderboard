@@ -16,6 +16,8 @@ import {MedalTallyComponent} from './medal-tally/medal-tally.component';
 import {MenuBoxComponent} from './menu-box/menu-box.component';
 import {PieChartComponent} from './pie-chart/pie-chart.component';
 import {TableComponent} from './table/table.component';
+import {LabeledNumberCircleComponent} from './tribes/labeled-number-circle/labeled-number-circle.component';
+import {TribeCardComponent} from './tribes/tribe-card/tribe-card.component';
 import {VerticalBarGraphComponent} from './veritcal-bar-graph/vertical-bar-graph.component';
 
 @NgModule({
@@ -39,6 +41,8 @@ import {VerticalBarGraphComponent} from './veritcal-bar-graph/vertical-bar-graph
         TableComponent,
         ScoreDetailsComponent,
         ScoreDrilldownComponent,
+        TribeCardComponent,
+        LabeledNumberCircleComponent,
     ],
     exports: [
         HeadersComponent,
@@ -52,6 +56,8 @@ import {VerticalBarGraphComponent} from './veritcal-bar-graph/vertical-bar-graph
         TableComponent,
         ScoreDetailsComponent,
         ScoreDrilldownComponent,
+        TribeCardComponent,
+        LabeledNumberCircleComponent,
     ],
 })
 export class ComponentsModule {

@@ -11,6 +11,8 @@ import {DetailsPage} from './details/details.page';
 import {HallOfFamePage} from './hall-of-fame/hall-of-fame.page';
 import {MainPage} from './main/main.page';
 import {ReportIssuePage} from './report-issue/report-issue.page';
+import {TribeDetailsPage} from './tribe-details/tribe-details.page';
+import {TribesPage} from './tribes/tribes.page';
 import {UserPageRoutingModule} from './user-routing.module';
 import {UserPage} from './user.page';
 
@@ -25,7 +27,7 @@ import {UserPage} from './user.page';
         UserPageRoutingModule,
         BsDatepickerModule.forRoot(),
     ],
-    declarations: [UserPage, ReportIssuePage, AboutPage, HallOfFamePage, MainPage, DetailsPage],
+    declarations: [UserPage, ReportIssuePage, AboutPage, HallOfFamePage, MainPage, DetailsPage, TribesPage, TribeDetailsPage],
 })
 export class UserPageModule {
 }

@@ -6,6 +6,8 @@ import {DetailsPage} from './details/details.page';
 import {HallOfFamePage} from './hall-of-fame/hall-of-fame.page';
 import {MainPage} from './main/main.page';
 import {ReportIssuePage} from './report-issue/report-issue.page';
+import {TribeDetailsPage} from './tribe-details/tribe-details.page';
+import {TribesPage} from './tribes/tribes.page';
 import {UserPage} from './user.page';
 
 const routes: Routes = [
@@ -32,6 +34,14 @@ const routes: Routes = [
             {
                 path: 'hall-of-fame',
                 component: HallOfFamePage,
+            },
+            {
+                path: 'tribes',
+                component: TribesPage,
+            },
+            {
+                path: 'tribes/:id',
+                component: TribeDetailsPage,
             },
         ],
     },
