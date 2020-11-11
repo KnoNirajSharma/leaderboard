@@ -7,9 +7,10 @@ import {IonicModule} from '@ionic/angular';
 
 import {environment} from '../../../environments/environment';
 import {ComponentsModule} from '../../components/components.module';
+import {CustomPipesModule} from '../../pipe/custom-pipes.module';
 import {UserPage} from './user.page';
 
-fdescribe('UserPage', () => {
+describe('UserPage', () => {
     let component: UserPage;
     let fixture: ComponentFixture<UserPage>;
 
@@ -23,6 +24,7 @@ fdescribe('UserPage', () => {
                 AngularFireModule.initializeApp(environment.firebaseConfig, 'angular-auth-firebase'),
                 AngularFirestoreModule,
                 AngularFireAuthModule,
+                CustomPipesModule,
             ],
         }).compileComponents();
 

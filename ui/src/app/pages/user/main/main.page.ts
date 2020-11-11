@@ -1,11 +1,12 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import { AuthorModel } from '../../models/author.model';
-import { ReputationModel } from '../../models/reputation.model';
-import { ScoringTableModel } from '../../models/scoring-table.model';
-import { TableHeaderModel } from '../../models/tableHeader.model';
-import { EmployeeActivityService } from '../../services/employee-activity.service';
+import {AuthorModel} from '../../../models/author.model';
+import {ReputationModel} from '../../../models/reputation.model';
+import {ScoringTableModel} from '../../../models/scoring-table.model';
+import {TableHeaderModel} from '../../../models/tableHeader.model';
+import {EmployeeActivityService} from '../../../services/employee-activity.service';
+
 
 @Component({
   selector: 'app-main',

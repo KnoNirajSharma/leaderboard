@@ -1,23 +1,19 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import {ElementRef} from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import {of } from 'rxjs';
 
-import { environment } from '../../../environments/environment';
-import { ComponentsModule } from '../../components/components.module';
-import { ReputationModel } from '../../models/reputation.model';
-import { ScoringTableModel } from '../../models/scoring-table.model';
-import { CustomPipesModule } from '../../pipe/custom-pipes.module';
-import { EmployeeFilterPipe } from '../../pipe/employee-filter.pipe';
-import { EmployeeActivityService } from '../../services/employee-activity.service';
-import { MainPage } from './main.page';
+import {ComponentsModule} from '../../../components/components.module';
+import {ReputationModel} from '../../../models/reputation.model';
+import {ScoringTableModel} from '../../../models/scoring-table.model';
+import {CustomPipesModule} from '../../../pipe/custom-pipes.module';
+import {EmployeeFilterPipe} from '../../../pipe/employee-filter.pipe';
+import {EmployeeActivityService} from '../../../services/employee-activity.service';
+import {MainPage} from './main.page';
 
 describe('MainPage', () => {
   let component: MainPage;
@@ -72,9 +68,6 @@ describe('MainPage', () => {
         ReactiveFormsModule,
         NgxDatatableModule,
         ComponentsModule,
-        AngularFireModule.initializeApp(environment.firebaseConfig, 'angular-auth-firebase'),
-        AngularFirestoreModule,
-        AngularFireAuthModule,
         CustomPipesModule,
       ],
       providers: [EmployeeFilterPipe],
