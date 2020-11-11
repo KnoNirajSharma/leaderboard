@@ -16,7 +16,6 @@ import { AppComponent } from './app.component';
 import { HttpIntercept } from './interceptors/http.intercept';
 import { DetailsPageModule } from './pages/details/details.module';
 import { LoginPageModule } from './pages/login/login.module';
-import { MainPageModule } from './pages/main/main.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +25,6 @@ import { MainPageModule } from './pages/main/main.module';
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-    MainPageModule,
     DetailsPageModule,
     BrowserAnimationsModule,
     LoginPageModule,
