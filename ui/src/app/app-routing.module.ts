@@ -18,6 +18,10 @@ const routes: Routes = [
     path: 'login',
     loadChildren: './pages/login/login.module#LoginPageModule',
   },
+  {
+    path: 'admin',
+    loadChildren: './pages/admin/admin.module#AdminPageModule',
+  },
 ];
 
 @NgModule({
