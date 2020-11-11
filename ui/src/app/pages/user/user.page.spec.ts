@@ -9,7 +9,7 @@ import {environment} from '../../../environments/environment';
 import {ComponentsModule} from '../../components/components.module';
 import {UserPage} from './user.page';
 
-fdescribe('UserPage', () => {
+describe('UserPage', () => {
     let component: UserPage;
     let fixture: ComponentFixture<UserPage>;
 
