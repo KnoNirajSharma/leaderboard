@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
-import { HallOfFameModel } from '../../models/hallOfFame.model';
-import { CommonService } from '../../services/common.service';
-import { EmployeeActivityService } from '../../services/employee-activity.service';
+import {HallOfFameModel} from '../../../models/hallOfFame.model';
+import {CommonService} from '../../../services/common.service';
+import {EmployeeActivityService} from '../../../services/employee-activity.service';
+
 
 @Component({
   selector: 'app-hall-of-fame',
@@ -10,7 +11,6 @@ import { EmployeeActivityService } from '../../services/employee-activity.servic
   styleUrls: ['./hall-of-fame.page.scss'],
 })
 export class HallOfFamePage implements OnInit {
-  mainPageLink = '/';
   hallOfFameLeaders: HallOfFameModel[];
   paginationLength: number;
   startIndexOfListForPage: number;
