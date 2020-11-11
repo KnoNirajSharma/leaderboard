@@ -6,8 +6,11 @@ import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 
 import {ComponentsModule} from '../../components/components.module';
 import {CustomPipesModule} from '../../pipe/custom-pipes.module';
+import {AboutPage} from './about/about.page';
 import {DetailsPage} from './details/details.page';
+import {HallOfFamePage} from './hall-of-fame/hall-of-fame.page';
 import {MainPage} from './main/main.page';
+import {ReportIssuePage} from './report-issue/report-issue.page';
 import {UserPageRoutingModule} from './user-routing.module';
 import {UserPage} from './user.page';
 
@@ -22,7 +25,7 @@ import {UserPage} from './user.page';
         UserPageRoutingModule,
         BsDatepickerModule.forRoot(),
     ],
-    declarations: [UserPage, MainPage, DetailsPage],
+    declarations: [UserPage, ReportIssuePage, AboutPage, HallOfFamePage, MainPage, DetailsPage],
 })
 export class UserPageModule {
 }
