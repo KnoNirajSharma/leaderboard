@@ -31,10 +31,6 @@ describe('AuthGuard', () => {
         loginService = TestBed.get(LoginService);
     });
 
-    it('should be created', () => {
-        expect(guard).toBeTruthy();
-    });
-
     it('should redirect an unauthenticated user to the login route', () => {
         spyOn(loginService, 'isAuthenticated').and.returnValue(false);
         expect(guard.canActivate(routeMock, routeStateMock)).toEqual(false);
