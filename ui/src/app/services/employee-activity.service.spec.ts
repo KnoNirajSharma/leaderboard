@@ -2,7 +2,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { TestBed } from '@angular/core/testing';
 
 import { environment } from '../../environments/environment';
-import {HallOfFameModel} from '../models/hallOfFame.model';
+import { HallOfFameModel } from '../models/hallOfFame.model';
 import { KnolderDetailsModel } from '../models/knolder-details.model';
 import { ReputationModel } from '../models/reputation.model';
 import {ScoringTableModel} from '../models/scoring-table.model';
@@ -10,6 +10,7 @@ import {TrendsModel} from '../models/trends.model';
 import {TribeDetailsModel} from '../models/tribe-details.model';
 import {TribesSummeryModel} from '../models/tribes-summery.model';
 import { EmployeeActivityService } from './employee-activity.service';
+
 
 describe('EmployeeActivityService', () => {
   let employeeActivityService: EmployeeActivityService;
