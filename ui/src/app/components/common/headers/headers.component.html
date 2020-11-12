@@ -1,12 +1,8 @@
 <ion-header>
     <div class="header d-flex align-items-center">
-        <div [ngClass]="{'pointer-none': !backBtn}" [routerLink]="mainPageLink"
-             class="d-flex align-items-center mr-5 cursor-pointer">
-            <div class="ml-0 ml-xl-1 back-btn-container">
-                <a *ngIf="backBtn"><i class="arrow-left"></i></a>
-            </div>
-            <div>
-                <img alt="leaderboard logo" class="logo ml-xl-1 ml-0 mr-2" src="./assets/icon/cup.png">
+        <div [routerLink]="mainPageLink" class="d-flex align-items-center mr-5 cursor-pointer">
+            <div class="ml-1 ml-xl-5">
+                <img alt="leaderboard logo" class="logo mr-2" src="./assets/icon/cup.png">
             </div>
             <div [innerHTML]="title" class="title">
             </div>
