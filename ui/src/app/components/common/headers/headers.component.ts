@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
-import { NavBarItemModel } from '../../models/nav-bar-item.model';
-import {LoginService} from '../../services/login/login.service';
+import {NavBarItemModel} from '../../../models/nav-bar-item.model';
+import {LoginService} from '../../../services/login/login.service';
 
 @Component({
   selector: 'app-headers',

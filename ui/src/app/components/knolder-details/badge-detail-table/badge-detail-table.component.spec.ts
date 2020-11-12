@@ -1,8 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {IonicModule} from '@ionic/angular';
 
-import { CustomPipesModule } from '../../pipe/custom-pipes.module';
-import { BadgeDetailTableComponent } from './badge-detail-table.component';
+import {CustomPipesModule} from '../../../pipe/custom-pipes.module';
+import {BadgeDetailTableComponent} from './badge-detail-table.component';
 
 describe('BadgeDetailTableComponent', () => {
   let component: BadgeDetailTableComponent;

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { LeaderModel } from '../../models/leader.model';
+import {LeaderModel} from '../../../models/leader.model';
 
 @Component({
   selector: 'app-badge-detail-table',

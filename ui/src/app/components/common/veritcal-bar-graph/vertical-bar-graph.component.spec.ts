@@ -3,8 +3,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicModule } from '@ionic/angular';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 
-import { TrendsModel } from '../../models/trends.model';
-import { CommonService } from '../../services/common.service';
+import {TrendsModel} from '../../../models/trends.model';
+import {CommonService} from '../../../services/common.service';
 import { VerticalBarGraphComponent } from './vertical-bar-graph.component';
 
 describe('VeritcalBarGraphComponent', () => {

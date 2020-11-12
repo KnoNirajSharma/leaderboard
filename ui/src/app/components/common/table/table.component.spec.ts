@@ -5,8 +5,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
-import { AuthorModel } from '../../models/author.model';
-import { TableComponent } from './table.component';
+import {AuthorModel} from '../../../models/author.model';
+import {TableComponent} from './table.component';
 
 describe('TableComponent', () => {
   let component: TableComponent;

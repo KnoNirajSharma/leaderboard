@@ -2,8 +2,8 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 
-import { AuthorModel } from '../../models/author.model';
-import { TableHeaderModel } from '../../models/tableHeader.model';
+import {AuthorModel} from '../../../models/author.model';
+import {TableHeaderModel} from '../../../models/tableHeader.model';
 
 @Component({
   selector: 'app-table',

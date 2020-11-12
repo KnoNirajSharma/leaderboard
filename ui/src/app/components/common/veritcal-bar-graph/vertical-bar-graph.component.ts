@@ -1,8 +1,8 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import {Component, Input, OnChanges} from '@angular/core';
 
-import { NgxStackVerticalBarGraphResultModel } from '../../models/ngxStackVerticalBarGraphResultModel';
-import { TrendsModel } from '../../models/trends.model';
-import { CommonService } from '../../services/common.service';
+import {NgxStackVerticalBarGraphResultModel} from '../../../models/ngxStackVerticalBarGraphResultModel';
+import {TrendsModel} from '../../../models/trends.model';
+import {CommonService} from '../../../services/common.service';
 
 @Component({
   selector: 'app-vertical-bar-graph',

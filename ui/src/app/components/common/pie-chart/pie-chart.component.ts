@@ -1,8 +1,8 @@
 import { Component, Input, OnChanges } from '@angular/core';
 
-import { NgxPieChartResultModel } from '../../models/ngxPieChartResultModel';
-import { ScoreBreakDownModel } from '../../models/ScoreBreakDown.model';
-import { CommonService } from '../../services/common.service';
+import {NgxPieChartResultModel} from '../../../models/ngxPieChartResultModel';
+import {ScoreBreakDownModel} from '../../../models/ScoreBreakDown.model';
+import {CommonService} from '../../../services/common.service';
 
 @Component({
   selector: 'app-pie-chart',
