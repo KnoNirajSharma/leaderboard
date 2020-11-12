@@ -7,11 +7,6 @@ import {AuthGuard} from './route-guards/auth/auth.guard';
 const routes: Routes = [
     {
         path: '',
-        redirectTo: '/',
-        pathMatch: 'full',
-    },
-    {
-        path: '',
         loadChildren: './pages/user/user.module#UserPageModule',
         canActivate: [AuthGuard],
     },

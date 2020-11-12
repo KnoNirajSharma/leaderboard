@@ -1,14 +1,14 @@
-import { Location } from '@angular/common';
-import { TestBed } from '@angular/core/testing';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import {Location} from '@angular/common';
+import {TestBed} from '@angular/core/testing';
+import {AngularFireModule} from '@angular/fire';
+import {AngularFireAuth, AngularFireAuthModule} from '@angular/fire/auth';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {Router} from '@angular/router';
+import {RouterTestingModule} from '@angular/router/testing';
 
 import {mockResponseUserData} from '../../../assets/data/mockFirebaseResponse';
 import {environment} from '../../../environments/environment';
-import { LoginService } from './login.service';
+import {LoginService} from './login.service';
 
 describe('LoginService', () => {
     let loginService: LoginService;
@@ -49,7 +49,7 @@ describe('LoginService', () => {
             providers: [
                 LoginService,
                 AngularFireAuth,
-                { provide: Router, useValue: routerSpy },
+                {provide: Router, useValue: routerSpy},
             ],
         }).compileComponents();
 
@@ -74,25 +74,21 @@ describe('LoginService', () => {
 
     it('should return the auth status as true based on local storage value for authenticated key', () => {
         localStorage.setItem('authenticated', String(true));
-        const authStatus = loginService.isAuthenticated();
-        expect(authStatus).toEqual(true);
+        expect(loginService.isAuthenticated()).toEqual(true);
     });
 
     it('should return the auth status as false based on local storage value for authenticated key', () => {
         localStorage.setItem('authenticated', String(false));
-        const authStatus = loginService.isAuthenticated();
-        expect(authStatus).toEqual(false);
+        expect(loginService.isAuthenticated()).toEqual(false);
     });
 
     it('should return the admin status as true based on local storage value  for admin key', () => {
         localStorage.setItem('admin', String(true));
-        const adminStatus = loginService.isAdmin();
-        expect(adminStatus).toEqual(true);
+        expect(loginService.isAdmin()).toEqual(true);
     });
 
     it('should return the admin status as false based on local storage value for admin key', () => {
         localStorage.setItem('admin', String(false));
-        const adminStatus = loginService.isAdmin();
-        expect(adminStatus).toEqual(false);
+        expect(loginService.isAdmin()).toEqual(false);
     });
 });
