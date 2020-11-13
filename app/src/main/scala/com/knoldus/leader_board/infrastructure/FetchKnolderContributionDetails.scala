@@ -39,4 +39,8 @@ trait FetchKnolderContributionDetails {
 
   def fetchAllTimeResearchPaperDetails(knolderId: Int): Contribution
 
+  def fetchKnolderMonthlyMeetupDetails(month: Int, year: Int, knolderId: Int): Contribution
+
+  def fetchAllTimeMeetupDetails(knolderId: Int): Contribution
+
 }
