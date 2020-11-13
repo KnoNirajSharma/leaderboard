@@ -30,10 +30,6 @@ describe('AdminGuard', () => {
         loginService = TestBed.get(LoginService);
     });
 
-    it('should be created', () => {
-        expect(guard).toBeTruthy();
-    });
-
     it('should redirect an authenticated and not admin user to the / route', () => {
         spyOn(loginService, 'isAuthenticated').and.returnValue(true);
         spyOn(loginService, 'isAdmin').and.returnValue(false);
