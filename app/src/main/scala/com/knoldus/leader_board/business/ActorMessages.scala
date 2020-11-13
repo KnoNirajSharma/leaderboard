@@ -19,3 +19,4 @@ case object MonthlyContributionSaved
 case object AllTimeReputationSaved
 
 case object StoredOtherContributionData
+

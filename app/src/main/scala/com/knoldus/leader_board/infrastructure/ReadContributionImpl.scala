@@ -17,6 +17,18 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
   implicit val connection: Connection = DatabaseConnection.connection(config)
   implicit val session: DBSession = DB.readOnlySession()
 
+  val KNOLDER_ID= "knolder_id"
+  val FULL_NAME= "full_name"
+  val BLOG_SCORE= "blog_score"
+  val KNOLX_SCORE= "knolx_score"
+  val WEBINAR_SCORE= "webinar_score"
+  val TECHHUB_SCORE= "techhub_score"
+  val OSCONTRIBUTION_SCORE= "oscontribution_score"
+  val CONFERENCE_SCORE= "conference_score"
+  val BOOK_SCORE= "book_score"
+  val RESEARCH_PAPER_SCORE= "researchpaper_score"
+  val MEETUP_SCORE= "meetup_score"
+
 
   val queryToFetchMonthlyDetails =
     """ SELECT
@@ -88,10 +100,10 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
        left join monthlycontribution on knolder.id=monthlycontribution.knolder_id
        WHERE knolder.active_status = true
         group by monthlycontribution.knolder_id,knolder.full_name,knolder.id""")
-      .map(rs => KnolderContributionScore(rs.int("knolder_id"), rs.string("full_name"), rs.intOpt("blog_score")
-        , rs.intOpt("knolx_score"), rs.intOpt("webinar_score"), rs.intOpt("techhub_score"),
-        rs.intOpt("oscontribution_score"), rs.intOpt("conference_score"), rs.intOpt("book_score"),
-        rs.intOpt("researchpaper_score"), rs.intOpt("meetup_score"))).list().apply()
+      .map(rs => KnolderContributionScore(rs.int(KNOLDER_ID), rs.string(FULL_NAME), rs.intOpt(BLOG_SCORE)
+        , rs.intOpt(KNOLX_SCORE), rs.intOpt(WEBINAR_SCORE), rs.intOpt(TECHHUB_SCORE),
+        rs.intOpt(OSCONTRIBUTION_SCORE), rs.intOpt(CONFERENCE_SCORE), rs.intOpt(BOOK_SCORE),
+        rs.intOpt(RESEARCH_PAPER_SCORE), rs.intOpt(MEETUP_SCORE))).list().apply()
   }
 
   /**
@@ -121,10 +133,10 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
 
     SQL(queryToFetchKnolderContributionSCore)
       .bind(month, year)
-      .map(rs => KnolderContributionScore(rs.int("knolder_id"), rs.string("full_name"), rs.intOpt("blog_score")
-        , rs.intOpt("knolx_score"), rs.intOpt("webinar_score"), rs.intOpt("techhub_score"),
-        rs.intOpt("oscontribution_score"), rs.intOpt("conference_score"), rs.intOpt("book_score"),
-        rs.intOpt("researchpaper_score"), rs.intOpt("meetup_score"))).list().apply()
+      .map(rs => KnolderContributionScore(rs.int(KNOLDER_ID), rs.string(FULL_NAME), rs.intOpt(BLOG_SCORE)
+        , rs.intOpt(KNOLX_SCORE), rs.intOpt(WEBINAR_SCORE), rs.intOpt(TECHHUB_SCORE),
+        rs.intOpt(OSCONTRIBUTION_SCORE), rs.intOpt(CONFERENCE_SCORE), rs.intOpt(BOOK_SCORE),
+        rs.intOpt(RESEARCH_PAPER_SCORE), rs.intOpt(MEETUP_SCORE))).list().apply()
   }
 
   /**
@@ -138,10 +150,10 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
     val year = IndianTime.currentTime.minusMonths(2).getYear
     SQL(queryToFetchKnolderContributionSCore)
       .bind(month, year)
-      .map(rs => KnolderContributionScore(rs.int("knolder_id"), rs.string("full_name"), rs.intOpt("blog_score")
-        , rs.intOpt("knolx_score"), rs.intOpt("webinar_score"), rs.intOpt("techhub_score"),
-        rs.intOpt("oscontribution_score"), rs.intOpt("conference_score"), rs.intOpt("book_score"),
-        rs.intOpt("researchpaper_score"), rs.intOpt("meetup_score"))).list().apply()
+      .map(rs => KnolderContributionScore(rs.int(KNOLDER_ID), rs.string(FULL_NAME), rs.intOpt(BLOG_SCORE)
+        , rs.intOpt(KNOLX_SCORE), rs.intOpt(WEBINAR_SCORE), rs.intOpt(TECHHUB_SCORE),
+        rs.intOpt(OSCONTRIBUTION_SCORE), rs.intOpt(CONFERENCE_SCORE), rs.intOpt(BOOK_SCORE),
+        rs.intOpt(RESEARCH_PAPER_SCORE), rs.intOpt(MEETUP_SCORE))).list().apply()
   }
 
   /**
@@ -155,10 +167,10 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
     val year = IndianTime.currentTime.minusMonths(1).getYear
     SQL(queryToFetchKnolderContributionSCore)
       .bind(month, year)
-      .map(rs => KnolderContributionScore(rs.int("knolder_id"), rs.string("full_name"), rs.intOpt("blog_score")
-        , rs.intOpt("knolx_score"), rs.intOpt("webinar_score"), rs.intOpt("techhub_score"),
-        rs.intOpt("oscontribution_score"), rs.intOpt("conference_score"), rs.intOpt("book_score"),
-        rs.intOpt("researchpaper_score"), rs.intOpt("meetup_score"))).list().apply()
+      .map(rs => KnolderContributionScore(rs.int(KNOLDER_ID), rs.string(FULL_NAME), rs.intOpt(BLOG_SCORE)
+        , rs.intOpt(KNOLX_SCORE), rs.intOpt(WEBINAR_SCORE), rs.intOpt(TECHHUB_SCORE),
+        rs.intOpt(OSCONTRIBUTION_SCORE), rs.intOpt(CONFERENCE_SCORE), rs.intOpt(BOOK_SCORE),
+        rs.intOpt(RESEARCH_PAPER_SCORE), rs.intOpt(MEETUP_SCORE))).list().apply()
   }
 
   /**
@@ -176,9 +188,9 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
  ,oscontribution_score,conference_score,researchpaper_score,Meetup_score,book_score
  from monthlycontribution where month= ? And year=? And knolder_id=? """)
       .bind(Month.of(month).toString, year, knolderId)
-      .map(rs => ContributionScore(rs.int("blog_Score"), rs.int("knolx_Score"),
-        rs.int("webinar_Score"), rs.int("techHub_Score"), rs.int("oscontribution_Score"), rs.int("conference_Score")
-        , rs.int("book_Score"), rs.int("researchpaper_Score"), rs.int("meetup_Score")))
+      .map(rs => ContributionScore(rs.int(BLOG_SCORE), rs.int(KNOLX_SCORE),
+        rs.int(WEBINAR_SCORE), rs.int(TECHHUB_SCORE), rs.int(OSCONTRIBUTION_SCORE), rs.int(CONFERENCE_SCORE)
+        , rs.int(BOOK_SCORE), rs.int(RESEARCH_PAPER_SCORE), rs.int(MEETUP_SCORE)))
       .single().apply()
   }
 
@@ -195,9 +207,9 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
 
     SQL(
       queryToFetchKnolderContributionSCore.stripMargin).bind(month, year)
-      .map(rs => KnolderContributionScore(rs.int("knolder_id"), rs.string("full_name"), rs.intOpt("blog_score")
-        , rs.intOpt("knolx_score"), rs.intOpt("webinar_score"), rs.intOpt("techhub_score"),
-        rs.intOpt("oscontribution_score"), rs.intOpt("conference_score"), rs.intOpt("book_score"),
-        rs.intOpt("researchpaper_score"), rs.intOpt("meetup_score"))).list().apply()
+      .map(rs => KnolderContributionScore(rs.int(KNOLDER_ID), rs.string(FULL_NAME), rs.intOpt(BLOG_SCORE)
+        , rs.intOpt(KNOLX_SCORE), rs.intOpt(WEBINAR_SCORE), rs.intOpt(TECHHUB_SCORE),
+        rs.intOpt(OSCONTRIBUTION_SCORE), rs.intOpt(CONFERENCE_SCORE), rs.intOpt(BOOK_SCORE),
+        rs.intOpt(RESEARCH_PAPER_SCORE), rs.intOpt(MEETUP_SCORE))).list().apply()
   }
 }
