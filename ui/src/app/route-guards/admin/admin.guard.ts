@@ -18,10 +18,8 @@ export class AdminGuard implements CanActivate {
         | Promise<boolean | UrlTree>
         | Observable<boolean | UrlTree> {
         if (this.loginService.isAuthenticated() && this.loginService.isAdmin()) {
-            console.log('in true', this.loginService.isAuthenticated(), this.loginService.isAdmin());
             return true;
         } else {
-            console.log('in false', this.loginService.isAuthenticated(), this.loginService.isAdmin());
             this.router.navigate(['/']);
             return false;
         }
