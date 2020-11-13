@@ -1,6 +1,6 @@
 <ion-header>
     <div class="header d-flex align-items-center">
-        <div [routerLink]="mainPageLink" class="d-flex align-items-center mr-5 cursor-pointer">
+        <div [routerLink]="mainPageLink" class="outline-0 d-flex align-items-center mr-5 cursor-pointer">
             <div class="ml-1 ml-xl-5">
                 <img alt="leaderboard logo" class="logo mr-2" src="./assets/icon/cup.png">
             </div>
@@ -9,7 +9,7 @@
         </div>
         <div class="nav-bar d-flex h-100 ml-2">
             <div *ngFor="let item of navItems" [routerLink]="item.link"
-                 class="nav-item text-white d-flex align-items-center py-0 mr-3 h-100 cursor-pointer">
+                 class="nav-item text-white d-flex align-items-center py-0 mr-3 h-100 cursor-pointer outline-0">
                 <span *ngIf="item.isNavbarLevelItem"
                       class="d-none d-lg-inline-block font-weight-bolder">{{item.title}}</span>
             </div>
@@ -31,6 +31,8 @@
             <div *ngIf="dropdownMenuVisibility"
                  class="dropdown-menu-container position-absolute bg-white">
                 <div (click)="openForm()" class="dropdown-menu-item p-2 border-bottom border-light">Add Contribution
+                </div>
+                <div *ngIf="isAdmin" [routerLink]="['/','admin']" class="dropdown-menu-item p-2 border-bottom border-light">Admin
                 </div>
                 <div (click)="onLogout()" class="dropdown-menu-item p-2">Logout</div>
             </div>

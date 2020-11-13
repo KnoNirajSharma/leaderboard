@@ -22,6 +22,7 @@ export class HeadersComponent {
     ];
     mainPageLink = '/';
     reportIssuePageLink = '/report-issue';
+    isAdmin: boolean = this.loginService.isAdmin();
 
     constructor(private loginService: LoginService) {
     }

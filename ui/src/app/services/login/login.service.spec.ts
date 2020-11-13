@@ -95,4 +95,13 @@ describe('LoginService', () => {
         const adminStatus = loginService.isAdmin();
         expect(adminStatus).toEqual(false);
     });
+
+    it('should set auth status as false and remove data from local storage and navigate to login page', () => {
+        localStorage.setItem('authenticated', String(true));
+        localStorage.setItem('admin', String(true));
+        loginService.logout();
+        expect(localStorage.getItem('authenticated')).toEqual(null);
+        expect(localStorage.getItem('admin')).toEqual(null);
+        expect(routerSpy.navigate).toHaveBeenCalledWith(['/', 'login']);
+    });
 });
