@@ -5,8 +5,8 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {RouterTestingModule} from '@angular/router/testing';
 import {IonicModule} from '@ionic/angular';
 
-import {environment} from '../../../environments/environment';
-import {LoginService} from '../../services/login/login.service';
+import {environment} from '../../../../environments/environment';
+import {LoginService} from '../../../services/login/login.service';
 import {MenuBoxComponent} from '../menu-box/menu-box.component';
 import {HeadersComponent} from './headers.component';
 

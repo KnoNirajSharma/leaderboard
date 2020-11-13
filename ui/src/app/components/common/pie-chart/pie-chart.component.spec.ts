@@ -3,9 +3,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicModule } from '@ionic/angular';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 
-import { KnolderDetailsModel } from '../../models/knolder-details.model';
-import { CommonService } from '../../services/common.service';
-import { PieChartComponent } from './pie-chart.component';
+import {KnolderDetailsModel} from '../../../models/knolder-details.model';
+import {CommonService} from '../../../services/common.service';
+import {PieChartComponent} from './pie-chart.component';
 
 describe('PieChartComponent', () => {
   let component: PieChartComponent;

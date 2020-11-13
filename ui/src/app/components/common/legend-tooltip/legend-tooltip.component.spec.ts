@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {CustomPipesModule} from '../../pipe/custom-pipes.module';
-import { LegendTooltipComponent } from './legend-tooltip.component';
+import {CustomPipesModule} from '../../../pipe/custom-pipes.module';
+import {LegendTooltipComponent} from './legend-tooltip.component';
 
 describe('LegendTooltipComponent', () => {
   let component: LegendTooltipComponent;
