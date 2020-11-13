@@ -29,9 +29,9 @@ class TwelveMonthsContributionImpl(readContribution: ReadContribution) extends T
         monthScore match {
           case Some(contributionScore) => calculateMonthsScore(scoreList :+ TwelveMonthsScore(monthName, year, contributionScore.blogScore,
             contributionScore.knolxScore, contributionScore.webinarScore, contributionScore.techHubScore, contributionScore.osContributionScore,
-            contributionScore.conferenceScore, contributionScore.bookScore, contributionScore.researchPaperScore),
+            contributionScore.conferenceScore, contributionScore.bookScore, contributionScore.researchPaperScore, contributionScore.meetupScore),
             monthsIndex + 1, id)
-          case None => calculateMonthsScore(scoreList :+ TwelveMonthsScore(monthName, year, 0, 0, 0, 0, 0, 0, 0, 0),
+          case None => calculateMonthsScore(scoreList :+ TwelveMonthsScore(monthName, year, 0, 0, 0, 0, 0, 0, 0, 0, 0),
             monthsIndex + 1, id)
         }
       }

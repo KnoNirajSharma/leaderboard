@@ -21,12 +21,13 @@ class FetchKnolderContributionDetailsImplSpec extends DBSpec with BeforeAndAfter
 
   "fetch knolder details" should {
     val date = Timestamp.valueOf("2020-04-13 13:10:40")
-    def insertMonthlyContribution: Unit ={
+
+    def insertMonthlyContribution: Unit = {
       val insertMonthlyContribution: String =
         """
           |insert into monthlycontribution(id, knolder_id,blog_score,knolx_score,webinar_score,techhub_score
-          |,oscontribution_score,book_score,conference_score,researchpaper_score,month,year)
-          |values (?,?,?,?,?,?,?,?,?,?,?,?)
+          |,oscontribution_score,book_score,conference_score,researchpaper_score,meetup_score,month,year)
+          |values (?,?,?,?,?,?,?,?,?,?,?,?,?)
 """.stripMargin
 
       val preparedStmt: PreparedStatement = connection.prepareStatement(insertMonthlyContribution)
@@ -34,19 +35,20 @@ class FetchKnolderContributionDetailsImplSpec extends DBSpec with BeforeAndAfter
       preparedStmt.setInt(2, 1)
       preparedStmt.setInt(3, 10)
       preparedStmt.setInt(4, 40)
-      preparedStmt.setInt(5,30)
+      preparedStmt.setInt(5, 30)
       preparedStmt.setInt(6, 30)
       preparedStmt.setInt(7, 60)
       preparedStmt.setInt(8, 200)
       preparedStmt.setInt(9, 200)
       preparedStmt.setInt(10, 100)
-      preparedStmt.setString(11, "APRIL")
-      preparedStmt.setInt(12, 2020)
+      preparedStmt.setInt(11, 30)
+      preparedStmt.setString(12, "APRIL")
+      preparedStmt.setInt(13, 2020)
       preparedStmt.execute
       preparedStmt.close()
     }
 
-    def insertAllTimeReputation: Unit ={
+    def insertAllTimeReputation: Unit = {
       val insertAllTimeReputationData: String =
         """
           |insert into all_time_reputation(id, knolder_id, score, rank)
@@ -61,6 +63,7 @@ class FetchKnolderContributionDetailsImplSpec extends DBSpec with BeforeAndAfter
       preparedStmt.execute
       preparedStmt.close()
     }
+
     def insertBlog: Unit = {
       val insertBlogOne: String =
         """
@@ -363,12 +366,12 @@ class FetchKnolderContributionDetailsImplSpec extends DBSpec with BeforeAndAfter
       val techhubTitles = List(ContributionDetails("Reactive Microservices", date.toString),
         ContributionDetails("Delta Lake", date.toString))
 
-      val techhubDetails=Contribution("TechHub", 2, 30, techhubTitles)
+      val techhubDetails = Contribution("TechHub", 2, 30, techhubTitles)
 
       val conferenceTitles = List(ContributionDetails("Reactive Microservices", date.toString),
         ContributionDetails("Delta Lake", date.toString))
       val conferenceDetails = Contribution("Conferences", 2, 200, conferenceTitles)
-      val contributions = List(blogDetails, knolxDetails, webinarDetails, techhubDetails, osContributionDetails, conferenceDetails,bookDetails,researchPaperDetails)
+      val contributions = List(blogDetails, knolxDetails, webinarDetails, techhubDetails, osContributionDetails, conferenceDetails, bookDetails, researchPaperDetails)
 
       val knolderDetails = KnolderDetails("Mukesh Gupta", 670, contributions)
 
@@ -377,7 +380,7 @@ class FetchKnolderContributionDetailsImplSpec extends DBSpec with BeforeAndAfter
     }
 
     "return monthly details of specific knolder when there in no details in monthly contribution table" in {
-     insertKnolder
+      insertKnolder
 
       val bookTitles = List.empty
       val bookDetails = Contribution("Books", 0, 0, bookTitles)
@@ -402,7 +405,7 @@ class FetchKnolderContributionDetailsImplSpec extends DBSpec with BeforeAndAfter
 
       val webinarTitles = List.empty
       val webinarDetails = Contribution("Webinar", 0, 0, webinarTitles)
-      val contributions = List(blogDetails, knolxDetails, webinarDetails, techhubDetails, osContributionDetails, conferenceDetails,bookDetails,researchPaperDetails)
+      val contributions = List(blogDetails, knolxDetails, webinarDetails, techhubDetails, osContributionDetails, conferenceDetails, bookDetails, researchPaperDetails)
 
       val knolderDetails = KnolderDetails("Mukesh Gupta", 0, contributions)
 
@@ -462,7 +465,7 @@ class FetchKnolderContributionDetailsImplSpec extends DBSpec with BeforeAndAfter
 
       val webinarDetails = Contribution("Webinar", 2, 30, webinarTitles)
 
-      val contributions = List(blogDetails, knolxDetails, webinarDetails, techhubDetails, osContributionDetails ,conferenceDetails,bookDetails,researchPaperDetails)
+      val contributions = List(blogDetails, knolxDetails, webinarDetails, techhubDetails, osContributionDetails, conferenceDetails, bookDetails, researchPaperDetails)
       val knolderDetails = KnolderDetails("Mukesh Gupta", 670, contributions)
 
       fetchKnolderDetails.fetchKnolderAllTimeDetails(1).
@@ -497,7 +500,7 @@ class FetchKnolderContributionDetailsImplSpec extends DBSpec with BeforeAndAfter
       val webinarTitles = List.empty
       val webinarDetails = Contribution("Webinar", 0, 0, webinarTitles)
 
-      val contributions = List(blogDetails, knolxDetails, webinarDetails, techhubDetails, osContributionDetails ,conferenceDetails,bookDetails,researchPaperDetails)
+      val contributions = List(blogDetails, knolxDetails, webinarDetails, techhubDetails, osContributionDetails, conferenceDetails, bookDetails, researchPaperDetails)
       val knolderDetails = KnolderDetails("Mukesh Gupta", 670, contributions)
 
       fetchKnolderDetails.fetchKnolderAllTimeDetails(1).

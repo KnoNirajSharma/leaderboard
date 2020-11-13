@@ -15,7 +15,7 @@ class MonthlyLeadersImplSpec extends AnyFlatSpec with MockitoSugar {
 
   "MonthlyLeadersImpl" should "return monthly and all timeknolder reputation of each knolder" in {
     val scorePerKnolder = List(GetScore(1, "Mukesh Gupta", 360))
-    val contributionScores = List(KnolderContributionScore(1, "Mukesh Gupta", Option(10), Option(10), Option(15), Option(15), Option(60),Option(100),Option(100), Option(50)))
+    val contributionScores = List(KnolderContributionScore(1, "Mukesh Gupta", Option(10), Option(10), Option(15), Option(15), Option(60), Option(100), Option(100), Option(50), Option(30)))
 
     when(mockReadContribution.fetchKnoldersWithQuarterThirdMonthContributions)
       .thenReturn(contributionScores)
