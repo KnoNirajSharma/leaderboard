@@ -2,6 +2,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {ReactiveFormsModule} from '@angular/forms';
 import {RouterTestingModule} from '@angular/router/testing';
 import {IonicModule} from '@ionic/angular';
 
@@ -23,6 +24,7 @@ describe('AdminPage', () => {
                 AngularFireModule.initializeApp(environment.firebaseConfig, 'angular-auth-firebase'),
                 AngularFirestoreModule,
                 AngularFireAuthModule,
+                ReactiveFormsModule,
             ],
         }).compileComponents();
 

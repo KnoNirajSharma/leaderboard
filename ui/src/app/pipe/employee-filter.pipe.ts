@@ -6,10 +6,10 @@ import { AuthorModel } from '../models/author.model';
   name: 'employeeFilter',
 })
 export class EmployeeFilterPipe implements PipeTransform {
-  transform(employees: AuthorModel[], searchTerm: string): any {
+  transform(employees: any[], parameter: string, searchTerm: string): any {
     if (!employees || !searchTerm) {
       return employees;
     }
-    return employees.filter(employee => employee.knolderName.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1);
+    return employees.filter(employee => employee[parameter].toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1);
   }
 }

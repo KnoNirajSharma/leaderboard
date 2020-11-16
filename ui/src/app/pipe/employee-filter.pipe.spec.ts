@@ -26,9 +26,9 @@ describe('EmployeeFilterPipe', () => {
     pipe = new EmployeeFilterPipe();
   });
   it('it should show filtered list of employees', () => {
-    expect(pipe.transform(dummyAuthorData, 'mark')).toEqual([dummyAuthorData[0]]);
+    expect(pipe.transform(dummyAuthorData, 'knolderName', 'mark')).toEqual([dummyAuthorData[0]]);
   });
   it('it should show list of employees', () => {
-    expect(pipe.transform(dummyAuthorData, '')).toEqual(dummyAuthorData);
+    expect(pipe.transform(dummyAuthorData, 'knolderName', '')).toEqual(dummyAuthorData);
   });
 });

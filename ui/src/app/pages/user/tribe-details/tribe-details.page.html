@@ -51,7 +51,7 @@
             </div>
           </div>
         </div>
-        <app-table [tableRows]="tribeDetails.memberReputations | employeeFilter: searchBar.value"></app-table>
+        <app-table [tableRows]="tribeDetails.memberReputations | employeeFilter: 'knolderName': searchBar.value"></app-table>
       </ion-card>
     </div>
 </ion-content>
