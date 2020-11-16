@@ -1,0 +1,15 @@
+.user-table-row {
+  color: inherit;
+  font-size: 0.9rem;
+  border-top: 1px  solid lightgrey;
+
+  div {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
+
+.light-text {
+  color: #acacac;
+}
