@@ -9,15 +9,15 @@ import {UserDetailsModel} from '../../../models/user-details.model';
 })
 export class UserManagementPage implements OnInit {
     searchBar = new FormControl('');
-    userD: UserDetailsModel[] = [
+    mockUserDetailList: UserDetailsModel[] = [
         {
-        emailId: 'umang.goyal@knoldus.com',
-        empId: 1220,
-        name: 'umang Goyal',
-        wordpressId: 'umang10',
-        role: 'admin',
-        accountActive: false,
-    },
+            emailId: 'umang.goyal@knoldus.com',
+            empId: 1220,
+            name: 'umang Goyal',
+            wordpressId: 'umang10',
+            role: 'admin',
+            accountActive: false,
+        },
         {
             emailId: 'umang.goyal@knoldus.com',
             empId: 1220,
@@ -43,6 +43,7 @@ export class UserManagementPage implements OnInit {
             accountActive: true,
         },
     ];
+
     constructor() {
     }
 
