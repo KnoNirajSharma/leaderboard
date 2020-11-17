@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
+
 import {UserDetailsModel} from '../../../models/user-details.model';
 
 @Component({
