@@ -1,8 +1,48 @@
-<div [ngClass]="{'light-text': !userDetails.accountActive}" class="bg-white d-flex user-table-row py-2">
-  <div class="col-3">{{userDetails.emailId}}
-  </div>
+<!--<div [ngClass]="{'light-text': !userDetails.accountActive}" class="bg-white d-flex user-table-row py-2">-->
+<!--  <div class="col-3">{{userDetails.emailId}}-->
+<!--  </div>-->
+<!--  <div class="col-2">{{userDetails.name}}</div>-->
+<!--  <div class="col-1">{{userDetails.empId}}</div>-->
+<!--  <div class="col-2">{{userDetails.wordpressId}}</div>-->
+<!--  <div class="badge badge-pill badge-secondary" *ngIf="!userDetails.accountActive">Disabled</div>-->
+<!--&lt;!&ndash;  <div class=" ml-auto px-2 actions cursor-pointer position-relative">&ndash;&gt;-->
+<!--&lt;!&ndash;    <img src="./assets/icon/ellipsis.svg" alt="action" width="25px">&ndash;&gt;-->
+<!--&lt;!&ndash;    <ul class="position-absolute bg-white border-secondary" style="top: 100%; right: 0; left: auto; z-index: 1">&ndash;&gt;-->
+<!--&lt;!&ndash;      <li>option</li>&ndash;&gt;-->
+<!--&lt;!&ndash;      <li>option</li>&ndash;&gt;-->
+<!--&lt;!&ndash;      <li>option</li>&ndash;&gt;-->
+<!--&lt;!&ndash;    </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;  </div>&ndash;&gt;-->
+<!--  <div class="btn-group position-relative action-dropdown">-->
+<!--    <button appClickOutside id="button-basic" type="button" class="btn btn-primary dropdown-toggle"-->
+<!--            aria-controls="dropdown-basic">-->
+<!--      <span class="caret"></span>-->
+<!--    </button>-->
+<!--    <ul style="border: 1px solid lightgrey; z-index: 2; right: 0; left: auto; top: 100%"  class="bg-white position-absolute p-0">-->
+<!--      <li role="menuitem" class="dropdown-item" >Action</li>-->
+<!--      <li role="menuitem" class="dropdown-item" >Another action</li>-->
+<!--      <li role="menuitem" class="dropdown-item" >Something else here</li>-->
+<!--      <li class="divider dropdown-divider"></li>-->
+<!--      <li role="menuitem" class="dropdown-item" >Separated link</li>-->
+<!--    </ul>-->
+<!--  </div>-->
+<!--</div>-->
+<div class="bg-white d-flex user-table-row py-2">
+  <div class="col-3">{{userDetails.emailId}}</div>
   <div class="col-2">{{userDetails.name}}</div>
   <div class="col-1">{{userDetails.empId}}</div>
   <div class="col-2">{{userDetails.wordpressId}}</div>
-  <div class="badge badge-pill badge-secondary" *ngIf="!userDetails.accountActive">Disabled</div>
+  <div class="ml-auto btn-group position-relative action-dropdown">
+    <button appClickOutside id="button-basic" type="button" class="btn btn-primary dropdown-toggle"
+            aria-controls="dropdown-basic">
+      <span class="caret"></span>
+    </button>
+    <ul style="border: 1px solid lightgrey; z-index: 2; right: 0; left: auto; top: 100%"  class="bg-white position-absolute p-0">
+      <li role="menuitem" class="dropdown-item" >Action</li>
+      <li role="menuitem" class="dropdown-item" >Another action</li>
+      <li role="menuitem" class="dropdown-item" >Something else here</li>
+      <li class="divider dropdown-divider"></li>
+      <li role="menuitem" class="dropdown-item" >Separated link</li>
+    </ul>
+  </div>
 </div>

@@ -8,6 +8,20 @@
     overflow: hidden;
     white-space: nowrap;
   }
+
+  .actions {
+    img {
+      opacity: 0.5;
+    }
+  }
+
+  &:hover {
+    .actions {
+      img {
+        opacity: 1;
+      }
+    }
+  }
 }
 
 .light-text {
