@@ -655,6 +655,4 @@ class FetchKnolderContributionDetailsImpl(config: Config) extends FetchKnolderCo
       case None => Contribution("Meetup", meetupCount, 0, meetupTitles)
     }
   }
-
-
 }

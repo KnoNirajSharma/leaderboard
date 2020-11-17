@@ -7,7 +7,8 @@ import com.typesafe.scalalogging._
 
 class OtherContributionActor(storeOSContribution: StoreOSContributionDetails,
                              storeConferenceDetails: StoreConferenceDetails, storeBooksContribution: StoreBooksContribution,
-                             storeResearchPapersContribution: StoreResearchPapersContribution, otherContributionData: OtherContributionData,
+                             storeResearchPapersContribution: StoreResearchPapersContribution, storeMeetupContribution: StoreMeetupContribution,
+                             otherContributionData: OtherContributionData,
                              knolderMonthlyContributionActorRef: ActorRef
                             ) extends Actor
   with LazyLogging {
@@ -22,6 +23,8 @@ class OtherContributionActor(storeOSContribution: StoreOSContributionDetails,
       logger.info("books contribution data stored successfully.")
       storeResearchPapersContribution.insertResearchPaperContributionDetails(otherContributionDataList)
       logger.info("research paper contribution data stored successfully.")
+      storeMeetupContribution.insertMeetupContributionDetails(otherContributionDataList)
+      logger.info("meetup contribution data stored successfully.")
       self ! WriteMonthlyContribution
       sender() ! StoredOtherContributionData
 

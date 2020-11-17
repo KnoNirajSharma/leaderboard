@@ -12,7 +12,8 @@ final case class OtherContributionDetails(contributionId: String, emailId: Strin
                                           , title: String, typeOfContributon: String)
 
 final case class GetContributionCount(knolderId: Int, knolderName: String, numberOfBlogs: Int, numberOfKnolx: Int, numberOfWebinar: Int, numberOfTechHub: Int
-                                      , numberOfOSContribution: Int, numberOfConferences: Int, numberOfBooks: Int, numberOfResearchPapers: Int)
+                                      , numberOfOSContribution: Int, numberOfConferences: Int, numberOfBooks: Int, numberOfResearchPapers: Int
+                                      , numberOfMeetup: Int)
 
 final case class GetScore(knolderId: Int, knolderName: String, score: Int)
 
@@ -35,16 +36,16 @@ final case class ContributionDetails(title: String, date: String)
 final case class KnolderDetails(knolderName: String, score: Int, scoreBreakDown: List[Contribution])
 
 final case class TwelveMonthsScore(month: String, year: Int, blogScore: Int, knolxScore: Int, webinarScore: Int, techHubScore: Int,
-                                   osContributionScore: Int, conferenceScore: Int, bookScore: Int, researchPaperScore: Int)
+                                   osContributionScore: Int, conferenceScore: Int, bookScore: Int, researchPaperScore: Int, meetUpScore: Int)
 
 final case class ReputationWithCount(blogs: ContributionCount, knolx: ContributionCount, webinars: ContributionCount, techhubTemplates: ContributionCount,
                                      osContributions: ContributionCount, conferences: ContributionCount,
-                                     books: ContributionCount, researchPapers: ContributionCount, reputation: List[Reputation])
+                                     books: ContributionCount, researchPapers: ContributionCount, meetup: ContributionCount, reputation: List[Reputation])
 
 final case class Webinar(id: String, deliveredOn: Option[Timestamp], name: String, title: String, emailId: String)
 
 final case class ContributionScore(blogScore: Int, knolxScore: Int, webinarScore: Int, techHubScore: Int, osContributionScore: Int, conferenceScore: Int,
-                                   bookScore: Int, researchPaperScore: Int)
+                                   bookScore: Int, researchPaperScore: Int, meetupScore: Int)
 
 final case class MonthlyTopFiveLeaders(month: String, year: Int, knolderId: Int, knolderName: String, monthlyScore: Int, monthlyRank: Int, allTimeScore: Int
                                        , allTimeRank: Int)

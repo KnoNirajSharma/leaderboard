@@ -23,8 +23,8 @@ class TwelveMonthsContributionImplSpec extends AnyWordSpecLike with MockitoSugar
 
       val year = IndianTime.currentTime.minusMonths(12).getYear
       when(mockReadContribution.fetchKnoldersWithTwelveMonthContributions(month, year, 1))
-        .thenReturn(Option(ContributionScore(30, 20, 40, 50, 60, 100, 100, 50)))
-      assert(twelveMonthsContribution.lastTwelveMonthsScore(1, 12) == Option(List(TwelveMonthsScore(monthName, 2019, 30, 20, 40, 50, 60, 100, 100, 50))))
+        .thenReturn(Option(ContributionScore(30, 20, 40, 50, 60, 100, 100, 50, 30)))
+      assert(twelveMonthsContribution.lastTwelveMonthsScore(1, 12) == Option(List(TwelveMonthsScore(monthName, 2019, 30, 20, 40, 50, 60, 100, 100, 50, 30))))
     }
 
     "return list of scores of 12 month of particular knolder if month is less than 12 when that knolder last month data not exist" in {
@@ -33,7 +33,7 @@ class TwelveMonthsContributionImplSpec extends AnyWordSpecLike with MockitoSugar
       val year = IndianTime.currentTime.minusMonths(12).getYear
       when(mockReadContribution.fetchKnoldersWithTwelveMonthContributions(month, year, 1))
         .thenReturn(None)
-      assert(twelveMonthsContribution.lastTwelveMonthsScore(1, 12) == Option(List(TwelveMonthsScore(monthName, 2019, 0,0,0,0,0,0,0,0))))
+      assert(twelveMonthsContribution.lastTwelveMonthsScore(1, 12) == Option(List(TwelveMonthsScore(monthName, 2019, 0, 0, 0, 0, 0, 0, 0, 0, 0))))
     }
   }
 }

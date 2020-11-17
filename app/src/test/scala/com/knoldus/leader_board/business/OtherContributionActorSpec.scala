@@ -20,6 +20,7 @@ class OtherContributionActorSpec extends TestKit(ActorSystem("OtherContributionA
   val mockStoreBooksContribution: StoreBooksContribution = mock[StoreBooksContributionImpl]
   val mockStoreConferenceDetails: StoreConferenceDetails = mock[StoreConferenceDetailsImpl]
   val mockStoreResearchPaperContribution: StoreResearchPapersContribution = mock[StoreResearchPapersContributionImpl]
+  val mockStoreMeetupContribution: StoreMeetupContribution = mock[StoreMeetupContributionImpl]
   val mockAllTimeReputation: AllTimeReputation = mock[AllTimeReputationImpl]
   val mockWriteAllTimeReputation: WriteAllTimeReputation = mock[WriteAllTimeReputationImpl]
   val mockMonthlyReputation: MonthlyReputation = mock[MonthlyReputationImpl]
@@ -44,8 +45,9 @@ class OtherContributionActorSpec extends TestKit(ActorSystem("OtherContributionA
       val probe = TestProbe()
       val mockActorRef = probe.ref
 
-      val scriptActor = system.actorOf(Props(new OtherContributionActor(mockStoreOSContribution, mockStoreConferenceDetails, mockStoreBooksContribution
-        , mockStoreResearchPaperContribution, mockOtherContribution, mockActorRef)))
+      val scriptActor = system.actorOf(Props(new OtherContributionActor(mockStoreOSContribution, mockStoreConferenceDetails,
+        mockStoreBooksContribution, mockStoreResearchPaperContribution, mockStoreMeetupContribution, mockOtherContribution, mockActorRef)))
+
       probe watch scriptActor
       probe.send(scriptActor, "display reputation")
       probe.expectMsg(InvalidMessage)
@@ -55,7 +57,8 @@ class OtherContributionActorSpec extends TestKit(ActorSystem("OtherContributionA
       val mockActorRef = probe.ref
       val scriptActor = system.actorOf(Props(new OtherContributionActor(
         mockStoreOSContribution, mockStoreConferenceDetails, mockStoreBooksContribution,
-        mockStoreResearchPaperContribution, mockOtherContribution, mockActorRef)))
+        mockStoreResearchPaperContribution, mockStoreMeetupContribution, mockOtherContribution, mockActorRef)))
+
       probe watch scriptActor
       probe.send(scriptActor, ExecuteOtherContributionScript)
       probe.expectMsg(StoredOtherContributionData)
