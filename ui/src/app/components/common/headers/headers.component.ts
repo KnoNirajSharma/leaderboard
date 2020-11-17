@@ -27,9 +27,15 @@ export class HeadersComponent {
     constructor(private loginService: LoginService) {
     }
 
-    onDropdown() {
-        this.menuBoxVisibility = false;
-        this.dropdownMenuVisibility = !this.dropdownMenuVisibility;
+    controlDropDownMenu(action) {
+        switch (action) {
+            case 'close':
+                this.dropdownMenuVisibility = false;
+                break;
+            case 'toggle':
+                this.dropdownMenuVisibility = !this.dropdownMenuVisibility;
+                break;
+        }
     }
 
     onLogout() {
@@ -40,8 +46,14 @@ export class HeadersComponent {
         window.open(this.formUrl, '_blank');
     }
 
-    onMenuBtnClick() {
-        this.dropdownMenuVisibility = false;
-        this.menuBoxVisibility = !this.menuBoxVisibility;
+    controlMenuBox(action) {
+        switch (action) {
+            case 'close':
+                this.menuBoxVisibility = false;
+                break;
+            case 'toggle':
+                this.menuBoxVisibility = !this.menuBoxVisibility;
+                break;
+        }
     }
 }

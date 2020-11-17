@@ -4,6 +4,7 @@ import {RouterModule} from '@angular/router';
 import {IonicModule} from '@ionic/angular';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
+import {CustomDirectiveModule} from '../directives/custom-directive.module';
 
 import {CustomPipesModule} from '../pipe/custom-pipes.module';
 import {UserManagementTableRowComponent} from './admin/user-management-table-row/user-management-table-row.component';
@@ -31,6 +32,7 @@ import {TribeCardComponent} from './tribes/tribe-card/tribe-card.component';
         NgxChartsModule,
         CustomPipesModule,
         NgxDatatableModule,
+        CustomDirectiveModule,
     ],
     declarations: [
         HeadersComponent,

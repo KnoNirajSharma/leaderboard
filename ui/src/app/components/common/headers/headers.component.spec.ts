@@ -35,12 +35,16 @@ describe('HeadersComponent', () => {
         loginService = TestBed.get(LoginService);
     }));
 
-    it('should change the visibility status for dropdown menu button and make menu-box visibility false', () => {
+    it('should toggle the visibility status for dropdown menu', () => {
         component.dropdownMenuVisibility = false;
-        component.menuBoxVisibility = true;
-        component.onDropdown();
+        component.controlDropDownMenu('toggle');
         expect(component.dropdownMenuVisibility).toEqual(true);
-        expect(component.menuBoxVisibility).toEqual(false);
+    });
+
+    it('should change the visibility status for dropdown menu to false', () => {
+        component.dropdownMenuVisibility = true;
+        component.controlDropDownMenu('close');
+        expect(component.dropdownMenuVisibility).toEqual(false);
     });
 
     it('should call window.open with form url', () => {
@@ -55,11 +59,15 @@ describe('HeadersComponent', () => {
         expect(loginService.logout).toHaveBeenCalled();
     });
 
-    it('should change the visibility status for menu-box and dropdown menu visibility false', () => {
-        component.dropdownMenuVisibility = true;
+    it('should toggle the visibility status for menu box', () => {
         component.menuBoxVisibility = false;
-        component.onMenuBtnClick();
+        component.controlMenuBox('toggle');
         expect(component.menuBoxVisibility).toEqual(true);
-        expect(component.dropdownMenuVisibility).toEqual(false);
+    });
+
+    it('should change the visibility status for dropdown menu to false', () => {
+        component.dropdownMenuVisibility = true;
+        component.controlMenuBox('close');
+        expect(component.menuBoxVisibility).toEqual(false);
     });
 });
