@@ -7,7 +7,7 @@ import {ClickOutsideDirective} from './click-outside.directive';
     template: `
         <div>
             <div appClickOutside (clickOutside)="toggleClick()">Oh I just love writing tests</div>
-            <div>another div</div>
+            <div> another div </div>
         </div>`,
 })
 class MockComponent {
@@ -17,7 +17,7 @@ class MockComponent {
         this.hasBeenClicked = !this.hasBeenClicked;
     }
 }
-describe('ClickOutsideDirective', () => {
+fdescribe('ClickOutsideDirective', () => {
 
     let component: MockComponent;
     let fixture: ComponentFixture<MockComponent>;
@@ -49,9 +49,9 @@ describe('ClickOutsideDirective', () => {
         expect(component.hasBeenClicked).toBeTruthy();
     });
 
-    it('click the outer div thus emitting the clickOutside and toggle the component value', () => {
-        anotherDiv.click();
+    it('click the inner div thus not emitting the clickOutside', () => {
+        insideDiv.click();
         fixture.detectChanges();
-        expect(component.hasBeenClicked).toBeTruthy();
+        expect(component.hasBeenClicked).not.toBeTruthy();
     });
 });
