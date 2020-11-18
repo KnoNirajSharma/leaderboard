@@ -1,0 +1,48 @@
+.user-table-row {
+  color: inherit;
+  font-size: 0.9rem;
+  border-top: 1px  solid lightgrey;
+
+  .user-detail-col {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .actions {
+    img {
+      opacity: 0.5;
+    }
+
+    .actions-dropdown-menu {
+      top: 100%;
+      right: 0;
+      left: auto;
+      z-index: 1;
+      list-style-type: none;
+      border: 0.5px solid lightgray;
+
+      .menu-item {
+        white-space: nowrap;
+
+        &:hover {
+          color: #16181b;
+          text-decoration: none;
+          background-color: #f8f9fa;
+        }
+      }
+    }
+  }
+
+  &:hover {
+    .actions {
+      img {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.light-text {
+  color: #acacac;
+}
