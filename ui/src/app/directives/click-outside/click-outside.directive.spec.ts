@@ -17,7 +17,7 @@ class MockComponent {
         this.hasBeenClicked = !this.hasBeenClicked;
     }
 }
-fdescribe('ClickOutsideDirective', () => {
+describe('ClickOutsideDirective', () => {
 
     let component: MockComponent;
     let fixture: ComponentFixture<MockComponent>;
