@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { CommonService } from './common.service';
+import {CommonService} from './common.service';
 
 describe('CommonAppConfiguration', () => {
     let commonAppConfigService: CommonService;
