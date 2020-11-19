@@ -1,0 +1,8 @@
+<div class="user-management-wrapper">
+    <div class="search-bar-container">
+        <label class="p-0 m-0 col-12 float-right">
+            <input [formControl]="searchBar" class="form-control w-100 my-3" placeholder="Search" type="text">
+        </label>
+    </div>
+    <app-user-management-table [userList]="mockUserDetailList" [searchTerm]="searchBar.value"></app-user-management-table>
+</div>
