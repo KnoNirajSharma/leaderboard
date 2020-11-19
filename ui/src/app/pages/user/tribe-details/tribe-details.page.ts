@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {ActivatedRoute, Params} from '@angular/router';
 
-import {TribeDetailsModel} from '../../../models/tribe-details.model';
+import {TribeDetailsModel} from '../../../models/tribe-details-page/tribe-details.model';
 import {EmployeeActivityService} from '../../../services/employee-activity/employee-activity.service';
 
 @Component({

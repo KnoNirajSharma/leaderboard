@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
-import {UserDetailsModel} from '../../../models/user-details.model';
+import {UserDetailsModel} from '../../../models/admin/user-management/user-details.model';
 
 @Component({
     selector: 'app-user-management',

@@ -7,7 +7,7 @@ import {IonicModule} from '@ionic/angular';
 import {of} from 'rxjs';
 
 import {ComponentsModule} from '../../../components/components.module';
-import {TribeDetailsModel} from '../../../models/tribe-details.model';
+import {TribeDetailsModel} from '../../../models/tribe-details-page/tribe-details.model';
 import {CustomPipesModule} from '../../../pipe/custom-pipes.module';
 import {EmployeeActivityService} from '../../../services/employee-activity/employee-activity.service';
 import {TribeDetailsPage} from './tribe-details.page';

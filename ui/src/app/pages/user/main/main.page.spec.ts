@@ -8,8 +8,8 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import {of } from 'rxjs';
 
 import {ComponentsModule} from '../../../components/components.module';
-import {ReputationModel} from '../../../models/reputation.model';
-import {ScoringTableModel} from '../../../models/scoring-table.model';
+import {ReputationModel} from '../../../models/main-page/reputation.model';
+import {ScoringTableModel} from '../../../models/main-page/scoring-table.model';
 import {CustomPipesModule} from '../../../pipe/custom-pipes.module';
 import {EmployeeActivityService} from '../../../services/employee-activity/employee-activity.service';
 import {MainPage} from './main.page';

@@ -8,9 +8,9 @@ import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import {of} from 'rxjs';
 
 import {ComponentsModule} from '../../../components/components.module';
-import {HallOfFameModel} from '../../../models/hallOfFame.model';
-import {KnolderDetailsModel} from '../../../models/knolder-details.model';
-import {TrendsModel} from '../../../models/trends.model';
+import {HallOfFameModel} from '../../../models/hall-of-fame-page/hall-of-fame.model';
+import {KnolderDetailsModel} from '../../../models/knolder-details-page/knolder-details.model';
+import {TrendsModel} from '../../../models/knolder-details-page/trends.model';
 import {CommonService} from '../../../services/common/common.service';
 import {EmployeeActivityService} from '../../../services/employee-activity/employee-activity.service';
 import {DetailsPage} from './details.page';

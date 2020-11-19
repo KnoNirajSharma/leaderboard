@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 
-import {HallOfFameModel} from '../../../models/hallOfFame.model';
+import {HallOfFameModel} from '../../../models/hall-of-fame-page/hall-of-fame.model';
 import {CommonService} from '../../../services/common/common.service';
 import {EmployeeActivityService} from '../../../services/employee-activity/employee-activity.service';
 

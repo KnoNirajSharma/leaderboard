@@ -3,13 +3,13 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 
 import {environment} from '../../../environments/environment';
-import {HallOfFameModel} from '../../models/hallOfFame.model';
-import {KnolderDetailsModel} from '../../models/knolder-details.model';
-import {ReputationModel} from '../../models/reputation.model';
-import {ScoringTableModel} from '../../models/scoring-table.model';
-import {TrendsModel} from '../../models/trends.model';
-import {TribeDetailsModel} from '../../models/tribe-details.model';
-import {TribesSummeryModel} from '../../models/tribes-summery.model';
+import {HallOfFameModel} from '../../models/hall-of-fame-page/hall-of-fame.model';
+import {KnolderDetailsModel} from '../../models/knolder-details-page/knolder-details.model';
+import {ReputationModel} from '../../models/main-page/reputation.model';
+import {ScoringTableModel} from '../../models/main-page/scoring-table.model';
+import {TrendsModel} from '../../models/knolder-details-page/trends.model';
+import {TribeDetailsModel} from '../../models/tribe-details-page/tribe-details.model';
+import {TribesSummeryModel} from '../../models/tribe-main-page/tribes-summery.model';
 
 
 @Injectable({

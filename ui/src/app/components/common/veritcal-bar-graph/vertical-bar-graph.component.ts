@@ -1,7 +1,7 @@
 import {Component, Input, OnChanges} from '@angular/core';
 
-import {NgxStackVerticalBarGraphResultModel} from '../../../models/ngxStackVerticalBarGraphResultModel';
-import {TrendsModel} from '../../../models/trends.model';
+import {NgxStackVerticalBarGraphResultModel} from '../../../models/stacked-vertical-bar-graph/ngxStackVerticalBarGraphResultModel';
+import {TrendsModel} from '../../../models/knolder-details-page/trends.model';
 import {CommonService} from '../../../services/common/common.service';
 
 @Component({

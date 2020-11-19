@@ -1,3 +1,9 @@
+export interface HallOfFameModel {
+  month: string;
+  year: number;
+  leaders: LeaderModel[];
+}
+
 export interface LeaderModel {
   month: string;
   year: number;

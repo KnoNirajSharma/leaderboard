@@ -1,5 +1,5 @@
-import { AuthorModel } from './author.model';
-import { TrendsModel } from './trends.model';
+import { AuthorModel } from '../author.model';
+import { TrendsModel } from '../knolder-details-page/trends.model';
 
 export interface TribeDetailsModel {
   name: string;

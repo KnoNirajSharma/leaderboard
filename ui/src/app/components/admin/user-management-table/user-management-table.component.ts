@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 
-import {UserDetailsModel} from '../../../models/user-details.model';
+import {UserDetailsModel} from '../../../models/admin/user-management/user-details.model';
 
 @Component({
   selector: 'app-user-management-table',

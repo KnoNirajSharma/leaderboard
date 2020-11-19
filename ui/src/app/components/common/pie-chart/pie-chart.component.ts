@@ -1,7 +1,7 @@
 import {Component, Input, OnChanges} from '@angular/core';
 
-import {NgxPieChartResultModel} from '../../../models/ngxPieChartResultModel';
-import {ScoreBreakDownModel} from '../../../models/ScoreBreakDown.model';
+import {ScoreBreakDownModel} from '../../../models/knolder-details-page/knolder-details.model';
+import {NgxPieChartResultModel} from '../../../models/pie-chart/ngxPieChartResultModel';
 import {CommonService} from '../../../services/common/common.service';
 
 @Component({

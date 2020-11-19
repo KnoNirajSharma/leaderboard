@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 
-import {TribesSummeryModel} from '../../../models/tribes-summery.model';
+import {TribesSummeryModel} from '../../../models/tribe-main-page/tribes-summery.model';
 
 @Component({
     selector: 'app-tribe-card',

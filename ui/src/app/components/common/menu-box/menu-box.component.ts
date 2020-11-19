@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import {NavBarItemModel} from '../../../models/nav-bar-item.model';
+import {NavBarItemModel} from '../../../models/header/nav-bar-item.model';
 
 @Component({
   selector: 'app-menu-box',

@@ -4,12 +4,10 @@ import {ActivatedRoute, Params} from '@angular/router';
 import * as moment from 'moment';
 import {BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
 
-import {HallOfFameModel} from '../../../models/hallOfFame.model';
-import {KnolderDetailsModel} from '../../../models/knolder-details.model';
-import {LeaderModel} from '../../../models/leader.model';
-import {MedalTallyModel} from '../../../models/medalTally.model';
-import {ScoreBreakDownModel} from '../../../models/ScoreBreakDown.model';
-import {TrendsModel} from '../../../models/trends.model';
+import {HallOfFameModel, LeaderModel} from '../../../models/hall-of-fame-page/hall-of-fame.model';
+import {KnolderDetailsModel, ScoreBreakDownModel} from '../../../models/knolder-details-page/knolder-details.model';
+import {MedalTallyModel} from '../../../models/knolder-details-page/medalTally.model';
+import {TrendsModel} from '../../../models/knolder-details-page/trends.model';
 import {CommonService} from '../../../services/common/common.service';
 import {EmployeeActivityService} from '../../../services/employee-activity/employee-activity.service';
 

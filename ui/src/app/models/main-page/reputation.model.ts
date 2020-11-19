@@ -1,4 +1,4 @@
-import { AuthorModel } from './author.model';
+import { AuthorModel } from '../author.model';
 
 export interface ReputationModel {
   blogs: KnoldusStatsModel;

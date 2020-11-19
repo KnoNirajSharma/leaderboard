@@ -5,7 +5,7 @@ import {IonicModule} from '@ionic/angular';
 import {of} from 'rxjs';
 
 import {ComponentsModule} from '../../../components/components.module';
-import {TribesSummeryModel} from '../../../models/tribes-summery.model';
+import {TribesSummeryModel} from '../../../models/tribe-main-page/tribes-summery.model';
 import {EmployeeActivityService} from '../../../services/employee-activity/employee-activity.service';
 import {TribesPage} from './tribes.page';
 

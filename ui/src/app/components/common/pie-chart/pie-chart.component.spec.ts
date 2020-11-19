@@ -3,7 +3,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {IonicModule} from '@ionic/angular';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 
-import {KnolderDetailsModel} from '../../../models/knolder-details.model';
+import {KnolderDetailsModel} from '../../../models/knolder-details-page/knolder-details.model';
 import {CommonService} from '../../../services/common/common.service';
 import {PieChartComponent} from './pie-chart.component';
 

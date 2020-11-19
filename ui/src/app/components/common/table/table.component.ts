@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import * as moment from 'moment';
 
 import {AuthorModel} from '../../../models/author.model';
-import {TableHeaderModel} from '../../../models/tableHeader.model';
 
 @Component({
   selector: 'app-table',
@@ -14,7 +13,6 @@ import {TableHeaderModel} from '../../../models/tableHeader.model';
 
 export class TableComponent {
     @Input() tableRows: AuthorModel[];
-    @Input() tableHeading: TableHeaderModel[];
     currentDate = moment();
 
     constructor(public router: Router) { }

@@ -64,8 +64,7 @@
                         </div>
                     </div>
                 </div>
-                <app-table [tableHeading]="tableHeading"
-                           [tableRows]="knoldersReputationList | employeeFilter: 'knolderName': searchBar.value"></app-table>
+                <app-table [tableRows]="knoldersReputationList | employeeFilter: 'knolderName': searchBar.value"></app-table>
             </ion-card>
         </div>
 </ion-content>

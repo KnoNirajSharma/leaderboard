@@ -32,7 +32,7 @@ const routes: Routes = [
                 component: ReportIssuePage,
             },
             {
-                path: 'hall-of-fame',
+                path: 'hall-of-fame-page',
                 component: HallOfFamePage,
             },
             {

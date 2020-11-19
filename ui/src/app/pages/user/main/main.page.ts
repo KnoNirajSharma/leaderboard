@@ -2,9 +2,8 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import {AuthorModel} from '../../../models/author.model';
-import {ReputationModel} from '../../../models/reputation.model';
-import {ScoringTableModel} from '../../../models/scoring-table.model';
-import {TableHeaderModel} from '../../../models/tableHeader.model';
+import {ReputationModel} from '../../../models/main-page/reputation.model';
+import {ScoringTableModel} from '../../../models/main-page/scoring-table.model';
 import {EmployeeActivityService} from '../../../services/employee-activity/employee-activity.service';
 
 
@@ -23,13 +22,6 @@ export class MainPage implements OnInit {
   knoldusStatsReputationKeys: string[];
   currentDate: Date = new Date();
   boostedScoreCount: any;
-  tableHeading: TableHeaderModel[] = [
-    { title: 'MONTHLY RANK' },
-    { title: 'MONTHLY SCORE' },
-    { title: 'OVERALL RANK' },
-    { title: 'OVERALL SCORE' },
-    { title: '3-MONTH-STREAK' },
-  ];
   knoldusStatsLegend = {
     currentMonth: '#0F7291',
     allTime: '#602CA5',

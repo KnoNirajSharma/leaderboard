@@ -3,7 +3,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {IonicModule} from '@ionic/angular';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 
-import {TrendsModel} from '../../../models/trends.model';
+import {TrendsModel} from '../../../models/knolder-details-page/trends.model';
 import {CommonService} from '../../../services/common/common.service';
 import {VerticalBarGraphComponent} from './vertical-bar-graph.component';
 

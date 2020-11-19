@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import {MedalTallyModel} from '../../../models/medalTally.model';
+import {MedalTallyModel} from '../../../models/knolder-details-page/medalTally.model';
 
 @Component({
   selector: 'app-medal-tally',

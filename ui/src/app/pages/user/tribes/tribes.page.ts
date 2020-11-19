@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 
-import {TribesSummeryModel} from '../../../models/tribes-summery.model';
+import {TribesSummeryModel} from '../../../models/tribe-main-page/tribes-summery.model';
 import {EmployeeActivityService} from '../../../services/employee-activity/employee-activity.service';
 
 @Component({
