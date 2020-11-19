@@ -10,13 +10,6 @@ import {UserDetailsModel} from '../../../models/user-details.model';
 })
 export class UserManagementPage implements OnInit {
     searchBar = new FormControl('');
-    addUserForm = new FormGroup({
-        name: new FormControl(null, Validators.required),
-        emailId: new FormControl(null, [Validators.required, Validators.email]),
-        empId: new FormControl(null, Validators.required),
-        wordpressId: new FormControl(null, Validators.required),
-        role: new FormControl('regular'),
-    });
     addUserFormVisibility = false;
     formIsNotValid = null;
     mockUserDetailList: UserDetailsModel[] = [
@@ -60,20 +53,14 @@ export class UserManagementPage implements OnInit {
     ngOnInit() {
     }
 
-    onAddUser() {
-        console.log(this.addUserForm);
-        if (this.addUserForm.status === 'INVALID') {
-            this.formIsNotValid = true;
-        } else {
-            this.addUserForm.reset();
-        }
+    onAddUser(event) {
+        console.log(event);
     }
 
     controlUserFormVisibility(action) {
         switch (action) {
             case 'close':
                 this.addUserFormVisibility = false;
-                this.addUserForm.reset();
                 break;
             case 'open':
                 this.addUserFormVisibility = true;
