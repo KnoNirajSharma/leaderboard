@@ -18,7 +18,7 @@
                     <ngx-datatable-column [sortable]=false cellClass="table-cell-style" headerClass="table-header-style"
                                           name="NAME" prop="knolderName">
                         <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                     <img *ngIf="row.topRanker" src="./assets/icon/icons-trophy.png" alt="trophy-image" class="image-table"/>
+                     <img *ngIf="row.topRanker" src="../../../../assets/icon/knoldus-logo/icons-trophy.png" alt="trophy-image" class="image-table"/>
                             {{value}}
                         </ng-template>
                     </ngx-datatable-column>
@@ -68,7 +68,7 @@
                 <div class="col-12 text-dark font-weight-bolder pb-1 px-0 mb-1 row-title">
                     <img *ngIf="row.topRanker"
                          alt="trophy-image" class="image-mobile"
-                         src="./assets/icon/icons-trophy.png"/>
+                         src="../../../../assets/icon/knoldus-logo/icons-trophy.png"/>
                     {{row.knolderName}}
                 </div>
                 <div class="mr-auto d-flex flex-column">

@@ -2,7 +2,7 @@
     <div class="header d-flex align-items-center">
         <div [routerLink]="mainPageLink" class="outline-0 d-flex align-items-center mr-5 cursor-pointer">
             <div class="ml-1 ml-xl-5">
-                <img alt="leaderboard logo" class="logo mr-2" src="./assets/icon/cup.png">
+                <img alt="leaderboard logo" class="logo mr-2" src="../../../../assets/icon/leaderboard-trophy-icons/cup.png">
             </div>
             <div [innerHTML]="title" class="title">
             </div>
@@ -19,14 +19,14 @@
             Report issue
         </div>
         <div appClickOutside (clickOutside)="controlMenuBox('close')" (click)="controlMenuBox('toggle')" class="h-50 ml-auto ml-lg-3 position-relative cursor-pointer">
-            <img alt="menu box button" class="h-100" src="assets/icon/dots-menu.svg">
+            <img alt="menu box button" class="h-100" src="../../../../assets/icon/menu-buttons/dots-menu.svg">
             <app-menu-box *ngIf="menuBoxVisibility" [menuItemList]="navItems"></app-menu-box>
         </div>
         <div appClickOutside (clickOutside)="controlDropDownMenu('close')" (click)="controlDropDownMenu('toggle')" class="ml-3 mr-xl-5 dropdown-menu-btn d-flex position-relative mr-1">
             <img alt="knoldus logo" class="knoldus-logo d-none d-sm-block"
-                 src="./assets/icon/knoldus-logo-transparent.png"/>
+                 src="../../../../assets/icon/knoldus-logo/knoldus-logo-transparent.png"/>
             <img alt="knoldus logo" class="knoldus-logo d-block d-sm-none"
-                 src="./assets/icon/knoldus-just-logo.png"/>
+                 src="../../../../assets/icon/knoldus-logo/knoldus-just-logo.png"/>
             <div class="arrow-down my-auto ml-1"></div>
             <div *ngIf="dropdownMenuVisibility"
                  class="dropdown-menu-container position-absolute bg-white">
