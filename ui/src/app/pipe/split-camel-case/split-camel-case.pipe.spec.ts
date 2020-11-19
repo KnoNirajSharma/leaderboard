@@ -1,4 +1,4 @@
-import { SplitCamelCasePipe } from './splitCamelCase.pipe';
+import { SplitCamelCasePipe } from './split-camel-case.pipe';
 
 describe('SplitCamelCasePipe', () => {
     let pipe: SplitCamelCasePipe;
