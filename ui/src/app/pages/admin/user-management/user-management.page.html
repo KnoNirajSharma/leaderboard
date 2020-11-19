@@ -1,8 +1,51 @@
-<div class="user-management-wrapper">
-    <div class="search-bar-container">
-        <label class="p-0 m-0 col-12 float-right">
-            <input [formControl]="searchBar" class="form-control w-100 my-3" placeholder="Search" type="text">
-        </label>
+<div class="user-management-wrapper bg-white">
+    <div class="d-flex w-100 px-3">
+        <div class="search-bar-container" style="width: 85%">
+            <label class="p-0 m-0 col-12 float-right">
+                <input [formControl]="searchBar" class="form-control w-100 my-3" placeholder="Search" type="text">
+            </label>
+        </div>
+        <div style="width: 15%;" class="d-flex justify-content-center align-items-center">
+            <button class="btn btn-primary" (click)="controlUserFormVisibility('open')">Add User</button>
+        </div>
     </div>
-    <app-user-management-table [userList]="mockUserDetailList" [searchTerm]="searchBar.value"></app-user-management-table>
+    <div *ngIf="addUserFormVisibility" class="col-10 mx-auto py-2" style="border: 1px solid lightgray; border-radius: 15px">
+        <form [formGroup]="addUserForm" (ngSubmit)="onAddUser()">
+            <div class="d-flex flex-wrap">
+                <label class="col-6">
+                    <span class="input-label">Name</span>
+                    <input class="form-control" formControlName="name" type="text">
+                </label>
+                <label class="col-6">
+                    <span class="input-label">Email</span>
+                    <input class="form-control" formControlName="emailId" type="text">
+                </label>
+                <label class="col-6">
+                    <span class="input-label">Emp Id</span>
+                    <input class="form-control" formControlName="empId" type="text">
+                </label>
+                <label class="col-6">
+                    <span class="input-label">Wordpress ID</span>
+                    <input class="form-control" formControlName="wordpressId" type="text">
+                </label>
+                <div class="px-3">
+                    <label class="mx-1">
+                        <input formControlName="role" type="radio" value="regular">Regular
+                    </label>
+                    <label class="mx-1">
+                        <input formControlName="role" type="radio" value="Admin">Admin
+                    </label>
+                </div>
+                <div class="ml-auto pr-3">
+                    <button type="submit" class="btn btn-primary mx-3">Add</button>
+                    <button class="btn btn-light" (click)="controlUserFormVisibility('close')">Cancel</button>
+                </div>
+            </div>
+        </form>
+        <div *ngIf="formIsNotValid" class="alert-danger px-2 my-2">
+            Please enter valid details.
+        </div>
+    </div>
+    <app-user-management-table [searchTerm]="searchBar.value"
+                               [userList]="mockUserDetailList"></app-user-management-table>
 </div>
