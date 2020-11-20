@@ -18,24 +18,19 @@
              class="report-issue-btn cursor-pointer py-0 px-1 ml-auto d-none d-lg-inline-block">
             Report issue
         </div>
-        <div (click)="onMenuBtnClick()" class="h-50 ml-auto ml-lg-3 position-relative cursor-pointer">
-            <img alt="menu box button" class="h-100" src="assets/icon/dots-menu.svg">
-            <app-menu-box *ngIf="menuBoxVisibility" [menuItemList]="navItems"></app-menu-box>
-        </div>
-        <div (click)="onDropdown()" class="ml-3 mr-xl-5 dropdown-menu-btn d-flex position-relative mr-1">
-            <img alt="knoldus logo" class="knoldus-logo d-none d-sm-block"
-                 src="./assets/icon/knoldus-logo-transparent.png"/>
-            <img alt="knoldus logo" class="knoldus-logo d-block d-sm-none"
-                 src="./assets/icon/knoldus-just-logo.png"/>
-            <div class="arrow-down my-auto ml-1"></div>
-            <div *ngIf="dropdownMenuVisibility"
-                 class="dropdown-menu-container position-absolute bg-white">
-                <div (click)="openForm()" class="dropdown-menu-item p-2 border-bottom border-light">Add Contribution
-                </div>
-                <div *ngIf="isAdmin" [routerLink]="['/','admin']" class="dropdown-menu-item p-2 border-bottom border-light">Admin
-                </div>
-                <div (click)="onLogout()" class="dropdown-menu-item p-2">Logout</div>
+        <app-dropdown-wrapper class="ml-auto ml-lg-3">
+            <img alt="menu box button" style="width: 25px" class="icon" src="assets/icon/dots-menu.svg">
+            <app-menu-box class="menu" [menuItemList]="navItems"></app-menu-box>
+        </app-dropdown-wrapper>
+        <app-dropdown-wrapper class="ml-3 mr-xl-5 mr-1">
+            <div class="icon d-flex">
+                <img alt="knoldus logo" class="knoldus-logo d-none d-sm-block"
+                     src="./assets/icon/knoldus-logo-transparent.png"/>
+                <img alt="knoldus logo" class="knoldus-logo d-block d-sm-none"
+                     src="./assets/icon/knoldus-just-logo.png"/>
+                <div class="arrow-down my-auto ml-1"></div>
             </div>
-        </div>
+            <app-dropdown-menu-list [menuList]="dropdownMenuList" (menuItemClicked)="onDropdownClick($event)" class="menu"></app-dropdown-menu-list>
+        </app-dropdown-wrapper>
     </div>
 </ion-header>
