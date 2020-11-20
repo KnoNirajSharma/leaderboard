@@ -27,33 +27,11 @@ export class HeadersComponent {
     constructor(private loginService: LoginService) {
     }
 
-    controlDropDownMenu(action) {
-        switch (action) {
-            case 'close':
-                this.dropdownMenuVisibility = false;
-                break;
-            case 'toggle':
-                this.dropdownMenuVisibility = !this.dropdownMenuVisibility;
-                break;
-        }
-    }
-
     onLogout() {
         this.loginService.logout();
     }
 
     openForm() {
         window.open(this.formUrl, '_blank');
-    }
-
-    controlMenuBox(action) {
-        switch (action) {
-            case 'close':
-                this.menuBoxVisibility = false;
-                break;
-            case 'toggle':
-                this.menuBoxVisibility = !this.menuBoxVisibility;
-                break;
-        }
     }
 }
