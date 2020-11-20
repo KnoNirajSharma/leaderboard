@@ -1,6 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {IonicModule} from '@ionic/angular';
 
+import {DropdownMenuListComponent} from '../../../common/dropdown-menu-list/dropdown-menu-list.component';
+import {DropdownWrapperComponent} from '../../../common/dropdown-wrapper/dropdown-wrapper.component';
 import {UserManagementTableRowComponent} from './user-management-table-row.component';
 
 describe('UserManagementTableRowComponent', () => {
@@ -9,8 +10,7 @@ describe('UserManagementTableRowComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [UserManagementTableRowComponent],
-            imports: [IonicModule.forRoot()],
+            declarations: [UserManagementTableRowComponent, DropdownMenuListComponent, DropdownWrapperComponent],
         }).compileComponents();
 
         fixture = TestBed.createComponent(UserManagementTableRowComponent);
@@ -18,35 +18,31 @@ describe('UserManagementTableRowComponent', () => {
     }));
 
     it('should set actionMenuList value', () => {
-        spyOn(component, 'setActionMenuList').and.returnValue(['option1', 'option2']);
+        spyOn(component, 'setActionMenuList').and
+            .returnValue([{value: 'option1'}, {value: 'option2'}]);
         component.ngOnInit();
         expect(component.actionsMenuList.length).toEqual(2);
     });
 
     it('should return actionMenu list with one item when user is not active', () => {
         component.userDetails = {emailId: '', name: '', accountActive: false, role: '', empId: 2, wordpressId: ''};
-        expect(component.setActionMenuList()[0]).toEqual('Enable Account');
+        expect(component.setActionMenuList()[0].value).toEqual('Enable Account');
     });
 
     it('should return actionMenu list with remove admin option when user is admin', () => {
         component.userDetails = {emailId: '', name: '', accountActive: true, role: 'admin', empId: 2, wordpressId: ''};
-        expect(component.setActionMenuList()[1]).toEqual('Remove Admin');
+        expect(component.setActionMenuList()[1].value).toEqual('Remove Admin');
     });
 
     it('should return actionMenu list with disable account when user is regular', () => {
         component.userDetails = {emailId: '', name: '', accountActive: true, role: 'regular', empId: 2, wordpressId: ''};
-        expect(component.setActionMenuList()[0]).toEqual('Disable Account');
+        expect(component.setActionMenuList()[0].value).toEqual('Disable Account');
     });
 
-    it('should make dropDownMenu visibility false if action is close', () => {
-        component.dropdownVisibility = true;
-        component.controlActionsDropdown('close');
-        expect(component.dropdownVisibility).toEqual(false);
-    });
-
-    it('should toggle dropDownMenu visibility if action is toggle', () => {
-        component.dropdownVisibility = false;
-        component.controlActionsDropdown('toggle');
-        expect(component.dropdownVisibility).toEqual(true);
+    it('should emit actionForUserSelected with event and user details', () => {
+        spyOn(component.actionForUserSelected, 'emit');
+        component.userDetails = {emailId: '', name: '', accountActive: true, role: 'regular', empId: 2, wordpressId: ''};
+        component.onActionSelect('test');
+        expect(component.actionForUserSelected.emit).toHaveBeenCalledWith({action: 'test', userAccountDetails: component.userDetails});
     });
 });

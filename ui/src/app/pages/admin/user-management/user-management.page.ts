@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 
-import {UserDetailsModel} from '../../../models/user-details.model';
+import {AdminActionModel} from '../../../models/admin-action.model';
+import {UserAccountDetailsModel} from '../../../models/user-account-details.model';
 
 @Component({
     selector: 'app-user-management',
@@ -10,7 +11,7 @@ import {UserDetailsModel} from '../../../models/user-details.model';
 })
 export class UserManagementPage implements OnInit {
     searchBar = new FormControl('');
-    mockUserDetailList: UserDetailsModel[] = [
+    mockUserDetailList: UserAccountDetailsModel[] = [
         {
             emailId: 'umang.goyal@knoldus.com',
             empId: 1220,
@@ -49,6 +50,10 @@ export class UserManagementPage implements OnInit {
     }
 
     ngOnInit() {
+    }
+
+    onAdminAction(event: AdminActionModel) {
+        console.log(event);
     }
 
 }

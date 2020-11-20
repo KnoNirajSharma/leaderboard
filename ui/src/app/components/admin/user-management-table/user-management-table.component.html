@@ -5,6 +5,6 @@
     <div class="col-header-title col-2 d-none d-md-block">EmpId</div>
     <div class="col-header-title col-2 d-none d-md-block">WordpressId</div>
   </div>
-  <app-user-management-table-row *ngFor="let userDetails of userList | employeeFilter: 'name': searchTerm" [userDetails]="userDetails">
+  <app-user-management-table-row (actionForUserSelected)="onActionForUserSelected($event)" *ngFor="let userDetails of userList | employeeFilter: 'name': searchTerm" [userDetails]="userDetails">
   </app-user-management-table-row>
 </div>
