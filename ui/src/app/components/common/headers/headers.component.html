@@ -30,13 +30,7 @@
                      src="./assets/icon/knoldus-just-logo.png"/>
                 <div class="arrow-down my-auto ml-1"></div>
             </div>
-            <div class="dropdown-menu-container bg-white menu position-absolute mt-2">
-                <div (click)="openForm()" class="dropdown-menu-item p-2 border-bottom border-light">Add Contribution
-                </div>
-                <div *ngIf="isAdmin" [routerLink]="['/','admin']" class="dropdown-menu-item p-2 border-bottom border-light">Admin
-                </div>
-                <div (click)="onLogout()" class="dropdown-menu-item p-2">Logout</div>
-            </div>
+            <app-dropdown-menu-list [menuList]="dropdownMenuList" (menuItemClicked)="onDropdownClick($event)" class="menu"></app-dropdown-menu-list>
         </app-dropdown-wrapper>
     </div>
 </ion-header>

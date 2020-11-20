@@ -3,7 +3,6 @@ import {Component, ElementRef, HostListener, ViewChild} from '@angular/core';
 @Component({
   selector: 'app-dropdown-wrapper',
   templateUrl: './dropdown-wrapper.component.html',
-  styleUrls: ['./dropdown-wrapper.component.scss'],
 })
 export class DropdownWrapperComponent {
   dropdownMenuVisibility = false;

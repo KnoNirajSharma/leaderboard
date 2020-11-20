@@ -3,19 +3,6 @@
   background-color: #2B35A8;
   font-family: 'Poppins', sans-serif;
 
-  .back-btn-container {
-    width: 20px;
-
-    .arrow-left {
-      border: solid white;
-      border-width: 0 3px 3px 0;
-      display: inline-block;
-      transform: rotate(135deg);
-      -webkit-transform: rotate(135deg);
-      padding: 6px;
-    }
-  }
-
   .logo {
     height: 27px;
     background-color: transparent;
@@ -52,33 +39,9 @@
     }
   }
 
-  .menu-box-wrapper {
-    border-radius: 50%;
-  }
-
   .knoldus-logo {
     height: 27px;
     background-color: transparent;
-  }
-
-  .dropdown-menu-container {
-    border: 1px solid black;
-    z-index: 200;
-    top: 100%;
-    right: 0;
-    cursor: pointer;
-    width: 150px;
-
-
-    .dropdown-menu-item {
-      color: #2B35A8;
-      font-size: 0.8rem;
-
-      &:hover {
-        background: #2B35A8;
-        color: white;
-      }
-    }
   }
 
   .arrow-down {

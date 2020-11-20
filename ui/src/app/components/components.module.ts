@@ -8,6 +8,7 @@ import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import {CustomPipesModule} from '../pipe/custom-pipes.module';
 import {UserManagementTableRowComponent} from './admin/user-management-table-row/user-management-table-row.component';
 import {UserManagementTableComponent} from './admin/user-management-table/user-management-table.component';
+import {DropdownMenuListComponent} from './common/dropdown-menu-list/dropdown-menu-list.component';
 import {DropdownWrapperComponent} from './common/dropdown-wrapper/dropdown-wrapper.component';
 import {HeadersComponent} from './common/headers/headers.component';
 import {LegendTooltipComponent} from './common/legend-tooltip/legend-tooltip.component';
@@ -50,6 +51,7 @@ import {TribeCardComponent} from './tribes/tribe-card/tribe-card.component';
         UserManagementTableRowComponent,
         UserManagementTableComponent,
         DropdownWrapperComponent,
+        DropdownMenuListComponent,
     ],
     exports: [
         HeadersComponent,
@@ -68,6 +70,7 @@ import {TribeCardComponent} from './tribes/tribe-card/tribe-card.component';
         UserManagementTableRowComponent,
         UserManagementTableComponent,
         DropdownWrapperComponent,
+        DropdownMenuListComponent,
     ],
 })
 export class ComponentsModule {
