@@ -1,10 +1,10 @@
 <div class="bg-white text-secondary w-100">
   <div class="d-flex w-100 py-2">
-    <div class="col-header-title col-3">Email Id</div>
-    <div class="col-header-title col-2">Name</div>
-    <div class="col-header-title col-1">EmpId</div>
-    <div class="col-header-title col-2">WordpressId</div>
+    <div class="col-header-title col-6 col-md-3">Email Id</div>
+    <div class="col-header-title col-2 d-none d-md-block">Name</div>
+    <div class="col-header-title col-2 d-none d-md-block">EmpId</div>
+    <div class="col-header-title col-2 d-none d-md-block">WordpressId</div>
   </div>
-  <app-user-management-table-row *ngFor="let userDetails of userList | employeeFilter: 'name': searchTerm" [userDetails]="userDetails">
+  <app-user-management-table-row (userAction)="onUserAction($event)" *ngFor="let userDetails of userList | employeeFilter: 'name': searchTerm" [userDetails]="userDetails">
   </app-user-management-table-row>
 </div>

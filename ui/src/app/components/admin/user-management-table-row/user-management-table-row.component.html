@@ -1,8 +1,0 @@
-<div [ngClass]="{'light-text': !userDetails.accountActive}" class="bg-white d-flex user-table-row py-2">
-  <div class="col-3">{{userDetails.emailId}}
-  </div>
-  <div class="col-2">{{userDetails.name}}</div>
-  <div class="col-1">{{userDetails.empId}}</div>
-  <div class="col-2">{{userDetails.wordpressId}}</div>
-  <div class="badge badge-pill badge-secondary" *ngIf="!userDetails.accountActive">Disabled</div>
-</div>

@@ -6,7 +6,7 @@ import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 
 import {CustomPipesModule} from '../pipe/custom-pipes.module';
-import {UserManagementTableRowComponent} from './admin/user-management-table-row/user-management-table-row.component';
+import {UserManagementTableRowComponent} from './admin/user-management-table/user-management-table-row/user-management-table-row.component';
 import {UserManagementTableComponent} from './admin/user-management-table/user-management-table.component';
 import {DropdownMenuListComponent} from './common/dropdown-menu-list/dropdown-menu-list.component';
 import {DropdownWrapperComponent} from './common/dropdown-wrapper/dropdown-wrapper.component';
