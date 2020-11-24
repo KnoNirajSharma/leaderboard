@@ -21,7 +21,7 @@ describe('UserManagementTableComponent', () => {
     }));
 
     it('should emit adminActionTaken with event details', () => {
-        spyOn(component.adminActionTaken, 'emit');
+        spyOn(component.userAction, 'emit');
         const adminActionEvent: AdminActionModel = {
             action: 'test',
             userAccountDetails: {
@@ -33,7 +33,7 @@ describe('UserManagementTableComponent', () => {
                 accountActive: true,
             },
         };
-        component.onActionForUserSelected(adminActionEvent);
-        expect(component.adminActionTaken.emit).toHaveBeenCalledWith(adminActionEvent);
+        component.onUserAction(adminActionEvent);
+        expect(component.userAction.emit).toHaveBeenCalledWith(adminActionEvent);
     });
 });

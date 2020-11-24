@@ -11,7 +11,7 @@ import {UserAccountDetailsModel} from '../../../../models/user-account-details.m
 })
 export class UserManagementTableRowComponent implements OnInit {
     @Input() userDetails: UserAccountDetailsModel;
-    @Output() actionForUserSelected = new EventEmitter<AdminActionModel>();
+    @Output() userAction = new EventEmitter<AdminActionModel>();
     actionsMenuList: DropdownMenuItemModel[];
 
     ngOnInit() {
@@ -29,6 +29,6 @@ export class UserManagementTableRowComponent implements OnInit {
     }
 
     onActionSelect(event) {
-        this.actionForUserSelected.emit({action: event, userAccountDetails: this.userDetails});
+        this.userAction.emit({action: event, userAccountDetails: this.userDetails});
     }
 }

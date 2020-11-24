@@ -11,9 +11,9 @@ import {UserAccountDetailsModel} from '../../../models/user-account-details.mode
 export class UserManagementTableComponent {
   @Input() userList: UserAccountDetailsModel[];
   @Input() searchTerm: string;
-  @Output() adminActionTaken = new EventEmitter<AdminActionModel>();
+  @Output() userAction = new EventEmitter<AdminActionModel>();
 
-  onActionForUserSelected(event: AdminActionModel) {
-    this.adminActionTaken.emit(event);
+  onUserAction(event: AdminActionModel) {
+    this.userAction.emit(event);
   }
 }

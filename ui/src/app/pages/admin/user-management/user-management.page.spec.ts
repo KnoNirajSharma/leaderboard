@@ -33,6 +33,6 @@ describe('UserManagementPage', () => {
                 accountActive: true,
             },
         };
-        component.onAdminAction(adminActionEvent);
+        component.onUserAction(adminActionEvent);
     });
 });

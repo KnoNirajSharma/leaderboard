@@ -40,9 +40,9 @@ describe('UserManagementTableRowComponent', () => {
     });
 
     it('should emit actionForUserSelected with event and user details', () => {
-        spyOn(component.actionForUserSelected, 'emit');
+        spyOn(component.userAction, 'emit');
         component.userDetails = {emailId: '', name: '', accountActive: true, role: 'regular', empId: 2, wordpressId: ''};
         component.onActionSelect('test');
-        expect(component.actionForUserSelected.emit).toHaveBeenCalledWith({action: 'test', userAccountDetails: component.userDetails});
+        expect(component.userAction.emit).toHaveBeenCalledWith({action: 'test', userAccountDetails: component.userDetails});
     });
 });

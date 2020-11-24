@@ -52,7 +52,7 @@ export class UserManagementPage implements OnInit {
     ngOnInit() {
     }
 
-    onAdminAction(event: AdminActionModel) {
+    onUserAction(event: AdminActionModel) {
         console.log(event);
     }
 
