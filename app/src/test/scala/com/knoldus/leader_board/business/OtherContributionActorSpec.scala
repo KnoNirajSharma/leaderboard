@@ -45,8 +45,9 @@ class OtherContributionActorSpec extends TestKit(ActorSystem("OtherContributionA
       val probe = TestProbe()
       val mockActorRef = probe.ref
 
-      val scriptActor = system.actorOf(Props(new OtherContributionActor(mockStoreOSContribution, mockStoreConferenceDetails, mockStoreBooksContribution
-        , mockStoreResearchPaperContribution, mockStoreMeetupContribution, mockOtherContribution, mockActorRef)))
+      val scriptActor = system.actorOf(Props(new OtherContributionActor(mockStoreOSContribution, mockStoreConferenceDetails,
+        mockStoreBooksContribution, mockStoreResearchPaperContribution, mockStoreMeetupContribution, mockOtherContribution, mockActorRef)))
+
       probe watch scriptActor
       probe.send(scriptActor, "display reputation")
       probe.expectMsg(InvalidMessage)
@@ -57,6 +58,7 @@ class OtherContributionActorSpec extends TestKit(ActorSystem("OtherContributionA
       val scriptActor = system.actorOf(Props(new OtherContributionActor(
         mockStoreOSContribution, mockStoreConferenceDetails, mockStoreBooksContribution,
         mockStoreResearchPaperContribution, mockStoreMeetupContribution, mockOtherContribution, mockActorRef)))
+
       probe watch scriptActor
       probe.send(scriptActor, ExecuteOtherContributionScript)
       probe.expectMsg(StoredOtherContributionData)

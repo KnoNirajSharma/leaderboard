@@ -1,18 +1,18 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Component} from '@angular/core';
+import {FormControl} from '@angular/forms';
 
-import {UserDetailsModel} from '../../../models/user-details.model';
+import {AdminActionModel} from '../../../models/admin-action.model';
+import {UserAccountDetailsModel} from '../../../models/user-account-details.model';
 
 @Component({
     selector: 'app-user-management',
     templateUrl: './user-management.page.html',
     styleUrls: ['./user-management.page.scss'],
 })
-export class UserManagementPage implements OnInit {
+export class UserManagementPage {
     searchBar = new FormControl('');
     addUserFormVisibility = false;
-    formIsNotValid = null;
-    mockUserDetailList: UserDetailsModel[] = [
+    mockUserDetailList: UserAccountDetailsModel[] = [
         {
             emailId: 'umang.goyal@knoldus.com',
             empId: 1220,
@@ -47,24 +47,15 @@ export class UserManagementPage implements OnInit {
         },
     ];
 
-    constructor() {
-    }
-
-    ngOnInit() {
+    onUserAction(event: AdminActionModel) {
+        console.log(event);
     }
 
     onAddUser(event) {
         console.log(event);
     }
 
-    controlUserFormVisibility(action) {
-        switch (action) {
-            case 'close':
-                this.addUserFormVisibility = false;
-                break;
-            case 'open':
-                this.addUserFormVisibility = true;
-                break;
-        }
+    controlUserFormVisibility(visibilityStatus: boolean) {
+        this.addUserFormVisibility = visibilityStatus;
     }
 }

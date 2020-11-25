@@ -1,0 +1,8 @@
+<div class="position-relative">
+  <div class="cursor-pointer" #dropdownIcon style="height: 100%">
+    <ng-content select=".icon"></ng-content>
+  </div>
+  <div *ngIf="dropdownMenuVisibility">
+    <ng-content select=".menu"></ng-content>
+  </div>
+</div>
