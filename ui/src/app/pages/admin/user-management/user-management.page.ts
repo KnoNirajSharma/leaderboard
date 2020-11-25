@@ -7,7 +7,6 @@ import {UserAccountDetailsModel} from '../../../models/user-account-details.mode
 @Component({
     selector: 'app-user-management',
     templateUrl: './user-management.page.html',
-    styleUrls: ['./user-management.page.scss'],
 })
 export class UserManagementPage {
     searchBar = new FormControl('');
