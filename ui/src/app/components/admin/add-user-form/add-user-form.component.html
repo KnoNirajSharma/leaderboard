@@ -26,7 +26,7 @@
                 </label>
             </div>
             <div class="ml-auto pr-3">
-                <button class="btn btn-primary mx-3" type="submit">Add</button>
+                <button class="btn btn-primary mx-3" [disabled]="!addUserForm.valid" type="submit">Add</button>
                 <button (click)="onClickCancel()" class="btn btn-light">Cancel</button>
             </div>
         </div>

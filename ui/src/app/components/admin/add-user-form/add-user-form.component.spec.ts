@@ -27,14 +27,10 @@ describe('AddUserFormComponent', () => {
 
     it('should emit event submitForm if valid form is submitted', () => {
         spyOn(component.submitForm, 'emit');
-        const name = component.addUserForm.controls.name;
-        const emailId = component.addUserForm.controls.emailId;
-        const wordpressId = component.addUserForm.controls.wordpressId;
-        const empId = component.addUserForm.controls.empId;
-        name.setValue('rahul');
-        emailId.setValue('rahul@knoldus.com');
-        wordpressId.setValue('rahul');
-        empId.setValue('123');
+        component.addUserForm.controls.name.setValue('rahul');
+        component.addUserForm.controls.emailId.setValue('rahul@knoldus.com');
+        component.addUserForm.controls.wordpressId.setValue('rahul');
+        component.addUserForm.controls.empId.setValue('123');
         component.onSubmitForm();
         expect(component.submitForm.emit).toHaveBeenCalledWith({
             name: 'rahul',
