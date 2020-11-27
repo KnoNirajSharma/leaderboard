@@ -1,8 +1,16 @@
-<div class="user-management-wrapper">
-    <div class="search-bar-container">
-        <label class="p-0 m-0 col-12 float-right">
-            <input [formControl]="searchBar" class="form-control w-100 my-3" placeholder="Search" type="text">
-        </label>
+<div class="user-management-wrapper bg-white">
+    <div class="d-flex w-100">
+        <div class="search-bar-container col-7 col-md-10">
+            <label class="p-0 m-0 col-12 float-right">
+                <input [formControl]="searchBar" class="form-control w-100 my-3" placeholder="Search" type="text">
+            </label>
+        </div>
+        <div class="col-5 col-md-2 d-flex justify-content-center align-items-center">
+            <button class="btn btn-primary" (click)="controlUserFormVisibility(true)">Add User</button>
+        </div>
+    </div>
+    <div *ngIf="addUserFormVisibility" class="col-12 col-md-10 mx-auto">
+        <app-add-user-form (submitForm)="onAddUser($event)" (closeForm)="controlUserFormVisibility(false)"></app-add-user-form>
     </div>
     <app-user-management-table (userAction)="onUserAction($event)" [userList]="mockUserDetailList" [searchTerm]="searchBar.value"></app-user-management-table>
 </div>

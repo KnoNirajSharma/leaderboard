@@ -35,4 +35,20 @@ describe('UserManagementPage', () => {
         };
         component.onUserAction(adminActionEvent);
     });
+
+    it('should do something form is submitted to add user', () => {
+        const userDetails = {
+            name: 'rahul',
+            emailId: 'rahul@knoldus.com',
+            wordpressId: 'rahul',
+            empId: '123',
+            role: 'regular',
+        };
+        component.onAddUser(userDetails);
+    });
+
+    it('should change the value of formVisibility', () => {
+        component.controlUserFormVisibility(true);
+        expect(component.addUserFormVisibility).toEqual(true);
+    });
 });

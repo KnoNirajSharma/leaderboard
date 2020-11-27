@@ -1,11 +1,13 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
+import {ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {IonicModule} from '@ionic/angular';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 
 import {CustomPipesModule} from '../pipe/custom-pipes.module';
+import {AddUserFormComponent} from './admin/add-user-form/add-user-form.component';
 import {UserManagementTableRowComponent} from './admin/user-management-table/user-management-table-row/user-management-table-row.component';
 import {UserManagementTableComponent} from './admin/user-management-table/user-management-table.component';
 import {DropdownMenuListComponent} from './common/dropdown-menu-list/dropdown-menu-list.component';
@@ -33,6 +35,7 @@ import {TribeCardComponent} from './tribes/tribe-card/tribe-card.component';
         NgxChartsModule,
         CustomPipesModule,
         NgxDatatableModule,
+        ReactiveFormsModule,
     ],
     declarations: [
         HeadersComponent,
@@ -52,6 +55,7 @@ import {TribeCardComponent} from './tribes/tribe-card/tribe-card.component';
         UserManagementTableComponent,
         DropdownWrapperComponent,
         DropdownMenuListComponent,
+        AddUserFormComponent,
     ],
     exports: [
         HeadersComponent,
@@ -71,6 +75,7 @@ import {TribeCardComponent} from './tribes/tribe-card/tribe-card.component';
         UserManagementTableComponent,
         DropdownWrapperComponent,
         DropdownMenuListComponent,
+        AddUserFormComponent,
     ],
 })
 export class ComponentsModule {

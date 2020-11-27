@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormControl} from '@angular/forms';
 
 import {AdminActionModel} from '../../../models/admin-action.model';
@@ -7,10 +7,10 @@ import {UserAccountDetailsModel} from '../../../models/user-account-details.mode
 @Component({
     selector: 'app-user-management',
     templateUrl: './user-management.page.html',
-    styleUrls: ['./user-management.page.scss'],
 })
-export class UserManagementPage implements OnInit {
+export class UserManagementPage {
     searchBar = new FormControl('');
+    addUserFormVisibility = false;
     mockUserDetailList: UserAccountDetailsModel[] = [
         {
             emailId: 'umang.goyal@knoldus.com',
@@ -46,14 +46,15 @@ export class UserManagementPage implements OnInit {
         },
     ];
 
-    constructor() {
-    }
-
-    ngOnInit() {
-    }
-
     onUserAction(event: AdminActionModel) {
         console.log(event);
     }
 
+    onAddUser(event) {
+        console.log(event);
+    }
+
+    controlUserFormVisibility(visibilityStatus: boolean) {
+        this.addUserFormVisibility = visibilityStatus;
+    }
 }
