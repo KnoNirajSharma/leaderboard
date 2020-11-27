@@ -1,6 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
-import {UserDetailsModel} from '../../../../models/admin/user-management/user-details.model';
+import {AdminActionModel} from '../../../../models/admin-action.model';
+import {DropdownMenuItemModel} from '../../../../models/dropdown-menu-item.model';
+import {UserAccountDetailsModel} from '../../../../models/user-account-details.model';
 
 @Component({
     selector: 'app-user-management-table-row',
@@ -8,32 +10,25 @@ import {UserDetailsModel} from '../../../../models/admin/user-management/user-de
     styleUrls: ['./user-management-table-row.component.scss'],
 })
 export class UserManagementTableRowComponent implements OnInit {
-    @Input() userDetails: UserDetailsModel;
-    actionsMenuList = [];
-    dropdownVisibility = false;
+    @Input() userDetails: UserAccountDetailsModel;
+    @Output() userAction = new EventEmitter<AdminActionModel>();
+    actionsMenuList: DropdownMenuItemModel[];
 
     ngOnInit() {
         this.actionsMenuList = this.setActionMenuList();
     }
 
-    setActionMenuList(): string[]  {
+    setActionMenuList(): DropdownMenuItemModel[] {
         if (!this.userDetails.accountActive) {
-            return this.actionsMenuList = ['Enable Account'];
+            return this.actionsMenuList = [{value: 'Enable Account'}];
         } else if (this.userDetails.role === 'admin') {
-            return this.actionsMenuList = ['Disable Account', 'Remove Admin'];
+            return this.actionsMenuList = [{value: 'Disable Account'}, {value: 'Remove Admin'}];
         } else {
-            return this.actionsMenuList = ['Disable Account', 'Make Admin'];
+            return this.actionsMenuList = [{value: 'Disable Account'}, {value: 'Make Admin'}];
         }
     }
 
-    controlActionsDropdown(action) {
-        switch (action) {
-            case 'toggle':
-                this.dropdownVisibility = ! this.dropdownVisibility;
-                break;
-            case 'close':
-                this.dropdownVisibility = false;
-                break;
-        }
+    onActionSelect(event) {
+        this.userAction.emit({action: event, userAccountDetails: this.userDetails});
     }
 }

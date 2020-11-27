@@ -1,17 +1,19 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
-import {UserDetailsModel} from '../../../models/admin/user-management/user-details.model';
+import {AdminActionModel} from '../../../models/admin-action.model';
+import {UserAccountDetailsModel} from '../../../models/user-account-details.model';
 
 @Component({
   selector: 'app-user-management-table',
   templateUrl: './user-management-table.component.html',
   styleUrls: ['./user-management-table.component.scss'],
 })
-export class UserManagementTableComponent implements OnInit {
-  @Input() userList: UserDetailsModel[];
+export class UserManagementTableComponent {
+  @Input() userList: UserAccountDetailsModel[];
   @Input() searchTerm: string;
-  constructor() { }
+  @Output() userAction = new EventEmitter<AdminActionModel>();
 
-  ngOnInit() {}
-
+  onUserAction(event: AdminActionModel) {
+    this.userAction.emit(event);
+  }
 }
