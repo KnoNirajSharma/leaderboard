@@ -1,4 +1,4 @@
-export interface UserDetailsModel {
+export interface UserAccountDetailsModel {
     emailId: string;
     empId: number;
     name: string;
