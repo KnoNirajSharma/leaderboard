@@ -4,13 +4,12 @@
   <div class="user-detail-col col-2 d-none d-md-block">{{userDetails.empId}}</div>
   <div class="user-detail-col col-2  d-none d-md-block">{{userDetails.wordpressId}}</div>
   <div class="badge badge-pill badge-secondary" *ngIf="!userDetails.accountActive">Disabled</div>
-  <div class="ml-auto px-2 actions cursor-pointer position-relative text-secondary"
-       appClickOutside (clickOutside)="controlActionsDropdown('close')"
-       (click)="controlActionsDropdown('toggle')">
-    <img src="../../../../../assets/icon/menu-buttons/ellipsis.svg" alt="action" width="25px">
-    <ul *ngIf="dropdownVisibility"
-        class="position-absolute bg-white p-0 actions-dropdown-menu">
-      <li *ngFor="let option of actionsMenuList" class="py-2 px-3 menu-item">{{option}}</li>
-    </ul>
+  <app-dropdown-wrapper class="ml-auto px-2 actions text-secondary">
+    <img src="./assets/icon/menu-buttons/ellipsis.svg" alt="action" width="25px" class="icon">
+    <app-dropdown-menu-list
+            [menuList]="actionsMenuList"
+            (menuItemClicked)="onActionSelect($event)"
+            class="menu"></app-dropdown-menu-list>
+  </app-dropdown-wrapper>
   </div>
-</div>
+
