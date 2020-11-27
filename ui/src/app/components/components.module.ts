@@ -6,11 +6,12 @@ import {IonicModule} from '@ionic/angular';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 
-import {CustomDirectiveModule} from '../directives/custom-directive.module';
 import {CustomPipesModule} from '../pipe/custom-pipes.module';
 import {AddUserFormComponent} from './admin/add-user-form/add-user-form.component';
 import {UserManagementTableRowComponent} from './admin/user-management-table/user-management-table-row/user-management-table-row.component';
 import {UserManagementTableComponent} from './admin/user-management-table/user-management-table.component';
+import {DropdownMenuListComponent} from './common/dropdown-menu-list/dropdown-menu-list.component';
+import {DropdownWrapperComponent} from './common/dropdown-wrapper/dropdown-wrapper.component';
 import {HeadersComponent} from './common/headers/headers.component';
 import {LegendTooltipComponent} from './common/legend-tooltip/legend-tooltip.component';
 import {ListPaginatorComponent} from './common/list-paginator/list-paginator.component';
@@ -34,7 +35,6 @@ import {TribeCardComponent} from './tribes/tribe-card/tribe-card.component';
         NgxChartsModule,
         CustomPipesModule,
         NgxDatatableModule,
-        CustomDirectiveModule,
         ReactiveFormsModule,
     ],
     declarations: [
@@ -53,6 +53,8 @@ import {TribeCardComponent} from './tribes/tribe-card/tribe-card.component';
         LabeledNumberCircleComponent,
         UserManagementTableRowComponent,
         UserManagementTableComponent,
+        DropdownWrapperComponent,
+        DropdownMenuListComponent,
         AddUserFormComponent,
     ],
     exports: [
@@ -71,6 +73,8 @@ import {TribeCardComponent} from './tribes/tribe-card/tribe-card.component';
         LabeledNumberCircleComponent,
         UserManagementTableRowComponent,
         UserManagementTableComponent,
+        DropdownWrapperComponent,
+        DropdownMenuListComponent,
         AddUserFormComponent,
     ],
 })

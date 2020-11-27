@@ -1,0 +1,5 @@
+<div class="dropdown-menu-container bg-white menu position-absolute">
+  <div *ngFor="let item of menuList"
+       class="dropdown-menu-item p-2 border-bottom border-light"
+       (click)="onItemClick(item.value)">{{item.value}}</div>
+</div>
