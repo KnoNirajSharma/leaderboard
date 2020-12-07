@@ -11,7 +11,6 @@ import {ComponentsModule} from '../../../components/components.module';
 import {ReputationModel} from '../../../models/reputation.model';
 import {ScoringTableModel} from '../../../models/scoring-table.model';
 import {CustomPipesModule} from '../../../pipe/custom-pipes.module';
-import {EmployeeFilterPipe} from '../../../pipe/employee-filter.pipe';
 import {EmployeeActivityService} from '../../../services/employee-activity/employee-activity.service';
 import {MainPage} from './main.page';
 
@@ -70,7 +69,6 @@ describe('MainPage', () => {
         ComponentsModule,
         CustomPipesModule,
       ],
-      providers: [EmployeeFilterPipe],
     }).compileComponents();
 
     fixture = TestBed.createComponent(MainPage);

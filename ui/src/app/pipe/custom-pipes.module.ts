@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 
-import { EmployeeFilterPipe } from './employee-filter.pipe';
-import { ReverseListPipe } from './reverse-list.pipe';
-import { SplitCamelCasePipe } from './splitCamelCase.pipe';
+import {EmployeeFilterPipe} from './employee-filter/employee-filter.pipe';
+import {ReverseListPipe} from './reverse-list/reverse-list.pipe';
+import {SplitCamelCasePipe} from './split-camel-case/split-camel-case.pipe';
 
 @NgModule({
-  exports: [ReverseListPipe, EmployeeFilterPipe, SplitCamelCasePipe],
-  declarations: [ReverseListPipe, EmployeeFilterPipe, SplitCamelCasePipe],
+    exports: [ReverseListPipe, EmployeeFilterPipe, SplitCamelCasePipe],
+    declarations: [ReverseListPipe, EmployeeFilterPipe, SplitCamelCasePipe],
 })
 export class CustomPipesModule {
 }

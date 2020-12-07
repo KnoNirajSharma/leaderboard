@@ -1,4 +1,4 @@
-import {AuthorModel} from '../models/author.model';
+import {AuthorModel} from '../../models/author.model';
 import {EmployeeFilterPipe} from './employee-filter.pipe';
 
 describe('EmployeeFilterPipe', () => {
