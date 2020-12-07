@@ -7,8 +7,8 @@ import {of} from 'rxjs';
 import {ComponentsModule} from '../../../components/components.module';
 import {HallOfFameModel} from '../../../models/hallOfFame.model';
 import {CustomPipesModule} from '../../../pipe/custom-pipes.module';
-import {CommonService} from '../../../services/common.service';
-import {EmployeeActivityService} from '../../../services/employee-activity.service';
+import {CommonService} from '../../../services/common/common.service';
+import {EmployeeActivityService} from '../../../services/employee-activity/employee-activity.service';
 import {HallOfFamePage} from './hall-of-fame.page';
 
 describe('HallOfFamePage', () => {

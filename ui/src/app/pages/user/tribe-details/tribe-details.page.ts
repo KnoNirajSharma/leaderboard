@@ -3,7 +3,7 @@ import {FormControl} from '@angular/forms';
 import {ActivatedRoute, Params} from '@angular/router';
 
 import {TribeDetailsModel} from '../../../models/tribe-details.model';
-import {EmployeeActivityService} from '../../../services/employee-activity.service';
+import {EmployeeActivityService} from '../../../services/employee-activity/employee-activity.service';
 
 @Component({
     selector: 'app-tribe-details',

@@ -10,8 +10,8 @@ import {LeaderModel} from '../../../models/leader.model';
 import {MedalTallyModel} from '../../../models/medalTally.model';
 import {ScoreBreakDownModel} from '../../../models/ScoreBreakDown.model';
 import {TrendsModel} from '../../../models/trends.model';
-import {CommonService} from '../../../services/common.service';
-import {EmployeeActivityService} from '../../../services/employee-activity.service';
+import {CommonService} from '../../../services/common/common.service';
+import {EmployeeActivityService} from '../../../services/employee-activity/employee-activity.service';
 
 
 @Component({

@@ -5,7 +5,7 @@ import {AuthorModel} from '../../../models/author.model';
 import {ReputationModel} from '../../../models/reputation.model';
 import {ScoringTableModel} from '../../../models/scoring-table.model';
 import {TableHeaderModel} from '../../../models/tableHeader.model';
-import {EmployeeActivityService} from '../../../services/employee-activity.service';
+import {EmployeeActivityService} from '../../../services/employee-activity/employee-activity.service';
 
 
 @Component({

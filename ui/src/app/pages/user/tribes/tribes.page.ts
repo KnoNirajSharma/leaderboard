@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
 import {TribesSummeryModel} from '../../../models/tribes-summery.model';
-import {EmployeeActivityService} from '../../../services/employee-activity.service';
-
+import {EmployeeActivityService} from '../../../services/employee-activity/employee-activity.service';
 
 @Component({
     selector: 'app-tribes',

@@ -11,8 +11,8 @@ import {ComponentsModule} from '../../../components/components.module';
 import {HallOfFameModel} from '../../../models/hallOfFame.model';
 import {KnolderDetailsModel} from '../../../models/knolder-details.model';
 import {TrendsModel} from '../../../models/trends.model';
-import {CommonService} from '../../../services/common.service';
-import {EmployeeActivityService} from '../../../services/employee-activity.service';
+import {CommonService} from '../../../services/common/common.service';
+import {EmployeeActivityService} from '../../../services/employee-activity/employee-activity.service';
 import {DetailsPage} from './details.page';
 
 describe('DetailsPage', () => {
