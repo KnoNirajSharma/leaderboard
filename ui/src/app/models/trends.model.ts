@@ -9,4 +9,5 @@ export interface TrendsModel {
   conferenceScore: number;
   bookScore: number;
   researchPaperScore: number;
+  meetUpScore: number;
 }

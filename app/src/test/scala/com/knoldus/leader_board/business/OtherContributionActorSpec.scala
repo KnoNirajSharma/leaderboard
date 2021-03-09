@@ -17,17 +17,18 @@ class OtherContributionActorSpec extends TestKit(ActorSystem("OtherContributionA
   implicit val connection: Connection = DatabaseConnection.connection(ConfigFactory.load())
   val mockOtherContribution: OtherContributionData = mock[OtherContributionDataImpl]
   val mockStoreOSContribution: StoreOSContributionDetails = mock[StoreOSContributionDetailsImpl]
-  val mockStoreBooksContribution: StoreBooksContribution= mock[StoreBooksContributionImpl]
+  val mockStoreBooksContribution: StoreBooksContribution = mock[StoreBooksContributionImpl]
   val mockStoreConferenceDetails: StoreConferenceDetails = mock[StoreConferenceDetailsImpl]
   val mockStoreResearchPaperContribution: StoreResearchPapersContribution = mock[StoreResearchPapersContributionImpl]
+  val mockStoreMeetupContribution: StoreMeetupContribution = mock[StoreMeetupContributionImpl]
   val mockAllTimeReputation: AllTimeReputation = mock[AllTimeReputationImpl]
   val mockWriteAllTimeReputation: WriteAllTimeReputation = mock[WriteAllTimeReputationImpl]
   val mockMonthlyReputation: MonthlyReputation = mock[MonthlyReputationImpl]
   val mockWriteMonthlyReputation: WriteMonthlyReputation = mock[WriteMonthlyReputationImpl]
   val mockQuarterlyReputation: QuarterlyReputation = mock[QuarterlyReputationImpl]
   val mockWriteQuarterlyReputation: WriteQuarterlyReputation = mock[WriteQuarterlyReputationImpl]
-  val mockKnolderMonthlyContribution= mock[KnolderMonthlyContributionImpl]
-  val mockWriteMonthlyContribution= mock[WriteMonthlyContribution]
+  val mockKnolderMonthlyContribution: KnolderMonthlyContributionImpl = mock[KnolderMonthlyContributionImpl]
+  val mockWriteMonthlyContribution: WriteMonthlyContribution = mock[WriteMonthlyContribution]
   val allTimeReputationActorRef: ActorRef = system.actorOf(Props(new AllTimeReputationActor(mockAllTimeReputation,
     mockWriteAllTimeReputation)), "allTimeReputationActor")
   val monthlyReputationActorRef: ActorRef = system.actorOf(Props(new MonthlyReputationActor(mockMonthlyReputation,
@@ -44,8 +45,9 @@ class OtherContributionActorSpec extends TestKit(ActorSystem("OtherContributionA
       val probe = TestProbe()
       val mockActorRef = probe.ref
 
-      val scriptActor = system.actorOf(Props(new OtherContributionActor(mockStoreOSContribution, mockStoreConferenceDetails,mockStoreBooksContribution
-        ,mockStoreResearchPaperContribution, mockOtherContribution,mockActorRef)))
+      val scriptActor = system.actorOf(Props(new OtherContributionActor(mockStoreOSContribution, mockStoreConferenceDetails,
+        mockStoreBooksContribution, mockStoreResearchPaperContribution, mockStoreMeetupContribution, mockOtherContribution, mockActorRef)))
+
       probe watch scriptActor
       probe.send(scriptActor, "display reputation")
       probe.expectMsg(InvalidMessage)
@@ -54,8 +56,9 @@ class OtherContributionActorSpec extends TestKit(ActorSystem("OtherContributionA
       val probe = TestProbe.apply()
       val mockActorRef = probe.ref
       val scriptActor = system.actorOf(Props(new OtherContributionActor(
-        mockStoreOSContribution, mockStoreConferenceDetails,mockStoreBooksContribution,
-        mockStoreResearchPaperContribution, mockOtherContribution,mockActorRef)))
+        mockStoreOSContribution, mockStoreConferenceDetails, mockStoreBooksContribution,
+        mockStoreResearchPaperContribution, mockStoreMeetupContribution, mockOtherContribution, mockActorRef)))
+
       probe watch scriptActor
       probe.send(scriptActor, ExecuteOtherContributionScript)
       probe.expectMsg(StoredOtherContributionData)

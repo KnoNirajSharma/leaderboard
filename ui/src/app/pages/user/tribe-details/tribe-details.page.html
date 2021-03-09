@@ -1,0 +1,57 @@
+<ion-content class="page-wrapper">
+  <div class="container-fluid col-12 col-xl-11">
+    <div *ngIf="tribeDetails" class="row mb-2 mt-2">
+      <div class="col-12 col-lg-6 d-flex align-self-end">
+        <div class="page-title w-100 pb-2">
+          {{tribeDetails.name}}
+        </div>
+      </div>
+      <div class="circle col-12 col-lg-4 mx-auto mt-3 mt-lg-0 d-flex flex-row justify-content-around">
+        <app-labeled-number-circle
+                *ngFor="let tribeDetail of tribeDetails.tribeSummery"
+                [displayValue]="tribeDetail.value"
+                [label]="tribeDetail.name">
+        </app-labeled-number-circle>
+      </div>
+      <div class="d-flex flex-wrap w-100">
+        <div class="col-12 col-lg-6">
+          <div *ngIf="tribeDetails" class="col-12 card block mx-auto">
+            <div class="block-title d-flex justify-content-between pt-3 pb-2 px-2 bg-white">
+              <div class="align-self-center">
+                <h4 class="font-weight-normal m-0">All Time</h4>
+              </div>
+            </div>
+            <app-pie-chart [inputResult]="tribeDetails.allTimeScoreBreakdown"></app-pie-chart>
+          </div>
+        </div>
+        <div class="col-12 col-lg-6">
+          <div *ngIf="tribeDetails" class="col-12 card text-center block mx-auto">
+            <div class="block-title d-flex justify-content-between pt-3 pb-2 px-2 bg-white">
+              <div class="align-self-center">
+                <h4 class="font-weight-normal m-0">Trends</h4>
+              </div>
+            </div>
+            <app-vertical-bar-graph [trendsData]="tribeDetails.trends"></app-vertical-bar-graph>
+          </div>
+        </div>
+      </div>
+    </div>
+      <ion-card  *ngIf="tribeDetails" class="leaderboard-table shadow-none mb-5 col-12 w-100 ion-no-padding ion-no-margin">
+        <div class="container-fluid">
+          <div class="row d-flex align-items-center py-2">
+            <div class="col-7 col-md-4 py-1 table-title">
+              Members
+            </div>
+            <div class="search-bar-container col-12 col-md-8 py-1">
+              <label class="p-0 m-0 col-12 col-md-8 float-right">
+                <input  [formControl]="searchBar"
+                       class="form-control w-100" placeholder="Search" type="text">
+                <img alt="search-logo" class="search-img" src="../../../../assets/icon/search-bar/search.svg"/>
+              </label>
+            </div>
+          </div>
+        </div>
+        <app-table [tableRows]="tribeDetails.memberReputations | employeeFilter: 'knolderName': searchBar.value"></app-table>
+      </ion-card>
+    </div>
+</ion-content>

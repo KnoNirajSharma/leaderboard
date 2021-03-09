@@ -14,32 +14,32 @@ class QuarterlyReputationImplSpec extends AnyFlatSpec with MockitoSugar {
 
   "get quarterly reputation" should "return knolder reputation of each knolder along with their knolder id" in {
     val scoresForFirstMonth = List(GetScore(1, "Mukesh Gupta", 365), GetScore(2, "anjali", 330))
-    val firstMonthContributionScores = List(KnolderContributionScore(1, "Mukesh Gupta", Option(15), Option(40), Option(15), Option(15), Option(30), Option(100),Option(100),Option(50)),
-      KnolderContributionScore(2, "anjali", Option(10), Option(10), Option(15), Option(15), Option(30), Option(100),Option(100),Option(50)))
+    val firstMonthContributionScores = List(KnolderContributionScore(1, "Mukesh Gupta", Option(15), Option(40), Option(15), Option(15), Option(30), Option(100),Option(100),Option(50),Option(30)),
+      KnolderContributionScore(2, "anjali", Option(10), Option(10), Option(15), Option(15), Option(30), Option(100),Option(100),Option(50),Option(30)))
 
     when(mockReadContribution.fetchKnoldersWithQuarterFirstMonthContributions)
-      .thenReturn(List(KnolderContributionScore(1, "Mukesh Gupta", Option(15), Option(40), Option(15), Option(15), Option(30), Option(100),Option(100),Option(50)),
-        KnolderContributionScore(2, "anjali", Option(10), Option(10), Option(15), Option(15), Option(30), Option(100),Option(100),Option(50))))
+      .thenReturn(List(KnolderContributionScore(1, "Mukesh Gupta", Option(15), Option(40), Option(15), Option(15), Option(30), Option(100),Option(100),Option(50),Option(30)),
+        KnolderContributionScore(2, "anjali", Option(10), Option(10), Option(15), Option(15), Option(30), Option(100),Option(100),Option(50),Option(30))))
     when(mockKnolderScore.calculateScore(firstMonthContributionScores))
       .thenReturn(scoresForFirstMonth)
 
     val scoresForSecondMonth = List(GetScore(1, "Mukesh Gupta", 340), GetScore(2, "anjali", 330))
-    val secondMonthContributionScores = List(KnolderContributionScore(1, "Mukesh Gupta", Option(10), Option(20), Option(15), Option(15), Option(30), Option(100),Option(100),Option(50)),
-      KnolderContributionScore(2, "anjali", Option(10), Option(10), Option(15), Option(15), Option(30), Option(100),Option(100),Option(50)))
+    val secondMonthContributionScores = List(KnolderContributionScore(1, "Mukesh Gupta", Option(10), Option(20), Option(15), Option(15), Option(30), Option(100),Option(100),Option(50),Option(30)),
+      KnolderContributionScore(2, "anjali", Option(10), Option(10), Option(15), Option(15), Option(30), Option(100),Option(100),Option(50),Option(30)))
 
     when(mockReadContribution.fetchKnoldersWithQuarterSecondMonthContributions)
-      .thenReturn(List(KnolderContributionScore(1, "Mukesh Gupta", Option(10), Option(20), Option(15), Option(15), Option(30), Option(100),Option(100),Option(50)),
-        KnolderContributionScore(2, "anjali",  Option(10), Option(10), Option(15), Option(15), Option(30), Option(100),Option(100),Option(50))))
+      .thenReturn(List(KnolderContributionScore(1, "Mukesh Gupta", Option(10), Option(20), Option(15), Option(15), Option(30), Option(100),Option(100),Option(50),Option(30)),
+        KnolderContributionScore(2, "anjali",  Option(10), Option(10), Option(15), Option(15), Option(30), Option(100),Option(100),Option(50),Option(30))))
     when(mockKnolderScore.calculateScore(secondMonthContributionScores))
       .thenReturn(scoresForSecondMonth)
 
     val scoresForThirdMonth = List(GetScore(1, "Mukesh Gupta", 340), GetScore(2, "anjali", 335))
-    val thirdMonthContributionScore = List(KnolderContributionScore(1, "Mukesh Gupta", Option(10), Option(20), Option(15), Option(15), Option(30), Option(100),Option(100),Option(50)),
-      KnolderContributionScore(2, "anjali", Option(5), Option(10), Option(15), Option(15), Option(30), Option(100),Option(100),Option(50)))
+    val thirdMonthContributionScore = List(KnolderContributionScore(1, "Mukesh Gupta", Option(10), Option(20), Option(15), Option(15), Option(30), Option(100),Option(100),Option(50),Option(30)),
+      KnolderContributionScore(2, "anjali", Option(5), Option(10), Option(15), Option(15), Option(30), Option(100),Option(100),Option(50),Option(30)))
 
     when(mockReadContribution.fetchKnoldersWithQuarterThirdMonthContributions)
-      .thenReturn(List(KnolderContributionScore(1, "Mukesh Gupta", Option(10), Option(20), Option(15), Option(15), Option(30), Option(100),Option(100),Option(50)),
-        KnolderContributionScore(2, "anjali", Option(5), Option(10), Option(15), Option(15), Option(30), Option(100),Option(100),Option(50))))
+      .thenReturn(List(KnolderContributionScore(1, "Mukesh Gupta", Option(10), Option(20), Option(15), Option(15), Option(30), Option(100),Option(100),Option(50),Option(30)),
+        KnolderContributionScore(2, "anjali", Option(5), Option(10), Option(15), Option(15), Option(30), Option(100),Option(100),Option(50),Option(30))))
     when(mockKnolderScore.calculateScore(thirdMonthContributionScore))
       .thenReturn(scoresForThirdMonth)
 

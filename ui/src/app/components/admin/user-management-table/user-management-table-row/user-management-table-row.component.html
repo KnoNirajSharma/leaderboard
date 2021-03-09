@@ -1,0 +1,15 @@
+<div [ngClass]="{'light-text': !userDetails.accountActive}" class="bg-white d-flex user-table-row py-2">
+  <div class="user-detail-col col-6 col-md-3">{{userDetails.emailId}}</div>
+  <div class="user-detail-col col-2 d-none d-md-block">{{userDetails.name}}</div>
+  <div class="user-detail-col col-2 d-none d-md-block">{{userDetails.empId}}</div>
+  <div class="user-detail-col col-2  d-none d-md-block">{{userDetails.wordpressId}}</div>
+  <div class="badge badge-pill badge-secondary" *ngIf="!userDetails.accountActive">Disabled</div>
+  <app-dropdown-wrapper class="ml-auto px-2 actions text-secondary">
+    <img src="./assets/icon/menu-buttons/ellipsis.svg" alt="action" width="25px" class="icon">
+    <app-dropdown-menu-list
+            [menuList]="actionsMenuList"
+            (menuItemClicked)="onActionSelect($event)"
+            class="menu"></app-dropdown-menu-list>
+  </app-dropdown-wrapper>
+  </div>
+

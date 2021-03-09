@@ -43,6 +43,9 @@ class FetchCountWithReputationImpl(config: Config, fetchReputation: FetchReputat
       where book.published_on>= ? And book.published_on < ?) as monthly_book_count,
       (select count(*) from researchpaper
       where researchpaper.published_on>= ? And researchpaper.published_on < ?) as monthly_researchpaper_count,
+      (select count(*)from Meetup
+      where delivered_on>= ? And delivered_on < ?) as monthly_meetup_count,
+
       (select count(*) from blog) as total_blog_count,
       (select count(*) from webinar) as total_webinar_count,
       (select count(*) from knolx) as total_knolx_count,
@@ -50,16 +53,19 @@ class FetchCountWithReputationImpl(config: Config, fetchReputation: FetchReputat
       (select count(*) from oscontribution) as total_oscontribution_count,
       (select count(*) from conference) as total_conference_count,
       (select count(*) from book) as total_book_count,
-      (select count(*) from researchpaper) as total_researchpaper_count;""")
+      (select count(*) from researchpaper) as total_researchpaper_count,
+       (select count(*) from Meetup) as total_meetup_count;""")
+
       .bind(currentMonth, nextMonth, currentMonth, nextMonth, currentMonth, nextMonth,
         currentMonth, nextMonth, currentMonth, nextMonth, currentMonth, nextMonth, currentMonth, nextMonth
-        , currentMonth, nextMonth)
+        , currentMonth, nextMonth, currentMonth, nextMonth)
       .map(rs => ReputationWithCount(ContributionCount(rs.int("monthly_blog_count"), rs.int("total_blog_count")),
         ContributionCount(rs.int("monthly_knolx_count"), rs.int("total_knolx_count")),
         ContributionCount(rs.int("monthly_webinar_count"), rs.int("total_webinar_count")), ContributionCount(rs.int("monthly_techhub_count"),
           rs.int("total_techhub_count")), ContributionCount(rs.int("monthly_oscontribution_count"), rs.int("total_oscontribution_count")),
       ContributionCount(rs.int("monthly_conference_count"), rs.int("total_conference_count")),ContributionCount(rs.int("monthly_book_count"),
           rs.int("total_book_count")),ContributionCount(rs.int("monthly_researchpaper_count"), rs.int("total_researchpaper_count")),
+        ContributionCount(rs.int("monthly_meetup_count"), rs.int("total_meetup_count")),
         fetchReputation.fetchReputation)).single().apply()
   }
 }
