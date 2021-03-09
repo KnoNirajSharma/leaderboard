@@ -1,4 +1,3 @@
-![Leaderboard Check](https://github.com/knoldus/leaderboard/workflows/Leaderboard%20Check/badge.svg?branch=develop)
 # Knoldus LeaderBoard
 - [Knoldus LeaderBoard](#knoldus-leaderboard)
   - [Introduction](#introduction)
