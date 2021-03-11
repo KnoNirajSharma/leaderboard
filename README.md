@@ -15,7 +15,7 @@ This article provides the reader with information on how to setup their local sy
 * [glcoud](https://cloud.google.com/sdk/gcloud)
 * [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/)
 
-These utilities are included in the **Google Cloud SDK**, and once installed and configured, provide the user with ongoing access to the environment from a terminal window. Additionally, **kubectl** can forward one or more local ports to a pod in order to provide access to an application's web interface.
+These utilities are included in the **[Google Cloud SDK](https://cloud.google.com/sdk#section-1)**, and once installed and configured, provide the user with ongoing access to the environment from a terminal window. Additionally, **kubectl** can forward one or more local ports to a pod in order to provide access to an application's web interface.
 
 <details>
 <summary>:mag_right:</summary>  
