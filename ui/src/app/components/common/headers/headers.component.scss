@@ -1,0 +1,75 @@
+.header {
+  height: 50px;
+  background-color: #2B35A8;
+  font-family: 'Poppins', sans-serif;
+
+  .logo {
+    height: 27px;
+    background-color: transparent;
+    margin-bottom: 4px;
+  }
+
+  .title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    background-color: transparent;
+    color: white;
+  }
+
+  .nav-bar {
+    .nav-item {
+      border-bottom: 3px solid transparent;
+      border-top: 3px solid transparent;
+
+      &:hover {
+        border-bottom-color: white;
+      }
+    }
+  }
+
+  .report-issue-btn {
+    border: 1px solid white;
+    border-radius: 15px;
+    color: white;
+    font-size: 0.8rem;
+
+    &:hover {
+      background-color: white;
+      color: black;
+    }
+  }
+
+  .knoldus-logo {
+    height: 27px;
+    background-color: transparent;
+  }
+
+  .arrow-down {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid white;
+  }
+}
+
+.pointer-none {
+  pointer-events: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .header {
+    .title {
+      font-size: 1.2rem;
+    }
+
+    .logo {
+      height: 22px;
+    }
+
+    .nav-bar {
+      width: 0;
+    }
+  }
+}
+

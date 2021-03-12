@@ -1,0 +1,287 @@
+{
+  "name": "DevOps",
+  "tribeSummery":[
+    {
+      "name":"All time score",
+      "value":2000
+    },
+    {
+      "name":"Monthly score",
+      "value":200
+    },
+    {
+      "name":"Per member score",
+      "value":20
+    }
+  ],
+  "allTimeScoreBreakdown":[
+    {
+      "contributionType": "Blog",
+      "contributionScore": 20
+    },
+    {
+      "contributionType": "knolx",
+      "contributionScore": 30
+    },
+    {
+      "contributionType": "Webinar",
+      "contributionScore": 20
+    },
+    {
+      "contributionType": "TechHub Templates",
+      "contributionScore": 20
+    },
+    {
+      "contributionType": "OS Contribution",
+      "contributionScore": 20
+    },
+    {
+      "contributionType": "Conferences",
+      "contributionScore": 20
+    },
+    {
+      "contributionType": "Book",
+      "contributionScore": 20
+    },
+    {
+      "contributionType": "Research Paper",
+      "contributionScore": 20
+    }
+  ],
+  "trends": [
+    {
+      "month": "AUGUST",
+      "year": 2020,
+      "blogScore": 20,
+      "knolxScore": 0,
+      "webinarScore": 15,
+      "techHubScore": 0,
+      "osContributionScore": 0,
+      "conferenceScore": 0,
+      "bookScore": 0,
+      "researchPaperScore": 50,
+      "meetUpScore": 0
+    },
+    {
+      "month": "JULY",
+      "year": 2020,
+      "blogScore": 20,
+      "knolxScore": 20,
+      "webinarScore": 0,
+      "techHubScore": 0,
+      "osContributionScore": 0,
+      "conferenceScore": 0,
+      "bookScore": 0,
+      "meetUpScore": 0
+    },
+    {
+      "month": "JUNE",
+      "year": 2020,
+      "blogScore": 20,
+      "knolxScore": 0,
+      "webinarScore": 0,
+      "techHubScore": 40,
+      "osContributionScore": 0,
+      "conferenceScore": 0,
+      "bookScore": 0,
+      "researchPaperScore": 0,
+      "meetUpScore": 0
+    },
+    {
+      "month": "MAY",
+      "year": 2020,
+      "blogScore": 0,
+      "knolxScore": 20,
+      "webinarScore": 0,
+      "techHubScore": 50,
+      "osContributionScore": 0,
+      "conferenceScore": 0,
+      "bookScore": 0,
+      "researchPaperScore": 0,
+      "meetUpScore": 0
+    },
+    {
+      "month": "APRIL",
+      "year": 2020,
+      "blogScore": 0,
+      "knolxScore": 20,
+      "webinarScore": 0,
+      "techHubScore": 0,
+      "osContributionScore": 0,
+      "conferenceScore": 15,
+      "bookScore": 0,
+      "researchPaperScore": 0,
+      "meetUpScore": 0
+    },
+    {
+      "month": "MARCH",
+      "year": 2020,
+      "blogScore": 5,
+      "knolxScore": 40,
+      "webinarScore": 0,
+      "techHubScore": 0,
+      "osContributionScore": 0,
+      "conferenceScore": 0,
+      "bookScore": 100,
+      "researchPaperScore": 0,
+      "meetUpScore": 0
+    },
+    {
+      "month": "FEBUARY",
+      "year": 2020,
+      "blogScore": 0,
+      "knolxScore": 0,
+      "webinarScore": 40,
+      "techHubScore": 0,
+      "osContributionScore": 0,
+      "conferenceScore": 0,
+      "bookScore": 0,
+      "researchPaperScore": 0,
+      "meetUpScore": 0
+    },
+    {
+      "month": "JANUARY",
+      "year": 2020,
+      "blogScore": 0,
+      "knolxScore": 20,
+      "webinarScore": 0,
+      "techHubScore": 0,
+      "osContributionScore": 30,
+      "conferenceScore": 0,
+      "bookScore": 0,
+      "researchPaperScore": 0,
+      "meetUpScore": 0
+    },
+    {
+      "month": "DECEMBER",
+      "year": 2019,
+      "blogScore": 0,
+      "knolxScore": 0,
+      "webinarScore": 10,
+      "techHubScore": 0,
+      "osContributionScore": 30,
+      "conferenceScore": 0,
+      "bookScore": 0,
+      "researchPaperScore": 0,
+      "meetUpScore": 0
+    },
+    {
+      "month": "NOVEMBER",
+      "year": 2019,
+      "blogScore": 0,
+      "knolxScore": 0,
+      "webinarScore": 40,
+      "techHubScore": 0,
+      "osContributionScore": 0,
+      "conferenceScore": 0,
+      "bookScore": 0,
+      "researchPaperScore": 0,
+      "meetUpScore": 0
+    },
+    {
+      "month": "OCTOBER",
+      "year": 2019,
+      "blogScore": 0,
+      "knolxScore": 20,
+      "webinarScore": 0,
+      "techHubScore": 50,
+      "osContributionScore": 0,
+      "conferenceScore": 0,
+      "bookScore": 0,
+      "researchPaperScore": 0,
+      "meetUpScore": 0
+    }
+  ],
+  "memberReputations":[
+    {
+      "knolderId":5,
+      "knolderName":"Gaurav Kumar Shukla",
+      "allTimeScore":275,
+      "allTimeRank":18,
+      "quarterlyStreak":"0-0-5",
+      "monthlyScore":5,
+      "monthlyRank":1
+    },
+    {
+      "knolderId":117,
+      "knolderName":"Suraj Saini",
+      "allTimeScore":15,
+      "allTimeRank":55,
+      "quarterlyStreak":"5-0-5",
+      "monthlyScore":5,
+      "monthlyRank":1
+    },
+    {
+      "knolderId":27,
+      "knolderName":"Shubham Goyal",
+      "allTimeScore":1195,
+      "allTimeRank":1,
+      "quarterlyStreak":"35-135-95",
+      "monthlyScore":0,
+      "monthlyRank":2
+    },
+    {
+      "knolderId":21,
+      "knolderName":"Vikas Hazrati",
+      "allTimeScore":1155,
+      "allTimeRank":2,
+      "quarterlyStreak":"0-0-0",
+      "monthlyScore":0,
+      "monthlyRank":2
+    },
+    {
+      "knolderId":8,
+      "knolderName":"Rishi Khandelwal",
+      "allTimeScore":860,
+      "allTimeRank":3,
+      "quarterlyStreak":"0-0-15",
+      "monthlyScore":0,
+      "monthlyRank":2
+    },
+    {
+      "knolderId":6,
+      "knolderName":"Ayush Kumar Mishra",
+      "allTimeScore":850,
+      "allTimeRank":4,
+      "quarterlyStreak":"35-0-185",
+      "monthlyScore":0,
+      "monthlyRank":2
+    },
+    {
+      "knolderId":41,
+      "knolderName":"Pawan Bisht",
+      "allTimeScore":640,
+      "allTimeRank":5,
+      "quarterlyStreak":"90-0-20",
+      "monthlyScore":0,
+      "monthlyRank":2
+    },
+    {
+      "knolderId":20,
+      "knolderName":"Himanshu Gupta",
+      "allTimeScore":620,
+      "allTimeRank":6,
+      "quarterlyStreak":"0-10-30",
+      "monthlyScore":0,
+      "monthlyRank":2
+    },
+    {
+      "knolderId":11,
+      "knolderName":"Prabhat Kashyap",
+      "allTimeScore":610,
+      "allTimeRank":7,
+      "quarterlyStreak":"0-0-0",
+      "monthlyScore":0,
+      "monthlyRank":2
+    },
+    {
+      "knolderId":76,
+      "knolderName":"Piyush Rana",
+      "allTimeScore":525,
+      "allTimeRank":8,
+      "quarterlyStreak":"0-50-0",
+      "monthlyScore":0,
+      "monthlyRank":2
+    }
+  ]
+}

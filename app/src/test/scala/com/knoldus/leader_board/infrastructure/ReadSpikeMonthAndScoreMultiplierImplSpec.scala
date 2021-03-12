@@ -16,11 +16,11 @@ class ReadSpikeMonthAndScoreMultiplierImplSpec extends MockitoSugar with AnyWord
       val month = IndianTime.currentTime.getMonth.toString
       val year = IndianTime.currentTime.getYear
       when(fetchSpikeMonths.fetchContributionScoreMultiplierAndSpikeMonthImpl(month, year))
-        .thenReturn(Option(ScoreMultiplier(2, 2, 2, 2, 2, 2, 2, 2, month, year)))
+        .thenReturn(Option(ScoreMultiplier(2, 2, 2, 2, 2, 2, 2, 2, 2, month, year)))
 
       val scoreMultiplier = ContributionPointsWithMultiplier(PointsAndMultiplier(5, 2), PointsAndMultiplier(20, 2),
         PointsAndMultiplier(15, 2), PointsAndMultiplier(15, 2), PointsAndMultiplier(30, 2), PointsAndMultiplier(100, 2),
-        PointsAndMultiplier(50, 2), PointsAndMultiplier(100, 2))
+        PointsAndMultiplier(50, 2), PointsAndMultiplier(30, 2),PointsAndMultiplier(100,2))
 
       assert(readSpikeMonthAndScoreMultiplier.readContributionScoreMultiplierAndSpikeMonth == scoreMultiplier)
     }
@@ -31,7 +31,7 @@ class ReadSpikeMonthAndScoreMultiplierImplSpec extends MockitoSugar with AnyWord
         .thenReturn(None)
       val scoreMultiplier = ContributionPointsWithMultiplier(PointsAndMultiplier(5, 1), PointsAndMultiplier(20, 1),
         PointsAndMultiplier(15, 1), PointsAndMultiplier(15, 1), PointsAndMultiplier(30, 1), PointsAndMultiplier(100, 1),
-        PointsAndMultiplier(50, 1), PointsAndMultiplier(100, 1))
+        PointsAndMultiplier(50, 1), PointsAndMultiplier(30, 1),PointsAndMultiplier(100,1))
 
       assert(readSpikeMonthAndScoreMultiplier.readContributionScoreMultiplierAndSpikeMonth == scoreMultiplier)
     }

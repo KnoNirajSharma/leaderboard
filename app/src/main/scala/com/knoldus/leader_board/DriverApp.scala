@@ -19,7 +19,7 @@ object DriverApp extends App {
   val config: Config = ConfigFactory.load()
   val dateTimeFormat = new ParseDateTimeFormats
   val contributionScoreMultiplierAndSpikeMonth: ContributionScoreMultiplierAndSpikeMonth = new ContributionScoreMultiplierAndSpikeMonthImpl(config)
-  val knolderScore: KnolderScore = new KnolderScoreImpl(contributionScoreMultiplierAndSpikeMonth,config)
+  val knolderScore: KnolderScore = new KnolderScoreImpl(contributionScoreMultiplierAndSpikeMonth, config)
   val knolderRank: KnolderRank = new KnolderRankImpl
   val readContribution = new ReadContributionImpl(config)
   val readAllTimeReputation: ReadAllTimeReputation = new ReadAllTimeReputationImpl(config)
@@ -58,6 +58,7 @@ object DriverApp extends App {
   val storeOSContributionDetails: StoreOSContributionDetails = new StoreOSContributionDetailsImpl(config)
   val storeConferenceDetails: StoreConferenceDetails = new StoreConferenceDetailsImpl(config)
   val storeBooksContribution: StoreBooksContribution = new StoreBooksContributionImpl(config)
+  val storeMeetupContribution: StoreMeetupContribution = new StoreMeetupContributionImpl(config)
   val storeResearchPapersContribution: StoreResearchPapersContribution = new StoreResearchPapersContributionImpl(config)
   val fetchAllTimeKnoldersReputation: FetchAllTimeReputation = new FetchAllTimeReputationImpl(config)
   val monthlyLeadersObj: MonthlyLeaders = new MonthlyLeadersImpl(readContribution, fetchAllTimeKnoldersReputation, knolderScore
@@ -86,26 +87,24 @@ object DriverApp extends App {
     Props(new QuarterlyReputationActor(quarterlyReputation, writeQuarterlyReputation)),
     "quarterlyReputationActor"
   )
+  val knolderMonthlyContributionActorRef = system.actorOf(
+    Props(new KnolderMonthlyContributionActor(allTimeReputationActorRef,monthlyReputationActorRef
+    ,quarterlyReputationActorRef,knolderMonthlyContribution,writeMonthlyContribution)),
+    "knolderMonthlyContributionActor"
+  )
   val blogScriptActorRef = system.actorOf(
     Props(
       new BlogScriptActor(
-        allTimeReputationActorRef,
-        monthlyReputationActorRef,
-        quarterlyReputationActorRef,
         storeBlogs,
-        blogs, knolderMonthlyContribution, writeMonthlyContribution
+        blogs, knolderMonthlyContributionActorRef
       )
     ),
     "BlogScriptActor"
   )
   val knolxScriptActorRef = system.actorOf(
     Props(
-      new KnolxScriptActor(
-        allTimeReputationActorRef,
-        monthlyReputationActorRef,
-        quarterlyReputationActorRef,
-        storeKnolx,
-        knolx, knolderMonthlyContribution, writeMonthlyContribution
+      new KnolxScriptActor(storeKnolx,
+        knolx, knolderMonthlyContributionActorRef
       )
     ),
     "KnolxScriptActor"
@@ -113,23 +112,16 @@ object DriverApp extends App {
   val webinarScriptActorRef = system.actorOf(
     Props(
       new WebinarScriptActor(
-        allTimeReputationActorRef,
-        monthlyReputationActorRef,
-        quarterlyReputationActorRef,
         storeWebinar,
-        webinarSpreadSheetData, knolderMonthlyContribution, writeMonthlyContribution
+        webinarSpreadSheetData, knolderMonthlyContributionActorRef
       )
     ),
     "WebinarScriptActor"
   )
   val techHubScriptActorRef = system.actorOf(
     Props(
-      new TechHubScriptActor(
-        allTimeReputationActorRef,
-        monthlyReputationActorRef,
-        quarterlyReputationActorRef,
-        storeTechHub,
-        techHubData, knolderMonthlyContribution, writeMonthlyContribution
+      new TechHubScriptActor(storeTechHub,
+        techHubData, knolderMonthlyContributionActorRef
       )
     ),
     "TechHubScriptActor"
@@ -137,14 +129,12 @@ object DriverApp extends App {
   val otherContributionScriptActorRef = system.actorOf(
     Props(
       new OtherContributionActor(
-        allTimeReputationActorRef,
-        monthlyReputationActorRef,
-        quarterlyReputationActorRef,
         storeOSContributionDetails,
         storeConferenceDetails,
         storeBooksContribution,
         storeResearchPapersContribution,
-        otherContributionDataObj, knolderMonthlyContribution, writeMonthlyContribution
+        storeMeetupContribution,
+        otherContributionDataObj, knolderMonthlyContributionActorRef
       )
     ),
     "OtherContributionScriptActor"
@@ -168,6 +158,7 @@ object DriverApp extends App {
   storeOSContributionDetails.insertOSContribution(otherContributionDetails)
   storeConferenceDetails.insertConferenceDetails(otherContributionDetails)
   storeBooksContribution.insertBooksContributionDetails(otherContributionDetails)
+  storeMeetupContribution.insertMeetupContributionDetails(otherContributionDetails)
   storeResearchPapersContribution.insertResearchPaperContributionDetails(otherContributionDetails)
   val techHubDataList = techHubData.getLatestTechHubTemplates
   storeTechHub.insertTechHub(techHubDataList)

@@ -39,20 +39,20 @@ class TechHubScriptActorSpec extends TestKit(ActorSystem("TechHubScriptActorSpec
   "TechHub Script Actor" must {
     "not do anything with incorrect message" in {
       val probe = TestProbe()
-      val scriptActor = system.actorOf(Props(new TechHubScriptActor(allTimeReputationActorRef, monthlyReputationActorRef,
-        quarterlyReputationActorRef, mockStoreTechHub, mocktechHub, mockKnolderMonthlyContribution, mockWriteMonthlyContribution)))
+      val mockActorRef = probe.ref
+      val scriptActor = system.actorOf(Props(new TechHubScriptActor( mockStoreTechHub, mocktechHub, mockActorRef)))
       probe watch scriptActor
       probe.send(scriptActor, "display reputation")
-      probe.expectMsg("invalid message")
+      probe.expectMsg(InvalidMessage)
     }
     "execute techhub script" in {
       val probe = TestProbe.apply()
       val mockActorRef = probe.ref
-      val scriptActor = system.actorOf(Props(new TechHubScriptActor(mockActorRef, mockActorRef, mockActorRef,
-        mockStoreTechHub, mocktechHub, mockKnolderMonthlyContribution, mockWriteMonthlyContribution)))
+      val scriptActor = system.actorOf(Props(new TechHubScriptActor(
+        mockStoreTechHub, mocktechHub, mockActorRef)))
       probe watch scriptActor
       probe.send(scriptActor, ExecuteTechHubScript)
-      probe.expectMsg("stored techhub")
+      probe.expectMsg(StoredTechHub)
     }
   }
 }

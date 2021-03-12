@@ -1,0 +1,37 @@
+<div class="p-2" style="border: 1px solid lightgray; border-radius: 15px">
+    <form (ngSubmit)="onSubmitForm()" [formGroup]="addUserForm">
+        <div class="d-flex flex-wrap">
+            <label class="col-12 col-md-6">
+                <span class="input-label">Name</span>
+                <input class="form-control" formControlName="name" type="text">
+            </label>
+            <label class="col-12 col-md-6">
+                <span class="input-label">Email</span>
+                <input class="form-control" formControlName="emailId" type="text">
+            </label>
+            <label class="col-12 col-md-6">
+                <span class="input-label">Emp Id</span>
+                <input class="form-control" formControlName="empId" type="text">
+            </label>
+            <label class="col-12 col-md-6">
+                <span class="input-label">Wordpress ID</span>
+                <input class="form-control" formControlName="wordpressId" type="text">
+            </label>
+            <div class="px-3">
+                <label class="mx-1">
+                    <input formControlName="role" type="radio" value="regular">Regular
+                </label>
+                <label class="mx-1">
+                    <input formControlName="role" type="radio" value="Admin">Admin
+                </label>
+            </div>
+            <div class="ml-auto pr-3">
+                <button class="btn btn-primary mx-3" [disabled]="!addUserForm.valid" type="submit">Add</button>
+                <button (click)="onClickCancel()" class="btn btn-light">Cancel</button>
+            </div>
+        </div>
+    </form>
+    <div *ngIf="formIsNotValid" class="alert-danger px-2 my-2">
+        Please enter valid details.
+    </div>
+</div>

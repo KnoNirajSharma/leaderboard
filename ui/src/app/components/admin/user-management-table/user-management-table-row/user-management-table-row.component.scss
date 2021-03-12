@@ -1,0 +1,30 @@
+.user-table-row {
+  color: inherit;
+  font-size: 0.9rem;
+  border-top: 1px  solid lightgrey;
+
+  .user-detail-col {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .actions {
+    img {
+      opacity: 0.5;
+      transform: rotateZ(90deg);
+    }
+  }
+
+  &:hover {
+    .actions {
+      img {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.light-text {
+  color: #acacac;
+}
