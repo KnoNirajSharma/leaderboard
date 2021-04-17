@@ -22,6 +22,10 @@ These utilities are included in the **[Google Cloud SDK](https://cloud.google.co
 > <sub>GKE provides a managed environment for containerized applications using Google infrastructure powered by Kubernetes. The environment consists of nodes (Compute Engine instances) grouped together to form a cluster. Nodes have been further organized by role into pools.</sub>
 </details>
 
+## Tech Stacks
+<img alt="Scala" src="https://img.shields.io/badge/scala-%23FA7343.svg?&style=for-the-badge&logo=scala&logoColor=white"/> <img alt="TypeScript" src="https://img.shields.io/badge/typescript%20-%23007ACC.svg?&style=for-the-badge&logo=typescript&logoColor=white"/> <img alt="HTML5" src="https://img.shields.io/badge/html5%20-%23E34F26.svg?&style=for-the-badge&logo=html5&logoColor=white"/>  <img alt="SCSS" src="https://img.shields.io/badge/-scss-E10098?style=for-the-badge&logo=scss"/> <img alt="Kotlin" src="https://img.shields.io/badge/kotlin-%230095D5.svg?&style=for-the-badge&logo=kotlin&logoColor=white"/>  <img alt="JavaScript" src="https://img.shields.io/badge/javascript%20-%23323330.svg?&style=for-the-badge&logo=javascript&logoColor=%23F7DF1E"/> 
+
+
 ## Resources
 The following leaderboard resources have been provisioned within the environment.  
 
@@ -50,7 +54,7 @@ Network diagnostic detects and fixes local network connection issues.
 Checking network connection...done.
 Reachability Check passed.
 Network diagnostic passed (1/1 checks passed).
-You must log in to continue. Would you like to log in (Y/n)?
+You must log in to continue. Would you like to log in (Y/n)?  
 ```
 </sub>
 </details>
