@@ -2,9 +2,9 @@ name := "knoldus_leaderboard"
 
 version := "0.1"
 
-scalaVersion := "2.12.6"
+scalaVersion := "2.13.5"
 
-scapegoatVersion in ThisBuild := "1.3.8"
+scapegoatVersion in ThisBuild := "1.4.8"
 
 cancelable in Global := false
 
@@ -34,7 +34,7 @@ libraryDependencies ++= Seq(
   "org.postgresql" % "postgresql" % "42.2.11",
   "org.scalikejdbc" %% "scalikejdbc" % jdbcAndLiftJsonVersion,
   "ch.qos.logback" % "logback-classic" % "1.2.3",
-  "com.typesafe.scala-logging" %% "scala-logging" % "3.7.2",
+  "com.typesafe.scala-logging" %% "scala-logging" % "3.9.3",
   "com.h2database" % "h2" % "1.4.196",
   "ch.megard" %% "akka-http-cors" % "0.4.3",
   "com.typesafe.akka" %% "akka-stream-testkit" % akkaVersion % Test,
