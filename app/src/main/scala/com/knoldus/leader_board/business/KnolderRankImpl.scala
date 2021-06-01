@@ -47,7 +47,6 @@ class KnolderRankImpl extends KnolderRank with LazyLogging {
     getReputation(scorePerKnolder, reputationPerKnolder :+ GetReputation(firstKnolder.knolderId,
       firstKnolder.knolderName, firstKnolder.score, 1), 0).toList
   }
-  
 
   private def getFirstKnolder(scorePerKnolder: List[GetScore]): GetScore = {
     scorePerKnolder match {
