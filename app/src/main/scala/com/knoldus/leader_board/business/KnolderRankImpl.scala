@@ -14,30 +14,30 @@ class KnolderRankImpl extends KnolderRank with LazyLogging {
     val reputationPerKnolder = Vector.empty[GetReputation]
 
     @scala.annotation.tailrec
-    def getReputation(scorePerKnolder: List[GetScore], reputationPerKnolder: Vector[GetReputation], index: Int):
+    def getReputation(scrPerKnolder: List[GetScore], repPerKnolder: Vector[GetReputation], index: Int):
     Vector[GetReputation] = {
-      scorePerKnolder match {
-        case Nil => reputationPerKnolder
-        case _ :: Nil => reputationPerKnolder
+      scrPerKnolder match {
+        case Nil => repPerKnolder
+        case _ :: Nil => repPerKnolder
         case first :: second :: Nil =>
           if (second.score != first.score) {
             logger.info("List contains only two knolders and scores of first and second knolders are not same.")
-            reputationPerKnolder :+ GetReputation(second.knolderId, second.knolderName, second.score,
-              reputationPerKnolder(index).rank + 1)
+            repPerKnolder :+ GetReputation(second.knolderId, second.knolderName, second.score,
+              repPerKnolder(index).rank + 1)
           } else {
             logger.info("List contains only two knolders and scores of first and second knolders are same.")
-            reputationPerKnolder :+ GetReputation(second.knolderId, second.knolderName, second.score,
-              reputationPerKnolder(index).rank)
+            repPerKnolder :+ GetReputation(second.knolderId, second.knolderName, second.score,
+              repPerKnolder(index).rank)
           }
         case first :: second :: rest =>
           if (second.score != first.score) {
             logger.info("List contains more than two knolders and scores of first and second knolders are not same.")
-            getReputation(second :: rest, reputationPerKnolder :+ GetReputation(second.knolderId, second.knolderName,
-              second.score, reputationPerKnolder(index).rank + 1), index + 1)
+            getReputation(second :: rest, repPerKnolder :+ GetReputation(second.knolderId, second.knolderName,
+              second.score, repPerKnolder(index).rank + 1), index + 1)
           } else {
             logger.info("List contains more than two knolders and scores of first and second knolders are same.")
-            getReputation(second :: rest, reputationPerKnolder :+ GetReputation(second.knolderId, second.knolderName,
-              second.score, reputationPerKnolder(index).rank), index + 1)
+            getReputation(second :: rest, repPerKnolder :+ GetReputation(second.knolderId, second.knolderName,
+              second.score, repPerKnolder(index).rank), index + 1)
           }
       }
     }
@@ -59,3 +59,5 @@ class KnolderRankImpl extends KnolderRank with LazyLogging {
     }
   }
 }
+
+
