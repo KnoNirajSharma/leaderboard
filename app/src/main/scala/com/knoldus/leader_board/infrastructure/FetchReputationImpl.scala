@@ -39,6 +39,6 @@ class FetchReputationImpl(config: Config) extends FetchReputation with LazyLoggi
       .map(rs => Reputation(rs.int("id"), rs.string("full_name"),
         rs.int("allTimeScore"), rs.int("allTimeRank"), rs.string("quarterlyStreak"),
         rs.int("monthlyScore"), rs.int("monthlyRank"))).list().apply()
-    reputation.sortBy(reputation => (reputation.monthlyRank, reputation.allTimeScore))(Ordering.Tuple2(Ordering.Int, Ordering.Int.reverse))
+    reputation.sortBy(reputationSub => (reputationSub.monthlyRank, reputationSub.allTimeScore))(Ordering.Tuple2(Ordering.Int, Ordering.Int.reverse))
   }
 }
