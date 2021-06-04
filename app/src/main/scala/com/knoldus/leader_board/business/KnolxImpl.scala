@@ -42,7 +42,6 @@ class KnolxImpl(fetchKnolx: FetchKnolx, URLResponse: URLResponse, config: Config
         val delivered_on = dateOfSession.map { date =>
           val formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH)
           new Timestamp(formatter.parse(date).getTime)
-          //new Timestamp(formatter.parse("Mon Jan 19 3:49:09 IST 1970").getTime)
         }
         val knolxId = (knolxDetails \ "id").extract[Option[String]]
         val title = (knolxDetails \ "title").extract[Option[String]]
