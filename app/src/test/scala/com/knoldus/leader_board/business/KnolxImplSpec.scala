@@ -1,8 +1,8 @@
 package com.knoldus.leader_board.business
 
 import java.sql.{Connection, Timestamp}
+import java.text.SimpleDateFormat
 import java.time.Instant
-
 import com.knoldus.leader_board.infrastructure.{FetchKnolx, FetchKnolxImpl}
 import com.knoldus.leader_board.{DatabaseConnection, Knolx}
 import com.typesafe.config.ConfigFactory
@@ -10,6 +10,8 @@ import org.mockito.MockitoSugar
 import org.mockito.ArgumentMatchersSugar.any
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.wordspec.AnyWordSpecLike
+
+import java.text.SimpleDateFormat
 
 class KnolxImplSpec extends AnyWordSpecLike with MockitoSugar with BeforeAndAfterEach {
   implicit val connection: Connection = DatabaseConnection.connection(ConfigFactory.load())
@@ -46,12 +48,16 @@ class KnolxImplSpec extends AnyWordSpecLike with MockitoSugar with BeforeAndAfte
         Knolx(
           Option("ab3c6981-9964-46e2-adcd-64154120c1dc"),
           Option("mukesh.kumar@knoldus.com"),
-          Option(Timestamp.valueOf("1970-01-19 11:49:09.0")),
+          Option(new Timestamp(new SimpleDateFormat("yyyy-MM-dd z HH:mm:ss")
+            .parse("1970-01-19 IST 11:49:09.0")
+            .getTime)),
           Option("Reactive Microservices")),
         Knolx(
           Option("4cb67c8f-941b-4860-ba4e-a7e7f497768d"),
           Option("mukesh.kumar@knoldus.com"),
-          Option(Timestamp.valueOf("1970-01-19 15:11:46.0")),
+          Option(new Timestamp(new SimpleDateFormat("yyyy-MM-dd z HH:mm:ss")
+            .parse("1970-01-19 IST 15:11:46.0")
+            .getTime)),
           Option("Delta Lake"))
       )
 
@@ -74,12 +80,16 @@ class KnolxImplSpec extends AnyWordSpecLike with MockitoSugar with BeforeAndAfte
         Knolx(
           Option("ab3c6981-9964-46e2-adcd-64154120c1dc"),
           Option("mukesh.kumar@knoldus.com"),
-          Option(Timestamp.valueOf("1970-01-19 11:49:09.0")),
+          Option(new Timestamp(new SimpleDateFormat("yyyy-MM-dd z HH:mm:ss")
+            .parse("1970-01-19 IST 11:49:09.0")
+            .getTime)),
           Option("Reactive Microservices")),
         Knolx(
           Option("4cb67c8f-941b-4860-ba4e-a7e7f497768d"),
           Option("mukesh.kumar@knoldus.com"),
-          Option(Timestamp.valueOf("1970-01-19 15:11:46.0")),
+          Option(new Timestamp(new SimpleDateFormat("yyyy-MM-dd z HH:mm:ss")
+            .parse("1970-01-19 IST 15:11:46.0")
+            .getTime)),
           Option("Delta Lake"))
       )
 
