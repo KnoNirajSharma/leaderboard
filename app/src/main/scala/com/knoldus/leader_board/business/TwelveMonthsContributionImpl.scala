@@ -25,13 +25,13 @@ class TwelveMonthsContributionImpl(readContribution: ReadContribution) extends T
         val monthValue = IndianTime.currentTime.minusMonths(monthsIndex).getMonthValue
         val monthName = IndianTime.currentTime.minusMonths(monthsIndex).getMonth.toString
         val year = IndianTime.currentTime.minusMonths(monthsIndex).getYear
-        val monthScore = readContribution.fetchKnoldersWithTwelveMonthContributions(monthValue, year, id)
+        val monthScore = readContribution.fetchKnoldersWithTwelveMonthContributions(monthValue, year, id) //changing year to year -1 gives null stub error
         monthScore match {
           case Some(contributionScore) => calculateMonthsScore(scoreList :+ TwelveMonthsScore(monthName, year, contributionScore.blogScore,
             contributionScore.knolxScore, contributionScore.webinarScore, contributionScore.techHubScore, contributionScore.osContributionScore,
             contributionScore.conferenceScore, contributionScore.bookScore, contributionScore.researchPaperScore, contributionScore.meetupScore),
             monthsIndex + 1, id)
-          case None => calculateMonthsScore(scoreList :+ TwelveMonthsScore(monthName, year, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+          case None => calculateMonthsScore(scoreList :+ TwelveMonthsScore(monthName, year, 0, 0, 0, 0, 0, 0, 0, 0, 0), //Changed code here! year-1
             monthsIndex + 1, id)
         }
       }
