@@ -23,7 +23,7 @@ class QuarterlyReputationImpl(readContribution: ReadContribution, knolderScore: 
     val thirdMonthContribution = readContribution.fetchKnoldersWithQuarterThirdMonthContributions
     val scoresForThirdMonth = knolderScore.calculateScore(thirdMonthContribution).sortBy(knolder => knolder.knolderId)
 
-    val reputationOfKnolders = (scoresForThirdMonth, scoresForSecondMonth, scoresForFirstMonth).zipped.toList.map {
+    val reputationOfKnolders = (scoresForThirdMonth).lazyZip(scoresForSecondMonth).lazyZip(scoresForFirstMonth).toList.map {
       knolder =>
         GetStreak(knolder._1.knolderId,
           knolder._1.knolderName,
