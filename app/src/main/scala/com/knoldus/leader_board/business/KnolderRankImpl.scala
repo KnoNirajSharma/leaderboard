@@ -59,5 +59,3 @@ class KnolderRankImpl extends KnolderRank with LazyLogging {
     }
   }
 }
-
-
