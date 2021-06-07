@@ -5,7 +5,7 @@ import com.knoldus.leader_board.utils.SpreadSheetApi
 import com.typesafe.config.Config
 import com.typesafe.scalalogging.LazyLogging
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 import scala.util.{Failure, Success, Try}
 
 class WebinarSpreadSheetDataImpl(dateTimeFormats: ParseDateTimeFormats, response: SpreadSheetApi, config: Config) extends WebinarSpreadSheetData

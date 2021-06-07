@@ -21,7 +21,7 @@ class MonthlyLeadersImpl(fetchMonthlyReputation: ReadContribution, getAllTimeRep
       knolderReputation.knolderId)
     val allTimeReputationOfKnolders = getAllTimeReputation.fetchAllTimeReputation.sortBy(knolderReputation => knolderReputation
       .knolderId)
-    (monthlyReputationOfKnolders, allTimeReputationOfKnolders).zipped.toList.map(knoldersReputation => MonthlyAllTimeReputation(
+    (monthlyReputationOfKnolders).lazyZip(allTimeReputationOfKnolders).toList.map(knoldersReputation => MonthlyAllTimeReputation(
       knoldersReputation._1.knolderId, knoldersReputation._1.knolderName, knoldersReputation._2.score, knoldersReputation._2.rank,
       knoldersReputation._1.score, knoldersReputation._1.rank)).sortBy(reputation =>
       (reputation.monthlyRank, reputation.allTimeScore))(Ordering.Tuple2(Ordering.Int, Ordering.Int.reverse))
