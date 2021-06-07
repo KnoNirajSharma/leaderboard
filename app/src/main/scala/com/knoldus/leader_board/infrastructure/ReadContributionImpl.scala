@@ -118,7 +118,7 @@ class ReadContributionImpl(config: Config) extends ReadContribution with LazyLog
       .bind(month, year, month, year, month, year, month, year, month, year, month, year, month, year, month, year, month, year)
       .map(rs => GetContributionCount(rs.int("id"), rs.string("full_name"), rs.int("blog_count"),
         rs.int("knolx_count"), rs.int("webinar_count"), rs.int("techhub_count"), rs.int("OS_contribution_count"), rs.int("conference_count")
-        , rs.int("book_count"), rs.int("research_paper_count"), rs.int("meetup_count"))).list.apply()
+        , rs.int("book_count"), rs.int("research_paper_count"), rs.int("meetup_count"))).list().apply()
   }
 
   /**
