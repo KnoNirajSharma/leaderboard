@@ -49,3 +49,5 @@ libraryDependencies ++= Seq(
   "com.google.apis" % "google-api-services-sheets" % "v4-rev1-1.21.0"
 )
 //Testing comment
+
+envFileName in ThisBuild := ".env-leadershipboard-service"
