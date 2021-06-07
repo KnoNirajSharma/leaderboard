@@ -22,6 +22,7 @@ project/plugins/project/
 *.bak
 *.swp
 .worksheet
+.env-leadershipboard-service
 
 # IntelliJ Specific
 .idea/

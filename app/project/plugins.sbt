@@ -13,3 +13,6 @@ addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.7.0")
 addSbtPlugin("nl.codestar" % "sbt-findsecbugs" % "0.16")
 
 addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.0")
+
+//sbt plugin to load environment variables from .env into the JVM System Environment for local development.
+addSbtPlugin("au.com.onegeek" %% "sbt-dotenv" % "2.1.146")
