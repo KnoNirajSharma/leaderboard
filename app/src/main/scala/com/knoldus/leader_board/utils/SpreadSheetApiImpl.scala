@@ -34,7 +34,7 @@ class SpreadSheetApiImpl(config: Config) extends LazyLogging with SpreadSheetApi
         .setApplicationName(APPLICATION_NAME).build
       service.spreadsheets.values.get(spreadSheetId, spreadSheetRange).execute
     } catch {
-      case exception: IOException => throw new Exception(s"the cause of exception is $exception")
+      case exception: IOException => throw new Exception(exception)
     }
   }
 
@@ -64,7 +64,7 @@ class SpreadSheetApiImpl(config: Config) extends LazyLogging with SpreadSheetApi
       new AuthorizationCodeInstalledApp(flow, receiver).authorize("user")
     }
     catch {
-      case exception: IOException => throw new Exception(s"the cause of exception is $exception")
+      case exception: IOException => throw new Exception(exception)
     }
   }
 }
