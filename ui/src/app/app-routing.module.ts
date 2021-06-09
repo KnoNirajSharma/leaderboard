@@ -7,16 +7,16 @@ import {AuthGuard} from './services/route-guards/auth/auth.guard';
 const routes: Routes = [
     {
         path: '',
-        loadChildren: './pages/user/user.module#UserPageModule',
         canActivate: [AuthGuard],
+        loadChildren: () => import('./pages/user/user.module').then(m => m.UserPageModule),
     },
     {
         path: 'login',
-        loadChildren: './pages/login/login.module#LoginPageModule',
+        loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule),
     },
     {
         path: 'admin',
-        loadChildren: './pages/admin/admin.module#AdminPageModule',
+        loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminPageModule),
         canActivate: [AdminGuard],
     },
 ];

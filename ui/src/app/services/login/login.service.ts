@@ -11,7 +11,7 @@ export class LoginService {
     }
 
     signInWithGoogle() {
-        return this.firebaseAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+        return this.firebaseAuth.signInWithPopup(new firebase.default.auth.GoogleAuthProvider());
     }
 
     isAuthenticated(): boolean {

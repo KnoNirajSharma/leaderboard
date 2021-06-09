@@ -87,7 +87,7 @@
       "check-whitespace"
     ],
     "ordered-imports": [
-      true,
+      false,
       {
         "grouped-imports": true,
         "groups": [

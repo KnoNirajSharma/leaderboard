@@ -6,7 +6,7 @@ import {Component, ElementRef, HostListener, ViewChild} from '@angular/core';
 })
 export class DropdownWrapperComponent {
     dropdownMenuVisibility = false;
-    @ViewChild('dropdownIcon', {static: false}) dropdownIconRef: ElementRef;
+    @ViewChild('dropdownIcon') dropdownIconRef: ElementRef;
 
     controlDropdownMenu(action: string) {
         if (action === 'close') {

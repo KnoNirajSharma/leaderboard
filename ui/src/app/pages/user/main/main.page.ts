@@ -14,7 +14,7 @@ import {EmployeeActivityService} from '../../../services/employee-activity/emplo
   styleUrls: ['./main.page.scss'],
 })
 export class MainPage implements OnInit {
-  @ViewChild('knoldusStats', { static: false }) knoldusStatsRef: ElementRef;
+  @ViewChild('knoldusStats') knoldusStatsRef: ElementRef;
   knoldersReputationList: AuthorModel[];
   searchBar = new FormControl('');
   reputation: ReputationModel;
