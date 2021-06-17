@@ -7,8 +7,8 @@ import {AuthGuard} from './services/route-guards/auth/auth.guard';
 const routes: Routes = [
     {
         path: '',
-        canActivate: [AuthGuard],
         loadChildren: () => import('./pages/user/user.module').then(m => m.UserPageModule),
+        canActivate: [AuthGuard],
     },
     {
         path: 'login',
@@ -22,7 +22,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules})],
+    imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, relativeLinkResolution: 'legacy' })],
     exports: [RouterModule],
 })
 export class AppRoutingModule {

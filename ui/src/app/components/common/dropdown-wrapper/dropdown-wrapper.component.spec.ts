@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {IonicModule} from '@ionic/angular';
 
 import {DropdownWrapperComponent} from './dropdown-wrapper.component';
@@ -7,7 +7,7 @@ describe('DropdownWrapperComponent', () => {
     let component: DropdownWrapperComponent;
     let fixture: ComponentFixture<DropdownWrapperComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [DropdownWrapperComponent],
             imports: [IonicModule.forRoot()],

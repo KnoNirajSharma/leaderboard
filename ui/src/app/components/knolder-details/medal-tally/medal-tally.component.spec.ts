@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { MedalTallyComponent } from './medal-tally.component';
@@ -7,7 +7,7 @@ describe('MedalTallyComponent', () => {
   let component: MedalTallyComponent;
   let fixture: ComponentFixture<MedalTallyComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ MedalTallyComponent ],
       imports: [IonicModule.forRoot()],

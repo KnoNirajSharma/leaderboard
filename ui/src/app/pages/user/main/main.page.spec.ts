@@ -1,6 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import {ElementRef} from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
@@ -57,7 +57,7 @@ describe('MainPage', () => {
     book: {points: 5, pointsMultiplier: 1},
     researchPaper: {points: 5, pointsMultiplier: 1},
   };
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [MainPage],
       imports: [

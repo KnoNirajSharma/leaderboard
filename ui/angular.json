@@ -32,19 +32,45 @@
             ],
             "styles": [
               {
-                "input": "node_modules/bootstrap/dist/css/bootstrap.min.css"
+                "input": "node_modules/bootstrap/dist/css/bootstrap.min.css",
+                "inject": true
               },
               {
-                "input": "src/theme/variables.scss"
+                "input": "src/theme/variables.scss",
+                "inject": true
               },
               {
-                "input": "src/global.scss"
+                "input": "src/global.scss",
+                "inject": true
               },
               {
-                "input": "node_modules/ngx-bootstrap/datepicker/bs-datepicker.scss"
+                "input": "node_modules/ngx-bootstrap/datepicker/bs-datepicker.scss",
+                "inject": true
               }
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "lodash",
+              "firebase",
+              "@angular/common/locales/fr",
+              "@angular/cdk/portal",
+              "lodash/dropRight",
+              "@firebase/app",
+              "firebase/app",
+              "@firebase/auth",
+              "@firebase/database",
+              "@firebase/firestore",
+              "@firebase/functions",
+              "@firebase/performance",
+              "@firebase/remote-config"
+            ],
+            "aot": false,
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -57,7 +83,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -68,13 +93,24 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             },
             "ci": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "progress": false
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",

@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {IonicModule} from '@ionic/angular';
 
 import {AdminActionModel} from '../../../models/admin-action.model';
@@ -10,7 +10,7 @@ describe('UserManagementTableComponent', () => {
     let component: UserManagementTableComponent;
     let fixture: ComponentFixture<UserManagementTableComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [],
             imports: [IonicModule.forRoot(), CustomPipesModule, ComponentsModule],

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {CustomPipesModule} from '../../../pipe/custom-pipes.module';
 import {LegendTooltipComponent} from './legend-tooltip.component';
@@ -7,7 +7,7 @@ describe('LegendTooltipComponent', () => {
   let component: LegendTooltipComponent;
   let fixture: ComponentFixture<LegendTooltipComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ LegendTooltipComponent ],
       imports: [CustomPipesModule],

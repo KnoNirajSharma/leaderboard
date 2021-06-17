@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
@@ -15,7 +15,7 @@ describe('UserPage', () => {
     let component: UserPage;
     let fixture: ComponentFixture<UserPage>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [UserPage],
             imports: [

@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {DropdownMenuListComponent} from '../../../common/dropdown-menu-list/dropdown-menu-list.component';
 import {DropdownWrapperComponent} from '../../../common/dropdown-wrapper/dropdown-wrapper.component';
@@ -8,7 +8,7 @@ describe('UserManagementTableRowComponent', () => {
     let component: UserManagementTableRowComponent;
     let fixture: ComponentFixture<UserManagementTableRowComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [UserManagementTableRowComponent, DropdownMenuListComponent, DropdownWrapperComponent],
         }).compileComponents();

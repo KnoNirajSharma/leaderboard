@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {ReactiveFormsModule} from '@angular/forms';
 import {IonicModule} from '@ionic/angular';
 
@@ -8,7 +8,7 @@ describe('AddUserFormComponent', () => {
     let component: AddUserFormComponent;
     let fixture: ComponentFixture<AddUserFormComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             declarations: [AddUserFormComponent],
             imports: [IonicModule.forRoot(), ReactiveFormsModule],

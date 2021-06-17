@@ -1,5 +1,5 @@
 import {Location} from '@angular/common';
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
@@ -21,7 +21,7 @@ describe('LoginPage', () => {
     const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
     const promisedData = mockResponseUserData;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
 
         const store = {};
         const mockLocalStorage = {

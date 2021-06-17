@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { ListPaginatorComponent } from './list-paginator.component';
@@ -7,7 +7,7 @@ describe('ListPaginatorComponent', () => {
   let component: ListPaginatorComponent;
   let fixture: ComponentFixture<ListPaginatorComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ListPaginatorComponent ],
       imports: [IonicModule.forRoot()],

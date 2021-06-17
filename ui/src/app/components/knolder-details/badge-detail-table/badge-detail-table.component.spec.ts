@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {IonicModule} from '@ionic/angular';
 
 import {CustomPipesModule} from '../../../pipe/custom-pipes.module';
@@ -8,7 +8,7 @@ describe('BadgeDetailTableComponent', () => {
   let component: BadgeDetailTableComponent;
   let fixture: ComponentFixture<BadgeDetailTableComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ BadgeDetailTableComponent ],
       imports: [IonicModule.forRoot(), CustomPipesModule],
